@@ -18,8 +18,8 @@ let _user
 
 // ===================================================================
 
-loginPage.classList.add('off')
-homePage.classList.remove('off')
+// loginPage.classList.add('off')
+// homePage.classList.remove('off')
 
 const registerLink = loginPage.querySelector('.link-register')
 
@@ -215,32 +215,32 @@ function refreshList() {
 }
 
 
-// const configGlobal=homePage.querySelector('.configGlobal')
-// const navHome=homePage.querySelector(".nav-home")
-// const formConfig=homePage.querySelector(".formConfig")
-// const btnBack=homePage.querySelector(".btnBack")
+const configGlobal=homePage.querySelector('.configGlobal')
+const navHome=homePage.querySelector(".nav-home")
+const formConfig=homePage.querySelector(".formConfig")
+const btnBack=homePage.querySelector(".btnBack")
 
 
-// btnBack.onclick = function (event) {
-//     event.preventDefault()
+btnBack.onclick = function (event) {
+    event.preventDefault()
     
 
-//     formConfig.classList.add('off')
-//     list__Notes.classList.remove('off')
-//     btn__pluss.classList.remove('off')
-// }
+    formConfig.classList.add('off')
+    list__Notes.classList.remove('off')
+    btn__pluss.classList.remove('off')
+}
 
-// configGlobal.onclick = function (event) {
-//     event.preventDefault()
-//     list__Notes.classList.add('off')
-//     navHome.classList.toggle('mostrar')
-//     btn__pluss.classList.add('off')
-//     createNoteForm.classList.add('off')
-//     formConfig.classList.remove('off')
-// }
+configGlobal.onclick = function (event) {
+    event.preventDefault()
+    list__Notes.classList.add('off')
+    navHome.classList.toggle('mostrar')
+    btn__pluss.classList.add('off')
+    createNoteForm.classList.add('off')
+    formConfig.classList.remove('off')
+}
 
 // const textSmall=homePage.querySelector('.textSmall')
-// const textNormal=homePage.querySelector('.textNormal')
+const textNormal=homePage.querySelector('.textNormal')
 // const textBig=homePage.querySelector('.textBig')
 
 
@@ -258,10 +258,11 @@ function refreshList() {
 //     list__Notes.classList.remove('off')
 //     btn__pluss.classList.remove('off')
 // }
-// textNormal.onsubmit=function(event){
+// textNormal.onclick=function(event){
 //     event.preventDefault()
-//     document.querySelector('.newItem').style.fontSize=1.5+"rem"; 
-//     document.querySelector('.list__item-text').style.fontSize=1.5+"rem";
+//     homePage.querySelector('.newItem').style.fontSize=1.5+"rem";
+//     homePage.querySelector('.list__item-text').style.fontSize=1.5+"rem";
+//     refreshList()
 //     formConfig.classList.add('off')
 //     list__Notes.classList.remove('off')
 //     btn__pluss.classList.remove('off')

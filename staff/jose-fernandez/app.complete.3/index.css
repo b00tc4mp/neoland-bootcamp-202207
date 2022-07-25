@@ -275,10 +275,10 @@ body {
 .list {
     display: flex;
     flex-direction: column;
-    gap: 43px;
+    gap: 23px;
     padding: 2% 2% 0 2%;
     width: 90%;
-    height: 455px;
+    height: 350px;
     margin: 0%;
     padding: 0%;
     overflow: scroll;
