@@ -18,8 +18,10 @@ describe('authenticateUser', () => {
 
         users.push(piTufo)
 
-        authenticateUser(email, password, error => {
+        authenticateUser(email, password, (error, userId) => {
             expect(error).toBeNull()
+
+            expect(userId).toBe(id)
         })
     })
 
@@ -38,9 +40,11 @@ describe('authenticateUser', () => {
 
         users.push(eleFante)
 
-        authenticateUser(email, password + '-wrong', error => {
+        authenticateUser(email, password + '-wrong', (error, userId) => {
             expect(error).toBeInstanceOf(Error)
             expect(error.message).toBe('wrong credentials')
+
+            expect(userId).toBeUndefined()
         })
     })
     
@@ -59,9 +63,11 @@ describe('authenticateUser', () => {
 
         users.push(eleFante)
 
-        authenticateUser('ele@fante.us', password, error => {
+        authenticateUser('ele@fante.us', password, (error, userId) => {
             expect(error).toBeInstanceOf(Error)
             expect(error.message).toBe('wrong credentials')
+
+            expect(userId).toBeUndefined()
         })
     })
 })

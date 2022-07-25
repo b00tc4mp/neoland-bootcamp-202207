@@ -29,5 +29,5 @@ function authenticateUser(email, password, callback) {
         return
     }
 
-    callback(null)
+    callback(null, user.id)
 }

@@ -32,7 +32,7 @@ loginForm.onsubmit = function (event) {
     const password = loginForm.password.value
 
     try {
-        authenticateUser(email, password, function (error) {
+        authenticateUser(email, password, function (error, userId) {
             if (error) {
                 alert(error.message)
 
@@ -40,7 +40,7 @@ loginForm.onsubmit = function (event) {
             }
 
             try {
-                retrieveUser(email, function (error, user) {
+                retrieveUser(userId, function (error, user) {
                     if (error) {
                         alert(error.message)
 

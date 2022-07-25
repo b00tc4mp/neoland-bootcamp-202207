@@ -1,20 +1,27 @@
-function retrieveUser(email, callback) {
-    if (typeof email !== 'string') throw new TypeError('email is not a string')
-    if (email.trim().length === 0) throw new Error('email is empty or blank')
-    if (email.length < 6) throw new Error('email length is not valid')
-    if (!EMAIL_REGEX.test(email)) throw new Error('email is not valid')
+function retrieveUser(userId, callback) {
+    if (typeof userId !== 'string') throw new TypeError('user id is not a string')
+    if (userId.trim().length === 0) throw new Error('user id is empty or blank')
 
     if (typeof callback !== 'function') throw new TypeError('callback is not a function')
     
     const user = users.find(function (user) {
-        return user.email === email
+        return user.id === userId
     })
 
     if (!user) {
-        callback(new Error('user with email ' + email + ' not found'))
+        callback(new Error('user with id ' + userId + ' not found'))
 
         return
     }
 
-    callback(null, user)
+    //const _user = { ...user }
+    //delete _user.password
+
+    const _user = {
+        id: user.id,
+        name: user.name,
+        email: user.email
+    }
+
+    callback(null, _user)
 }
