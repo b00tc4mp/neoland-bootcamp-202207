@@ -1,3 +1,12 @@
+/**
+ * @param {string} userId The user identifier
+ * @param {string} title The note title
+ * @param {string} text The note text
+ * 
+ * @throws {TypeError} Error on failed verification inputs
+ * @throws {Error} Errors
+ */
+
 function createNote(userId, title, text, callback){
     if(regexUserId.test(userId) === false) throw new Error(userId+' does not match ID pattern')
     if(typeof userId !== 'string') throw new TypeError(userId+ ' is not a string')

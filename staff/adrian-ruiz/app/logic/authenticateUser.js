@@ -1,3 +1,10 @@
+/**
+ * @param {string} email The user email
+ * @param {string} password The user password
+ * 
+ * @throws {TypeError} Error on failed verification inputs
+ */
+
 function authenticateUser(email, password, callback){
     if (typeof email !== 'string') throw new TypeError('email is not a string')
     if (email.trim().length === 0) throw new Error('email is empty or blank')

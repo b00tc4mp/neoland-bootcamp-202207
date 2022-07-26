@@ -39,3 +39,25 @@ notes.push({
     text: 'Testing 123241241',
     user: 'user-9836543210123'
 })
+
+notes.push({
+    id: 'note-5284563890139',
+    title: 'Testing Note 7',
+    text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cupiditate dolores reprehenderit enim? Natus amet, accusamus ducimus doloribus molestias, velit et laborum non ab adipisci quisquam ut nulla.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cupiditate dolores reprehenderit enim? Natus amet, accusamus ducimus doloribus molestias, velit et laborum non ab adipisci quisquam ut nulla.',
+    user: 'user-9836543210123'
+})
+
+notes.push({
+    id: 'note-5284564890139',
+    title: 'Testing Note 8',
+    text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cupiditate dolores reprehenderit enim? Natus amet, accusamus ducimus doloribus molestias, velit et laborum non ab adipisci quisquam ut nulla.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cupiditate dolores reprehenderit enim? Natus amet, accusamus ducimus doloribus molestias, velit et laborum non ab adipisci quisquam ut nulla.',
+    user: 'user-9836543210123'
+})
+
+notes.push({
+    id: 'note-5284565890139',
+    title: 'Testing Note 9',
+    text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cupiditate dolores reprehenderit enim? Natus amet, accusamus ducimus doloribus molestias, velit et laborum non ab adipisci quisquam ut nulla.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cupiditate dolores reprehenderit enim? Natus amet, accusamus ducimus doloribus molestias, velit et laborum non ab adipisci quisquam ut nulla.',
+    user: 'user-9836543210123'
+})
+

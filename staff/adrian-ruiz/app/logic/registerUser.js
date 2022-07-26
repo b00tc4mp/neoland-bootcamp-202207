@@ -1,4 +1,10 @@
-
+/**
+ * @param {string} name The user name
+ * @param {string} email The user email
+ * @param {string} password The user password
+ * 
+ * @throws {TypeError} Error on failed verification inputs
+ */
 function registerUser(name, email, password, callback){
     
     if(nameRegex.test(name) === false) throw new Error ('\nName does not meet the requirements:\n- Between 1 and 20 characters\n- Exclusively letters\n- No Blanks')

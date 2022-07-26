@@ -9,8 +9,8 @@ const registerLink = document.querySelector('.registerLink')
 const loginLink = document.querySelector('.loginLink')
 
 // temp for design purposes (Disable login enable home)
-loginPage.classList.add('off')
-homePage.classList.remove('off')
+/* loginPage.classList.add('off')
+homePage.classList.remove('off') */
 
 // temp for design purposes (Disable login enable register)
 /* loginPage.classList.add('off')
@@ -99,27 +99,33 @@ registerForm.addEventListener('submit', function (event) {
 
 
 const createNoteButton = document.querySelector('.newNoteButton')
-createNoteButton.onclick = function () {
+createNoteButton.onclick = function (event) {
+    event.preventDefault()
     const userId = JSON.parse(sessionStorage.UserStored).id
     let result = confirm('Are you sure to create a new note?')
-    if(result){
+    if (result) {
         const containerPopUp = document.querySelector('.containerPopUp')
         containerPopUp.classList.remove('off')
 
         const confirmNoteButton = document.querySelector('#confirmNewNoteButton')
         const newNoteTitle = document.querySelector('.newNoteInput__title')
         const newNoteText = document.querySelector('.newNoteInput__text')
-        
+
         // Cancel creation
-        const cancelButton = document.querySelector('#cancelNewNoteButton')  
-        cancelButton.onclick = function(){
-                const result = confirm('Are you sure to cancel?')
-                if(result)
+        const cancelButton = document.querySelector('#cancelNewNoteButton')
+        cancelButton.onclick = function (event) {
+            // Para prevenir que recargue la pagina
+            event.preventDefault()
+            const result = confirm('Are you sure to cancel?')
+
+            if (result)
                 containerPopUp.classList.add('off')
-            }
+            else return
+        }
 
         // Confirm creation
-        confirmNoteButton.onclick = function(){
+        confirmNoteButton.onclick = function (event) {
+            event.preventDefault()
             try {
                 createNote(userId, newNoteTitle.textContent, newNoteText.textContent, function (error) {
                     if (error) {
@@ -131,10 +137,10 @@ createNoteButton.onclick = function () {
                     newNoteTitle.textContent = ''
                     refreshList()
                 })
-            }catch(error){
+            } catch (error) {
                 alert(error)
             }
-        } 
+        }
     }
 }
 
@@ -165,7 +171,7 @@ function refreshList() {
                 elementText.contentEditable = true
                 deleteButton.onclick = function () {
                     let result = confirm('Are you sure to delete that note?')
-                    if(result){
+                    if (result) {
                         try {
                             deleteNote(userId, note.id, error => {
                                 if (error) {
@@ -176,10 +182,10 @@ function refreshList() {
                         } catch (error) {
                             alert(error.message)
                         }
-    
+
                         refreshList()
                     }
-                    
+
                 }
 
                 container.onkeyup = function () {
@@ -197,7 +203,7 @@ function refreshList() {
                 }
                 elementTitle.textContent = note.title
                 elementText.textContent = note.text
-                container.append(deleteButton, elementTitle,elementText)
+                container.append(deleteButton, elementTitle, elementText)
                 notesList.append(container)
             })
         })
@@ -261,13 +267,13 @@ function checkPassword() {
 
 // Logout
 const logoutLink = document.querySelector('.logoutLink')
-logoutLink.addEventListener('click',function(){
+logoutLink.addEventListener('click', function () {
     let result = confirm('Are you sure you want to logout?')
-    if(result){
+    if (result) {
         loginPage.classList.remove('off')
         homePage.classList.add('off')
     }
-    
+
 })
 
 

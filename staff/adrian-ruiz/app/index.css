@@ -6,7 +6,7 @@
 
 body, html, .page{
     margin: 0px;
-    height: 100vh;
+    height: 100%;
     font-size: 62.5%;   /* Formateo el size para que 1 rem = 10 px*/
     overflow: hidden; /* Para eliminar scroll*/
 }
@@ -188,6 +188,7 @@ header{
     justify-content: flex-start;
     width: 100%;
     height: 10%;
+    min-height: 60px;
     background-color: #531a7c;
 }
 header h1{
@@ -274,7 +275,7 @@ header h1{
     flex-direction: column-reverse;
     width: 80%;
     list-style: none;
-    gap: 50px;
+  /*   gap: 50px; */
     overflow-y: scroll;
     margin:0;
     padding: 10px 0px;
@@ -285,10 +286,15 @@ header h1{
     flex-direction: column;
     align-items: center;
     font-size: 2rem;
+    margin-bottom: 50px;
     height: auto;
     width: 250px;
     background-color:#7d19c4;
     color: white;
+}
+
+li:first-child{
+    margin-bottom: 0px;
 }
 
 .noteTitle{
@@ -321,8 +327,8 @@ header h1{
     display: flex;
     align-items: center;
     justify-content: center;
-    position: sticky;
-    bottom: 0px;
+    /* position: absolute; */
+    /* bottom: 0px; */
     height: 6%;
     min-height: 60px;
     width: 100%;

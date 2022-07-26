@@ -1,3 +1,10 @@
+/**
+ * @param {string} userId The user identifier
+ * @param {string} noteId The note identifier
+ * 
+ * @throws {TypeError} Error on failed verification inputs
+ */
+
 function deleteNote( userId, noteId, callback){
     // TODO validate inputs
 
