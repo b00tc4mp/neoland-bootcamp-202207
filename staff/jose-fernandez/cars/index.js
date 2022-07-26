@@ -1,7 +1,7 @@
 let spaceAvailable = 30
 let step = 2
-let score = 0
-let intervalSpeed = 300
+var score = 0
+var intervalSpeed = 300
 const car = {
     emoji: '🚘',
     x: 5,
@@ -27,7 +27,7 @@ document.onkeydown = event => {
 }
 
 // let intervalId = setInterval(render, intervalSpeed)
-let intervalId = setInterval(render, intervalSpeed)
+var intervalId = setInterval(render, intervalSpeed)
 
 // if(score===3 && intervalSpeed===300)
 // intervalSpeed-=200
@@ -37,18 +37,36 @@ let intervalId = setInterval(render, intervalSpeed)
 
 function render() {
     console.clear();
-    
+
     console.log(`Actual Score ${score}`)
-   
-    
+
+    console.log(intervalSpeed)
 
     for (let i = 9; i >= 0; i--) {
-        
+
         if (i === 0)
             if (heart.y === 0 && ((car.x === heart.x) || Math.abs(car.x - heart.x) < 2)) {
                 console.log('👻👻👻👻👻👻👻')
-                score++
-               intervalSpeed-=60
+                score += 1
+
+                if (score === 3) {
+
+                    clearInterval(intervalID)
+                    intervalSpeed -= 100
+                    intervalID = setInterval(render, intervalSpeed)
+
+                }
+                if (score === 7) {
+                    clearInterval(intervalID)
+                    intervalSpeed -= 150
+                    intervalID = setInterval(render, 50)
+                }
+
+                if (score === 10) {
+                    clearInterval(intervalID)
+                    console.log('Game Won')
+                    console.clear()
+                }
             } else if (heart.y === 0 && heart.x > car.x) {
                 console.log('-'.repeat(car.x) + car.emoji + ' '.repeat(heart.x - car.x - 2) + heart.emoji)
             } else if (heart.y === 0 && heart.x < car.x) {
@@ -60,17 +78,8 @@ function render() {
             console.log('-'.repeat(heart.x) + heart.emoji)
 
         else
-            console.log(i)
-            
+            console.log(' '.repeat(i))
     }
-   
-    
-    
-    if (score === 10) {
-        clearInterval(intervalId)
-        console.log('Game Won')
-    }
-    
     updateHeart()
 }
 
