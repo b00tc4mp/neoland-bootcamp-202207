@@ -1,31 +1,26 @@
 function registerUser(name, email, password, callback) {
-    if (typeof email !== 'string') throw new TypeError('email is not a string')
-    if (email.trim().length === 0) throw new Error('email is empty or blank')
-    if (email.length < 6) throw new Error('email length is not valid')
-    if (!EMAIL_REGEX.test(email)) throw new Error('email is not valid')
+    // TODO validate inputs
 
-    if (typeof password !== 'string') throw new TypeError('password is not a string')
-    if (password.trim().length === 0) throw new Error('password is empty or blank')
-    if (password.length < 8) throw new Error('password length is less than 8 characters')
+    const xhr = new XMLHttpRequest
 
-    if (typeof callback !== 'function') throw new TypeError('callback is not a function')
+    // response
 
-    const user = users.find(function (user) {
-        return user.email === email
-    })
+    xhr.onload = function() {
+        const status = xhr.status
 
-    if (user) {
-        callback(new Error('user already exists'))
-
-        return
+        if (status >= 500)
+            callback(new Error(`server error (${status})`))
+        else if (status >= 400)
+            callback(new Error(`client error (${status})`))
+        else if (status === 201) 
+            callback(null)            
     }
 
-    users.push({
-        id: 'user-' + Date.now(),
-        name: name,
-        email: email,
-        password: password
-    })
+    // request
+    
+    xhr.open('POST', 'https://b00tc4mp.herokuapp.com/api/v2/users')
 
-    callback(null)
+    xhr.setRequestHeader('Content-type', 'application/json')
+
+    xhr.send(`{ "name": "${name}", "username": "${email}", "password": "${password}"}`)
 }
