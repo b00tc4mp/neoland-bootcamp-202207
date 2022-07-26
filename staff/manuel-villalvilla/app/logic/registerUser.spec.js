@@ -13,6 +13,7 @@ describe('registerUser', () => {
             expect(users).toHaveSize(1)
 
             const user = users[0]
+            expect(user.id).toBeDefined()
             expect(user.name).toBe(name)
             expect(user.email).toBe(email)
             expect(user.password).toBe(password)

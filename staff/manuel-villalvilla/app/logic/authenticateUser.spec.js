@@ -6,11 +6,12 @@ describe('authenticateUser', () => {
         const name = 'Pi Tufo'
         const email = 'pi@tufo.com'
         const password = '123123123'
+        
 
         const pitufo = {
             name,
             email,
-            password
+            password,
         }
 
         users.push(pitufo);
@@ -25,6 +26,8 @@ describe('authenticateUser', () => {
         const name = 'Ele Fante'
         const email = 'ele@fante.com'
         const password = '123123123'
+        
+
 
         // const user = {
         //     name: name,

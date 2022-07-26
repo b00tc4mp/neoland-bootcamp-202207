@@ -2,6 +2,12 @@ const loginPage = document.querySelector('.login-page');
 const registerPage = document.querySelector('.register-page');
 const homePage = document.querySelector('.home-page');
 
+let _user;
+
+// temp for UI
+// loginPage.classList.add('off')
+// homePage.classList.remove('off')
+
 const registerLink = loginPage.querySelector('a');
 const loginLink = registerPage.querySelector('a');
 
@@ -34,15 +40,18 @@ loginForm.onsubmit = function(event) {
                     if (error) {
                         alert(error.message)
                         return;
-                    } else {
-                        loginPage.classList.add('off');
-                        const title = homePage.querySelector('.title');
-                        title.innerText = 'Hello, ' + user.name + '!';
-                        homePage.classList.remove('off');
-                    }
+                    } 
+
+                    _user = user;
+
+                    loginPage.classList.add('off');
+                    const saludo = homePage.querySelector('.saludo');
+                    saludo.innerText = 'Hello, ' + user.name + '!';
+                    refreshList();
+                    homePage.classList.remove('off');
+ 
                 })
-            }
-            catch(error) { 
+            } catch(error) { 
                 alert(error.message);
             }
         })
@@ -76,3 +85,82 @@ registerForm.onsubmit = function(event) {
     }
 }
 
+const plusButton = homePage.querySelector('.footer')
+plusButton.onclick = function () {
+    try {
+        createNote(_user.id, error => {
+            if (error) {
+                alert(error.message)
+                return
+            }
+
+            refreshList()
+        })
+    } catch (error) {
+        alert(error.message)
+    }
+}
+
+function refreshList() {
+    try {
+        retrieveNotes(_user.id, function(error, notes) {
+            if (error) {
+                alert(error.message)
+
+                return
+            }
+
+            const list = homePage.querySelector('.list')
+            list.innerText = '';
+
+            notes.forEach(note => {
+                const item = document.createElement('li')
+                item.classList.add('list__item')
+
+                const deleteButton = document.createElement('button')
+                deleteButton.classList.add('list__item-delete-button')
+                deleteButton.innerText = 'x'
+                deleteButton.onclick = function () {
+                    try {
+                        deleteNote(_user.id, note.id, error => {
+                            if (error) {
+                                alert(error.message)
+
+                                return
+                            }
+
+                            refreshList()
+                        })
+                    } catch (error) {
+                        alert(error.message)
+                    }
+                }
+
+                const text = document.createElement('div')
+                text.contentEditable = true
+                text.classList.add('list__item-text')
+                text.onkeyup = function () {
+                    try {
+                        updateNote(_user.id, note.id, text.innerText, error => {
+                            if (error) {
+                                alert(error.message)
+
+                                return
+                            }
+                        })
+                    } catch (error) {
+                        alert(error.message)
+                    }
+                }
+                text.innerHTML = note.text
+
+                item.append(deleteButton, text)
+
+                list.append(item)
+                
+            })
+        })
+    } catch(error) {
+        alert(error.message)
+    }
+}

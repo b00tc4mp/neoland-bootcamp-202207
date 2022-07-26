@@ -37,8 +37,21 @@
     </div>
     <a href="#">Login</a>
   </main>
-  <main class="body-center home-page off">
-    <h1 class="title"></h1>
+  <main class="home-page off">
+    <div class="menu-header">
+      <div class="div"></div>
+      <div class="saludo"></div>
+      <div class="menu">
+        <div class="menu-icon"></div>
+        <div class="menu-icon"></div>
+        <div class="menu-icon"></div>
+      </div>
+    </div>
+
+    <div class="notas-display">
+      <ul class="list"></ul>
+    </div>
+    <div class="footer">+</div>
   </main>
   
   <!-- Commons / Utils -->
@@ -46,11 +59,16 @@
 
   <!-- Data layer -->
   <script src="data/users.js"></script>
+  <script src="data/notes.js"></script>
   
   <!-- Business layer -->
   <script src="logic/authenticateUser.js"></script>
   <script src="logic/retrieveUser.js"></script>
   <script src="logic/registerUser.js"></script>
+  <script src="logic/retrieveNotes.js"></script>
+  <script src="logic/createNote.js"></script>
+  <script src="logic/deleteNote.js"></script>
+  <script src="logic/updateNote.js"></script>
 
   <!-- Presentation layer -->
   <script src="index.js"></script>
