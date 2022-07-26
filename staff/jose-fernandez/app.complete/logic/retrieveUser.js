@@ -1,22 +1,36 @@
-function retrieveUser(email, callback) {
-    //condicionales de entrada en el input
-    //Si el email no es string, muestro el error ...
-    if (typeof email !== 'string') throw new TypeError('email is not a string')
-    // .trim() borra los espacios del principio y final del texto 
-    if (email.trim().length === 0) throw new Error('email is empty or blank')
-    if (email.length < 6) throw new Error('email length is not valid')
-    if(!EMAIL_REGEX.test(email)) throw new Error('email is not valid')
+function retrieveUser(token, callback) {
+        // TODO validate inputs
 
-    if (typeof callback !== 'function') throw new TypeError('callback is not a function')
+        // const token = token.find(function (token) {
+        //     return token === email
+        // }
 
-    const user = users.find(function (user) {
-        return user.email === email
-    })
-    // si no exite user lanazar error
-    if (!user) {
-        callback(new Error('user with email' + email + 'not found'))
+    //XMLHttpRequest nos permite hacer peticiones a un servidor web y obtener las respuestas que este envia
+    const xhr = new XMLHttpRequest
+   
+    //response
 
-        return
+    //el metodo onload se lanza cuando una transacción XMLHttpRequest se completa con éxito
+    xhr.onload = function () {
+        const status = xhr.status
+
+        if (status >= 500)
+            callback(new Error(`server error(${status})`))
+        else if (status >= 400)
+            callback(new Error(`client error(${status})`))
+        else if (status === 200)
+        debugger;
+            callback(null)
     }
-    callback(null, user)
+
+    //request
+
+    //el metodo open es para crear una conexion con el servidor remoto(iniciarlizar la conexion) 
+    xhr.open('GET', 'https://b00tc4mp.herokuapp.com/api/v2/users')
+
+    //el metodo setRequestHeader establece el valor de un encabezado de solicitud HTTP. Debe llamar después de open(), pero antes de send().setRequestHeader()
+    xhr.setRequestHeader('Authorization', `bearer ${token}` )
+
+    //el metodo send es para el envio de la solicitud al servidor
+    xhr.send()
 }

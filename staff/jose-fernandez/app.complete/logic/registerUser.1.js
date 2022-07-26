@@ -19,9 +19,9 @@ function registerUser(name, email, password, callback) {
             callback(null)
     }
 
-    // xhr.onerror = function () {
-    //     console.log('API CALL FAIL')
-    // }
+    xhr.onerror = function () {
+        console.log('API CALL FAIL')
+    }
 
     //request
 
@@ -35,4 +35,4 @@ function registerUser(name, email, password, callback) {
     xhr.send(`{"name": "${name}","username": "${email}","password": "${password}"}`)
 }
 
-// registerUser("jose fer", "jose@fer.com", "123123123", console.log)
+registerUser("jose fer", "jose@fer.com", "123123123", console.log)

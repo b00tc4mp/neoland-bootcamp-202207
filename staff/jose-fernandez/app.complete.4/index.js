@@ -18,8 +18,8 @@ let _user
 
 // ===================================================================
 
-// loginPage.classList.add('off')
-// homePage.classList.remove('off')
+loginPage.classList.add('off')
+homePage.classList.remove('off')
 
 const registerLink = loginPage.querySelector('.link-register')
 

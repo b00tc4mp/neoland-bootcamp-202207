@@ -1,30 +1,41 @@
 function authenticateUser(email, password, callback) {
-    //condicionales de entrada en el input
-    //Si el email no es string, muestro el error ...
-    if (typeof email !== 'string') throw new TypeError('email is not a string')
-    // .trim() borra los espacios del principio y final del texto 
-    if (email.trim().length === 0) throw new Error('email is empty or blank')
-    if (email.length < 6) throw new Error('email length is not valid')
-    //falta validar el formato de email 
-    
+    //TODO validate inputs
+    const xhr=new XMLHttpRequest
 
-    if (typeof password !== 'string') throw new TypeError('email is not a string')
-    if (password.trim().length === 0) throw new Error('password is empty or blanck')
-    if (password.length < 8) throw new Error('password length is less than 8 characters')
+    //
+    xhr.onload=function(){
+        const status= xhr.status
 
-    if (typeof callback !== 'function') throw new TypeError('callback is not a function')
+        
+        if (status >= 500)
+            callback(new Error(`server error(${status})`))
+        else if (status >= 400)
+            callback(new Error(`client error(${status})`))
+        else if (status === 200){
+            //recibo un JSON en la propiedad responseText del XHR
+            const tokenJson = xhr.responseText
+            
+            //Parseo el JSON a JS
+            const tokenObject=JSON.parse(tokenJson)
+            
+            //Accedoa a la propiedad token del objeto
+            const token =tokenObject.token
 
-    //recogemos los datos de la base de datos
-    const user = users.find(function (user) {
-        return user.email === email && user.password === password
-    })
-
-    //Condicional si no encuentra user => lanzar error
-    if (!user) {
-        callback(new Error('wrong credentials'))
-
-        return
+            //llamo a callback con null, en el parametro  de manejo de errores
+            callback(null,token)
+        }
     }
+    
+    //el metodo open es para crear una conexion con el servidor remoto(iniciarlizar la conexion) 
+    xhr.open('POST', 'https://b00tc4mp.herokuapp.com/api/v2/users/auth')
 
-    callback(null)
+    //el metodo setRequestHeader establece el valor de un encabezado de solicitud HTTP. Debe llamar después de open(), pero antes de send().setRequestHeader()
+    xhr.setRequestHeader('Content-type', 'application/json')
+
+    //el metodo send es para el envio de la solicitud al servidor
+    xhr.send(`{"username": "${email}","password": "${password}"}`)
 }
+
+authenticateUser( "jose@fer.com", "123123123", console.log)
+
+//que la callback del authenticate llame al retrieveUser

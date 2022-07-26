@@ -1,7 +1,7 @@
 let spaceAvailable = 30
 let step = 2
 let score = 0
-let intervalSpeed = 1000
+let intervalSpeed = 300
 const car = {
     emoji: '🚘',
     x: 5,
@@ -29,26 +29,26 @@ document.onkeydown = event => {
 // let intervalId = setInterval(render, intervalSpeed)
 let intervalId = setInterval(render, intervalSpeed)
 
+// if(score===3 && intervalSpeed===300)
+// intervalSpeed-=200
 
+// if(score===7 && intervalSpeed===300)
+// intervalSpeed-=100
 
 function render() {
     console.clear();
     
     console.log(`Actual Score ${score}`)
-    if(score>3)
-    intervalSpeed-=200
-
-    if(score>7)
-    intervalSpeed-=100
+   
     
 
     for (let i = 9; i >= 0; i--) {
-
+        
         if (i === 0)
             if (heart.y === 0 && ((car.x === heart.x) || Math.abs(car.x - heart.x) < 2)) {
                 console.log('👻👻👻👻👻👻👻')
                 score++
-               
+               intervalSpeed-=60
             } else if (heart.y === 0 && heart.x > car.x) {
                 console.log('-'.repeat(car.x) + car.emoji + ' '.repeat(heart.x - car.x - 2) + heart.emoji)
             } else if (heart.y === 0 && heart.x < car.x) {
@@ -72,8 +72,8 @@ function render() {
     }
     
     updateHeart()
-    intervalId = setInterval(render, intervalSpeed);
 }
+
 
 
 
