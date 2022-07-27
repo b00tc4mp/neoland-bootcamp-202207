@@ -21,11 +21,13 @@
             const json = xhr.responseText
 
             const data = JSON.parse(json)
-            if(!user.notes || user.notes.length===0)callback(new Error(`notaId ${note.id} not found`))
+            if(!data.notes || data.notes.length===0)callback(new Error(`nota with id ${noteId} not found`))
 
             const notes = data.notes 
             const noteIndex = notes.findIndex(note => note.id === noteId)
 
+            if(noteIndex===-1)callback(new Error(`note with id ${noteId} not found`))
+            
             notes.splice(noteIndex,1)
             // const remove = note.splice(0)
 
