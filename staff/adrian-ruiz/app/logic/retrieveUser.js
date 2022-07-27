@@ -20,7 +20,7 @@ function retrieveUser(token, callback){
         callback(new Error(`Server error (${status})`))
         if(status >= 400){
             callback(new Error(`client error (${status})`))
-        }else if( status >= 200)
+        }else if( status === 200)
             callback(null,JSON.parse(xhr.response))
     }
     debugger
