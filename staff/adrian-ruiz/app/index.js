@@ -44,22 +44,21 @@ loginForm.addEventListener('submit', function (event) {
                 alert(error.message)
                 return
             }
-
+            // Guardo el token del usuario
+            sessionStorage.setItem('UserToken', token)
             try {
                 retrieveUser(token, function (error, user) {
                     if (error) {
                         alert(error.message)
                         return
                     }
-                    // Guardo el token del usuario
-                    sessionStorage.setItem('UserToken', token)
+
                     // Guardo los datos del usuario
                     sessionStorage.setItem('UserStored', JSON.stringify(user))
-
                     const headerTitle = document.getElementById('headerTitle')
                     headerTitle.textContent = `Hello, ${user.name}`
 
-                    /* refreshList() */
+                    refreshList()
 
                     homePage.classList.remove('off')
                     loginPage.classList.add('off')
@@ -104,61 +103,56 @@ const createNoteButton = document.querySelector('.newNoteButton')
 createNoteButton.onclick = function (event) {
     event.preventDefault()
     const userToken = sessionStorage.UserToken
-    retrieveUser(userToken, function (error, user) {
-        if (error) {
-            alert(error.message)
-            return
+
+    let result = confirm('Are you sure to create a new note?')
+    if (result) {
+        const containerPopUp = document.querySelector('.containerPopUp')
+        containerPopUp.classList.remove('off')
+
+        const confirmNoteButton = document.querySelector('#confirmNewNoteButton')
+        const newNoteTitle = document.querySelector('.newNoteInput__title')
+        const newNoteText = document.querySelector('.newNoteInput__text')
+
+        // Cancel creation
+        const cancelButton = document.querySelector('#cancelNewNoteButton')
+        cancelButton.onclick = function (event) {
+            // Para prevenir que recargue la pagina
+            event.preventDefault()
+            const result = confirm('Are you sure to cancel?')
+
+            if (result)
+                containerPopUp.classList.add('off')
+            else return
         }
 
-        const oldNotes = user.notes
-        let result = confirm('Are you sure to create a new note?')
-        if (result) {
-            const containerPopUp = document.querySelector('.containerPopUp')
-            containerPopUp.classList.remove('off')
-
-            const confirmNoteButton = document.querySelector('#confirmNewNoteButton')
-            const newNoteTitle = document.querySelector('.newNoteInput__title')
-            const newNoteText = document.querySelector('.newNoteInput__text')
-
-            // Cancel creation
-            const cancelButton = document.querySelector('#cancelNewNoteButton')
-            cancelButton.onclick = function (event) {
-                // Para prevenir que recargue la pagina
-                event.preventDefault()
-                const result = confirm('Are you sure to cancel?')
-
-                if (result)
-                    containerPopUp.classList.add('off')
-                else return
-            }
-
-            // Confirm creation
-            confirmNoteButton.onclick = function (event) {
-                event.preventDefault()
-                try {
+        // Confirm creation
+        confirmNoteButton.onclick = function (event) {
+            event.preventDefault()
+            try {
+                createNote(userToken, newNoteTitle.textContent, newNoteText.textContent, function (error) {
                     debugger
-                    createNote(userToken, oldNotes, newNoteTitle.textContent, newNoteText.textContent, function (error) {
-                        if (error) {
-                            alert(error.message)
-                            return
-                        }
-                        containerPopUp.classList.add('off')
-                        newNoteText.textContent = ''
-                        newNoteTitle.textContent = ''
-                        /* refreshList() */
-                    })
-                } catch (error) {
-                    alert(error)
-                }
+                    if (error) {
+                        alert(error.message)
+                        return
+                    }
+                    containerPopUp.classList.add('off')
+                    newNoteText.textContent = ''
+                    newNoteTitle.textContent = ''
+                    refreshList()
+                })
+            } catch (error) {
+                alert(error)
             }
         }
-    })
+    }
 }
 
-/* function refreshList() {
-    const userId = JSON.parse(sessionStorage.UserStored).id
+function refreshList() {
+    debugger
+    const token = sessionStorage.UserToken
+
     try {
-        retrieveNotes(userId, (error, notes) => {
+        retrieveNotes(token, function (error, userNotes) {
             if (error) {
                 alert(error.message)
                 return
@@ -166,7 +160,7 @@ createNoteButton.onclick = function (event) {
             const notesList = document.querySelector('.notesList')
             notesList.innerHTML = ''
 
-            notes.forEach(note => {
+            userNotes.forEach(note => {
 
                 const container = document.createElement('li')
                 container.classList.add('note')
@@ -221,7 +215,7 @@ createNoteButton.onclick = function (event) {
     } catch (error) {
         alert(error.message)
     }
-} */
+}
 
 // CAPTURAMOS CON INPUT PARA ACTUALIZAR ESTADO DE LA CREACION DE PASSWORD
 const pLowerCase = document.getElementById('lowerCase')

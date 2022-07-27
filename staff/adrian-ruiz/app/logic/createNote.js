@@ -6,7 +6,7 @@
  * @throws {Error} Errors
  */
 
-function createNote(userToken, userNotes, title, text, callback) {
+function createNote(userToken, title, text, callback) {
 
     if (!(callback instanceof Function)) throw new TypeError(callback + ' is not a function')
     if (title.trim().length === 0) throw new Error('Title is empty or blank')
@@ -19,26 +19,8 @@ function createNote(userToken, userNotes, title, text, callback) {
         callback(new Error('Title is not defined, note not created'))
         return
     }
-    // Creo nueva nota
-    const note = 
-        {
-            id: 'note-' + Date.now(),
-            title: title,
-            text: text
-        }
-    
-    const notes = []
-    if (userNotes !== undefined) {
-        userNotes.forEach(eachnote =>{
-            notes.push(eachnote)
-        })
-       /*  notes.push(userNotes) */
-    }
-    console.log(notes)
-    // Pusheo la nueva nota en las que ya tiene el usuario
-    notes.push(note)
-    debugger
-    // ENVIARLAS AL SERVIDOR
+
+    // Recupero las notas del usuario
     const xhr = new XMLHttpRequest
 
     xhr.onload = function () {
@@ -49,18 +31,52 @@ function createNote(userToken, userNotes, title, text, callback) {
             callback(new Error(`Server error (${status})`))
         if (status >= 400) {
             callback(new Error(`client error (${status})`))
-        } else if (status === 204)
-            callback(null)
-    }
+        } else if (status === 200) {
+            const data = JSON.parse(xhr.response)
 
-    xhr.open('PATCH', 'https://b00tc4mp.herokuapp.com/api/v2/users')
+            //Utilizo las notas, y si no existen creo un nuevo array para pushear
+            const notes = data.notes ? data.notes : []
+            
+            // Creo nueva nota
+            const note =
+            {
+                id: 'note-' + Date.now(),
+                title: title,
+                text: text
+            }
+            notes.push(note)
 
-    xhr.setRequestHeader('Content-type', 'application/json')
+            // ENVIARLAS AL SERVIDOR
+            const xhr2 = new XMLHttpRequest
+
+            xhr2.onload = function () {
+
+                const status = xhr2.status
+
+                if (status >= 500)
+                    callback(new Error(`Server error (${status})`))
+                if (status >= 400) {
+                    callback(new Error(`client error (${status})`))
+                } else if (status === 204)
+                    callback(null)
+            }
+
+            xhr2.open('PATCH', 'https://b00tc4mp.herokuapp.com/api/v2/users')
+
+            xhr2.setRequestHeader('Content-type', 'application/json')
+            xhr2.setRequestHeader('Authorization', `Bearer ${userToken}`)
+
+            const newData = { notes: notes }
+
+            const body = JSON.stringify(newData)
+
+            xhr2.send(body)
+            }
+            
+        }
+
+    xhr.open('GET', `https://b00tc4mp.herokuapp.com/api/v2/users/`)
+
     xhr.setRequestHeader('Authorization', `Bearer ${userToken}`)
-
-    const data = { notes: notes }
-
-    const body = JSON.stringify(data)
-
-    xhr.send(body)
+    xhr.send()
 }

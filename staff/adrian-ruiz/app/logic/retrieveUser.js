@@ -3,13 +3,11 @@
  */
 
 function retrieveUser(token, callback){
+    // TODO token validation (regex?)
+    if(token.trim().length === 0) throw new Error('Token is empty or blank')
+    if(typeof token !=='string') throw new Error('Token is not a string')
     if (typeof callback !== 'function') throw new TypeError('callback is not a function')
     
-    
-    /* const user = users.find(function(user){
-        return user.email === email
-    }) */
-
     const xhr = new XMLHttpRequest
 
     xhr.onload = function(){
@@ -20,10 +18,17 @@ function retrieveUser(token, callback){
         callback(new Error(`Server error (${status})`))
         if(status >= 400){
             callback(new Error(`client error (${status})`))
-        }else if( status === 200)
-            callback(null,JSON.parse(xhr.response))
+        }else if( status === 200){
+            const data = JSON.parse(xhr.response)
+            const user = {
+                name: data.name,
+                email: data.username
+            }
+            callback(null,user)
+        }
+            
     }
-    debugger
+    
     xhr.open('GET', `https://b00tc4mp.herokuapp.com/api/v2/users/`)
 
     xhr.setRequestHeader('Authorization', `Bearer ${token}`)

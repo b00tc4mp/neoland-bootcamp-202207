@@ -29,7 +29,7 @@ function authenticateUser(email, password, callback){
         }else if( status === 200)
             callback(null, JSON.parse(xhr.response).token)
     }
-    debugger
+    
     xhr.open('POST','https://b00tc4mp.herokuapp.com/api/v2/users/auth')
 
     xhr.setRequestHeader('Content-type', 'application/json')

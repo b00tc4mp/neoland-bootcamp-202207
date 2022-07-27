@@ -5,24 +5,30 @@
  * @throws {TypeError} Error on failed verification inputs
  */
 
-function retrieveNotes(userToken, callback) {
-    /* if(regexUserId.test(userId) === false) throw new Error(userId+' does not match ID pattern') */
-    /* if(typeof userId !== 'string') throw new Error(userId+ ' is not a string') */
-    if(!(callback instanceof Function)) throw new Error(callback+' is not a function')
-    // CUANDO CREAMOS UNA NOTA DESDE EL HOME, HAY QUE VERIFICAR QUE EL USUARIO QUE QUIERE RECUPERAR LA NOTA ES EL CORRECTO
+function retrieveNotes(token, callback) {
 
-    /* const user = users.find(user => {
-        return user.id === userId
-    }) */
+    // Recupero las notas del usuario
+    const xhr = new XMLHttpRequest
 
-    /* if(!user){
-        callback(new Error('User with id '+ userId +'not found'))
-        return
-    } */
+    xhr.onload = function(){
+
+        const status = xhr.status
+
+        if(status >=500)
+        callback(new Error(`Server error (${status})`))
+        if(status >= 400){
+            callback(new Error(`client error (${status})`))
+        }else if( status === 200){
+            const data = JSON.parse(xhr.response)
+            
+            const notes = data.notes
+            callback(null,notes)
+        }
+            
+    }
     
-    const filtered = notes.filter(note => {
-        return note.user === userId
-    })
+    xhr.open('GET', `https://b00tc4mp.herokuapp.com/api/v2/users/`)
 
-    callback(null, filtered)
+    xhr.setRequestHeader('Authorization', `Bearer ${token}`)
+    xhr.send()
 }
