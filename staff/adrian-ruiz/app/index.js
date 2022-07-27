@@ -39,25 +39,27 @@ loginForm.addEventListener('submit', function (event) {
     const inputPassword = loginForm.password.value
     // Cambiar todo lo que accedamos por loginForm por -> event.target.email.value...
     try {
-        authenticateUser(inputEmail, inputPassword, function (error) {
+        authenticateUser(inputEmail, inputPassword, function (error,token) {
             if (error) {
                 alert(error.message)
                 return
             }
 
             try {
-                retrieveUser(inputEmail, function (error, user) {
+                retrieveUser(token, function (error, user) {
                     if (error) {
                         alert(error.message)
                         return
                     }
-                    // Guardo el id del usuario
-                    sessionStorage.setItem('UserStored', JSON.stringify(user))
+                    // Guardo el token del usuario
+                    sessionStorage.setItem('UserToken',token)
+                    // Guardo los datos del usuario
+                    sessionStorage.setItem('UserStored',JSON.stringify(user))
 
                     const headerTitle = document.getElementById('headerTitle')
                     headerTitle.textContent = `Hello, ${user.name}`
 
-                    refreshList()
+                    /* refreshList() */
 
                     homePage.classList.remove('off')
                     loginPage.classList.add('off')
@@ -101,7 +103,8 @@ registerForm.addEventListener('submit', function (event) {
 const createNoteButton = document.querySelector('.newNoteButton')
 createNoteButton.onclick = function (event) {
     event.preventDefault()
-    const userId = JSON.parse(sessionStorage.UserStored).id
+    const userToken = sessionStorage.UserToken
+    const userNotes = JSON.parse(sessionStorage.UserStored).notes
     let result = confirm('Are you sure to create a new note?')
     if (result) {
         const containerPopUp = document.querySelector('.containerPopUp')
@@ -127,7 +130,8 @@ createNoteButton.onclick = function (event) {
         confirmNoteButton.onclick = function (event) {
             event.preventDefault()
             try {
-                createNote(userId, newNoteTitle.textContent, newNoteText.textContent, function (error) {
+                debugger
+                createNote(userToken, userNotes, newNoteTitle.textContent, newNoteText.textContent, function (error) {
                     if (error) {
                         alert(error.message)
                         return
@@ -135,7 +139,7 @@ createNoteButton.onclick = function (event) {
                     containerPopUp.classList.add('off')
                     newNoteText.textContent = ''
                     newNoteTitle.textContent = ''
-                    refreshList()
+                    /* refreshList() */
                 })
             } catch (error) {
                 alert(error)
@@ -144,7 +148,7 @@ createNoteButton.onclick = function (event) {
     }
 }
 
-function refreshList() {
+/* function refreshList() {
     const userId = JSON.parse(sessionStorage.UserStored).id
     try {
         retrieveNotes(userId, (error, notes) => {
@@ -210,7 +214,7 @@ function refreshList() {
     } catch (error) {
         alert(error.message)
     }
-}
+} */
 
 // CAPTURAMOS CON INPUT PARA ACTUALIZAR ESTADO DE LA CREACION DE PASSWORD
 const pLowerCase = document.getElementById('lowerCase')

@@ -16,24 +16,26 @@ function registerUser(name, email, password, callback){
 
     if (typeof callback !== 'function') throw new TypeError('callback is not a function')
 
-    
-        const user = users.find(function (user) {
-            return user.email === email
-        })
+    const xhr = new XMLHttpRequest
 
-        if(user){
-            callback(new Error('El correo electrónico ya ha sido registrado'))
-            return
-        }
+    // response
+    xhr.onload = function() {
+        
+        const status = xhr.status
 
-            users.push(
-                {
-                    id: 'user-'+ Date.now(),
-                    name: name,
-                    email: email,
-                    password: password
-                }
-            )
+        if(status >=500)
+            callback(new Error(`Server error (${status})`))
+        if(status >= 400){
+            callback(new Error(`client error (${status})`))
+        }else if( status >= 200)
             callback(null)
-            return   
     }
+    
+    // request
+    xhr.open('POST', 'https://b00tc4mp.herokuapp.com/api/v2/users')
+
+    xhr.setRequestHeader('Content-type', 'application/json')
+
+    xhr.send(`{"name": "${name}", "username": "${email}", "password": "${password}","userID": "${Date.now()}"}`)
+
+}

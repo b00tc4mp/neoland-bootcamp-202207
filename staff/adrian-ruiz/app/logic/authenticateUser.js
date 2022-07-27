@@ -15,17 +15,25 @@ function authenticateUser(email, password, callback){
     
 
     if (typeof callback !== 'function') throw new TypeError('callback is not a function')
+    
+    const xhr = new XMLHttpRequest
 
-    const user = users.find(function(user){
-        return user.email === email && user.password === password
-    })
+    xhr.onload = function(){
 
-    if(!user){
-        callback(new Error('El usuario no existe o las credenciales son erroneas'))
-        return
+        const status = xhr.status
+
+        if(status >=500)
+        callback(new Error(`Server error (${status})`))
+        if(status >= 400){
+            callback(new Error(`client error (${status})`))
+        }else if( status >= 200)
+            callback(null, JSON.parse(xhr.response).token)
     }
+    debugger
+    xhr.open('POST','https://b00tc4mp.herokuapp.com/api/v2/users/auth')
 
-    if(regexUserId.test(user.id) === false) throw new Error(user.id+' does not match ID pattern')
+    xhr.setRequestHeader('Content-type', 'application/json')
 
-    callback(null)
+    xhr.send(`{"username": "${email}", "password": "${password}"}`)
+
 }

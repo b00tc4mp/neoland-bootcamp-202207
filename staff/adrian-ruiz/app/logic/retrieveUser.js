@@ -1,30 +1,32 @@
 /**
- * @param {string} email The user email
  * @throws {TypeError} Error on failed verification inputs
  */
 
-function retrieveUser(email, callback){
-    if (typeof email !== 'string') throw new TypeError('Email is not string')
-    if (email.trim().length === 0) throw new Error('Email is empty or blank')
-    if (!mailRegex.test(email)) throw new Error('Email is not valid')
-
+function retrieveUser(token, callback){
     if (typeof callback !== 'function') throw new TypeError('callback is not a function')
-    const user = users.find(function(user){
+    
+    
+    /* const user = users.find(function(user){
         return user.email === email
-    })
+    }) */
 
-    if(!user){
-        callback(new Error('User with email ' + email +' not found'))
-        return
+    const xhr = new XMLHttpRequest
+
+    xhr.onload = function(){
+
+        const status = xhr.status
+
+        if(status >=500)
+        callback(new Error(`Server error (${status})`))
+        if(status >= 400){
+            callback(new Error(`client error (${status})`))
+        }else if( status >= 200)
+            callback(null,JSON.parse(xhr.response))
     }
+    debugger
+    xhr.open('GET', `https://b00tc4mp.herokuapp.com/api/v2/users/`)
 
-    //Quitamos la password del user que mandamos para la aplicación, por motivos de seguridad
-    const _user = {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-    }
-
-    callback(null, _user)
+    xhr.setRequestHeader('Authorization', `Bearer ${token}`)
+    xhr.send()
 
 }
