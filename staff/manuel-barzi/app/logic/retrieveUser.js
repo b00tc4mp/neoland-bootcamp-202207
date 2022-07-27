@@ -1,27 +1,39 @@
-function retrieveUser(userId, callback) {
-    if (typeof userId !== 'string') throw new TypeError('user id is not a string')
-    if (userId.trim().length === 0) throw new Error('user id is empty or blank')
+function retrieveUser(token, callback) {
+    if (typeof token !== 'string') throw new TypeError('token is not a string')
+    if (token.trim().length === 0) throw new Error('token is empty or blank')
 
     if (typeof callback !== 'function') throw new TypeError('callback is not a function')
     
-    const user = users.find(function (user) {
-        return user.id === userId
-    })
+    const xhr = new XMLHttpRequest
 
-    if (!user) {
-        callback(new Error('user with id ' + userId + ' not found'))
+    // response
 
-        return
+    xhr.onload = function() {
+        const status = xhr.status
+
+        if (status >= 500)
+            callback(new Error(`server error (${status})`))
+        else if (status >= 400)
+            callback(new Error(`client error (${status})`))
+        else if (status === 200) {
+            const json = xhr.responseText
+
+            const data = JSON.parse(json)
+
+            const user = {
+                name: data.name,
+                email: data.username
+            }
+
+            callback(null, user)
+        }
     }
 
-    //const _user = { ...user }
-    //delete _user.password
+    // request
 
-    const _user = {
-        id: user.id,
-        name: user.name,
-        email: user.email
-    }
+    xhr.open('GET', 'https://b00tc4mp.herokuapp.com/api/v2/users')
 
-    callback(null, _user)
+    xhr.setRequestHeader('Authorization', `Bearer ${token}`)
+
+    xhr.send()
 }

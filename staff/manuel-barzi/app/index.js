@@ -2,7 +2,7 @@ const loginPage = document.querySelector('.login-page')
 const registerPage = document.querySelector('.register-page')
 const homePage = document.querySelector('.home-page')
 
-let _user
+let _token
 
 // temp (for ui design purposes)
 // loginPage.classList.add('off')
@@ -32,22 +32,22 @@ loginForm.onsubmit = function (event) {
     const password = loginForm.password.value
 
     try {
-        authenticateUser(email, password, function (error, userId) {
+        authenticateUser(email, password, function (error, token) {
             if (error) {
                 alert(error.message)
 
                 return
             }
 
+            _token = token
+
             try {
-                retrieveUser(userId, function (error, user) {
+                retrieveUser(_token, function (error, user) {
                     if (error) {
                         alert(error.message)
 
                         return
                     }
-
-                    _user = user
 
                     loginPage.classList.add('off')
 
@@ -96,7 +96,7 @@ registerForm.onsubmit = function (event) {
 const plusButton = homePage.querySelector('.transparent-button')
 plusButton.onclick = function () {
     try {
-        createNote(_user.id, error => {
+        createNote(_token, error => {
             if (error) {
                 alert(error.message)
 
@@ -112,7 +112,7 @@ plusButton.onclick = function () {
 
 function refreshList() {
     try {
-        retrieveNotes(_user.id, function (error, notes) {
+        retrieveNotes(_token, function (error, notes) {
             if (error) {
                 alert(error.message)
 
@@ -131,7 +131,7 @@ function refreshList() {
                 deleteButton.innerText = 'x'
                 deleteButton.onclick = function () {
                     try {
-                        deleteNote(_user.id, note.id, error => {
+                        deleteNote(_token, note.id, error => {
                             if (error) {
                                 alert(error.message)
 
@@ -150,7 +150,7 @@ function refreshList() {
                 text.classList.add('list__item-text')
                 text.onkeyup = function () {
                     try {
-                        updateNote(_user.id, note.id, text.innerText, error => {
+                        updateNote(_token, note.id, text.innerText, error => {
                             if (error) {
                                 alert(error.message)
 
