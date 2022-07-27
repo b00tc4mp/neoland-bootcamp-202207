@@ -39,7 +39,7 @@ loginForm.addEventListener('submit', function (event) {
     const inputPassword = loginForm.password.value
     // Cambiar todo lo que accedamos por loginForm por -> event.target.email.value...
     try {
-        authenticateUser(inputEmail, inputPassword, function (error,token) {
+        authenticateUser(inputEmail, inputPassword, function (error, token) {
             if (error) {
                 alert(error.message)
                 return
@@ -52,9 +52,9 @@ loginForm.addEventListener('submit', function (event) {
                         return
                     }
                     // Guardo el token del usuario
-                    sessionStorage.setItem('UserToken',token)
+                    sessionStorage.setItem('UserToken', token)
                     // Guardo los datos del usuario
-                    sessionStorage.setItem('UserStored',JSON.stringify(user))
+                    sessionStorage.setItem('UserStored', JSON.stringify(user))
 
                     const headerTitle = document.getElementById('headerTitle')
                     headerTitle.textContent = `Hello, ${user.name}`
@@ -104,48 +104,55 @@ const createNoteButton = document.querySelector('.newNoteButton')
 createNoteButton.onclick = function (event) {
     event.preventDefault()
     const userToken = sessionStorage.UserToken
-    const userNotes = JSON.parse(sessionStorage.UserStored).notes
-    let result = confirm('Are you sure to create a new note?')
-    if (result) {
-        const containerPopUp = document.querySelector('.containerPopUp')
-        containerPopUp.classList.remove('off')
-
-        const confirmNoteButton = document.querySelector('#confirmNewNoteButton')
-        const newNoteTitle = document.querySelector('.newNoteInput__title')
-        const newNoteText = document.querySelector('.newNoteInput__text')
-
-        // Cancel creation
-        const cancelButton = document.querySelector('#cancelNewNoteButton')
-        cancelButton.onclick = function (event) {
-            // Para prevenir que recargue la pagina
-            event.preventDefault()
-            const result = confirm('Are you sure to cancel?')
-
-            if (result)
-                containerPopUp.classList.add('off')
-            else return
+    retrieveUser(userToken, function (error, user) {
+        if (error) {
+            alert(error.message)
+            return
         }
 
-        // Confirm creation
-        confirmNoteButton.onclick = function (event) {
-            event.preventDefault()
-            try {
-                debugger
-                createNote(userToken, userNotes, newNoteTitle.textContent, newNoteText.textContent, function (error) {
-                    if (error) {
-                        alert(error.message)
-                        return
-                    }
+        const oldNotes = user.notes
+        let result = confirm('Are you sure to create a new note?')
+        if (result) {
+            const containerPopUp = document.querySelector('.containerPopUp')
+            containerPopUp.classList.remove('off')
+
+            const confirmNoteButton = document.querySelector('#confirmNewNoteButton')
+            const newNoteTitle = document.querySelector('.newNoteInput__title')
+            const newNoteText = document.querySelector('.newNoteInput__text')
+
+            // Cancel creation
+            const cancelButton = document.querySelector('#cancelNewNoteButton')
+            cancelButton.onclick = function (event) {
+                // Para prevenir que recargue la pagina
+                event.preventDefault()
+                const result = confirm('Are you sure to cancel?')
+
+                if (result)
                     containerPopUp.classList.add('off')
-                    newNoteText.textContent = ''
-                    newNoteTitle.textContent = ''
-                    /* refreshList() */
-                })
-            } catch (error) {
-                alert(error)
+                else return
+            }
+
+            // Confirm creation
+            confirmNoteButton.onclick = function (event) {
+                event.preventDefault()
+                try {
+                    debugger
+                    createNote(userToken, oldNotes, newNoteTitle.textContent, newNoteText.textContent, function (error) {
+                        if (error) {
+                            alert(error.message)
+                            return
+                        }
+                        containerPopUp.classList.add('off')
+                        newNoteText.textContent = ''
+                        newNoteTitle.textContent = ''
+                        /* refreshList() */
+                    })
+                } catch (error) {
+                    alert(error)
+                }
             }
         }
-    }
+    })
 }
 
 /* function refreshList() {
