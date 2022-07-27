@@ -59,9 +59,11 @@ loginForm.addEventListener('submit', function (event) {
                     headerTitle.textContent = `Hello, ${user.name}`
 
                     refreshList()
+                    setTimeout(() => {
+                        homePage.classList.remove('off')
+                        loginPage.classList.add('off')
+                    }, 300)
 
-                    homePage.classList.remove('off')
-                    loginPage.classList.add('off')
                 })
             } catch (error) {
                 alert(error.message)
@@ -130,7 +132,6 @@ createNoteButton.onclick = function (event) {
             event.preventDefault()
             try {
                 createNote(userToken, newNoteTitle.textContent, newNoteText.textContent, function (error) {
-                    debugger
                     if (error) {
                         alert(error.message)
                         return
@@ -148,7 +149,6 @@ createNoteButton.onclick = function (event) {
 }
 
 function refreshList() {
-    debugger
     const token = sessionStorage.UserToken
 
     try {
@@ -178,33 +178,45 @@ function refreshList() {
                     let result = confirm('Are you sure to delete that note?')
                     if (result) {
                         try {
-                            deleteNote(userId, note.id, error => {
+                            deleteNote(token, note.id, error => {
                                 if (error) {
                                     alert(error.message)
                                     return
                                 }
+                                refreshList()
                             })
                         } catch (error) {
                             alert(error.message)
                         }
-
-                        refreshList()
                     }
 
                 }
-
+                
                 container.onkeyup = function () {
-                    try {
 
-                        updateNote(userId, note.id, elementTitle.textContent, elementText.textContent, error => {
-                            if (error) {
+                    let lastTextValue = elementText.textContent
+                    let lastTitleValue = elementTitle.textContent
+                    setTimeout(function(){
+                        
+                        if((lastTextValue === elementText.textContent) && (lastTitleValue === elementTitle.textContent)){
+                            try {
+                                updateNote(token, note.id, elementTitle.textContent, elementText.textContent, error => {
+                                    if (error) {
+                                        alert(error.message)
+                                        return
+                                    }
+                                    console.log('Update con exito')
+                                })
+                            } catch (error) {
                                 alert(error.message)
-                                return
+                                refreshList()
                             }
-                        })
-                    } catch (error) {
-                        alert(error.message)
-                    }
+                        }
+                        
+                    
+                    },2000)
+                        
+                    
                 }
                 elementTitle.textContent = note.title
                 elementText.textContent = note.text
