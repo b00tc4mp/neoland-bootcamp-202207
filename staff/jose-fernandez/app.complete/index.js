@@ -12,7 +12,7 @@ const loginPage = document.querySelector('.login_page')
 const registerPage = document.querySelector('.register_page')
 const homePage = document.querySelector('.home_page')
 
-let _user
+let _token
 // ==========================================================
 
 
@@ -55,18 +55,19 @@ loginForm.onsubmit = function (event) {
     const email = loginForm.email.value
     const password = loginForm.password.value
     try {
-        authenticateUser(email, password, function (error) {
+        authenticateUser(email, password, function (error,token) {
             if (error) {
                 alert(error.message)
                 return
             }
+            _token = token
             try {
-                retrieveUser(email, function (error, user) {
+                retrieveUser(_token, function (error, user) {
                     if (error) {
                         alert(error.message)
                         return
                     }
-                    _user = user
+                    
                     loginPage.classList.add('off')
 
                     const messageTitle = homePage.querySelector(".messageTitle")
@@ -122,7 +123,7 @@ createNoteForm.onsubmit = function (event) {
   
     if (textFromTextarea !== "") {
         try {
-            createNote(_user.id, textFromTextarea, error => {
+            createNote(_token, textFromTextarea, error => {
 
                 if (error) {
                     alert(error.message)
@@ -154,7 +155,7 @@ btn__pluss.onclick = function () {
 
 function refreshList() {
     try {
-        retrieveNotes(_user.id, function (error, notes) {
+        retrieveNotes(_token, function (error, notes) {
             if (error) {
                 alert(error.message)
                 return
@@ -177,7 +178,7 @@ function refreshList() {
                 deleteButton.innerText = 'x'
                 deleteButton.onclick = function () {
                     try {
-                        deleteNote(_user.id, note.id, error => {
+                        deleteNote(_token, note.id, error => {
                             if (error) {
                                 alert(error.message)
                                 return
@@ -193,7 +194,7 @@ function refreshList() {
                 text.classList.add('list__item-text')
                 text.onkeyup = function () {
                     try {
-                        updateNote(_user.id, note.id, text.value, error => {
+                        updateNote(_token, note.id, text.innerText, error => {
                             if (error) {
                                 alert(error.message)
                                 return
@@ -203,7 +204,7 @@ function refreshList() {
                         alert(error.message)
                     }
                 }
-                text.value = note.text
+                text.innerText = note.text
                 item.append(deleteButton, text)
                 list.append(item)
 

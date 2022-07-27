@@ -1,10 +1,12 @@
 function retrieveUser(token, callback) {
-    // TODO validate inputs
+    //condicionales de entrada en el input
+    //Si el token no es string, muestro el error ...
+    if (typeof token !== 'string') throw new TypeError('token is not a string')
+    // .trim() borra los espacios del principio y final del texto 
+    if (token.trim().length === 0) throw new Error('token is empty or blank')
 
-    // const token = token.find(function (token) {
-    //     return token === email
-    // }
 
+    if (typeof callback !== 'function') throw new TypeError('callback is not a function')
     //XMLHttpRequest nos permite hacer peticiones a un servidor web y obtener las respuestas que este envia
     const xhr = new XMLHttpRequest
 
@@ -20,19 +22,20 @@ function retrieveUser(token, callback) {
             callback(new Error(`client error(${status})`))
         else if (status === 200) {
 
-            debugger;
+            // debugger;
             const tokenJson = xhr.responseText
 
             //Parseo el JSON a JS
-            const tokenObject = JSON.parse(tokenJson)
+            const data = JSON.parse(tokenJson)
 
-            //Accedoa a la propiedad token del objeto
-            // const token = tokenObject.token
-            const token1 = tokenObject.username
-
+            //Accedo a a la propiedad token del objeto
+            const user={
+                name:data.name,
+                email:data.username
+            }
 
             //llamo a callback con null, en el parametro  de manejo de errores
-            callback(null, token1)
+            callback(null, user)
         }
 
     }
@@ -50,4 +53,4 @@ function retrieveUser(token, callback) {
 }
 
 
-//retrieveUser('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmUwNDJkZjc4MjBjMzAwMTc5NjdiZmYiLCJpYXQiOjE2NTg4NjQ0MTUsImV4cCI6MTY1ODg2ODAxNX0.4IqPWMsJzgL8RK8GkEy5t35VI4mHRBalzLhICE8IqQM',console.log)
+// retrieveUser('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmRmZTdmNmQ0NDE4ODAwMTdiMjNkMWEiLCJpYXQiOjE2NTg5MTU5MTYsImV4cCI6MTY1ODkxOTUxNn0.VlwVbngBHaLNURHlsOvlu06ceeuWMo1DNntklgiWLwk',console.log)

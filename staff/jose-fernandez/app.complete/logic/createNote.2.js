@@ -1,4 +1,4 @@
-function createNote(userId, callback) {
+function createNote(userId, text, callback) {
     const user = users.find(function(user){
         return user.id===userId
     })
@@ -12,16 +12,18 @@ function createNote(userId, callback) {
 
     
     if (!user) {
-        callback(new Error('user with email' + email + 'not found'))
+        callback(new Error('user with id' + userId + 'not found'))
         
         return
     }
-    notes.push({
-       id:'notes-'+ Date.now(),
-       text:'',
+    const note = {
+        id:'notes-'+ Date.now(),
+       text: text,
        user:userId
-    })
+    }
+    notes.push(note)
 
+    
     callback(null)
     
 }
