@@ -15,8 +15,6 @@
     <!-- <script src="https://kit.fontawesome.com/621f27308b.js" crossorigin="anonymous"></script> -->
     <!-- icon arrow-left -->
     <script src="https://kit.fontawesome.com/b19787958c.js" crossorigin="anonymous"></script>
-    <!-- logout -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <title>APP</title>
 </head>
 
@@ -85,10 +83,10 @@
 
             <nav class="nav-home" id="nav-home">
                 <ul class="menu-home">
-                    <li class="menu-item"><a class="menu__link profile">Profile</a></li>
-                    <li class="menu-item"><a class="menu__link design">Design</a> </li>
+                    <li class="menu-item"><a class="menu__link configGlobal">Configuration</a></li>
+                    <li class="menu-item"><a class="menu__link">Menu2</a> </li>
                     <li class="menu-item"><a class="menu__link">Menu3</a> </li>
-                    <li class="menu-item"><a class="menu__link btn_logout">Logout <span class="material-symbols-outlined">logout</span></a> </li>
+                    <li class="menu-item"><a class="menu__link btn_logout">Logout</a> </li>
                 </ul>
             </nav>
         </header>
@@ -139,43 +137,21 @@
 
             </form>
 
-            <!--=============================PROFILE====================== -->
-            <form class="formProfile off">
+            <!--============================= CONFIG====================== -->
+            <form class="formConfig off">
 
                 <button href="#" class="btnBack">X</button>
 
-                <div class="contProfile">
-                    <div class="nameProfile">UPDATE PASSWORD: </div>
-                    <div class="contButtonsProfile">
-                        <input class="updatePass" type="password" name="currentPassword"    placeholder="Current Password">
-                        <input class="updatePass" type="password" name="newPassword"    placeholder="New Password">
-                        <input class="updatePass" type="password" name="repeatNewPassword"  placeholder="Repeat New Password">
-                    </div>
-                </div>
-                <div class="contProfile">
-                    <div class="nameProfile">UPDATE EMAIL</div>
-                    <div class="contButtonsProfile">
-                        <input class="updateEmail" type="email" name="currentPassword"  placeholder="Current Email">
-                        <input class="updateEmail" type="email" name="newEmail"  placeholder="New Email">
-                    </div>
-                </div>
-
-            </form>
-            <!--=============================DESIGN====================== -->
-            <form class="formDesign off">
-
-                <button href="#" class="btnBack">X</button>
-
-                <div class="contDesign">
-                    <div class="nameDesign">SIZE TEXT </div>
+                <div class="contConfig">
+                    <div class="nameConfig">Size Text: </div>
                     <div class="contButtons">
                         <button class="textSmall" onclick="" type="submit" >Small</button>
                         <button class="textNormal" type="submit">Normal</button>
                         <button class="textBig" type="submit">Big</button>
                     </div>
                 </div>
-                <div class="contDesign">
-                    <div class="nameDesign">$·$·$</div>
+                <div class="contConfig">
+                    <div class="nameConfig">$·$·$:</div>
                     <div class="contButtons">
                         <button class="">$·$%&</button>
                         <button class="">$·$%&</button>
@@ -184,7 +160,7 @@
                 </div>
 
             </form>
-            <!-- ================== ===============-->
+            <!-- ===================FORM  -->
             
 
         </main>

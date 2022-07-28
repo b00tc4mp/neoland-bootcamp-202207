@@ -230,42 +230,27 @@ function renderNotes() {
 }
 
 
-design=homePage.querySelector('.design')
+configGlobal=homePage.querySelector('.configGlobal')
 const navHome=homePage.querySelector(".nav-home")
-const formDesign=homePage.querySelector(".formDesign")
+const formConfig=homePage.querySelector(".formConfig")
 const btnBack=homePage.querySelector(".btnBack")
 
 
-
 btnBack.onclick = function () {
-    formDesign.classList.add('off')
-    formProfile.classList.add('off')
+    formConfig.classList.add('off')
     list__Notes.classList.remove('off')
     btn__pluss.classList.remove('off')
 }
 
-design.onclick = function () {
+configGlobal.onclick = function () {
 
     list__Notes.classList.add('off')
     navHome.classList.toggle('mostrar')
     btn__pluss.classList.add('off')
     createNoteForm.classList.add('off')
-    formProfile.classList.add('off')
-    formDesign.classList.remove('off')
+    formConfig.classList.remove('off')
 }
 
-const formProfile=homePage.querySelector(".formProfile")
-profile=homePage.querySelector('.profile')
-
-profile.onclick = function () {
-
-    list__Notes.classList.add('off')
-    navHome.classList.toggle('mostrar')
-    btn__pluss.classList.add('off')
-    createNoteForm.classList.add('off')
-    formDesign.classList.add('off')
-    formProfile.classList.remove('off')
-}
 // const textSmall=homePage.querySelector('.textSmall')
 // const textNormal=homePage.querySelector('.textNormal')
 // const textBig=homePage.querySelector('.textBig')
@@ -306,7 +291,7 @@ profile.onclick = function () {
 const link_home_login=homePage.querySelector('.link_home')
 link_home_login.onclick=function(){
 
-formDesign.classList.add('off')
+formConfig.classList.add('off')
 list__Notes.classList.remove('off')
 btn__pluss.classList.remove('off')
 navHome.classList.toggle('mostrar')

@@ -1,22 +1,3 @@
-/* ========== Google Icons =========== */
-@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
-.material-symbols-outlined {
-    padding-left: 9px;
-    font-family: 'Material Symbols Outlined';
-    font-weight: normal;
-    font-style: normal;
-    font-size: 24px;
-    line-height: 1;
-    letter-spacing: normal;
-    text-transform: none;
-    display: flex;
-    white-space: nowrap;
-    word-wrap: normal;
-    direction: ltr;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-}
-/* ================================================================= */
 body,
 html,
 body {
@@ -186,23 +167,8 @@ body {
     margin-bottom: 5px;
     /* background-color: aqua ; */
 }
-.link_home{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 20%;
-    height: 100%;
- }
-.img-home{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    border-radius: 15px;
-    
-    /* border: 1px ; */
-}
+
+
 
 .home_page {
     box-sizing: border-box;
@@ -225,19 +191,15 @@ body {
 
 .messageTitle,
 .fa-solid.fa-bars,
-.fa-solid.fa-plus,.fa-solid.fa-arrow-left,.btnBack,.contDesign, .contProfile {
+.fa-solid.fa-plus,.fa-solid.fa-arrow-left,.btnBack,.contConfig {
     margin: 5px;
     color: #037E8c;
 }
 
 .messageTitle {
     font-size: 150%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
 }
-
 
 .fa-solid.fa-bars {
     display: flex;
@@ -249,7 +211,7 @@ body {
     text-align: center;
     line-height: 155%;
     border-radius: 20%;
-    margin-left: 0%;
+    margin-left: 20%;
     cursor: pointer;
 }
 
@@ -259,16 +221,16 @@ body {
 
 .menu-home {
     list-style: none;
-    width: 100%;
     padding: 0;
     margin: 0;
 }
 
 
 .menu__link {
-    display: flex;
+    display: block;
     padding: 15px;
-    /* width: 100%; */
+    width: 100%;
+    background: WHITE;
     text-decoration: none;
     color: white;
     background-image: url("https://images.pexels.com/photos/2486168/pexels-photo-2486168.jpeg");
@@ -286,8 +248,7 @@ body {
 .mostrar {
     position: absolute;
     display: flex;
-    width: 26%;
-    margin-left: 74%;
+    margin-left: 61.5%;
     transition: 1.5s;
 }
 
@@ -321,8 +282,7 @@ body {
     margin: 0%;
     padding: 0%;
     overflow: scroll;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+
 }
 
 .list::-webkit-scrollbar {
@@ -508,14 +468,14 @@ body {
     /* margin-left: 20%; */
     cursor: pointer;
 }
-.formDesign,.formProfile{
+.formConfig{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 20px;
 }
-.nameDesign,.nameProfile{
+.nameConfig{
     display: flex;
     justify-content: center;
     align-items: flex-end;
@@ -529,32 +489,14 @@ body {
     gap: 10px;
 
 }
-.contButtonsProfile{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 20px;
-    
-
-}
-.contDesign,.contProfile{
+.contConfig{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     font-size: 1.5rem;
-    gap: 15px;
+    gap: 10px;
     font-weight: bold;
-    
-}
-
-.updatePass,.updateEmail{
-    /* height: 40%;*/
-    width:120%; 
-    font-size: 1.3rem;
-    border-radius: 15px;
-    padding-left: 10px;
 }
 .textSmall{
     font-size: 1rem;

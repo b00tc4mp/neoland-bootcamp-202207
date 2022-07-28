@@ -12,6 +12,7 @@ const loginPage = document.querySelector('.login_page')
 const registerPage = document.querySelector('.register_page')
 const homePage = document.querySelector('.home_page')
 
+let _token
 // ==========================================================
 
 
@@ -54,15 +55,30 @@ loginForm.onsubmit = function (event) {
     const email = loginForm.email.value
     const password = loginForm.password.value
     try {
-        authenticateUser(email, password, function (error, token) {
+        authenticateUser(email, password, function (error,token) {
             if (error) {
                 alert(error.message)
                 return
             }
-            loginForm.reset()
-            sessionStorage.token = token
-            renderHome()
+            _token = token
+            try {
+                retrieveUser(_token, function (error, user) {
+                    if (error) {
+                        alert(error.message)
+                        return
+                    }
+                    
+                    loginPage.classList.add('off')
 
+                    const messageTitle = homePage.querySelector(".messageTitle")
+
+                    messageTitle.innerText = " Hello " + user.name + " !"
+                    refreshList()
+                    homePage.classList.remove('off')
+                })
+            } catch (error) {
+                alert(error.message)
+            }
         })
     } catch (error) {
         alert(error.message)
@@ -70,26 +86,6 @@ loginForm.onsubmit = function (event) {
 }
 
 
-function renderHome() {
-    try {
-        retrieveUser(sessionStorage.token, function (error, user) {
-            if (error) {
-                alert(error.message)
-                return
-            }
-
-            loginPage.classList.add('off')
-
-            const messageTitle = homePage.querySelector(".messageTitle")
-
-            messageTitle.innerText = " Hello " + user.name + " !"
-            renderNotes()
-            homePage.classList.remove('off')
-        })
-    } catch (error) {
-        alert(error.message)
-    }
-}
 const registerForm = registerPage.querySelector('.form')
 registerForm.onsubmit = function (event) {
     event.preventDefault()
@@ -105,9 +101,6 @@ registerForm.onsubmit = function (event) {
                 alert(error.message)
                 return
             }
-
-            registerForm.reset()
-
             registerPage.classList.add("off")
             loginPage.classList.remove("off")
         })
@@ -127,21 +120,21 @@ createNoteForm.onsubmit = function (event) {
 
     // creo una constante y lo igualo al texto de mi textarea con name="newItemNote" ubicado en createNoteForm 
     const textFromTextarea = createNoteForm.newItemNote.value
-
+  
     if (textFromTextarea !== "") {
         try {
-            createNote(sessionStorage.token, textFromTextarea, error => {
+            createNote(_token, textFromTextarea, error => {
 
                 if (error) {
                     alert(error.message)
                     return
                 }
-                renderNotes()
+                refreshList()
             })
         } catch (error) {
             alert(error.message)
         }
-    } else alert('Nota Vacia Descartada')
+    }else alert('Nota Vacia Descartada')
 
     createNoteForm.classList.add('off')
     list__Notes.classList.remove('off')
@@ -160,9 +153,9 @@ btn__pluss.onclick = function () {
 
 }
 
-function renderNotes() {
+function refreshList() {
     try {
-        retrieveNotes(sessionStorage.token, function (error, notes) {
+        retrieveNotes(_token, function (error, notes) {
             if (error) {
                 alert(error.message)
                 return
@@ -185,12 +178,12 @@ function renderNotes() {
                 deleteButton.innerText = 'x'
                 deleteButton.onclick = function () {
                     try {
-                        deleteNote(sessionStorage.token, note.id, error => {
+                        deleteNote(_token, note.id, error => {
                             if (error) {
                                 alert(error.message)
                                 return
                             }
-                            renderNotes()
+                            refreshList()
                         })
                     } catch (error) {
                         alert(error.message)
@@ -198,26 +191,53 @@ function renderNotes() {
                 }
 
                 const text = document.createElement('textarea')
-
                 text.classList.add('list__item-text')
-
                 text.onkeyup = function () {
-                    if (window.updateNoteTimeoutId)
-                        clearTimeout(window.updateNoteTimeoutId)
+                    try {
+                        updateNote(_token, note.id, text.value, error => {
+                            if (error) {
+                                alert(error.message)
+                                return
+                            }
+                        })
+                    } catch (error) {
+                        alert(error.message)
+                    }             
+                    }
+                //rebote
+                // function debounce(text,threshold,execAsap){
+                //     var timeout;
+                //     return function debounce(){
+                //         var obj = this,args=arguments;
+                //         function delayed(){
+                //             if(!execAsap)
+                //             text.apply(obj,args);
+                //             timeout=null;
+                //         }
+                //         if(timeout)
+                //         clearTimeout(timeout);
+                //         else if(execAsap)
+                //         text.apply(obj,args);
 
-                    window.updateNoteTimeoutId = setTimeout(() => {
-                        try {
-                            updateNote(sessionStorage.token, note.id, text.value, error => {
-                                if (error) {
-                                    alert(error.message)
-                                    return
-                                }
-                            })
-                        } catch (error) {
-                            alert(error.message)
-                        }
-                    }, 500)
-                }
+                //         timeout=setTimeout(delayed,threshold || 100)
+                //     }
+                // }
+                
+                    // var execAsap=true
+                    // var time=300
+                    // debounce(text,time,execAsap) {
+                    //     try {
+                    //         updateNote(_token, note.id, text.innerText, error => {
+                    //             if (error) {
+                    //                 alert(error.message)
+                    //                 return
+                    //             }
+                    //         })
+                    //     } catch (error) {
+                    //         alert(error.message)
+                    //     }
+                    // }
+                
                 text.innerText = note.text
                 item.append(deleteButton, text)
                 list.append(item)
@@ -230,42 +250,30 @@ function renderNotes() {
 }
 
 
-design=homePage.querySelector('.design')
-const navHome=homePage.querySelector(".nav-home")
-const formDesign=homePage.querySelector(".formDesign")
-const btnBack=homePage.querySelector(".btnBack")
+// const configGlobal=homePage.querySelector('.configGlobal')
+// const navHome=homePage.querySelector(".nav-home")
+// const formConfig=homePage.querySelector(".formConfig")
+// const btnBack=homePage.querySelector(".btnBack")
 
 
+// btnBack.onclick = function (event) {
+//     event.preventDefault()
+    
 
-btnBack.onclick = function () {
-    formDesign.classList.add('off')
-    formProfile.classList.add('off')
-    list__Notes.classList.remove('off')
-    btn__pluss.classList.remove('off')
-}
+//     formConfig.classList.add('off')
+//     list__Notes.classList.remove('off')
+//     btn__pluss.classList.remove('off')
+// }
 
-design.onclick = function () {
+// configGlobal.onclick = function (event) {
+//     event.preventDefault()
+//     list__Notes.classList.add('off')
+//     navHome.classList.toggle('mostrar')
+//     btn__pluss.classList.add('off')
+//     createNoteForm.classList.add('off')
+//     formConfig.classList.remove('off')
+// }
 
-    list__Notes.classList.add('off')
-    navHome.classList.toggle('mostrar')
-    btn__pluss.classList.add('off')
-    createNoteForm.classList.add('off')
-    formProfile.classList.add('off')
-    formDesign.classList.remove('off')
-}
-
-const formProfile=homePage.querySelector(".formProfile")
-profile=homePage.querySelector('.profile')
-
-profile.onclick = function () {
-
-    list__Notes.classList.add('off')
-    navHome.classList.toggle('mostrar')
-    btn__pluss.classList.add('off')
-    createNoteForm.classList.add('off')
-    formDesign.classList.add('off')
-    formProfile.classList.remove('off')
-}
 // const textSmall=homePage.querySelector('.textSmall')
 // const textNormal=homePage.querySelector('.textNormal')
 // const textBig=homePage.querySelector('.textBig')
@@ -277,7 +285,7 @@ profile.onclick = function () {
 //     event.preventDefault()
 //     document.querySelector('.newItem').style.fontSize=1+"rem"; 
 //     document.querySelector('.list__item-text').style.fontSize=1+"rem";
-
+    
 //     // creo una constante y lo igualo al texto de mi textarea con name="newItemNote" ubicado en createNoteForm 
 //     // const textFromTextarea = createNoteForm.newItemNote.value
 
@@ -302,25 +310,3 @@ profile.onclick = function () {
 //     list__Notes.classList.remove('off')
 //     btn__pluss.classList.remove('off')
 // }
-
-const link_home_login=homePage.querySelector('.link_home')
-link_home_login.onclick=function(){
-
-formDesign.classList.add('off')
-list__Notes.classList.remove('off')
-btn__pluss.classList.remove('off')
-navHome.classList.toggle('mostrar')
-}
-
-if (sessionStorage.token)
-    renderHome()
-
-const logoutButton= homePage.querySelector('.btn_logout')
-
-logoutButton.onclick = function(){
-    delete sessionStorage.token
-    
-    homePage.classList.add('off')
-    navHome.classList.toggle('mostrar')
-    loginPage.classList.remove('off')
-}
