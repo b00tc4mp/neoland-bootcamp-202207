@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <main class="login-page container container--spaced">
+    <main class="login-page container container--spaced off">
         <form class="form" action="https://www.google.com/search" method="get">
             <div class="form__field">
                 <label for="email">email</label>
@@ -53,14 +53,14 @@
         <a class="anchor" href="login.html">Login</a>
     </main>
 
-    <div class="home-page container off">
+    <div class="home-page container">
         <header class="header">
             <h1 class="title">Hello, User!</h1>
             <button class="logout-button transparent-button"><span class="material-symbols-outlined">logout</span></button>
         </header>
 
         <main class="main">
-            <ul class="list">
+            <ul class="list off">
                 <li class="list__item"><button class="list__item-delete-button">x</button>
                     <p contenteditable="true" class="list__item-text">Hello, Note! Lorem ipsum dolor sit amet
                         consectetur adipisicing elit. Dolores ab sunt tempora esse eaque, maiores similique ipsam
@@ -112,6 +112,12 @@
                         blanditiis nobis fugiat aut nesciunt rerum porro delectus distinctio?</p>
                 </li>
             </ul>
+
+            <div class="profile">
+                Profile
+
+                
+            </div>
         </main>
 
         <footer class="footer">
@@ -132,7 +138,7 @@
     <script src="logic/deleteNote.js"></script>
 
     <!-- presentation layer -->
-    <script src="index.js"></script>
+    <!-- <script src="index.js"></script> -->
 </body>
 
 </html>
