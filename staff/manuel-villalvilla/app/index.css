@@ -33,16 +33,7 @@ html, body {
     border-radius: 5px;
 }
 
-.register-form {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 10px;
-}
-
-.login-form {
+.register-form, .login-form, .password-form, .email-form {
     height: 100%;
     width: 100%;
     display: flex;
@@ -86,6 +77,16 @@ a, a:visited {
     padding: 10px;
 }
 
+.div-logout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logout-button {
+    height: auto;
+}
+
 .saludo {
     display: flex;
     color: white;
@@ -97,8 +98,12 @@ a, a:visited {
 .menu {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
+}
+
+.rotate {
+    transform: rotate(90deg);
 }
 
 .menu-icon {
@@ -114,6 +119,22 @@ a, a:visited {
     width: 100%;
     height: 85%;
     padding: 10px;
+}
+
+.hidden-menu {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    height: 50%;
+    width: 50%;
+    background-color: gray;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: white;
+    border-radius: 10px;
 }
 
 .list {
@@ -144,6 +165,14 @@ a, a:visited {
     color: black;
 }
 
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+    gap: 10px;
+}
+
 .footer {
     display: flex;
     width: 100%;
@@ -159,3 +188,14 @@ a, a:visited {
     display: none;
 }
 
+.von {
+    visibility: visible;
+    opacity: 1;
+    transition: all 0.5s linear;
+}
+
+.voff {
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.5s linear;
+}

@@ -1,8 +1,10 @@
 const loginPage = document.querySelector('.login-page');
 const registerPage = document.querySelector('.register-page');
 const homePage = document.querySelector('.home-page');
+const profileDisplay = document.querySelector('.profile')
+const notasDisplay = document.querySelector('.notas-display') 
 
-let _token;
+// let _token;
 
 // temp for UI
 // loginPage.classList.add('off')
@@ -36,29 +38,38 @@ loginForm.onsubmit = function(event) {
                 return;
             }
 
-            _token = token
+            loginForm.reset() // para borrar los datos del formulario cuando se envie
 
-            try {
-                retrieveUser(_token, function(error, user) {
-                    if (error) {
-                        alert(error.message)
-                        return;
-                    } 
+            // window.token = token
+            sessionStorage.token = token
 
-                    loginPage.classList.add('off');
-                    const saludo = homePage.querySelector('.saludo');
-                    saludo.innerText = 'Hello, ' + user.name + '!';
-                    refreshList();
-                    homePage.classList.remove('off');
- 
-                })
-            } catch(error) { 
-                alert(error.message);
-            }
+            renderHome()
+
+            
         })
     }
     catch(error) {
         alert(error.message)
+    }
+}
+
+function renderHome () {
+    try {
+        retrieveUser(sessionStorage.token, function(error, user) {
+            if (error) {
+                alert(error.message)
+                return;
+            } 
+
+            loginPage.classList.add('off');
+            const saludo = homePage.querySelector('.saludo');
+            saludo.innerText = 'Hello, ' + user.name + '!';
+            refreshList();
+            homePage.classList.remove('off');
+
+        })
+    } catch(error) { 
+        alert(error.message);
     }
 }
 
@@ -76,6 +87,7 @@ registerForm.onsubmit = function(event) {
                 alert(error.message);
                 return;
             } else {
+                registerForm.reset() // para borrar el formulario una vez que se envie
                 registerPage.classList.add('off');
                 loginPage.classList.remove('off');
             }
@@ -89,7 +101,7 @@ registerForm.onsubmit = function(event) {
 const plusButton = homePage.querySelector('.footer')
 plusButton.onclick = function () {
     try {
-        createNote(_token, error => {
+        createNote(sessionStorage.token, error => {
             if (error) {
                 alert(error.message)
                 return
@@ -102,9 +114,11 @@ plusButton.onclick = function () {
     }
 }
 
+// let _timeoutID
+
 function refreshList() {
     try {
-        retrieveNotes(_token, function(error, notes) {
+        retrieveNotes(sessionStorage.token, function(error, notes) {
             if (error) {
                 alert(error.message)
 
@@ -123,7 +137,7 @@ function refreshList() {
                 deleteButton.innerText = 'x'
                 deleteButton.onclick = function () {
                     try {
-                        deleteNote(_token, note.id, error => {
+                        deleteNote(sessionStorage.token, note.id, error => {
                             if (error) {
                                 alert(error.message)
 
@@ -140,18 +154,22 @@ function refreshList() {
                 const text = document.createElement('div')
                 text.contentEditable = true
                 text.classList.add('list__item-text')
-                text.onblur = function () {
-                    try {
-                        updateNote(_token, note.id, text.innerText, error => {
-                            if (error) {
-                                alert(error.message)
-
-                                return
-                            }
-                        })
-                    } catch (error) {
-                        alert(error.message)
-                    }
+                text.onkeyup = function () {
+                    if (window.timeoutID) // con el objeto window puedo añadir variables globales
+                        clearTimeout(window.timeoutID)
+                    window.timeoutID = setTimeout(() => {
+                        try {
+                            updateNote(sessionStorage.token, note.id, text.innerText, error => {
+                                if (error) {
+                                    alert(error.message)
+    
+                                    return
+                                }
+                            })
+                        } catch (error) {
+                            alert(error.message)
+                        }
+                    }, 1000)
                 }
                 text.innerText = note.text
 
@@ -165,3 +183,66 @@ function refreshList() {
         alert(error.message)
     }
 }
+
+if (sessionStorage.token) {
+    renderHome();
+}
+
+const logoutButton = document.querySelector('.logout-button')
+logoutButton.onclick = function() {
+    delete sessionStorage.token
+
+    homePage.classList.add('off')
+    loginPage.classList.remove('off')
+}
+
+const hiddenMenu = document.querySelector('.hidden-menu')
+
+const menuButton = document.querySelector('.menu')
+menuButton.addEventListener('click', () => {
+    menuButton.classList.toggle('rotate')
+    hiddenMenu.classList.toggle('voff')
+})
+
+
+const profileLink = document.querySelector('.profile-link')
+profileLink.addEventListener('click', () => {
+    menuButton.classList.toggle('rotate')
+    hiddenMenu.classList.add('voff')
+    notasDisplay.classList.add('off')
+    profileDisplay.classList.remove('off')
+    plusButton.classList.add('off')
+})
+
+const notesLink = document.querySelector('.notes-link')
+notesLink.addEventListener('click', () => {
+    menuButton.classList.toggle('rotate')
+    hiddenMenu.classList.add('voff')
+    notasDisplay.classList.remove('off')
+    profileDisplay.classList.add('off')
+    plusButton.classList.remove('off')
+})
+
+const passwordForm = document.querySelector('.password-form')
+passwordForm.onsubmit = function (event) {
+    event.preventDefault()
+
+    const currentPass = passwordForm.currentPassword.value
+    const newPass = passwordForm.newPassword.value
+    const repeatPass = passwordForm.repeatPassword.value
+    
+    try {
+        updateUserPassword(sessionStorage.token, currentPass, newPass, repeatPass, error => {
+            if(error) {
+                alert(error.message)
+                return
+            }
+            alert('password changed successfully')
+
+        })
+    } catch(error) {
+        alert(error.message)
+    }
+    
+}
+
