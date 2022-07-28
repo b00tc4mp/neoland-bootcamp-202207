@@ -15,7 +15,7 @@ function deleteNote( token, noteId, callback){
         if(status >= 500)
             callback(new Error(`server error (${status})`))
         else if (status >= 400)
-            callback(new Error(`client error (${status})`))
+            callback(new Error(`Client error (${JSON.parse(xhr.response).error})`))
         else if (status === 200){
             const data = JSON.parse(xhr.response)
             const notes = data.notes
@@ -38,7 +38,7 @@ function deleteNote( token, noteId, callback){
                 if (status >= 500)
                     callback(new Error(`server error (${status})`))
                 else if (status >= 400)
-                    callback(new Error(`client error (${status})`))
+                callback(new Error(`Client error (${JSON.parse(xhr2.response).error})`))
                 else if (status === 204)
                     callback(null)
             }

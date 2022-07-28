@@ -25,7 +25,8 @@ function authenticateUser(email, password, callback){
         if(status >=500)
         callback(new Error(`Server error (${status})`))
         if(status >= 400){
-            callback(new Error(`client error (${status})`))
+            console.log(xhr)
+            callback(new Error(`Client error (${JSON.parse(xhr.response).error})`))
         }else if( status === 200)
             callback(null, JSON.parse(xhr.response).token)
     }

@@ -8,6 +8,8 @@ const registerForm = document.querySelector('.registerForm')
 const registerLink = document.querySelector('.registerLink')
 const loginLink = document.querySelector('.loginLink')
 
+let _timeOutId
+
 // temp for design purposes (Disable login enable home)
 /* loginPage.classList.add('off')
 homePage.classList.remove('off') */
@@ -15,7 +17,9 @@ homePage.classList.remove('off') */
 // temp for design purposes (Disable login enable register)
 /* loginPage.classList.add('off')
 registerPage.classList.remove('off') */
-
+if(sessionStorage.UserToken){
+    renderHome()
+}
 registerLink.addEventListener("click", function (event) {
     event.preventDefault()
 
@@ -46,28 +50,7 @@ loginForm.addEventListener('submit', function (event) {
             }
             // Guardo el token del usuario
             sessionStorage.setItem('UserToken', token)
-            try {
-                retrieveUser(token, function (error, user) {
-                    if (error) {
-                        alert(error.message)
-                        return
-                    }
-
-                    // Guardo los datos del usuario
-                    sessionStorage.setItem('UserStored', JSON.stringify(user))
-                    const headerTitle = document.getElementById('headerTitle')
-                    headerTitle.textContent = `Hello, ${user.name}`
-
-                    refreshList()
-                    setTimeout(() => {
-                        homePage.classList.remove('off')
-                        loginPage.classList.add('off')
-                    }, 300)
-
-                })
-            } catch (error) {
-                alert(error.message)
-            }
+            renderHome()
         })
     } catch (error) {
         alert(error.message)
@@ -75,6 +58,30 @@ loginForm.addEventListener('submit', function (event) {
     loginForm.reset()
 })
 
+function renderHome(){
+    try {
+        retrieveUser(sessionStorage.UserToken, function (error, user) {
+            if (error) {
+                alert(error.message)
+                return
+            }
+
+            // Guardo los datos del usuario
+            sessionStorage.setItem('UserStored', JSON.stringify(user))
+            const headerTitle = document.getElementById('headerTitle')
+            headerTitle.textContent = `Hello, ${user.name}`
+
+            refreshList()
+            setTimeout(() => {
+                homePage.classList.remove('off')
+                loginPage.classList.add('off')
+            }, 300)
+
+        })
+    } catch (error) {
+        alert(error.message)
+    }
+}
 registerForm.addEventListener('submit', function (event) {
     event.preventDefault()
 
@@ -150,7 +157,6 @@ createNoteButton.onclick = function (event) {
 
 function refreshList() {
     const token = sessionStorage.UserToken
-
     try {
         retrieveNotes(token, function (error, userNotes) {
             if (error) {
@@ -193,30 +199,24 @@ function refreshList() {
                 }
                 
                 container.onkeyup = function () {
+                    if(_timeOutId)
+                        clearTimeout(_timeOutId)
+                    
+                     _timeOutId = setTimeout(function(){
 
-                    let lastTextValue = elementText.textContent
-                    let lastTitleValue = elementTitle.textContent
-                    setTimeout(function(){
-                        
-                        if((lastTextValue === elementText.textContent) && (lastTitleValue === elementTitle.textContent)){
                             try {
                                 updateNote(token, note.id, elementTitle.textContent, elementText.textContent, error => {
                                     if (error) {
                                         alert(error.message)
                                         return
                                     }
-                                    console.log('Update con exito')
                                 })
+                            
                             } catch (error) {
                                 alert(error.message)
                                 refreshList()
                             }
-                        }
-                        
-                    
-                    },2000)
-                        
-                    
+                    },500)
                 }
                 elementTitle.textContent = note.title
                 elementText.textContent = note.text
@@ -287,10 +287,10 @@ const logoutLink = document.querySelector('.logoutLink')
 logoutLink.addEventListener('click', function () {
     let result = confirm('Are you sure you want to logout?')
     if (result) {
+        sessionStorage.removeItem('UserToken')
         loginPage.classList.remove('off')
         homePage.classList.add('off')
     }
-
 })
 
 
