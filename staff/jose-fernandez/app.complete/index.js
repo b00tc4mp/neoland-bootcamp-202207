@@ -119,6 +119,31 @@ registerForm.onsubmit = function (event) {
 
 
 
+const updatePassword = homePage.querySelector('.formProfile')
+
+updatePassword.onsubmit = function (event) {
+    event.preventDefault()
+
+    const oldPassword = updatePassword.oldPassword.value
+    const newPassword = updatePassword.newPassword.value
+    const repeatNewPassword = updatePassword.repeatNewPassword.value
+
+    try {
+        updateUserPassword(sessionStorage.token, oldPassword, newPassword, repeatNewPassword, function (error) {
+
+
+        })
+    } catch (error) {
+
+    }
+
+
+}
+
+
+
+
+
 const createNoteForm = homePage.querySelector('.formcreateNote')
 
 createNoteForm.onsubmit = function (event) {
@@ -230,10 +255,10 @@ function renderNotes() {
 }
 
 
-design=homePage.querySelector('.design')
-const navHome=homePage.querySelector(".nav-home")
-const formDesign=homePage.querySelector(".formDesign")
-const btnBack=homePage.querySelector(".btnBack")
+design = homePage.querySelector('.design')
+const navHome = homePage.querySelector(".nav-home")
+const formDesign = homePage.querySelector(".formDesign")
+const btnBack = homePage.querySelector(".btnBack")
 
 
 
@@ -254,8 +279,8 @@ design.onclick = function () {
     formDesign.classList.remove('off')
 }
 
-const formProfile=homePage.querySelector(".formProfile")
-profile=homePage.querySelector('.profile')
+const formProfile = homePage.querySelector(".formProfile")
+profile = homePage.querySelector('.profile')
 
 profile.onclick = function () {
 
@@ -303,23 +328,23 @@ profile.onclick = function () {
 //     btn__pluss.classList.remove('off')
 // }
 
-const link_home_login=homePage.querySelector('.link_home')
-link_home_login.onclick=function(){
+const link_home_login = homePage.querySelector('.link_home')
+link_home_login.onclick = function () {
 
-formDesign.classList.add('off')
-list__Notes.classList.remove('off')
-btn__pluss.classList.remove('off')
-navHome.classList.toggle('mostrar')
+    formDesign.classList.add('off')
+    list__Notes.classList.remove('off')
+    btn__pluss.classList.remove('off')
+    navHome.classList.toggle('mostrar')
 }
 
 if (sessionStorage.token)
     renderHome()
 
-const logoutButton= homePage.querySelector('.btn_logout')
+const logoutButton = homePage.querySelector('.btn_logout')
 
-logoutButton.onclick = function(){
+logoutButton.onclick = function () {
     delete sessionStorage.token
-    
+
     homePage.classList.add('off')
     navHome.classList.toggle('mostrar')
     loginPage.classList.remove('off')

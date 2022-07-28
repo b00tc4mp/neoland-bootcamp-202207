@@ -32,6 +32,7 @@ function retrieveUser(token, callback) {
             const user={
                 name:data.name,
                 email:data.username
+                
             }
 
             //llamo a callback con null, en el parametro  de manejo de errores
