@@ -237,7 +237,30 @@ passwordForm.onsubmit = function (event) {
                 alert(error.message)
                 return
             }
+            passwordForm.reset()
             alert('password changed successfully')
+
+        })
+    } catch(error) {
+        alert(error.message)
+    }
+    
+}
+
+const newEmailForm = document.querySelector('.email-form')
+newEmailForm.onsubmit = function (event) {
+    event.preventDefault()
+
+    const newEmail = newEmailForm.newEmail.value
+    
+    try {
+        updateUserEmail(sessionStorage.token, newEmail, error => {
+            if(error) {
+                alert(error.message)
+                return
+            }
+            newEmailForm.reset()
+            alert('email changed successfully')
 
         })
     } catch(error) {
