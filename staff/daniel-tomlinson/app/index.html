@@ -82,8 +82,15 @@
 
           <header class=" header flex-container">
               <div class="navigation-bar">
-                <button type="menu" class="menu-button"><i class="fa-solid fa-poo nav-icon">
-                </i></button></div>
+                <h1>Helado Oscuro</h1>
+                <button type="menu" class="menu-button notes-button"><i class="fa-solid fa-poo nav-icon notes-button-style">
+                </i></button>
+                <button type="menu" class="menu-button profile-button"><i class="fa-solid fa-poo nav-icon profile-button-style">
+                </i></button>
+                <button type="menu" class="menu-button logout-button"><i class="fa-solid fa-poo nav-icon logout-button-style">
+                </i></button>
+                
+              </div>
               <h1 class="title">Hello, Mundo!</h1>
 
               <!-- <nav class="nav-home" id="nav-home">
@@ -168,8 +175,34 @@
   </p>
 </li>
               </ul> -->
-          </main>
 
+              <div class="profile-page page off background flex-container">
+          
+                  <div class="resetPassword-elements flex-container">
+                    <form action="" class="form flex-container reset-password-form">
+                      <div class="input-fields">
+            
+                        <div class="form__field">
+                          <label for="oldPassword">name</label>
+                          <input type="password" placeholder="old password" name="oldPassword" id="oldPassword" class="input-item" />
+                        </div>
+            
+                        <div class="form__field">
+                          <label for="newPassword">email</label>
+                          <input type="password" placeholder="new password" name="newPassword" id="newPassword" class="input-item" />
+                        </div>
+            
+                        <div class="form__field">
+                          <label for="retypeNewPassword">password</label>
+                          <input type="password" placeholder="retype new password" name="retypeNewPassword" id="retypeNewPassword" class="input-item" />
+                        </div>
+            
+                      </div></div>
+                      <button type="submit" class="button--primary">Save</button>
+                    </form>
+                  </div>
+
+          </main>
 
 
           <footer class="footer flex-container"><button class="transparent-button">+</button></footer>

@@ -2,12 +2,7 @@ const loginPage = document.querySelector(".login-page");
 const registerPage = document.querySelector(".register-page");
 const homePage = document.querySelector(".home-page");
 
-// let _user;
-
-let _token;
-
 const registerLink = loginPage.querySelector(".anchor");
-
 registerLink.onclick = function (event) {
   event.preventDefault();
 
@@ -25,7 +20,6 @@ loginLink.onclick = function (event) {
 };
 
 const loginForm = loginPage.querySelector(".form");
-
 loginForm.onsubmit = function (event) {
   event.preventDefault();
 
@@ -39,128 +33,49 @@ loginForm.onsubmit = function (event) {
 
         return;
       }
-      _token = token;
 
-      try {
-        retrieveUser(_token, function (error, user) {
-          if (error) {
-            alert(error.message);
+      loginForm.reset();
 
-            return;
-          }
+      sessionStorage.token = token;
 
-          // _user = user;
-
-          // try {
-          //   retrieveNotes(user.id, function (error, notes) {
-          //     if (error) {
-          //       alert(error.message);
-
-          //       return;
-          //     }
-
-          loginPage.classList.add("off");
-
-          const title = homePage.querySelector(".title");
-
-          title.innerText = "Hello " + user.name + "!";
-
-          refreshList();
-
-          homePage.classList.remove("off");
-
-          const textareas = document.getElementsByClassName("list__item-text");
-
-          for (let i = 0; i < textareas.length; i++) {
-            textareas[i].style.height = "1px";
-            textareas[i].style.height = textareas[i].scrollHeight + "px";
-          }
-
-          // new code for scroller
-
-          // let scrollList = homePage.querySelector(".main-page-content");
-          // debugger;
-          // scrollList.scrollTo = 0 + "px";
-          // scrollList.scrollHeight;
-
-          //new code for scroller end
-
-          // const list = homePage.querySelector(".list");
-
-          // list.innerHTML = "";
-
-          // notes.forEach((note) => {
-          //   const item = document.createElement("li");
-          //   item.classList.add("list__item");
-
-          //   const text = document.createElement("textarea");
-          //   text.classList.add("list__item-text");
-
-          //   text.onkeyup = function () {
-          //     text.style.height = "1px";
-          //     text.style.height = text.scrollHeight + "px";
-
-          //     try {
-          //       updateNote(_user.id, note.id, text.value, (error) => {
-          //         if (error) {
-          //           alert(error.message);
-
-          //           return;
-          //         }
-          // });
-          //         } catch (error) {
-          //           alert(error.message);
-          //         }
-          //       };
-
-          //       text.value = note.text;
-
-          //       item.append(text);
-
-          //       list.append(item);
-          //     });
-          //     homePage.classList.remove("off");
-
-          //     const textareas =
-          //       document.getElementsByClassName("list__item-text");
-
-          //     for (let i = 0; i < textareas.length; i++) {
-          //       textareas[i].style.height = "1px";
-          //       textareas[i].style.height = textareas[i].scrollHeight + "px";
-          //     }
-
-          //     // new code for scroller
-
-          //     let scrollList = homePage.querySelector(".main-page-content");
-          //     debugger;
-          //     scrollList.scrollTo = 0 + "px";
-          //     // scrollList.scrollHeight;
-
-          //     //new code for scroller end
-          //   });
-          // } catch (error) {
-          //   alert(error.message);
-          // }
-        });
-      } catch (error) {
-        alert(error.message);
-      }
+      renderHome();
     });
   } catch (error) {
     alert(error.message);
   }
 };
-/*   const user = users.find(function (user) {
-    return user.email === email && user.password === password;
-  });
+function renderHome() {
+  try {
+    retrieveUser(sessionStorage.token, function (error, user) {
+      if (error) {
+        alert(error.message);
 
-  if (user) {
-    
-  } else alert("credentials error");
-}; */
+        return;
+      }
+
+      loginPage.classList.add("off");
+
+      const title = homePage.querySelector(".title");
+
+      title.innerText = "Hello " + user.name + "!";
+
+      renderNotes();
+
+      homePage.classList.remove("off");
+
+      const textareas = document.getElementsByClassName("list__item-text");
+
+      for (let i = 0; i < textareas.length; i++) {
+        textareas[i].style.height = "1px";
+        textareas[i].style.height = textareas[i].scrollHeight + "px";
+      }
+    });
+  } catch (error) {
+    alert(error.message);
+  }
+}
 
 const registerForm = registerPage.querySelector(".form");
-
 registerForm.onsubmit = function (event) {
   event.preventDefault();
 
@@ -175,6 +90,8 @@ registerForm.onsubmit = function (event) {
 
         return;
       }
+      registerForm.reset();
+
       registerPage.classList.add("off");
       loginPage.classList.remove("off");
     });
@@ -186,68 +103,23 @@ registerForm.onsubmit = function (event) {
 const plusButton = homePage.querySelector(".transparent-button");
 plusButton.onclick = function () {
   try {
-    createNote(_token, (error) => {
+    createNote(sessionStorage.token, (error) => {
       if (error) {
         alert(error.message);
 
         return;
       }
 
-      refreshList();
-
-      // try {
-      //   retrieveNotes(_user.id, function (error, notes) {
-      //     if (error) {
-      //       alert(error.message);
-
-      //       return;
-      //     }
-
-      //     const list = homePage.querySelector(".list");
-      //     list.innerHTML = "";
-
-      //     notes.forEach((note) => {
-      //       const item = document.createElement("li");
-      //       item.classList.add("list__item");
-
-      //       const text = document.createElement("textarea");
-      //       text.classList.add("list__item-text");
-      //       text.onkeyup = function () {
-      //         text.style.height = "1px";
-      //         text.style.height = text.scrollHeight + "px";
-
-      //         try {
-      //           updateNote(_user.id, note.id, text.value, (error) => {
-      //             if (error) {
-      //               alert(error.message);
-
-      //               return;
-      //             }
-      //           });
-      //         } catch (error) {
-      //           alert(error.message);
-      //         }
-      //       };
-
-      //       text.value = note.text;
-
-      //       item.append(text);
-
-      //       list.append(item);
-      //     });
-      //   });
-      // } catch (error) {
-      //   alert(error.message);
-      // }
+      renderNotes();
     });
   } catch (error) {
     alert(error.message);
   }
 };
 
-function refreshList() {
+function renderNotes() {
   try {
-    retrieveNotes(_token, function (error, notes) {
+    retrieveNotes(sessionStorage.token, function (error, notes) {
       if (error) {
         alert(error.message);
 
@@ -266,28 +138,19 @@ function refreshList() {
         deleteButton.innerText = "x";
         deleteButton.onclick = function () {
           try {
-            deleteNote(_token, note.id, (error) => {
+            deleteNote(sessionStorage.token, note.id, (error) => {
               if (error) {
                 alert(error.message);
 
                 return;
               }
 
-              refreshList();
+              renderNotes();
             });
           } catch (error) {
             alert(error.message);
           }
         };
-
-        /*         //repeated from authenticate//
-        const textareas = document.getElementsByClassName("list__item-text");
-
-        for (let i = 0; i < textareas.length; i++) {
-          textareas[i].style.height = "1px";
-          textareas[i].style.height = textareas[i].scrollHeight + "px";
-        }
-        // ======= // */
 
         const text = document.createElement("textarea");
         // text.contentEditable = "true";
@@ -299,20 +162,22 @@ function refreshList() {
           if (item.height > 250)
             item.style.padding = text.scrollHeight - text.height + "px";
 
-          /*           if (text.style.height > 250) 
-          text.style.padding-top = text.scrollHeight - 250; */
+          if (window.updateNoteTimeoutId)
+            clearTimeout(window.updateNoteTimeoutId);
 
-          try {
-            updateNote(_token, note.id, text.value, (error) => {
-              if (error) {
-                alert(error.message);
+          window.updateNotetimeoutId = setTimeout(() => {
+            try {
+              updateNote(sessionStorage.token, note.id, text.value, (error) => {
+                if (error) {
+                  alert(error.message);
 
-                return;
-              }
-            });
-          } catch (error) {
-            alert(error.message);
-          }
+                  return;
+                }
+              });
+            } catch (error) {
+              alert(error.message);
+            }
+          }, 1000);
         };
         text.value = note.text;
 
@@ -325,3 +190,28 @@ function refreshList() {
     alert(error.message);
   }
 }
+
+if (sessionStorage.token) renderHome();
+
+const logoutButton = document.querySelector(".logout-button");
+logoutButton.onclick = function () {
+  delete sessionStorage.token;
+
+  homePage.classList.add("off");
+  loginPage.classList.remove("off");
+};
+
+const profileButton = document.querySelector(".profile-button");
+const profilePage = document.querySelector(".profile-page");
+const list = homePage.querySelector(".list");
+profileButton.onclick = function () {
+  list.classList.add("off");
+  profilePage.classList.remove("off");
+};
+
+const notesButton = document.querySelector(".notes-button");
+
+notesButton.onclick = function () {
+  list.classList.remove("off");
+  profilePage.classList.add("off");
+};

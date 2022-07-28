@@ -58,10 +58,15 @@ html {
   height: 100%;
   flex-grow: 1;
   overflow: auto;
+  width: 100%;
 }
 
 .off {
   display: none !important;
+}
+
+.profile-page {
+  width: 100%;
 }
 
 .header {
@@ -313,6 +318,14 @@ button:hover {
   border: none;
 }
 
+.notes-button-style {
+  color: #e5a9a9;
+}
+
+.profile-button-style {
+  color: #d66ba0;
+}
+
 /* lists */
 
 .list {
@@ -378,4 +391,8 @@ button:hover {
   width: calc(100% - 2rem);
   /* height: calc(100% - 2rem); */
   overflow: hidden;
+}
+
+.resetPassword-elements {
+  width: 100%;
 }
