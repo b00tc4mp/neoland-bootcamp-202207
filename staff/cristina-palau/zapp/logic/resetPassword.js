@@ -1,5 +1,5 @@
 function resetPassword(email, question, answer, callback) {
-    if (typeof email !== 'string') throw new TypeError('reset is not a string')
+    if (typeof email !== 'string') throw new TypeError('email is not a string')
     if (email.trim().length === 0) throw new Error('email is empty or blank')
     if (email.length < 6) throw new Error('email length is not valid')
     if (!EMAIL_REGEX.test(email)) throw new Error('email is not valid')

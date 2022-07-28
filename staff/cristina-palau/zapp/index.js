@@ -3,7 +3,7 @@ const registerPage = document.querySelector('.register-page')
 const homePage = document.querySelector('.home-page')
 const passwordPage = document.querySelector('.password-page')
 
-let _token
+let _user
 
 // loginPage.classList.add('off')
 // homePage.classList.remove('off')
@@ -34,21 +34,21 @@ loginForm.onsubmit = function (event) {
     const password = loginForm.password.value
 
     try {
-        authenticateUser(email, password, function (error, token) {
+        authenticateUser(email, password, function (error, userId) {
             if (error) {
                 alert(error.message)
 
                 return
             }
-
-            _token = token
-
+            
             try {
-                retrieveUser(_token, function (error, user) {
+                retrieveUser(userId, function (error, user) {
                     if (error) {
                         alert(error.message)
                         return
                     }
+
+                    _user = user
 
                     loginPage.classList.add('off')
 
@@ -78,7 +78,7 @@ const addNote = homePage.querySelector('.addnote')
 addNote.onclick = function () {
 
     try {
-        createNote(_token, function (error) {
+        createNote(_user.id, function (error) {
             if (error) {
                 alert(error.message)
 
@@ -100,12 +100,12 @@ registerForm.onsubmit = function (event) {
     const name = registerForm.name.value
     const email = registerForm.email.value
     const password = registerForm.password.value
-    // const questionselector = document.getElementById("question")
-    // const question = questionselector.options[questionselector.selectedIndex].text
-    // const answer = registerForm.answer.value
+    const questionselector = document.getElementById("question")
+    const question = questionselector.options[questionselector.selectedIndex].text
+    const answer = registerForm.answer.value
 
     try {
-        registerUser(name, email, password, function (error) {
+        registerUser(name, email, password, question, answer, function (error) {
             if (error) {
                 alert(error.message)
 
@@ -129,44 +129,44 @@ resetLink.onclick = function (event) {
 }
 
 
-// const loginPassLink = passwordPage.querySelector('.anchor')
-// loginPassLink.onclick = function (event) {
-//     event.preventDefault()
+const loginPassLink = passwordPage.querySelector('.anchor')
+loginPassLink.onclick = function (event) {
+    event.preventDefault()
 
-//     passwordPage.classList.add('off')
-//     loginPage.classList.remove('off')
-// }
+    passwordPage.classList.add('off')
+    loginPage.classList.remove('off')
+}
 
-// const passwordForm = passwordPage.querySelector('.form')
-// passwordForm.onsubmit = function (event) {
-//     event.preventDefault()
+const passwordForm = passwordPage.querySelector('.form')
+passwordForm.onsubmit = function (event) {
+    event.preventDefault()
 
-//     const email = passwordForm.email.value
-//     const questionselector = document.getElementById("passquestion")
-//     const question = questionselector.options[questionselector.selectedIndex].text
-//     const answer = passwordForm.passanswer.value
+    const email = passwordForm.email.value
+    const questionselector = document.getElementById("passquestion")
+    const question = questionselector.options[questionselector.selectedIndex].text
+    const answer = passwordForm.passanswer.value
 
-//     try {
-//         resetPassword(email, question, answer, function (error, user) {
-//             if (error) {
-//                 alert(error.message)
-//                 return
-//             }
+    try {
+        resetPassword(email, question, answer, function (error, user) {
+            if (error) {
+                alert(error.message)
+                return
+            }
 
 
-//             alert('your password is ' + user.password)
+            alert('your password is ' + user.password)
 
-//             passwordForm.reset()
+            passwordForm.reset()
 
-//             passwordPage.classList.add('off')
-//             loginPage.classList.remove('off')
-//         })
-//     } catch (error) {
-//         alert(error.message)
-//     }
-
-//     passwordForm.reset()
-// }
+            passwordPage.classList.add('off')
+            loginPage.classList.remove('off')
+        })
+    } catch (error) {
+        alert(error.message)
+    }
+    
+    passwordForm.reset()
+}
 
 const logoutLink = homePage.querySelector('.anchor')
 logoutLink.onclick = function (event) {
@@ -178,7 +178,7 @@ logoutLink.onclick = function (event) {
 
 function refreshList() {
     try {
-        retrieveNotes(_token, function (error, notes) {
+        retrieveNotes(_user.id, function (error, notes) {
             if (error) {
                 alert(error.message)
 
@@ -198,7 +198,7 @@ function refreshList() {
 
                 deleteButton.onclick = function () {
                     try {
-                        deleteNote(_token, note.id, error => {
+                        deleteNote(_user.id, note.id, error => {
                             if (error) {
                                 alert(error.message)
 
@@ -212,21 +212,20 @@ function refreshList() {
                     }
                 }
 
-                const text = document.createElement('p')
+                const text = document.createElement('div')
                 text.classList.add('list__item-text')
                 text.contentEditable = true
 
                 text.onkeyup = function () {
                     try {
-                        updateNote(_token, note.id, text.textContent, error => {
+                        updateNote(_user.id, note.id, text.textContent, error => {
                             if (error) {
                                 alert(error.message)
 
                                 return
                             }
-                        }
-                        )
-                        
+                        })
+
                     } catch (error) {
                         alert(error.message)
                     }
@@ -234,7 +233,9 @@ function refreshList() {
 
                 text.innerHTML = note.text
 
-                item.append(deleteButton, text)
+                item.append(deleteButton)
+
+                item.append(text)
 
                 list.append(item)
 
