@@ -1,13 +1,5 @@
-// ============ NEW ================ //
-
-function createNote(token, callback) {
+function createNotes(token, noteId, text, callback) {
   //TODO validate inputs
-
-  if (typeof token !== "string") throw new TypeError("token is not a string");
-  if (token.trim().length === 0) throw new Error("token is empty or blank");
-
-  if (typeof callback !== "function")
-    throw new TypeError("callback is not a function");
 
   const xhr = new XMLHttpRequest();
 
@@ -22,18 +14,18 @@ function createNote(token, callback) {
       const userJSON = xhr.responseText;
       const userObject = JSON.parse(userJSON);
 
-      const notes = userObject.notes ? userObject.notes : [];
+      const notes = userObject.notes;
 
       console.log(notes);
 
       const newNote = {
-        id: "note- " + Date.now(),
-        text: "",
+        noteId: noteId,
+        text: text,
       };
 
       notes.push(newNote);
 
-      const newNotesJSON = JSON.stringify({ notes });
+      const newNotesJSON = JSON.stringify(notes);
 
       const xhr2 = new XMLHttpRequest();
 
@@ -52,6 +44,8 @@ function createNote(token, callback) {
 
       xhr2.send(newNotesJSON);
     }
+
+    // XMLHttprequest
   };
 
   // XMLHttprequest
@@ -61,4 +55,13 @@ function createNote(token, callback) {
   xhr.setRequestHeader("Authorization", `Bearer ${token}`);
 
   xhr.send();
+
+  // return xmlHttp.responseText;
 }
+
+createNotes(
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmRmZmE2MWQ0NDE4ODAwMTdiMjNkMzciLCJpYXQiOjE2NTg5MjY2NDYsImV4cCI6MTY1ODkzMDI0Nn0.LeiUC7qRwqDMNYvnWLqv1eP0l8WvffFaPh0tjiYu2eE",
+  "1010",
+  "debugging in snippets",
+  console.log
+);

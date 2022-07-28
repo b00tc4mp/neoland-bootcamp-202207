@@ -2,7 +2,9 @@ const loginPage = document.querySelector(".login-page");
 const registerPage = document.querySelector(".register-page");
 const homePage = document.querySelector(".home-page");
 
-let _user;
+// let _user;
+
+let _token;
 
 const registerLink = loginPage.querySelector(".anchor");
 
@@ -31,76 +33,114 @@ loginForm.onsubmit = function (event) {
   const password = loginForm.password.value;
 
   try {
-    authenticateUser(email, password, function (error) {
+    authenticateUser(email, password, function (error, token) {
       if (error) {
         alert(error.message);
 
         return;
       }
+      _token = token;
 
       try {
-        retrieveUser(email, function (error, user) {
+        retrieveUser(_token, function (error, user) {
           if (error) {
             alert(error.message);
 
             return;
           }
 
-          _user = user;
+          // _user = user;
 
-          try {
-            retrieveNotes(user.id, function (error, notes) {
-              if (error) {
-                alert(error.message);
+          // try {
+          //   retrieveNotes(user.id, function (error, notes) {
+          //     if (error) {
+          //       alert(error.message);
 
-                return;
-              }
+          //       return;
+          //     }
 
-              loginPage.classList.add("off");
+          loginPage.classList.add("off");
 
-              const title = homePage.querySelector(".title");
+          const title = homePage.querySelector(".title");
 
-              title.innerText = "Hello " + user.name + "!";
+          title.innerText = "Hello " + user.name + "!";
 
-              const list = homePage.querySelector(".list");
-              list.innerHTML = "";
+          refreshList();
 
-              // list.i;
+          homePage.classList.remove("off");
 
-              notes.forEach((note) => {
-                const item = document.createElement("li");
-                item.classList.add("list__item");
+          const textareas = document.getElementsByClassName("list__item-text");
 
-                const text = document.createElement("textarea");
-                text.classList.add("list__item-text");
-                text.onkeyup = function () {
-                  text.style.height = "1px";
-                  text.style.height = text.scrollHeight + "px";
-
-                  try {
-                    updateNote(_user.id, note.id, text.value, (error) => {
-                      if (error) {
-                        alert(error.message);
-
-                        return;
-                      }
-                    });
-                  } catch (error) {
-                    alert(error.message);
-                  }
-                };
-
-                text.value = note.text;
-
-                item.append(text);
-
-                list.append(item);
-              });
-              homePage.classList.remove("off");
-            });
-          } catch (error) {
-            alert(error.message);
+          for (let i = 0; i < textareas.length; i++) {
+            textareas[i].style.height = "1px";
+            textareas[i].style.height = textareas[i].scrollHeight + "px";
           }
+
+          // new code for scroller
+
+          // let scrollList = homePage.querySelector(".main-page-content");
+          // debugger;
+          // scrollList.scrollTo = 0 + "px";
+          // scrollList.scrollHeight;
+
+          //new code for scroller end
+
+          // const list = homePage.querySelector(".list");
+
+          // list.innerHTML = "";
+
+          // notes.forEach((note) => {
+          //   const item = document.createElement("li");
+          //   item.classList.add("list__item");
+
+          //   const text = document.createElement("textarea");
+          //   text.classList.add("list__item-text");
+
+          //   text.onkeyup = function () {
+          //     text.style.height = "1px";
+          //     text.style.height = text.scrollHeight + "px";
+
+          //     try {
+          //       updateNote(_user.id, note.id, text.value, (error) => {
+          //         if (error) {
+          //           alert(error.message);
+
+          //           return;
+          //         }
+          // });
+          //         } catch (error) {
+          //           alert(error.message);
+          //         }
+          //       };
+
+          //       text.value = note.text;
+
+          //       item.append(text);
+
+          //       list.append(item);
+          //     });
+          //     homePage.classList.remove("off");
+
+          //     const textareas =
+          //       document.getElementsByClassName("list__item-text");
+
+          //     for (let i = 0; i < textareas.length; i++) {
+          //       textareas[i].style.height = "1px";
+          //       textareas[i].style.height = textareas[i].scrollHeight + "px";
+          //     }
+
+          //     // new code for scroller
+
+          //     let scrollList = homePage.querySelector(".main-page-content");
+          //     debugger;
+          //     scrollList.scrollTo = 0 + "px";
+          //     // scrollList.scrollHeight;
+
+          //     //new code for scroller end
+          //   });
+          // } catch (error) {
+          //   alert(error.message);
+          // }
         });
       } catch (error) {
         alert(error.message);
@@ -146,59 +186,142 @@ registerForm.onsubmit = function (event) {
 const plusButton = homePage.querySelector(".transparent-button");
 plusButton.onclick = function () {
   try {
-    createNote(_user.id, (error) => {
+    createNote(_token, (error) => {
       if (error) {
         alert(error.message);
 
         return;
       }
 
-      try {
-        retrieveNotes(_user.id, function (error, notes) {
-          if (error) {
-            alert(error.message);
+      refreshList();
 
-            return;
-          }
+      // try {
+      //   retrieveNotes(_user.id, function (error, notes) {
+      //     if (error) {
+      //       alert(error.message);
 
-          const list = homePage.querySelector(".list");
-          list.innerHTML = "";
+      //       return;
+      //     }
 
-          notes.forEach((note) => {
-            const item = document.createElement("li");
-            item.classList.add("list__item");
+      //     const list = homePage.querySelector(".list");
+      //     list.innerHTML = "";
 
-            const text = document.createElement("textarea");
-            text.classList.add("list__item-text");
-            text.onkeyup = function () {
-              text.style.height = "1px";
-              text.style.height = text.scrollHeight + "px";
+      //     notes.forEach((note) => {
+      //       const item = document.createElement("li");
+      //       item.classList.add("list__item");
 
-              try {
-                updateNote(_user.id, note.id, text.value, (error) => {
-                  if (error) {
-                    alert(error.message);
+      //       const text = document.createElement("textarea");
+      //       text.classList.add("list__item-text");
+      //       text.onkeyup = function () {
+      //         text.style.height = "1px";
+      //         text.style.height = text.scrollHeight + "px";
 
-                    return;
-                  }
-                });
-              } catch (error) {
-                alert(error.message);
-              }
-            };
+      //         try {
+      //           updateNote(_user.id, note.id, text.value, (error) => {
+      //             if (error) {
+      //               alert(error.message);
 
-            text.value = note.text;
+      //               return;
+      //             }
+      //           });
+      //         } catch (error) {
+      //           alert(error.message);
+      //         }
+      //       };
 
-            item.append(text);
+      //       text.value = note.text;
 
-            list.append(item);
-          });
-        });
-      } catch (error) {
-        alert(error.message);
-      }
+      //       item.append(text);
+
+      //       list.append(item);
+      //     });
+      //   });
+      // } catch (error) {
+      //   alert(error.message);
+      // }
     });
   } catch (error) {
     alert(error.message);
   }
 };
+
+function refreshList() {
+  try {
+    retrieveNotes(_token, function (error, notes) {
+      if (error) {
+        alert(error.message);
+
+        return;
+      }
+
+      const list = homePage.querySelector(".list");
+      list.innerHTML = "";
+
+      notes.forEach((note) => {
+        const item = document.createElement("li");
+        item.classList.add("list__item");
+
+        const deleteButton = document.createElement("button");
+        deleteButton.classList.add("list__item-delete-button");
+        deleteButton.innerText = "x";
+        deleteButton.onclick = function () {
+          try {
+            deleteNote(_token, note.id, (error) => {
+              if (error) {
+                alert(error.message);
+
+                return;
+              }
+
+              refreshList();
+            });
+          } catch (error) {
+            alert(error.message);
+          }
+        };
+
+        /*         //repeated from authenticate//
+        const textareas = document.getElementsByClassName("list__item-text");
+
+        for (let i = 0; i < textareas.length; i++) {
+          textareas[i].style.height = "1px";
+          textareas[i].style.height = textareas[i].scrollHeight + "px";
+        }
+        // ======= // */
+
+        const text = document.createElement("textarea");
+        // text.contentEditable = "true";
+        text.classList.add("list__item-text");
+        text.onkeyup = function () {
+          text.style.height = "1px";
+          text.style.height = text.scrollHeight + "px";
+
+          if (item.height > 250)
+            item.style.padding = text.scrollHeight - text.height + "px";
+
+          /*           if (text.style.height > 250) 
+          text.style.padding-top = text.scrollHeight - 250; */
+
+          try {
+            updateNote(_token, note.id, text.value, (error) => {
+              if (error) {
+                alert(error.message);
+
+                return;
+              }
+            });
+          } catch (error) {
+            alert(error.message);
+          }
+        };
+        text.value = note.text;
+
+        item.append(deleteButton, text);
+
+        list.append(item);
+      });
+    });
+  } catch (error) {
+    alert(error.message);
+  }
+}

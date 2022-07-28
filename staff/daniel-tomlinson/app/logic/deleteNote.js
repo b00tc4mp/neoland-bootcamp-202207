@@ -1,14 +1,22 @@
 // ============ NEW ================ //
 
-function updateNote(token, noteId, text, callback) {
+/**
+ * Deletes a note from database
+ *
+ * @param {string} token The user session token
+ * @param {string} noteId The note identifier
+ * @param {function} callback The function expression that provides a result
+ *
+ * @throws {TypeError} On invalid inputs
+ */
+
+function deleteNote(token, noteId, callback) {
   if (typeof token !== "string") throw new TypeError("token is not a string");
   if (token.trim().length === 0) throw new Error("token is empty or blank");
 
   if (typeof noteId !== "string")
     throw new TypeError("note id is not a string");
   if (noteId.trim().length === 0) throw new Error("note id is empty or blank");
-
-  if (typeof text !== "string") throw new TypeError("text is not a string");
 
   if (typeof callback !== "function")
     throw new TypeError("callback is not a function");
@@ -26,14 +34,15 @@ function updateNote(token, noteId, text, callback) {
       const userJSON = xhr.responseText;
       const userObject = JSON.parse(userJSON);
 
-      const notes = userObject.notes ? userObject.notes : [];
+      const notes = userObject.notes;
 
-      const note = notes.find((note) => note.id === noteId);
+      console.log(notes);
 
-      if (note === undefined) {
-        callback(new Error(`note with id ${noteId} cannot be found`));
-      } else {
-        note.text = text;
+      const noteIndex = notes.findIndex((note) => {
+        return note.id === noteId;
+      });
+      if (noteIndex !== -1) {
+        notes.splice([noteIndex], 1);
 
         const xhr2 = new XMLHttpRequest();
 
@@ -52,7 +61,7 @@ function updateNote(token, noteId, text, callback) {
         xhr2.setRequestHeader("Content-type", "application/json");
 
         xhr2.send(JSON.stringify({ notes }));
-      }
+      } else callback(new Error(`note with id ${noteId} cannot be found`));
     }
   };
 

@@ -1,3 +1,15 @@
+// ============ NEW ================ //
+
+/**
+ * Checks user credentials against database
+ *
+ * @param {string} email The user email
+ * @param {string} password The user password
+ * @param {function} callback The function expression that provides a result
+ *
+ * @throws {Error | TypeError} On invalid inputs
+ */
+
 function authenticateUser(email, password, callback) {
   if (typeof email !== "string") throw new TypeError("email is not a string");
   if (email.trim().length === 0) throw new Error("email is empty or blank");
@@ -15,15 +27,37 @@ function authenticateUser(email, password, callback) {
   if (typeof callback !== "function")
     throw new TypeError("callback is not a function");
 
-  const user = users.find(function (user) {
-    return user.email === email && user.password === password;
-  });
+  const xhr = new XMLHttpRequest();
 
-  if (!user) {
-    callback(new Error("wrong credentials"));
+  //response
 
-    return;
-  }
+  xhr.onload = function () {
+    const status = xhr.status;
 
-  callback(null);
+    console.log(status);
+
+    if (status >= 500) callback(new Error(`server error(${status})`));
+    else if (status >= 400) callback(new Error(`client error(${status})`));
+    else if (status === 200) {
+      const tokenJSON = xhr.responseText;
+      const tokenObject = JSON.parse(tokenJSON);
+
+      const token = tokenObject.token;
+
+      callback(null, token);
+    }
+  };
+
+  xhr.onerror = function () {
+    console.log("API CALL ERROR");
+  };
+
+  // XMLHttprequest
+
+  xhr.open("POST", "https://b00tc4mp.herokuapp.com/api/v2/users/auth");
+
+  xhr.setRequestHeader("Content-type", "application/json");
+  // Bearer needs a space after it to work
+
+  xhr.send(`{ "username": "${email}", "password": "${password}"}`);
 }
