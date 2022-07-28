@@ -119,7 +119,7 @@ a, a:visited {
 .list {
     display: flex;
     width: 80%;
-    flex-direction: column-reverse; /* Para cuando cree una nota nueva que se ponga al ppio */
+    flex-direction: column; 
     gap: 50px;
     padding: 0;
     overflow: auto;

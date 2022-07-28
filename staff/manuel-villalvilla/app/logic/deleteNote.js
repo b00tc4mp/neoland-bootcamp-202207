@@ -7,44 +7,108 @@
  * 
  * @throws {TypeError} On invalid inputs
  */
- function deleteNote(userId, noteId, callback) {
-    if (typeof userId !== 'string') throw new TypeError('user id is not a string')
-    if (userId.trim().length === 0) throw new Error('user id is empty or blank')
+ function deleteNote(token, noteId, callback) {
+    if (typeof token !== 'string') throw new TypeError('token is not a string')
+    if (token.trim().length === 0) throw new Error('token is empty or blank')
 
     if (typeof noteId !== 'string') throw new TypeError('note id is not a string')
     if (noteId.trim().length === 0) throw new Error('note id is empty or blank')
 
     if (typeof callback !== 'function') throw new TypeError('callback is not a function')
 
-    const user = users.find(user => {
-        return user.id === userId
-    })
+    // const user = users.find(user => {
+    //     return user.id === userId
+    // })
 
-    if (!user) {
-        callback(new Error(`user with id ${userId} not found`))
+    // if (!user) {
+    //     callback(new Error(`user with id ${userId} not found`))
 
-        return
+    //     return
+    // }
+
+    // const noteIndex = notes.findIndex(note => {
+    //     return note.id === noteId
+    // })
+
+    // const note = notes[noteIndex]
+
+    // if (!note) {
+    //     callback(new Error(`note with id ${noteId} not found`))
+
+    //     return
+    // }
+
+    // if (note.user !== userId) {
+    //     callback(new Error(`note with id ${noteId} does not belong to user with id ${userId}`))
+
+    //     return
+    // }
+
+    // notes.splice(noteIndex, 1)
+
+    // callback(null)
+
+    const xhr = new XMLHttpRequest
+
+    // response
+
+    xhr.onload = function () {
+        const status = xhr.status
+
+        if (status >= 500)
+            callback(new Error(`server error (${status})`))
+        else if (status >= 400)
+            callback(new Error(`client error (${status})`))
+        else if (status === 200) {
+            const json = xhr.responseText
+
+            const data = JSON.parse(json)
+
+            const notes = data.notes ? data.notes : []
+
+            const noteIndex = notes.findIndex(note => note.id === noteId)
+
+            if (noteIndex < 0) {
+                callback(new Error(`note with id ${noteId} not found`))
+                return
+            }
+
+            notes.splice(noteIndex, 1)
+
+            const xhr2 = new XMLHttpRequest
+
+            // response
+
+            xhr2.onload = function () {
+                const status = xhr2.status
+
+                if (status >= 500)
+                    callback(new Error(`server error (${status})`))
+                else if (status >= 400)
+                    callback(new Error(`client error (${status})`))
+                else if (status === 204)
+                    callback(null)
+            }
+
+            // request
+
+            xhr2.open('PATCH', 'https://b00tc4mp.herokuapp.com/api/v2/users')
+
+            xhr2.setRequestHeader('Authorization', `Bearer ${token}`)
+            xhr2.setRequestHeader('Content-type', 'application/json')
+
+            //const json2 = JSON.stringify({ notes: notes })
+            const json2 = JSON.stringify({ notes })
+
+            xhr2.send(json2)
+        }
     }
 
-    const noteIndex = notes.findIndex(note => {
-        return note.id === noteId
-    })
+    // request
 
-    const note = notes[noteIndex]
+    xhr.open('GET', 'https://b00tc4mp.herokuapp.com/api/v2/users')
 
-    if (!note) {
-        callback(new Error(`note with id ${noteId} not found`))
+    xhr.setRequestHeader('Authorization', `Bearer ${token}`)
 
-        return
-    }
-
-    if (note.user !== userId) {
-        callback(new Error(`note with id ${noteId} does not belong to user with id ${userId}`))
-
-        return
-    }
-
-    notes.splice(noteIndex, 1)
-
-    callback(null)
+    xhr.send()
 }

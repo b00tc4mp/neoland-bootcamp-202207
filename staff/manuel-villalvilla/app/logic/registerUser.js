@@ -3,47 +3,51 @@ function registerUser(name, email, password, callback) {
     if (email.trim().length === 0) throw new Error('email is empty or blank')
     if (email.length < 6) throw new Error('email length is not valid') // email tipo a@b.cd tiene 6 caracteres
     if (!EMAIL_REGEX.test(email)) throw new error('email is not valid')
+    if (typeof password !== 'string') throw new TypeError('password is not a string')
+    if (password.trim().length === 0) throw new Error('password is empty or blank')
+    if (password.length < 8) throw new Error('password length is less than 8 characters')
+
+    if (typeof callback !== 'function') throw new TypeError('callback is not a function')
     
-    const user = users.find(function(user) {
-        return user.email === email
-    })
+    // const user = users.find(function(user) {
+    //     return user.email === email
+    // })
 
-    if (user) {
-        callback(new Error ('user already exists'));
-        return;
-    } 
-    users.push({
-        id: 'user-' + Date.now(),
-        name: name,
-        email: email,
-        password: password
-    });
+    // if (user) {
+    //     callback(new Error ('user already exists'));
+    //     return;
+    // } 
+    // users.push({
+    //     id: 'user-' + Date.now(),
+    //     name: name,
+    //     email: email,
+    //     password: password
+    // });
 
-    callback(null)
+    // callback(null)
 
-    // const xhr = new XMLHttpRequest
+    const xhr = new XMLHttpRequest
 
-    // // response
+    // response
 
-    // xhr.onload = function() {
-    //     const status = xhr.status
+    xhr.onload = function() {
+        const status = xhr.status
         
-    //     if (status >= 500) {
-    //         callback(new Error(`Server error (${status})`))
-    //     } else if (status >= 400) {
-    //         callback(new Error(`Client error (${status})`))
-    //     } else if (status === 201) {
-    //         callback(null)
-    //     }
-    // }
+        if (status >= 500) {
+            callback(new Error(`Server error (${status})`))
+        } else if (status >= 400) {
+            callback(new Error(`Client error (${status})`))
+        } else if (status === 201) {
+            callback(null)
+        }
+    }
 
-    // // request
+    // request
 
-    // xhr.open('POST', 'https://b00tc4mp.herokuapp.com/api/v2/user')
+    xhr.open('POST', 'https://b00tc4mp.herokuapp.com/api/v2/users')
 
-    // xhr.setRequestHeader('Content-type', 'application/json')
+    xhr.setRequestHeader('Content-type', 'application/json')
 
-    // xhr.send(`{ "name": "${name}", "username": "${email}"}, "password": "${password}" }`)
-
+    xhr.send(`{ "name": "${name}", "username": "${email}", "password": "${password}" }`)
 
 }
