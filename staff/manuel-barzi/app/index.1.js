@@ -2,6 +2,8 @@ const loginPage = document.querySelector('.login-page')
 const registerPage = document.querySelector('.register-page')
 const homePage = document.querySelector('.home-page')
 
+let _token
+
 // temp (for ui design purposes)
 // loginPage.classList.add('off')
 // homePage.classList.remove('off')
@@ -37,40 +39,34 @@ loginForm.onsubmit = function (event) {
                 return
             }
 
-            loginForm.reset()
+            _token = token
 
-            sessionStorage.token = token
+            try {
+                retrieveUser(_token, function (error, user) {
+                    if (error) {
+                        alert(error.message)
 
-            renderHome()
-        })
-    } catch (error) {
-        alert(error.message)
-    }
+                        return
+                    }
 
-}
+                    loginPage.classList.add('off')
 
-function renderHome() {
-    try {
-        retrieveUser(sessionStorage.token, function (error, user) {
-            if (error) {
+                    const title = homePage.querySelector('.title')
+
+                    title.innerText = 'Hello, ' + user.name + '!'
+
+                    refreshList()
+
+                    homePage.classList.remove('off')
+                })
+            } catch (error) {
                 alert(error.message)
-
-                return
             }
-
-            loginPage.classList.add('off')
-
-            const title = homePage.querySelector('.title')
-
-            title.innerText = 'Hello, ' + user.name + '!'
-
-            renderNotes()
-
-            homePage.classList.remove('off')
         })
     } catch (error) {
         alert(error.message)
     }
+
 }
 
 const registerForm = registerPage.querySelector('.form')
@@ -89,8 +85,6 @@ registerForm.onsubmit = function (event) {
                 return
             }
 
-            registerForm.reset()
-
             registerPage.classList.add('off')
             loginPage.classList.remove('off')
         })
@@ -99,26 +93,26 @@ registerForm.onsubmit = function (event) {
     }
 }
 
-const plusButton = homePage.querySelector('.add-button')
+const plusButton = homePage.querySelector('.transparent-button')
 plusButton.onclick = function () {
     try {
-        createNote(sessionStorage.token, error => {
+        createNote(_token, error => {
             if (error) {
                 alert(error.message)
 
                 return
             }
 
-            renderNotes()
+            refreshList()
         })
     } catch (error) {
         alert(error.message)
     }
 }
 
-function renderNotes() {
+function refreshList() {
     try {
-        retrieveNotes(sessionStorage.token, function (error, notes) {
+        retrieveNotes(_token, function (error, notes) {
             if (error) {
                 alert(error.message)
 
@@ -137,14 +131,14 @@ function renderNotes() {
                 deleteButton.innerText = 'x'
                 deleteButton.onclick = function () {
                     try {
-                        deleteNote(sessionStorage.token, note.id, error => {
+                        deleteNote(_token, note.id, error => {
                             if (error) {
                                 alert(error.message)
 
                                 return
                             }
 
-                            renderNotes()
+                            refreshList()
                         })
                     } catch (error) {
                         alert(error.message)
@@ -155,22 +149,17 @@ function renderNotes() {
                 text.contentEditable = true
                 text.classList.add('list__item-text')
                 text.onkeyup = function () {
-                    if (window.updateNoteTimeoutId)
-                        clearTimeout(window.updateNoteTimeoutId)
+                    try {
+                        updateNote(_token, note.id, text.innerText, error => {
+                            if (error) {
+                                alert(error.message)
 
-                    window.updateNoteTimeoutId = setTimeout(() => {
-                        try {
-                            updateNote(sessionStorage.token, note.id, text.innerText, error => {
-                                if (error) {
-                                    alert(error.message)
-
-                                    return
-                                }
-                            })
-                        } catch (error) {
-                            alert(error.message)
-                        }
-                    }, 1000)
+                                return
+                            }
+                        })
+                    } catch (error) {
+                        alert(error.message)
+                    }
                 }
                 text.innerText = note.text
 
@@ -182,15 +171,4 @@ function renderNotes() {
     } catch (error) {
         alert(error.message)
     }
-}
-
-if (sessionStorage.token)
-    renderHome()
-
-const logoutButton = document.querySelector('.logout-button')
-logoutButton.onclick = function() {
-    delete sessionStorage.token
-    
-    homePage.classList.add('off')
-    loginPage.classList.remove('off')
 }
