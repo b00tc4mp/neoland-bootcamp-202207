@@ -228,7 +228,7 @@ body {
 
 .messageTitle,
 .fa-solid.fa-bars,
-.fa-solid.fa-plus,.fa-solid.fa-arrow-left,.btn-menu,.btn-close,.btnBack,.contDesign, .contProfile {
+.fa-solid.fa-plus,.fa-solid.fa-arrow-left,.btnBack,.contDesign, .contProfile {
     margin: 5px;
     color: #037E8c;
 }
@@ -240,20 +240,11 @@ body {
     align-items: center;
 
 }
-.divEmail{
+
+
+.fa-solid.fa-bars {
     display: flex;
     justify-content: center;
-    align-items: center;
-}
-.normalMessageEmail,.messageEmail{
-    color:white;
-    font-size: 80%;
-    display: flex;
-}
-.btn-menu,.btn-close {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     width: 45px;
     height: 45px;
     font-size: 175%;
@@ -265,32 +256,6 @@ body {
     cursor: pointer;
 }
 
-#btn-close{
-    padding: 0;
-    font-size: 2.5rem;
-    font-weight: bold;
-}
-#btn-menu{
-    padding: 0;
-    font-size: 2.2rem;
-    font-weight: bold;
-}
-/* .btn-close{
-    /* display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 45px;
-    height: 45px;
-    font-size: 175%;
-    background: rgb(2, 1, 3);
-    text-align: center;
-    line-height: 155%;
-    border-radius: 20%;
-    margin-left: 0%;
-    padding: 0;
-    cursor: pointer; 
-    }*/
- 
 .nav-home {
     display: none;
 }

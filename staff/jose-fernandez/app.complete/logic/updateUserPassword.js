@@ -1,61 +1,44 @@
-function updateUserPassword(token, oldPassword,newPassword,repeatNewPassword,callback){
+function updateUserPassword(token, oldPassword, newPassword, newPasswordRepeat, callback) {
+    if(typeof token !== 'string') throw new TypeError('token is not a string')
+    if(token.trim().length===0)throw new Error('token is empty or black')
+
+    if(typeof oldPassword !== 'string') throw new TypeError('oldPassword is not a string')
+    if(oldPassword.trim().length===0)throw new Error('oldPassword is empty or black')
+    if(oldPassword.length<8) throw new Error('old password length is less than 8 charcaters')
+    
+    if(typeof newPassword !== 'string') throw new TypeError('new password is not a string')
+    if(newPassword.trim().length===0)throw new Error('new password is empty or black')
+    if(newPassword.length<8) throw new Error('new password length is less than 8 charcaters')
+
+    if(typeof newPasswordRepeat !== 'string') throw new TypeError('new password repeat  is not a string')
+    if(newPasswordRepeat.trim().length===0)throw new Error('new password repeat is empty or black')
+    if(newPasswordRepeat.length<8) throw new Error('new password repeat length is less than 8 charcaters')
+
+    if(typeof callback !== 'function')throw new TypeError('callback is nota a function')
+    
     const xhr = new XMLHttpRequest
 
-    //respomse
+    // response
 
     xhr.onload = function () {
         const status = xhr.status
+
         if (status >= 500)
             callback(new Error(`server error (${status})`))
         else if (status >= 400)
             callback(new Error(`client error (${status})`))
-        else if (status === 200) {
-            const json = xhr.responseText
-
-            const data = JSON.parse(json)
-            // if(!data.notes || data.notes.length===0)callback(new Error(`nota with id ${noteId} not found`))
-
-            const notes = data.notes 
-            const noteIndex = notes.findIndex(note => note.id === noteId)
-
-            if(noteIndex===-1)callback(new Error(`note with id ${noteId} not found`))
-            
-            notes.splice(noteIndex,1)
-            // const remove = note.splice(0)
-
-            const xhr2 = new XMLHttpRequest
-
-            // response
-
-            xhr2.onload = function () {
-                const status = xhr2.status
-
-                if (status >= 500)
-                    callback(new Error(`server error (${status})`))
-                else if (status >= 400)
-                    callback(new Error(`client error (${status})`))
-                else if (status === 204)
-                    callback(null)
-            }
-            
-            //request
-            xhr2.open('PATCH', 'https://b00tc4mp.herokuapp.com/api/v2/users')
-
-            xhr2.setRequestHeader('Authorization',`Bearer ${token}`)
-            xhr2.setRequestHeader('Content-type','application/json')
-
-            // const json2= JSON.stringify({notes})
-
-            // xhr2.send(json2)
-            xhr2.send()
-        }
+        else if (status === 204)
+            callback(null)
     }
 
     //request
-    xhr.open('GET', 'https://b00tc4mp.herokuapp.com/api/v2/users')
+    xhr.open('PATCH', 'https://b00tc4mp.herokuapp.com/api/v2/users')
 
     xhr.setRequestHeader('Authorization', `Bearer ${token}`)
+    xhr.setRequestHeader('Content-type', 'application/json')
 
-    xhr.send()
+    const json = JSON.stringify({ oldPassword, password: newPassword })
 
+    // xhr.send(json2)
+    xhr.send(json)
 }

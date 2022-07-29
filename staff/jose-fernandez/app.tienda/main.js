@@ -50,3 +50,27 @@ event.preventDefault()
     registerPage.classList.add('off')
     homePage.classList.remove('off')
 }
+
+const loginForm = loginPage.querySelector(".form")
+loginForm.onsubmit = function(event){
+    event.preventDefault()
+
+    const email=loginForm.email.value
+    const password=loginForm.password.value
+
+    try {
+        authenticateUser(email,password,function(error,token){
+            if(error){
+                alert(error.message)
+                return
+            }
+            loginForm.reset()
+            sessionStorage.token = token
+            renderHome()
+        })
+    } catch (error) {
+        alert(error.message)
+        
+    }
+
+}

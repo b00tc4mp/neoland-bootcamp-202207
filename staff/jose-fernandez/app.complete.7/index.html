@@ -79,13 +79,7 @@
                 </div>
                 <h1 class="messageTitle">Hello Pepito!!</h1>
 
-                <div class="btn-menu">
-                    <!-- <span class="fa-solid fa-bars" id="btn-menu"></span> -->
-                    <span class="material-symbols-outlined"  id="btn-menu">menu</span>
-                </div>
-                <div class="btn-close off">
-                    <span class="material-symbols-outlined"  id="btn-close">close</span>
-                </div>
+                <span class="fa-solid fa-bars" id="btn-menu"></span>
 
             </div>
 
@@ -144,26 +138,20 @@
 
                 <button href="#" class="btnBack">X</button>
 
-                <div class="formPassword contProfile">
+                <div class="contProfile">
                     <div class="nameProfile">UPDATE PASSWORD: </div>
                     <div class="contButtonsProfile">
                         <input class="oldPassword" type="password" name="oldPassword"    placeholder="Current Password">
                         <input class="newPassword" type="password" name="newPassword"    placeholder="New Password">
                         <input class="repeatNewPassword" type="password" name="repeatNewPassword"  placeholder="Repeat New Password">
                     </div>
-                    <button class="btn-updatePassword" type="submit">Update Password</button>
                 </div>
-                <div class="formEmail contProfile">
+                <div class="contProfile">
                     <div class="nameProfile">UPDATE EMAIL</div>
                     <div class="contButtonsProfile">
-                        <div class="divEmail">
-                            <h1 class="normalMessageEmail">Email : </h1><h1 class="messageEmail"> jose@fer.com</h1>
-                        </div>
-                
+                        <input class="updateEmail" type="email" name="currentPassword"  placeholder="Current Email">
                         <input class="updateEmail" type="email" name="newEmail"  placeholder="New Email">
                     </div>
-                    
-                    <button class="btn-updatePassword" type="submit">Update Email</button>
                 </div>
 
             </form>
@@ -222,15 +210,10 @@
     <script src="logic/updateNote.js"></script>
     <script src="logic/createNote.js"></script>
     <script src="logic/deleteNote.js"></script>
-    <script src="logic/updateUserPassword.js"></script>
-    
-    <!-- views -->
-    <script src="views/renderHome.js"></script>
-    <script src="views/renderNotes.js"></script>
+
 
     <!-- presentation layer -->
-    <script src="init.js"></script>
-    <script src="main.js"></script>
+    <script src="index.js"></script>
 </body>
 
 </html>
