@@ -1,20 +1,7 @@
-const loginPage = document.querySelector('.loginPage')
-const registerPage = document.querySelector('.registerPage')
-const homePage = document.querySelector('.homePage')
 
-const loginForm = document.querySelector('.loginForm')
-const registerForm = document.querySelector('.registerForm')
 
-const registerLink = document.querySelector('.registerLink')
-const loginLink = document.querySelector('.loginLink')
 
-// temp for design purposes (Disable login enable home)
-/* loginPage.classList.add('off')
-homePage.classList.remove('off') */
 
-// temp for design purposes (Disable login enable register)
-/* loginPage.classList.add('off')
-registerPage.classList.remove('off') */
 if(sessionStorage.UserToken){
     renderHome()
 }
@@ -106,7 +93,7 @@ registerForm.addEventListener('submit', function (event) {
 })
 
 
-const createNoteButton = document.querySelector('.newNoteButton')
+
 createNoteButton.onclick = function (event) {
     event.preventDefault()
     const userToken = sessionStorage.UserToken
@@ -152,7 +139,7 @@ createNoteButton.onclick = function (event) {
         }
     }
 }
-const notesList = document.querySelector('.notesList')
+
 function refreshList() {
     const token = sessionStorage.UserToken
     try {
@@ -166,7 +153,7 @@ function refreshList() {
             userNotes.reverse().forEach(note =>{
                 const container = document.createElement('li')
                 container.classList.add('note')
-
+                container.style.backgroundColor = note.color
                 const deleteButton = document.createElement('div')
                 deleteButton.classList.add('deleteNoteButton')
                 deleteButton.textContent = '✖'
@@ -176,6 +163,8 @@ function refreshList() {
                 const elementText = document.createElement('div')
                 elementText.classList.add('noteText')
                 elementText.contentEditable = true
+
+
                 deleteButton.onclick = function () {
                     let result = confirm('Are you sure to delete that note?')
                     if (result) {
@@ -214,9 +203,93 @@ function refreshList() {
                             }
                     },500)
                 }
+                
+                //Botones cambio de color
+                const changeColorContainer = document.createElement('div')
+                changeColorContainer.classList.add('changeNoteColorContainer')
+                const changeBlue = document.createElement('div')
+                changeBlue.classList.add('changeNoteBlue')
+                changeBlue.onclick = function(){
+                    container.style.backgroundColor = 'blue'
+                    try{
+                        changeNoteColor(sessionStorage.UserToken, userNotes, note.id, 'blue', function(){
+                            if(error)
+                                alert(error.message)
+                        })
+                    }catch(error){
+                        alert(error.message)
+                    }
+                }
+                const changeRed = document.createElement('div')
+                changeRed.classList.add('changeNoteRed')
+                changeRed.onclick = function(){
+                    container.style.backgroundColor = 'red'
+                    try{
+                        changeNoteColor(sessionStorage.UserToken, userNotes, note.id, 'red', function(){
+                            if(error)
+                                alert(error.message)
+                        })
+                    }catch(error){
+                        alert(error.message)
+                    }
+                }
+                const changeGreen = document.createElement('div')
+                changeGreen.classList.add('changeNoteGreen')
+                changeGreen.onclick = function(){
+                    container.style.backgroundColor = 'green'
+                    try{
+                        changeNoteColor(sessionStorage.UserToken, userNotes, note.id, 'green', function(){
+                            if(error)
+                                alert(error.message)
+                        })
+                    }catch(error){
+                        alert(error.message)
+                    }
+                }
+                const changeOrange = document.createElement('div')
+                changeOrange.classList.add('changeNoteOrange')
+                changeOrange.onclick = function(){
+                    container.style.backgroundColor = 'orange'
+                    try{
+                        changeNoteColor(sessionStorage.UserToken, userNotes, note.id, 'orange', function(){
+                            if(error)
+                                alert(error.message)
+                        })
+                    }catch(error){
+                        alert(error.message)
+                    }
+                }
+                const changePurple = document.createElement('div')
+                changePurple.classList.add('changeNotePurple')
+                changePurple.onclick = function(){
+                    container.style.backgroundColor = '#7d19c4'
+                    try{
+                        changeNoteColor(sessionStorage.UserToken, userNotes, note.id, '#7d19c4', function(){
+                            if(error)
+                                alert(error.message)
+                        })
+                    }catch(error){
+                        alert(error.message)
+                    }
+                }
+                const changeGrey = document.createElement('div')
+                changeGrey.classList.add('changeNoteGrey')
+                changeGrey.onclick = function(){
+                    container.style.backgroundColor = 'grey'
+                    try{
+                        changeNoteColor(sessionStorage.UserToken, userNotes, note.id, 'grey', function(){
+                            if(error)
+                                alert(error.message)
+                        })
+                    }catch(error){
+                        alert(error.message)
+                    }
+                }
+                changeColorContainer.append(changeBlue,changeRed,changeGreen, changeOrange,changePurple,changeGrey)
+
                 elementTitle.textContent = note.title
                 elementText.textContent = note.text
-                container.append(deleteButton, elementTitle, elementText)
+                container.append(deleteButton, elementTitle, elementText,changeColorContainer)
                 notesList.append(container)
             })
         })
@@ -226,34 +299,33 @@ function refreshList() {
 }
 
 // Formulario y lógica actualizar password
-const updatePassForm = document.querySelector('#updatePasswordForm')
+
 
 updatePassForm.onsubmit = function(event){
     let result = confirm('Are you sure to change password?')
     if(result){
-    event.preventDefault()
-    const oldPassword = updatePassForm.oldPassword.value
-    const newPassword = updatePassForm.newPassword.value
-    const confirmNewPassword = updatePassForm.confirmNewPassword.value
-    try{
-        updateUserPassword(sessionStorage.UserToken, oldPassword, newPassword, confirmNewPassword, function(error){
-            if(error)
-            alert(error.message)
-        else{
-            alert('Password updated succesfully')
-            updatePassForm.reset()
-        }
-                        
+        event.preventDefault()
+        const oldPassword = updatePassForm.oldPassword.value
+        const newPassword = updatePassForm.newPassword.value
+        const confirmNewPassword = updatePassForm.confirmNewPassword.value
+        try{
+            updateUserPassword(sessionStorage.UserToken, oldPassword, newPassword, confirmNewPassword, function(error){
+                if(error)
+                alert(error.message)
+            else{
+                alert('Password updated succesfully')
+                updatePassForm.reset()
+            }                
         })
-    }catch(error){
-        alert(error.message)
-    }
+        }catch(error){
+            alert(error.message)
+        }
             
     }
 }
 
 // Formulario y lógica actualizar email
-const updateEmailForm = document.querySelector('#updateEmailForm')
+
 updateEmailForm.onsubmit = function(event){
     let result = confirm('Are you sure to update Email?')
     if(result){
@@ -275,11 +347,7 @@ updateEmailForm.onsubmit = function(event){
     
 }
 // CAPTURAMOS CON INPUT PARA ACTUALIZAR ESTADO DE LA CREACION DE PASSWORD
-const pLowerCase = document.getElementById('lowerCase')
-const pUpperCase = document.getElementById('upperCase')
-const pNumber = document.getElementById('number')
-const pSymbols = document.getElementById('symbols')
-const pLength = document.getElementById('length')
+
 
 registerForm.password.addEventListener("input", checkPassword)
 const span = document.querySelector('.passSpan')
@@ -322,25 +390,23 @@ function checkPassword() {
 }
 
 // Home
-const homeIcon = document.querySelector('.homeIcon')
+
 homeIcon.addEventListener('click', function(){
 
     home__profileContainer.classList.add('off')
     home__notesContainer.classList.remove('off')
     createNoteButton.classList.remove('off')
-    notesList.scroll(0,0)
+    notesList.scroll({'top': 0,'behavior': "smooth"})
 })
 // Profile 
-const profileLink = document.querySelector('.profileLink')
-const home__notesContainer = document.querySelector('.home__notesContainer')
-const home__profileContainer = document.querySelector('.home__profileContainer')
+
 profileLink.addEventListener('click', function () {
     home__notesContainer.classList.add('off')
     createNoteButton.classList.add('off')
     home__profileContainer.classList.remove('off')
 })
 // Logout
-const logoutLink = document.querySelector('.logoutLink')
+
 logoutLink.addEventListener('click', function () {
     let result = confirm('Are you sure you want to logout?')
     if (result) {
@@ -357,8 +423,7 @@ logoutLink.addEventListener('click', function () {
 
 
 // Funcion activar rotación DIVS menú y mostrar desplegable
-const menuContainer = document.querySelector('.menuContainer')
-const dropdown = document.querySelector('.dropdownMenu')
+
 
 menuContainer.addEventListener('click', function () {
     menuContainer.classList.toggle("change")

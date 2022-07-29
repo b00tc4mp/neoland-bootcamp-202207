@@ -43,7 +43,7 @@ function updateNote(token, noteId, title, text, callback){
                 if (status >= 500)
                     callback(new Error(`server error (${status})`))
                 else if (status >= 400)
-                    callback(new Error(`Client error (${JSON.parse(xhr.response).error})`))
+                    callback(new Error(`Client error (${JSON.parse(xhr2.response).error})`))
                 else if (status === 204)
                     callback(null)
             }
