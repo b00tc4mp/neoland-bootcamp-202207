@@ -215,3 +215,34 @@ notesButton.onclick = function () {
   list.classList.remove("off");
   profilePage.classList.add("off");
 };
+
+const resetPasswordForm = profilePage.querySelector(".reset-password-form");
+resetPasswordForm.onsubmit = function (event) {
+  event.preventDefault();
+
+  const oldPAssword = resetPasswordForm.oldPassword.value;
+  const newPAssword = resetPasswordForm.newPassword.value;
+  const retypeNewPassword = resetPasswordForm.retypeNewPassword.value;
+
+  // try {
+  resetPassword(
+    sessionStorage.token,
+    oldPAssword,
+    newPAssword,
+    retypeNewPassword,
+    function (error) {
+      if (error) {
+        alert(error.message);
+
+        return;
+      }
+      // registerForm.reset();
+
+      profilePage.classList.add("off");
+      loginPage.classList.remove("off");
+    }
+  );
+  // } catch (error) {
+  //   alert(error.message);
+  // }
+};
