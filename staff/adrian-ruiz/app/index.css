@@ -199,6 +199,7 @@ header h1{
     font-weight: 400;
 }
 .menuContainer{
+    padding-right: 5px;
     width: 10%;
     position: relative;
     display: inline-block;
@@ -262,7 +263,7 @@ header h1{
     padding-right: 10px;
     color: white;
 }
-.notesContainer{
+.homeMainContainer{
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -272,15 +273,19 @@ header h1{
 .notesList{
     display: flex;
     align-items: center;
-    flex-direction: column-reverse;
+    flex-direction: column;
     width: 80%;
     list-style: none;
   /*   gap: 50px; */
     overflow-y: scroll;
     margin:0;
     padding: 10px 0px;
+    scrollbar-width: none;
 }
 
+.notesList::-webkit-scrollbar{
+    display: none;
+}
 .note{
     display: flex;
     flex-direction: column;
@@ -294,9 +299,9 @@ header h1{
     box-shadow: 0px 3px 10px rgb(0, 0, 0);
 }
 
-li:first-child{
+/* li:first-child{
     margin-bottom: 0px;
-}
+} */
 
 .noteTitle{
     text-align: center;
@@ -412,7 +417,7 @@ li:first-child{
     width: 90%;
 }
 
-.newNoteFormButton{
+.newNoteFormButton, .profileFormButton{
     width: 40%;
     background-color: #592380;
     box-shadow: 0px 8px 30px rgb(0, 0, 0);
@@ -420,6 +425,24 @@ li:first-child{
     color:white;
 }
 
+/* HOME -> PROFILE" */
+
+.homeIcon{
+    color: white;
+    padding-left: 5%;
+}
+.profileMenuContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+}
+
+.profileInput{
+    height: 20%;
+}
 .off{
     display: none;
 }

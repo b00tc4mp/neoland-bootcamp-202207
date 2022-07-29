@@ -8,8 +8,6 @@ const registerForm = document.querySelector('.registerForm')
 const registerLink = document.querySelector('.registerLink')
 const loginLink = document.querySelector('.loginLink')
 
-let _timeOutId
-
 // temp for design purposes (Disable login enable home)
 /* loginPage.classList.add('off')
 homePage.classList.remove('off') */
@@ -154,7 +152,7 @@ createNoteButton.onclick = function (event) {
         }
     }
 }
-
+const notesList = document.querySelector('.notesList')
 function refreshList() {
     const token = sessionStorage.UserToken
     try {
@@ -163,11 +161,9 @@ function refreshList() {
                 alert(error.message)
                 return
             }
-            const notesList = document.querySelector('.notesList')
+            
             notesList.innerHTML = ''
-
-            userNotes.forEach(note => {
-
+            userNotes.reverse().forEach(note =>{
                 const container = document.createElement('li')
                 container.classList.add('note')
 
@@ -199,11 +195,11 @@ function refreshList() {
                 }
                 
                 container.onkeyup = function () {
-                    if(_timeOutId)
-                        clearTimeout(_timeOutId)
+                    if(window.timeOutId)
+                        clearTimeout(window.timeOutId)
                     
-                     _timeOutId = setTimeout(function(){
-
+                     window.timeOutId = setTimeout(function(){
+                    
                             try {
                                 updateNote(token, note.id, elementTitle.textContent, elementText.textContent, error => {
                                     if (error) {
@@ -229,6 +225,55 @@ function refreshList() {
     }
 }
 
+// Formulario y lógica actualizar password
+const updatePassForm = document.querySelector('#updatePasswordForm')
+
+updatePassForm.onsubmit = function(event){
+    let result = confirm('Are you sure to change password?')
+    if(result){
+    event.preventDefault()
+    const oldPassword = updatePassForm.oldPassword.value
+    const newPassword = updatePassForm.newPassword.value
+    const confirmNewPassword = updatePassForm.confirmNewPassword.value
+    try{
+        updateUserPassword(sessionStorage.UserToken, oldPassword, newPassword, confirmNewPassword, function(error){
+            if(error)
+            alert(error.message)
+        else{
+            alert('Password updated succesfully')
+            updatePassForm.reset()
+        }
+                        
+        })
+    }catch(error){
+        alert(error.message)
+    }
+            
+    }
+}
+
+// Formulario y lógica actualizar email
+const updateEmailForm = document.querySelector('#updateEmailForm')
+updateEmailForm.onsubmit = function(event){
+    let result = confirm('Are you sure to update Email?')
+    if(result){
+        event.preventDefault()
+        const newEmail = updateEmailForm.newEmail.value
+        try{
+            updateUserEmail(sessionStorage.UserToken, newEmail, function(error){
+                if(error)
+                    alert(error.message)
+                else{
+                    alert('Email updated succesfully')
+                    updateEmailForm.reset()
+                }
+            })
+        }catch(error){
+            alert(error.message)
+        } 
+    }
+    
+}
 // CAPTURAMOS CON INPUT PARA ACTUALIZAR ESTADO DE LA CREACION DE PASSWORD
 const pLowerCase = document.getElementById('lowerCase')
 const pUpperCase = document.getElementById('upperCase')
@@ -244,36 +289,30 @@ function checkPassword() {
     } else {
         span.classList.remove('off')
     }
-
-
     // Comprobar minusculas
     if (registerForm.password.value.match(lowerCaseLettersRegex)) {
         pLowerCase.classList.add('off')
     } else {
         pLowerCase.classList.remove('off')
     }
-
     // Comprobar mayusculas
     if (registerForm.password.value.match(upperCaseLettersRegex)) {
         pUpperCase.classList.add('off')
     } else {
         pUpperCase.classList.remove('off')
     }
-
     // Comprobar numeros
     if (registerForm.password.value.match(numbersRegex)) {
         pNumber.classList.add('off')
     } else {
         pNumber.classList.remove('off')
     }
-
     // Compruebo la longitud
     if (registerForm.password.value.length >= 8 && registerForm.password.value.length <= 15) {
         pLength.classList.add('off')
     } else {
         pLength.classList.remove('off')
     }
-
     // Comprobar simbolos
     if (registerForm.password.value.match(symbolsRegex)) {
         pSymbols.classList.add('off')
@@ -282,14 +321,37 @@ function checkPassword() {
     }
 }
 
+// Home
+const homeIcon = document.querySelector('.homeIcon')
+homeIcon.addEventListener('click', function(){
+
+    home__profileContainer.classList.add('off')
+    home__notesContainer.classList.remove('off')
+    createNoteButton.classList.remove('off')
+    notesList.scroll(0,0)
+})
+// Profile 
+const profileLink = document.querySelector('.profileLink')
+const home__notesContainer = document.querySelector('.home__notesContainer')
+const home__profileContainer = document.querySelector('.home__profileContainer')
+profileLink.addEventListener('click', function () {
+    home__notesContainer.classList.add('off')
+    createNoteButton.classList.add('off')
+    home__profileContainer.classList.remove('off')
+})
 // Logout
 const logoutLink = document.querySelector('.logoutLink')
 logoutLink.addEventListener('click', function () {
     let result = confirm('Are you sure you want to logout?')
     if (result) {
+        notesList.scroll(0,0)
         sessionStorage.removeItem('UserToken')
         loginPage.classList.remove('off')
         homePage.classList.add('off')
+        home__notesContainer.classList.remove('off')
+        createNoteButton.classList.remove('off')
+        home__profileContainer.classList.add('off')
+        
     }
 })
 
