@@ -64,7 +64,7 @@ function renderHome() {
 
             title.innerText = 'Hello, ' + user.name + '!'
 
-            renderNotes()
+            renderList()
 
             homePage.classList.remove('off')
         })
@@ -109,14 +109,14 @@ plusButton.onclick = function () {
                 return
             }
 
-            renderNotes()
+            renderList()
         })
     } catch (error) {
         alert(error.message)
     }
 }
 
-function renderNotes() {
+function renderList() {
     try {
         retrieveNotes(sessionStorage.token, function (error, notes) {
             if (error) {
@@ -144,7 +144,7 @@ function renderNotes() {
                                 return
                             }
 
-                            renderNotes()
+                            renderList()
                         })
                     } catch (error) {
                         alert(error.message)
