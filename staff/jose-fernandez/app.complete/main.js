@@ -83,6 +83,80 @@ registerForm.onsubmit = function (event) {
     }
 }
 
+
+
+
+createNoteForm.onsubmit = function (event) {
+    //cancela la accion predeterminada del evento
+    event.preventDefault()
+
+    // creo una constante y lo igualo al texto de mi textarea con name="newItemNote" ubicado en createNoteForm 
+    const textFromTextarea = createNoteForm.newItemNote.value
+
+    if (textFromTextarea !== "") {
+        try {
+            createNote(sessionStorage.token, textFromTextarea, error => {
+
+                if (error) {
+                    alert(error.message)
+                    return
+                }
+                renderNotes()
+            })
+        } catch (error) {
+            alert(error.message)
+        }
+    } else alert('Nota Vacia Descartada')
+
+    createNoteForm.classList.add('off')
+    list__Notes.classList.remove('off')
+    btn__pluss.classList.remove('off')
+    // poner el textarea de la newNote en Blanco
+    document.getElementById("newNote").value = "";
+}
+
+
+btn__pluss.onclick = function () {
+    //cancela la accion predeterminada del evento
+    // event.preventDefault()
+    list__Notes.classList.add('off')
+    btn__pluss.classList.add('off')
+    createNoteForm.classList.remove('off')
+
+}
+
+
+
+
+if (sessionStorage.token)
+    renderHome()
+
+
+
+
+//====================Menu NAV HAMBURGUER ===============================
+
+link_home_login.onclick = function () {
+    
+    btnMenu.classList.remove('off')
+    btn_close.classList.add('off')
+    formProfile.classList.add('off')
+    formDesign.classList.add('off')
+    list__Notes.classList.remove('off')
+    btn__pluss.classList.remove('off')
+    nav.classList.remove('mostrar')
+}
+
+btnBack.onclick = function () {
+    btnMenu.classList.remove('off')
+    btn_close.classList.add('off')
+    formProfile.classList.add('off')
+    formDesign.classList.add('off')
+    list__Notes.classList.remove('off')
+    btn__pluss.classList.remove('off')
+    nav.classList.remove('mostrar')
+}
+
 updatePassword.onsubmit = function (event) {
     event.preventDefault()
 
@@ -125,57 +199,11 @@ updateEmail.onsubmit = function (event) {
     updateEmail.reset()
 }
 
-
-createNoteForm.onsubmit = function (event) {
-    //cancela la accion predeterminada del evento
-    event.preventDefault()
-
-    // creo una constante y lo igualo al texto de mi textarea con name="newItemNote" ubicado en createNoteForm 
-    const textFromTextarea = createNoteForm.newItemNote.value
-
-    if (textFromTextarea !== "") {
-        try {
-            createNote(sessionStorage.token, textFromTextarea, error => {
-
-                if (error) {
-                    alert(error.message)
-                    return
-                }
-                renderNotes()
-            })
-        } catch (error) {
-            alert(error.message)
-        }
-    } else alert('Nota Vacia Descartada')
-
-    createNoteForm.classList.add('off')
-    list__Notes.classList.remove('off')
-    btn__pluss.classList.remove('off')
-    // poner el textarea de la newNote en Blanco
-    document.getElementById("newNote").value = "";
-}
-
-
-btn__pluss.onclick = function () {
-    //cancela la accion predeterminada del evento
-    // event.preventDefault()
-    list__Notes.classList.add('off')
-    btn__pluss.classList.add('off')
-    createNoteForm.classList.remove('off')
-
-}
-
-btnBack.onclick = function () {
-    formDesign.classList.add('off')
-    formProfile.classList.add('off')
-    list__Notes.classList.remove('off')
-    btn__pluss.classList.remove('off')
-}
-
 design.onclick = function () {
-
+    btnMenu.classList.remove('off')
+    btn_close.classList.toggle('off')
     list__Notes.classList.add('off')
-    navHome.classList.toggle('mostrar')
+    nav.classList.toggle('mostrar')
     btn__pluss.classList.add('off')
     createNoteForm.classList.add('off')
     formProfile.classList.add('off')
@@ -184,14 +212,25 @@ design.onclick = function () {
 
 
 profile.onclick = function () {
-
+    btn_close.classList.add('off')
+    btnMenu.classList.remove('off')
     list__Notes.classList.add('off')
-    navHome.classList.toggle('mostrar')
+    nav.classList.toggle('mostrar')
     btn__pluss.classList.add('off')
     createNoteForm.classList.add('off')
     formDesign.classList.add('off')
     formProfile.classList.remove('off')
 }
+logoutButton.onclick = function () {
+    delete sessionStorage.token
+    btn_close.classList.toggle('off')
+    homePage.classList.add('off')
+    nav.classList.remove('off')
+    nav.classList.toggle('mostrar')
+    loginPage.classList.remove('off')
+}
+//==================================================================================
+
 // const textSmall=homePage.querySelector('.textSmall')
 // const textNormal=homePage.querySelector('.textNormal')
 // const textBig=homePage.querySelector('.textBig')
@@ -230,22 +269,5 @@ profile.onclick = function () {
 // }
 
 
-link_home_login.onclick = function () {
-    btn_close.classList.add('off')
-    formProfile.classList.add('off')
-    formDesign.classList.add('off')
-    list__Notes.classList.remove('off')
-    btn__pluss.classList.remove('off')
-    navHome.classList.remove('mostrar')
-}
 
-if (sessionStorage.token)
-    renderHome()
 
-logoutButton.onclick = function () {
-    delete sessionStorage.token
-
-    homePage.classList.add('off')
-    navHome.classList.toggle('mostrar')
-    loginPage.classList.remove('off')
-}
