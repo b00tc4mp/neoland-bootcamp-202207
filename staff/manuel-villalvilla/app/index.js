@@ -1,17 +1,6 @@
-const loginPage = document.querySelector('.login-page');
-const registerPage = document.querySelector('.register-page');
-const homePage = document.querySelector('.home-page');
-const profileDisplay = document.querySelector('.profile')
-const notasDisplay = document.querySelector('.notas-display') 
-
-// let _token;
-
-// temp for UI
-// loginPage.classList.add('off')
-// homePage.classList.remove('off')
-
-const registerLink = loginPage.querySelector('a');
-const loginLink = registerPage.querySelector('a');
+if (sessionStorage.token) {
+    renderHome();
+}
 
 registerLink.onclick = function(event) {
     event.preventDefault();
@@ -25,7 +14,6 @@ loginLink.onclick = function(event) {
     registerPage.classList.add('off');
 }
 
-const loginForm = document.querySelector('.login-form');
 loginForm.onsubmit = function(event) {
     event.preventDefault();
 
@@ -53,28 +41,6 @@ loginForm.onsubmit = function(event) {
     }
 }
 
-function renderHome () {
-    try {
-        retrieveUser(sessionStorage.token, function(error, user) {
-            if (error) {
-                alert(error.message)
-                return;
-            } 
-
-            loginPage.classList.add('off');
-            const saludo = homePage.querySelector('.saludo');
-            saludo.innerText = 'Hello, ' + user.name + '!';
-            refreshList();
-            homePage.classList.remove('off');
-
-        })
-    } catch(error) { 
-        alert(error.message);
-    }
-}
-
-const registerForm = document.querySelector('.register-form');
-
 registerForm.onsubmit = function(event) {
     event.preventDefault();
 
@@ -98,7 +64,6 @@ registerForm.onsubmit = function(event) {
     }
 }
 
-const plusButton = homePage.querySelector('.footer')
 plusButton.onclick = function () {
     try {
         createNote(sessionStorage.token, error => {
@@ -114,81 +79,6 @@ plusButton.onclick = function () {
     }
 }
 
-// let _timeoutID
-
-function refreshList() {
-    try {
-        retrieveNotes(sessionStorage.token, function(error, notes) {
-            if (error) {
-                alert(error.message)
-
-                return
-            }
-
-            const list = homePage.querySelector('.list')
-            list.innerText = '';
-
-            notes.forEach(note => {
-                const item = document.createElement('li')
-                item.classList.add('list__item')
-
-                const deleteButton = document.createElement('button')
-                deleteButton.classList.add('list__item-delete-button')
-                deleteButton.innerText = 'x'
-                deleteButton.onclick = function () {
-                    try {
-                        deleteNote(sessionStorage.token, note.id, error => {
-                            if (error) {
-                                alert(error.message)
-
-                                return
-                            }
-
-                            refreshList()
-                        })
-                    } catch (error) {
-                        alert(error.message)
-                    }
-                }
-
-                const text = document.createElement('div')
-                text.contentEditable = true
-                text.classList.add('list__item-text')
-                text.onkeyup = function () {
-                    if (window.timeoutID) // con el objeto window puedo añadir variables globales
-                        clearTimeout(window.timeoutID)
-                    window.timeoutID = setTimeout(() => {
-                        try {
-                            updateNote(sessionStorage.token, note.id, text.innerText, error => {
-                                if (error) {
-                                    alert(error.message)
-    
-                                    return
-                                }
-                            })
-                        } catch (error) {
-                            alert(error.message)
-                        }
-                    }, 1000)
-                }
-                text.innerText = note.text
-
-                item.append(deleteButton, text)
-
-                list.append(item)
-                
-            })
-        })
-    } catch(error) {
-        alert(error.message)
-    }
-}
-
-if (sessionStorage.token) {
-    renderHome();
-}
-
-const logoutButton = document.querySelector('.logout-button')
 logoutButton.onclick = function() {
     delete sessionStorage.token
 
@@ -196,16 +86,12 @@ logoutButton.onclick = function() {
     loginPage.classList.remove('off')
 }
 
-const hiddenMenu = document.querySelector('.hidden-menu')
 
-const menuButton = document.querySelector('.menu')
 menuButton.addEventListener('click', () => {
     menuButton.classList.toggle('rotate')
     hiddenMenu.classList.toggle('voff')
 })
 
-
-const profileLink = document.querySelector('.profile-link')
 profileLink.addEventListener('click', () => {
     menuButton.classList.toggle('rotate')
     hiddenMenu.classList.add('voff')
@@ -214,7 +100,6 @@ profileLink.addEventListener('click', () => {
     plusButton.classList.add('off')
 })
 
-const notesLink = document.querySelector('.notes-link')
 notesLink.addEventListener('click', () => {
     menuButton.classList.toggle('rotate')
     hiddenMenu.classList.add('voff')
@@ -223,7 +108,6 @@ notesLink.addEventListener('click', () => {
     plusButton.classList.remove('off')
 })
 
-const passwordForm = document.querySelector('.password-form')
 passwordForm.onsubmit = function (event) {
     event.preventDefault()
 
@@ -247,7 +131,6 @@ passwordForm.onsubmit = function (event) {
     
 }
 
-const newEmailForm = document.querySelector('.email-form')
 newEmailForm.onsubmit = function (event) {
     event.preventDefault()
 

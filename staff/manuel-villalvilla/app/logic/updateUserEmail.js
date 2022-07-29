@@ -22,7 +22,7 @@ function updateUserEmail (token, newEmail, callback) {
         const status = xhr.status
 
         if (status >= 500)
-            callback(new Error(`server error (${status})`))
+            callback(new Error(`server error (${JSON.parse(xhr.response).error})`))
         else if (status >= 400)
             callback(new Error(`client error (${JSON.parse(xhr.response).error})`))
         else if (status === 204) {
