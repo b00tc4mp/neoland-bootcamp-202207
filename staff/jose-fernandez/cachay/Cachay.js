@@ -1,7 +1,7 @@
-function Cachay(...values){
+function Cachay(...values) {
     this.length = values.length
 
-    for(let i =0;i<value.length;i++)
-        this[i]=values[i]
-    
+    for (let i = 0; i < values.length; i++)
+        this[i] = values[i]
+
 }
