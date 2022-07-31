@@ -1,7 +1,10 @@
 Cachay.prototype.forEach=function(...args){
-    for(let i=0;i<this.length;i++){
-        const element= this[i]
+    let result = new Cachay
 
-        callback(element)
+    for(let i=0;i<this.length;i++){
+        for(let j=0;j<this[i].length;j++){
+            result[result.length]=this[i][j]
+        }
     }
+    return result
 }
