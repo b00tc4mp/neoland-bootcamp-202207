@@ -1,37 +1,62 @@
-function Human(gender) {
-    this.gender = gender
+function Human(gender, name) { 
+    this.gender = gender 
+    this.name = name
 }
 
-// Human.prototype = {} // new Object
+Human.prototype.talk = function() { return this.gender === 'female'? '🗣 iii' : '🗣 ooo' }
+Human.prototype.eat = function() { return '🍔' }
+Human.prototype.drink = function() { return '🍷' }
+Human.prototype.pee = function() { return '💦' }
+Human.prototype.poo = function() { return '💩' }
 
-Human.prototype.print = function() {
-    console.log(`Human { gender: ${this.gender} }`)
+//var peter = new Human('male', 'Peter')
+//var anna = new Human('female', 'Anna')
+
+function Female(name) {
+    Human.call(this, 'female', name)
 }
 
-Human.prototype
-// {print: ƒ, constructor: ƒ}
+//Female.prototype = Human.prototype
+//Female.prototype = new Human
+Female.prototype = Object.create(Human.prototype)
+Female.prototype.constructor = Female
 
-peter = new Human('male')
-anna = new Human('female')
+Female.prototype.giveBirth = function() { return '👶🏻' }
 
-peter.print()
-anna.print()
 
-console.log(peter.__proto__ === Human.prototype)
-console.log(anna.__proto__ === Human.prototype)
-console.log(peter.__proto__ === anna.__proto__)
+function Male(name) {
+    Human.call(this, 'male', name)
+}
 
-// VM4862:9 Human { gender: male }
-// VM4862:9 Human { gender: female }
-// VM4862:18 true
-// VM4862:19 true
-// VM4862:20 true
+//Male.prototype = Human.prototype
+Male.prototype = Object.create(Human.prototype)
+Male.prototype.constructor = Male
 
-peter
-// Human {gender: 'male'}
-anna
-// Human {gender: 'female'}
-peter.__proto__
-// {print: ƒ, constructor: ƒ}
-anna.__proto__
-// {print: ƒ, constructor: ƒ}
+Male.prototype.giveSperm = function() { return '🌱' }
+
+var anna = new Female('Anna')
+var peter = new Male('Peter')
+
+console.log(anna.talk())
+console.log(peter.talk())
+
+console.log(peter.giveSperm())
+console.log(anna.giveBirth())
+
+// VM14596:40 🗣 iii
+// VM14596:41 🗣 ooo
+// VM14596:43 🌱
+// VM14596:44 👶🏻
+// undefined
+anna.giveSperm()
+// VM14634:1 Uncaught TypeError: anna.giveSperm is not a function
+//     at <anonymous>:1:6
+// (anonymous) @ VM14634:1
+peter.giveBirth()
+// VM14681:1 Uncaught TypeError: peter.giveBirth is not a function
+//     at <anonymous>:1:7
+// (anonymous) @ VM14681:1
+anna.poo()
+// '💩'
+peter.poo()
+// '💩'
