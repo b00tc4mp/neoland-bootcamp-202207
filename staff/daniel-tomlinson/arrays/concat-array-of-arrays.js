@@ -23,11 +23,11 @@ const longArrayOfArrays = [
 
 function concat() {
   var result = [];
-  for (i = 0; i < arguments.length; i++) {
+  for (let i = 0; i < arguments.length; i++) {
     var argument = arguments[i];
-    for (j = 0; j < argument.length; j++) {
+    for (let j = 0; j < argument.length; j++) {
       var element = argument[j];
-      for (k = 0; k < argument.length; k++) {
+      for (let k = 0; k < argument.length; k++) {
         var character = element[k];
         result[result.length] = character;
       }

@@ -3,7 +3,7 @@
 //   let array = arguments[0];
 //   let elements = "";
 //   let newArray = "";
-//   for (i = 0; i < arguments.length - 1; i++) {
+//   for (let i = 0; i < arguments.length - 1; i++) {
 //     elements = arguments[i + 1];
 //     newArray = array.push(elements);
 //     // console.log(newArray);
@@ -15,7 +15,7 @@ function push() {
   // TODO
   let array = arguments[0];
   length = array.length;
-  for (i = 1; i < arguments.length; i++) {
+  for (let i = 1; i < arguments.length; i++) {
     array[array.length] = arguments[i];
   }
   return array.length;

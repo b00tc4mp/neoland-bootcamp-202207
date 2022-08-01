@@ -4,7 +4,7 @@
 //   let arrayTemp = [];
 //   let newArray = [];
 //   // TODO ...
-//   for (i = 0; i < arguments.length; i++) {
+//   for (let i = 0; i < arguments.length; i++) {
 //     arrayTemp = arguments[i];
 //     newArray = newArray.concat(arrayTemp);
 //   }
@@ -17,7 +17,7 @@
 /* function concat() {
   let array = [];
   array = arguments[0];
-  for (i = 1; i < arguments.length; i++) {
+  for (let i = 1; i < arguments.length; i++) {
     array += "," + arguments[i];
 
     return "[" + array + "]";
@@ -29,8 +29,8 @@
 // function concat(array, array2) {
 //   var newArray = [];
 //   var x = 0;
-//   for (var i = 0; i < arguments.length; i++) {
-//     for (var j = 0; j < arguments[i].length; j++) {
+//   for (let i = 0; i < arguments.length; i++) {
+//     for (let j = 0; j < arguments[i].length; j++) {
 //       newArray[x] = arguments[i][j];
 //       x++;
 //     }
@@ -41,8 +41,8 @@
 // function concat() {
 //   let newArray = [];
 //   let index = 0;
-//   for (i = 0; i < arguments.length; i++)
-//     for (j = 0; j < arguments[i].length; j++) {
+//   for (let i = 0; i < arguments.length; i++)
+//     for (let j = 0; j < arguments[i].length; j++) {
 //       newArray[index] = arguments[i][j];
 //       index++;
 //       // console.log(arguments[i][j]);
@@ -56,11 +56,11 @@
 // function concat(array1, array2) {
 //   var result = [];
 
-//   for (i = 0; i < array1.length; i++) {
+//   for (let i = 0; i < array1.length; i++) {
 //     var element = array1[i];
 //     result.push(element);
 //   }
-//   for (i = 0; i < array2.length; i++) {
+//   for (let i = 0; i < array2.length; i++) {
 //     var element = array2[i];
 //     result.push(element);
 //   }
@@ -71,9 +71,9 @@
 
 // function concat() {
 //   var result = [];
-//   for (i = 0; i < arguments.length; i++) {
+//   for (let i = 0; i < arguments.length; i++) {
 //     var argument = arguments[i];
-//     for (j = 0; j < argument.length; j++) {
+//     for (let j = 0; j < argument.length; j++) {
 //       var element = argument[j];
 //       result.push(element);
 //     }
@@ -85,9 +85,9 @@
 
 function concat() {
   var result = [];
-  for (i = 0; i < arguments.length; i++) {
+  for (let i = 0; i < arguments.length; i++) {
     var argument = arguments[i];
-    for (j = 0; j < argument.length; j++) {
+    for (let j = 0; j < argument.length; j++) {
       var element = argument[j];
       result[result.length] = element;
     }

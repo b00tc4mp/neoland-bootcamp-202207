@@ -1,6 +1,6 @@
 function map(array, callback) {
   const result = [];
-  for (i = 0; i < array.length; i++) {
+  for (let i = 0; i < array.length; i++) {
     result[i] = callback(array[i]);
   }
   return result;
@@ -9,7 +9,7 @@ function map(array, callback) {
 // function powerFor(val) {
 //   //   if (pow === 0) return 0;
 //   var result = 1;
-//   for (i = 0; i < 2; i++) {
+//   for (let i = 0; i < 2; i++) {
 //     result *= val;
 //   }
 //   return result;

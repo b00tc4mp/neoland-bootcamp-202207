@@ -7,5 +7,5 @@
 function indexOf(array, value) {
   //   // TODO
 
-  for (i = 0; i < array.length; i++) if (array[i] === value) return i;
+  for (let i = 0; i < array.length; i++) if (array[i] === value) return i;
 }
