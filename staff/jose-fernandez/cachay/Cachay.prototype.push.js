@@ -1,9 +1,8 @@
-Cachay.prototype.push=function(callback){
-    const result=[]
-    for(let i=0;i<this.length;i++){
-        const element= this[i]
-
-        result[result.length]=element
+Cachay.prototype.push = function (...args) {
+    
+    for (let i = 0; i < args.length; i++) {
+        const element = args[i]
+        this[this.length++] = element
     }
-    return result
+    return this.length
 }
