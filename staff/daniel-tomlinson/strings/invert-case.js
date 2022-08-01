@@ -3,7 +3,7 @@
 function invertCase(text) {
   var newString = "";
 
-  for (i = 0; i < text.length; i++) {
+  for (let i = 0; i < text.length; i++) {
     var characterNew = "";
 
     if (text[i].toUpperCase() === text[i]) characterNew = text[i].toLowerCase();

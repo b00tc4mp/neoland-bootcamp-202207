@@ -1,6 +1,6 @@
 function numerify(text) {
   let result = "";
-  for (i = 0; i < text.length; i++) {
+  for (let i = 0; i < text.length; i++) {
     const character = text[i];
     const lowerCaseCharacter = character.toLowerCase();
     if (lowerCaseCharacter === "e") result += "3";

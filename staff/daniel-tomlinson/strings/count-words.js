@@ -21,12 +21,15 @@
 //Manu's Code => fails 1 test!!
 
 function countWords(text) {
-  let countWords = 0;
-  if (text[0] !== " ") countWords = 1;
+  console.log(text[0]);
 
-  for (var i = 0; i < text.length; i++) {
+  let wordCount = 0;
+  if (text[0] === undefined) wordCount = 0;
+  else if (text[0] !== " ") wordCount = 1;
+
+  for (let i = 0; i < text.length; i++) {
     if (text[i] === " " && text[i + 1] !== " " && text[i + 1] !== undefined)
-      countWords++;
+      wordCount++;
   }
-  return countWords;
+  return wordCount;
 }
