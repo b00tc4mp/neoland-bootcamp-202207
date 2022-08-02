@@ -1,15 +1,6 @@
-const loginPage = document.querySelector('.loginPage')
-const registerPage = document.querySelector('.registerPage')
-const homePage = document.querySelector('.homePage')
 
-const loginForm = document.querySelector('.loginForm')
-const registerForm = document.querySelector('.registerForm')
-
-const registerLink = document.querySelector('.registerLink')
-const loginLink = document.querySelector('.loginLink')
 
 const createNoteButton = document.querySelector('.newNoteButton')
-const notesList = document.querySelector('.notesList')
 
 const updatePassForm = document.querySelector('#updatePasswordForm')
 const updateEmailForm = document.querySelector('#updateEmailForm')

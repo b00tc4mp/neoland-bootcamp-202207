@@ -161,21 +161,21 @@ a:visited{
     font-size: 2rem;
 }
 
-.passSpan{
+.passDiv{
     width: 100%;
     height: auto;
     background-color: rgb(250, 39, 39);
     color: white;
 }
 
-.passSpan > h3{
+.passDiv > h3{
     font-size: 1.8rem;
     border-bottom: 5px solid white;
     margin-top: 2px;
     padding-bottom: 10px;
 }
 
-.passSpan > p{
+.passDiv > p{
     font-size: 1.5rem;
     line-height: 10%;
 }
