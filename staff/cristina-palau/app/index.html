@@ -8,6 +8,8 @@
     <title>App</title>
 
     <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 </head>
 
 <body>
@@ -49,7 +51,8 @@
                 <div class="form__field">
                     <label for="password">password</label>
                     <input class="input" type="password" name="password" placeholder="password" id="password-reg">
-                <div class="passerror off">must contain at least eight characters, at least one number and both lower and uppercase letters and special characters</div>
+                    <div class="passerror off">must contain at least eight characters, at least one number and both
+                        lower and uppercase letters and special characters</div>
                 </div>
 
                 <!-- <div class="form__field">security question
@@ -110,65 +113,97 @@
         </div>
     </main>
 
-    <div class="home-page page off">
+    <main class="home-page page off">
         <div class="topcontainer homecontainer">
             <div class="header">
-                <div class="menu">
-                    <div class="burgerline"></div>
-                    <div class="burgerline"></div>
-                    <div class="burgerline"></div>
-                </div>
                 <h1 class="greeting"></h1>
-                <div class="profile">
-                    <div class="profilephoto"></div>
+                <button class="burger">
+                    <div class="burgerline"></div>
+                    <div class="burgerline"></div>
+                    <div class="burgerline"></div>
+                </button>
+                <div class="menu-options off">
+                    <div class=close></div>
+                    <ul class="menu-list">
+                        <li><button class=profile-button>Profile Settings</button>
+                        <li><button class="home-button off">Home</button></li>
+                        <li><button class=logout-button>Logout</button></li>
+                    </ul>
                 </div>
             </div>
         </div>
-        <main class="main">
+        <div class="notes-page">
             <div class="note-container">
                 <ul class="list">
                     <li class="list__item">
                         <button class="delete">✖️</button>
-                        <p class= "list__item-text" contentEditable= true>hello, note</p>
+                        <p class="list__item-text" contentEditable=true>hello, note</p>
                     </li>
-                    <li class="list__item">
-                        <button class="delete">✖️</button>
-                        <p class= "list__item-text" contentEditable= true>hello, note</p>
-                    </li>
-                    <li class="list__item">
-                        <button class="delete">✖️</button>
-                        <p class= "list__item-text" contentEditable= true>hello, note</p>
-                    </li>
-
                 </ul>
             </div>
+        </div>
+        <div class="update-container off">
+            <form class="update-form">Update password
+                <div class="update-form__field">
+                    <label for="password">Old Password</label>
+                    <input class="input" type="password" name="oldpassword" placeholder="old password" id="oldpassword">
+                </div>
+                <div class="update-form__field">
+                    <label for="password">New password</label>
+                    <input class="input" type="password" name="newpassword" placeholder="new password" id="newpassword">
+                </div>
+                <div class="update-form__field">
+                    <label for="password">Repeat new password</label>
+                    <input class="input" type="password" name="newpassword2" placeholder="repeat new password"
+                        id="newpassword2">
+                    <div class="passerror off">must contain at least eight characters, at least one number and both
+                        lower and uppercase letters and special characters</div>
+                </div>
+                <div class="form__field">
+                    <button class="button" type="submit">save</button>
+                </div>
+            </form>
 
-        </main>
+            <form class="update-form">Update e-mail
+                <div class="update-form__field">
+                    <label for="email">email</label>
+                    <input class="input" type="email" name="email" placeholder="e-mail" id="email">
+                </div>
+                <div class="form__field">
+                    <button class="button" type="submit">save</button>
+                </div>
+
+            </form>
+        </div>
         <div class="botcontainer homecontainer">
             <footer class="homefooter">
-                <a class="anchor" href="login-page.html">Logout</a>
-
                 <button class="addnote">✏️</button>
             </footer>
         </div>
-    </div>
-
-    <script src="constants.js"></script>
+    </main>
 
     <!-- <script src="./data/users.js"></script>
     <script src="./data/notes.js"></script> -->
 
 
-    <script src="./logic/authenticateUser.js"></script>
-    <script src="./logic/retrieveUser.js"></script>
-    <script src="./logic/registerUser.js"></script>
-    <script src="./logic/resetPassword.js"></script>
-    <script src="./logic/retrieveNotes.js"></script>
-    <script src="./logic/createNote.js"></script>
-    <script src="./logic/updateNote.js"></script>
-    <script src="./logic/deleteNote.js"></script>
-
-    <script src="index.js"></script>
+    <script src="constants.js"></script>
+    
+    <!--business layer -->
+    <script src="logic/authenticateUser.js"></script>
+    <script src="logic/retrieveUser.js"></script>
+    <script src="logic/registerUser.js"></script>
+    <script src="logic/retrieveNotes.js"></script>
+    <script src="logic/createNote.js"></script>
+    <script src="logic/updateNote.js"></script>
+    <script src="logic/deleteNote.js"></script>
+    <script src="logic/updateUser.js"></script>
+    
+    <!-- presentation layer -->
+    <script src="init.js"></script>
+    <script src="view/renderHome.js"></script>
+    <script src="view/renderList.js"></script>
+    <script src="main.js"></script>
+    
 
 </body>
 
