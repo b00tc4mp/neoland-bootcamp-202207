@@ -1,23 +1,13 @@
-registerLink.onclick = function (event) {
-    event.preventDefault()
+const login = new Login
+const register = new Register
+const home = new Home
 
-    loginPage.classList.add('off')
-    registerPage.classList.remove('off')
-}
+login.onLinkClick(function () {
+    document.body.removeChild(login.container)
+    document.body.append(register.container)
+})
 
-loginLink.onclick = function (event) {
-    event.preventDefault()
-
-    registerPage.classList.add('off')
-    loginPage.classList.remove('off')
-}
-
-loginForm.onsubmit = function (event) {
-    event.preventDefault()
-
-    const email = loginForm.email.value
-    const password = loginForm.password.value
-
+login.onFormSubmit(function(email, password) {
     try {
         authenticateUser(email, password, function (error, token) {
             if (error) {
@@ -26,25 +16,95 @@ loginForm.onsubmit = function (event) {
                 return
             }
 
-            loginForm.reset()
+            login.reset()
 
             sessionStorage.token = token
 
-            renderHome()
+            document.body.removeChild(login.container)
+
+            try {
+                retrieveUser(sessionStorage.token, function (error, user) {
+                    if (error) {
+                        alert(error.message)
+        
+                        return
+                    }
+        
+                    home.setName(user.name)
+    
+                    try {
+                        retrieveNotes(sessionStorage.token, function (error, notes) {
+                            if (error) {
+                                alert(error.message)
+                
+                                return
+                            }
+
+                            home.renderList(notes)
+
+                            document.body.append(home.container)
+                        })
+                    } catch (error) {
+                        alert(error.message)
+                    }
+                })
+            } catch (error) {
+                alert(error.message)
+            }
         })
     } catch (error) {
         alert(error.message)
     }
+})
 
+home.onDeleteNoteClick = function(noteId) { // method overriding
+    try {
+        deleteNote(sessionStorage.token, noteId, error => {
+            if (error) {
+                alert(error.message)
+
+                return
+            }
+
+            try {
+                retrieveNotes(sessionStorage.token, function (error, notes) {
+                    if (error) {
+                        alert(error.message)
+        
+                        return
+                    }
+
+                    home.renderList(notes)
+                })
+            } catch (error) {
+                alert(error.message)
+            }
+        })
+    } catch (error) {
+        alert(error.message)
+    }
 }
 
-registerForm.onsubmit = function (event) {
-    event.preventDefault()
+home.onUpdateNote = function(noteId, text) {
+    try {
+        updateNote(sessionStorage.token, noteId, text, error => {
+            if (error) {
+                alert(error.message)
 
-    const name = registerForm.name.value
-    const email = registerForm.email.value
-    const password = registerForm.password.value
+                return
+            }
+        })
+    } catch (error) {
+        alert(error.message)
+    }
+}
 
+register.onLinkClick(function() {
+    document.body.removeChild(register.container)
+    document.body.append(login.container)
+})
+
+register.onFormSubmit(function(name, email, password) {
     try {
         registerUser(name, email, password, function (error) {
             if (error) {
@@ -53,65 +113,67 @@ registerForm.onsubmit = function (event) {
                 return
             }
 
-            registerForm.reset()
+            register.reset()
 
-            registerPage.classList.add('off')
-            loginPage.classList.remove('off')
+            document.body.removeChild(register.container)
+            document.body.append(login.container)
         })
     } catch (error) {
         alert(error.message)
     }
-}
+})
 
-addButton.onclick = function () {
-    try {
-        createNote(sessionStorage.token, error => {
-            if (error) {
-                alert(error.message)
+document.body.append(login.container)
 
-                return
-            }
+// addButton.onclick = function () {
+//     try {
+//         createNote(sessionStorage.token, error => {
+//             if (error) {
+//                 alert(error.message)
 
-            renderList()
-        })
-    } catch (error) {
-        alert(error.message)
-    }
-}
+//                 return
+//             }
 
-if (sessionStorage.token)
-    renderHome()
+//             renderList()
+//         })
+//     } catch (error) {
+//         alert(error.message)
+//     }
+// }
 
-logoutButton.onclick = function() {
-    delete sessionStorage.token
+// if (sessionStorage.token)
+//     renderHome()
 
-    closeButton.click()
+// logoutButton.onclick = function() {
+//     delete sessionStorage.token
 
-    settingsPanel.classList.add('off')
-    listPanel.classList.remove('off')
+//     closeButton.click()
+
+//     settingsPanel.classList.add('off')
+//     listPanel.classList.remove('off')
     
-    homePage.classList.add('off')
-    loginPage.classList.remove('off')
-}
+//     homePage.classList.add('off')
+//     loginPage.classList.remove('off')
+// }
 
-// menuButton.addEventListener('click', function() {   
-// })
-menuButton.onclick = function() {
-    menuButton.classList.add('off')
-    closeButton.classList.remove('off')
-    menuPanel.classList.remove('off')
-}
+// // menuButton.addEventListener('click', function() {   
+// // })
+// menuButton.onclick = function() {
+//     menuButton.classList.add('off')
+//     closeButton.classList.remove('off')
+//     menuPanel.classList.remove('off')
+// }
 
-closeButton.onclick = function() {
-    closeButton.classList.add('off')
-    menuPanel.classList.add('off')
-    menuButton.classList.remove('off')
-}
+// closeButton.onclick = function() {
+//     closeButton.classList.add('off')
+//     menuPanel.classList.add('off')
+//     menuButton.classList.remove('off')
+// }
 
-settingsButton.onclick = function() {
-    closeButton.click()
+// settingsButton.onclick = function() {
+//     closeButton.click()
 
-    listPanel.classList.add('off')
-    addButton.classList.add('off')
-    settingsPanel.classList.remove('off')
-}
+//     listPanel.classList.add('off')
+//     addButton.classList.add('off')
+//     settingsPanel.classList.remove('off')
+// }
