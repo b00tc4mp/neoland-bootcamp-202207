@@ -32,7 +32,7 @@ function Male(name) {
 Male.prototype = Object.create(Human.prototype)
 Male.prototype.constructor = Male
 
-Male.prototype.giveSperm = function() { return '🌱' }
+Male.prototype.giveSeed = function() { return '🌱' }
 
 var anna = new Female('Anna')
 var peter = new Male('Peter')
@@ -40,7 +40,7 @@ var peter = new Male('Peter')
 console.log(anna.talk())
 console.log(peter.talk())
 
-console.log(peter.giveSperm())
+console.log(peter.giveSeed())
 console.log(anna.giveBirth())
 
 // VM14596:40 🗣 iii
@@ -48,8 +48,8 @@ console.log(anna.giveBirth())
 // VM14596:43 🌱
 // VM14596:44 👶🏻
 // undefined
-anna.giveSperm()
-// VM14634:1 Uncaught TypeError: anna.giveSperm is not a function
+anna.giveSeed()
+// VM14634:1 Uncaught TypeError: anna.giveSeed is not a function
 //     at <anonymous>:1:6
 // (anonymous) @ VM14634:1
 peter.giveBirth()
