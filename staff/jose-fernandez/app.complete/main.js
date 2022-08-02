@@ -22,6 +22,7 @@ const login = new Login
 const register = new Register
 const home = new Home
 
+
 login.onLinkClick(function () {
     document.body.removeChild(login.container)
     document.body.append(register.container)
@@ -125,8 +126,7 @@ register.onFormSubmit(function (name,email,password) {
 })
 
 
-// createNoteForm.onsubmit = function (event) {
-//     //cancela la accion predeterminada del evento
+// home.createNoteForm.onsubmit = function (event) {
 //     event.preventDefault()
 
 //     // creo una constante y lo igualo al texto de mi textarea con name="newItemNote" ubicado en createNoteForm 
@@ -147,9 +147,9 @@ register.onFormSubmit(function (name,email,password) {
 //         }
 //     } else alert('Nota Vacia Descartada')
 
-//     createNoteForm.classList.add('off')
-//     list__Notes.classList.remove('off')
-//     btn__pluss.classList.remove('off')
+//     // createNoteForm.classList.add('off')
+//     // list__Notes.classList.remove('off')
+//     // btn__pluss.classList.remove('off')
 //     // poner el textarea de la newNote en Blanco
 //     document.getElementById("newNote").value = "";
 // }
@@ -223,13 +223,12 @@ register.onFormSubmit(function (name,email,password) {
 //     const newEmail = updatePassword.newEmail.value
 
 //     try {
-//         updateUserPassword(sessionStorage.token, newEmail, function (error) {
+//         updateUserEmail(sessionStorage.token, newEmail, function (error) {
 //             if(error){
 //                 alert(error.message)
 //                 return
 //             }
 //             const messageEmail = homePage.querySelector(".messageEmail")
-
 //             messageEmail.innerText =  email
 //         })
 //     } catch (error) {

@@ -135,8 +135,7 @@ class Home {
 
         </footer>
     </div>`
-
-        this.container = temp.firstChild
+       
     }
 
     setName(name) {
@@ -166,7 +165,7 @@ class Home {
                     clearTimeout(window.updateNoteTimeoutId)
 
                 window.updateNoteTimeoutId = setTimeout(() => {
-                   this.onUpdateNote(note.id,text.innerText)
+                    this.onUpdateNote(note.id, text.innerText)
                 }, 500)
             }
             text.innerText = note.text
@@ -179,4 +178,6 @@ class Home {
     onDeleteNoteClick = null
     onUpdateNote = null
 
+
 }
+
