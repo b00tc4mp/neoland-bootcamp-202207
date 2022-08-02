@@ -1,6 +1,6 @@
 Cachay.prototype.concat = function (...arrays) {
     var newArray = new Cachay;
-
+    
     for (let i = 0; i < this.length; i++) {
         newArray[newArray.length++] = this[i];
     }
