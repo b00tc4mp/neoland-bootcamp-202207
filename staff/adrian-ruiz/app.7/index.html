@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- commons / utils -->
+    <script src="constants.js"></script>
+
+    <!-- data layer -->
+    <script src="data/users.js"></script>
+    <script src="data/notes.js"></script>
+
+    <!--business layer -->
+    <script src="logic/authenticateUser.js"></script>
+    <script src="logic/registerUser.js"></script>
+    <script src="logic/retrieveUser.js"></script>
+    <script src="logic/retrieveNotes.js"></script>
+    <script src="logic/createNote.js"></script>
+    <script src="logic/updateNote.js"></script>
+    <script src="logic/deleteNote.js"></script>
+    <script src="logic/updateUserPassword.js"></script>
+    <script src="logic/updateUserEmail.js"></script>
+    <script src="logic/changeNoteColor.js"></script>
+
+    <!-- presentation layer -->
+    <script src="init.js" defer></script>
+    <script src="main.js" defer></script>
+
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+<body>
+
+    <main class="page loginPage">
+        <section class="mainBackground">
+            <section class="headerContainer">
+                <div class="header">
+                    <div class="headerImage">
+                        <img src="assets/sample-logo.png" alt="Company Logo" id="companyLogo">
+                    </div>
+                </div>
+            </section>
+            <section class="formContainer">
+                <div class="formDiv">
+                    <form class="form loginForm">
+                        <label for="email" class="labelForm">E-mail</label>
+                        <input type="email" name="email">
+                        <label for="password" class="labelForm">Password</label>
+                        <input type="password" name="password">
+                        <button type="submit" class="submitButton" id="loginSubmitButton"><p class="buttonText">Login</p></button>
+                        <div class="anchorContainer">
+                            <a class="anchor registerLink" href="#">Register</a>
+                        </div>
+                    </form>
+                    
+                </div>
+                
+            </section>
+        </section> 
+            
+    </main>
+
+    <main class="page registerPage off">
+        <section class="mainBackground">
+            <section class="headerContainer">
+                <div class="header">
+                    <div class="headerImage">
+                        <img src="assets/sample-logo.png" alt="Company Logo" id="companyLogo">
+                    </div>
+                </div>
+            </section>
+            <section class="formContainer">
+                <div class="formDiv">
+                    <form class="form registerForm">
+                        <label for="name" class="labelForm">Name</label>
+                        <input type="text" name="name">
+                        <label for="email" class="labelForm">E-mail</label>
+                        <input type="email" name="email">
+                        <label for="password" class="labelForm">Password</label>
+                        <input type="password" name="password">
+                        <span class="passSpan off"><h3>La contraseña no cumple los requisitos</h3>
+                            <p id="lowerCase" class="off">- Debe introducir al menos 1 letra minúscula</p>
+                            <p id="upperCase" class="off">- Debe introducir al menos 1 letra mayúscula</p>
+                            <p id="number" class="off">- Debe introducir al menos 1 número</p>
+                            <p id="symbols" class="off">- Debe introducir al menos 1 símbolo</p>
+                            <p id="length" class="off">- La contraseña debe tener entre 8 y 15 caracteres</p>
+                        </span>
+                        <button type="submit" class="submitButton" id="registerSubmitButton"><p class="buttonText">Register</p></button>
+                        <div class="anchorContainer">
+                            <a class="anchor loginLink" href="#">Login</a>
+                        </div>
+                    </form>
+                    
+                    
+                </div>
+                
+                
+            </section>
+        </section>
+    </main>
+
+    <main class="page homePage off">
+        <header>
+            <span class="homeIcon material-symbols-outlined">
+                home
+                </span>
+            <h1 id="headerTitle">Hello, Pepito</h1>
+
+                <div class="menuContainer">
+                    <div class="menuIcon"></div>
+                    <div class="menuIcon1"></div>
+                    <div class="menuIcon2"></div>
+                    <div class="dropdownMenu off">
+                        <ul>
+                            <li><a href="#" class="profileLink">Profile</a></li>
+                            <li><a href="#" class="settingsLink">Settings</a></li>
+                            <li><a href="#" class="logoutLink">Logout</a></li>
+                        </ul>
+                </div>
+                
+
+                </div>
+        </header>
+        <div class="containerPopUp off">
+            <div class="newNotePopUp">
+                <form class="newNoteForm" action="#">
+                    <label for="newNoteTitle" class="newNoteLabel">Title</label>
+                    <div contenteditable="true" class="newNoteInput newNoteInput__title" name="newNoteTitle"></div>
+                    <label for="newNoteText" class="newNoteLabel">Describe your new note</label>
+                    <div contenteditable="true" class="newNoteInput newNoteInput__text" name="newNoteText"></div>
+                    <div class="newNoteButtonsContainer">
+                        <button class="newNoteFormButton" id="confirmNewNoteButton">Create note</button>
+                        <button class="newNoteFormButton" id="cancelNewNoteButton">Cancel</button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+        <section class="homeMainContainer home__notesContainer">
+            <ul class="notesList">
+                <li class="note">
+                    <div class="deleteNoteButton">✖</div>
+                    <div class="noteTitle" contenteditable="true">TITULO TESTING HTML</div>
+                    <p class="noteText" contenteditable="true">
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cupiditate dolores reprehenderit enim? Natus amet, accusamus ducimus doloribus molestias, velit et laborum non ab adipisci quisquam ut nulla. Vero, dolores asperiores.
+                    </p>
+                    <div class="changeNoteColorContainer">
+                        <div class="changeNoteBlue"></div>
+                        <div class="changeNoteRed"></div>
+                        <div class="changeNoteGreen"></div>
+                        <div class="changeNoteOrange"></div>
+                        <div class="ChangeNotePurple"></div>
+                        <div class="changeNoteGrey"></div>
+                    </div>
+                </li>
+                <li class="note">
+                    <div class="deleteNoteButton">✖</div>
+                    <div class="noteTitle" contenteditable="true">TITULO TESTING HTML</div>
+                    <div class="noteText" contenteditable="true">
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cupiditate dolores reprehenderit enim? Natus amet, accusamus ducimus doloribus molestias, velit et laborum non ab adipisci quisquam ut nulla. Vero, dolores asperiores.
+                    </div>
+                </li>
+                <li class="note">
+                    <div class="deleteNoteButton">✖</div>
+                    <div class="noteTitle" contenteditable="true">TITULO TESTING HTML</div>
+                    <div class="noteText" contenteditable="true">
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cupiditate dolores reprehenderit enim? Natus amet, accusamus ducimus doloribus molestias, velit et laborum non ab adipisci quisquam ut nulla. Vero, dolores asperiores.
+                    </div>
+                </li>
+                    <li class="note">   
+                        <div class="deleteNoteButton">✖</div>
+                        <div class="noteTitle" contenteditable="true">TITULO TESTING HTML</div>
+                        <div class="noteText" contenteditable="true">
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cupiditate dolores reprehenderit enim? Natus amet, accusamus ducimus doloribus molestias, velit et laborum non ab adipisci quisquam ut nulla. Vero, dolores asperiores.
+                        </div>
+                    </li>
+            </ul>
+        </section>
+        <section class="homeMainContainer home__profileContainer off">
+            <div class="profileMenuContainer">
+                <form id="updatePasswordForm" action="#">
+                    <label for="oldPassword" class="labelForm">Old Password</label>
+                    <input type="password" name="oldPassword" class="profileInput">
+                    <label for="newPassword" class="labelForm">New Password</label>
+                    <input type="password" name="newPassword" class="profileInput">
+                    <label for="confirmNewPassword" class="labelForm">Confirm New Password</label>
+                    <input type="password" name="confirmNewPassword" class="profileInput">
+                    <button type="submit" class="profileFormButton" id="updatePasswordSubmit">Confirm</button>
+                </form>
+                <form id="updateEmailForm" action="#">
+                    <label for="newEmail" class="labelForm">New Email</label>
+                    <input type="email" name="newEmail" class="profileInput">
+                    <button type="submit" class="profileFormButton" id="updateEmailSubmit">Confirm</button>
+                </form>
+            </div>
+        </section>
+        <section class="bottomMenu">
+            <button class="newNoteButton"><span class="newNoteEmoji">📝</span></button>
+        </section>
+    </main>
+</body>
+</html>
