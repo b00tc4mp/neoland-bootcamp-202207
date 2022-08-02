@@ -134,6 +134,17 @@ p {
   margin-top: 0;
 }
 
+.welcome {
+  color: var(--color-headings);
+  line-height: 1.1;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0;
+  padding-left: 1rem;
+  /* justify-self: flex-start; */
+}
+
 /* Links */
 
 a {
@@ -153,12 +164,15 @@ a:hover {
 .navigation-bar {
   background-color: #f4e4ba;
   display: flex;
-  justify-content: flex-end;
   width: 100%;
+  justify-content: space-between;
+
+  align-items: center;
 }
 
 .nav-icon {
   margin: 1rem;
+  /* justify-self: flex-end; */
 }
 
 .fa-poo {
@@ -312,7 +326,12 @@ button:hover {
   margin: 0;
   width: auto;
   height: auto;
+  justify-self: flex-end;
 }
+
+/* .menu-panel-button {
+  justify-self: flex-end;
+} */
 
 .menu-button:hover {
   border: none;
@@ -395,4 +414,51 @@ button:hover {
 
 .resetPassword-elements {
   width: 100%;
+}
+
+/* menu */
+
+.menu-panel {
+  color: #f4e4ba;
+  background-color: #d66ba0;
+  margin-bottom: 2rem;
+  align-self: flex-end;
+  border-radius: 0 0 0 1rem;
+}
+
+.dropdown-menu {
+  list-style: none;
+  padding: 0 3rem 1.8rem 0.5rem;
+  margin: 0;
+}
+
+.dropdown-item {
+  color: #f4e4ba;
+}
+
+.dropdown__link {
+  color: #f4e4ba;
+  padding: 0;
+  margin: 0.5rem;
+  width: auto;
+  background-color: transparent;
+  font-size: 1.6rem;
+}
+
+.dropdown__link:hover {
+  border: none;
+  font-size: 1.6rem;
+  color: #e5a9a9;
+}
+
+.poo-list-style {
+  color: #f4e4ba;
+  font-size: 1.8rem;
+  margin-left: 0 0.5rem 0 0;
+  padding: 0;
+  height: 0;
+}
+
+.poo-list-style:hover {
+  color: #e5a9a9;
 }
