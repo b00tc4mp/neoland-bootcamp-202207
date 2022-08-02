@@ -1,7 +1,8 @@
-Cachay.prototype.pop=function(callback){
-    for(let i=0;i<this.length;i++){
-        const element= this[i]
-
-        callback(element)
+Cachay.prototype.pop = function () {
+    //arreglar
+    if (this.length > 0) {
+         this[this.length - 1]
+         this.length--
     }
 }
+
