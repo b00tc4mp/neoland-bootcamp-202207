@@ -3,12 +3,12 @@ const register = new Register();
 const home = new Home();
 
 login.onLinkClick(function () {
-  document.body.removeChile(login.container);
-  document.body.append(login.container);
+  document.body.removeChild(login.container);
+  document.body.append(register.container);
 });
 
 register.onLinkClick(function () {
-  document.body.removeChile(login.container);
+  document.body.removeChild(register.container);
   document.body.append(login.container);
 });
 
@@ -24,6 +24,8 @@ login.onFormSubmit(function (email, password) {
       login.reset();
 
       sessionStorage.token = token;
+
+      // following code renders the home page
 
       document.body.removeChild(login.container);
       // renderHome();
@@ -57,6 +59,7 @@ login.onFormSubmit(function (email, password) {
       } catch (error) {
         alert(error.message);
       }
+      // render home finishes here
     });
   } catch (error) {
     alert(error.message);
@@ -90,7 +93,7 @@ home.onDeleteNoteClick = function (noteId) {
   }
 };
 
-register.onFormSubmit = function (name, email, password) {
+register.onFormSubmit(function (name, email, password) {
   try {
     registerUser(name, email, password, function (error) {
       if (error) {
@@ -100,19 +103,19 @@ register.onFormSubmit = function (name, email, password) {
       }
       register.reset();
 
-      document.body.removeChile(register.container);
+      document.body.removeChild(register.container);
       document.body.append(login.container);
     });
   } catch (error) {
     alert(error.message);
   }
-};
+});
 
 document.body.append(login.container);
 
 // TO DO =============================================
 
-plusButton.onclick = function () {
+/* plusButton.onclick = function () {
   try {
     createNote(sessionStorage.token, (error) => {
       if (error) {
@@ -184,3 +187,4 @@ menuButton.onclick = function () {
   menuPanel.classList.toggle("off");
   // profilePage.classList.add("off");
 };
+ */
