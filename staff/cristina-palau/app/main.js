@@ -1,47 +1,15 @@
-// loginPage.classList.add('off')
-// homePage.classList.remove('off')
-// registerPage.classList.remove('off')
+const login = new Login
+const register = new Register
+const home = new Home
 
-registerLink.onclick = function (event) {
-    event.preventDefault()
+login.onLinkClick(function () {
+    document.body.removeChild(login.container)
+    document.body.append(register.container)
+})
 
-    loginPage.classList.add('off')
-    registerPage.classList.remove('off')
-}
-
-loginLink.onclick = function (event) {
-    event.preventDefault()
-
-    registerPage.classList.add('off')
-    loginPage.classList.remove('off')
-}
-
-profileButton.onclick = function () {
-    
-    notesPage.classList.add('off')
-    homeFooter.classList.add('off')
-    profileButton.classList.add('off')
-    updatePage.classList.remove('off')
-    homeButton.classList.remove('off')
-}
-
-homeButton.onclick = function () {
-
-    updatePage.classList.add('off')
-    homeButton.classList.add('off')
-    notesPage.classList.remove('off')
-    homeFooter.classList.remove('off')
-    profileButton.classList.remove('off')
-
-}
-
-loginForm.onsubmit = function (event) {
-    event.preventDefault()
-
-    const email = loginForm.email.value
-    const password = loginForm.password.value
-
+login.onFormSubmit(function (email, password) {
     try {
+        debugger
         authenticateUser(email, password, function (error, token) {
             if (error) {
                 alert(error.message)
@@ -49,47 +17,93 @@ loginForm.onsubmit = function (event) {
                 return
             }
 
+            login.reset()
+
             sessionStorage.token = token
 
-            renderHome()
+            document.body.removeChild(login.container)
+debugger
+            try {
+                retrieveUser(sessionStorage.token, function (error, user) {
+                    if (error) {
+                        alert(error.message)
+                        return
+                    }
+debugger
+                    home.setName(user.name)
+                    try {
+                        retrieveNotes(sessionStorage.token, function (error, notes) {
+                            if (error) {
+                                alert(error.message)
+                
+                                return
+                            }
 
+                            home.renderList(notes)
+
+                            document.body.append(home.container)
+                        })
+                    } catch (error) {
+                        alert(error.message)
+                    }
+                })
+            } catch (error) {
+                alert(error.message)
+            }
         })
-
     } catch (error) {
         alert(error.message)
     }
-
-    loginForm.reset()
-}
-
-addNote.onclick = function () {
-
+})
+home.onDeleteNoteClick = function(noteId) { // method overriding
     try {
-        createNote(sessionStorage.token, function (error) {
+        deleteNote(sessionStorage.token, noteId, error => {
             if (error) {
                 alert(error.message)
 
                 return
             }
 
-            renderList()
+            try {
+                retrieveNotes(sessionStorage.token, function (error, notes) {
+                    if (error) {
+                        alert(error.message)
+        
+                        return
+                    }
 
+                    home.renderList(notes)
+                })
+            } catch (error) {
+                alert(error.message)
+            }
         })
     } catch (error) {
         alert(error.message)
     }
 }
 
-registerForm.onsubmit = function (event) {
-    event.preventDefault()
+home.onUpdateNote = function(noteId, text) {
+    try {
+        updateNote(sessionStorage.token, noteId, text, error => {
+            if (error) {
+                alert(error.message)
 
-    const name = registerForm.name.value
-    const email = registerForm.email.value
-    const password = registerForm.password.value
-    // const questionselector = document.getElementById("question")
-    // const question = questionselector.options[questionselector.selectedIndex].text
-    // const answer = registerForm.answer.value
+                return
+            }
+        })
+    } catch (error) {
+        alert(error.message)
+    }
+}
 
+register.onLinkClick(function () {
+    document.body.removeChild(register.container)
+    document.body.append(login.container)
+})
+
+register.onFormSubmit(function (name, email, password) {
+ 
     try {
         registerUser(name, email, password, function (error) {
             if (error) {
@@ -97,68 +111,86 @@ registerForm.onsubmit = function (event) {
 
                 return
             }
-            registerPage.classList.add('off')
-            loginPage.classList.remove('off')
+            
+            register.reset()
+            
+            document.body.removeChild(reset.container)
+            document.body.append(login.container)
+
         })
     } catch (error) {
         alert(error.message)
     }
+})
 
-}
+document.body.append(login.container)
 
-menuButton.onclick = function () {
-    
-    menuOptions.classList.remove('off')
-    menuButton.classList.add('off')
-}
+// profileButton.onclick = function () {
 
-closeButton.onclick = function () {
+//     notesPage.classList.add('off')
+//     homeFooter.classList.add('off')
+//     profileButton.classList.add('off')
+//     updatePage.classList.remove('off')
+//     homeButton.classList.remove('off')
+// }
 
-    menuButton.classList.remove('off')
-    menuOptions.classList.add('off')
+// homeButton.onclick = function () {
 
-}
-
-updateForm.onsubmit = function (event) {
-    event.preventDefault()
-
-    const oldPass = updateForm.oldpassword.value
-    const newPass = updateForm.newpassword.value
-    const newPass2 = updateForm.newpassword2.value
-    
-    try {
-        updatePassword(sessionStorage.token, oldPass, newPass, newPass2, function (error) {
-            if (error) {
-                alert(error.message)
-
-                return
-            }
-
-            updatePage.classList.add('off')
-            notesPage.classList.remove('off')
-            renderList()
-        })
-    } catch (error) {
-        alert(error.message)
-    }
-
-}
-
-resetLink.onclick = function (event) {
-    event.preventDefault()
-
-    loginPage.classList.add('off')
-    passwordPage.classList.remove('off')
-}
-
-if (sessionStorage.token)
-    renderHome()
+//     updatePage.classList.add('off')
+//     homeButton.classList.add('off')
+//     notesPage.classList.remove('off')
+//     homeFooter.classList.remove('off')
+//     profileButton.classList.remove('off')
+// }
 
 
-logoutButton.onclick = function () {
-    delete sessionStorage.token
 
-    homePage.classList.add('off')
-    loginPage.classList.remove('off')
-}
+// menuButton.onclick = function () {
+
+//     menuOptions.classList.remove('off')
+//     menuButton.classList.add('off')
+// }
+
+// closeButton.onclick = function () {
+
+//     menuButton.classList.remove('off')
+//     menuOptions.classList.add('off')
+
+// }
+
+// updateForm.onsubmit = function (event) {
+//     event.preventDefault()
+
+//     const oldPass = updateForm.oldpassword.value
+//     const newPass = updateForm.newpassword.value
+//     const newPass2 = updateForm.newpassword2.value
+
+//     try {
+//         updatePassword(sessionStorage.token, oldPass, newPass, newPass2, function (error) {
+//             if (error) {
+//                 alert(error.message)
+
+//                 return
+//             }
+
+//             updatePage.classList.add('off')
+//             notesPage.classList.remove('off')
+//             renderList()
+//         })
+//     } catch (error) {
+//         alert(error.message)
+//     }
+
+// }
+
+// if (sessionStorage.token)
+//     renderHome()
+
+
+// logoutButton.onclick = function () {
+//     delete sessionStorage.token
+
+//     homePage.classList.add('off')
+//     loginPage.classList.remove('off')
+// }
 
