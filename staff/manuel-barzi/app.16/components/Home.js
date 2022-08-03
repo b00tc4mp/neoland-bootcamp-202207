@@ -5,10 +5,18 @@ class Home {
         temp.innerHTML = `<div class="home-page container container--distributed">
             <header class="header">
                 <h1 class="title">Hello, User!</h1>
-                <button class="menu-button transparent-button"><span class="material-symbols-outlined">menu</span></button>
+                <!--button class="menu-button transparent-button"><span class="material-symbols-outlined">menu</span></button>
+                <button class="close-button transparent-button off"><span class="material-symbols-outlined">close</span></button-->
             </header>
 
             <main class="main">
+                <div class="menu-panel">
+                    <ul>
+                        <!--li><button class="settings-button transparent-button"><span class="material-symbols-outlined">settings</span></button></li-->
+                        <li><button class="logout-button transparent-button"><span class="material-symbols-outlined">logout</span></button></li>
+                    </ul>
+                </div>
+
                 <ul class="list-panel list">
                     <li class="list__item"><button class="list__item-delete-button">x</button>
                         <p contenteditable="true" class="list__item-text">Hello, Note! Lorem ipsum dolor sit amet
@@ -61,6 +69,12 @@ class Home {
                             blanditiis nobis fugiat aut nesciunt rerum porro delectus distinctio?</p>
                     </li>
                 </ul>
+
+                <!--div class="settings-panel off">
+                    Settings
+
+                    TODO implement me
+                </div-->
             </main>
 
             <footer class="footer">
@@ -70,81 +84,12 @@ class Home {
 
         this.container = temp.firstChild
 
-        const addButton = this.container.querySelector('.add-button')
-        addButton.onclick = () => {
-            this.onAddNote()
-        }
-
-        const header = this.container.querySelector('.header')
-        const footer = this.container.querySelector('.footer')
-
-        const menuButton = header.querySelector('.menu-button')
-
-        const temp2 = document.createElement('temp')
-        temp2.innerHTML = '<button class="close-button transparent-button"><span class="material-symbols-outlined">close</span></button>'
-        const closeButton = temp2.firstChild
-
-        const main = this.container.querySelector('.main')
-
-        const temp3 = document.createElement('temp')
-        temp3.innerHTML = `<div class="menu-panel">
-                <ul class="menu-panel__list">
-                    <li class="menu-panel__list-item-settings"><button class="settings-button transparent-button"><span class="material-symbols-outlined">settings</span></button></li>
-                    <li><button class="logout-button transparent-button"><span class="material-symbols-outlined">logout</span></button></li>
-                </ul>
-            </div>`
-        const menuPanel = temp3.firstChild
-
-        const menuPanelList = menuPanel.querySelector('.menu-panel__list')
-        const menuPanelListItemSettings = menuPanelList.querySelector('.menu-panel__list-item-settings')
-
-        menuPanel.querySelector('.logout-button').onclick = () => {
+        this.container.querySelector('.logout-button').onclick = () => {
             this.onLogout()
         }
 
-        menuButton.onclick = () => {
-            header.removeChild(menuButton)
-            header.append(closeButton)
-
-            main.prepend(menuPanel)
-        }
-
-        closeButton.onclick = () => {
-            header.removeChild(closeButton)
-            header.append(menuButton)
-
-            main.removeChild(menuPanel)
-        }
-
-        const listPanel = main.querySelector('.list-panel')
-
-        const temp4 = document.createElement('temp')
-        temp4.innerHTML = `<div class="settings-panel">
-                Settings
-
-                <button class="close-settings-button transparent-button"><span class="material-symbols-outlined">close</span></button>
-
-                TODO implement me
-            </div>`
-        const settingsPanel = temp4.firstChild
-        
-        const settingsButton = menuPanel.querySelector('.settings-button')
-        settingsButton.onclick = () => {
-            closeButton.click()
-            
-            menuPanelList.removeChild(menuPanelListItemSettings)
-            main.removeChild(listPanel)
-            footer.removeChild(addButton)
-
-            main.append(settingsPanel)
-        }
-
-        settingsPanel.querySelector('.close-settings-button').onclick = () => {
-            main.removeChild(settingsPanel)
-
-            menuPanelList.prepend(menuPanelListItemSettings)
-            main.append(listPanel)
-            footer.append(addButton)
+        this.container.querySelector('.add-button').onclick = () => {
+            this.onAddNote()
         }
     }
 
@@ -176,7 +121,7 @@ class Home {
 
                 window.updateNoteTimeoutId = setTimeout(() => {
                     this.onUpdateNote(note.id, text.innerText)
-                }, 500)
+                }, 1000)
             }
             text.innerText = note.text
 

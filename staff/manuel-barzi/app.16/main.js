@@ -149,3 +149,27 @@ if (sessionStorage.token)
     renderHome()
 else
     document.body.append(login.container)
+
+
+
+// // menuButton.addEventListener('click', function() {   
+// // })
+// menuButton.onclick = function() {
+//     menuButton.classList.add('off')
+//     closeButton.classList.remove('off')
+//     menuPanel.classList.remove('off')
+// }
+
+// closeButton.onclick = function() {
+//     closeButton.classList.add('off')
+//     menuPanel.classList.add('off')
+//     menuButton.classList.remove('off')
+// }
+
+// settingsButton.onclick = function() {
+//     closeButton.click()
+
+//     listPanel.classList.add('off')
+//     addButton.classList.add('off')
+//     settingsPanel.classList.remove('off')
+// }
