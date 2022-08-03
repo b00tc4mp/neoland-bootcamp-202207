@@ -13,10 +13,7 @@ class Home {
                     <!-- <span class="fa-solid fa-bars" id="btn-menu"></span> -->
                     <span class="material-symbols-outlined"  id="btn-menu">menu</span>
                 </div>
-                <div class="btn-close off">
-                    <span class="material-symbols-outlined"  id="btn-close">close</span>
-                </div>
-
+               
             </div>
 
             <nav class="nav-home" id="nav-home">
@@ -56,6 +53,7 @@ class Home {
             </ul>
 
             <!--============================= CREATE NOTE====================== -->
+       
             <form class="formcreateNote off">
 
                 <button class="btn_arrLeft" type="submit">
@@ -68,7 +66,6 @@ class Home {
                 </li>
 
             </form>
-
             <!--=============================PROFILE====================== -->
             <form class="formProfile off">
 
@@ -135,7 +132,62 @@ class Home {
 
         </footer>
     </div>`
-       
+
+    this.container = temp.firstChild
+
+    const header = this.container.querySelector('.header_home')
+    const main = this.container.querySelector('.main_home')
+    const footer = this.container.querySelector('.footer_home')
+    
+    const formCreateNote = this.container.querySelector('.formcreateNote')
+    const list = this.container.querySelector('.list')
+    const btnPlus = this.container.querySelector('.btn_plus')
+    btnPlus.onclick = () => {
+        formCreateNote.classList.remove('off')
+        main.removeChild(list)
+        main.append(formCreateNote)
+        footer.removeChild(btnPlus)
+    }
+
+    // const temp2 = document.createElement('temp')
+    // temp2.innerHTML = `<form class="formcreateNote">
+
+    //     <button class="btn_arrLeft" type="submit">
+    //         <i class="fa-solid fa-arrow-left"></i>
+    //     </button>
+
+    //     <li class="list__itemNew">
+    //         <textarea class="list__item-textNew" id="newNote" name="newItemNote"
+    //             placeholder="New Note!!"></textarea>
+    //     </li>
+
+    // </form>`
+    // const createNote =temp2.firstChild
+    // const formCreateNote = createNote.querySelector('.formcreateNote')
+    // // const btnLeft= formCreateNote.querySelector('.btn_arrLeft')
+    // btnLeft.onclick=()=>{
+    //     main.removeChild(createNote)
+    // }
+
+    
+
+    this.container.querySelector('.btn_logout').onclick = () => {
+        this.onLogout()
+    }
+
+    const btnMenu = this.container.querySelector('.btn-menu')
+    const temp3 = document.createComment('temp')
+    temp3.innerHTML = `<div class="btn-close">
+    <span class="material-symbols-outlined"  id="btn-close">close</span>
+    </div>`
+    const btnClose = temp3.firstChild
+    
+    btnMenu.onclick = () => {
+        home.removeChild(btnMenu)
+        home.append(btnClose)
+   }
+
+
     }
 
     setName(name) {
@@ -143,7 +195,7 @@ class Home {
     }
 
     renderNotes(notes) {
-        const list = homePage.querySelector('.list')
+        const list = this.container.querySelector('.list')
         list.innerHTML = ""
 
         notes.forEach(note => {
@@ -153,14 +205,14 @@ class Home {
             const deleteButton = document.createElement('button')
             deleteButton.classList.add('btn__delete')
             deleteButton.innerText = 'x'
-            deleteButton.onclick = function () {
+            deleteButton.onclick = () => {
                 this.onDeleteNoteClick(note.id)
             }
 
             // const text = document.createElement('p')
             const text = document.createElement('textarea')
             text.classList.add('list__item-text')
-            text.onkeyup = function () {
+            text.onkeyup = () => {
                 if (window.updateNoteTimeoutId)
                     clearTimeout(window.updateNoteTimeoutId)
 
@@ -177,7 +229,25 @@ class Home {
 
     onDeleteNoteClick = null
     onUpdateNote = null
+    onLogout = null
 
+    onFormCreateNote = (callback) => {
+        const formCreateNote = this.container.querySelector('.formcreateNote')
 
+        formCreateNote.onsubmit = event => {
+            event.preventDefault()
+            const textarea = this.container.querySelector('.list__item-textNew')
+    
+            if (textarea.value === "") alert('nothing')
+            
+            else {
+                callback(textarea.value)
+            
+                textarea.value = ""
+    
+                // this.reset()
+            }
+        }
+    }
 }
 

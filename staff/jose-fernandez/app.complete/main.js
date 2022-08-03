@@ -21,7 +21,7 @@
 const login = new Login
 const register = new Register
 const home = new Home
-
+// const formCreateNote= home.container.querySelector('.formcreateNote')
 
 login.onLinkClick(function () {
     document.body.removeChild(login.container)
@@ -41,25 +41,46 @@ login.onFormSubmit(function (email,password) {
             sessionStorage.token = token
             document.body.removeChild(login.container)
            
-            try {
-                retrieveUser(sessionStorage.token, function (error, user) {
-                    if (error) {
-                        alert(error.message)
-                        return
-                    }
-        
-                    // renderNotes()
-                    document.body.append(home.container)
-                })
-            } catch (error) {
-                alert(error.message)
-            }
+            renderHome()
+            // home.container.removeChild(formCreateNote)
 
         })
     } catch (error) {
         alert(error.message)
     }
 })
+
+home.onLogout = function(){
+    delete sessionStorage.token
+
+    document.body.removeChild(home.container)
+    document.body.append(login.container)
+}
+
+
+home.onFormCreateNote(function(textFromTextarea) {
+    try {
+        createNote(sessionStorage.token, textFromTextarea, error => {
+            if (error) {
+                alert(error.message)
+                
+                return
+            }
+            renderHome()
+        })
+
+    } catch (error) {
+        alert(error.message)
+    }
+})
+    
+
+    // createNoteForm.classList.add('off')
+    // list__Notes.classList.remove('off')
+    // btn__pluss.classList.remove('off')
+    //// poner el textarea de la newNote en Blanco
+
+
 
 home.onDeleteNoteClick = function(noteId){//method overriding
     try{
@@ -125,6 +146,47 @@ register.onFormSubmit(function (name,email,password) {
     }
 })
 
+function renderHome(){
+    try {
+        retrieveUser(sessionStorage.token, function (error, user) {
+            if (error) {
+                alert(error.message)
+                return
+            }
+            home.setName(user.name)
+            
+            renderList(function(){
+                document.body.append(home.container)
+            })
+            
+        })
+    } catch (error) {
+        alert(error.message)
+    }
+}
+
+function renderList(callback){
+    try {
+        retrieveNotes(sessionStorage.token,function(error,notes){
+            if(error){
+                alert(error.message)
+                return
+            }
+            home.renderNotes(notes)
+
+            if(callback)
+            callback()
+
+        })
+    } catch (error) {
+        alert(error.message)
+    }
+}
+
+if(sessionStorage.token)
+    renderHome()
+else
+    document.body.append(login.container)
 
 // home.createNoteForm.onsubmit = function (event) {
 //     event.preventDefault()
@@ -307,5 +369,5 @@ register.onFormSubmit(function (name,email,password) {
 // // }
 
 
-document.body.append(login.container)
+
 
