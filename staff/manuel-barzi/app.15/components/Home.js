@@ -5,14 +5,14 @@ class Home {
         temp.innerHTML = `<div class="home-page container container--distributed">
             <header class="header">
                 <h1 class="title">Hello, User!</h1>
-                <!--button class="menu-button transparent-button"><span class="material-symbols-outlined">menu</span></button>
-                <button class="close-button transparent-button off"><span class="material-symbols-outlined">close</span></button-->
+                <button class="menu-button transparent-button"><span class="material-symbols-outlined">menu</span></button>
+                <button class="close-button transparent-button off"><span class="material-symbols-outlined">close</span></button>
             </header>
 
             <main class="main">
-                <div class="menu-panel">
+                <div class="menu-panel off">
                     <ul>
-                        <!--li><button class="settings-button transparent-button"><span class="material-symbols-outlined">settings</span></button></li-->
+                        <li><button class="settings-button transparent-button"><span class="material-symbols-outlined">settings</span></button></li>
                         <li><button class="logout-button transparent-button"><span class="material-symbols-outlined">logout</span></button></li>
                     </ul>
                 </div>
@@ -70,11 +70,11 @@ class Home {
                     </li>
                 </ul>
 
-                <!--div class="settings-panel off">
+                <div class="settings-panel off">
                     Settings
 
                     TODO implement me
-                </div-->
+                </div>
             </main>
 
             <footer class="footer">
@@ -83,14 +83,6 @@ class Home {
         </div>`
 
         this.container = temp.firstChild
-
-        this.container.querySelector('.logout-button').onclick = () => {
-            this.onLogout()
-        }
-
-        this.container.querySelector('.add-button').onclick = () => {
-            this.onAddNote()
-        }
     }
 
     setName(name) {
@@ -134,8 +126,4 @@ class Home {
     onDeleteNoteClick = null
 
     onUpdateNote = null
-
-    onLogout = null
-
-    onAddNote = null
 }
