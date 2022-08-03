@@ -142,11 +142,19 @@ class Home {
     const formCreateNote = this.container.querySelector('.formcreateNote')
     const list = this.container.querySelector('.list')
     const btnPlus = this.container.querySelector('.btn_plus')
+    const btnLeft= this.container.querySelector('.btn_arrLeft')
     btnPlus.onclick = () => {
         formCreateNote.classList.remove('off')
         main.removeChild(list)
-        main.append(formCreateNote)
+        // main.append(formCreateNote)
         footer.removeChild(btnPlus)
+    }
+
+    btnLeft.onclick=()=>{
+        // main.append(formCreateNote)
+        main.append(btnPlus)
+        formCreateNote.classList.add('off')
+        footer.append(list)
     }
 
     // const temp2 = document.createElement('temp')
