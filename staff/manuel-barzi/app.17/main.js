@@ -29,7 +29,7 @@ login.onFormSubmit(function (email, password) {
     }
 })
 
-home.onDeleteNote = function (noteId) { // method overriding
+home.onDeleteNoteClick = function (noteId) { // method overriding
     try {
         deleteNote(sessionStorage.token, noteId, error => {
             if (error) {
@@ -78,22 +78,6 @@ home.onAddNote = function () {
             renderList()
         })
     } catch (error) {
-        alert(error.message)
-    }
-}
-
-home.onUpdatePassword = function(oldPassword, newPassword, newPasswordRepeat) {
-    try {
-        updateUserPassword(sessionStorage.token, oldPassword, newPassword, newPasswordRepeat, error => {
-            if (error) {
-                alert(error.message)
-                
-                return
-            }
-
-            alert('Password updated')
-        })
-    } catch(error) {
         alert(error.message)
     }
 }

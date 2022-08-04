@@ -82,13 +82,19 @@ class Home extends Component {
 
         const main = this.container.querySelector('.main')
 
-        const menuPanel = new MenuPanel
+        const menuPanel = templateToDOM(`<div class="menu-panel">
+            <ul class="menu-panel__list">
+                <li class="menu-panel__list-item-settings"><button class="settings-button transparent-button"><span class="material-symbols-outlined">settings</span></button> Settings</li>
+                <li><button class="logout-button transparent-button"><span class="material-symbols-outlined">logout</span></button> Logout</li>
+            </ul>
+        </div>`)
 
-        const settingsPanel = new SettingsPanel
+        const menuPanelList = menuPanel.querySelector('.menu-panel__list')
+        const menuPanelListItemSettings = menuPanelList.querySelector('.menu-panel__list-item-settings')
 
-        menuPanel.onLogout = () => {
+        menuPanel.querySelector('.logout-button').onclick = () => {
             if (!main.contains(listPanel)) {
-                main.removeChild(settingsPanel.container)
+                main.removeChild(settingsPanel)
                 main.append(listPanel)
             }
 
@@ -103,10 +109,10 @@ class Home extends Component {
             headerTop.removeChild(menuButton)
             headerTop.append(closeButton)
 
-            if (main.contains(settingsPanel.container))
-                menuPanel.hideSettings()
+            if (main.contains(settingsPanel))
+                menuPanelList.removeChild(menuPanelListItemSettings)
 
-            header.append(menuPanel.container)
+            header.append(menuPanel)
         }
 
         closeButton.onclick = () => {
@@ -114,30 +120,63 @@ class Home extends Component {
                 headerTop.removeChild(closeButton)
 
             headerTop.append(menuButton)
-            menuPanel.showSettings()
+            menuPanelList.prepend(menuPanelListItemSettings)
 
-            if (header.contains(menuPanel.container))
-                header.removeChild(menuPanel.container)
+            if (header.contains(menuPanel))
+                header.removeChild(menuPanel)
         }
 
         const listPanel = main.querySelector('.list-panel')
 
-        menuPanel.onSettings = () => {
+        const settingsPanel = templateToDOM(`<div class="settings-panel container">
+            Settings
+
+            <button class="close-settings-button transparent-button"><span class="material-symbols-outlined">close</span></button>
+
+            <form class="update-password-form form">
+                <div class="form__field">
+                    <label for="oldPassword">Current password</label>
+                    <input class="input" type="password" name="oldPassword" placeholder="old password" id="oldPassword">
+                </div>
+
+                <div class="form__field">
+                    <label for="newPassword">New password</label>
+                    <input class="input" type="password" name="newPassword" placeholder="new password" id="newPassword">
+                </div>
+
+                <div class="form__field">
+                    <label for="newPasswordRepeat">Repeat new password</label>
+                    <input class="input" type="password" name="newPasswordRepeat" placeholder="repeat new password" id="newPasswordRepeat">
+                </div>
+
+                <button class="button" type="submit">Update</button>
+            </form>
+        </div>`)
+
+        const updatePasswordForm = settingsPanel.querySelector('.update-password-form')
+        updatePasswordForm.onsubmit = event => {
+            event.preventDefault()
+
+            const oldPassword = updatePasswordForm.oldPassword.value
+            const newPassword = updatePasswordForm.newPassword.value
+            const newPasswordRepeat = updatePasswordForm.newPasswordRepeat.value
+
+            this.onUpdatePassword(oldPassword, newPassword, newPasswordRepeat)
+        }
+
+        const settingsButton = menuPanel.querySelector('.settings-button')
+        settingsButton.onclick = () => {
             closeButton.click()
 
             if (footer.contains(addButton))
                 footer.removeChild(addButton)
 
             main.removeChild(listPanel)
-            main.append(settingsPanel.container)
+            main.append(settingsPanel)
         }
 
-        settingsPanel.onUpdatePassword = (oldPassword, newPassword, newPasswordRepeat) => {
-            this.onUpdatePassword(oldPassword, newPassword, newPasswordRepeat)
-        }
-
-        settingsPanel.onClose = () => {
-            main.removeChild(settingsPanel.container)
+        settingsPanel.querySelector('.close-settings-button').onclick = () => {
+            main.removeChild(settingsPanel)
 
             closeButton.click()
 
@@ -151,8 +190,8 @@ class Home extends Component {
     }
 
     renderList(notes) {
-        const listPanel = this.container.querySelector('.list-panel')
-        listPanel.innerHTML = ''
+        const list = this.container.querySelector('.list')
+        list.innerHTML = ''
 
         notes.forEach(note => {
             const item = document.createElement('li')
@@ -180,7 +219,7 @@ class Home extends Component {
 
             item.append(deleteButton, text)
 
-            listPanel.append(item)
+            list.append(item)
         })
     }
 
