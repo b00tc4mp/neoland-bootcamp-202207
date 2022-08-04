@@ -58,9 +58,9 @@ home.onLogout = function(){
 }
 
 
-home.onFormCreateNote(function(textFromTextarea) {
+home.onFormCreateNote = function(textarea) {
     try {
-        createNote(sessionStorage.token, textFromTextarea, error => {
+        createNote(sessionStorage.token, textarea, error => {
             if (error) {
                 alert(error.message)
                 
@@ -72,7 +72,7 @@ home.onFormCreateNote(function(textFromTextarea) {
     } catch (error) {
         alert(error.message)
     }
-})
+}
     
 
     // createNoteForm.classList.add('off')

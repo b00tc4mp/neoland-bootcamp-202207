@@ -1,34 +1,23 @@
-class Login {
+class Login extends NavigableForm{
     constructor() {
-        const temp = document.createElement('temp')
+        super(`<main class="login-page container container--full container--spaced">
+        <form class="form container" action="https://www.google.com/search" method="get">
+             <img class="img img-login" src="https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg" alt="">
+            <div class="form__field">
+                <label for="email">E-mail</label>
+                <input class="input" type="email" name="email" placeholder="email" id="email">
+            </div>
 
-        temp.innerHTML = `<main class="login-page container container--spaced">
-            <form class="form" action="https://www.google.com/search" method="get">
-                <div class="form__field">
-                    <label for="email">email</label>
-                    <input class="input" type="email" name="email" placeholder="email" id="email">
-                </div>
+            <div class="form__field">
+                <label for="password">Password</label>
+                <input class="input" type="password" name="password" placeholder="password" id="password">
+            </div>
 
-                <div class="form__field">
-                    <label for="password">password</label>
-                    <input class="input" type="password" name="password" placeholder="password" id="password">
-                </div>
+            <button class="button" type="submit">Login</button>
+        </form>
 
-                <button class="button" type="submit">Login</button>
-            </form>
-
-            <a class="anchor" href="register.html">Register</a>
-        </main>`
-        
-        this.container = temp.firstChild        
-    }
-
-    onLinkClick(callback) {
-        this.container.querySelector('.anchor').onclick = event => {
-            event.preventDefault()
-
-            callback()
-        }
+        <a class="anchor" href="register.html">Register</a>
+    </main>`)
     }
 
     onFormSubmit(callback) {
@@ -42,9 +31,5 @@ class Login {
         
             callback(email, password)
         }
-    }
-
-    reset() {
-        this.container.querySelector('form').reset()
     }
 }

@@ -6,24 +6,30 @@
     font-family: Lato;
 }
 
-html, body {
+html,
+body {
     height: 100%;
 }
 
 body {
     margin: 0;
-    background-color: dodgerblue;
+    background-image: url("https://images.pexels.com/photos/2486168/pexels-photo-2486168.jpeg");
     color: white;
 }
 
 .container {
-    height: 100%;
+    
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-
+.container--full {
+    height: 100%;
+}
+.container--row {
+    flex-direction: row;
+}
 .container--spaced {
     gap: 10px;
 }
@@ -38,6 +44,8 @@ body {
 
 .form {
     display: flex;
+    /* justify-content: center;
+    align-items: center; */
     flex-direction: column;
     gap: 10px;
 }
@@ -78,6 +86,19 @@ body {
     outline: none;
 }
 
+.img-login {
+    display: flex;
+
+    border-radius: 50%;
+    width: 40%;
+    margin-bottom: 5%;
+
+}
+.img-register {
+    border-radius: 50%;
+    width: 40%;
+    margin-bottom: 5%;
+}
 .button {
     background-color: transparent;
     border: 1px solid white;

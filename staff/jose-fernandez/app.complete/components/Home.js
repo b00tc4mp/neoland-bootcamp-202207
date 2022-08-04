@@ -31,22 +31,22 @@ class Home {
             <ul class="list ">
                 <li class="list__item">
                     <button href="#" class="btn__delete">X</button>
-                    <textarea  class="list__item-text">Hello, Note!</textarea>
+                    <p  class="list__item-text">Hello, Note!</p>
 
                 </li>
 
                 <li class="list__item"><button href="#" class="btn__delete">X</button>
-                    <textarea  class="list__item-text">Lorem ipsum dolor sit amet consectetur adipisicing
+                    <p  class="list__item-text">Lorem ipsum dolor sit amet consectetur adipisicing
                         elit. Dolores ab sunt tempora
                         esse eaque, maiores similique ipsam deserunt eius soluta adipisci blanditiis nobis fugiat aut
-                        nesciunt rerum porro delectus distinctio?</textarea>
+                        nesciunt rerum porro delectus distinctio?</p>
 
                 </li>
                 <li class="list__item"><button href="#" class="btn__delete">X</button>
-                    <textarea  class="list__item-text">Lorem ipsum dolor sit amet consectetur adipisicing
+                    <p  class="list__item-text">Lorem ipsum dolor sit amet consectetur adipisicing
                         elit. Dolores ab sunt tempora
                         esse eaque, maiores similique ipsam deserunt eius soluta adipisci blanditiis nobis fugiat aut
-                        nesciunt rerum porro delectus distinctio?</textarea>
+                        nesciunt rerum porro delectus distinctio?</p>
 
                 </li>
             </ul>
@@ -54,18 +54,7 @@ class Home {
 
             <!--============================= CREATE NOTE====================== -->
        
-            <form class="formcreateNote off">
-
-                <button class="btn_arrLeft" type="submit">
-                    <i class="fa-solid fa-arrow-left"></i>
-                </button>
-
-                <li class="list__itemNew">
-                    <textarea class="list__item-textNew" id="newNote" name="newItemNote"
-                        placeholder="New Note!!"></textarea>
-                </li>
-
-            </form>
+           
             <!--=============================PROFILE====================== -->
             <form class="formProfile off">
 
@@ -133,69 +122,65 @@ class Home {
         </footer>
     </div>`
 
-    this.container = temp.firstChild
+        this.container = temp.firstChild
 
-    const header = this.container.querySelector('.header_home')
-    const main = this.container.querySelector('.main_home')
-    const footer = this.container.querySelector('.footer_home')
-    
-    const formCreateNote = this.container.querySelector('.formcreateNote')
-    const list = this.container.querySelector('.list')
-    const btnPlus = this.container.querySelector('.btn_plus')
-    const btnLeft= this.container.querySelector('.btn_arrLeft')
-    btnPlus.onclick = () => {
-        formCreateNote.classList.remove('off')
-        main.removeChild(list)
-        // main.append(formCreateNote)
-        footer.removeChild(btnPlus)
-    }
-
-    btnLeft.onclick=()=>{
-        // main.append(formCreateNote)
-        main.append(btnPlus)
-        formCreateNote.classList.add('off')
-        footer.append(list)
-    }
-
-    // const temp2 = document.createElement('temp')
-    // temp2.innerHTML = `<form class="formcreateNote">
-
-    //     <button class="btn_arrLeft" type="submit">
-    //         <i class="fa-solid fa-arrow-left"></i>
-    //     </button>
-
-    //     <li class="list__itemNew">
-    //         <textarea class="list__item-textNew" id="newNote" name="newItemNote"
-    //             placeholder="New Note!!"></textarea>
-    //     </li>
-
-    // </form>`
-    // const createNote =temp2.firstChild
-    // const formCreateNote = createNote.querySelector('.formcreateNote')
-    // // const btnLeft= formCreateNote.querySelector('.btn_arrLeft')
-    // btnLeft.onclick=()=>{
-    //     main.removeChild(createNote)
-    // }
-
-    
-
-    this.container.querySelector('.btn_logout').onclick = () => {
-        this.onLogout()
-    }
-
-    const btnMenu = this.container.querySelector('.btn-menu')
-    const temp3 = document.createComment('temp')
-    temp3.innerHTML = `<div class="btn-close">
-    <span class="material-symbols-outlined"  id="btn-close">close</span>
-    </div>`
-    const btnClose = temp3.firstChild
-    
-    btnMenu.onclick = () => {
-        home.removeChild(btnMenu)
-        home.append(btnClose)
-   }
+        const header = this.container.querySelector('.header_home')
+        const main = this.container.querySelector('.main_home')
+        const footer = this.container.querySelector('.footer_home')
 
 
+        const list = this.container.querySelector('.list')
+
+        const temp2 = document.createElement('temp')
+        temp2.innerHTML = `<form class="formCreateNote" name="formcreateNote">
+
+                <button class="btn_arrLeft" type="submit">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+
+                <li class="list__itemNew">
+                    <textarea class="list__item-textNew" id="newNote" name="newItemNote"
+                        placeholder="New Note!!"></textarea>
+                </li>
+
+            </form>`
+
+        this.formCreateNote = temp2.firstChild
+
+        const formAddNote = this.formCreateNote.querySelector('.formCreateNote')
+        formAddNote.onsubmit = event => {
+            event.preventDefault()
+            // const textarea = formAddNote.newItemNote.value
+            
+            // if (textarea === "") alert('nothing')
+
+            // else {
+            //     callback(textarea)
+            //     textarea = ""
+            //     // this.reset()
+            // }
+            // this.onFormCreateNote(textarea)
+        }
+
+        const btnPlus = this.container.querySelector('.btn_plus')
+        const btnLeft = formCreateNote.querySelector('.btn_arrLeft')
+        btnLeft.onclick = () => {
+            // main.append(formCreateNote)
+            main.prepend(list)
+            footer.append(btnPlus)
+            main.removeChild(formCreateNote)
+        }
+
+        btnPlus.onclick = () => {
+            main.removeChild(list)
+            main.append(formCreateNote)
+            footer.removeChild(btnPlus)
+        }
+
+
+        this.container.querySelector('.btn_logout').onclick = () => {
+            this.onLogout()
+        }
     }
 
     setName(name) {
@@ -238,24 +223,23 @@ class Home {
     onDeleteNoteClick = null
     onUpdateNote = null
     onLogout = null
+    onFormCreateNote = null
 
-    onFormCreateNote = (callback) => {
-        const formCreateNote = this.container.querySelector('.formcreateNote')
+    // onFormCreateNote = (callback) => {
+    //     this.formCreateNote.onsubmit = event => {
+    //         event.preventDefault()
+    //         const textarea = this.container.querySelector('.list__item-textNew')
 
-        formCreateNote.onsubmit = event => {
-            event.preventDefault()
-            const textarea = this.container.querySelector('.list__item-textNew')
-    
-            if (textarea.value === "") alert('nothing')
-            
-            else {
-                callback(textarea.value)
-            
-                textarea.value = ""
-    
-                // this.reset()
-            }
-        }
-    }
+    //         if (textarea.value === "") alert('nothing')
+
+    //         else {
+    //             callback(textarea.value)
+
+    //             textarea.value = ""
+
+    //             // this.reset()
+    //         }
+    //     }
+    // }
 }
 

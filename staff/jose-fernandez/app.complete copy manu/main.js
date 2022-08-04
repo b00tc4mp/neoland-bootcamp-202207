@@ -59,6 +59,20 @@ home.onUpdateNote = function (noteId, text) {
     }
 }
 
+home.onUpdatePassword = function (oldPassword, newPassword, newPasswordRepeat) {
+    try {
+        updateUserPassword(sessionStorage.token, oldPassword, newPassword, newPasswordRepeat,error =>{
+            if (error) {
+                alert(error.message)
+                return
+            }
+            alert('Password updated')
+        })
+    } catch (error) {
+        alert(error.message)
+    }
+}
+
 home.onLogout = function () {
     delete sessionStorage.token
 
@@ -117,7 +131,7 @@ function renderHome() {
 
             home.setName(user.name)
 
-            renderList(function() {
+            renderList(function () {
                 document.body.append(home.container)
             })
         })
