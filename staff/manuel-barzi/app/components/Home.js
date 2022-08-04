@@ -99,6 +99,13 @@ class Home {
         const menuPanelListItemSettings = menuPanelList.querySelector('.menu-panel__list-item-settings')
 
         menuPanel.querySelector('.logout-button').onclick = () => {
+            if (!main.contains(listPanel)) {
+                main.removeChild(settingsPanel)
+                main.append(listPanel)
+            }
+
+            closeButton.click()
+
             this.onLogout()
         }
 
@@ -106,14 +113,22 @@ class Home {
             header.removeChild(menuButton)
             header.append(closeButton)
 
+            if (main.contains(settingsPanel))
+                menuPanelList.removeChild(menuPanelListItemSettings)
+            else
+                menuPanelList.prepend(menuPanelListItemSettings)
+
             main.prepend(menuPanel)
         }
 
         closeButton.onclick = () => {
-            header.removeChild(closeButton)
+            if (header.contains(closeButton))
+                header.removeChild(closeButton)
+
             header.append(menuButton)
 
-            main.removeChild(menuPanel)
+            if (main.contains(menuPanel))
+                main.removeChild(menuPanel)
         }
 
         const listPanel = main.querySelector('.list-panel')
@@ -127,22 +142,23 @@ class Home {
                 TODO implement me
             </div>`
         const settingsPanel = temp4.firstChild
-        
+
         const settingsButton = menuPanel.querySelector('.settings-button')
         settingsButton.onclick = () => {
             closeButton.click()
-            
-            menuPanelList.removeChild(menuPanelListItemSettings)
-            main.removeChild(listPanel)
-            footer.removeChild(addButton)
 
+            if (footer.contains(addButton))
+                footer.removeChild(addButton)
+
+            main.removeChild(listPanel)
             main.append(settingsPanel)
         }
 
         settingsPanel.querySelector('.close-settings-button').onclick = () => {
             main.removeChild(settingsPanel)
 
-            menuPanelList.prepend(menuPanelListItemSettings)
+            closeButton.click()
+
             main.append(listPanel)
             footer.append(addButton)
         }
