@@ -86,6 +86,7 @@ a, a:visited {
 .logout-button {
     height: auto;
     background-color: white;
+    cursor: pointer;
 }
 
 .saludo {
@@ -101,6 +102,7 @@ a, a:visited {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 .rotate {
@@ -113,6 +115,10 @@ a, a:visited {
     height: 5px;
     background-color: white;
     margin: 3px 0;
+}
+
+.profile-link, .notes-link {
+    cursor: pointer;
 }
 
 .notas-display {
@@ -129,8 +135,8 @@ a, a:visited {
     position: absolute;
     top: 25%;
     left: 25%;
-    height: 50%;
-    width: 50%;
+    height: 30%;
+    width: 30%;
     background-color: gray;
     align-items: center;
     justify-content: center;
@@ -161,6 +167,7 @@ a, a:visited {
     height: auto;
     background-color: red;
     color: white;
+    cursor: pointer;
 }
 
 .list__item-text {
@@ -184,6 +191,7 @@ a, a:visited {
     justify-content: center;
     align-items: center;
     font-size: 30px;
+    cursor: pointer;
 }
 
 .off {

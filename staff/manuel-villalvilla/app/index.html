@@ -12,91 +12,7 @@
 </head>
 
 <body>
-  <main class="body-center login-page">
-    <div class="form-container">
-      <form class="login-form">
-        <label for="email">email</label>
-        <input type="email" name="email" placeholder="email">
-        <label for="password">password</label>
-        <input type="password" name="password" placeholder="password">
-        <button type="submit">Login</button>
-      </form>
-    </div>
-    <a href="#">Register</a>
-  </main>
-  <main class="body-center register-page off">
-    <div class="form-container">
-      <form class="register-form">
-        <label for="name">name</label>
-        <input type="text" id="name" placeholder="name">
-        <label for="email">email</label>
-        <input type="email" id="email" placeholder="email">
-        <label for="password">new password</label>
-        <input type="password" id="password" placeholder="new password">
-        <button type="submit">Register</button>
-      </form>
-    </div>
-    <a href="#">Login</a>
-  </main>
-  <main class="home-page off">
-    <div class="menu-header">
-      <div class="div-logout">
-        <button class="logout-button">
-          <span class="material-symbols-outlined">
-            logout
-          </span>
-        </button>
-      </div>
-      <div class="saludo"></div>
-      <div class="menu">
-        <div class="menu-icon"></div>
-        <div class="menu-icon"></div>
-        <div class="menu-icon"></div>
-      </div>
-    </div>
 
-    <div class="notas-display">
-      <ul class="list"></ul>
-    </div>
-
-    <div class="hidden-menu von voff">
-      <div class="profile-link">Profile</div>
-      <div class="notes-link">Notes</div>
-    </div>
-
-    <div class="profile off">
-      <h2>Profile</h2>
-      <div class="form-container">
-        
-        <form class="password-form">
-          <h3>Update password</h3>
-
-          <label for="currentPassword">Current password</label>
-          <input type="password" name="currentPassword" placeholder="current password">
-          
-          <label for="newPassword">New password</label>
-          <input type="password" name="newPassword" placeholder="new password">
-          
-          <label for="repeatPassword">Repeat password</label>
-          <input type="password" name="repeatPassword" placeholder="repeat password">
-
-          <button type="submit">Send</button>
-        </form>
-      </div>
-      <div class="form-container">
-        <form class="email-form">
-          <h3>Update email</h3>
-
-          <label for="newEmail">New email</label>
-          <input type="email" name="newEmail" placeholder="new email">
-
-          <button type="submit">Send</button>
-        </form>
-      </div>
-    </div>
-
-    <footer class="footer">+</footer>
-  </main>
   
   <!-- Commons / Utils -->
   <script src="constants.js"></script>
@@ -117,9 +33,9 @@
   <script src="logic/updateUserEmail.js"></script>
 
   <!-- Presentation layer -->
-  <script src="init.js"></script>
-  <script src="view/refreshList.js"></script>
-  <script src="view/renderHome.js"></script>
+  <script src="components/Login.js"></script>
+  <script src="components/Register.js"></script>
+  <script src="components/Home.js"></script>
   <script src="index.js"></script>
   
 

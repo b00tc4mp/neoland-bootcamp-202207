@@ -1,70 +1,117 @@
-if (sessionStorage.token) {
-    renderHome();
-}
+const login = new Login 
+const register = new Register 
+const home = new Home
 
-registerLink.onclick = function(event) {
-    event.preventDefault();
-    loginPage.classList.add('off');
-    registerPage.classList.remove('off')
-}
 
-loginLink.onclick = function(event) {
-    event.preventDefault();
-    loginPage.classList.remove('off');
-    registerPage.classList.add('off');
-}
+register.onLinkClick(function() {
+    document.body.removeChild(register.container)
+    document.body.append(login.container)
+})
 
-loginForm.onsubmit = function(event) {
-    event.preventDefault();
 
-    const loginEmail = loginForm.email.value; // puedo acceder asi por el name del html
-    const loginPassword = loginForm.password.value;
+
+login.onLinkClick(function() {
+    document.body.removeChild(login.container)
+    document.body.append(register.container)
+})
+
+
+login.onFormSubmit(function(email, password) {
     try {
-        authenticateUser(loginEmail, loginPassword, function(error, token) {
-            if (error) { 
-                alert(error.message);
-                return;
+        authenticateUser(email, password, function (error, token) {
+            if (error) {
+                alert(error.message)
+
+                return
             }
 
-            loginForm.reset() // para borrar los datos del formulario cuando se envie
+            login.reset()
 
-            // window.token = token
             sessionStorage.token = token
 
+            document.body.removeChild(login.container)
+            
             renderHome()
+        })
+    } catch (error) {
+        alert(error.message)
+    }
+})
+
+
+
+function renderHome() {
+    try {
+        retrieveUser(sessionStorage.token, function (error, user) {
+            if (error) {
+                alert(error.message)
+
+                return
+            }
+
+            home.setName(user.name)
+
+            renderList(() => {
+                document.body.append(home.container)
+            })
 
             
         })
-    }
-    catch(error) {
+    } catch (error) {
         alert(error.message)
     }
 }
 
-registerForm.onsubmit = function(event) {
-    event.preventDefault();
-
-    const name = registerForm.name.value;
-    const email = registerForm.email.value;
-    const password = registerForm.password.value;
+home.onDeleteNoteClick = function(noteId) { // method overriding
     try {
-        registerUser(name, email, password, function(error) {
+        deleteNote(sessionStorage.token, noteId, error => {
             if (error) {
-                alert(error.message);
-                return;
-            } else {
-                registerForm.reset() // para borrar el formulario una vez que se envie
-                registerPage.classList.add('off');
-                loginPage.classList.remove('off');
+                alert(error.message)
+
+                return
             }
+
+            renderList()
         })
-    }
-    catch(error) {
-        alert(error.message);
+    } catch (error) {
+        alert(error.message)
     }
 }
 
-plusButton.onclick = function () {
+home.onUpdateNote = function(noteId, text) {
+    try {
+        updateNote(sessionStorage.token, noteId, text, error => {
+            if (error) {
+                alert(error.message)
+
+                return
+            }
+        })
+    } catch (error) {
+        alert(error.message)
+    }
+}
+
+register.onFormSubmit(function(name, email, password) {
+    try {
+        registerUser(name, email, password, function (error) {
+            if (error) {
+                alert(error.message)
+
+                return
+            }
+
+            register.reset()
+
+            document.body.removeChild(register.container)
+            document.body.append(login.container)
+        })
+    } catch (error) {
+        alert(error.message)
+    }
+})
+
+home.onAddNote = function () {
     try {
         createNote(sessionStorage.token, error => {
             if (error) {
@@ -72,77 +119,64 @@ plusButton.onclick = function () {
                 return
             }
 
-            refreshList()
+            renderList()
         })
     } catch (error) {
         alert(error.message)
     }
 }
 
-logoutButton.onclick = function() {
-    delete sessionStorage.token
+function renderList(callback) {
+    try {
+        retrieveNotes(sessionStorage.token, function (error, notes) {
+            if (error) {
+                alert(error.message)
 
-    homePage.classList.add('off')
-    loginPage.classList.remove('off')
+                return
+            }
+
+            home.renderList(notes)
+            
+            if (callback)
+                callback()
+
+        })
+    } catch (error) {
+        alert(error.message)
+    }
 }
 
+home.onLogout = function () {
+    delete sessionStorage.token
 
-menuButton.addEventListener('click', () => {
-    menuButton.classList.toggle('rotate')
-    hiddenMenu.classList.toggle('voff')
-})
+    document.body.removeChild(home.container)
+    document.body.append(login.container)
+}
 
-profileLink.addEventListener('click', () => {
-    menuButton.classList.toggle('rotate')
-    hiddenMenu.classList.add('voff')
-    notasDisplay.classList.add('off')
-    profileDisplay.classList.remove('off')
-    plusButton.classList.add('off')
-})
-
-notesLink.addEventListener('click', () => {
-    menuButton.classList.toggle('rotate')
-    hiddenMenu.classList.add('voff')
-    notasDisplay.classList.remove('off')
-    profileDisplay.classList.add('off')
-    plusButton.classList.remove('off')
-})
-
-passwordForm.onsubmit = function (event) {
-    event.preventDefault()
-
-    const currentPass = passwordForm.currentPassword.value
-    const newPass = passwordForm.newPassword.value
-    const repeatPass = passwordForm.repeatPassword.value
-    
+home.updatePassword(function (currentPass, newPass, repeatPass) {
     try {
         updateUserPassword(sessionStorage.token, currentPass, newPass, repeatPass, error => {
             if(error) {
                 alert(error.message)
                 return
             }
-            passwordForm.reset()
+            home.resetPasswordForm() 
             alert('password changed successfully')
 
         })
     } catch(error) {
         alert(error.message)
     }
-    
-}
+})
 
-newEmailForm.onsubmit = function (event) {
-    event.preventDefault()
-
-    const newEmail = newEmailForm.newEmail.value
-    
+home.updateEmail(function (newEmail) {
     try {
         updateUserEmail(sessionStorage.token, newEmail, error => {
             if(error) {
                 alert(error.message)
                 return
             }
-            newEmailForm.reset()
+            home.resetEmailForm()
             alert('email changed successfully')
 
         })
@@ -150,5 +184,11 @@ newEmailForm.onsubmit = function (event) {
         alert(error.message)
     }
     
+})
+
+if (sessionStorage.token) {
+    renderHome();
+} else {
+    document.body.append(login.container)
 }
 
