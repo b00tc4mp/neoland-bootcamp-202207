@@ -1,8 +1,6 @@
-class Register{
+class Register extends NavigableForm{
     constructor(){
-        const temp = document.createElement('temp')
-
-        temp.innerHTML = `<main class="page registerPage">
+        super(`<main class="page registerPage">
         <section class="mainBackground">
             <section class="headerContainer">
                 <div class="header">
@@ -39,20 +37,10 @@ class Register{
                 
             </section>
         </section>
-    </main>`
-
-    this.container = temp.firstChild
+    </main>`)
     }
 
-    onLinkClick(callback) {
-        this.container.querySelector('.anchor').onclick = event => {
-            event.preventDefault()
-
-            callback()
-        }
-    }
-
-    onFormSubmit(callback) {
+    onFormSubmit(callback) {    //override
         const form = this.container.querySelector('form')
 
         form.onsubmit = function(event){
@@ -79,8 +67,5 @@ class Register{
         formPassword.oninput = () => {
             callback(formPassword, div, pLowerCase, pUpperCase, pNumber, pSymbols, pLength)
         }
-    }
-    reset(){
-        this.container.querySelector('form').reset()
     }
 }

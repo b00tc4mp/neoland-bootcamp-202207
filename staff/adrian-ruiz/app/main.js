@@ -4,7 +4,7 @@ const home = new Home
 
 
 
-if(sessionStorage.UserToken){
+if (sessionStorage.UserToken) {
     renderHome()
 }
 else
@@ -52,7 +52,7 @@ home.onDeleteNoteClick = function (noteId) {
                     return
                 }
 
-               renderList()
+                renderList()
 
             })
         } catch (error) {
@@ -110,50 +110,30 @@ register.onFormSubmit(function (name, email, password) {
 })
 
 //HOME
-home.onNewNoteButton = function() {
-    let result = confirm('Are you sure to create a new note?')
-    if (result) {
-        document.body.prepend(home.notePopUp)
-        /* const containerPopUp = document.querySelector('.containerPopUp')
-        containerPopUp.classList.remove('off') */
-        home.cancelNewNoteButton.onclick = function(event){
-            event.preventDefault()
-            const result = confirm('Are you sure to cancel?')
+home.onNewNoteButton = function () {
+    home.onNewNoteSubmit = function (newNoteTitle, newNoteText) {
+        try {
+            createNote(sessionStorage.UserToken, newNoteTitle, newNoteText, function (error) {
+                if (error) {
+                    alert(error.message)
+                    return
+                }
 
-            if (result)
-                document.body.removeChild(home.notePopUp)
-            else return
+                home.main.removeChild(home.newNotePopUp.container)
+
+                renderList()
+
+            })
+        } catch (error) {
+            alert(error)
         }
-        
-        home.confirmNewNoteButton.onclick = function(event){
-            event.preventDefault()
-            try {
-                
-                createNote(sessionStorage.UserToken, home.newNoteTitle.textContent, home.newNoteText.textContent, function (error) {
-                    if (error) {
-                        alert(error.message)
-                        return
-                    }
-                    home.newNoteTitle.textContent = ''
-                    home.newNoteText.textContent = ''
-                    
-                    document.body.removeChild(home.notePopUp)
-
-                    renderList()
-
-                })
-            } catch (error) {
-                alert(error)
-            }
-        }
-        
     }
 }
 
-function renderHome(){
-    try{
-        retrieveUser(sessionStorage.UserToken, function(error, user){
-            if(error){
+function renderHome() {
+    try {
+        retrieveUser(sessionStorage.UserToken, function (error, user) {
+            if (error) {
                 alert(error.message)
 
                 return
@@ -161,7 +141,7 @@ function renderHome(){
 
             home.setName(user.name)
 
-            renderList(function(){
+            renderList(function () {
                 document.body.append(home.container)
             })
         })
@@ -170,7 +150,7 @@ function renderHome(){
     }
 }
 
-function renderList(callback){
+function renderList(callback) {
 
     try {
         retrieveNotes(sessionStorage.UserToken, function (error, notes) {
@@ -181,7 +161,7 @@ function renderList(callback){
 
             home.renderList(notes)
 
-            if(callback)
+            if (callback)
                 callback()
         })
     } catch (error) {
@@ -191,7 +171,8 @@ function renderList(callback){
 
 
 // Formulario y lógica actualizar password
-home.onUpdateUserPass(function(oldPass, newPass, confirmNewPass){ 
+home.onUpdateUserPass = function (oldPass, newPass, confirmNewPass) {
+
     let result = confirm('Are you sure to change password?')
     if (result) {
         try {
@@ -207,11 +188,11 @@ home.onUpdateUserPass(function(oldPass, newPass, confirmNewPass){
         }
     }
 
-})
+}
 
 
 // Formulario y lógica actualizar email
-home.onUpdateUserEmail(function(newEmail){
+home.onUpdateUserEmail = function (newEmail) {
     let result = confirm('Are you sure to update Email?')
     if (result) {
         try {
@@ -226,11 +207,11 @@ home.onUpdateUserEmail(function(newEmail){
             alert(error.message)
         }
     }
-})
+}
 
 // CAPTURAMOS CON INPUT PARA ACTUALIZAR ESTADO DE LA CREACION DE PASSWORD
-register.onPassInput(function(formPassword, div, pLowerCase, pUpperCase, pNumber, pSymbols, pLength) {
-    
+register.onPassInput(function (formPassword, div, pLowerCase, pUpperCase, pNumber, pSymbols, pLength) {
+
     if (formPassword.value.match(requiredPass)) {
         div.classList.add('off')
     } else {
@@ -269,10 +250,10 @@ register.onPassInput(function(formPassword, div, pLowerCase, pUpperCase, pNumber
 })
 
 // Logout
-home.onLogout = function(){
+home.onLogout = function () {
     let result = confirm('Are you sure you want to logout?')
     if (result) {
-        
+
         /* home.notesList.scroll(0, 0) */
         sessionStorage.removeItem('UserToken')
         document.body.append(login.container)

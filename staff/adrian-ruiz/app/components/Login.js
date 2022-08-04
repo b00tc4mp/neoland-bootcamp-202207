@@ -1,8 +1,6 @@
-class Login{
+class Login extends NavigableForm{
     constructor(){
-        const temp = document.createElement('temp')
-
-        temp.innerHTML = `<main class="page loginPage">
+        super(`<main class="page loginPage">
         <section class="mainBackground">
             <section class="headerContainer">
                 <div class="header">
@@ -29,20 +27,10 @@ class Login{
             </section>
         </section> 
             
-    </main>`
-
-    this.container = temp.firstChild
+    </main>`)
     }
 
-    onLinkClick(callback) {
-        this.container.querySelector('.anchor').onclick = event => {
-            event.preventDefault()
-
-            callback()
-        }
-    }
-
-    onFormSubmit(callback) {
+    onFormSubmit(callback) {    // override
         const form = this.container.querySelector('form')
 
         form.onsubmit = function(event){
@@ -53,9 +41,5 @@ class Login{
 
             callback(email, password)
         }
-    }
-
-    reset(){
-        this.container.querySelector('form').reset()
     }
 }
