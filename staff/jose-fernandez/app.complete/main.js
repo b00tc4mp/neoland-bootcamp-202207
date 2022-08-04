@@ -58,9 +58,9 @@ home.onLogout = function(){
 }
 
 
-home.onFormCreateNote = function(textarea) {
+home.onFormCreateNote = function(textFromTextarea) {
     try {
-        createNote(sessionStorage.token, textarea, error => {
+        createNote(sessionStorage.token, textFromTextarea, error => {
             if (error) {
                 alert(error.message)
                 

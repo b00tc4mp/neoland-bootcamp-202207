@@ -132,7 +132,7 @@ class Home {
         const list = this.container.querySelector('.list')
 
         const temp2 = document.createElement('temp')
-        temp2.innerHTML = `<form class="formCreateNote" name="formcreateNote">
+        temp2.innerHTML = `<form class="formcreateNote" name="formcreateNote">
 
                 <button class="btn_arrLeft" type="submit">
                     <i class="fa-solid fa-arrow-left"></i>
@@ -145,22 +145,23 @@ class Home {
 
             </form>`
 
-        this.formCreateNote = temp2.firstChild
+        const formCreateNote = temp2.firstChild
 
-        const formAddNote = this.formCreateNote.querySelector('.formCreateNote')
-        formAddNote.onsubmit = event => {
-            event.preventDefault()
-            // const textarea = formAddNote.newItemNote.value
-            
-            // if (textarea === "") alert('nothing')
+        
+    //     this.onFormCreateNote = (callback) => {
+    //     formAddNote.onsubmit = event => {
+    //         event.preventDefault()
+    //         const textarea = this.container.querySelector('.list__item-textNew')
+    //         // this.onFormCreateNote(textarea)
+    //         if (textarea.value === "") alert('nothing')
 
-            // else {
-            //     callback(textarea)
-            //     textarea = ""
-            //     // this.reset()
-            // }
-            // this.onFormCreateNote(textarea)
-        }
+    //         else {
+    //             callback(textarea.value)
+    //             textarea = ""
+    //             // this.reset()
+    //         }
+    //     }
+    // }
 
         const btnPlus = this.container.querySelector('.btn_plus')
         const btnLeft = formCreateNote.querySelector('.btn_arrLeft')
@@ -220,10 +221,28 @@ class Home {
         })
     }
 
+      onFormCreateNote = (callback) => {
+        formAddNote.onsubmit = event => {
+            event.preventDefault()
+            const textFromTextarea = formAddNote.querySelector('.list__item-textNew')
+            // this.onFormCreateNote(textarea)
+            if (textFromTextarea.value === "") alert('nothing')
+
+            else {
+                callback(textFromTextarea.value)
+                textFromTextarea = ""
+                // this.reset()
+            }
+        }
+    }
+
     onDeleteNoteClick = null
     onUpdateNote = null
     onLogout = null
     onFormCreateNote = null
+
+    
+  
 
     // onFormCreateNote = (callback) => {
     //     this.formCreateNote.onsubmit = event => {
