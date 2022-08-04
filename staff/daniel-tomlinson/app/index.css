@@ -65,7 +65,7 @@ html {
   display: none !important;
 }
 
-.profile-page {
+.settings-page {
   width: 100%;
 }
 
@@ -274,10 +274,10 @@ button {
   font-size: 1.4rem;
 }
 
-button:hover {
+/* button:hover {
   border-style: none;
   border-top: 1px solid #af4d98;
-}
+} */
 
 .list__item-delete-button {
   align-self: flex-end;
@@ -320,13 +320,33 @@ button:hover {
   font-size: 3.5rem;
 }
 
-.menu-button {
+.menu-button__styles {
   background-color: transparent;
   padding: 0;
   margin: 0;
   width: auto;
   height: auto;
   justify-self: flex-end;
+}
+
+.close-button {
+  background-color: transparent;
+  padding: 1rem 1.55rem;
+  margin: 0;
+  width: auto;
+  height: auto;
+  justify-self: flex-end;
+  font-size: 2rem;
+  font-weight: 600;
+
+  cursor: pointer;
+  font-size: 2rem;
+  background-color: transparent;
+  color: #9b4386;
+}
+
+.close-button:hover {
+  color: #9b4386;
 }
 
 /* .menu-panel-button {
@@ -341,7 +361,7 @@ button:hover {
   color: #e5a9a9;
 }
 
-.profile-button-style {
+.settings-button-style {
   color: #d66ba0;
 }
 
@@ -366,6 +386,7 @@ button:hover {
   height: fit-content;
   justify-content: flex-start;
   margin: 0;
+  margin-top: 2rem;
   /* overflow-y: scroll; */
   flex-grow: 1;
   /*   scrollbar-base-color: #9b4386;

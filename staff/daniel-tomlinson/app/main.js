@@ -7,11 +7,6 @@ login.onLinkClick(function () {
   document.body.append(register.container);
 });
 
-register.onLinkClick(function () {
-  document.body.removeChild(register.container);
-  document.body.append(login.container);
-});
-
 login.onFormSubmit(function (email, password) {
   try {
     authenticateUser(email, password, function (error, token) {
@@ -25,41 +20,8 @@ login.onFormSubmit(function (email, password) {
 
       sessionStorage.token = token;
 
-      // following code renders the home page
-
       document.body.removeChild(login.container);
-      // renderHome();
-
-      try {
-        retrieveUser(sessionStorage.token, function (error, user) {
-          if (error) {
-            alert(error.message);
-
-            return;
-          }
-
-          home.setName(user.name);
-
-          try {
-            retrieveNotes(sessionStorage.token, function (error, notes) {
-              if (error) {
-                alert(error.message);
-
-                return;
-              }
-
-              home.renderList(notes);
-
-              document.body.append(home.container);
-            });
-          } catch (error) {
-            alert(error.message);
-          }
-        });
-      } catch (error) {
-        alert(error.message);
-      }
-      // render home finishes here
+      renderHome();
     });
   } catch (error) {
     alert(error.message);
@@ -74,24 +36,54 @@ home.onDeleteNoteClick = function (noteId) {
 
         return;
       }
+      renderList();
+    });
+  } catch (error) {
+    alert(error.message);
+  }
+};
 
-      try {
-        retrieveNotes(sessionStorage.token, function (error, notes) {
-          if (error) {
-            alert(error.message);
-
-            return;
-          }
-          home.renderList(notes);
-        });
-      } catch (error) {
+home.onUpdateNote = function (noteId, text) {
+  try {
+    updateNote(sessionStorage.token, noteId, text, (error) => {
+      if (error) {
         alert(error.message);
+
+        return;
       }
     });
   } catch (error) {
     alert(error.message);
   }
 };
+
+home.onLogout = function () {
+  delete sessionStorage.token;
+
+  document.body.removeChild(home.container);
+  document.body.append(login.container);
+};
+
+home.onAddNote = function () {
+  try {
+    createNote(sessionStorage.token, (error) => {
+      if (error) {
+        alert(error.message);
+
+        return;
+      }
+
+      renderList();
+    });
+  } catch (error) {
+    alert(error.message);
+  }
+};
+
+register.onLinkClick(function () {
+  document.body.removeChild(register.container);
+  document.body.append(login.container);
+});
 
 register.onFormSubmit(function (name, email, password) {
   try {
@@ -101,6 +93,7 @@ register.onFormSubmit(function (name, email, password) {
 
         return;
       }
+      debugger;
       register.reset();
 
       document.body.removeChild(register.container);
@@ -111,8 +104,49 @@ register.onFormSubmit(function (name, email, password) {
   }
 });
 
-document.body.append(login.container);
+// document.body.append(login.container);
 
+function renderHome() {
+  try {
+    retrieveUser(sessionStorage.token, function (error, user) {
+      if (error) {
+        alert(error.message);
+
+        return;
+      }
+
+      home.setName(user.name);
+
+      renderList(function () {
+        document.body.append(home.container);
+      });
+    });
+  } catch (error) {
+    alert(error.message);
+  }
+}
+
+function renderList(callback) {
+  try {
+    retrieveNotes(sessionStorage.token, function (error, notes) {
+      if (error) {
+        alert(error.message);
+
+        return;
+      }
+
+      home.renderList(notes);
+
+      if (callback) callback();
+    });
+  } catch (error) {
+    alert(error.message);
+  }
+}
+
+if (sessionStorage.token) renderHome();
+else document.body.append(login.container);
+// render home finishes here
 // TO DO =============================================
 
 /* plusButton.onclick = function () {
@@ -188,3 +222,42 @@ menuButton.onclick = function () {
   // profilePage.classList.add("off");
 };
  */
+
+home.onResetPasswordFormSubmit(function (
+  oldPassword,
+  newPassword,
+  retypeNewPassword
+) {
+  //event (as original and only argument)
+  // event.preventDefault();
+
+  // const oldPassword = resetPasswordForm.oldPassword.value;
+  // const newPassword = resetPasswordForm.newPassword.value;
+  // const retypeNewPassword = resetPasswordForm.retypeNewPassword.value;
+
+  try {
+    resetPassword(
+      sessionStorage.token,
+      oldPassword,
+      newPassword,
+      retypeNewPassword,
+      function (error) {
+        if (error) {
+          alert(error.message);
+
+          return;
+        }
+        home.resetPasswordReset();
+
+        document.body.removeChild(home.container);
+        document.body.append(login.container);
+        // registerForm.reset();
+
+        // profilePage.classList.add("off");
+        // loginPage.classList.remove("off");
+      }
+    );
+  } catch (error) {
+    alert(error.message);
+  }
+});

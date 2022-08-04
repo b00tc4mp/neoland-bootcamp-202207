@@ -4,7 +4,7 @@ class Login {
 
     temp.innerHTML = `<main class="login-page page background flex-container">
     <div class="login-elements flex-container">
-      <form action="" class=" form flex-container login-form">
+      <form action="" class=" login-form flex-container login-form">
         <div class="input-fields">
 
           <div class="form__field">
@@ -39,7 +39,7 @@ class Login {
   }
 
   onFormSubmit(callback) {
-    const form = this.container.querySelector("form");
+    const form = this.container.querySelector(".login-form");
 
     form.onsubmit = function (event) {
       event.preventDefault();
@@ -52,6 +52,6 @@ class Login {
   }
 
   reset() {
-    this.container.querySelector("form").reset();
+    this.container.querySelector(".login-form").reset();
   }
 }
