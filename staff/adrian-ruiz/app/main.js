@@ -4,9 +4,11 @@ const home = new Home
 
 
 
-/* if(sessionStorage.UserToken){
+if(sessionStorage.UserToken){
     renderHome()
-} */
+}
+else
+    document.body.append(login.container)
 
 
 login.onLinkClick(function () {
@@ -26,38 +28,9 @@ login.onFormSubmit(function (email, password) {
 
             login.reset()
 
-            try {
-                retrieveUser(sessionStorage.UserToken, function (error, user) {
-                    if (error) {
-                        alert(error.message)
-                        return
-                    }
+            document.body.removeChild(login.container)
 
-                    // Guardo los datos del usuario
-                    sessionStorage.setItem('UserStored', JSON.stringify(user))
-
-                    home.setName(user.name)
-                    try {
-                        retrieveNotes(sessionStorage.UserToken, function (error, notes) {
-                            if (error) {
-                                alert(error.message)
-                                return
-                            }
-                            home.renderList(notes)
-                        })
-                    } catch (error) {
-                        alert(error.message)
-                    }
-
-                    setTimeout(() => {
-                        document.body.removeChild(login.container)
-                        document.body.append(home.container)
-                    }, 300)
-
-                })
-            } catch (error) {
-                alert(error.message)
-            }
+            renderHome()
 
         })
     } catch (error) {
@@ -79,17 +52,7 @@ home.onDeleteNoteClick = function (noteId) {
                     return
                 }
 
-                try {
-                    retrieveNotes(sessionStorage.UserToken, function (error, notes) {
-                        if (error) {
-                            alert(error.message)
-                            return
-                        }
-                        home.renderList(notes)
-                    })
-                } catch (error) {
-                    alert(error.message)
-                }
+               renderList()
 
             })
         } catch (error) {
@@ -145,116 +108,126 @@ register.onFormSubmit(function (name, email, password) {
     }
     register.reset()
 })
-document.body.append(login.container)
 
-/* registerForm.addEventListener('submit', function (event) {
-    event.preventDefault()
-
-    const inputName = registerForm.name.value
-    const inputEmail = registerForm.email.value
-    const inputPassword = registerForm.password.value
-
-
-})
- */
-
-
-
-/* createNoteButton.onclick = function (event) {
-    event.preventDefault()
-    const userToken = sessionStorage.UserToken
-
+//HOME
+home.onNewNoteButton = function() {
     let result = confirm('Are you sure to create a new note?')
     if (result) {
-        const containerPopUp = document.querySelector('.containerPopUp')
-        containerPopUp.classList.remove('off')
-
-        const confirmNoteButton = document.querySelector('#confirmNewNoteButton')
-        const newNoteTitle = document.querySelector('.newNoteInput__title')
-        const newNoteText = document.querySelector('.newNoteInput__text')
-
-        // Cancel creation
-        const cancelButton = document.querySelector('#cancelNewNoteButton')
-        cancelButton.onclick = function (event) {
-            // Para prevenir que recargue la pagina
+        document.body.prepend(home.notePopUp)
+        /* const containerPopUp = document.querySelector('.containerPopUp')
+        containerPopUp.classList.remove('off') */
+        home.cancelNewNoteButton.onclick = function(event){
             event.preventDefault()
             const result = confirm('Are you sure to cancel?')
 
             if (result)
-                containerPopUp.classList.add('off')
+                document.body.removeChild(home.notePopUp)
             else return
         }
-
-        // Confirm creation
-        confirmNoteButton.onclick = function (event) {
+        
+        home.confirmNewNoteButton.onclick = function(event){
             event.preventDefault()
             try {
-                createNote(userToken, newNoteTitle.textContent, newNoteText.textContent, function (error) {
+                
+                createNote(sessionStorage.UserToken, home.newNoteTitle.textContent, home.newNoteText.textContent, function (error) {
                     if (error) {
                         alert(error.message)
                         return
                     }
-                    containerPopUp.classList.add('off')
-                    newNoteText.textContent = ''
-                    newNoteTitle.textContent = ''
-                    refreshList()
+                    home.newNoteTitle.textContent = ''
+                    home.newNoteText.textContent = ''
+                    
+                    document.body.removeChild(home.notePopUp)
+
+                    renderList()
+
                 })
             } catch (error) {
                 alert(error)
             }
         }
+        
     }
-} */
+}
+
+function renderHome(){
+    try{
+        retrieveUser(sessionStorage.UserToken, function(error, user){
+            if(error){
+                alert(error.message)
+
+                return
+            }
+
+            home.setName(user.name)
+
+            renderList(function(){
+                document.body.append(home.container)
+            })
+        })
+    } catch (error) {
+        alert(error.message)
+    }
+}
+
+function renderList(callback){
+
+    try {
+        retrieveNotes(sessionStorage.UserToken, function (error, notes) {
+            if (error) {
+                alert(error.message)
+                return
+            }
+
+            home.renderList(notes)
+
+            if(callback)
+                callback()
+        })
+    } catch (error) {
+        alert(error.message)
+    }
+}
 
 
 // Formulario y lógica actualizar password
-
-
-/* updatePassForm.onsubmit = function (event) {
+home.onUpdateUserPass(function(oldPass, newPass, confirmNewPass){ 
     let result = confirm('Are you sure to change password?')
     if (result) {
-        event.preventDefault()
-        const oldPassword = updatePassForm.oldPassword.value
-        const newPassword = updatePassForm.newPassword.value
-        const confirmNewPassword = updatePassForm.confirmNewPassword.value
         try {
-            updateUserPassword(sessionStorage.UserToken, oldPassword, newPassword, confirmNewPassword, function (error) {
+            updateUserPassword(sessionStorage.UserToken, oldPass, newPass, confirmNewPass, function (error) {
                 if (error)
                     alert(error.message)
                 else {
                     alert('Password updated succesfully')
-                    updatePassForm.reset()
                 }
             })
         } catch (error) {
             alert(error.message)
         }
-
     }
-} */
+
+})
+
 
 // Formulario y lógica actualizar email
-
-/* updateEmailForm.onsubmit = function (event) {
+home.onUpdateUserEmail(function(newEmail){
     let result = confirm('Are you sure to update Email?')
     if (result) {
-        event.preventDefault()
-        const newEmail = updateEmailForm.newEmail.value
         try {
             updateUserEmail(sessionStorage.UserToken, newEmail, function (error) {
                 if (error)
                     alert(error.message)
                 else {
                     alert('Email updated succesfully')
-                    updateEmailForm.reset()
                 }
             })
         } catch (error) {
             alert(error.message)
         }
     }
+})
 
-} */
 // CAPTURAMOS CON INPUT PARA ACTUALIZAR ESTADO DE LA CREACION DE PASSWORD
 register.onPassInput(function(formPassword, div, pLowerCase, pUpperCase, pNumber, pSymbols, pLength) {
     
@@ -295,45 +268,14 @@ register.onPassInput(function(formPassword, div, pLowerCase, pUpperCase, pNumber
     }
 })
 
-// Home
-
-/* homeIcon.addEventListener('click', function () {
-
-    home__profileContainer.classList.add('off')
-    home__notesContainer.classList.remove('off')
-    createNoteButton.classList.remove('off')
-    notesList.scroll({ 'top': 0, 'behavior': "smooth" })
-}) */
-// Profile
-
-/* profileLink.addEventListener('click', function () {
-    home__notesContainer.classList.add('off')
-    createNoteButton.classList.add('off')
-    home__profileContainer.classList.remove('off')
-}) */
 // Logout
-
-/* logoutLink.addEventListener('click', function () {
+home.onLogout = function(){
     let result = confirm('Are you sure you want to logout?')
     if (result) {
-        notesList.scroll(0, 0)
+        
+        /* home.notesList.scroll(0, 0) */
         sessionStorage.removeItem('UserToken')
-        loginPage.classList.remove('off')
-        homePage.classList.add('off')
-        home__notesContainer.classList.remove('off')
-        createNoteButton.classList.remove('off')
-        home__profileContainer.classList.add('off')
-
+        document.body.append(login.container)
+        document.body.removeChild(home.container)
     }
-}) */
-
-
-// Funcion activar rotación DIVS menú y mostrar desplegable
-
-
-/* menuContainer.addEventListener('click', function () {
-    menuContainer.classList.toggle("change")
-    dropdown.classList.toggle("off")
-    dropdown.classList.toggle("displayBlock")
-}) */
-
+}

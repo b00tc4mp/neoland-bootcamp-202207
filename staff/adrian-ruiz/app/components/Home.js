@@ -24,21 +24,7 @@ class Home {
 
                     </div>
             </header>
-            <div class="containerPopUp off">
-                <div class="newNotePopUp">
-                    <form class="newNoteForm" action="#">
-                        <label for="newNoteTitle" class="newNoteLabel">Title</label>
-                        <div contenteditable="true" class="newNoteInput newNoteInput__title" name="newNoteTitle"></div>
-                        <label for="newNoteText" class="newNoteLabel">Describe your new note</label>
-                        <div contenteditable="true" class="newNoteInput newNoteInput__text" name="newNoteText"></div>
-                        <div class="newNoteButtonsContainer">
-                            <button class="newNoteFormButton" id="confirmNewNoteButton">Create note</button>
-                            <button class="newNoteFormButton" id="cancelNewNoteButton">Cancel</button>
-                        </div>
-                        
-                    </form>
-                </div>
-            </div>
+            
             <section class="homeMainContainer home__notesContainer">
                 <ul class="notesList">
                     <li class="note">
@@ -79,30 +65,116 @@ class Home {
                         </li>
                 </ul>
             </section>
-            <section class="homeMainContainer home__profileContainer off">
-                <div class="profileMenuContainer">
-                    <form id="updatePasswordForm" action="#">
-                        <label for="oldPassword" class="labelForm">Old Password</label>
-                        <input type="password" name="oldPassword" class="profileInput">
-                        <label for="newPassword" class="labelForm">New Password</label>
-                        <input type="password" name="newPassword" class="profileInput">
-                        <label for="confirmNewPassword" class="labelForm">Confirm New Password</label>
-                        <input type="password" name="confirmNewPassword" class="profileInput">
-                        <button type="submit" class="profileFormButton" id="updatePasswordSubmit">Confirm</button>
-                    </form>
-                    <form id="updateEmailForm" action="#">
-                        <label for="newEmail" class="labelForm">New Email</label>
-                        <input type="email" name="newEmail" class="profileInput">
-                        <button type="submit" class="profileFormButton" id="updateEmailSubmit">Confirm</button>
-                    </form>
-                </div>
-            </section>
+            
             <section class="bottomMenu">
                 <button class="newNoteButton"><span class="newNoteEmoji">📝</span></button>
             </section>
         </main>`
 
         this.container = temp.firstChild
+
+        this.main = this.container.querySelector('.homeMainContainer')
+        const notesList = this.container.querySelector('.notesList')
+
+        const homeIcon = this.container.querySelector('.homeIcon')
+        this.profileStatusControler = 'off'
+        this.profileMenuContainer = this.container.querySelector('.home__profileContainer')
+
+        this.dropdownMenu = this.container.querySelector('.dropdownMenu')
+        const menuContainer = this.container.querySelector('.menuContainer')
+
+        menuContainer.onclick = function () {
+            menuContainer.classList.toggle("change")
+            home.dropdownMenu.classList.toggle("off")
+            home.dropdownMenu.classList.toggle("displayBlock")
+        }
+
+        this.container.querySelector('.logoutLink').onclick = () => {
+            this.onLogout()
+            if (this.profileStatusControler === 'on') {
+                this.main.removeChild(profileContainer)
+                this.footer.append(newNoteButton)
+            }
+            this.profileStatusControler = 'off'
+            this.main.append(notesList)
+        }
+        const newNoteButton = this.container.querySelector('.newNoteButton')
+        newNoteButton.onclick = () => {
+            this.onNewNoteButton()
+        }
+
+        const popUpTemp = document.createElement('temp')
+        popUpTemp.innerHTML = `<div class="containerPopUp">
+            <div class="newNotePopUp">
+                <form class="newNoteForm" action="#">
+                    <label for="newNoteTitle" class="newNoteLabel">Title</label>
+                    <div contenteditable="true" class="newNoteInput newNoteInput__title" name="newNoteTitle"></div>
+                    <label for="newNoteText" class="newNoteLabel">Describe your new note</label>
+                    <div contenteditable="true" class="newNoteInput newNoteInput__text" name="newNoteText"></div>
+                    <div class="newNoteButtonsContainer">
+                        <button class="newNoteFormButton" id="confirmNewNoteButton">Create note</button>
+                        <button class="newNoteFormButton" id="cancelNewNoteButton">Cancel</button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>`
+
+        this.notePopUp = popUpTemp.firstChild
+        this.confirmNewNoteButton = this.notePopUp.querySelector('#confirmNewNoteButton')
+        this.cancelNewNoteButton = this.notePopUp.querySelector('#cancelNewNoteButton')
+        this.newNoteTitle = this.notePopUp.querySelector('.newNoteInput__title')
+        this.newNoteText = this.notePopUp.querySelector('.newNoteInput__text')
+
+        const profileContainerTemp = document.createElement('temp')
+        profileContainerTemp.innerHTML = `<section class="homeMainContainer home__profileContainer">
+        <div class="profileMenuContainer">
+            <form id="updatePasswordForm" action="#">
+                <label for="oldPassword" class="labelForm">Old Password</label>
+                <input type="password" name="oldPassword" class="profileInput">
+                <label for="newPassword" class="labelForm">New Password</label>
+                <input type="password" name="newPassword" class="profileInput">
+                <label for="confirmNewPassword" class="labelForm">Confirm New Password</label>
+                <input type="password" name="confirmNewPassword" class="profileInput">
+                <button type="submit" class="profileFormButton" id="updatePasswordSubmit">Confirm</button>
+            </form>
+            <form id="updateEmailForm" action="#">
+                <label for="newEmail" class="labelForm">New Email</label>
+                <input type="email" name="newEmail" class="profileInput">
+                <button type="submit" class="profileFormButton" id="updateEmailSubmit">Confirm</button>
+            </form>
+        </div>
+    </section>`
+
+        this.footer = this.container.querySelector('.bottomMenu')
+
+        const profileContainer = profileContainerTemp.firstChild
+        const profileLink = this.container.querySelector('.profileLink')
+
+        profileLink.onclick = () => {
+            if (this.profileStatusControler === 'off') {
+                this.main.removeChild(notesList)
+                this.footer.removeChild(newNoteButton)
+                this.profileStatusControler = 'on'
+            }
+
+            this.main.append(profileContainer)
+
+        }
+
+        homeIcon.onclick = () => {
+
+            if (this.profileStatusControler === 'on') {
+                this.main.removeChild(profileContainer)
+                this.profileStatusControler = 'off'
+                this.main.append(notesList)
+            }
+            this.footer.append(newNoteButton)
+            notesList.scroll({ 'top': 0, 'behavior': "smooth" })
+        }
+
+        this.updatePassForm = profileContainer.querySelector('#updatePasswordForm')
+        this.updateEmailForm = profileContainer.querySelector('#updateEmailForm')
     }
 
     setName(name) {
@@ -154,7 +226,7 @@ class Home {
             changeBlue.onclick = () => {
                 this.onChangeNoteColor(notes, note.id, 'blue')
                 container.style.backgroundColor = 'blue'
-                
+
             }
             const changeRed = document.createElement('div')
             changeRed.classList.add('changeNoteRed')
@@ -196,9 +268,39 @@ class Home {
         })
     }
 
+    onUpdateUserPass(callback){
+        
+
+        this.updatePassForm.onsubmit = (event) => {
+
+            event.preventDefault()
+            const oldPass = this.updatePassForm.oldPassword.value
+            const newPass = this.updatePassForm.newPassword.value
+            const confirmNewPass = this.updatePassForm.confirmNewPassword.value
+
+            callback(oldPass,newPass,confirmNewPass)
+            this.updatePassForm.reset()
+        }
+    }
+
+    onUpdateUserEmail(callback){
+
+        this.updateEmailForm.onsubmit = (event) => {
+            event.preventDefault()
+            const newEmail = this.updateEmailForm.newEmail.value
+
+            callback(newEmail)
+            this.updateEmailForm.reset()
+        } 
+    }
+
     onDeleteNoteClick = null
 
     onUpdateNote = null
 
     onChangeNoteColor = null
+
+    onLogout = null
+
+    onNewNoteButton = null
 }
