@@ -1,8 +1,6 @@
-class Home {
+class Home extends Component {
   constructor() {
-    const temp = document.createElement("temp");
-
-    temp.innerHTML = `<div class="home-page page background flex-container--homepage">
+    super(`<div class="home-page page background flex-container--homepage">
 
     <header class=" header flex-container navigation-bar">
         <div class="navigation-bar">
@@ -58,9 +56,7 @@ class Home {
 
     <footer class="footer flex-container"><button class="transparent-button add-button">+</button></footer>
 
-</div>`;
-
-    this.container = temp.firstChild;
+</div>`);
 
     const addButton = this.container.querySelector(".add-button");
     addButton.onclick = () => {
@@ -73,15 +69,26 @@ class Home {
     const navigationBar = header.querySelector(".navigation-bar");
     const menuButton = navigationBar.querySelector(".menu-button");
 
-    const temp2 = document.createElement("temp");
+    // removed
+    /* const temp2 = document.createElement("temp");
     temp2.innerHTML =
-      '<button class="close-button"><span class="material-symbols-outlined">X</span></button>';
-    const closeButton = temp2.firstChild;
+      '<button class="close-button"><span class="material-symbols-outlined">X</span></button>'; */
+    // ==
+    const closeButton = templateToDOM(
+      '<button class="close-button"><span class="material-symbols-outlined">X</span></button>'
+    );
 
     const main = this.container.querySelector(".main");
 
-    const temp3 = document.createElement("temp");
-    temp3.innerHTML = `<div class="menu-panel">
+    const menuPanel = new MenuPanel();
+
+    this.settingsPanel = new SettingsPanel();
+    // const settingsPanel = new SettingsPanel
+    // this.settingsPanel = settingsPanel;
+
+    /* const temp3 = document.createElement("temp");
+    temp3.innerHTML = 
+    `<div class="menu-panel">
 
           <ul class="dropdown-menu menu-panel__list">
             <li class="menu-panel__list-item-settings dropdown-item settings-button"><button class="dropdown__link "><i class="fa-solid fa-poo nav-icon poo-list-style"></i>Settings</button> </li>
@@ -89,65 +96,48 @@ class Home {
               <li class="menu-panel__list-item-settings dropdown-item logout-button"><button class="dropdown__link "><i class="fa-solid fa-poo nav-icon poo-list-style"></i>Log out</button> </li>
           </ul>
 
-</div>`;
-    const menuPanel = temp3.firstChild;
+</div>` */
+    // const menuPanel = temp3.firstChild;
 
-    const menuPanelList = menuPanel.querySelector(".menu-panel__list");
-    const menuPanelListItemSettings = menuPanelList.querySelector(
-      ".menu-panel__list-item-settings"
-    );
-
-    menuPanelList.querySelector(".logout-button").onclick = () => {
-      this.onLogout();
-    };
+    // here insert: const settingsPanel
 
     menuButton.onclick = () => {
-      navigationBar.removeChild(menuButton);
+      if (navigationBar.contains(menuButton))
+        navigationBar.removeChild(menuButton);
       navigationBar.append(closeButton);
 
-      main.prepend(menuPanel);
+      // menuPanel.showSettings();
+      debugger;
+      main.prepend(menuPanel.container);
     };
 
     closeButton.onclick = () => {
-      navigationBar.removeChild(closeButton);
+      if (navigationBar.contains(closeButton))
+        navigationBar.removeChild(closeButton);
+
       navigationBar.append(menuButton);
 
-      main.removeChild(menuPanel);
+      // main.removeChild(menuPanel);
+      menuPanel.hideSettings();
+
+      //changed from header
+      if (main.contains(menuPanel.container))
+        main.removeChild(menuPanel.container);
     };
 
     const listPanel = main.querySelector(".list-panel");
 
-    const settingsButton = menuPanelList.querySelector(".settings-button");
-    settingsButton.onclick = () => {
-      closeButton.click();
+    NavigableForm.on;
 
-      //   main.removeChild(menuPanel);
-      //   menuPanelList.removeChild(menuPanelListItemSettings);
-      main.removeChild(listPanel);
-      footer.removeChild(addButton);
+    // const temp4 = document.createElement("temp");
 
-      main.append(settingsPanel);
-    };
-
-    menuPanelList.querySelector(".notes-button").onclick = () => {
-      closeButton.click();
-
-      main.removeChild(settingsPanel);
-
-      menuPanelList.prepend(menuPanelListItemSettings);
-      main.append(listPanel);
-      footer.append(addButton);
-    };
-
-    const temp4 = document.createElement("temp");
-
-    temp4.innerHTML = `<div class="settings-panel">
+    /* temp4.innerHTML = `<div class="settings-panel">
     <!-- settings-page page background flex-container -->
-    <h1>Settings</h1>
+    <h2>Settings</h2>
 
     <!--button class="close-settings-button transparent-button"><span class="material-symbols-outlined">close</span></button-->
 
-<h2>Reset Password Form</h2>
+<h3>Reset Password Form</h3>
     
               <form action="" class="reset-password-form resetPassword-elements flex-container reset-password-form input-fields">
       
@@ -169,31 +159,12 @@ class Home {
                 <button type="submit" class="button--primary">Save</button>
               </form>
              
-</div>`;
-
-    const settingsPanel = temp4.firstChild;
-    this.settingsPanel = settingsPanel;
+</div>` */
   }
 
-  onResetPasswordFormSubmit(callback) {
-    const resetPasswordForm = this.settingsPanel.querySelector(
-      ".reset-password-form"
-    );
-
-    resetPasswordForm.onsubmit = (event) => {
-      event.preventDefault();
-
-      const oldPassword = resetPasswordForm.oldPassword.value;
-      const newPassword = resetPasswordForm.newPassword.value;
-      const retypeNewPassword = resetPasswordForm.retypeNewPassword.value;
-
-      callback(oldPassword, newPassword, retypeNewPassword);
-    };
-  }
-
-  resetPasswordReset() {
-    this.settingsPanel.querySelector(".reset-password-form").reset();
-  }
+  // resetPasswordReset() {
+  //   this.settingsPanel.querySelector(".reset-password-form").reset();
+  // }
 
   setName(name) {
     this.container.querySelector(".welcome").innerText = "Hello, " + name + "!";
@@ -245,4 +216,6 @@ class Home {
   onLogout = null;
 
   onAddNote = null;
+
+  onResetPasswordFormSubmit = null;
 }

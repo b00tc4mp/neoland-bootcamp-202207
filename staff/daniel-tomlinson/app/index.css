@@ -204,6 +204,7 @@ label {
   display: flex;
   flex-direction: column;
   gap: 5px;
+  /* width: 80%; */
 }
 
 .login-elements {
@@ -482,4 +483,12 @@ button {
 
 .poo-list-style:hover {
   color: #e5a9a9;
+}
+
+.settings-panel {
+  width: 100%;
+}
+
+.password-reset-form {
+  width: 100%;
 }

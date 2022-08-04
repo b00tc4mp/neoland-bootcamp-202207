@@ -1,8 +1,6 @@
-class Register {
+class Register extends NavigableForm {
   constructor() {
-    const temp = document.createElement("temp");
-
-    temp.innerHTML = `<main class="register-page page background flex-container">
+    super(`<main class="register-page page background flex-container">
     <div class="login-elements flex-container">
       <form action="" class="form flex-container login-form">
         <div class="input-fields">
@@ -28,18 +26,18 @@ class Register {
       </form></div>
       <a class="anchor">Already have an account?</a>
     </div>
-</main>`;
+</main>`);
 
-    this.container = temp.firstChild;
+    // this.container = temp.firstChild;
   }
 
-  onLinkClick(callback) {
+  /*   onLinkClick(callback) {
     this.container.querySelector(".anchor").onclick = (event) => {
       event.preventDefault();
 
       callback();
     };
-  }
+  } */
 
   onFormSubmit(callback) {
     const form = this.container.querySelector("form");

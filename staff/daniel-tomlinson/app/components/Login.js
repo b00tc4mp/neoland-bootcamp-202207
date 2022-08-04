@@ -1,8 +1,6 @@
-class Login {
+class Login extends NavigableForm {
   constructor() {
-    const temp = document.createElement("temp");
-
-    temp.innerHTML = `<main class="login-page page background flex-container">
+    super(`<main class="login-page page background flex-container">
     <div class="login-elements flex-container">
       <form action="" class=" login-form flex-container login-form">
         <div class="input-fields">
@@ -25,9 +23,7 @@ class Login {
       <a href="forgot.password.html">Forgot password</a>
       <a href="register.html" class="anchor">Register</a>
     </div>
-</main>`;
-
-    this.container = temp.firstChild;
+</main>`);
   }
 
   onLinkClick(callback) {

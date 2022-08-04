@@ -80,6 +80,38 @@ home.onAddNote = function () {
   }
 };
 
+home.onResetPasswordFormSubmit = function (
+  oldPassword,
+  newPassword,
+  retypeNewPassword
+) {
+  try {
+    resetPassword(
+      sessionStorage.token,
+      oldPassword,
+      newPassword,
+      retypeNewPassword,
+      function (error) {
+        if (error) {
+          alert(error.message);
+
+          return;
+        }
+
+        alert("Password updated successfully");
+
+        //In Manu's code the changes in view are addressed somewhere else:
+        /* this.resetPasswordReset();
+
+        document.body.removeChild(home.container);
+        document.body.append(login.container); */
+      }
+    );
+  } catch (error) {
+    alert(error.message);
+  }
+};
+
 register.onLinkClick(function () {
   document.body.removeChild(register.container);
   document.body.append(login.container);
@@ -222,42 +254,3 @@ menuButton.onclick = function () {
   // profilePage.classList.add("off");
 };
  */
-
-home.onResetPasswordFormSubmit(function (
-  oldPassword,
-  newPassword,
-  retypeNewPassword
-) {
-  //event (as original and only argument)
-  // event.preventDefault();
-
-  // const oldPassword = resetPasswordForm.oldPassword.value;
-  // const newPassword = resetPasswordForm.newPassword.value;
-  // const retypeNewPassword = resetPasswordForm.retypeNewPassword.value;
-
-  try {
-    resetPassword(
-      sessionStorage.token,
-      oldPassword,
-      newPassword,
-      retypeNewPassword,
-      function (error) {
-        if (error) {
-          alert(error.message);
-
-          return;
-        }
-        home.resetPasswordReset();
-
-        document.body.removeChild(home.container);
-        document.body.append(login.container);
-        // registerForm.reset();
-
-        // profilePage.classList.add("off");
-        // loginPage.classList.remove("off");
-      }
-    );
-  } catch (error) {
-    alert(error.message);
-  }
-});
