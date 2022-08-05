@@ -5,7 +5,7 @@ class Home {
         <header class="header_home">
             <div class="cont__header">
                 <div class="link_home">
-                    <img class="img img-home " src="https://i.postimg.cc/ZY1nHGSz/logo-Luanna.png" alt=""> <=Logout"
+                    <img class="img img-home " src="https://i.postimg.cc/ZY1nHGSz/logo-Luanna.png" alt="">
                 </div>
                 <h1 class="messageTitle">Hello Pepito!!</h1>
 
@@ -13,7 +13,6 @@ class Home {
                     <!-- <span class="fa-solid fa-bars" id="btn-menu"></span> -->
                     <span class="material-symbols-outlined"  id="btn-menu">menu</span>
                 </div>
-                
                
             </div>
 
@@ -25,7 +24,6 @@ class Home {
                     <li class="menu-item"><a class="menu__link btn_logout">Logout <span class="material-symbols-outlined">logout</span></a> </li>
                 </ul>
             </nav>
-            
         </header>
 
         <main class="main_home">            
@@ -126,11 +124,12 @@ class Home {
 
         this.container = temp.firstChild
 
-        this.main = this.container.querySelector('.main_home')
-        this.footer = this.container.querySelector('.footer_home')
+        const header = this.container.querySelector('.header_home')
+        const main = this.container.querySelector('.main_home')
+        const footer = this.container.querySelector('.footer_home')
 
 
-        this.list = this.container.querySelector('.list')
+        const list = this.container.querySelector('.list')
 
         const temp2 = document.createElement('temp')
         temp2.innerHTML = `<form class="formcreateNote" name="formcreateNote">
@@ -145,44 +144,43 @@ class Home {
                 </li>
 
             </form>`
+
         this.formCreateNote = temp2.firstChild
+        // this.createNotes = this.formCreateNote
 
-        const temp3 = document.createElement('temp')
-        temp3.innerHTML = `<div class="btn-close">
-        <span class="material-symbols-outlined"  id="btn-close">close</span>
-    </div>`
-        this.btnClose = temp3.firstChild
+        
+    //     this.onFormCreateNote = (callback) => {
+    //     formAddNote.onsubmit = event => {
+    //         event.preventDefault()
+    //         const textarea = this.container.querySelector('.list__item-textNew')
+    //         // this.onFormCreateNote(textarea)
+    //         if (textarea.value === "") alert('nothing')
 
-        const header = this.container.querySelector('.header_home')
-        const btnMenu = header.querySelector('.btn-menu')
+    //         else {
+    //             callback(textarea.value)
+    //             textarea = ""
+    //             // this.reset()
+    //         }
+    //     }
+    // }
 
-        //
-        const menuPanel = document.createElement('temp')
-        temp4.innerHTML=`<nav class="nav-home" id="nav-home">
-        <ul class="menu-home">
-            <li class="menu-item"><a class="menu__link profile">Profile</a></li>
-            <li class="menu-item"><a class="menu__link design">Design</a> </li>
-            <li class="menu-item"><a class="menu__link">Menu3</a> </li>
-            <li class="menu-item"><a class="menu__link btn_logout">Logout <span class="material-symbols-outlined">logout</span></a> </li>
-        </ul>
-    </nav>`
-        this.menuPanel = temp4.firstChild
+        const btnPlus = this.container.querySelector('.btn_plus')
+        const btnLeft = this.formCreateNote.querySelector('.btn_arrLeft')
+        btnLeft.onclick = () => {
+            // main.append(formCreateNote)
+            main.prepend(list)
+            footer.append(btnPlus)
+            main.removeChild(this.formCreateNote)
+        }
 
-        //continuar
-
-        this.btnPlus = this.container.querySelector('.btn_plus')
-
-        this.btnPlus.onclick = () => {
-            this.main.removeChild(this.list)
-            this.main.append(this.formCreateNote)
-            this.footer.removeChild(this.btnPlus)
+        btnPlus.onclick = () => {
+            main.removeChild(list)
+            main.append(this.formCreateNote)
+            footer.removeChild(btnPlus)
         }
 
 
-        // this.container.querySelector('.btn_logout').onclick = () => {
-        //     this.onLogout()
-        // }
-        this.container.querySelector('.img-home').onclick = () => {
+        this.container.querySelector('.btn_logout').onclick = () => {
             this.onLogout()
         }
     }
@@ -214,40 +212,44 @@ class Home {
                     clearTimeout(window.updateNoteTimeoutId)
 
                 window.updateNoteTimeoutId = setTimeout(() => {
-                    this.onUpdateNote(note.id, text.value)
+                    this.onUpdateNote(note.id, text.innerText)
                 }, 500)
             }
-            text.value = note.text
+            text.innerText = note.text
             item.append(deleteButton, text)
             list.append(item)
 
         })
     }
 
-    onFormCreateNote = (callback) => {
-        this.formCreateNote.onsubmit = event => {
-            debugger
-            event.preventDefault()
-            let textarea = this.formCreateNote.newItemNote
+    onFormCreateNote = (callback) =>{
+        const formAddNote = this.formCreateNote.querySelector('form')
 
-            if (textarea.value === "") alert('nothing')
+        formAddNote.onsubmit = event=> {
+            event.preventDefault()
+            const textarea = formAddNote.newItemNote.value
+            
+
+            if (textarea === "") alert('nothing')
 
             else {
-                callback(textarea.value)
+                callback(textarea)
 
-                textarea.value = ""
+                textarea = ""
 
                 // this.reset()
             }
-
-            this.main.removeChild(this.formCreateNote)
-            this.main.prepend(this.list)
-            this.footer.append(this.btnPlus)
         }
     }
 
     onDeleteNoteClick = null
     onUpdateNote = null
     onLogout = null
+    onFormCreateNote = null
+
+    
+  
+
+    
 }
 

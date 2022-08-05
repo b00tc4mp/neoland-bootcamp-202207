@@ -1,4 +1,4 @@
-class Register extends NavigableForm {
+class RegisterPage extends NavigableForm {
     constructor() {
         super(`<main class="register-page container container--full container--spaced">
         <form class="form container">

@@ -192,7 +192,6 @@ body {
     align-items: center;
     width: 20%;
     height: 100%;
-    color: #037E8c;
  }
 .img-home{
     display: flex;
@@ -349,7 +348,6 @@ body {
     margin-left: 4%;;
     margin-right: 1%; 
     margin-bottom: 0%;
-    
 
     /* overflow: scroll; */
 }
@@ -371,14 +369,7 @@ body {
     border-color: transparent;
     font-size: 1rem;
     overflow: scroll;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
 }
-
-.list__item-text::-webkit-scrollbar {
-    display: none;
-}
-
 .nav-home.mostrar{
  z-index: 1;
 }
