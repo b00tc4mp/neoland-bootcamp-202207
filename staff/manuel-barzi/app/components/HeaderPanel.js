@@ -10,6 +10,7 @@ class HeaderPanel extends Component {
         
         const menuButton = new IconButton('menu')
         headerTop.append(menuButton.container)
+        
         const closeButton = new IconButton('close')
         this.closeButton = closeButton
 
