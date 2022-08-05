@@ -1,21 +1,17 @@
-class Login {
+class Login extends Component {
     constructor() {
-        const temp = document.createElement('temp')
-
-        temp.innerHTML = `<main class="body-center login-page">
-            <div class="form-container">
-            <form class="login-form">
-                <label for="email">email</label>
-                <input type="email" name="email" placeholder="email">
-                <label for="password">password</label>
-                <input type="password" name="password" placeholder="password">
-                <button type="submit">Login</button>
-            </form>
-            </div>
-            <a href="#">Register</a>
-        </main>`
-
-        this.container = temp.firstChild
+        super(`<main class="body-center login-page">
+        <div class="form-container">
+        <form class="login-form">
+            <label for="email">email</label>
+            <input type="email" name="email" id="email" placeholder="email">
+            <label for="password">password</label>
+            <input type="password" name="password" id="password" placeholder="password">
+            <button type="submit">Login</button>
+        </form>
+        </div>
+        <a href="#">Register</a>
+    </main>`)
     }
 
     onLinkClick(callback) {

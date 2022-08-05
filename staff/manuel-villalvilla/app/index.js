@@ -153,7 +153,7 @@ home.onLogout = function () {
     document.body.append(login.container)
 }
 
-home.updatePassword(function (currentPass, newPass, repeatPass) {
+home.updatePassword = function (currentPass, newPass, repeatPass) {
     try {
         updateUserPassword(sessionStorage.token, currentPass, newPass, repeatPass, error => {
             if(error) {
@@ -167,9 +167,9 @@ home.updatePassword(function (currentPass, newPass, repeatPass) {
     } catch(error) {
         alert(error.message)
     }
-})
+}
 
-home.updateEmail(function (newEmail) {
+home.updateEmail = function (newEmail) {
     try {
         updateUserEmail(sessionStorage.token, newEmail, error => {
             if(error) {
@@ -184,7 +184,7 @@ home.updateEmail(function (newEmail) {
         alert(error.message)
     }
     
-})
+}
 
 if (sessionStorage.token) {
     renderHome();

@@ -1,23 +1,19 @@
-class Register {
+class Register extends Component {
     constructor() {
-        const temp = document.createElement('temp')
-
-        temp.innerHTML = `<main class="body-center register-page">
-            <div class="form-container">
-            <form class="register-form">
-                <label for="name">name</label>
-                <input type="text" id="name" placeholder="name">
-                <label for="email">email</label>
-                <input type="email" id="email" placeholder="email">
-                <label for="password">new password</label>
-                <input type="password" id="password" placeholder="new password">
-                <button type="submit">Register</button>
-            </form>
-            </div>
-            <a href="#">Login</a>
-        </main>`
-
-        this.container = temp.firstChild
+        super(`<main class="body-center register-page">
+        <div class="form-container">
+        <form class="register-form">
+            <label for="name">name</label>
+            <input type="text" id="name" placeholder="name">
+            <label for="email">email</label>
+            <input type="email" id="email" placeholder="email">
+            <label for="password">new password</label>
+            <input type="password" id="password" placeholder="new password">
+            <button type="submit">Register</button>
+        </form>
+        </div>
+        <a href="#">Login</a>
+    </main>`)
     }
 
     onLinkClick(callback) {

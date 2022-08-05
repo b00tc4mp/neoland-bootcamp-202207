@@ -133,8 +133,8 @@ a, a:visited {
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 25%;
-    left: 25%;
+    top: 35%;
+    left: 35%;
     height: 30%;
     width: 30%;
     background-color: gray;

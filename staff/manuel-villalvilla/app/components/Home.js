@@ -1,184 +1,77 @@
-class Home {
-    constructor() {
-        const temp = document.createElement('temp')
+class Home extends Component {
+    constructor() {  
 
-        temp.innerHTML = `<main class="home-page">
-            <div class="menu-header">
-            <div class="div-logout">
-                <button class="logout-button">
-                <span class="material-symbols-outlined">
-                    logout
-                </span>
-                </button>
-            </div>
-            <div class="saludo"></div>
-            <div class="menu">
-                <div class="menu-icon"></div>
-                <div class="menu-icon"></div>
-                <div class="menu-icon"></div>
-            </div>
-            </div>
-        
-            <div class="notas-display">
-            <ul class="list"></ul>
-            </div>
-        
-            <div class="hidden-menu von voff">
-            <div class="profile-link">Profile</div>
-            <div class="notes-link">Notes</div>
-            </div>
-        
-            <footer class="footer">+</footer>
-        </main>`
+        super(`<main class="home-page"></main>`)
 
-        const temp2 = document.createElement('temp')
-        
-        temp2.innerHTML = `<div class="profile">
-        <h2>Profile</h2>
-        <div class="form-container">
-            
-            <form class="password-form">
-            <h3>Update password</h3>
-    
-            <label for="currentPassword">Current password</label>
-            <input type="password" name="currentPassword" placeholder="current password">
-            
-            <label for="newPassword">New password</label>
-            <input type="password" name="newPassword" placeholder="new password">
-            
-            <label for="repeatPassword">Repeat password</label>
-            <input type="password" name="repeatPassword" placeholder="repeat password">
-    
-            <button type="submit">Send</button>
-            </form>
-        </div>
-        <div class="form-container">
-            <form class="email-form">
-            <h3>Update email</h3>
-    
-            <label for="newEmail">New email</label>
-            <input type="email" name="newEmail" placeholder="new email">
-    
-            <button type="submit">Send</button>
-            </form>
-        </div>
-        </div>`
+        const header = new Header
 
-        this.container = temp.firstChild
+        const settingsPanel = new SettingsPanel
 
-        this.settingsPanel = temp2.firstChild
+        const notasDisplay = new NotasDisplay
 
-        this.container.querySelector('.logout-button').onclick = () => {
+        const footer = new Footer
+
+        const hiddenMenu = new HiddenMenu
+
+        this.container.append(header.container, notasDisplay.container, footer.container, hiddenMenu.container)
+
+        header.onLogoutbuttonClick = () => {
+            if (!hiddenMenu.container.classList.contains('voff'))
+                header.menuButton.click()
             while (this.container.firstChild) {
                 this.container.removeChild(this.container.firstChild)
             }
-            this.container.append(menuHeader, hiddenMenu, notasDisplay, footer)
+            this.container.append(header.container, hiddenMenu.container, notasDisplay.container, footer.container)
             this.onLogout()
         }
 
-        this.container.querySelector('.footer').onclick = () => {
+        header.onMenuButtonClick = () => hiddenMenu.container.classList.toggle('voff')
+
+        this.setName = header.setName
+
+        hiddenMenu.onProfileLinkClick = () => {
+            header.menuButton.click()
+            while (this.container.firstChild) {
+                this.container.removeChild(this.container.firstChild)
+            }
+            this.container.append(header.container, hiddenMenu.container, settingsPanel.container)
+        }
+
+        hiddenMenu.onNotesLinkClick = () => {
+            header.menuButton.click()
+            while (this.container.firstChild) {
+                this.container.removeChild(this.container.firstChild)
+            }
+            this.container.append(header.container, hiddenMenu.container, notasDisplay.container, footer.container)
+        }
+
+        settingsPanel.updatePassword = (currentPass, newPass, repeatPass) => {
+            this.updatePassword(currentPass, newPass, repeatPass)
+        }
+
+        settingsPanel.updateEmail = (newEmail) => {
+            this.updateEmail(newEmail)
+        }
+
+        this.resetPasswordForm = settingsPanel.resetPasswordForm
+
+        this.resetEmailForm = settingsPanel.resetEmailForm
+
+        this.renderList = notasDisplay.renderList
+
+        footer.onFooterClick = () => {
             this.onAddNote()
         }
 
-        const menuHeader = this.container.querySelector('.menu-header')
-        const notasDisplay = this.container.querySelector('.notas-display')
-        const footer = this.container.querySelector('.footer')
-
-        const menuButton = this.container.querySelector('.menu')
-        const hiddenMenu = this.container.querySelector('.hidden-menu')
-        menuButton.onclick = () => {
-                menuButton.classList.toggle('rotate')
-                hiddenMenu.classList.toggle('voff')
-        }
-
-        const profileLink = this.container.querySelector('.profile-link')
-        profileLink.onclick = () => {
-            menuButton.click()
-            while (this.container.firstChild) {
-                this.container.removeChild(this.container.firstChild)
-            }
-            this.container.append(menuHeader, hiddenMenu, this.settingsPanel)
-        }
-
-        const notesLink = this.container.querySelector('.notes-link')
-        notesLink.onclick = () => {
-            menuButton.click()
-            while (this.container.firstChild) {
-                this.container.removeChild(this.container.firstChild)
-            }
-            this.container.append(menuHeader, hiddenMenu, notasDisplay, footer)
-        }
-
     }
 
-    setName(name) {
-        this.container.querySelector('.saludo').innerText = 'Hello, ' + name + '!'
-    }
+    setName = null
 
+    renderList = null
 
-    renderList(notes) {
-        const list = this.container.querySelector('.list')
-        list.innerHTML = ''
+    resetPasswordForm = null
 
-        notes.forEach(note => {
-            const item = document.createElement('li')
-            item.classList.add('list__item')
-
-            const deleteButton = document.createElement('button')
-            deleteButton.classList.add('list__item-delete-button')
-            deleteButton.innerText = 'x'
-            deleteButton.onclick = () => {
-                this.onDeleteNoteClick(note.id)
-            }
-
-            const text = document.createElement('div')
-            text.contentEditable = true
-            text.classList.add('list__item-text')
-            text.onkeyup = () => { // auto-binding. mete el this de fuera dentro de la funcion. se consigue con arrow function
-                if (window.timeoutID) // con el objeto window puedo añadir variables globales
-                    clearTimeout(window.timeoutID)
-                window.timeoutID = setTimeout(() => {
-                    this.onUpdateNote(note.id, text.innerText)
-                }, 1000)
-            }
-            text.innerText = note.text
-
-            item.append(deleteButton, text)
-
-            list.append(item)
-            
-        })
-    }
-
-    updatePassword(callback) {
-        const passwordForm = this.settingsPanel.querySelector('.password-form')
-
-        passwordForm.onsubmit = (event) => {
-            event.preventDefault()
-            const currentPass = passwordForm.currentPassword.value
-            const newPass = passwordForm.newPassword.value
-            const repeatPass = passwordForm.repeatPassword.value
-            callback(currentPass, newPass, repeatPass)
-        }
-    }
-
-    updateEmail(callback) {
-        const emailForm = this.settingsPanel.querySelector('.email-form')
-
-        emailForm.onsubmit = (event) => {
-            event.preventDefault()
-            const newEmail = emailForm.newEmail.value
-            callback(newEmail)
-        }
-    }
-
-    resetEmailForm() {
-        this.settingsPanel.querySelector('.email-form').reset()
-    }
-
-    resetPasswordForm() {
-        this.settingsPanel.querySelector('.password-form').reset()
-    }
+    resetEmailForm = null
 
     onDeleteNoteClick = null
 
@@ -187,5 +80,9 @@ class Home {
     onLogout = null
 
     onAddNote = null
+
+    updatePassword = null
+
+    updateEmail = null
 
 }
