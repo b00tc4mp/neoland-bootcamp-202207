@@ -69,11 +69,6 @@ class Home extends Component {
     const navigationBar = header.querySelector(".navigation-bar");
     const menuButton = navigationBar.querySelector(".menu-button");
 
-    // removed
-    /* const temp2 = document.createElement("temp");
-    temp2.innerHTML =
-      '<button class="close-button"><span class="material-symbols-outlined">X</span></button>'; */
-    // ==
     const closeButton = templateToDOM(
       '<button class="close-button"><span class="material-symbols-outlined">X</span></button>'
     );
@@ -82,32 +77,29 @@ class Home extends Component {
 
     const menuPanel = new MenuPanel();
 
-    this.settingsPanel = new SettingsPanel();
-    // const settingsPanel = new SettingsPanel
-    // this.settingsPanel = settingsPanel;
+    const settingsPanel = new SettingsPanel();
+    this.settingsPanel = settingsPanel;
 
-    /* const temp3 = document.createElement("temp");
-    temp3.innerHTML = 
-    `<div class="menu-panel">
+    const listPanel = main.querySelector(".list-panel");
 
-          <ul class="dropdown-menu menu-panel__list">
-            <li class="menu-panel__list-item-settings dropdown-item settings-button"><button class="dropdown__link "><i class="fa-solid fa-poo nav-icon poo-list-style"></i>Settings</button> </li>
-              <li class="menu-panel__list-item-settings dropdown-item notes-button"><button class="dropdown__link "><i class="fa-solid fa-poo nav-icon poo-list-style"></i>Notes</button> </li>
-              <li class="menu-panel__list-item-settings dropdown-item logout-button"><button class="dropdown__link "><i class="fa-solid fa-poo nav-icon poo-list-style"></i>Log out</button> </li>
-          </ul>
+    menuPanel.onLogout = () => {
+      if (!main.contains(listPanel)) {
+        main.removeChild(settingsPanel.container);
+        main.append(listPanel);
+      }
 
-</div>` */
-    // const menuPanel = temp3.firstChild;
+      closeButton.click();
 
-    // here insert: const settingsPanel
+      this.onLogout();
+    };
 
     menuButton.onclick = () => {
       if (navigationBar.contains(menuButton))
         navigationBar.removeChild(menuButton);
       navigationBar.append(closeButton);
 
-      // menuPanel.showSettings();
-      debugger;
+      menuPanel.showSettings();
+
       main.prepend(menuPanel.container);
     };
 
@@ -125,54 +117,40 @@ class Home extends Component {
         main.removeChild(menuPanel.container);
     };
 
-    const listPanel = main.querySelector(".list-panel");
+    menuPanel.onSettings = () => {
+      closeButton.click();
 
-    NavigableForm.on;
+      if (footer.contains(addButton)) footer.removeChild(addButton);
 
-    // const temp4 = document.createElement("temp");
+      main.removeChild(listPanel);
+      main.append(settingsPanel.container);
+    };
 
-    /* temp4.innerHTML = `<div class="settings-panel">
-    <!-- settings-page page background flex-container -->
-    <h2>Settings</h2>
+    settingsPanel.onUpdatePassword = (
+      oldPassword,
+      newPassword,
+      retypeNewPassword
+    ) => {
+      this.onUpdatePassword(oldPassword, newPassword, retypeNewPassword);
+    };
 
-    <!--button class="close-settings-button transparent-button"><span class="material-symbols-outlined">close</span></button-->
+    settingsPanel.onClose = () => {
+      main.removeChild(settingsPanel.container);
 
-<h3>Reset Password Form</h3>
-    
-              <form action="" class="reset-password-form resetPassword-elements flex-container reset-password-form input-fields">
-      
-                  <div class="form__field">
-                    <label for="oldPassword">old password</label>
-                    <input type="password" placeholder="old password" name="oldPassword" id="oldPassword" class="input-item" />
-                  </div>
-      
-                  <div class="form__field">
-                    <label for="newPassword">new password</label>
-                    <input type="password" placeholder="new password" name="newPassword" id="newPassword" class="input-item" />
-                  </div>
-      
-                  <div class="form__field">
-                    <label for="retypeNewPassword">retype new password</label>
-                    <input type="password" placeholder="retype new password" name="retypeNewPassword" id="retypeNewPassword" class="input-item" />
-                  </div>
-            
-                <button type="submit" class="button--primary">Save</button>
-              </form>
-             
-</div>` */
+      closeButton.click();
+
+      main.append(listPanel);
+      footer.append(addButton);
+    };
   }
-
-  // resetPasswordReset() {
-  //   this.settingsPanel.querySelector(".reset-password-form").reset();
-  // }
 
   setName(name) {
     this.container.querySelector(".welcome").innerText = "Hello, " + name + "!";
   }
 
   renderList(notes) {
-    const list = this.container.querySelector(".list");
-    list.innerHTML = "";
+    const listPanel = this.container.querySelector(".list");
+    listPanel.innerHTML = "";
 
     notes.forEach((note) => {
       const item = document.createElement("li");
@@ -205,7 +183,7 @@ class Home extends Component {
 
       item.append(deleteButton, text);
 
-      list.append(item);
+      listPanel.append(item);
     });
   }
 

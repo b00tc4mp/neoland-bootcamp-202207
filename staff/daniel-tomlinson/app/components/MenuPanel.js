@@ -45,9 +45,11 @@ class MenuPanel extends Component {
     }; */
   }
 
-  onLogout = null;
+  // onLogout = null;
 
   onSettings = null;
+
+  onNotes = null;
 
   showSettings() {
     this.menuPanelList.prepend(this.menuPanelListItemSettings);
