@@ -1,6 +1,8 @@
 class SettingsPanel extends Component {
     constructor() {
         super(`<div class="settings-panel container">
+            <button class="close-settings-button transparent-button"><span class="material-symbols-outlined">close</span></button>
+
             <form class="update-password-form form">
                 <div class="form__field">
                     <label for="oldPassword">Current password</label>
@@ -32,12 +34,11 @@ class SettingsPanel extends Component {
             this.onUpdatePassword(oldPassword, newPassword, newPasswordRepeat)
         }
 
-        const closeButton = new IconButton('close')
+        const closeButton = this.container.querySelector('.close-settings-button')
         this.closeButton = closeButton
-        closeButton.onClick = () => {
+        closeButton.onclick = () => {
             this.onClose()
         }
-        this.container.prepend(closeButton.container)
     }
 
     onUpdatePassword = null

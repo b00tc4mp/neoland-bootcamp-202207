@@ -1,7 +1,12 @@
-class Login extends NavigableForm {
+class Register extends NavigableForm {
     constructor() {
-        super(`<main class="login-page container container--full container--spaced">
-            <form class="form" action="https://www.google.com/search" method="get">
+        super(`<main class="register-page container container--full container--spaced">
+            <form class="form">
+                <div class="form__field">
+                    <label for="name">Name</label>
+                    <input class="input" type="text" name="name" placeholder="name" id="name">
+                </div>
+
                 <div class="form__field">
                     <label for="email">E-mail</label>
                     <input class="input" type="email" name="email" placeholder="email" id="email">
@@ -12,10 +17,10 @@ class Login extends NavigableForm {
                     <input class="input" type="password" name="password" placeholder="password" id="password">
                 </div>
 
-                <button class="button" type="submit">Login</button>
+                <button class="button" type="submit">Register</button>
             </form>
 
-            <a class="anchor" href="register.html">Register</a>
+            <a class="anchor" href="login.html">Login</a>
         </main>`)
     }
 
@@ -24,11 +29,12 @@ class Login extends NavigableForm {
 
         form.onsubmit = function (event) {
             event.preventDefault()
-
+        
+            const name = form.name.value
             const email = form.email.value
             const password = form.password.value
-
-            callback(email, password)
+        
+            callback(name, email, password)
         }
     }
 }

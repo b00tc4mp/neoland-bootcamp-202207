@@ -2,33 +2,36 @@ class MenuPanel extends Component {
     constructor() {
         super(`<div class="menu-panel">
             <ul class="menu-panel__list">
-                <li class="menu-panel__list-item-settings"><button class="settings-button transparent-button"><span class="material-symbols-outlined">settings</span></button> Settings</li>
-                <li><button class="logout-button transparent-button"><span class="material-symbols-outlined">logout</span></button> Logout</li>
+                <li class="menu-panel__list-item-settings"></li>
+                <li class="menu-panel__list-item-logout"></li>
             </ul>
         </div>`)
 
+        const settingsButton = new IconButton('settings')
+        settingsButton.onClick = () => this.onSettingsButtonClick()
+
+        const logoutButton = new IconButton('logout')
+        logoutButton.onClick = () => this.onLogoutButtonClick()
+
         this.menuPanelList = this.container.querySelector('.menu-panel__list')
-        this.menuPanelListItemSettings = this.menuPanelList.querySelector('.menu-panel__list-item-settings')
 
-        this.container.querySelector('.logout-button').onclick = () => {
-            this.onLogout()
-        }
+        const menuPanelListItemSettings = this.menuPanelList.querySelector('.menu-panel__list-item-settings')
+        this.menuPanelListItemSettings = menuPanelListItemSettings
+        menuPanelListItemSettings.append(settingsButton.container)
 
-        const settingsButton = this.container.querySelector('.settings-button')
-        settingsButton.onclick = () => {
-            this.onSettings()
-        }
+        const menuPanelListItemLogout = this.menuPanelList.querySelector('.menu-panel__list-item-logout')
+        menuPanelListItemLogout.append(logoutButton.container)
     }
 
-    onLogout = null
+    onLogoutButtonClick = null
 
-    onSettings = null
+    onSettingsButtonClick = null
 
-    showSettings() {
+    showSettingsButton() {
         this.menuPanelList.prepend(this.menuPanelListItemSettings)
     }
 
-    hideSettings() {
+    hideSettingsButton() {
         this.menuPanelList.removeChild(this.menuPanelListItemSettings)
     }
 }
