@@ -5,7 +5,7 @@ class Home {
         <header class="header_home">
             <div class="cont__header">
                 <div class="link_home">
-                    <img class="img img-home " src="https://i.postimg.cc/ZY1nHGSz/logo-Luanna.png" alt="">
+                    <img class="img img-home " src="https://i.postimg.cc/ZY1nHGSz/logo-Luanna.png" alt=""> <=Logout"
                 </div>
                 <h1 class="messageTitle">Hello Pepito!!</h1>
 
@@ -16,12 +16,21 @@ class Home {
                 
                
             </div>
+
+            <nav class="nav-home" id="nav-home">
+                <ul class="menu-home">
+                    <li class="menu-item"><a class="menu__link profile">Profile</a></li>
+                    <li class="menu-item"><a class="menu__link design">Design</a> </li>
+                    <li class="menu-item"><a class="menu__link">Menu3</a> </li>
+                    <li class="menu-item"><a class="menu__link btn_logout">Logout <span class="material-symbols-outlined">logout</span></a> </li>
+                </ul>
+            </nav>
             
         </header>
 
         <main class="main_home">            
             <!--============================= LIST====================== -->
-            <ul class="list-panel list ">
+            <ul class="list ">
                 <li class="list__item">
                     <button href="#" class="btn__delete">X</button>
                     <p  class="list__item-text">Hello, Note!</p>
@@ -48,8 +57,34 @@ class Home {
             <!--============================= CREATE NOTE====================== -->
        
            
-            <!--=============================Settings====================== -->
-           
+            <!--=============================PROFILE====================== -->
+            <form class="formProfile off">
+
+                <button href="#" class="btnBack">X</button>
+
+                <div class="formPassword contProfile">
+                    <div class="nameProfile">UPDATE PASSWORD: </div>
+                    <div class="contButtonsProfile">
+                        <input class="oldPassword" type="password" name="oldPassword"    placeholder="Current Password">
+                        <input class="newPassword" type="password" name="newPassword"    placeholder="New Password">
+                        <input class="repeatNewPassword" type="password" name="repeatNewPassword"  placeholder="Repeat New Password">
+                    </div>
+                    <button class="btn-updatePassword" type="submit">Update Password</button>
+                </div>
+                <div class="formEmail contProfile">
+                    <div class="nameProfile">UPDATE EMAIL</div>
+                    <div class="contButtonsProfile">
+                        <div class="divEmail">
+                            <h1 class="normalMessageEmail">Email : </h1><h1 class="messageEmail"> jose@fer.com</h1>
+                        </div>
+                
+                        <input class="updateEmail" type="email" name="newEmail"  placeholder="New Email">
+                    </div>
+                    
+                    <button class="btn-updatePassword" type="submit">Update Email</button>
+                </div>
+
+            </form>
             <!--=============================DESIGN====================== -->
             <form class="formDesign off">
 
@@ -120,94 +155,19 @@ class Home {
 
         const header = this.container.querySelector('.header_home')
         const btnMenu = header.querySelector('.btn-menu')
-        const listPanel = this.main.querySelector('.list-panel')
+
         //
         const temp4 = document.createElement('temp')
-        temp4.innerHTML = `<form class="settings-panel formSettings">
-
-        <button href="#" class="btnBack">X</button>
-
-        <div class="formPassword contSettings">
-            <div class="nameSettings">UPDATE PASSWORD: </div>
-            <div class="contButtonsSettings">
-                <input class="oldPassword" type="password" name="oldPassword"    placeholder="Current Password">
-                <input class="newPassword" type="password" name="newPassword"    placeholder="New Password">
-                <input class="repeatNewPassword" type="password" name="repeatNewPassword"  placeholder="Repeat New Password">
-            </div>
-            <button class="btn-updatePassword" type="submit">Update Password</button>
-        </div>
-        <div class="formEmail contSettings">
-            <div class="nameSettings">UPDATE EMAIL</div>
-            <div class="contButtonsSettings">
-                <div class="divEmail">
-                    <h1 class="normalMessageEmail">Email : </h1><h1 class="messageEmail"> jose@fer.com</h1>
-                </div>
-        
-                <input class="updateEmail" type="email" name="newEmail"  placeholder="New Email">
-            </div>
-            
-            <button class="btn-updatePassword" type="submit">Update Email</button>
-        </div>
-
-    </form>`
-        const settingsPanel = temp4.firstChild
-
-// ==============================================
-        const temp5 = document.createElement('temp')
-        temp5.innerHTML = `<nav class="menu-panel nav-home" id="nav-home">
+        temp4.innerHTML=`<nav class="nav-home" id="nav-home">
         <ul class="menu-home">
-            <li class="menu-item"><a class="menu__link btn_settings">Settings<span class="material-symbols-outlined">Settings</span></a></li>
-            <li class="menu-item"><a class="menu__link btn_design">Design</a> </li>
-            <li class="menu-item"><a class="menu__link"> Menu3 </a> </li>
+            <li class="menu-item"><a class="menu__link profile">Profile</a></li>
+            <li class="menu-item"><a class="menu__link design">Design</a> </li>
+            <li class="menu-item"><a class="menu__link">Menu3</a> </li>
             <li class="menu-item"><a class="menu__link btn_logout">Logout <span class="material-symbols-outlined">logout</span></a> </li>
         </ul>
     </nav>`
-        this.menuPanel = temp5.firstChild
+        this.menuPanel = temp4.firstChild
 
-        const menuPanelList = this.menuPanel.querySelector('.menu-home')
-        const menuPanelListSettings = menuPanelList.querySelector('.settings')
-        this.menuPanel.querySelector('.btn_logout').onclick = () => {
-            if (!this.main.contains(listPanel)) {
-                this.main.removeChild(settingsPanel)
-                this.main.append(listPanel)
-            }
-            this.btnClose.click()
-
-            this.onLogout()
-        }
-
-        this.btnClose.onclick = () => {
-            if (headerTop.contains(this.btnClose))
-                headerTop.removeChild(this.btnClose)
-
-            headerTop.append(btnMenu)
-            menuPanelList.prepend(menuPanelListSettings)
-
-            if (header.contains(this.menuPanel))
-                header.removeChild(this.menuPanel)
-        }
-
-        const headerTop = header.querySelector('.cont__header')
-        btnMenu.onclick = () => {
-            headerTop.removeChild(btnMenu)
-            headerTop.append(this.btnClose)
-
-            if (this.main.contains(settingsPanel))
-                menuPanelList.removeChild(menuPanelListSettings)
-
-            header.append(this.menuPanel)
-        }
-
-        const settingsButton = this.menuPanel.querySelector('.btn_settings')
-        settingsButton.onclick=()=>{
-            this.btnClose.click()
-
-            if(this.footer.contains(this.btnPlus))
-            this.footer.removeChild(this.btnPlus)
-
-            this.main.removeChild(listPanel)
-            this.main.append(settingsPanel)
-        }
         //continuar
 
         this.btnPlus = this.container.querySelector('.btn_plus')
@@ -216,6 +176,14 @@ class Home {
             this.main.removeChild(this.list)
             this.main.append(this.formCreateNote)
             this.footer.removeChild(this.btnPlus)
+        }
+
+
+        // this.container.querySelector('.btn_logout').onclick = () => {
+        //     this.onLogout()
+        // }
+        this.container.querySelector('.img-home').onclick = () => {
+            this.onLogout()
         }
     }
 

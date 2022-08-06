@@ -214,7 +214,7 @@ body {
 
 .messageTitle,
 .fa-solid.fa-bars,
-.fa-solid.fa-plus,.fa-solid.fa-arrow-left,.btn-menu,.btn-close,.btnBack,.contDesign, .contSettings {
+.fa-solid.fa-plus,.fa-solid.fa-arrow-left,.btn-menu,.btn-close,.btnBack,.contDesign, .contProfile {
     margin: 5px;
     color: #037E8c;
 }
@@ -263,13 +263,7 @@ body {
 }
 
 .nav-home {
-    /* display: none; */
-    position: absolute;
-    z-index: 1;
-    display: flex;
-    width: 30%;
-    margin-left: 70%;
-    transition: 1.5s;
+    display: none;
 }
 
 .menu-home {
@@ -296,6 +290,14 @@ body {
 .menu__link:hover .select {
     background: white;
     color: #436174;
+}
+
+.mostrar {
+    position: absolute;
+    display: flex;
+    width: 26%;
+    margin-left: 74%;
+    transition: 1.5s;
 }
 
 .nolink-register {
@@ -377,7 +379,9 @@ body {
     display: none;
 }
 
-
+.nav-home.mostrar{
+ z-index: 1;
+}
 .btn__delete{
     align-self: flex-end;
     width: 1rem;
@@ -519,14 +523,14 @@ body {
     /* margin-left: 20%; */
     cursor: pointer;
 }
-.formDesign,.formSettings{
+.formDesign,.formProfile{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 20px;
 }
-.nameDesign,.nameSettings{
+.nameDesign,.nameProfile{
     display: flex;
     justify-content: center;
     align-items: flex-end;
@@ -540,7 +544,7 @@ body {
     gap: 10px;
 
 }
-.contButtonsSettings{
+.contButtonsProfile{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -549,7 +553,7 @@ body {
     
 
 }
-.contDesign,.contSettings{
+.contDesign,.contProfile{
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -240,7 +240,7 @@ else
     
 //     btnMenu.classList.remove('off')
 //     btn_close.classList.add('off')
-//     formSettings.classList.add('off')
+//     formProfile.classList.add('off')
 //     formDesign.classList.add('off')
 //     list__Notes.classList.remove('off')
 //     btn__pluss.classList.remove('off')
@@ -250,7 +250,7 @@ else
 // btnBack.onclick = function () {
 //     btnMenu.classList.remove('off')
 //     btn_close.classList.add('off')
-//     formSettings.classList.add('off')
+//     formProfile.classList.add('off')
 //     formDesign.classList.add('off')
 //     list__Notes.classList.remove('off')
 //     btn__pluss.classList.remove('off')
@@ -305,12 +305,12 @@ else
 //     nav.classList.toggle('mostrar')
 //     btn__pluss.classList.add('off')
 //     createNoteForm.classList.add('off')
-//     formSettings.classList.add('off')
+//     formProfile.classList.add('off')
 //     formDesign.classList.remove('off')
 // }
 
 
-// settings.onclick = function () {
+// profile.onclick = function () {
 //     btn_close.classList.add('off')
 //     btnMenu.classList.remove('off')
 //     list__Notes.classList.add('off')
@@ -318,7 +318,7 @@ else
 //     btn__pluss.classList.add('off')
 //     createNoteForm.classList.add('off')
 //     formDesign.classList.add('off')
-//     formSettings.classList.remove('off')
+//     formProfile.classList.remove('off')
 // }
 // logoutButton.onclick = function () {
 //     delete sessionStorage.token
