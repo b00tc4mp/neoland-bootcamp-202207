@@ -1,3 +1,17 @@
+//hanburguesa transition
+
+// btnMenu.addEventListener('click', function () {
+//     nav.classList.toggle('mostrar');
+//     // agregar btn close y borrar la hamburguesa
+//     btn_close.classList.remove("off")
+//     btnMenu.classList.add("off")
+// });
+// btn_close.addEventListener('click', function () {
+//     nav.classList.toggle('mostrar');
+//     // agregar btn close y borrar la hamburguesa
+//     btn_close.classList.add("off")
+//     btnMenu.classList.remove("off")
+// });
 // ===================================================================
 
 //convertir de string a dom: creando un elemento temporal e insertarle el elemento html, luego igualo el elemtno al firtschild
@@ -59,23 +73,11 @@ home.onFormCreateNote(function(textFromTextarea) {
     }
 })
     
-home.onUpdatePassword = function(oldPassword,newPassword,newPasswordRepeat){
-    try {
-        updateUserPassword(sessionStorage.token, oldPassword, newPassword, newPasswordRepeat, error => {
-            if (error) {
-                alert(error.message)
-                
-                return
-            }
 
-            alert('Password updated')
-            
-        })
-    } catch(error) {
-        alert(error.message)
-    }
-    // home.updatePasswordForm.reset()
-}
+    // createNoteForm.classList.add('off')
+    // list__Notes.classList.remove('off')
+    // btn__pluss.classList.remove('off')
+    //// poner el textarea de la newNote en Blanco
 
 
 
@@ -260,10 +262,10 @@ else
 
 //     const oldPassword = updatePassword.oldPassword.value
 //     const newPassword = updatePassword.newPassword.value
-//     const newPasswordRepeat = updatePassword.newPasswordRepeat.value
+//     const repeatNewPassword = updatePassword.repeatNewPassword.value
 
 //     try {
-//         updateUserPassword(sessionStorage.token, oldPassword, newPassword, newPasswordRepeat, function (error) {
+//         updateUserPassword(sessionStorage.token, oldPassword, newPassword, repeatNewPassword, function (error) {
 //             if(error){
 //                 alert(error.message)
 //                 return

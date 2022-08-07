@@ -1,6 +1,7 @@
-class Home extends Component {
+class Home {
     constructor() {
-        super(`<div class="container home_page ">
+        const temp = document.createElement('temp')
+        temp.innerHTML = `<div class="container home_page ">
         <header class="header_home">
             <div class="cont__header">
                 <div class="link_home">
@@ -46,6 +47,9 @@ class Home extends Component {
            
             <!--=============================Settings====================== -->
             <!--=============================Desings====================== --> 
+           
+            
+
         </main>
 
         <footer class="footer_home">
@@ -54,8 +58,9 @@ class Home extends Component {
             </div>
 
         </footer>
-    </div>`)
+    </div>`
 
+        this.container = temp.firstChild
         this.header = this.container.querySelector('.header_home')
         this.main = this.container.querySelector('.main_home')
         this.footer = this.container.querySelector('.footer_home')
@@ -63,43 +68,46 @@ class Home extends Component {
 
         this.list = this.container.querySelector('.list')
 
-        this.formCreateNote = templateToDOM(`<form class="formcreateNote" name="formcreateNote">
+        const temp2 = document.createElement('temp')
+        temp2.innerHTML = `<form class="formcreateNote" name="formcreateNote">
 
-        <button class="btn_arrLeft" type="submit">
-            <i class="fa-solid fa-arrow-left"></i>
-        </button>
+                <button class="btn_arrLeft" type="submit">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
 
-        <li class="list__itemNew">
-            <textarea class="list__item-textNew" id="newNote" name="newItemNote"
-                placeholder="New Note!!"></textarea>
-        </li>
+                <li class="list__itemNew">
+                    <textarea class="list__item-textNew" id="newNote" name="newItemNote"
+                        placeholder="New Note!!"></textarea>
+                </li>
 
-    </form>`)
+            </form>`
+        this.formCreateNote = temp2.firstChild
 
-        
-        this.btnClose = templateToDOM(`<div class="btn-close">
+        const temp3 = document.createElement('temp')
+        temp3.innerHTML = `<div class="btn-close">
         <span class="material-symbols-outlined"  id="btn-close">close</span>
-    </div>`)
+    </div>`
+        this.btnClose = temp3.firstChild
 
         this.contHeader = this.header.querySelector('.cont__header')
         this.btnMenu = this.contHeader.querySelector('.btn-menu')
         this.listPanel = this.main.querySelector('.list-panel')
         //
-      
-        const settingsPanel = templateToDOM(`<div class="settings-panel formSettings">
+        const temp4 = document.createElement('temp')
+        temp4.innerHTML = `<form class="settings-panel formSettings">
 
         <button href="#" class="btnBack">X</button>
 
-        <form class="formPassword contSettings">
+        <div class="formPassword contSettings">
             <div class="nameSettings">UPDATE PASSWORD: </div>
             <div class="contButtonsSettings">
-                <input class="oldPassword" type="password" name="oldPassword"    placeholder="current password">
-                <input class="newPassword" type="password" name="newPassword"    placeholder="new password">
-                <input class="newPasswordRepeat" type="password" name="newPasswordRepeat"  placeholder="new password repeat">
+                <input class="oldPassword" type="password" name="oldPassword"    placeholder="Current Password">
+                <input class="newPassword" type="password" name="newPassword"    placeholder="New Password">
+                <input class="repeatNewPassword" type="password" name="repeatNewPassword"  placeholder="Repeat New Password">
             </div>
             <button class="btn-updatePassword" type="submit">Update Password</button>
-        </form>
-        <form class="formEmail contSettings">
+        </div>
+        <div class="formEmail contSettings">
             <div class="nameSettings">UPDATE EMAIL</div>
             <div class="contButtonsSettings">
                 <div class="divEmail">
@@ -110,31 +118,23 @@ class Home extends Component {
             </div>
             
             <button class="btn-updatePassword" type="submit">Update Email</button>
-        </form>
+        </div>
 
-    </div>`)
+    </form>`
+        const settingsPanel = temp4.firstChild
         
-        const updatePasswordForm = settingsPanel.querySelector('.formPassword')
-        updatePasswordForm.onsubmit = event =>{
-            event.preventDefault()
-            
-            const oldPassword = updatePasswordForm.oldPassword.value
-            const newPassword = updatePasswordForm.newPassword.value
-            const newPasswordRepeat = updatePasswordForm.newPasswordRepeat.value
 
-            this.onUpdatePassword(oldPassword,newPassword,newPasswordRepeat)
-        }
-        
         // ==============================================
-                
-        this.menuPanel = templateToDOM(`<nav class="menu-panel nav-home" id="nav-home">
+        const temp5 = document.createElement('temp')
+        temp5.innerHTML = `<nav class="menu-panel nav-home" id="nav-home">
         <ul class="menu-home">
             <li class="menu-item btn_settings"><a class="menu__link ">Settings<span class="material-symbols-outlined">Settings</span></a></li>
             <li class="menu-item btn_design"><a class="menu__link ">Design<span class="material-symbols-outlined">brush</span></a> </li>
             <li class="menu-item"><a class="menu__link"> Menu3 </a> </li>
             <li class="menu-item btn_logout"><a class="menu__link ">Logout <span class="material-symbols-outlined">logout</span></a> </li>
         </ul>
-    </nav>`)
+    </nav>`
+        this.menuPanel = temp5.firstChild
 
         this.menuPanelList = this.menuPanel.querySelector('.menu-home')
         const menuPanelListSettings = this.menuPanelList.querySelector('.btn_settings')
@@ -266,6 +266,5 @@ class Home extends Component {
     onDeleteNoteClick = null
     onUpdateNote = null
     onLogout = null
-    onUpdatePassword = null
 }
 
