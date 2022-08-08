@@ -119,7 +119,7 @@ home.onNewNoteButton = function () {
                     return
                 }
 
-                home.main.removeChild(home.newNotePopUp.container)
+                home.section.removeChild(home.newNotePopUp.container)
 
                 renderList()
 
