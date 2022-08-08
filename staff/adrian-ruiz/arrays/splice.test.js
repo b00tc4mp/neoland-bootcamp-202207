@@ -237,7 +237,7 @@ describe('TESTING Splice in arrays',function(){
     })
 
     test('Remove all elements from index 2', function(){
-        
+        debugger
         const myFish = ['angel', 'clown', 'trumpet', 'sturgeon']
         const result = splice(myFish, 2)
 
