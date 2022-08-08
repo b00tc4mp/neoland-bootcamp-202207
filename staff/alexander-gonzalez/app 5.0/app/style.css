@@ -15,6 +15,12 @@ background: linear-gradient(34deg, rgba(32,30,33,1) 44%, rgba(253,181,29,1) 92%,
 
 }
 
+
+header{
+  display: flex;
+  flex-direction: row-reverse;
+}
+
 .container {
   height: 100%;
   width: 100%;
@@ -141,8 +147,8 @@ a{
   
 }
 .button:hover{
-  background: rgb(49,60,87);
-background: radial-gradient(circle, rgba(49,60,87,0.929030987394958) %, rgba(24,28,37,0.9094231442577031) 66%);
+  background: rgb(223, 224, 226);
+background: radial-gradient(circle, rgba(255, 255, 255, 0.929) %, rgba(24,28,37,0.9094231442577031) 66%);
 }
 
 .Register{
@@ -163,9 +169,6 @@ flex-direction: column;
   outline: none;
 }
 
-.off{
-  display: none;
-}
 
 .list{
 display: flex;
@@ -211,7 +214,7 @@ height: 100%;
 .transparent-button{
   background-color: transparent;
   border: none;
-  color:grey;
+  color:rgb(220, 217, 217);
   font-size: 3rem;
   cursor: pointer;
 }
@@ -241,10 +244,66 @@ color: antiquewhite;
 
   color: black;
 }
-  /*padding: 50%, 90%;
+HTML CSSResult Skip Results Iframe
+EDIT ON
+#menu ul li {
+    background-color:#2e518b;
+}
+
+#menu ul {
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+
+#menu ul a {
+  display:block;
+  color:rgb(235, 234, 219);
+  text-decoration:none;
+  font-weight:400;
+  font-size:15px;
+  padding:10px;
+  font-family:"HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+
+#menu ul li {
+  position:relative;
+  float:left;
+  margin:0;
+  padding:0;
+}
+
+#menu ul li:hover {
+  background:#5b78a7;
+}
+
+#menu ul ul {
+  display:none;
+  position:absolute;
+  top:100%;
+  left:0;
+  padding:0;
+}
+
+#menu ul ul li {
+  float:none;
+  width:150px
+}
+
+#menu ul ul a {
+  line-height:120%;
+  padding:10px 15px;
+}
+
+#menu ul li:hover > ul {
+  display:block;
+}
   
 
+
   
-}
+
 
 
