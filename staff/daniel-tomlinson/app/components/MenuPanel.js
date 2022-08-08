@@ -3,33 +3,41 @@ class MenuPanel extends Component {
     super(`<div class="menu-panel">
 
         <ul class="dropdown-menu menu-panel__list">
-          <li class="menu-panel__list-item-settings dropdown-item settings-button"><button class="dropdown__link "><i class="fa-solid fa-poo nav-icon poo-list-style"></i>Settings</button> </li>
-            <li class="menu-panel__list-item-settings dropdown-item notes-button"><button class="dropdown__link "><i class="fa-solid fa-poo nav-icon poo-list-style"></i>Notes</button> </li>
-            <li class="menu-panel__list-item-settings dropdown-item logout-button"><button class="dropdown__link "><i class="fa-solid fa-poo nav-icon poo-list-style"></i>Log out</button> </li>
+          <li class="menu-panel__list-item-settings dropdown-item settings-button"></button> </li>
+            <li class="menu-panel__list-item-notes dropdown-item notes-button"><button class="dropdown__link "><i class="fa-solid fa-poo nav-icon poo-list-style"></i>Notes</button> </li>
+            <li class="menu-panel__list-item-logout dropdown-item logout-button"></button> </li>
         </ul>
 
 </div>`);
 
+    const logoutButton = new IconButton(
+      `<i class="fa-solid fa-poo nav-icon poo-list-style"></i>Log out`,
+      "dropdown__link"
+    );
+    logoutButton.onClick = () => {
+      this.onLogoutButtonClick();
+    };
+
+    const settingsButton = new IconButton(
+      `<i class="fa-solid fa-poo nav-icon poo-list-style"></i>Settings`,
+      "dropdown__link"
+    );
+    settingsButton.onClick = () => {
+      this.onSettingsButtonClick();
+    };
+
     this.menuPanelList = this.container.querySelector(".menu-panel__list");
-    this.menuPanelListItemSettings = this.menuPanelList.querySelector(
+
+    const menuPanelListItemSettings = this.menuPanelList.querySelector(
       ".menu-panel__list-item-settings"
     );
+    this.menuPanelListItemSettings = menuPanelListItemSettings;
+    menuPanelListItemSettings.append(settingsButton.container);
 
-    this.menuPanelList.querySelector(".logout-button").onclick = () => {
-      this.onLogout();
-    };
-
-    const settingsButton = this.menuPanelList.querySelector(".settings-button");
-    settingsButton.onclick = () => {
-      //   closeButton.click();
-      this.onSettings();
-      //   main.removeChild(menuPanel);
-      //   menuPanelList.removeChild(menuPanelListItemSettings);
-      /*       main.removeChild(listPanel);
-      footer.removeChild(addButton);
-
-      main.append(settingsPanel); */
-    };
+    const menuPanelListItemLogout = this.menuPanelList.querySelector(
+      ".menu-panel__list-item-logout"
+    );
+    menuPanelListItemLogout.append(logoutButton.container);
 
     /* this.menuPanelList.querySelector(".notes-button").onclick = () => {
       // == ToDo
@@ -45,17 +53,17 @@ class MenuPanel extends Component {
     }; */
   }
 
-  // onLogout = null;
+  onSettingsButtonClick = null;
 
-  onSettings = null;
+  onLogoutButtonClick = null;
 
-  onNotes = null;
+  onNotesButtonClick = null;
 
-  showSettings() {
+  showSettingsButton() {
     this.menuPanelList.prepend(this.menuPanelListItemSettings);
   }
 
-  hideSettings() {
+  hideSettingsButton() {
     this.menuPanelList.removeChild(this.menuPanelListItemSettings);
   }
 }

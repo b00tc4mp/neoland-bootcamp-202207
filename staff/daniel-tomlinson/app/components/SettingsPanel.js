@@ -44,17 +44,29 @@ class SettingsPanel extends Component {
       const newPassword = resetPasswordForm.newPassword.value;
       const retypeNewPassword = resetPasswordForm.retypeNewPassword.value;
       //The initial function is passed here instead of the callback
-      this.onResetPasswordFormSubmit(
-        oldPassword,
-        newPassword,
-        retypeNewPassword
-      );
+      this.onUpdatePassword(oldPassword, newPassword, retypeNewPassword);
       //   callback(oldPassword, newPassword, retypeNewPassword);
+      //not sure if this is correct, trying to reset the form.
+      // this.container.reset();
+      resetPasswordForm.reset();
+      this.onClose();
     };
+
+    const closeButton = new IconButton("close");
+    this.closeButton = closeButton;
+    closeButton.onClick = () => {
+      this.onClose();
+    };
+
+    this.container.prepend(closeButton.container);
   }
 
-  onResetPasswordFormSubmit = null;
+  onUpdatePassword = null;
 
   onClose = null;
+
+  close() {
+    this.closeButton.click();
+  }
 }
 // }

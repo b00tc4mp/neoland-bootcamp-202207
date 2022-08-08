@@ -1,4 +1,4 @@
-class Login extends NavigableForm {
+class LoginPage extends NavigableForm {
   constructor() {
     super(`<main class="login-page page background flex-container">
     <div class="login-elements flex-container">
