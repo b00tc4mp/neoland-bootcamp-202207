@@ -1,0 +1,1 @@
+const fruits = ['apple', 'orange', 'banana', 'lemon', 'tomate']
