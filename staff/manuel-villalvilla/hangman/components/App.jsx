@@ -2,7 +2,7 @@ class App extends React.Component {
     constructor(props) {
         super(props)
 
-        this.state = { view: 'select word', result: null, underScoreWord: null, leftAttemps: 10 }
+        this.state = { view: 'select word', result: null, underScoreWord: null, leftAttempts: 10 }
     }
     
     handleWordFormSubmit = (event) => {
@@ -23,6 +23,15 @@ class App extends React.Component {
         let result = this.state.result.toLowerCase()
         let indexOfChar = result.indexOf(char)
         let underScoreWord = this.state.underScoreWord
+        let leftAttempts = this.state.leftAttempts
+
+        if (!char) {
+            leftAttempts--
+            if (leftAttempts === 0)
+                this.setState({ view: 'gameover' })
+            this.setState({ leftAttempts })
+            return
+        }
 
         while (indexOfChar >= 0) {
             underScoreWord = underScoreWord.replaceAt(indexOfChar*2, char)
@@ -30,24 +39,54 @@ class App extends React.Component {
             indexOfChar = result.indexOf(char)
         }
 
-        this.setState({ leftAttemps: this.state.leftAttemps - 1, underScoreWord })
+        leftAttempts--
+        this.setState({ leftAttempts, underScoreWord })
 
+        if (underScoreWord.indexOf('_') === -1) {
+            this.setState({ view: 'win' })
+            event.target.reset()
+            return
+        }
+        if (leftAttempts === 0) {
+                this.setState({ view: 'gameover' })
+        }
         event.target.reset()
+    }
+
+    handlePlayAgainButton = () => {
+        this.setState({ view: 'select word', leftAttempts: 10, result: null, underScoreWord: null })
     }
 
     render() {
         return <main>
-            
+
+            <h1>HANGMAN</h1>
+
             { this.state.view === 'select word' && 
-                <Form placeholder="enter a word" onSubmit={this.handleWordFormSubmit} maxLength="10" buttonText="START"/> 
+                <Form placeholder="enter a word" onSubmit={this.handleWordFormSubmit} maxLength="10" buttonText="START" required="true"/> 
             }
 
             { this.state.view === 'playing' && 
                 // el siguiente tag es para pasar mas de un hijo
                 <> 
-                    <h1>{this.state.underScoreWord}</h1>
-                    <h5>{this.state.leftAttemps} tries left</h5>
-                    <Form placeholder="enter a char" onSubmit={this.handleCharSumbit} maxLength="1" buttonText="TRY"/>
+                    <HiddenWordWithAttempts hiddenWord={this.state.underScoreWord} leftAttempts={this.state.leftAttempts}/>
+                    <Form placeholder="enter a char" onSubmit={this.handleCharSumbit} maxLength="1" buttonText="TRY" />
+                </>
+            }
+
+            { this.state.view === 'gameover' &&
+                <>
+                    <HiddenWordWithAttempts hiddenWord={this.state.underScoreWord} leftAttempts={this.state.leftAttempts}/>
+                    <span className="hiddenWord">GAME OVER</span>
+                    <PlayAgainButton onClick={this.handlePlayAgainButton} />
+                </>
+            }
+
+            { this.state.view === 'win' &&
+                <>
+                    <HiddenWordWithAttempts hiddenWord={this.state.underScoreWord} leftAttempts={this.state.leftAttempts}/>
+                    <span className="hiddenWord">YOU WIN</span>
+                    <PlayAgainButton onClick={this.handlePlayAgainButton} />
                 </>
             }
 
