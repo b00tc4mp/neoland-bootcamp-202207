@@ -3,7 +3,7 @@
 }
 
 h1 {
-    margin: 0;
+    margin: 0, 0, 5px, 0;
 }
 
 main {
@@ -20,8 +20,11 @@ main {
 
 .hiddenWord {
     font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
 .leftAttempts {
     font-size: 16px;
+    margin-bottom: 10px;
 }

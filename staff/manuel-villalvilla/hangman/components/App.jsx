@@ -10,6 +10,9 @@ class App extends React.Component {
         
         const selectedWord = event.target.input.value
 
+        if (!selectedWord)
+            return
+
         const underScoreWord = '_ '.repeat(event.target.input.value.length)
 
         this.setState({ view: 'playing', result: selectedWord, underScoreWord })
@@ -63,21 +66,21 @@ class App extends React.Component {
             <h1>HANGMAN</h1>
 
             { this.state.view === 'select word' && 
-                <Form placeholder="enter a word" onSubmit={this.handleWordFormSubmit} maxLength="10" buttonText="START" required="true"/> 
+                <Form placeholder="enter a word" type="password" onSubmit={this.handleWordFormSubmit} maxLength="10" buttonText="START" required={true} /> 
             }
 
             { this.state.view === 'playing' && 
                 // el siguiente tag es para pasar mas de un hijo
                 <> 
                     <HiddenWordWithAttempts hiddenWord={this.state.underScoreWord} leftAttempts={this.state.leftAttempts}/>
-                    <Form placeholder="enter a char" onSubmit={this.handleCharSumbit} maxLength="1" buttonText="TRY" />
+                    <Form placeholder="enter 1 character" type="text" onSubmit={this.handleCharSumbit} maxLength="1" buttonText="TRY" />
                 </>
             }
 
             { this.state.view === 'gameover' &&
                 <>
                     <HiddenWordWithAttempts hiddenWord={this.state.underScoreWord} leftAttempts={this.state.leftAttempts}/>
-                    <span className="hiddenWord">GAME OVER</span>
+                    <span className="hiddenWord">YOU LOSE</span>
                     <PlayAgainButton onClick={this.handlePlayAgainButton} />
                 </>
             }
