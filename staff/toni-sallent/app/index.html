@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MyApp</title>
+    <link rel="stylesheet" href="styles.css" type="text/css" />
+  </head>
+  <body>
+    <main class="login-page page">
+      <div class="logo">
+        <img src="logodef.png" alt="logo" />
+      </div>
+
+      <form class="form">
+        <input
+          class="input"
+          type="email"
+          name="email"
+          placeholder="email"
+          id="email"
+        />
+        <br />
+        <input
+          class="input"
+          type="password"
+          name="password"
+          placeholder="password"
+          id="password"
+        />
+        <br />
+        <button class="button" type="submit">Log in</button>
+      </form>
+      <br />
+      <a class="anchor" href="register.html">Register</a>
+    </main>
+
+    <main class="register-page page off">
+      <img class="logo" src="logodef.png" alt="logo" />
+      <form class="form">
+        <input
+          class="input"
+          type="text"
+          name="name"
+          placeholder="name"
+          id="name"
+        />
+        <br />
+        <input class="input" type="email" name="email" placeholder="email" />
+        <br />
+        <input
+          class="input"
+          type="password"
+          name="password"
+          placeholder="password"
+          id="password"
+        />
+        <br />
+        <button class="button" type="submit" href="index.html">Sign Up!</button>
+      </form>
+      <br />
+      <a class="anchor question" href="index.html">Already have an account?</a>
+    </main>
+
+    <main class="home-page page off">
+      <header class="topnav">
+        <h1 class="title">Hello, Toni!</h1>
+        <button class="button-ham">
+          <img class="ham-menu" src="hamburguer.png" />
+        </button>
+      </header>
+      <div class="side-bar">
+        <ul class="ul-side">
+          <li class="list-nav">My profile</li>
+          <li class="list-nav">My properties</li>
+          <li class="list-nav">Settings</li>
+          <li class="list-nav">Chat</li>
+          <li class="list-nav">Expenses</li>
+        </ul>
+      </div>
+      <div class="landing-page">
+        <h3 class="subtitle">
+          In this App you'll be able to manage your properties and book your
+          desired holidays.
+        </h3>
+        <div class="botons">
+          <button class="button button-lanpage properties">
+            My properties
+          </button>
+
+          <button class="button button-lanpage settings">Settings</button>
+
+          <button class="button button-lanpage messages">Chat</button>
+
+          <button class="button button-lanpage expenses">Expenses</button>
+        </div>
+      </div>
+    </main>
+
+    <script src="data/users.js"></script>
+    <script src="logic/authenticateUser.js"></script>
+    <script src="logic/registerUser.js"></script>
+    <script src="logic/retrieveUser.js"></script>
+    <script src="constants.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
