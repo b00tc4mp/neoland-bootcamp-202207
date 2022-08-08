@@ -1,0 +1,15 @@
+.fighter {
+  background-color: red;
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  border-radius: 25px;
+}
+
+.opponent {
+  background-color: dodgerblue;
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  border-radius: 25px;
+}

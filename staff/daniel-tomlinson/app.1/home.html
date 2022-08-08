@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<head>
+
+  <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login App</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script
+    src="https://kit.fontawesome.com/32f006383c.js"
+    crossorigin="anonymous"
+  ></script>
+  
+</head>
+
+<body>
+  <main class="login-page page background flex-container">
+      <div class="login-elements flex-container">
+        <form action="" class=" form flex-container login-form">
+          <div class="input-fields">
+
+            <div class="form__field">
+              <label for="email">email</label>
+              <input type="email" placeholder="email" name="email" id="email" class="input-item" />
+            </div>
+
+            <div class="form_field">
+              <label for="password">password</label>
+              <input type="password" placeholder="password" name="password" id="password" class="input-item" />
+            </div>
+
+          </div>
+          <button href="home.html" type="submit" class="button--primary">
+            Login
+          </button>
+        </form>
+        <a href="forgot.password.html">Forgot password</a>
+        <a href="register.html" class="anchor">Register</a>
+      </div>
+  </main>
+
+  <main class="register-page page off background flex-container">
+      <div class="login-elements flex-container">
+        <form action="" class="form flex-container login-form">
+          <div class="input-fields">
+
+            <div class="form__field">
+              <label for="name">name</label>
+              <input type="text" placeholder="name" name="name" id="name" class="input-item" />
+            </div>
+
+            <div class="form__field">
+              <label for="email">email</label>
+              <input type="email" placeholder="email" name="email" id="email" class="input-item" />
+            </div>
+
+            <div class="form__field">
+              <label for="password">password</label>
+              <input type="password" placeholder="password" name="password" id="password" class="input-item" />
+            </div>
+    
+<!--           <div class="form__field">
+            <label for="retype password">retype password</label>
+              <input type="password" placeholder="retype password" name="retype-password" id="retype-password" class="input-item" />
+          </div> -->
+
+          </div></div>
+          <button type="submit" class="button--primary">Register</button>
+        </form>
+        <a class="anchor">Already have an account?</a>
+      </div>
+  </main>
+
+  <main class="home-page page off background flex-container">
+        <div class="navigation-bar">
+
+          <div class="flex-container"></div>
+          <i class="fa-solid fa-poo nav-icon"></i>
+        </div>
+
+        <div class="flex-container main-page-content">
+          <h1 class="title"></h1>
+          <!-- <p>Oops! 404 error, page not found.</p> -->
+        </div>
+      </div>
+  </main>
+
+</body>
+
+  <script src="data.js"></script>
+  <script src="main.js"></script>
+
+</html>

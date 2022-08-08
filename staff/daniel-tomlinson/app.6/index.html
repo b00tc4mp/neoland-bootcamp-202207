@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<head>
+
+  <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login App</title>
+    <link rel="stylesheet" href="index.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="shortcut icon" href="favicon_io_bomba/favicon.ico" type="image/x-icon">
+    <script
+    src="https://kit.fontawesome.com/32f006383c.js"
+    crossorigin="anonymous"
+  ></script>
+  
+</head>
+
+<body>
+  <main class="login-page page background flex-container">
+      <div class="login-elements flex-container">
+        <form action="" class=" form flex-container login-form">
+          <div class="input-fields">
+
+            <div class="form__field">
+              <label for="email">email</label>
+              <input type="email" placeholder="email" name="email" id="email" class="input-item" />
+            </div>
+
+            <div class="form_field">
+              <label for="password">password</label>
+              <input type="password" placeholder="password" name="password" id="password" class="input-item" />
+            </div>
+
+          </div>
+          <button href="home.html" type="submit" class="button--primary">
+            Login
+          </button>
+        </form>
+        <a href="forgot.password.html">Forgot password</a>
+        <a href="register.html" class="anchor">Register</a>
+      </div>
+  </main>
+
+  <main class="register-page page off background flex-container">
+      <div class="login-elements flex-container">
+        <form action="" class="form flex-container login-form">
+          <div class="input-fields">
+
+            <div class="form__field">
+              <label for="name">name</label>
+              <input type="text" placeholder="name" name="name" id="name" class="input-item" />
+            </div>
+
+            <div class="form__field">
+              <label for="email">email</label>
+              <input type="email" placeholder="email" name="email" id="email" class="input-item" />
+            </div>
+
+            <div class="form__field">
+              <label for="password">password</label>
+              <input type="password" placeholder="password" name="password" id="password" class="input-item" />
+            </div>
+    
+<!--           <div class="form__field">
+            <label for="retype password">retype password</label>
+              <input type="password" placeholder="retype password" name="retype-password" id="retype-password" class="input-item" />
+          </div> -->
+
+          </div></div>
+          <button type="submit" class="button--primary">Register</button>
+        </form>
+        <a class="anchor">Already have an account?</a>
+      </div>
+  </main>
+
+  <div class="home-page page off background flex-container--homepage">
+        <header class=" header flex-container">
+
+            <div class="navigation-bar">
+              <i class="fa-solid fa-poo nav-icon">
+
+              </i></div>
+            <h1 class="title">Hello, Mundo!</h1>
+        </header>
+
+        <main class="flex-container main-page-content">
+          <ul class="list">
+            <li class="list__item">
+              <textarea class="list__item-text">
+            </textarea>
+          </li>
+          </ul>
+        </main>
+
+        <footer class="footer"><button class="transparent-button">+</button></footer>
+  </div>
+  
+  <!-- utility -->
+  
+  <script src="constants.js"></script>
+  
+  <!-- data -->
+  
+  <script src="data/users.js"></script>
+  <script src="data/notes.js"></script>
+  
+  
+  <!-- logic -->
+  <script src="logic/authenticateUser.js"></script>
+  <script src="logic/registerUser.js"></script>
+  <script src="logic/retrieveUser.js"></script>
+  <script src="logic/retrieveNotes.js"></script>
+  <script src="logic/createNote.js"></script>
+  <script src="logic/updateNote.js"></script>
+  
+  <!-- presentation -->
+  
+  <script src="index.js"></script>
+
+</body>
+
+</html>
+
