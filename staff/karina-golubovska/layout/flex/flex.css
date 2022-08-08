@@ -1,0 +1,58 @@
+html,
+body {
+    height: 100%;
+}
+
+div {
+    border: 1px solid black
+}
+
+.box1 {
+    background-color: aquamarine;
+    height: 20%;
+    
+}
+
+.box2 {
+    background-color: aquamarine;
+    display: flex;
+    flex-direction: row;
+    height: 60%;
+
+}
+
+.box3 {
+    background-color: aquamarine;
+    width: 20%;
+
+}
+
+.box4 {
+    background-color: aquamarine;
+    width: 60%;
+}
+
+.box5 {
+    background-color: aquamarine;
+    width: 20%;
+}
+
+.box6 {
+    background-color: aquamarine;
+    height: 20%;
+}
+
+.flexbox-container {
+    background-color: white;
+    border: 2px black solid;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+.flex{
+    display: flex;
+    align-items: center;  
+    justify-content: center; 
+}

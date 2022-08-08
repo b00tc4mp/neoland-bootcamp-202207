@@ -1,0 +1,19 @@
+head , 
+body{
+    height: 100%;
+    margin: 0;
+}
+.fighter{
+    position: absolute;
+    background-color:darkred ;
+    width: 100px;;
+    height: 150px;
+    
+}
+.opponent{
+    position: absolute;
+    background-color:darkblue ;
+    width: 100px;;
+    height: 150px;
+    left: 800px;
+}

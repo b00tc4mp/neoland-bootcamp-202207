@@ -1,0 +1,259 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300&display=swap');
+
+* {
+    font-family: 'Cormorant SC', serif;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0%;
+    background-color:#8a8585;
+    height: 100%;
+}
+
+.login-page {
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    flex-direction: column;
+    gap: 50px;
+    background-color: #8a8585;
+    color: white;
+    text-align: center;
+    flex-grow: 1;
+    overflow: auto;
+    height: fit-content;
+}
+
+
+
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+
+}
+
+.div {
+    display: flex;
+    text-align: center;
+    gap: 3px;
+    color: white;
+
+}
+
+input {
+    background-color: transparent;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 1px solid white;
+    outline: none;
+    /* -webkit-box-shadow: 0 0 30px white inset; */
+    -webkit-text-fill-color: white;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: white;
+    width: 200px;
+}
+
+
+.button {
+
+    background-color: transparent;
+    border-top: 1px solid white;
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+    border-bottom: 1px solid white;
+    color: white;
+}
+
+.anchor {
+    color: white;
+    
+
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    width: 300px;
+    background-color: transparent;
+    border: 1px solid white;
+}
+
+img {
+    height: 70px;
+    width: 70px;
+    margin-bottom: 50px;
+
+}
+
+
+
+.title {
+    height: 50px;
+    width: 100%;
+    /* background-color: rgb(84, 83, 83); */
+    margin: 0%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.home-page {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    padding: 16px 0;
+    margin: 0;
+    height: fit-content;
+    overflow: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.list::-webkit-scrollbar {
+    display: none;
+}
+
+.list__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    width: 300px;
+    font-size: 1.5rem;
+    padding: 10px;
+    min-height: 200px;
+}
+
+.list__item-text {
+    width: 100%;
+    height: auto;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    resize: none;
+    overflow: hidden;
+    color: black;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #8a8585;
+    margin: 0;
+    height: 50px;
+    width: 100%;
+    flex-shrink: 0;
+}
+
+.header {
+    display: flex;
+    height: 50px;
+    width: 100%;
+    flex-shrink: 0;
+    background-color: #413c3c;
+}
+
+.plusbutton {
+    display: flex;
+    background-color: transparent;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    color: white;
+    font-size: 3rem;
+    cursor: pointer;
+    width: 85%;
+}
+.list__item-delete-button {
+    display: flex;
+     align-self: flex-end; 
+    width: 1rem;
+    height: 1rem;
+     justify-content:center;
+    align-items: flex-end; 
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+    
+}
+.logout-button
+{
+  display: flex;  
+  align-items: center;
+  justify-content:center;
+  color: white;
+  background-color: transparent;
+  border:none;
+  cursor:pointer;
+  width:5%;
+  padding: 0%;
+  
+}
+.menu-button{
+    display: flex; 
+    background-color: transparent;  
+    border:none;
+    padding: 0%;
+    width:5%;
+    color:white;
+    align-items: center;
+    justify-content: center;
+    cursor:pointer;
+}
+.close-button{
+    display: flex; 
+    background-color: transparent;  
+    border:none;
+    padding: 0%;
+    width:5%;
+    color:white;
+    align-items: center;
+    justify-content: center;
+    cursor:pointer;
+}
+.list__item-text {
+    width: calc(100% - 2rem);
+    height: auto;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    resize: none;
+    overflow: hidden;
+}
+
+.main {
+    overflow: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.main::-webkit-scrollbar {
+    display: none;
+}
+
+.settings-button{
+    display: flex; 
+    background-color: transparent;  
+    border:none;
+    padding: 0%;
+    width:5%;
+    color:white;
+    align-items: center;
+    justify-content: center;
+    cursor:pointer;
+}
+
