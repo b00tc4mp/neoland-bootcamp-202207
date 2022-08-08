@@ -11,6 +11,6 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
-    
+    background-color: aquamarine;    
     padding: 16px;
 }
