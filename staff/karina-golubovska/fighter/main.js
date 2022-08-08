@@ -29,5 +29,4 @@ document.onkeydown = function(event) {
     else if (event.key === 'ArrowDown')
      { opponent.x = opponent.x - 10 }
     opponent.style.left = opponent.x + 'px'
-    
 } 

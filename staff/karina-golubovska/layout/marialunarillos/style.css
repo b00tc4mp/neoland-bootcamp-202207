@@ -14,7 +14,7 @@ body {
     height: 1000px;
     display: flex;
     gap: 5px;
-    flex-direction: column;
+    flex-direction:column;
     width: 60%;
 }
 
@@ -77,4 +77,3 @@ body {
         grid-column: 2 / span 2;
     }
 }
-/* */
