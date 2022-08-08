@@ -1,5 +1,5 @@
 class Home extends Component {
-    constructor() {  
+    constructor() {
 
         super(`<main class="home-page"></main>`)
 
