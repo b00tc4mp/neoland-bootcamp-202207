@@ -1,5 +1,4 @@
-
-//===================GLOBALES===================
+ //===================GLOBALES===================
 // const loginPage = document.querySelector('.login_page')
 // const registerPage = document.querySelector('.register_page')
 // const homePage = document.querySelector('.home_page')
