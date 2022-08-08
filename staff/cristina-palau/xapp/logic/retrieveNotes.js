@@ -2,7 +2,7 @@ function retrieveNotes(token, callback) {
     if (typeof token !== 'string') throw new TypeError('tokennotes is not a string')
     if (token.trim().length === 0) throw new Error('email is empty or blank')
 
-    if (typeof callback !== 'function') throw new TypeError('callback is not a function retrivnotes')
+    if (typeof callback !== 'function') throw new TypeError('callback is not a function')
 
     const xhr = new XMLHttpRequest
 

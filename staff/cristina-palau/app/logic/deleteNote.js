@@ -15,7 +15,7 @@ function deleteNote(token, noteId, callback) {
     if (typeof noteId !== 'string') throw new TypeError('note id is not a string')
     if (noteId.trim().length === 0) throw new Error('note id is empty or blank')
 
-    if (typeof callback !== 'function') throw new TypeError('callback is not a function')
+    if (typeof callback !== 'function') throw new TypeError('callback is not a function delete')
 
     const xhr = new XMLHttpRequest
 

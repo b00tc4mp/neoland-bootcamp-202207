@@ -29,7 +29,7 @@ login.onFormSubmit(function (email, password) {
     }
 })
 
-home.onDeleteNote = function (noteId) { // method overriding
+home.onDeleteNoteClick = function (noteId) { // method overriding
     try {
         deleteNote(sessionStorage.token, noteId, error => {
             if (error) {
@@ -65,8 +65,9 @@ home.onLogout = function () {
 
     document.body.removeChild(home.container)
     document.body.append(login.container)
-}
 
+
+}
 home.onAddNote = function () {
     try {
         createNote(sessionStorage.token, error => {
@@ -83,7 +84,7 @@ home.onAddNote = function () {
     }
 }
 
-home.onUpdatePassword = function (oldPass, newPass, newPass2) {
+home.onUpdatePassword(function (oldPass, newPass, newPass2) {
     try {
         updatePassword(sessionStorage.token, oldPass, newPass, newPass2, function (error) {
             if (error) {
@@ -92,30 +93,31 @@ home.onUpdatePassword = function (oldPass, newPass, newPass2) {
                 return
             }
 
-            alert('Success!!')
+            alert('Password Updated')
 
         })
     } catch (error) {
         alert(error.message)
     }
-}
+})
 
-home.onUpdateEmail = function (newEmail) {
+home.onUpdateEmail(function (newEmail) {
     try {
-        updateEmail(sessionStorage.token, newEmail, function (error) {
+        updatePassword(sessionStorage.token, newEmail, function (error) {
             if (error) {
                 alert(error.message)
 
                 return
             }
 
-            alert('success!!')
+            alert('Email Updated')
+
 
         })
     } catch (error) {
         alert(error.message)
     }
-}
+})
 
 register.onLinkClick(function () {
     document.body.removeChild(register.container)
@@ -181,6 +183,11 @@ function renderList(callback) {
         alert(error.message)
     }
 }
+
+if (sessionStorage.token)
+    renderHome()
+else
+    document.body.append(login.container)
 
 if (sessionStorage.token)
     renderHome()

@@ -4,7 +4,7 @@ Cachay.prototype.concat = function(...values) {
     for (let i = 0; i < this.length; i++)
         result[result.length++] = this[i] 
 
-        debugger
+   
 
 
     for (let i = 0; i < values.length; i++)

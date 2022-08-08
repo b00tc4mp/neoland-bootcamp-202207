@@ -18,6 +18,6 @@ function authenticateUser(email, password, callback) {
         callback(new Error('wrong credentials'))
         return
     }
-debugger
+
     callback(null, user.id)
 }

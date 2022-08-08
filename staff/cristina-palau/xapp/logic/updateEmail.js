@@ -1,17 +1,7 @@
-function updatePassword(token, oldPass, newPass, newPass2, callback) {
-    if (typeof token !== 'string') throw new TypeError('token is not a string update password')
+function updatePassword(token, newEmail, callback) {
+    if (typeof token !== 'string') throw new TypeError('token is not a string')
     if (token.trim().length === 0) throw new Error('token is empty or blank')
    
-    if (typeof newPass !== 'string') throw new TypeError('password is not a string')
-    if (newPass.trim().length === 0) throw new Error('password is empty or blank')
-    if (newPass.length < 8) throw new Error('password length is less than 8 characters')
-    if (!PASS_REGEX.test(newPass)) {
-        const passError = document.querySelector('.passerror')
-        passError.classList.remove('off')
-        return
-    }
-
-
     // if (typeof noteId !== 'string') throw new TypeError('noteId is not a string')
     // if (noteId.trim().length === 0) throw new Error('noteId is empty or blank')
     
@@ -32,21 +22,12 @@ function updatePassword(token, oldPass, newPass, newPass2, callback) {
             callback(new Error(`client error (${status})`))
         else if (status === 200) {
             
-            const json = xhr.responseText
+            // const json = xhr.responseText
 
-            const data = JSON.parse(json)
+            // const data = JSON.parse(json)
 
-            const oldPassword = data.password
-
-            // if (oldPass !== oldPassword) {
-            //     callback(new Error('wrong password'))
-            // }
-
-            if(newPass !== newPass2) {
-                callback(new Error ('las passwords no coinciden'))
-            }
-
-           
+            // const email = data.username
+                    
             const xhr2 = new XMLHttpRequest
 
             // response
@@ -70,7 +51,7 @@ function updatePassword(token, oldPass, newPass, newPass2, callback) {
             xhr2.setRequestHeader('Content-type', 'application/json')
 
             //const json2 = JSON.stringify({ notes: notes })
-            xhr2.send(`{ "oldPassword": "${oldPass}", "password": "${newPass}"}`)
+            xhr2.send(`{ "username": "${newEmail}"}`)
         
         }
     }

@@ -4,11 +4,11 @@ function authenticateUser(email, password, callback) {
     if (email.length < 6) throw new Error('email length is not valid')
     if (!EMAIL_REGEX.test(email)) throw new Error('email is not valid')
 
-    if (typeof password !== 'string') throw new TypeError('password is not a string auth')
-    if (password.trim().length === 0) throw new Error('password is empty or blank') 
+    if (typeof password !== 'string') throw new TypeError('password is not a string')
+    if (password.trim().length === 0) throw new Error('password is empty or blank')
     if (password.length < 8) throw new Error('password length is less than 8 characters')
 
-    if (typeof callback !== 'function') throw new TypeError('callback is not a function')
+    if (typeof callback !== 'function') throw new TypeError('callback is not a function authenti')
 
     const xhr = new XMLHttpRequest
 

@@ -1,6 +1,8 @@
-class Login extends NavigableForm{
+class Login {
     constructor() {
-        super(`<main class="login-page page">
+        const temp = document.createElement('temp')
+
+        temp.innerHTML = `<main class="login-page page">
         <div class="login-container container">
             <form class="form">
                 
@@ -19,7 +21,17 @@ class Login extends NavigableForm{
             </form>
             <a class="anchor" href="register-page.html">Register</a>
         </div>
-    </main>`)
+    </main>`
+
+        this.container = temp.firstChild
+    }
+
+    onLinkClick(callback) {
+        this.container.querySelector('.anchor').onclick = event => {
+            event.preventDefault()
+
+            callback()
+        }
     }
 
     onFormSubmit(callback) {
@@ -33,5 +45,9 @@ class Login extends NavigableForm{
 
             callback(email, password)
         }
+    }
+
+    reset() {
+        this.container.querySelector('form').reset()
     }
 }

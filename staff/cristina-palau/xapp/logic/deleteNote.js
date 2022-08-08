@@ -1,11 +1,19 @@
-function updateNote(token, noteId, text, callback) {
-    if (typeof token !== 'string') throw new TypeError('token is not a string upnote')
-    if (token.trim().length === 0) throw new Error('token is empty or blank')
-   
-    if (typeof noteId !== 'string') throw new TypeError('noteId is not a string')
-    if (noteId.trim().length === 0) throw new Error('noteId is empty or blank')
-    
-    if (typeof text !== 'string') throw new TypeError('text is not a string')
+/**
+ * Deletes a note from database
+ * 
+ * @param {string} userId The user identifier
+ * @param {string} noteId The note identifier
+ * @param {funcion} callbback The function expression that provides a result
+ *
+ * @throws {TypeError} On invalid inputs
+ */
+
+function deleteNote(token, noteId, callback) {
+
+    if (typeof token !== 'string') throw new TypeError('user id is not a string')
+    if (token.trim().length === 0) throw new Error('user id is empty or blank')
+    if (typeof noteId !== 'string') throw new TypeError('note id is not a string')
+    if (noteId.trim().length === 0) throw new Error('note id is empty or blank')
 
     if (typeof callback !== 'function') throw new TypeError('callback is not a function')
 
@@ -21,15 +29,22 @@ function updateNote(token, noteId, text, callback) {
         else if (status >= 400)
             callback(new Error(`client error (${status})`))
         else if (status === 200) {
+
             const json = xhr.responseText
 
-            const data = JSON.parse(json)
+            const user = JSON.parse(json)
 
-            const notes = data.notes ? data.notes : []
+            if (!user.notes || user.notes.length === 0) callback(new Error(`note with id ${noteId} not found`))
+            
+            const notes = user.notes
 
-            const note = notes.find(note => note.id === noteId)
+        
+            const noteIndex = notes.findIndex(note =>
+            note.id === noteId)
 
-            note.text = text
+            if (noteIndex === -1) callback(new Error(`note with id ${noteId} not found`))
+           
+            notes.splice(noteIndex, 1)
 
             const xhr2 = new XMLHttpRequest
 

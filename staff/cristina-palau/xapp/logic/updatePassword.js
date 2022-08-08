@@ -1,5 +1,5 @@
 function updatePassword(token, oldPass, newPass, newPass2, callback) {
-    if (typeof token !== 'string') throw new TypeError('token is not a string update password')
+    if (typeof token !== 'string') throw new TypeError('token is not a string')
     if (token.trim().length === 0) throw new Error('token is empty or blank')
    
     if (typeof newPass !== 'string') throw new TypeError('password is not a string')
