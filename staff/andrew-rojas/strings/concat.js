@@ -1,14 +1,18 @@
-function concat(text, text2,) 
+function concat(){   
     // TODO ...
 
-    var concat;
+    let result=''
 
-    for ( var i = 0; i < concat.length; i++) {
-        concat = [i]
-
+    for ( let i = 0; i < arguments.length; i++) {
+        // const arguments = arguments[i]
+        // result = result + arguments[i]
+        result+= arguments[i]
     }
-
+    return result
+}
 // tests
+
+console.log('TEST concat')
 
 console.log(concat('Hola', 'Mundo'))
 // HolaMundo
@@ -18,3 +22,16 @@ console.log(concat('Adios', 'Mundo', 'Cruel'))
 
 console.log(concat('i', ' ', 'love', ' ', 'coding'))
 // i love coding
+
+
+// {   
+//     // TODO ...
+
+//     let result=""
+
+//     for ( let i = 0; i < concat.arguments.length; i++) {
+//         
+//         result+= concat.arguments[i]
+//     }
+//     return result
+// }

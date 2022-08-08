@@ -1,5 +1,18 @@
 function invertCase(text) {
     // TODO ...
+    let result= ''
+
+    for (let i = 0; i < text.length; i++) {
+        if (text[i] === text[i].toUpperCase())
+        // result = result + text[i].toLowerCase
+        result += text[i].toLowerCase()
+
+        // result = result + text[i].toUppercase
+        else
+        result += text[i].toUpperCase()
+    }
+    
+    return result
 }
 
 // tests

@@ -1,0 +1,133 @@
+
+html, body {
+    height: 100%;
+    
+}
+
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+    margin: 0;
+    background-color: rgb(45, 164, 133);
+    color: black;
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background-image: url("https://play-lh.googleusercontent.com/ZCPU-kMTABemdqxWwp7UmbzDI7hghnJGzj7g-4bQZeBYzhB567ECIkzFuQPo2lnyRI4"); 
+    ;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size:cover;
+}
+
+.container
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form__field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.input {
+    background-color: transparent;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 1px solid black;
+    color: black;
+    font-size: 1rem;
+    caret-color: black;
+}
+
+.input:-webkit-autofill {
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: black;
+}
+
+.input::selection {
+    background-color: black;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: rgb(45, 164, 133);
+}
+
+.input::placeholder {
+    color: transparent;
+}
+
+.input:focus {
+    outline: none;
+}
+
+.button {
+    background-color: transparent;
+    border: 1px solid black;
+    padding: 5px;
+    color: black;
+    font-size: 1rem;
+}
+
+.anchor {
+    color: black;
+}
+
+.anchor:visited {
+    color: black;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+    padding: 0;
+    overflow: scroll;
+}
+
+.list__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(75, 76, 78);
+    color: rgb(255, 255, 255);
+    width: 300px;
+    height: 100px;
+    font-size: 1.0rem;
+    padding: 10px;
+    overflow: auto;
+}
+
+
+.title {
+    display: flex;
+    background-color: rgb(75, 76, 78);
+    color: white;
+    padding: 10px;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+
+.transparent-button {
+
+
+}
+
+.off {
+    display: none;
+}

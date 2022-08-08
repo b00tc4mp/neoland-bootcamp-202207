@@ -1,7 +1,23 @@
 function countWords(text) {
   // TODO ...
-
   
+  let result = 0;
+
+  for (let i = 0; i < text.length; i++) {
+    if (text[i] === " " &&
+      // text[i + 1] !== " " &&
+      //i !== 0 &&
+      i !== text.length -1) {
+
+      // !==  <-- distinto a...
+      // result= result + 1
+      // result += 1
+      result++;
+    }
+  }
+
+  return result +1
+
 }
 
 // tests
