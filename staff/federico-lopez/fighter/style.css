@@ -1,0 +1,18 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.fighter {
+    background-color: tomato;
+    height: 100px;
+    width: 50px;
+    position: absolute;
+}
+
+.oponent {
+    background-color: dodgerblue;
+    height: 100px;
+    width: 50px;
+    position: absolute;
+}

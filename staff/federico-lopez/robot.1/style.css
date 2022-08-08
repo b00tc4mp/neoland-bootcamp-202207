@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Roboto Mono', monospace;
+}
+
+.scene {
+    background-image: url("./wood.jpg");
+    width: 100%;
+    height: 600px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.title {
+    color: white;
+}
+
+.robot {
+    position: absolute;
+    top: 200px;
+    left: 50px; 
+    width:fit-content;
+}
+
+@keyframes change-bgcolor {
+    0%   {background-color: red;}
+    25%  {background-color: yellow;}
+    50%  {background-color: blue;}
+    100% {background-color: green;}
+  }
+
+.head {
+    background-color: red;
+    animation-name: change-bgcolor;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+}
+
+.eye {
+    background-color: white;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 20px;
+}
+
+.eye--right {
+    left: 60px;
+}
+
+.eye--left {
+    left: 20px;
+}
+
+
+@keyframes pupil-movement {
+    from {width: 5px;}
+    to {width: 30px;}
+}
+
+.pupil {
+    background-color: black;
+    width: 5px;
+    height: 5px;
+    position: absolute;
+    top: 7.5px;
+    left: 7.5px;
+    animation-name: pupil-movement;
+    animation-duration: 0.5s;
+    animation-iteration-count: infinite;
+}
+
+.nose {
+    background-color: black;
+    width: 10px;
+    height: 20px;
+    position: absolute;
+    top: 50px;
+    left: 45px;
+}
+
+.mouth {
+    background-color: white;
+    width: 50px;
+    height: 10px;
+    position: absolute;
+    top: 80px;
+    left: 25px;
+} 
+
+.neck {
+    position: absolute;
+    background-color: yellow;
+    height: 20px;
+    width: 20px;
+    top: 100px;
+    left: 40px;
+}
+
+.torso {
+    position: absolute;
+    background-color: blue;
+    top: 120px;
+    width: 100px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.circle {
+    width: 50px;
+    height: 50px;
+    background-color: aquamarine;
+    border-radius: 50px;
+}
+
+.circle:hover {
+    background-color: red;
+    width: 100px;
+}
+
+.leg {
+    position: absolute;
+    top: 270px;
+    height: 120px;
+    width: 25px;
+    background-color: red;
+}
+
+.leg--left {
+    left: 10px;
+}
+
+.leg--right {
+    left: 65px;
+}
