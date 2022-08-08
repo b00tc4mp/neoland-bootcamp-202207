@@ -1,0 +1,171 @@
+*{
+    margin: 0px;
+    padding: 0px;
+   }
+   
+   .scene{
+   position: absolute;
+   background-color: black;
+   width: 100%;
+   height: 100%;
+   z-index: -2;
+   }
+   
+   .robot{
+   position: absolute;
+   background: yellow;
+   top: 100px;
+   left: 500px;
+   animation-name: animacion;
+   animation-duration: 5s;
+   animation-iteration-count: infinite;
+   animation-direction: alternate;
+   
+   }
+   
+   .head{
+    background-color: red;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    border-radius: 30px 30px 10px 10px;
+    animation-name: head-color-animation;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+   }
+   
+   @keyframes head-color-animation {
+   0%{
+   background-color: red;
+   }
+   
+   25%{
+   background-color: orange;
+   }
+   50%{
+   background-color: purple;
+   }
+   75%{
+   background-color: cyan;
+   }
+   }
+   
+   .eye{
+    background-color: white;
+    width: 20px;
+    height: 10px;
+    position: absolute;
+    top: 20px;
+   }
+   
+   .right{
+    right: 20px; 
+   }
+   
+   .left{
+    left: 20px;
+   }
+   
+   .pupil{
+    background-color: brown;
+    position: absolute;
+    height: 5px;
+    width: 5px;
+    top: 3.5px;
+    left: 10px;
+   }
+   
+   .nose{
+    position: absolute;
+    width: 10px;
+    height: 20px;
+    background-color: blue;
+    top: 40px;
+    left: 45px;
+   }
+   
+   .mouth{
+    width: 40px;
+    height: 10px;
+    position: absolute;
+    background-color: pink;
+    top: 70px;
+    left: 30px;
+   }
+   
+   .torso{
+    position: absolute;
+    height: 200px;
+    width: 70px;
+    background-color: blue;
+    top: 120px;
+   left: 15px;
+   }
+   
+   .neck{
+       position: absolute;
+       width: 50px;
+       height: 20px;
+       background-color: brown;
+       top: 100px;
+       left: 25px;
+   }
+   
+   .arm{
+       position: absolute;
+       width:30px;
+       height:100px;
+       background-color: yellow;
+       top: 10px;
+       z-index: -1;
+   }
+   .arm--left{
+       transform: rotate(45deg);
+       left: -40px;
+   }
+   
+   .arm--right{
+       transform: rotate(-45deg);
+       right: -40px;
+       animation-name: rotate-arms-animation-right;
+       animation-duration: 1s;
+       animation-iteration-count: infinite;
+       animation-direction: alternate;
+   }
+   
+   
+   @keyframes rotate-arms-animation-right{
+   from{
+   transform:rotate(-45deg)}
+   
+   to{
+   transform: rotate(-90deg)}
+   }
+   
+   
+   .leg{
+   position: absolute;
+   background: yellow;
+   width: 20px;
+   height: 150px;
+   top: 200px;
+   }
+   
+   .leg--left{
+   left: 5px;
+   }
+   
+   .leg--right{
+   right: 5px;
+   }
+   
+   @keyframes animacion{
+   from{
+   left:100px;
+   }
+   
+   to{
+   rigth: 1000px;
+   }
+   }

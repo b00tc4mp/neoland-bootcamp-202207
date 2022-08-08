@@ -1,0 +1,202 @@
+@import url('https://fonts.googleapis.com/css2?family=Nuosu+SIL&family=Open+Sans:wght@300&family=Oswald&display=swap');
+
+*{
+    box-sizing: border-box;
+}
+
+body, html{
+    margin: 0px;
+    /*padding: 0px;  NO ES NECESARIO */ 
+    height: 100%;
+    font-size: 62.5%;   /* Formateo el size para que 1 rem = 10 px*/
+    font-family: 'Oswald', sans-serif;
+}
+body{
+    width: 100%;
+}
+
+.mainBackground{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-image: url('assets/main-background.jpg');
+    background-size: cover;
+    background-attachment:fixed;
+}
+
+.headerContainer{
+    display: flex;
+    align-items: center;
+    height: 40%;
+}
+
+.header{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.headerImage{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+#companyLogo{
+    width: 200px;
+    height: auto;
+}
+
+.formContainer{
+    height: auto;
+    min-height: 60%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    background-color:white ;
+    border-radius: 35px 35px 0px 0px;
+}
+
+
+.form{
+    height: 100%;
+    min-height: 400px;
+    width: 80%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+form {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+input{
+    width: 100%;
+    height: 15%;
+    min-height: 30px;
+    margin-bottom: 20px;
+    font-size: 2.2rem;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 1px solid #3d0b60;
+    caret-color:#9203ff ; 
+    color: #531a7c;
+    background-color: transparent;
+}
+
+
+input::selection{
+   background-color: #592380;
+   color: white;
+}
+
+input:focus{
+    outline: none;
+}
+
+ input:-webkit-autofill {
+    -webkit-background-clip:text;
+    -webkit-text-fill-color: #934dc5;
+}
+
+
+.labelForm{
+    width: 100%;
+    font-size: 2rem;
+    margin:0;
+    color: #592380;
+    font-weight: bold;
+}
+button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    margin-top: 30px;
+    height: 30px;
+    height: 10%;
+    min-height: 30px;
+    font-size: 18px;
+}
+
+#submitButton{
+    border-radius: 35px;
+    background-color: #592380;
+    box-shadow: 0px 8px 30px lightblue;
+    border: 1px solid #592380;
+}
+
+.buttonText{
+    color: white;
+    font-size: 2rem;
+}
+.form > a{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 10%;
+    background-color: rgb(91, 91, 91);
+    border-radius: 10px 10px 0px 0px;
+}
+header p{
+    width: 90%;
+    text-align: center;
+    color: white;
+    font-size: 28px;
+    font-weight: 400;
+}
+
+.menu-container{
+    width: 10%;
+    height: 40%;
+    display:flex;
+    flex-direction: column;
+    margin-right: 5%;
+}
+.menu-icon{
+    width: 35px;
+    height: 15px;
+    background-color: white;
+    margin-top: 5px;
+}
+
+a:visited{
+    color:black;
+}
+
+.anchor{
+    font-size: 2rem;
+}
+.anchorDiv{
+    height: 10%;
+    width: 100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
