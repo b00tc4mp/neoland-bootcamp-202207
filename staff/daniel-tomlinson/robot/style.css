@@ -1,0 +1,249 @@
+@import url("https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&display=swap");
+
+body {
+  margin: 0;
+}
+
+.scene {
+  position: absolute;
+  background-image: url(https://img.freepik.com/free-vector/cartoon-nature-landscape-with-mountain-forest-deciduous-trees-trunks-clearance_107791-3706.jpg?w=2000);
+  width: 100%;
+  height: 800px;
+  display: flex;
+  justify-content: center;
+}
+
+h1 {
+  font-family: "Arvo", serif;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  height: min-content;
+}
+
+h1:hover {
+  color: lightgray;
+  transform: scale(1.25);
+}
+
+.robot {
+  width: 250px;
+  position: absolute;
+}
+
+.robot-move {
+  position: absolute;
+  left: 65px;
+  top: 50px;
+}
+
+.head {
+  position: absolute;
+  background: rgb(43, 122, 206);
+  width: 100px;
+  height: 100px;
+  left: 10px;
+  border-radius: 5px;
+}
+
+.head:hover {
+  animation: rubberBand;
+  animation-duration: 1s;
+}
+
+.eye {
+  background-color: white;
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  top: 20px;
+  border-radius: 50%;
+}
+
+.eye:hover {
+  animation: bounce;
+  animation-duration: 1s;
+}
+
+.eye--left {
+  left: 17.5px;
+}
+
+.eye--right {
+  left: 57.5px;
+}
+
+.pupil {
+  background-color: black;
+  width: 5px;
+  height: 5px;
+  position: absolute;
+  top: 7.5px;
+  left: 7.5px;
+  border-radius: 50%;
+}
+
+.nose {
+  background-color: grey;
+  width: 10px;
+  height: 20px;
+  position: absolute;
+  top: 40px;
+  left: 45px;
+  border-radius: 5px;
+}
+
+.mouth {
+  background-color: white;
+  width: 60px;
+  height: 15px;
+  position: absolute;
+  top: 70px;
+  left: 20px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.teeth {
+  background-color: black;
+  width: 2px;
+  height: 15px;
+}
+
+.torso {
+  position: absolute;
+  background: rgb(43, 122, 206);
+  width: 120px;
+  height: 160px;
+  top: 125px;
+  left: 0;
+  border-radius: 10px;
+}
+
+.torso:hover {
+  animation-name: shakeX;
+  animation-duration: 3s;
+}
+
+.nipple {
+  width: 10px;
+  height: 10px;
+  top: 40px;
+  background-color: grey;
+  border-radius: 50%;
+  position: absolute;
+  top: 40px;
+}
+
+.nipple--left {
+  left: 25px;
+}
+
+.nipple--right {
+  left: 85px;
+}
+
+.neck {
+  position: absolute;
+  top: 85px;
+  left: 52.5px;
+  background-color: grey;
+  width: 15px;
+  height: 60px;
+}
+
+.leg {
+  position: absolute;
+  height: 160px;
+  width: 25px;
+  top: 240px;
+  background-color: grey;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  border-radius: 5px;
+}
+
+.leg--lines {
+  width: 25px;
+  height: 2px;
+  background-color: black;
+}
+
+.leg--left {
+  left: 20px;
+}
+
+.leg--right {
+  left: 70px;
+}
+
+.arm {
+  position: absolute;
+  width: 150px;
+  height: 25px;
+  background-color: grey;
+  top: 165px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.arm--left {
+  left: -105px;
+}
+
+.arm--left:hover {
+  transform: perspective(200px) rotateY(45deg);
+  transform-origin: 0 50%;
+}
+
+.arm--right {
+  left: 75px;
+}
+
+.arm--line {
+  background-color: black;
+  width: 2px;
+  height: 25px;
+}
+
+.foot {
+  position: absolute;
+  background-color: grey;
+  width: 50px;
+  height: 25px;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
+  top: 380px;
+}
+
+.foot {
+  position: absolute;
+  background-color: grey;
+  width: 50px;
+  height: 25px;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
+  top: 380px;
+}
+
+.foot--left {
+  left: 0px;
+}
+
+.foot--right {
+  left: 60px;
+}
+
+@media screen and (min-width: 1024px) {
+}

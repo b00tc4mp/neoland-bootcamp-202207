@@ -1,0 +1,56 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+.header,
+.footer {
+  height: 20%;
+}
+
+.header,
+.footer,
+.main {
+  background-color: orange;
+  padding: 2px;
+}
+
+.main {
+  height: 60%;
+}
+
+.aside {
+  height: 100%;
+  width: 20%;
+}
+
+div {
+  border: 2px solid black;
+}
+
+.left {
+  float: left;
+  background-color: aqua;
+}
+
+.right {
+  float: right;
+  background-color: aquamarine;
+}
+
+.body {
+  width: 60%;
+  height: 100%;
+  background-color: azure;
+}
+
+/* .clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+} */
