@@ -1,0 +1,28 @@
+html, body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+#root{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.board{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 50%;
+    height: 50%;
+    gap: 5px;
+}
+
+.boardBox{
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    cursor: pointer;
+}
