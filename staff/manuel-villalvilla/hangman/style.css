@@ -2,6 +2,11 @@
     box-sizing: border-box;
 }
 
+html, body {
+    width: 100%;
+    margin: 0;
+}
+
 h1 {
     margin: 0, 0, 5px, 0;
 }

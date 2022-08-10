@@ -1,8 +1,8 @@
-function HiddenWordWithAttempts(props) {
+function HiddenWordWithAttempts({hiddenWord, leftAttempts}) {
     return (
         <>
-            <span className="hiddenWord">{props.hiddenWord}</span>
-            <span className="leftAttempts">{props.leftAttempts} attempts left</span>
+            <p className="hiddenWord">{hiddenWord}</p>
+            <p className="leftAttempts">{leftAttempts} attempts left</p>
         </>
     )
 }
