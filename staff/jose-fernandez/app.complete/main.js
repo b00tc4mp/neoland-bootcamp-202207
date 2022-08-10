@@ -4,18 +4,17 @@
 
 //======================================================================
 
-const login = new Login
-const register = new Register
-const home = new Home
-// const formCreateNote= home.container.querySelector('.formcreateNote')
+const loginPage = new LoginPage
+const registerPage = new RegisterPage
+const homePage = new HomePage
 
-login.onLinkClick(function () {
-    document.body.removeChild(login.container)
-    document.body.append(register.container)
+loginPage.onLinkClick(function () {
+    document.body.removeChild(loginPage.container)
+    document.body.append(registerPage.container)
 })
 
 //para recoger los datos que ponemos en los inputs usamos .onsubmit
-login.onFormSubmit(function (email,password) {
+loginPage.onFormSubmit(function (email,password) {
     
     try {
         authenticateUser(email, password, function (error, token) {
@@ -23,12 +22,11 @@ login.onFormSubmit(function (email,password) {
                 alert(error.message)
                 return
             }
-            login.reset()
+            loginPage.reset()
             sessionStorage.token = token
-            document.body.removeChild(login.container)
+            document.body.removeChild(loginPage.container)
            
             renderHome()
-            // home.container.removeChild(formCreateNote)
 
         })
     } catch (error) {
@@ -36,14 +34,52 @@ login.onFormSubmit(function (email,password) {
     }
 })
 
-home.onLogout = function(){
-    delete sessionStorage.token
+homePage.onDeleteNote = function(noteId){//method overriding
+    try{
+        deleteNote(sessionStorage.token,noteId,error =>{
+            if(error){
+                alert(error.message)
+                return
+            }
 
-    document.body.removeChild(home.container)
-    document.body.append(login.container)
+            try{
+                retrieveNotes(sessionStorage.token,function(error,notes){
+                    if(error){
+                        alert(error.message)
+                        return
+                    }
+                    homePage.renderList(notes)
+                })
+            }catch(error){
+                alert(error.message)
+            }
+        })
+    }catch(error){
+        alert(error.message)
+    }
 }
 
-home.onFormCreateNote(function(textFromTextarea) {
+homePage.onUpdateNote = function(noteId,text){
+    try{
+        updateNote(sessionStorage.token,noteId,text,error =>{
+            if(error){
+                alert(error.message)
+                return
+            }
+        })
+    }catch(error){
+        alert(error.message)
+    }
+}
+
+homePage.onLogoutButtonClick = function(){
+    delete sessionStorage.token
+
+    document.body.removeChild(homePage.container)
+    document.body.append(loginPage.container)
+}
+
+homePage.onFormCreateNote(function(textFromTextarea) {
     try {
         createNote(sessionStorage.token, textFromTextarea, error => {
             if (error) {
@@ -51,7 +87,8 @@ home.onFormCreateNote(function(textFromTextarea) {
                 
                 return
             }
-            renderHome()
+            // renderHome()
+            renderList()
         })
 
     } catch (error) {
@@ -59,7 +96,7 @@ home.onFormCreateNote(function(textFromTextarea) {
     }
 })
     
-home.onUpdatePassword = function(oldPassword,newPassword,newPasswordRepeat){
+homePage.onUpdatePassword = function(oldPassword,newPassword,newPasswordRepeat){
     try {
         updateUserPassword(sessionStorage.token, oldPassword, newPassword, newPasswordRepeat, error => {
             if (error) {
@@ -74,56 +111,16 @@ home.onUpdatePassword = function(oldPassword,newPassword,newPasswordRepeat){
     } catch(error) {
         alert(error.message)
     }
-    // home.updatePasswordForm.reset()
+    // homePage.updatePasswordForm.reset()
 }
 
 
-
-home.onDeleteNoteClick = function(noteId){//method overriding
-    try{
-        deleteNote(sessionStorage.token,noteId,error =>{
-            if(error){
-                alert(error.message)
-                return
-            }
-
-            try{
-                retrieveNotes(sessionStorage.token,function(error,notes){
-                    if(error){
-                        alert(error.message)
-                        return
-                    }
-                    home.renderNotes(notes)
-                })
-            }catch(error){
-                alert(error.message)
-            }
-        })
-    }catch(error){
-        alert(error.message)
-    }
-}
-
-home.onUpdateNote = function(noteId,text){
-    try{
-        updateNote(sessionStorage.token,noteId,text,error =>{
-            if(error){
-                alert(error.message)
-                return
-            }
-        })
-    }catch(error){
-        alert(error.message)
-    }
-}
-
-
-register.onLinkClick(function () {
-    document.body.removeChild(register.container)
-    document.body.append(login.container)
+registerPage.onLinkClick(function () {
+    document.body.removeChild(registerPage.container)
+    document.body.append(loginPage.container)
 })
 
-register.onFormSubmit(function (name,email,password) {
+registerPage.onFormSubmit(function (name,email,password) {
     // try catch 
     try {
         registerUser(name, email, password, function (error) {
@@ -132,10 +129,10 @@ register.onFormSubmit(function (name,email,password) {
                 return
             }
 
-            register.reset()
+            registerPage.reset()
 
-            document.body.removeChild(register.container)
-            document.body.append(login.container)
+            document.body.removeChild(registerPage.container)
+            document.body.append(loginPage.container)
         })
 
     } catch (error) {
@@ -150,10 +147,10 @@ function renderHome(){
                 alert(error.message)
                 return
             }
-            home.setName(user.name)
+            homePage.setName(user.name)
             
             renderList(function(){
-                document.body.append(home.container)
+                document.body.append(homePage.container)
             })
             
         })
@@ -169,7 +166,7 @@ function renderList(callback){
                 alert(error.message)
                 return
             }
-            home.renderNotes(notes)
+            homePage.renderList(notes)
 
             if(callback)
             callback()
@@ -183,9 +180,9 @@ function renderList(callback){
 if(sessionStorage.token)
     renderHome()
 else
-    document.body.append(login.container)
+    document.body.append(loginPage.container)
 
-// home.createNoteForm.onsubmit = function (event) {
+// homePage.createNoteForm.onsubmit = function (event) {
 //     event.preventDefault()
 
 //     // creo una constante y lo igualo al texto de mi textarea con name="newItemNote" ubicado en createNoteForm 
@@ -199,7 +196,7 @@ else
 //                     alert(error.message)
 //                     return
 //                 }
-//                 renderNotes()
+//                 renderList()
 //             })
 //         } catch (error) {
 //             alert(error.message)

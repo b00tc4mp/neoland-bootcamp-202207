@@ -1,4 +1,4 @@
-class Register{
+class RegisterPage{
     constructor(){
         const temp = document.createElement('temp')
 

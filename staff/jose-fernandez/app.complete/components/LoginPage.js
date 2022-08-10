@@ -1,4 +1,4 @@
-class Login {
+class LoginPage {
     constructor() {
         const temp = document.createElement('temp')
         temp.innerHTML = `<main class="container login_page ">
