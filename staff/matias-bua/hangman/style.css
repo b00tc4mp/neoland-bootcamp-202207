@@ -1,0 +1,27 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+.wordShown {
+  letter-spacing: 12px;
+}
+div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.textWithWord {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.buttonTryAgain {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
