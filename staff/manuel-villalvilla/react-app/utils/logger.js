@@ -1,4 +1,4 @@
-console.log('%c Loggito %c v0.1', 'font-size: 16px; color: yellow; background-color: dodgerblue; display: block; border: 1px solid black;', 'font-size: 10px;') 
+console.log('%c Logger %c v0.1', 'font-size: 16px; color: yellow; background-color: dodgerblue; display: block; border: 1px solid black;', 'font-size: 10px;') 
 
 class Logger {
     constructor(target) {

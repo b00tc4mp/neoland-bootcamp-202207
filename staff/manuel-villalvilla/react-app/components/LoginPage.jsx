@@ -29,8 +29,10 @@ function LoginPage(props) {
                 form.reset()
     
                 sessionStorage.token = token
+
+                logger.debug('user logged in successfully')
     
-                props.onLoginFormSubmit()
+                props.onLoginFormSubmit() // esto solo cambia el view
             })
         } catch (error) {
             alert(error.message)

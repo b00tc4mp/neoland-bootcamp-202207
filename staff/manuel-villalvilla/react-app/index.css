@@ -137,17 +137,10 @@ a, a:visited {
 .hidden-menu {
     display: flex;
     flex-direction: column;
-    position: absolute;
-    top: 35%;
-    left: 35%;
-    height: 30%;
-    width: 30%;
     background-color: gray;
     align-items: center;
     justify-content: center;
-    gap: 10px;
     color: white;
-    border-radius: 10px;
 }
 
 .list {
@@ -190,7 +183,7 @@ a, a:visited {
 .footer {
     display: flex;
     width: 100%;
-    height: 5%;
+    height: 10%;
     background-color: gray;
     color: white;
     justify-content: center;

@@ -30,8 +30,10 @@ function RegisterPage(props) {
                 form.reset()
 
                 alert('New user successfully created')
+
+                logger.debug('user registered successfully')
     
-                props.onRegisterFormSubmit()
+                props.onRegisterFormSubmit() // esto solo cambia el view
             })
 
         } catch (error) {

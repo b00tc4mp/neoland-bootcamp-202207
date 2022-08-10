@@ -19,14 +19,27 @@ class App extends Component {
 
     handleLoginFormSubmit = () => this.setState({ view: 'home' })
 
+    handleLogoutButtonClick = () => {
+        delete sessionStorage.token
+
+        this.setState({ view: 'login' })
+
+        this.logger.debug('user logged out')
+    }
+
     render() {
         this.logger.info('render')
+
+        // delete sessionStorage.token
+
+        if (sessionStorage.token)
+            return <HomePage onLogoutButtonClick={this.handleLogoutButtonClick}/>
 
         if (this.state.view === 'login')
             return <LoginPage onRegisterLinkClick={this.handleRegisterLinkClick} onLoginFormSubmit={this.handleLoginFormSubmit}/>
         else if (this.state.view === 'register')
             return <RegisterPage onLoginLinkClick={this.handleLoginLinkClick} onRegisterFormSubmit={this.handleRegisterFormSubmit} />
         else if (this.state.view === 'home')
-            return <HomePage />
+            return <HomePage onLogoutButtonClick={this.handleLogoutButtonClick}/>
     }
 }
