@@ -6,15 +6,28 @@ html, body {
     height: 100%;
     margin: 0;
 }
-
-.form {
+#root,.form{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.form {
+    
     background-color: aquamarine;    
     padding: 16px;
     
 }
+.wordShown,.tries,.btn_playAgain,.messageLW{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
 .wordShown{
     letter-spacing: 16px;
+}
+
+.btn_playAgain{
+    background-color: aquamarine;
+    font-size: 2rem;
 }
