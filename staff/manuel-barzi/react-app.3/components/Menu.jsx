@@ -1,9 +1,5 @@
 function Menu(props) {
-    const logger = new Loggito('Menu')
-
     const handleLogoutClick = () => props.onLogoutClick()
-
-    logger.info('render')
 
     return <div className="menu-panel">
         <ul className="menu-panel__list">
