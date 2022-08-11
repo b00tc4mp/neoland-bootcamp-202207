@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto&display=swap');
 
+[contenteditable] {
+    outline: 0px solid transparent;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -126,11 +130,15 @@ a, a:visited {
     cursor: pointer;
 }
 
+main {
+    height: 85%;
+    overflow: auto;
+}
+
 .notas-display {
     display: flex;
     justify-content: center;
     width: 100%;
-    height: 85%;
     padding: 10px;
 }
 
@@ -149,7 +157,6 @@ a, a:visited {
     flex-direction: column; 
     gap: 50px;
     padding: 0;
-    overflow: auto;
 }
 
 .list__item {
@@ -174,22 +181,21 @@ a, a:visited {
 
 .profile {
     display: flex;
+    height: 100%;
     flex-direction: column;
     align-items: center;
-    /* justify-content: center; */
-    gap: 10px;
+    justify-content: space-around;
 }
 
 .footer {
     display: flex;
     width: 100%;
-    height: 10%;
+    height: 5%;
     background-color: gray;
     color: white;
     justify-content: center;
     align-items: center;
     font-size: 30px;
-    cursor: pointer;
 }
 
 .off {

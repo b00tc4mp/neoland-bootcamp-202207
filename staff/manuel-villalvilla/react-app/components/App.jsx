@@ -6,7 +6,7 @@ class App extends Component {
 
         this.logger = logger
 
-        this.state = { view: 'login' }
+        this.state = { view: sessionStorage.token ? 'home' : 'login' }
 
         this.logger.info('constructor')
     }
@@ -22,7 +22,7 @@ class App extends Component {
     handleLogoutButtonClick = () => {
         delete sessionStorage.token
 
-        this.setState({ view: 'login' })
+        this.handleLoginLinkClick() // cambio el state.view a login
 
         this.logger.debug('user logged out')
     }
@@ -32,14 +32,11 @@ class App extends Component {
 
         // delete sessionStorage.token
 
-        if (sessionStorage.token)
-            return <HomePage onLogoutButtonClick={this.handleLogoutButtonClick}/>
-
         if (this.state.view === 'login')
             return <LoginPage onRegisterLinkClick={this.handleRegisterLinkClick} onLoginFormSubmit={this.handleLoginFormSubmit}/>
         else if (this.state.view === 'register')
             return <RegisterPage onLoginLinkClick={this.handleLoginLinkClick} onRegisterFormSubmit={this.handleRegisterFormSubmit} />
         else if (this.state.view === 'home')
-            return <HomePage onLogoutButtonClick={this.handleLogoutButtonClick}/>
+            return <HomePage onLogoutButtonClick={this.handleLogoutButtonClick} />
     }
 }

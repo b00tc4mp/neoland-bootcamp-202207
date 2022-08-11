@@ -27,7 +27,7 @@ function LoginPage(props) {
                 }
     
                 form.reset()
-    
+                
                 sessionStorage.token = token
 
                 logger.debug('user logged in successfully')

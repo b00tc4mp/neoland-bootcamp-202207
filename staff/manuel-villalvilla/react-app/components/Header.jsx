@@ -8,9 +8,21 @@ class Header extends Component {
         
     }
 
-    onMenuButtonClick = event => {
-        event.target.classList.toggle('rotate')
-        this.setState({ menuShow: true })
+    onMenuButtonClick = () => {
+        if (this.state.menuShow)
+            this.setState({ menuShow: false })
+        else
+            this.setState({ menuShow: true })
+    }
+
+    onSettingsButtonClick = () => {
+        this.onMenuButtonClick()
+        this.props.onSettingsButtonClick()
+    }
+
+    onNotesButtonClick = () => {
+        this.onMenuButtonClick()
+        this.props.onNotesButtonClick()
     }
 
     render() {
@@ -26,13 +38,13 @@ class Header extends Component {
                 </button>
             </div>
             <div className="saludo">Hola {this.props.name}!</div>
-            <div className="menu" onClick={this.onMenuButtonClick}>
+            <div className={this.state.menuShow ? "menu rotate" : "menu"} onClick={this.onMenuButtonClick}>
                 <div className="menu-icon" />
                 <div className="menu-icon" />
                 <div className="menu-icon" />
             </div>
         </div>
-        <Menu show={this.state.menuShow}/>
+        <Menu show={this.state.menuShow} onSettingsButtonClick={this.onSettingsButtonClick} onNotesButtonClick={this.onNotesButtonClick}/>
         </>
         
     }
