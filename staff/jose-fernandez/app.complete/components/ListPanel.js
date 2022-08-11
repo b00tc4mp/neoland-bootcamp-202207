@@ -3,19 +3,19 @@ class ListPanel extends Component{
         super(`<ul class="list-panel list ">
         <li class="list__item">
             <button href="#" class="btn__delete">X</button>
-            <p  class="list__item-text">Hello, Note!</p>
+            <p contenteditable="true" class="list__item-text">Hello, Note!</p>
 
         </li>
 
         <li class="list__item"><button href="#" class="btn__delete">X</button>
-            <p  class="list__item-text">Lorem ipsum dolor sit amet consectetur adipisicing
+            <p contenteditable="true"  class="list__item-text">Lorem ipsum dolor sit amet consectetur adipisicing
                 elit. Dolores ab sunt tempora
                 esse eaque, maiores similique ipsam deserunt eius soluta adipisci blanditiis nobis fugiat aut
                 nesciunt rerum porro delectus distinctio?</p>
 
         </li>
         <li class="list__item"><button href="#" class="btn__delete">X</button>
-            <p  class="list__item-text">Lorem ipsum dolor sit amet consectetur adipisicing
+            <p contenteditable="true"  class="list__item-text">Lorem ipsum dolor sit amet consectetur adipisicing
                 elit. Dolores ab sunt tempora
                 esse eaque, maiores similique ipsam deserunt eius soluta adipisci blanditiis nobis fugiat aut
                 nesciunt rerum porro delectus distinctio?</p>
@@ -40,17 +40,18 @@ class ListPanel extends Component{
             }
 
             // const text = document.createElement('p')
-            const text = document.createElement('textarea')
+            const text = document.createElement('p')
+            text.contentEditable = true
             text.classList.add('list__item-text')
             text.onkeyup = () => {
                 if (window.updateNoteTimeoutId)
                     clearTimeout(window.updateNoteTimeoutId)
 
                 window.updateNoteTimeoutId = setTimeout(() => {
-                    this.onUpdateNote(note.id, text.value)
+                    this.onUpdateNote(note.id, text.innerText)
                 }, 500)
             }
-            text.value = note.text
+            text.innerText = note.text
             item.append(deleteButton, text)
             this.container.append(item)
 

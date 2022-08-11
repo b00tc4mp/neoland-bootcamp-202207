@@ -85,8 +85,8 @@ class HomePage extends Component {
         </button>
 
         <li class="list__itemNew">
-            <textarea class="list__item-textNew" id="newNote" name="newItemNote"
-                placeholder="New Note!!"></textarea>
+            <p  contenteditable="true" class="list__item-textNew"  id="newNote" name="newItemNote"
+                placeholder="New Note!!"></p>
         </li>
 
     </form>`)
@@ -101,52 +101,19 @@ class HomePage extends Component {
     renderList(notes) {
         this.listPanel.renderList(notes)
     }
-    // renderList(notes) {
-    //     const list = this.container.querySelector('.list')
-    //     list.innerHTML = ""
-
-    //     notes.forEach(note => {
-    //         const item = document.createElement('li')
-    //         item.classList.add('list__item')
-
-    //         const deleteButton = document.createElement('button')
-    //         deleteButton.classList.add('btn__delete')
-    //         deleteButton.innerText = 'x'
-    //         deleteButton.onclick = () => {
-    //             this.onDeleteNoteClick(note.id)
-    //         }
-
-    //         // const text = document.createElement('p')
-    //         const text = document.createElement('textarea')
-    //         text.classList.add('list__item-text')
-    //         text.onkeyup = () => {
-    //             if (window.updateNoteTimeoutId)
-    //                 clearTimeout(window.updateNoteTimeoutId)
-
-    //             window.updateNoteTimeoutId = setTimeout(() => {
-    //                 this.onUpdateNote(note.id, text.value)
-    //             }, 500)
-    //         }
-    //         text.value = note.text
-    //         item.append(deleteButton, text)
-    //         list.append(item)
-
-    //     })
-    // }
-
-
+    
 
     onFormCreateNote = (callback) => {
         this.formCreateNote.onsubmit = event => {
             event.preventDefault()
-            let textarea = this.formCreateNote.newItemNote
+            let p = this.formCreateNote.querySelector('p')
 
-            if (textarea.value === "") alert('nothing')
+            if (p.innerText === "") alert('nothing')
 
             else {
-                callback(textarea.value)
+                callback(p.innerText)
 
-                textarea.value = ""
+                p.innerText = ""
 
                 // this.reset()
             }

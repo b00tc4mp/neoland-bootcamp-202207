@@ -369,8 +369,9 @@ body {
 
 .list__item-text{
     display: flex;
+    flex-direction: column;
     width: calc(100%-1rem);
-    height: 100%;    
+    height: auto;    
     color: black;
     resize: none;
     border:none;
@@ -379,7 +380,9 @@ body {
     background-color: transparent;
     border-color: transparent;
     font-size: 1rem;
+    
     overflow: scroll;
+    /* text-overflow: ellipsis; */
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
@@ -421,7 +424,7 @@ body {
 .list__itemNew{
     display: flex;
     width: 90%;
-    height: 90%;
+    max-height: 68%;
     color: black;
     background-color: rgb(158, 168, 112);
     resize: none;
@@ -435,18 +438,15 @@ body {
 
 .list__item-textNew {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
     background-color: transparent;
     color: black;
-    border: none;
+    resize: none;
+    border:none;
     outline: none;
-    width: 100%;
-    max-height: 95%;
+    width: calc(100%-1rem);
+    height: auto;
     font-size: 1rem;
-    /* background-color: aqua; */
-    /* flex-direction: row;
-    flex-wrap: wrap; */
     padding: 0;
     margin: 3% 4% 3% 4%;
     
