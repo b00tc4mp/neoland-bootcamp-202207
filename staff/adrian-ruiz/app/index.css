@@ -1,0 +1,488 @@
+@import url('https://fonts.googleapis.com/css2?family=Nuosu+SIL&family=Open+Sans:wght@300&family=Oswald:wght@200;300;400;600&display=swap');
+*{
+    box-sizing: border-box;
+    font-family: 'Oswald', sans-serif;
+}
+
+body, html, .page{
+    margin: 0px;
+    height: 100%;
+    font-size: 62.5%;   /* Formateo el size para que 1 rem = 10 px*/
+    overflow: hidden; /* Para eliminar scroll*/
+}
+.page{
+    display: flex;
+    flex-direction: column;
+}
+body{
+    width: 100%;
+}
+.mainBackground{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-image: url('assets/main-background.jpg');
+    background-size: cover;
+    background-attachment:fixed;
+}
+
+.headerContainer{
+    display: flex;
+    align-items: center;
+    height: 40%;
+}
+
+.header{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.headerImage{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+#companyLogo{
+    width: 200px;
+    height: auto;
+}
+
+.formContainer{
+    height: auto;
+    min-height: 65%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    background-color:white ;
+    border-radius: 35px 35px 0px 0px;
+}
+
+
+.formDiv{
+    height: 100%;
+   /*  min-height: 300px; */
+    width: 80%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+form {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+input{
+    width: 100%;
+    height: 10%;
+    min-height: 20px;
+    margin-bottom: 20px;
+    font-size: 2.2rem;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 1px solid #3d0b60;
+    caret-color:#9203ff ; 
+    color: #531a7c;
+    background-color: transparent;
+}
+
+
+input::selection{
+   background-color: #592380;
+   color: white;
+}
+
+input:focus{
+    outline: none;
+}
+
+ input:-webkit-autofill {
+    background-clip: text;
+    -webkit-background-clip:text;
+    -webkit-text-fill-color: #934dc5;
+}
+
+
+.labelForm{
+    width: 100%;
+    font-size: 2rem;
+    margin:0;
+    color: #592380;
+    font-weight: bold;
+}
+button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    margin-top: 30px;
+    height: 30px;
+    height: 10%;
+    min-height: 30px;
+    font-size: 18px;
+}
+
+.submitButton{
+    border-radius: 35px;
+    background-color: #592380;
+    box-shadow: 0px 8px 30px lightblue;
+    border: 1px solid #592380;
+}
+
+.buttonText{
+    color: white;
+    font-size: 2rem;
+}
+
+a:visited{
+    color:black;
+}
+
+ .anchorContainer{
+    margin-top: 20px;
+} 
+
+.anchor{
+    text-decoration: none;
+    margin-top: 20px;
+    font-size: 2rem;
+}
+
+.passDiv{
+    width: 100%;
+    height: auto;
+    background-color: rgb(250, 39, 39);
+    color: white;
+}
+
+.passDiv > h3{
+    font-size: 1.8rem;
+    border-bottom: 5px solid white;
+    margin-top: 2px;
+    padding-bottom: 10px;
+}
+
+.passDiv > p{
+    font-size: 1.5rem;
+    line-height: 10%;
+}
+
+/* HOME */
+header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 10%;
+    min-height: 60px;
+    background-color: #531a7c;
+}
+header h1{
+    width: 90%;
+    text-align: center;
+    color: white;
+    font-size: 28px;
+    font-weight: 400;
+}
+.menuContainer{
+    padding-right: 5px;
+    width: 10%;
+    position: relative;
+    display: inline-block;
+}
+
+.menuIcon, .menuIcon1, .menuIcon2{
+    width: 35px;
+    height: 5px;
+    background-color: white;
+    margin-top: 6px;
+    transition: 0.4s;
+}
+
+.change .menuIcon{
+    -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+  transform: rotate(-45deg) translate(-9px, 6px);
+}
+
+.change .menuIcon1{
+    opacity: 0;
+}
+
+.change .menuIcon2{
+    -webkit-transform: rotate(45deg) translate(-8px, -8px);
+  transform: rotate(45deg) translate(-8px, -8px);
+}
+
+.dropdownMenu{
+    position: absolute;
+    display: none;
+    width: 100%;
+    min-width: 70px;
+    height: 100px;
+    right: 0px;
+}
+
+.dropdownMenu a{
+    text-decoration: none;
+    color: white;
+}
+.displayBlock{
+    display:block;
+}
+
+.dropdownMenu > ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    padding:0px;
+    margin: 0;
+    list-style: none;
+    background-color: #531a7c;
+}
+
+.dropdownMenu > ul > li{
+    text-align: right;
+    font-size: 1.6rem;
+    margin-top: 2.5px;
+    margin-bottom: 2.5px;
+    padding-right: 10px;
+    color: white;
+}
+.homeMainContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 84%;
+}
+
+.notesList{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 80%;
+    list-style: none;
+  /*   gap: 50px; */
+    overflow-y: scroll;
+    margin:0;
+    padding: 10px 0px;
+    scrollbar-width: none;
+}
+
+.notesList::-webkit-scrollbar{
+    display: none;
+}
+.note{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 2rem;
+    margin-bottom: 50px;
+    height: auto;
+    width: 80%;
+    background-color:#7d19c4;
+    color: white;
+    box-shadow: 0px 3px 10px rgb(0, 0, 0);
+}
+
+/* li:first-child{
+    margin-bottom: 0px;
+} */
+
+.noteTitle{
+    text-align: center;
+    font-size: 2.4rem;
+    max-width: 80%;
+    border-bottom: 3px solid white;
+    padding: 0px 10px 0px 10px;
+}
+
+[contenteditable]{
+    outline: 0px solid transparent;
+}
+
+.noteText{
+    outline: none;
+    text-align: justify;
+    font-weight: 200;
+    min-height: 160px;
+    max-width: 100%;
+    padding: 20px 10px 20px 10px;
+}
+
+.deleteNoteButton{
+    width: auto;
+    height: auto;
+    position: sticky;
+    align-self: flex-end;
+    margin-right: 10px;
+
+}
+
+.changeNoteColorContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    height:34px;
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.changeNoteBlue, .changeNoteRed, .changeNoteGreen, .changeNoteOrange, .changeNotePurple, .changeNoteGrey{
+    height: 100%;
+    width: 14%;
+    border: 1px solid black;
+    box-shadow: 0px 0px 2px rgb(0, 0, 0);
+
+}
+
+.changeNoteBlue{
+    background-color: blue;
+}
+
+.changeNoteRed{
+    background-color: red;
+}
+
+.changeNoteGreen{
+    background-color: green;
+}
+.changeNoteOrange{
+    background-color: orange;
+}
+.changeNotePurple{
+    background-color: #7d19c4;
+}
+.changeNoteGrey{
+    background-color: grey;
+}
+.bottomMenu{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* position: absolute; */
+    /* bottom: 0px; */
+    height: 6%;
+    min-height: 60px;
+    width: 100%;
+    background-color: #531a7c;
+}
+.newNoteButton{
+    font-size: 2.6rem;
+    padding: 0px;
+    margin: 0px;
+    height: 40px;
+    width: 40px;
+    border: none;
+    background-color: transparent;
+    border-radius: 100px;
+}
+
+
+.containerPopUp{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(119,136,153,0.9);
+    z-index: 1;
+}
+.newNotePopUp{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    height: 50%;
+}
+
+.newNoteForm{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 100%;
+    background: whitesmoke;
+}
+
+.newNoteLabel{
+    font-size: 2.4rem;
+    font-weight: bold;
+    color:#531a7c;
+}
+
+.newNoteInput{
+    width: 100%;
+    border-bottom: 1px solid #3d0b60;
+    font-size: 1.8rem;
+    color: #531a7c;
+}
+
+.newNoteInput__title{
+    height: 10%;
+}
+
+.newNoteInput__text{
+    height: 25%;
+    overflow:scroll;
+}
+
+.newNoteLabel, .newNoteInput{
+    width: 90%;
+}
+
+.newNoteButtonsContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 90%;
+}
+
+.newNoteFormButton, .profileFormButton{
+    width: 40%;
+    background-color: #592380;
+    box-shadow: 0px 8px 30px rgb(0, 0, 0);
+    border: 1px solid #592380;
+    color:white;
+}
+
+/* HOME -> PROFILE" */
+
+.homeIcon{
+    color: white;
+    padding-left: 5%;
+}
+.profileMenuContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+}
+
+.profileInput{
+    height: 20%;
+}
+.off{
+    display: none;
+}
