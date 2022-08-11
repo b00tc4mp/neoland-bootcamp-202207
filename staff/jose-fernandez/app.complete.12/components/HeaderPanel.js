@@ -7,7 +7,7 @@ class HeaderPanel extends Component {
             </div>
             <h1 class="messageTitle">Hello Pepito!!</h1>
 
-            <div class="btn-menClo">
+            <div class="btn-menClo btn-menu">
                 
                 
             </div>
@@ -17,10 +17,10 @@ class HeaderPanel extends Component {
         const headerTop = this.container.querySelector('.cont__header')
         this.btnMenClo= headerTop.querySelector('.btn-menClo')
 
-        const menuButton = new IconButtonHeader('menu','')
+        const menuButton = new IconButtonHeader('menu')
         this.btnMenClo.append(menuButton.container)
 
-        const closeButton = new IconButtonHeader('close','')
+        const closeButton = new IconButtonHeader('close')
         this.closeButton = closeButton
 
         const menuPanel = new MenuPanel

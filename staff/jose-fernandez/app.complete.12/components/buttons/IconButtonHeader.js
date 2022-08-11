@@ -1,6 +1,6 @@
-class IconButton extends Component{
+class IconButtonHeader extends Component{
     constructor(text){
-        super(`<span class="material-symbols-outlined   ">${text}</span>`)
+        super(`<span class="material-symbols-outlined">${text} </span>`)
 
         this.container.onclick = () => this.onClick()
     }

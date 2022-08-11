@@ -2,25 +2,25 @@ class MenuPanel extends Component {
     constructor() {
         super(`<nav class="menu-panel nav-home" id="nav-home">
         <ul class="menu-panel__list menu-home">
-            <li class="menu-item item_settings"></li>
-            <li class="menu-item item_design"></li>
-            <li class="menu-item item_language"></li>
-            <li class="menu-item item_logout"></li>
+            <li class="menu-item item_settings"><a class="menu__link ">Settings</a></li>
+            <li class="menu-item item_design"><a class="menu__link ">Design</a> </li>
+            <li class="menu-item item_language"><a class="menu__link "> Language</a> </li>
+            <li class="menu-item item_logout"><a class="menu__link ">Logout</a> </li>
         </ul>
     </nav>`)
 
     //solo acepta click al icono y no al texto, poner class menu__link en iconButton y las clases items_ mover al li
 
-        const settingsButton = new IconButtonMenuPanel('settings','Settings')
+        const settingsButton = new IconButtonHeader('settings')
         settingsButton.onClick = () => this.onSettingsButtonClick()
 
-        const designButton = new IconButtonMenuPanel('brush','Design')
+        const designButton = new IconButtonHeader('brush')
         designButton.onClick = () => this.onSettingsButtonClick()
 
-        const languageButton = new IconButtonMenuPanel('language','Language')
+        const languageButton = new IconButtonHeader('language')
         languageButton.onClick = () => this.onSettingsButtonClick()
 
-        const logoutButton = new IconButtonMenuPanel('logout','Logout')
+        const logoutButton = new IconButtonHeader('logout')
         logoutButton.onClick = () => this.onLogoutButtonClick()
 
         this.menuPanelList = this.container.querySelector('.menu-panel__list')
