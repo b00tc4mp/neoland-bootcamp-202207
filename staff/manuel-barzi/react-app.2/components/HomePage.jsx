@@ -31,19 +31,6 @@ class HomePage extends Component {
     render() {
         this.logger.info('render')
 
-        return this.state.name ?
-            <div className="home-page container container--full container--distributed">
-                <Header name={this.state.name} onLogoutClick={this.props.onLogoutClick}/>
-
-                <main className="main">
-
-                </main>
-
-                <footer className="footer">
-                    <button className="add-button transparent-button">+</button>
-                </footer>
-            </div>
-            :
-            null
+        return <h1>Hello, {this.state.name}!</h1>
     }
 }
