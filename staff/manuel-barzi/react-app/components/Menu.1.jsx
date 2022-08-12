@@ -1,17 +1,15 @@
-// function Menu(props) {
-//     const { view, onLogoutClick, onSettingsClick } = props
-function Menu({ view, onLogoutClick, onSettingsClick }) {
+function Menu(props) {
     const logger = new Loggito('Menu')
 
-    const handleLogoutClick = () => onLogoutClick()
+    const handleLogoutClick = () => props.onLogoutClick()
 
-    const handleSettingsClick = () => onSettingsClick()
+    const handleSettingsClick = () => props.onSettingsClick()
 
     logger.info('render')
 
     return <div className="menu-panel">
         <ul className="menu-panel__list">
-            {view !== 'settings' && <li className="menu-panel__list-item-settings">
+            {props.view !== 'settings' && <li className="menu-panel__list-item-settings">
                 <IconButton text="settings" onClick={handleSettingsClick} />
             </li>}
             <li className="menu-panel__list-item-logout">
