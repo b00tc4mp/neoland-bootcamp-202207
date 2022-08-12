@@ -6,9 +6,14 @@ function Settings (props) {
     const onPasswordFormSubmit = event => {
         event.preventDefault()
 
-        const currentPass = event.target.currentPassword.value
-        const newPass = event.target.newPassword.value
-        const repeatPass = event.target.repeatPassword.value
+        const { 
+            target: form, 
+            target: {
+            currentPassword: { value: currentPass },
+            newPassword: { value: newPass }, 
+            repeatPassword: { value: repeatPass }
+            }
+        } = event
 
         try {
             updateUserPassword(sessionStorage.token, currentPass, newPass, repeatPass, error => {
@@ -17,7 +22,8 @@ function Settings (props) {
                     logger.error(error.message)
                     return
                 }
-                event.target.reset()
+                
+                form.reset()
                 logger.debug('user changed pass successfully')
                 alert('password changed successfully')
     

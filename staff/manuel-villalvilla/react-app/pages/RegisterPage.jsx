@@ -12,10 +12,15 @@ function RegisterPage({onLoginLinkClick, onRegisterFormSubmit}) {
     const handleRegisterFormSubmit = event => {
         event.preventDefault()
 
-        const form = event.target
-        const name = event.target.name.value
-        const email = event.target.email.value
-        const password = event.target.password.value
+        const {
+            target: form, 
+            target: { 
+                name: { value: name },
+                email: { value: email },
+                password: { value: password }
+            }
+        } = event
+        
 
         try {
             registerUser(name, email, password, function (error) {
@@ -26,14 +31,14 @@ function RegisterPage({onLoginLinkClick, onRegisterFormSubmit}) {
 
                     return
                 }
-    
+                
                 form.reset()
 
                 alert('New user successfully created')
 
                 logger.debug('user registered successfully')
     
-                props.onRegisterFormSubmit() // esto solo cambia el view
+                onRegisterFormSubmit() // esto solo cambia el view
             })
 
         } catch (error) {
