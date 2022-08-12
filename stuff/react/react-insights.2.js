@@ -9,11 +9,11 @@ class Component {
         setTimeout(() => {
             for (const key in state) {
                 const value = state[key]
-
+                
                 this.state[key] = value
             }
         }, Math.random())
-
+        
         setTimeout(() => this.render(), Math.random())
     }
 
@@ -25,8 +25,8 @@ class Component {
 }
 
 class App extends Component {
-    constructor(props) {
-        super(props)
+    constructor() {
+        super()
 
         this.state = { name: null, surname: 'Pan', age: null }
     }
@@ -50,71 +50,51 @@ class App extends Component {
 
     render() {
         console.log(`<main>
-    <h1>${this.props.name}</h1>
-    <h2>Hello, ${this.state.name} ${this.state.surname}! you are ${this.state.age} yo</h2>
+    <h1>Hello, ${this.state.name} ${this.state.surname}! you are ${this.state.age} yo</h1>
     <button onClick={this.handleClick}>click me</button>
 </main>`)
     }
 }
 
-// <App name="My App" />
-
-//const app = new App({ name: 'My App' })
+// <App />
 
 const app = new App
-app.props = { name: 'My App' }
 
 app.render()
 app.componentDidMount()
-// VM201:52 <main>
-//     <h1>My App</h1>
-//     <h2>Hello, null Pan! you are null yo</h2>
+
+// VM6497:52 <main>
+//     <h1>Hello, null Pan! you are null yo</h1>
 //     <button onClick={this.handleClick}>click me</button>
 // </main>
-// VM201:44 call API and get user session data
+// VM6497:44 call API and get user session data
 // undefined
 
 app.handleClick()
-// VM201:40 {name: null, surname: 'Pan', age: null}
+// VM6497:40 {name: null, surname: 'Pan', age: null}
 // undefined
-// VM201:52 <main>
-//     <h1>My App</h1>
-//     <h2>Hello, Peter-7 Pan! you are 99 yo</h2>
-//     <button onClick={this.handleClick}>click me</button>
-// </main>
-
-app.handleClick()
-// VM201:40 {name: 'Peter-7', surname: 'Pan', age: 99}
-// undefined
-// VM201:52 <main>
-//     <h1>My App</h1>
-//     <h2>Hello, Peter-6 Pan! you are 40 yo</h2>
+// VM6497:52 <main>
+//     <h1>Hello, Peter-8 Pan! you are 23 yo</h1>
 //     <button onClick={this.handleClick}>click me</button>
 // </main>
 
 app.handleClick()
-// VM201:40 {name: 'Peter-6', surname: 'Pan', age: 40}
+// VM6497:40 {name: 'Peter-8', surname: 'Pan', age: 23}
 // undefined
-// VM201:52 <main>
-//     <h1>My App</h1>
-//     <h2>Hello, Peter-6 Pan! you are 67 yo</h2>
+// VM6497:52 <main>
+//     <h1>Hello, Peter-6 Pan! you are 99 yo</h1>
 //     <button onClick={this.handleClick}>click me</button>
 // </main>
 
 app.handleClick()
-// VM201:40 {name: 'Peter-6', surname: 'Pan', age: 67}
+// VM6497:40 {name: 'Peter-6', surname: 'Pan', age: 99}
 // undefined
-// VM201:52 <main>
-//     <h1>My App</h1>
-//     <h2>Hello, Peter-8 Pan! you are 57 yo</h2>
+// VM6497:52 <main>
+//     <h1>Hello, Peter-9 Pan! you are 93 yo</h1>
 //     <button onClick={this.handleClick}>click me</button>
 // </main>
 
-app.handleClick()
-// VM201:40 {name: 'Peter-8', surname: 'Pan', age: 57}
+// // when dismounting from DOM
+app.componentDidUnmount()
+// VM6497:48 call API and remove session data
 // undefined
-// VM201:52 <main>
-//     <h1>My App</h1>
-//     <h2>Hello, Peter-1 Pan! you are 68 yo</h2>
-//     <button onClick={this.handleClick}>click me</button>
-// </main>
