@@ -49,9 +49,9 @@ class HomePage extends Component{
         this.setState({view:'newNote'})
     }
 
-    handleArrowLeftClick=(newText)=>{
+    handleArrLeftClick=()=>{
         try {
-            createNote(sessionStorage.token, newText, error => {
+            createNote(sessionStorage.token, textFromTextarea, error => {
                 if (error) {
                     alert(error.message)
                     
@@ -59,7 +59,7 @@ class HomePage extends Component{
                 }
                 // renderHome()
                 this.loadNotes()
-                // this.setState({ view: null })
+                this.setState({ view: null })
             })
     
         } catch (error) {
@@ -107,12 +107,8 @@ class HomePage extends Component{
         <div className="container home_page ">
         <Header name={this.state.name} onLogoutClick={this.props.onLogoutClick}/>
 
-
-
-        <main className="main_home">     
-        
-        {this.state.view ==='newNote' ? <NewNoteForm onArrowLeft={this.handleArrowLeftClick}/> :  
-        <NoteList notes={this.state.notes} onUpdateNote={this.handleUpdateNote} onDeleteNote={this.handleDeleteNote}/>}
+        <main className="main_home">            
+        <NoteList notes={this.state.notes} onUpdateNote={this.handleUpdateNote} onDeleteNote={this.handleDeleteNote}/>
         </main>
 
         <footer className="footer_home">

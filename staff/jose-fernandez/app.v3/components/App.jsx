@@ -2,7 +2,7 @@ class App extends Component {
     constructor() {
         super()
 
-        this.state = { view: sessionStorage.token ? 'home' : 'login' }
+        this.state = { view: 'login' }
 
     }
 
@@ -12,12 +12,6 @@ class App extends Component {
 
     handleNavigationToHome = () => this.setState({ view: 'home' })
 
-    handleLogoutClick = () => {
-        delete sessionStorage.token
-
-        this.handleNavigationToLogin()
-    }
-
     render() {
         this.logger.info('render')
 
@@ -26,7 +20,7 @@ class App extends Component {
         else if (this.state.view === 'register')
             return <RegisterPage onLinkClick={this.handleNavigationToLogin} onSingUp={this.handleNavigationToLogin} />
         else if (this.state.view === 'home')
-            return <HomePage onLogoutClick={this.handleLogoutClick} />
+            return <HomePage />
     }
 
 

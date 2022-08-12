@@ -355,7 +355,7 @@ body {
     margin-left: 4%;;
     margin-right: 1%; 
     margin-bottom: 0%;
-    resize: none;
+    
 
     /* overflow: scroll; */
 }
@@ -364,15 +364,10 @@ body {
     display: none;
 }
 
-/* arreglar width de p content editable de list__item-text and new */
 .list__item-text{
     display: flex;
-    flex-direction: column;
     width: calc(100%-1rem);
-    /* width: 254px; */
-    /* word-wrap: break-word;
-    white-space: wrap; */
-    height: auto;    
+    height: 100%;    
     color: black;
     resize: none;
     border:none;
@@ -381,9 +376,7 @@ body {
     background-color: transparent;
     border-color: transparent;
     font-size: 1rem;
-    margin: 0;
     overflow: scroll;
-    text-overflow: ellipsis;
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
@@ -439,21 +432,22 @@ body {
 
 .list__item-textNew {
     display: flex;
-    flex-direction: column;
-    width: 254px;
-    word-wrap: break-word;
-    height: auto;    
-    color: black;
-    resize: none;
-    border:none;
-    outline: none;
-    padding: 0 0 1rem 0.3rem;
+    justify-content: center;
+    align-items: center;
     background-color: transparent;
-    border-color: transparent;
+    color: black;
+    border: none;
+    outline: none;
+    width: 100%;
+    max-height: 95%;
     font-size: 1rem;
-    margin: 0;
+    /* background-color: aqua; */
+    /* flex-direction: row;
+    flex-wrap: wrap; */
+    padding: 0;
+    margin: 3% 4% 3% 4%;
+    
     overflow: scroll;
-    text-overflow: ellipsis;
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
