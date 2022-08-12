@@ -13,10 +13,11 @@ class RegisterPage extends Component {
     handleFormSubmit = event => {
         event.preventDefault()
 
-        const form = event.target
-        const name = form.name.value
-        const email = form.email.value
-        const password = form.password.value
+        const {target: form, target:{
+            name: {value:name},
+            email: {value:email},
+            password: {value:password}
+        }} = event
 
         try {
             registerUser(name, email, password, (error) => {

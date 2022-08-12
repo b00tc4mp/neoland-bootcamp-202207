@@ -1,6 +1,6 @@
 class Component extends React.Component{
-    constructor(props){
-        super(props)
+    constructor(){
+        super()
 
         this.logger = new Loggito(this.constructor.name)
 

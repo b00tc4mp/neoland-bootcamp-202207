@@ -5,19 +5,23 @@ class ProfileMenu extends Component {
 
     handleUpdatePassSubmit = (event) => {
         event.preventDefault()
-        const oldPass = event.target.oldPassword.value
-        const newPass = event.target.newPassword.value
-        const confirmNewPass = event.target.confirmNewPassword.value
+
+        const {target: form, target:{
+            oldPassword: {value:oldPassword},
+            newPassword: {value:newPassword},
+            confirmNewPassword: {value:confirmNewPassword}
+        }} = event
+        
         let result = confirm('Are you sure to change password?')
         if (result) {
             try {
-                updateUserPassword(sessionStorage.UserToken, oldPass, newPass, confirmNewPass, (error) => {
+                updateUserPassword(sessionStorage.UserToken, oldPassword, newPassword, confirmNewPassword, (error) => {
                     if (error) {
                         alert(error.message)
                         this.logger.warn(error.message)
                     } else {
                         alert('Password updated succesfully')
-                        event.target.reset()
+                        form.reset()
                     }
                 })
             } catch (error) {
@@ -29,7 +33,10 @@ class ProfileMenu extends Component {
 
     handleUpdateEmailSubmit = (event) => {
         event.preventDefault()
-        const newEmail = event.target.newEmail.value
+        const {target: form, target:{
+            newEmail: {value:newEmail}
+        }} = event
+
         let result = confirm('Are you sure to update Email?')
         if (result) {
             try {
@@ -39,7 +46,7 @@ class ProfileMenu extends Component {
                         this.logger.warn(error.message)
                     } else {
                         alert('Email updated succesfully')
-                        event.target.reset()
+                        form.reset()
                     }
                 })
             } catch (error) {

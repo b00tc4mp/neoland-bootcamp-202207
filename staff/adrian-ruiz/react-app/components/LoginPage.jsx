@@ -13,10 +13,10 @@ class LoginPage extends Component {
         
         event.preventDefault()
         
-        const form = event.target
-
-        const email = form.email.value
-        const password = form.password.value
+        const {target: form, target:{
+            email: {value:email},
+            password: {value:password}
+        }} = event
 
         try{
             authenticateUser(email, password, (error, token)=>{
