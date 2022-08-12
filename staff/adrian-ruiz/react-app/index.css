@@ -306,9 +306,10 @@ header h1{
 
 .noteTitle{
     text-align: center;
-    font-size: 2.4rem;
+    font-size: 2.6rem;
     max-width: 80%;
     border-bottom: 3px solid white;
+    margin: 0px;
     padding: 0px 10px 0px 10px;
 }
 
@@ -326,11 +327,15 @@ header h1{
 }
 
 .deleteNoteButton{
+    color: white;
+    background-color: transparent;
+    border: none;
     width: auto;
     height: auto;
     position: sticky;
     align-self: flex-end;
-    margin-right: 10px;
+    margin: 0px;
+    margin-right: 8px;
 
 }
 

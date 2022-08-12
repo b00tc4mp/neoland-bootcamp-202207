@@ -12,11 +12,11 @@ function changeNoteColor(token, userNotes, noteId, color, callback){
         else if (status === 204)
             callback(null)
     }
+    
     note = userNotes.find(note => note.id === noteId)
     note.color = color
 
-    const reverseNotes = userNotes.reverse()
-    const newData = JSON.stringify({notes: reverseNotes})
+    const newData = JSON.stringify({notes: userNotes})
 
     xhr.open('PATCH','https://b00tc4mp.herokuapp.com/api/v2/users')
 

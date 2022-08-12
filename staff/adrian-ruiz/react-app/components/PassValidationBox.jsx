@@ -5,7 +5,7 @@ class PassValidationBox extends Component {
     }
 
     render() {
-        if (!this.props.conditions.matchAll) {
+        if (this.props.conditions.matchAll === false) {
             return (
                 <div className="passDiv"><h3>La contraseña no cumple los requisitos</h3>
                     {!this.props.conditions.matchLowerCase && 
