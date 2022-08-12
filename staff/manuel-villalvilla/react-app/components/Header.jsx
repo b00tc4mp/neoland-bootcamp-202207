@@ -1,6 +1,6 @@
 class Header extends Component {
     constructor(props) {
-        super(props)
+        super()
 
         this.logger.info('constructor')
 
@@ -26,25 +26,38 @@ class Header extends Component {
     }
 
     render() {
-        this.logger.info('render')
+        const { 
+            props: { 
+                name, 
+                onLogoutButtonClick 
+            }, 
+            onMenuButtonClick, 
+            onSettingsButtonClick, 
+            onNotesButtonClick,
+            state: { menuShow },
+            logger
+        } = this
+
+        logger.info('render')
 
         return <>
         <div className="menu-header">
             <div className="div-logout">
-                <button className="logout-button" onClick={this.props.onLogoutButtonClick}>
+                <button className="logout-button" onClick={onLogoutButtonClick}>
                 <span className="material-symbols-outlined">
                     logout
                 </span>
                 </button>
             </div>
-            <div className="saludo">Hola {this.props.name}!</div>
-            <div className={this.state.menuShow ? "menu rotate" : "menu"} onClick={this.onMenuButtonClick}>
+            <div className="saludo">Hola {name}!</div>
+            <div className={menuShow ? "menu rotate" : "menu"} onClick={onMenuButtonClick}>
                 <div className="menu-icon" />
                 <div className="menu-icon" />
                 <div className="menu-icon" />
             </div>
         </div>
-        <Menu show={this.state.menuShow} onSettingsButtonClick={this.onSettingsButtonClick} onNotesButtonClick={this.onNotesButtonClick}/>
+        
+        <Menu show={menuShow} onSettingsButtonClick={onSettingsButtonClick} onNotesButtonClick={onNotesButtonClick}/>
         </>
         
     }

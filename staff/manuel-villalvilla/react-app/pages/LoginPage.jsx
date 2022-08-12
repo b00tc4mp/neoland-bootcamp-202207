@@ -1,4 +1,4 @@
-function LoginPage(props) {
+function LoginPage({onRegisterLinkClick, onLoginFormSubmit}) {
     const logger = new Logger(LoginPage.name)
 
     logger.info('constructor')
@@ -6,7 +6,7 @@ function LoginPage(props) {
     const handleLinkClick = event => {
         event.preventDefault()
 
-        props.onRegisterLinkClick()
+        onRegisterLinkClick()
     }
 
     const handleLoginFormSubmit = event => {
@@ -32,7 +32,7 @@ function LoginPage(props) {
 
                 logger.debug('user logged in successfully')
     
-                props.onLoginFormSubmit() // esto solo cambia el view
+                onLoginFormSubmit() // esto solo cambia el view
             })
         } catch (error) {
             alert(error.message)

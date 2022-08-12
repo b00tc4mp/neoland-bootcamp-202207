@@ -1,4 +1,4 @@
-function RegisterPage(props) {
+function RegisterPage({onLoginLinkClick, onRegisterFormSubmit}) {
     const logger = new Logger(RegisterPage.name)
 
     logger.info('constructor')
@@ -6,7 +6,7 @@ function RegisterPage(props) {
     const handleLinkClick = event => {
         event.preventDefault()
 
-        props.onLoginLinkClick()
+        onLoginLinkClick()
     }
 
     const handleRegisterFormSubmit = event => {
@@ -42,7 +42,7 @@ function RegisterPage(props) {
             logger.warn(error.message)
         }
 
-        props.onRegisterFormSubmit()
+        onRegisterFormSubmit()
     }
 
     logger.info('render')
