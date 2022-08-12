@@ -13,8 +13,8 @@ html, body{
 .board{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    width: 50%;
-    height: 50%;
+    width: 50vw;
+    height: 50vw;
     gap: 5px;
 }
 
