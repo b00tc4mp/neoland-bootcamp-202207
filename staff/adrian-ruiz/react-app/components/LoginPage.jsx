@@ -12,7 +12,7 @@ class LoginPage extends Component {
     handleFormSubmit = event => {
         
         event.preventDefault()
-
+        
         const form = event.target
 
         const email = form.email.value

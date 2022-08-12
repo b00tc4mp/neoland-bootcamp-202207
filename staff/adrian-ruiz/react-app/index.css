@@ -7,6 +7,7 @@
 body, html, .page{
     margin: 0px;
     height: 100%;
+    width: 100vw;
     font-size: 62.5%;   /* Formateo el size para que 1 rem = 10 px*/
     overflow: hidden; /* Para eliminar scroll*/
 }
@@ -266,9 +267,60 @@ header h1{
 .homeMainContainer{
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
     height: 84%;
+}
+
+.filterNotesButtonsContainer{
+    height: 8%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-bottom: 5px;
+    padding: 0px 10px 0px 10px;
+}
+
+.filterNotesButtons{
+    margin: 10px 0px 0px 0px;
+    font-size: 1.4rem;
+    height: auto;
+    margin-right: 3px;
+    margin-left: 3px;
+    border: 1px solid black;
+    box-shadow: 0px 1px 3px rgb(50, 49, 49);
+    border-radius: 10px;
+}
+
+.filterRed{
+    background-color: red;
+    color: white;
+}
+
+.filterBlue{
+    background-color: blue;
+    color: white;
+}
+
+.filterGreen{
+    background-color: green;
+    color: white;
+}
+
+.filterOrange{
+    background-color: orange;
+    color: white;
+}
+
+.filterPurple{
+    background-color: #7d19c4;
+    color: white;
+}
+
+.filterGrey{
+    background-color: grey;
+    color: white;
 }
 
 .notesList{
@@ -306,7 +358,7 @@ header h1{
 
 .noteTitle{
     text-align: center;
-    font-size: 2.6rem;
+    font-size: 3.6rem;
     max-width: 80%;
     border-bottom: 3px solid white;
     margin: 0px;
@@ -320,6 +372,7 @@ header h1{
 .noteText{
     outline: none;
     text-align: justify;
+    font-size: 2.8rem;
     font-weight: 200;
     min-height: 160px;
     max-width: 100%;

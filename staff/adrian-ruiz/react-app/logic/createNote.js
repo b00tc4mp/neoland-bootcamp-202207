@@ -42,7 +42,8 @@ function createNote(userToken, title, text, callback) {
             {
                 id: 'note-' + Date.now(),
                 title: title,
-                text: text
+                text: text,
+                color: '#7d19c4'
             }
             notes.push(note)
 
