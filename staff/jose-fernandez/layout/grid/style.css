@@ -1,0 +1,52 @@
+body,html{
+    background:radial-gradient(circle,#fff,#bbb);
+    height: 100%;
+}
+.grid-container{
+    display:grid;
+    border: 2px solid blue;
+    /* auto-fill: genera la cantidad de columnas que cumplan las propiedades dadas
+    auto-fit :escala los elementos dentro del container 
+    repeat: repite las columnas o filas segun el numero que coloquemos*/
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: repeat(auto-fit,minmax(120px, 1fr));
+    height: 100%;
+    
+    /* grid-gap: 10px;   */
+    
+
+}
+
+.grid-item{
+    background-color: coral;
+    border: 1px solid darkgoldenrod;
+  
+}
+
+/* para seleccionar el primer grid-item usamos first-child*/
+.grid-item:first-child{
+    background: #900;
+    grid-column: 1/4;
+    grid-row: 1/2;
+}
+/* para seleccionar el segundo grid-item usamos nth-child(2), entre los parentesis es el numero de elemento  */
+.grid-item:nth-child(2){
+    background: burlywood;
+    grid-column:1/2;
+    grid-row: 2/3; 
+}
+.grid-item:nth-child(3){
+    background: rgb(2, 0, 34);
+    grid-column:2/3;
+    grid-row: 2/3; 
+}
+.grid-item:nth-child(4){
+    background: #bbb;
+    grid-column:3/4;
+    grid-row: 2/3; 
+}
+.grid-item:nth-child(5){
+    background: cornflowerblue;
+    grid-column:1/4;
+    grid-row: 3/4; 
+}

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <!-- icon bar -->
+    <script src="https://kit.fontawesome.com/5cc7fdd8b5.js" crossorigin="anonymous"></script>
+    <!-- icon plus -->
+    <script src="https://kit.fontawesome.com/993adf6a02.js" crossorigin="anonymous"></script>
+    <!-- icon cross -->
+    <!-- <script src="https://kit.fontawesome.com/621f27308b.js" crossorigin="anonymous"></script> -->
+    <!-- icon arrow-left -->
+    <script src="https://kit.fontawesome.com/b19787958c.js" crossorigin="anonymous"></script>
+    <title>APP</title>
+</head>
+
+<body>
+    <main class="login_page container">
+        <form class="form form-login">
+
+            <!-- <img class="img-login" src="https://i.pinimg.com/474x/d7/52/45/d75245ef083eb6d380f4e37dd62994cb.jpg" alt="">
+             -->
+            <!-- <img class="img img-login" src="https://i.postimg.cc/XYd80Nbv/memoji.png" alt=""> -->
+            <img class="img img-login"
+                src="https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg" alt="">
+
+            <div class="form__field">
+                <label class="label__movil">EMAIL</label>
+                <input class="input input-email" type="email" name="email" placeholder="Email" id="login-email">
+            </div>
+            <div class="form__field">
+                <label class="label__movil">PASSWORD</label>
+                <input class="input input-pass" type="password" name="password" placeholder="Password" id="login-pass">
+            </div>
+
+            <button class="button-login" type="submit">LOGIN</button>
+
+        </form>
+
+        <p class="nolink-register"> Not a member <a class="link link-register" href="#"> ! SINGUP NOW ¡</a></p>
+    </main>
+    <!-- ========================================================================================================================================= -->
+    <main class="register_page container off">
+        <form class="form form-register">
+
+            <img class="img img-register" src="https://th.bing.com/th/id/OIP.8oRhQutdRIwwPM6f-eTiwwAAAA?pid=ImgDet&rs=1"
+                alt="">
+            <div class="form__field">
+                <label class="label__movil">USERNAME</label>
+                <input class="input input-user" type="text" name="name" placeholder="Username">
+            </div>
+            <div class="form__field">
+                <label class="label__movil">EMAIL</label>
+                <input class="input input-email" type="email" name="email" placeholder="Email">
+            </div>
+            <div class="form__field">
+                <label class="label__movil">PASSWORD</label>
+                <input class="input input-pass" type="password" name="password" placeholder="Password">
+            </div>
+
+            <button class="button-login" type="submit">SIGNUP</button>
+
+        </form>
+
+        <a class="link link-login" href="#">LOGIN</a>
+    </main>
+    <!-- ========================================================================================================================================= -->
+    <div class="container_home home_page off">
+        <header class="header_home">
+            <div class="cont__header">
+                <h1 class="messageTitle">Hello Pepito!!</h1>
+
+                <span class="fa-solid fa-bars" id="btn-menu"></span>
+
+            </div>
+
+            <nav class="nav-home" id="nav-home">
+                <ul class="menu-home">
+                    <li class="menu-item"><a class="menu__link configGlobal">Configuración</a></li>
+                    <li class="menu-item"><a class="menu__link">Menu2</a> </li>
+                    <li class="menu-item"><a class="menu__link">Menu3</a> </li>
+                    <li class="menu-item"><a class="menu__link">Cerrar sesion</a> </li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="main_home">
+            <!-- <div class="header_mainhome off">
+                <div class="btn_arrLeft  ">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </div>
+            </div> -->
+            
+            <!-- RELOJ DIGITAL -->
+            <!--Dayspedia.com widget-->
+            <div class="DPDC" cityid="375" lang="es" id="dayspedia_widget_28257c72b0faf228" host="https://dayspedia.com"
+                ampm="true" nightsign="true" sun="false"
+                style="background-image: url(&quot;https://cdn.dayspedia.com/img/widgets/bg-7.png&quot;); border-width: 1px;">
+
+                <style media="screen" id="dayspedia_widget_28257c72b0faf228_style">
+                    /*COMMON*/
+                    .DPDC {
+                        display: table;
+                        position: relative;
+                        box-sizing: border-box;
+                        font-size: 100.01%;
+                        font-style: normal;
+                        font-family: Arial;
+                        background-position: 50% 50%;
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                        overflow: hidden;
+                        user-select: none
+                    }
+
+                    .DPDCh,
+                    .DPDCd {
+                        width: fit-content;
+                        line-height: 1.4
+                    }
+
+                    .DPDCh {
+                        margin-bottom: 1em
+                    }
+
+                    .DPDCd {
+                        margin-top: .24em
+                    }
+
+                    .DPDCt {
+                        line-height: 1
+                    }
+
+                    .DPDCth,
+                    .DPDCtm,
+                    .DPDCts {
+                        display: inline-block;
+                        vertical-align: text-top;
+                        white-space: nowrap
+                    }
+
+                    .DPDCth {
+                        min-width: 1.15em
+                    }
+
+                    .DPDCtm,
+                    .DPDCts {
+                        min-width: 1.44em
+                    }
+
+                    .DPDCtm::before,
+                    .DPDCts::before {
+                        display: inline-block;
+                        content: ':';
+                        vertical-align: middle;
+                        margin: -.34em 0 0 -.07em;
+                        width: .32em;
+                        text-align: center;
+                        opacity: .72;
+                        filter: alpha(opacity=72)
+                    }
+
+                    .DPDCt12 {
+                        display: inline-block;
+                        vertical-align: text-top;
+                        font-size: 40%
+                    }
+
+                    .DPDCdm::after {
+                        content: ' '
+                    }
+
+                    .DPDCda::after {
+                        content: ', '
+                    }
+
+                    .DPDCdt {
+                        margin-right: .48em
+                    }
+
+                    .DPDCtn {
+                        display: inline-block;
+                        position: relative;
+                        width: 13px;
+                        height: 13px;
+                        border: 2px solid;
+                        border-radius: 50%;
+                        overflow: hidden
+                    }
+
+                    .DPDCtn>i {
+                        display: block;
+                        content: '';
+                        position: absolute;
+                        right: 33%;
+                        top: -5%;
+                        width: 85%;
+                        height: 85%;
+                        border-radius: 50%
+                    }
+
+                    .DPDCs {
+                        margin: .96em 0 0 -3px;
+                        font-size: 90%;
+                        line-height: 1;
+                        white-space: nowrap
+                    }
+
+                    .DPDCs sup {
+                        padding-left: .24em;
+                        font-size: 65%
+                    }
+
+                    .DPDCsl::before,
+                    .DPDCsl::after {
+                        display: inline-block;
+                        opacity: .4
+                    }
+
+                    .DPDCsl::before {
+                        content: '~';
+                        margin: 0 .12em
+                    }
+
+                    .DPDCsl::after {
+                        content: '~';
+                        margin: 0 .24em
+                    }
+
+                    .DPDCs svg {
+                        display: inline-block;
+                        vertical-align: bottom;
+                        width: 1.2em;
+                        height: 1.2em;
+                        opacity: .48
+                    }
+
+                    /*CUSTOM*/
+
+                    .DPDC {
+                        width: auto;
+                        padding: 7px;
+                        background-color: #ffffff;
+                        border: 1px solid #343434;
+                        border-radius: 8px
+                    }
+
+                    /* widget width, padding, background, border, rounded corners */
+                    .DPDCh {
+                        color: #007DBF;
+                        font-weight: normal
+                    }
+
+                    /* headline color, font-weight*/
+                    .DPDCt,
+                    .DPDCd {
+                        color: #343434;
+                        font-weight: bold
+                    }
+
+                    /* time & date color, font-weight */
+                    .DPDCtn {
+                        border-color: #343434
+                    }
+
+                    /* night-sign color = time & date color */
+                    .DPDCtn>i {
+                        background-color: #343434
+                    }
+
+                    /* night-sign color = time & date color */
+                    .DPDCt {
+                        font-size: 30px
+                    }
+
+                    /* time font-size */
+                    .DPDCh,
+                    .DPDCd {
+                        font-size: 16px
+                    }
+
+                    /* headline & date font-size */
+                </style>
+
+                <a class="DPl" href="https://dayspedia.com/time/es/Barcelona/" target="_blank"
+                    style="display:block!important;text-decoration:none!important;border:none!important;cursor:pointer!important;background:transparent!important;line-height:0!important;text-shadow:none!important;position:absolute;z-index:0;top:0;right:0;bottom:0;left:0">
+                    <!-- <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16"
+                        style="position:absolute;right:8px;bottom:0;width:16px;height:16px">
+                        <path style="fill: rgb(0, 99, 153);"
+                            d="M0,0v16h1.7c-0.1-0.2-0.1-0.3-0.1-0.5c0-0.9,0.8-1.6,1.6-1.6c0.9,0,1.6,0.8,1.6,1.6c0,0.2,0,0.3-0.1,0.5h1.8 c-0.1-0.2-0.1-0.3-0.1-0.5c0-0.9,0.8-1.6,1.6-1.6s1.6,0.8,1.6,1.6c0,0.2,0,0.3-0.1,0.5h1.8c-0.1-0.2-0.1-0.3-0.1-0.5 c0-0.9,0.8-1.6,1.6-1.6c0.9,0,1.6,0.8,1.6,1.6c0,0.2,0,0.3-0.1,0.5H16V0H0z M4.2,8H2V2h2.2c2.1,0,3.3,1.3,3.3,3S6.3,8,4.2,8z M11.4,6.3h-0.8V8H9V2h2.5c1.4,0,2.4,0.8,2.4,2.1C13.9,5.6,12.9,6.3,11.4,6.3z M4.4,3.5H3.7v3h0.7C5.4,6.5,6,6,6,5 C6,4.1,5.4,3.5,4.4,3.5z M11.3,3.4h-0.8V5h0.8c0.6,0,0.9-0.3,0.9-0.8C12.2,3.7,11.9,3.4,11.3,3.4z">
+                        </path>
+                    </svg>
+                    <span title="DaysPedia.com"
+                        style="position: absolute; right: 28px; bottom: 6px; height: 10px; width: 60px; overflow: hidden; text-align: right; color: rgb(0, 99, 153); font: 10px / 10px Arial, sans-serif !important;">Powered&nbsp;by
+                        DaysPedia.com</span> -->
+                </a>
+                <div class="DPDCh"
+                    style="color: rgb(0, 99, 153); text-align: center; margin-left: auto; margin-right: auto;">Hora
+                    Actual en Barcelona</div>
+                <div class="DPDCt" style="text-align: center; margin-left: auto; margin-right: auto;">
+                    <span class="DPDCth">12</span><span class="DPDCtm">41</span><span class="DPDCts">49</span><span
+                        class="DPDCt12">pm</span>
+                </div>
+                <div class="DPDCd" style="text-align: center; margin-left: auto; margin-right: auto;">
+                    <span class="DPDCdt">lun, 25 de julio</span><span class="DPDCtn"
+                        style="display: none;"><i></i></span>
+                </div>
+
+                <div class="DPDCs" style="display: none; text-align: center; margin-left: auto; margin-right: auto;">
+                    <span class="DPDCsr">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24">
+                            <path
+                                d="M12,4L7.8,8.2l1.4,1.4c0,0,0.9-0.9,1.8-1.8V14h2c0,0,0-3.3,0-6.2l1.8,1.8l1.4-1.4L12,4z">
+                            </path>
+                            <path
+                                d="M6.8,15.3L5,13.5l-1.4,1.4l1.8,1.8L6.8,15.3z M4,21H1v2h3V21z M20.5,14.9L19,13.5l-1.8,1.8l1.4,1.4L20.5,14.9z M20,21v2h3 v-2H20z M6.1,23C6,22.7,6,22.3,6,22c0-3.3,2.7-6,6-6s6,2.7,6,6c0,0.3,0,0.7-0.1,1H6.1z">
+                            </path>
+                        </svg>06:39<sup style="display: inline;">am</sup>
+                    </span>
+                    <span class="DPDCsl">14:37</span>
+                    <span class="DPDCss">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24">
+                            <path
+                                d="M12,14L7.8,9.8l1.4-1.4c0,0,0.9,0.9,1.8,1.8V4h2c0,0,0,3.3,0,6.2l1.8-1.8l1.4,1.4L12,14z">
+                            </path>
+                            <path
+                                d="M6.8,15.3L5,13.5l-1.4,1.4l1.8,1.8L6.8,15.3z M4,21H1v2h3V21z M20.5,14.9L19,13.5l-1.8,1.8l1.4,1.4L20.5,14.9z M20,21v2h3 v-2H20z M6.1,23C6,22.7,6,22.3,6,22c0-3.3,2.7-6,6-6s6,2.7,6,6c0,0.3,0,0.7-0.1,1H6.1z">
+                            </path>
+                        </svg>09:16<sup style="display: inline;">pm</sup>
+                    </span>
+                </div>
+                <script>
+                    var s, t; s = document.createElement("script"); s.type = "text/javascript";
+                    s.src = "//cdn.dayspedia.com/js/dwidget.min.vb46adaa2.js";
+                    t = document.getElementsByTagName('script')[0]; t.parentNode.insertBefore(s, t);
+                    s.onload = function () {
+                        window.dwidget = new window.DigitClock();
+                        window.dwidget.init("dayspedia_widget_28257c72b0faf228");
+                    };
+                </script>
+                <!--/DPDC-->
+            </div>
+            <!--Dayspedia.com widget ENDS-->
+
+            <!--============================= LIST====================== -->
+            <ul class="list ">
+                <li class="list__item">
+                    <button href="#" class="btn__delete">X</button>
+                    <p contenteditable="" class="list__item-text">Hello, Note!</p>
+
+                </li>
+
+                <li class="list__item"><button href="#" class="btn__delete">X</button>
+                    <p contenteditable="" class="list__item-text">Lorem ipsum dolor sit amet consectetur adipisicing
+                        elit. Dolores ab sunt tempora
+                        esse eaque, maiores similique ipsam deserunt eius soluta adipisci blanditiis nobis fugiat aut
+                        nesciunt rerum porro delectus distinctio?</p>
+
+                </li>
+                <li class="list__item"><button href="#" class="btn__delete">X</button>
+                    <p contenteditable="" class="list__item-text">Lorem ipsum dolor sit amet consectetur adipisicing
+                        elit. Dolores ab sunt tempora
+                        esse eaque, maiores similique ipsam deserunt eius soluta adipisci blanditiis nobis fugiat aut
+                        nesciunt rerum porro delectus distinctio?</p>
+
+                </li>
+            </ul>
+            </ul>
+
+            <!--============================= CREATE NOTE====================== -->
+            <form class="formcreateNote off">
+
+                <button class="btn_arrLeft" type="submit">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+
+                <li class="list__itemNew">
+                    <textarea class="list__item-textNew" id="newNote" name="newItemNote"
+                        placeholder="New Note!!"></textarea>
+                </li>
+
+            </form>
+
+            <!--============================= CONFIG====================== -->
+            <form class="formConfig off">
+
+                <button href="#" class="btnBack">X</button>
+
+                <div class="contConfig">
+                    <div class="nameConfig">Size Text: </div>
+                    <div class="contButtons">
+                        <button class="textSmall" onclick="" type="submit" >Small</button>
+                        <button class="textNormal">Normal</button>
+                        <button class="textBig" type="submit">Big</button>
+                    </div>
+                </div>
+                <div class="contConfig">
+                    <div class="nameConfig">$·$·$:</div>
+                    <div class="contButtons">
+                        <button class="">$·$%&</button>
+                        <button class="">$·$%&</button>
+                        <button class="">$·$%&</button>
+                    </div>
+                </div>
+
+            </form>
+
+        </main>
+
+        <footer class="footer_home">
+            <!-- <div class="btn_foot"> -->
+            <div class="btn_plus">
+                <i class="fa-solid fa-plus"></i>
+            </div>
+            <!-- <div class="btn_arrLeft off ">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </div> -->
+            <!-- </div> -->
+
+        </footer>
+    </div>
+
+    <!-- commons / utils -->
+    <script src="constants.js"></script>
+
+    <!-- data layer -->
+    <script src="data/users.js"></script>
+    <script src="data/notes.js"></script>
+
+
+    <!--business layer -->
+    <script src="logic/authenticateUser.js"></script>
+    <script src="logic/retrieveUser.js"></script>
+    <script src="logic/registerUser.js"></script>
+    <script src="logic/retrieveNotes.js"></script>
+    <script src="logic/updateNote.js"></script>
+    <script src="logic/createNote.js"></script>
+    <script src="logic/deleteNote.js"></script>
+
+
+    <!-- presentation layer -->
+    <script src="index.js"></script>
+</body>
+
+</html>

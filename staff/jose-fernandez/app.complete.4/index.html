@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <!-- icon bar -->
+    <script src="https://kit.fontawesome.com/5cc7fdd8b5.js" crossorigin="anonymous"></script>
+    <!-- icon plus -->
+    <script src="https://kit.fontawesome.com/993adf6a02.js" crossorigin="anonymous"></script>
+    <!-- icon cross -->
+    <!-- <script src="https://kit.fontawesome.com/621f27308b.js" crossorigin="anonymous"></script> -->
+    <!-- icon arrow-left -->
+    <script src="https://kit.fontawesome.com/b19787958c.js" crossorigin="anonymous"></script>
+    <title>APP</title>
+</head>
+
+<body>
+    <main class="login_page container">
+        <form class="form form-login">
+
+            <!-- <img class="img-login" src="https://i.pinimg.com/474x/d7/52/45/d75245ef083eb6d380f4e37dd62994cb.jpg" alt="">
+             -->
+            <!-- <img class="img img-login" src="https://i.postimg.cc/XYd80Nbv/memoji.png" alt=""> -->
+            <img class="img img-login"
+                src="https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg" alt="">
+
+            <div class="form__field">
+                <label class="label__movil">EMAIL</label>
+                <input class="input input-email" type="email" name="email" placeholder="Email" id="login-email">
+            </div>
+            <div class="form__field">
+                <label class="label__movil">PASSWORD</label>
+                <input class="input input-pass" type="password" name="password" placeholder="Password" id="login-pass">
+            </div>
+
+            <button class="button-login" type="submit">LOGIN</button>
+
+        </form>
+
+        <p class="nolink-register"> Not a member <a class="link link-register" href="#"> ! SINGUP NOW ¡</a></p>
+    </main>
+    <!-- ========================================================================================================================================= -->
+    <main class="register_page container off">
+        <form class="form form-register">
+
+            <img class="img img-register" src="https://th.bing.com/th/id/OIP.8oRhQutdRIwwPM6f-eTiwwAAAA?pid=ImgDet&rs=1"
+                alt="">
+            <div class="form__field">
+                <label class="label__movil">USERNAME</label>
+                <input class="input input-user" type="text" name="name" placeholder="Username">
+            </div>
+            <div class="form__field">
+                <label class="label__movil">EMAIL</label>
+                <input class="input input-email" type="email" name="email" placeholder="Email">
+            </div>
+            <div class="form__field">
+                <label class="label__movil">PASSWORD</label>
+                <input class="input input-pass" type="password" name="password" placeholder="Password">
+            </div>
+
+            <button class="button-login" type="submit">SIGNUP</button>
+
+        </form>
+
+        <a class="link link-login" href="#">LOGIN</a>
+    </main>
+    <!-- ========================================================================================================================================= -->
+    <div class="container_home home_page off">
+        <header class="header_home">
+            <div class="cont__header">
+                <h1 class="messageTitle">Hello Pepito!!</h1>
+
+                <span class="fa-solid fa-bars" id="btn-menu"></span>
+
+            </div>
+
+            <nav class="nav-home" id="nav-home">
+                <ul class="menu-home">
+                    <li class="menu-item"><a class="menu__link configGlobal">Configuración</a></li>
+                    <li class="menu-item"><a class="menu__link">Menu2</a> </li>
+                    <li class="menu-item"><a class="menu__link">Menu3</a> </li>
+                    <li class="menu-item"><a class="menu__link">Cerrar sesion</a> </li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="main_home">
+            <!-- <div class="header_mainhome off">
+                <div class="btn_arrLeft  ">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </div>
+            </div> -->
+            
+            <!--============================= LIST====================== -->
+            <ul class="list ">
+                <li class="list__item">
+                    <button href="#" class="btn__delete">X</button>
+                    <p contenteditable="" class="list__item-text">Hello, Note!</p>
+
+                </li>
+
+                <li class="list__item"><button href="#" class="btn__delete">X</button>
+                    <p contenteditable="" class="list__item-text">Lorem ipsum dolor sit amet consectetur adipisicing
+                        elit. Dolores ab sunt tempora
+                        esse eaque, maiores similique ipsam deserunt eius soluta adipisci blanditiis nobis fugiat aut
+                        nesciunt rerum porro delectus distinctio?</p>
+
+                </li>
+                <li class="list__item"><button href="#" class="btn__delete">X</button>
+                    <p contenteditable="" class="list__item-text">Lorem ipsum dolor sit amet consectetur adipisicing
+                        elit. Dolores ab sunt tempora
+                        esse eaque, maiores similique ipsam deserunt eius soluta adipisci blanditiis nobis fugiat aut
+                        nesciunt rerum porro delectus distinctio?</p>
+
+                </li>
+            </ul>
+            </ul>
+
+            <!--============================= CREATE NOTE====================== -->
+            <form class="formcreateNote off">
+
+                <button class="btn_arrLeft" type="submit">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+
+                <li class="list__itemNew">
+                    <textarea class="list__item-textNew" id="newNote" name="newItemNote"
+                        placeholder="New Note!!"></textarea>
+                </li>
+
+            </form>
+
+            <!--============================= CONFIG====================== -->
+            <!-- <form class="formConfig off">
+
+                <button href="#" class="btnBack">X</button>
+
+                <div class="contConfig">
+                    <div class="nameConfig">Size Text: </div>
+                    <div class="contButtons">
+                        <button class="textSmall" onclick="" type="submit" >Small</button>
+                        <button class="textNormal" type="submit">Normal</button>
+                        <button class="textBig" type="submit">Big</button>
+                    </div>
+                </div>
+                <div class="contConfig">
+                    <div class="nameConfig">$·$·$:</div>
+                    <div class="contButtons">
+                        <button class="">$·$%&</button>
+                        <button class="">$·$%&</button>
+                        <button class="">$·$%&</button>
+                    </div>
+                </div>
+
+            </form> -->
+
+        </main>
+
+        <footer class="footer_home">
+            <!-- <div class="btn_foot"> -->
+            <div class="btn_plus">
+                <i class="fa-solid fa-plus"></i>
+            </div>
+            <!-- <div class="btn_arrLeft off ">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </div> -->
+            <!-- </div> -->
+
+        </footer>
+    </div>
+
+    <!-- commons / utils -->
+    <script src="constants.js"></script>
+
+    <!-- data layer -->
+    <script src="data/users.js"></script>
+    <script src="data/notes.js"></script>
+
+
+    <!--business layer -->
+    <script src="logic/authenticateUser.js"></script>
+    <script src="logic/retrieveUser.js"></script>
+    <script src="logic/registerUser.js"></script>
+    <script src="logic/retrieveNotes.js"></script>
+    <script src="logic/updateNote.js"></script>
+    <script src="logic/createNote.js"></script>
+    <script src="logic/deleteNote.js"></script>
+
+
+    <!-- presentation layer -->
+    <script src="index.js"></script>
+</body>
+
+</html>

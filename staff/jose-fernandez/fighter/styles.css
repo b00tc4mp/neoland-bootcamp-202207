@@ -1,0 +1,90 @@
+*{
+    box-sizing: border-box;
+}
+body,html{
+    height: 100%;
+    /* margin: 0;*/
+     overflow:hidden ;  
+        
+}
+.cont-data{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: blanchedalmond;
+    width: 4%;
+    height: 10%;
+    position: absolute;
+    left: 48%;
+}
+
+
+.score{
+    display: flex;
+    /* width: 4%;     */
+}
+
+.main{
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 80%;
+    height: 80%;  
+    /* display: flex;
+    flex-wrap: wrap;   */
+}
+
+.container-2{
+    top: 200px;
+    display: flex;
+    background-color: aqua; 
+    justify-content: center;
+    align-items: center;
+    /* flex-grow: 1;  */
+    height: 100%;
+    width: 100%;
+}
+
+
+.square1{
+    border:3px solid yellow;
+    position:absolute;  
+    width: 42.5%;
+    height: 71%;
+    left: 7%;
+    top: 14.3%;  
+} 
+.square2{
+    border:3px solid red;
+    position:absolute;  
+    width: 42.5%;
+    height: 71%;
+    left: 50.5%;
+    top: 14.3%;  
+    
+} 
+/* .test{
+    
+} */
+.fighter{
+    background-color: red;
+    width: 50px;
+    height: 100px;
+    position: absolute;
+    top: 10%;
+    left: 20%;
+}
+
+.opponent{
+    background-color: blue;
+    width: 50px;
+    height: 100px;
+    position: absolute;
+    left: 70%;
+    top: 110px
+}
+img{
+    /* display: flex; */
+    width: 100%;
+    height: 100%;
+}

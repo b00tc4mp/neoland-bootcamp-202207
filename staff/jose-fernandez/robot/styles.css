@@ -1,0 +1,144 @@
+body{
+    margin: 0;
+}
+img{
+    width: 100%;
+    height: 100%;
+}
+
+.scene{
+    width: 100%;
+    height: 600px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+.robot{
+    position: absolute;
+    top: 130px;
+    left: 680px;
+    transform:rotate3d(3,55,4,180deg);
+    animation: robot1 2s infinite;
+}
+@keyframes robot1{
+    0%{transform: translate3d(0px,0px,13);}
+    100%{transform: translate3d(687px,130px,13);}
+}
+.head{
+    background-color: red;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    /* animation-name: example;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;    
+     */
+}   
+
+.eye{
+    background-color: white;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+.eye--right{
+    left: 20px;
+}
+.eye--left{
+    left: 60px;
+}
+
+.pupil{
+    background-color: black;
+    width: 5px;
+    height: 5px;
+    position:absolute;
+    top: 7.5px;
+    left: 7.5px;
+
+}
+
+.nose{
+    background-color: black;
+    width: 10px;
+    height: 20px;
+    position: absolute;
+    top:50px;
+    left: 45px;
+
+}
+.mouth{
+    background-color: white;
+    width: 50px;
+    height: 10px;
+    position: absolute;
+    top:80px;
+    left: 25px;
+}
+.title{
+    color: white;
+}
+
+.neck{
+    position: absolute;
+    background-color: yellow;
+    height: 20px;
+    width: 20px;
+    top: 100px;
+    left: 40px;
+
+}
+.torso{
+    position: absolute;
+    background-color: blue;
+    height: 145px;
+    width: 100px;
+    top: 120px;
+    
+}
+.leg{
+    position: absolute;
+    background-color: red;
+    height: 30px;
+    width: 70px;
+    top: 250px;
+}
+.leg--right{
+    left: 62px;
+    transform:rotate3d(3,55,4,60deg);
+
+}
+.leg2r{
+    position: absolute;
+    background-color: red;
+    height: 70px;
+    width: 30px;
+    top: 20px;
+    left: 40px;
+}
+.leg--left{
+    left: 10px;
+    transform:rotate3d(3,55,4,60deg);
+}
+.leg2l{
+    position: absolute;
+    background-color: red;
+    height: 70px;
+    width: 30px;
+    top: 20px;
+    left: 40px;
+}
+
+#background-video {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+  }

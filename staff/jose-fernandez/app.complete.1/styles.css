@@ -1,0 +1,267 @@
+body,
+html, body {
+    margin: 0;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+
+.container {
+    display: flex;
+    /* background-color: aqua; */
+    border: 1px solid black;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    gap: 10px;
+    background-image: url("https://images.pexels.com/photos/2486168/pexels-photo-2486168.jpeg");
+}
+.label__movil{
+    font-size: 1rem;
+    color: aqua;    
+}
+/* =========================LOGIN====================== */
+
+
+.form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    gap: 10px;
+    background-color: transparent;
+}
+/* label{
+    display:flex;
+    justify-content: flex-start;
+    text-align: start;
+} */
+.img-login {
+    border-radius: 50%;
+    width: 40%;
+    margin-bottom: 5%;
+
+}
+
+.form__field{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.input {
+    font-size: 130%;
+    font-weight: bold;
+    background-color: transparent;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 1px solid white;
+    color: white;
+    font-size: 1rem;
+    caret-color: white;
+    
+}
+
+.input::placeholder{
+    color: transparent;
+}
+
+.input:-webkit-autofill {
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: white;
+}
+
+.input::selection {
+    background-color: white;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: dodgerblue;
+}
+
+.input:focus {
+    outline: none;
+}
+
+.button-login {
+    width: 50%;
+    height: 10%;
+    font-size: 1rem;
+    font-weight: bold;
+    border: 1px solid white;
+    border-radius: 20px;
+
+}
+
+.button-login:hover {
+    background-color: #037E8c;
+}
+
+.button-login:hover .select {
+    font-size: 130%;
+    background: white;
+    color: #436174;
+}
+
+
+.link {
+    font-size: 1rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+}
+.link-register, .link-login{
+    text-decoration: none;
+}
+.link-register:visited{
+    color:white;
+}
+/* =========================REGISTER====================== */
+
+
+.form-reg {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    gap: 10px;
+    background-color: dodgerblue;
+}
+
+.img-register {
+    border-radius: 50%;
+    width: 40%;
+    margin-bottom: 5%;
+}
+
+
+/* =========================HOME====================== */
+.container_home {
+    display: flex;
+    /* background-color: aqua; */
+    border: 1px solid black;
+    height: 100%;
+    gap: 10px;
+    background-image: url("https://images.pexels.com/photos/2486168/pexels-photo-2486168.jpeg");
+}
+.header_home{
+    padding-top:5%;
+    height: 20%;
+    width: 100%;
+    /* background-color: aqua ; */
+}
+.home_page{
+    margin: 0;
+    height: 100%;
+    box-sizing: border-box;
+    
+}
+.cont__header {
+    display: flex;
+    width: 100%;
+    /* background-color: aqua; */
+    
+}
+.cont__header .messageTitle{
+     padding-left: 10%;
+}
+
+
+.messageTitle, .fas.fa-bars {
+    margin: 5px;
+    color: #037E8c;
+}
+.messageTitle{
+    font-size: 150% ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+/* #btn-menu{
+    margin-top: 0%;
+} */
+.fas.fa-bars{
+    display: flex;
+    justify-content: center ;
+    width: 12%;
+    height: 40%;
+    font-size: 175%;
+    background: rgb(2, 1, 3);
+    text-align: center;
+    line-height: 155%;
+    border-radius: 20%;
+    margin-left: 20%;
+    cursor: pointer;
+}
+
+.nav-home {
+    /* position: absolute;
+    top: 7%;
+    right:-100%;
+     */
+    display: none;
+    
+    
+}
+
+.menu-home{
+    list-style: none;
+    padding: 0;
+    margin: 0 ;
+}
+
+/*.menu-item{
+     padding-top: 3%;
+    padding-left: 23%;
+    padding-bottom: 3%;
+    border: 2px solid blue; 
+}*/
+
+.menu__link{
+    display: block;
+    padding:15px;
+    width: 100%;
+    background: WHITE;
+    text-decoration: none;
+    color: white;
+    background-image:url("https://images.pexels.com/photos/2486168/pexels-photo-2486168.jpeg");
+}
+.menu__link:hover{
+    background: #037E8c;
+}
+.menu__link:hover .select{
+    background: white;
+    color: #436174;
+}
+.mostrar{
+    display: flex;
+    margin-left: 65%;
+    transition: 0.2s;
+}
+
+.nolink-register{
+    /* text align para centrar un elemento p */
+    text-align: center;
+    color:aqua;
+}
+
+
+.off{
+    display: none;
+}
+
+
+/* ==============MEDIA======================= */
+
+/* @media (min-width: 1000px) {
+    
+    .nav{
+        width: 45%;
+    }
+    
+} */
