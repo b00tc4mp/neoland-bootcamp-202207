@@ -5,7 +5,7 @@ function NoteList(props) {
     return <ul className="list-panel list ">
         {props.notes && props.notes.map(note => <li className="list__item" key={note.id}>
             <button className="btn__delete" onClick={() => props.onDeleteNote(note.id)}>X</button>
-            <p contentEditable="true" className="list__item-text" onKeyUp={event => {
+            <p suppressContentEditableWarning="true" contentEditable="true" className="list__item-text" onKeyUp={event => {
                 if (window.updateNoteTimeoutId)
                     clearTimeout(window.updateNoteTimeoutId)
 

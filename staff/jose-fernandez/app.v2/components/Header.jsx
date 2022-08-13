@@ -9,6 +9,12 @@ class Header extends Component {
 
     handleCloseClick = () => this.setState({ view: null })
 
+    handleSettingsClick = () => {
+        this.setState({ view: null })
+
+        this.props.onSettingsClick()
+    }
+    
     render() {
         this.logger.info('render')
 
@@ -24,7 +30,7 @@ class Header extends Component {
                     {this.state.view === "menu" && <IconButtonHeader text="close" onClick={this.handleCloseClick} />}
                 </div>
             </div>
-            {this.state.view === "menu" && <Menu onLogoutClick={this.props.onLogoutClick} />}
+            {this.state.view === "menu" && <Menu onLogoutClick={this.props.onLogoutClick} onSettingsClick={this.handleSettingsClick}/>}
         </header>
     }
 }

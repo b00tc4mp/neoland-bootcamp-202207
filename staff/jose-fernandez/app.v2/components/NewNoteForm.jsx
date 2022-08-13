@@ -1,31 +1,30 @@
 function NewNoteForm(props) {
-    const logger = new Loggito(NewNoteForm.name)
-
-    logger.info('constructor')
+    const logger = new Loggito('NewNoteForm')
 
     logger.info('render')
 
-    // no envia texto o no recibe el note List
+
     return <form className="formcreateNote" name="formcreateNote" onSubmit={event => {
-        event.preventDefault()
-        
-        const newText = event.target.innerText
+            event.preventDefault()
 
-        if (newText === "") alert('nothing')
+            const newText = event.target.innerText
 
-        else {
-            props.onArrowLeft(newText)
+            if (newText === ""){ alert('nothing')
+                props.onCloseClick()}
+            else {
+                props.onArrowLeft(newText)
 
-            event.target.reset()
-        }
-    }}>
+                event.target.reset()
+            }
+        }}>
 
-        <button className="btn_arrLeft" type="submit" >
+        {/* <button className="btn_arrLeft" type="submit" onClick={props.onCloseClick} > */}
+        <button className="btn_arrLeft" type="submit"  >
             <i className="fa-solid fa-arrow-left"></i>
         </button>
 
         <li className="list__itemNew">
-            <p contenteditable="true" className="list__item-textNew" id="newNote" name="newItemNote"
+            <p suppressContentEditableWarning="true" contenteditable="true" className="list__item-textNew" id="newNote" name="newItemNote"
                 placeholder="New Note!!"
             ></p>
         </li>

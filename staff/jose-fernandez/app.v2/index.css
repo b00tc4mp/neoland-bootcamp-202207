@@ -1,5 +1,6 @@
 /* ========== Google Icons =========== */
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
 .material-symbols-outlined {
     padding-left: 9px;
     font-family: 'Material Symbols Outlined';
@@ -15,9 +16,17 @@
     direction: ltr;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
+    background-color: transparent !important;
 }
-.material-symbols-outlined.add{
+
+.material-symbols-outlined.add {
     font-size: 48px;
+}
+
+.material-symbols-outlined.btn-menu {
+    text-align: center;
+    font-size: 2.3rem;
+    padding: 0;
 }
 
 
@@ -29,7 +38,8 @@ body {
     height: 100%;
     box-sizing: border-box;
 }
-.container{
+
+.container {
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -37,7 +47,8 @@ body {
     align-items: center;
 }
 
-.login_page, .register_page {
+.login_page,
+.register_page {
     /* background-color: aqua; */
     border: 1px solid black;
     overflow: hidden;
@@ -50,6 +61,21 @@ body {
 .label__movil {
     font-size: 1rem;
     color: aqua;
+}
+
+input {
+    margin-bottom: 0.4em;
+    border: 1px solid gray;
+    border-radius: 1em;
+    width: 100%;
+    padding: 0.5em 1em;
+    outline: none;
+}
+
+input::placeholder {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #1A1D4A;
 }
 
 /* =========================LOGIN====================== */
@@ -147,7 +173,9 @@ body {
 .link-login {
     text-decoration: none;
 }
-
+.link-login{
+    margin-top: 4%;
+}
 .link-register:visited {
     color: white;
 }
@@ -185,20 +213,21 @@ body {
     box-sizing: border-box;
 }
 
-.header_home {  
+.header_home {
     padding-top: 5%;
     margin-bottom: 5px;
 }
 
-.link_home{
+.link_home {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 20%;
     height: 100%;
     color: #037E8c;
- }
-.img-home{
+}
+
+.img-home {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -217,51 +246,51 @@ body {
 }
 
 .messageTitle,
-.fa-solid.fa-arrow-left,.btn_plus,.btnBack,.contDesign, .contSettings {
+.fa-solid.fa-arrow-left,
+.btn_plus,
+.btnBack,
+.contDesign,
+.contSettings {
     margin: 5px;
     color: #037E8c;
 }
 
 .messageTitle {
     font-size: 150%;
-    width:58%;
+    width: 58%;
     display: flex;
     justify-content: center;
     align-items: center;
 
 }
-.divEmail{
+
+.divEmail {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.normalMessageEmail,.messageEmail{
-    color:white;
+
+.normalMessageEmail,
+.messageEmail {
+    color: white;
     font-size: 80%;
     display: flex;
 }
-.btn-menu,.btn-close,.btn_plus {
+
+.btn-menClo,
+.btn_plus {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 45px;
     height: 45px;
-    /* font-size: 175%; */
     background: rgb(2, 1, 3);
     text-align: center;
-    /* line-height: 155%; */
     border-radius: 20%;
-    /* margin-left: 0%; */
     cursor: pointer;
 }
 
-#btn-close{
-    padding: 0;
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #037E8c;
-}
-#btn-menu{
+.btn-menClo {
     padding: 0;
     font-size: 2.2rem;
     font-weight: bold;
@@ -269,10 +298,7 @@ body {
 }
 
 .nav-home {
-    /* display: none; */
     position: absolute;
-    /* z-index: 1; */
-    /* display: flex; */
     width: 30%;
     margin-left: 70%;
     transition: 1.5s;
@@ -318,7 +344,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;  
+    align-items: center;
     width: 90%;
     min-height: 50%;
     height: auto;
@@ -350,10 +376,11 @@ body {
     background-color: rgb(158, 168, 112);
     /* color: black; */
     min-height: 8rem;
-    width: 86%;
+    width: 282px;
     padding: 2%;
-    margin-left: 4%;;
-    margin-right: 1%; 
+    margin-left: 4%;
+    ;
+    margin-right: 1%;
     margin-bottom: 0%;
     resize: none;
 
@@ -365,17 +392,14 @@ body {
 }
 
 /* arreglar width de p content editable de list__item-text and new */
-.list__item-text{
+.list__item-text {
     display: flex;
     flex-direction: column;
-    width: calc(100%-1rem);
-    /* width: 254px; */
-    /* word-wrap: break-word;
-    white-space: wrap; */
-    height: auto;    
+    width: calc(100%-2rem);
+    height: auto;
     color: black;
     resize: none;
-    border:none;
+    border: none;
     outline: none;
     padding: 0 0 1rem 0.3rem;
     background-color: transparent;
@@ -383,7 +407,6 @@ body {
     font-size: 1rem;
     margin: 0;
     overflow: scroll;
-    text-overflow: ellipsis;
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
@@ -393,7 +416,7 @@ body {
 }
 
 
-.btn__delete{
+.btn__delete {
     align-self: flex-end;
     width: 1rem;
     height: 1rem;
@@ -422,30 +445,31 @@ body {
 .formcreateNote::-webkit-scrollbar {
     display: none;
 }
-.list__itemNew{
+
+.list__itemNew {
     display: flex;
-    width: 90%;
+    width: 282px;
     height: 90%;
     color: black;
     background-color: rgb(158, 168, 112);
     resize: none;
-    border:none;
+    border: none;
     outline: none;
     margin: 0 0 0 5%;
     /* padding: 1rem 0 1rem 0.3rem; */
     border-color: transparent;
-    
+
 }
 
 .list__item-textNew {
     display: flex;
     flex-direction: column;
-    width: 254px;
+    width: calc(100%-2rem);
     word-wrap: break-word;
-    height: auto;    
+    height: auto;
     color: black;
     resize: none;
-    border:none;
+    border: none;
     outline: none;
     padding: 0 0 1rem 0.3rem;
     background-color: transparent;
@@ -457,6 +481,7 @@ body {
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
+
 .list__item-textNew::-webkit-scrollbar {
     display: none;
 }
@@ -480,12 +505,12 @@ body {
     justify-content: center;
     align-items: center;
     font-size: 2rem;
-    border: 0; 
+    border: 0;
     padding: 0;
     background-color: transparent;
 }
 
-.btnBack{
+.btnBack {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -494,7 +519,7 @@ body {
     width: 40px;
     border-radius: 20%;
     font-weight: bold;
-    border: 0; 
+    border: 0;
     padding: 0;
     background-color: black;
 
@@ -523,37 +548,45 @@ body {
     /* margin-left: 20%; */
     cursor: pointer;
 }
-.formDesign,.formSettings{
+
+.formDesign,
+.formSettings {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 20px;
 }
-.nameDesign,.nameSettings{
+
+.nameDesign,
+.nameSettings {
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    font-size: 2rem;
+    font-size: 1.5rem;
     text-shadow: 2px 2px black;
 }
-.contButtons{
+
+.contButtons {
     display: flex;
     justify-content: center;
     align-items: flex-end;
     gap: 10px;
 
 }
-.contButtonsSettings{
+
+.contButtonsSettings {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     gap: 10px;
-    
+
 
 }
-.contDesign,.contSettings{
+
+.contDesign,
+.contSettings {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -561,41 +594,68 @@ body {
     font-size: 1.5rem;
     gap: 15px;
     font-weight: bold;
-    
+
 }
 
-.updatePass,.updateEmail{
+.updatePass,
+.updateEmail {
     /* height: 40%;*/
-    width:120%; 
-    font-size: 1.3rem;
+    /* width: 90%;
+    font-size: 1rem;
     border-radius: 15px;
-    padding-left: 10px;
+    padding-left: 10px; */
 }
-.textSmall{
+
+.btn-update {
+    font-size: 0.8rem;
+    border-radius: 2em;
+    border: none;
+    text-decoration: none;
+    display: block;
+    padding: 0.7em 2em;
+    background-color: #037E8c;
+    color: #FFF;
+}
+
+.btn-update:hover {
+    filter: brightness(115%);
+}
+
+.textSmall {
     font-size: 1rem;
 }
-.textNormal{
+
+.textNormal {
     font-size: 1.5rem;
 }
-.textBig{
+
+.textBig {
     font-size: 2rem;
 }
-.textSmall,.textNormal,.textBig{
+
+.textSmall,
+.textNormal,
+.textBig {
     border-radius: 10px;
     /* width: 80px; */
-    font-weight: bold; 
-    /* background-color: transparent;*/  
+    font-weight: bold;
+    /* background-color: transparent;*/
 }
 
-.textSmall:hover,.textNormal:hover,.textBig:hover {
+.textSmall:hover,
+.textNormal:hover,
+.textBig:hover {
     background-color: #037E8c;
 }
 
-.textSmall:hover .select,.textNormal:hover .select,.textBig:hover .select {
+.textSmall:hover .select,
+.textNormal:hover .select,
+.textBig:hover .select {
     /* font-size: 130%; */
     background: white;
     color: #436174;
 }
+
 .off {
     display: none;
 }

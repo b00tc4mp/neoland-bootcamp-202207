@@ -1,10 +1,10 @@
-function updateUserPassword(token,email, callback) {
+function updateUserEmail(token,newEmail, callback) {
     if(typeof token !== 'string') throw new TypeError('token is not a string')
     if(token.trim().length===0)throw new Error('token is empty or black')
 
-    if(typeof email !== 'string') throw new TypeError('new email  is not a string')
-    if(email.trim().length===0)throw new Error('new email is empty or black')
-    if(email.length<8) throw new Error('new email length is less than 8 charcaters')
+    if(typeof newEmail !== 'string') throw new TypeError('new email  is not a string')
+    if(newEmail.trim().length===0)throw new Error('new email is empty or black')
+    if(newEmail.length<8) throw new Error('new email length is less than 8 charcaters')
 
     if(typeof callback !== 'function')throw new TypeError('callback is nota a function')
     const xhr = new XMLHttpRequest
@@ -28,7 +28,7 @@ function updateUserPassword(token,email, callback) {
     xhr.setRequestHeader('Authorization', `Bearer ${token}`)
     xhr.setRequestHeader('Content-type', 'application/json')
 
-    const json = JSON.stringify({ username: email })
+    const json = JSON.stringify({ username: newEmail })
 
     xhr.send(json)
 }
