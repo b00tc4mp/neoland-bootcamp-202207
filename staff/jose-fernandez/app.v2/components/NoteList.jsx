@@ -1,17 +1,17 @@
-function NoteList(props) {
+function NoteList({notes,onDeleteNote,onUpdateNote}) {
     const logger = new Loggito('List')
     logger.info('render')
 
     return <ul className="list-panel list ">
-        {props.notes && props.notes.map(note => <li className="list__item" key={note.id}>
-            <button className="btn__delete" onClick={() => props.onDeleteNote(note.id)}>X</button>
+        {notes && notes.map(note => <li className="list__item" key={note.id}>
+            <button className="btn__delete" onClick={() => onDeleteNote(note.id)}>X</button>
             <p suppressContentEditableWarning="true" contentEditable="true" className="list__item-text" onKeyUp={event => {
                 if (window.updateNoteTimeoutId)
                     clearTimeout(window.updateNoteTimeoutId)
 
                 window.updateNoteTimeoutId = setTimeout(() => {
                     const text = event.target.innerText
-                    props.onUpdateNote(note.id,text)
+                    onUpdateNote(note.id,text)
                 }, 500)
             }}>{note.text}</p>
 

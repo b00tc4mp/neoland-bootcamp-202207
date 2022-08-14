@@ -1,4 +1,4 @@
-function LoginPage(props){
+function LoginPage({onLinkClick,onLogIn}){
     const logger = new Loggito(LoginPage.name)
 
     logger.info('constructor')
@@ -8,7 +8,7 @@ function LoginPage(props){
     const handleLinkClick = event => {
         event.preventDefault()
 
-        props.onLinkClick()
+        onLinkClick()
     }
     
     const handleFormSubmit = event =>{
@@ -34,7 +34,7 @@ function LoginPage(props){
 
                 sessionStorage.token= token
                 event.target.reset()
-                props.onLogIn()
+                onLogIn()
                 
             })
         } catch (error) {

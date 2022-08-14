@@ -14,23 +14,31 @@ class Header extends Component {
 
         this.props.onSettingsClick()
     }
-    
+
     render() {
         this.logger.info('render')
+
+        const {
+            state: { view },
+            props: { name, onLogoutClick, view: viewHome },
+            handleMenuClick,
+            handleCloseClick,
+            handleSettingsClick
+        } = this
 
         return <header className="header_home">
             <div className="cont__header">
                 <div className="link_home" >
                     <img className="img img-home " src="https://i.postimg.cc/ZY1nHGSz/logo-Luanna.png" alt="" />
                 </div>
-                <h1 className="messageTitle">Hello {this.props.name} !</h1>
+                <h1 className="messageTitle">Hello {name} !</h1>
 
                 <div className="btn-menClo">
-                    {this.state.view === null && <IconButtonHeader text="menu" onClick={this.handleMenuClick} />}
-                    {this.state.view === "menu" && <IconButtonHeader text="close" onClick={this.handleCloseClick} />}
+                    {view === null && <IconButtonHeader text="menu" onClick={handleMenuClick} />}
+                    {view === "menu" && <IconButtonHeader text="close" onClick={handleCloseClick} />}
                 </div>
             </div>
-            {this.state.view === "menu" && <Menu onLogoutClick={this.props.onLogoutClick} onSettingsClick={this.handleSettingsClick}/>}
+            {view === "menu" && <Menu onLogoutClick={onLogoutClick} onSettingsClick={handleSettingsClick} view={viewHome} />}
         </header>
     }
 }

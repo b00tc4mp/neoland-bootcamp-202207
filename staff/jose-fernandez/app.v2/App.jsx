@@ -21,12 +21,20 @@ class App extends Component {
     render() {
         this.logger.info('render')
 
-        if (this.state.view === 'login')
-            return <LoginPage onLinkClick={this.handleNavigationToRegister} onLogIn={this.handleNavigationToHome} />
-        else if (this.state.view === 'register')
-            return <RegisterPage onLinkClick={this.handleNavigationToLogin} onSingUp={this.handleNavigationToLogin} />
-        else if (this.state.view === 'home')
-            return <HomePage onLogoutClick={this.handleLogoutClick} />
+        const {
+            state:{view},
+            handleNavigationToLogin,
+            handleNavigationToRegister,
+            handleNavigationToHome,
+            handleLogoutClick
+        } =this
+
+        if (view === 'login')
+            return <LoginPage onLinkClick={handleNavigationToRegister} onLogIn={handleNavigationToHome} />
+        else if (view === 'register')
+            return <RegisterPage onLinkClick={handleNavigationToLogin} onSingUp={handleNavigationToLogin} />
+        else if (view === 'home')
+            return <HomePage onLogoutClick={handleLogoutClick} />
     }
 
 

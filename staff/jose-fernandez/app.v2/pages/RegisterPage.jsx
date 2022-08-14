@@ -1,4 +1,4 @@
-function RegisterPage(props){
+function RegisterPage({onLinkClick,onSingUp}){
     const logger = new Loggito(LoginPage.name)
 
     logger.info('constructor')
@@ -7,7 +7,7 @@ function RegisterPage(props){
     const handleLinkClick = event =>{
         event.preventDefault()
 
-        props.onLinkClick()
+        onLinkClick()
     }
 
     const handleFormSubmit = event =>{
@@ -28,7 +28,7 @@ function RegisterPage(props){
                 logger.debug('registered user')
     
                 event.target.reset()
-                props.onSingUp()
+                onSingUp()
             })
     
         } catch (error) {

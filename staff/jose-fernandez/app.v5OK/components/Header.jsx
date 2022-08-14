@@ -30,7 +30,7 @@ class Header extends Component {
                     {this.state.view === "menu" && <IconButtonHeader text="close" onClick={this.handleCloseClick} />}
                 </div>
             </div>
-            {this.state.view === "menu" && <Menu onLogoutClick={this.props.onLogoutClick} onSettingsClick={this.handleSettingsClick}/>}
+            {this.state.view === "menu" && <Menu onLogoutClick={this.props.onLogoutClick} onSettingsClick={this.handleSettingsClick} view={this.props.view}/>}
         </header>
     }
 }

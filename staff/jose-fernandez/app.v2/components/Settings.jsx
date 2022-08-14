@@ -1,4 +1,4 @@
-function Settings(props) {
+function Settings({onCloseClick,email}) {
 
     const logger = new Loggito('Settings')
 
@@ -20,7 +20,7 @@ function Settings(props) {
                 }
 
                 alert('Password updated')
-                props.onCloseClick()
+                onCloseClick()
             })
         } catch (error) {
             alert(error.message)
@@ -31,7 +31,7 @@ function Settings(props) {
         event.preventDefault()
         const formEmail = event.target
         const newEmail = formEmail.newEmail.value
-        const showemail = ''
+        
 
         try {
             updateUserEmail(sessionStorage.token, newEmail, error => {
@@ -42,7 +42,7 @@ function Settings(props) {
 
                 alert('Email updated')
 
-                props.onCloseClick()
+                onCloseClick()
             })
         } catch (error) {
             alert(error.message)
@@ -56,7 +56,7 @@ function Settings(props) {
 
     return <div className="settings-panel formSettings" >
 
-        <IconButtonMainItemsMenuPanel text='close' onClick={props.onCloseClick} />
+        <IconButtonMainItemsMenuPanel text='close' onClick={onCloseClick} />
         <form className="formPassword contSettings" onSubmit={handleFormSubmitPassword}>
             <div className="nameSettings">UPDATE PASSWORD: </div>
             <div className="contButtonsSettings">
@@ -73,7 +73,7 @@ function Settings(props) {
             <div className="nameSettings">UPDATE EMAIL</div>
             <div className="contButtonsSettings">
                 <div className="divEmail">
-                    <h1 className="normalMessageEmail">Email : </h1><h1 className="messageEmail"> {props.email}</h1>
+                    <h1 className="normalMessageEmail">Email : </h1><h1 className="messageEmail"> {email}</h1>
                 </div>
 
                 <input className="updateEmail" type="email" name="newEmail" placeholder="New Email" />

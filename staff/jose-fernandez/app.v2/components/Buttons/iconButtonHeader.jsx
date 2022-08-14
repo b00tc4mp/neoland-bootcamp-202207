@@ -1,3 +1,3 @@
-function IconButtonHeader(props){
-    return <span className="material-symbols-outlined btn-menu" onClick={props.onClick}>{props.text}</span>
+function IconButtonHeader({onClick,text}){
+    return <span className="material-symbols-outlined btn-menu" onClick={onClick}>{text}</span>
 }

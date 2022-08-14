@@ -7,7 +7,6 @@ function Menu(props){
     
     logger.info('render')
 
-    // arreglar menupanel settings se muestra en settings
     return <nav className="menu-panel nav-home" id="nav-home">
     <ul className="menu-panel__list menu-home">
         {props.view !== 'settings' && <li className="menu-item item_settings"><IconButtonMenuPanel text='settings' nameIcon='Settings' onClick={handleSettingsClick}/></li>}

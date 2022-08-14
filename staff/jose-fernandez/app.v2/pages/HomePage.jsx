@@ -106,18 +106,29 @@ class HomePage extends Component {
     render() {
         this.logger.info('render')
 
-        return this.state.name ?
+        const{  
+            state:{name,view,notes,email},
+            props:{onLogoutClick},
+            handleSettingsClick,
+            handleUpdateNote,
+            handleArrowLeftClick,
+            handleReturnNoteList,
+            handleDeleteNote,
+            handleAddClick
+        } = this
+
+        return name ?
             <div className="container home_page ">
-                <Header name={this.state.name} onLogoutClick={this.props.onLogoutClick} onSettingsClick={this.handleSettingsClick} view={this.state.view} />
+                <Header name={name} onLogoutClick={onLogoutClick} onSettingsClick={handleSettingsClick} view={view} />
 
                 <main className="main_home">
-                    {this.state.view === 'list' && <NoteList notes={this.state.notes} onUpdateNote={this.handleUpdateNote} onDeleteNote={this.handleDeleteNote} />}
-                    {this.state.view === 'newNote' && <NewNoteForm onArrowLeft={this.handleArrowLeftClick} onCloseClick={this.handleReturnNoteList} />}
-                    {this.state.view === 'settings' && <Settings  onCloseClick={this.handleReturnNoteList} email={this.state.email} />}
+                    {view === 'list' && <NoteList notes={notes} onUpdateNote={handleUpdateNote} onDeleteNote={handleDeleteNote} />}
+                    {view === 'newNote' && <NewNoteForm onArrowLeft={handleArrowLeftClick} onCloseClick={handleReturnNoteList} />}
+                    {view === 'settings' && <Settings  onCloseClick={handleReturnNoteList} email={email} />}
                 </main>
 
                 <footer className="footer_home">
-                    {this.state.view === 'list' && <div className="btn_plus" onClick={this.handleAddClick}>
+                    {view === 'list' && <div className="btn_plus" onClick={handleAddClick}>
                         <span className="material-symbols-outlined add">add</span>
                     </div>}
 
