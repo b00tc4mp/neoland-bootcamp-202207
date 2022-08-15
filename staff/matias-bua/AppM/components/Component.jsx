@@ -4,18 +4,18 @@ class Component extends React.Component {
 
         this.logger = new Loggito (this.constructor.name)
 
-        this.logger.info ('constructor')
+        this.logger.info('constructor')
     }
 
-    setState(state) {
-        this.logger.info ('set state')
+    setState(state){
+        this.logger.info('set state')
 
-        this.logger.debug (`state: ${JSON.stringify(state)}`)
+        this.logger.debug(`state: ${JSON.stringify(state)}`)
 
-        super.setState (state)
+        super.setState(state)
     }
 
     componentDidMount () {
-        this.logger.info ('component did mount')
+        this.logger.info('component did mount')
     }
 }

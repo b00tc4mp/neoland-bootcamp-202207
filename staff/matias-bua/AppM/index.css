@@ -43,6 +43,10 @@ body {
 .header {
   display: flex;
 }
+.header-top {
+  display: flex;
+  justify-content: flex-start;
+}
 
 .form {
   display: flex;
@@ -176,6 +180,9 @@ body {
 .menu-panel__list {
   list-style: none;
 }
+/* .menu-panel {
+  position: fixed;
+} */
 .settings-panel {
   display: flex;
   flex-direction: column;
