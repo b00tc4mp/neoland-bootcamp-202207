@@ -35,12 +35,12 @@ body {
     gap: 10px;
 }
 
-.container--padded {
-    padding: 10px;
-}
-
 .container--distributed {
     justify-content: space-between;
+}
+
+.header {
+    display: flex;
 }
 
 .form {
@@ -91,7 +91,6 @@ body {
     padding: 5px;
     color: white;
     font-size: 1rem;
-    cursor: pointer;
 }
 
 .anchor {
@@ -110,6 +109,55 @@ body {
 
 .main::-webkit-scrollbar {
     display: none;
+}
+
+.menu {
+    position: fixed;
+    background-color: dodgerblue;
+    width: 100%;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    padding: 0;
+    margin: 0;
+}
+
+.list__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: yellow;
+    color: black;
+    width: 300px;
+    font-size: 1.5rem;
+    min-height: 3rem;
+    padding: 0 0 1rem 0;
+}
+
+.list__item-text {
+    width: calc(100% - 2rem);
+    height: auto;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    resize: none;
+    overflow: hidden;
+}
+
+.list__item-delete-button {
+    align-self: flex-end;
+    width: 1rem;
+    height: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
 }
 
 .footer {

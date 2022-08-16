@@ -1,4 +1,4 @@
-function Settings({ onCloseClick, onFeedback }) {
+function Settings(props) {
     const logger = new Loggito('Settings')
 
     logger.info('render')
@@ -17,7 +17,7 @@ function Settings({ onCloseClick, onFeedback }) {
         try {
             updateUserPassword(sessionStorage.token, oldPassword, newPassword, newPasswordRepeat, error => {
                 if (error) {
-                    onFeedback({ message: error.message, level: 'warning' })
+                    alert(error.message)
 
                     logger.warn(error.message)
 
@@ -29,14 +29,14 @@ function Settings({ onCloseClick, onFeedback }) {
                 form.reset()
             })
         } catch (error) {
-            onFeedback({ message: error.message, level: 'warning' })
+            alert(error.message)
 
             logger.warn(error.message)
         }
     }
 
     return <div className="settings-panel container">
-        <IconButton text="close" onClick={onCloseClick} />
+        <IconButton text="close" onClick={props.onCloseClick} />
 
         <form className="update-password-form form" onSubmit={handleFormSubmit}>
             <div className="form__field">

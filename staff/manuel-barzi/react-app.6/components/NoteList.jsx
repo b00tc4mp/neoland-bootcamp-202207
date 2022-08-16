@@ -3,11 +3,11 @@ function NoteList({ notes, onDeleteNote, onUpdateNote }) {
 
     logger.info('render')
 
-    return <ul className="NoteList">
-        {notes && notes.map(note => <li className="NoteList__item" key={note.id}>
-            <button className="NoteList__item-delete-button" onClick={() => onDeleteNote(note.id)}>x</button>
+    return <ul className="list-panel list">
+        {notes && notes.map(note => <li className="list__item" key={note.id}>
+            <button className="list__item-delete-button" onClick={() => onDeleteNote(note.id)}>x</button>
 
-            <p suppressContentEditableWarning="true" contentEditable="true" className="NoteList__item-text" onKeyUp={event => {
+            <p suppressContentEditableWarning="true" contentEditable="true" className="list__item-text" onKeyUp={event => {
                 if (window.updateNoteTimeoutId)
                     clearTimeout(window.updateNoteTimeoutId)
 

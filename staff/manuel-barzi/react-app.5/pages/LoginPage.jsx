@@ -1,4 +1,4 @@
-function LoginPage({ onLinkClick, onLogIn, onFeedback }) {
+function LoginPage({ onLinkClick, onLogIn }) {
     const logger = new Loggito(LoginPage.name)
 
     logger.info('constructor')
@@ -25,7 +25,7 @@ function LoginPage({ onLinkClick, onLogIn, onFeedback }) {
         try {
             authenticateUser(email, password, (error, token) => {
                 if (error) {
-                    onFeedback({ message: error.message, level: 'error'})
+                    alert(error.message)
 
                     logger.warn(error.message)
 
@@ -39,7 +39,7 @@ function LoginPage({ onLinkClick, onLogIn, onFeedback }) {
                 onLogIn()
             })
         } catch (error) {
-            onFeedback({ message: error.message, level: 'error'})
+            alert(error.message)
 
             logger.warn(error.message)
         }

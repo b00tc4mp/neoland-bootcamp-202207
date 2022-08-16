@@ -28,8 +28,8 @@ function Header({ name, onLogoutClick, onSettingsClick, view: viewHome }) {
 
     logger.info('render')
 
-    return <header className="Header container">
-        <div className="container container--row container--distributed">
+    return <header className="header container">
+        <div className="header-top container container--row container--distributed">
             <h1 className="title">Hello, {name}!</h1>
 
             {view === null && <IconButton text="menu" onClick={handleMenuClick} />}
