@@ -1,4 +1,4 @@
-function Settings (props) {
+function Settings ({ modalAlert }) {
     const logger = new Logger(Settings.name)
 
     logger.info('render')
@@ -18,19 +18,19 @@ function Settings (props) {
         try {
             updateUserPassword(sessionStorage.token, currentPass, newPass, repeatPass, error => {
                 if(error) {
-                    alert(error.message)
+                    modalAlert('ERROR', error.message)
                     logger.error(error.message)
                     return
                 }
                 
                 form.reset()
                 logger.debug('user changed pass successfully')
-                alert('password changed successfully')
+                modalAlert('SUCCESS', 'Password changed successfully')
     
             })
 
         } catch(error) {
-            alert(error.message)
+            modalAlert('ERROR', error.message)
             logger.error(error.message)
         }
     }
@@ -39,22 +39,23 @@ function Settings (props) {
         event.preventDefault()
 
         const newEmail = event.target.newEmail.value
+        const form = event.target
 
         try {
             updateUserEmail(sessionStorage.token, newEmail, error => {
                 if(error) {
-                    alert(error.message)
+                    modalAlert('ERROR', error.message)
                     logger.error(error.message)
                     return
                 }
-                event.target.reset()
+                form.reset()
                 logger.debug('user changed email successfully')
-                alert('email changed successfully')
+                modalAlert('SUCCESS', 'User email changed successfully')
     
             })
 
         } catch(error) {
-            alert(error.message)
+            modalAlert('ERROR', error.message)
             logger.error(error.message)
         }
     }

@@ -1,52 +1,49 @@
-class App extends Component {
-    constructor() {
-        super()
+const { useState } = React
 
-        const logger = new Logger(App.name) 
+function App () {
 
-        this.logger = logger
+    const logger = new Logger(App.name) 
 
-        this.state = { view: sessionStorage.token ? 'home' : 'login' }
+    const [view, setView] = useState(sessionStorage.token ? 'home' : 'login')
+    const [modalContent, setModalContent] = useState({ message: null, title: null })
 
-        this.logger.info('constructor')
-    }
+    logger.info('constructor')
 
-    handleRegisterLinkClick = () => this.setState({ view: 'register' })
+    const handleRegisterLinkClick = () => setView('register')
 
-    handleLoginLinkClick = () => this.setState({ view: 'login' })
+    const handleLoginLinkClick = () => setView('login')
 
-    handleRegisterFormSubmit = () => this.setState({ view: 'login' })
+    const handleRegisterFormSubmit = () => setView('login')
 
-    handleLoginFormSubmit = () => this.setState({ view: 'home' })
+    const handleLoginFormSubmit = () => setView('home')
 
-    handleLogoutButtonClick = () => {
+    const handleLogoutButtonClick = () => {
         delete sessionStorage.token
 
-        this.handleLoginLinkClick() // cambio el state.view a login
+        handleLoginLinkClick() // cambio el view a login
 
-        this.logger.debug('user logged out')
+        logger.debug('user logged out')
     }
 
-    render() {
-        const { 
-            state: { view }, 
-            logger, 
-            handleRegisterLinkClick, 
-            handleLoginLinkClick, 
-            handleLogoutButtonClick, 
-            handleLoginFormSubmit, 
-            handleRegisterFormSubmit 
-        } = this
+    const handleModalClose = () => {
+        const modalContent = { message: null, title: null }
 
-        logger.info('render')
-
-        // delete sessionStorage.token
-
-        if (view === 'login')
-            return <LoginPage onRegisterLinkClick={handleRegisterLinkClick} onLoginFormSubmit={handleLoginFormSubmit}/>
-        else if (view === 'register')
-            return <RegisterPage onLoginLinkClick={handleLoginLinkClick} onRegisterFormSubmit={handleRegisterFormSubmit} />
-        else if (view === 'home')
-            return <HomePage onLogoutButtonClick={handleLogoutButtonClick} />
+        setModalContent(modalContent)
     }
+
+    const handleModal = (title, message) => {
+        setModalContent({ message, title })
+    }
+
+    logger.info('render')
+
+    // delete sessionStorage.token
+
+    return <>
+        {view === 'login' && <LoginPage onRegisterLinkClick={handleRegisterLinkClick} onLoginFormSubmit={handleLoginFormSubmit} modalAlert={handleModal} />}
+        {view === 'register' && <RegisterPage onLoginLinkClick={handleLoginLinkClick} onRegisterFormSubmit={handleRegisterFormSubmit} modalAlert={handleModal} />}
+        {view === 'home' && <HomePage onLogoutButtonClick={handleLogoutButtonClick} modalAlert={handleModal} />}
+        {modalContent.message && <Modal onCloseButtonClick={handleModalClose} message={modalContent.message} title={modalContent.title} />}
+        </>
+
 }

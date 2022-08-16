@@ -1,4 +1,4 @@
-function LoginPage({onRegisterLinkClick, onLoginFormSubmit}) {
+function LoginPage({ onRegisterLinkClick, onLoginFormSubmit, modalAlert }) {
     const logger = new Logger(LoginPage.name)
 
     logger.info('constructor')
@@ -12,14 +12,18 @@ function LoginPage({onRegisterLinkClick, onLoginFormSubmit}) {
     const handleLoginFormSubmit = event => {
         event.preventDefault()
 
-        const form = event.target
-        const email = event.target.email.value
-        const password = event.target.password.value
+        const { 
+            target: form,
+            target: {
+                email: { value: email },
+                password: { value: password }
+            }
+        } = event
 
         try {
             authenticateUser(email, password, function (error, token) {
                 if (error) {
-                    alert(error.message)
+                    modalAlert('ERROR', error.message)
 
                     logger.warn(error.message)
     
@@ -35,7 +39,7 @@ function LoginPage({onRegisterLinkClick, onLoginFormSubmit}) {
                 onLoginFormSubmit() // esto solo cambia el view
             })
         } catch (error) {
-            alert(error.message)
+            modalAlert('ERROR', error.message)
 
             logger.warn(error.message)
         }

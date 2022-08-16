@@ -1,161 +1,152 @@
-class HomePage extends Component {
-  constructor(props) { // preguntar por qué no hay q poner las props como argumento si las utilizo más abajo
-    super()
+const { useState, useEffect } = React
 
-    this.logger.info('constructor')
+function HomePage({ onLogoutButtonClick, modalAlert }) {
+    const logger = new Logger('HomePage')
 
-    this.state = { name: null, notes: null, view: 'notes' }
-  }
+    logger.info('constructor')
 
-  componentDidMount() {
-    super.componentDidMount()
-    try {
+    const [name, setName] = useState(null)
+    const [notes, setNotes] = useState(null)
+    const [view, setView] = useState('notes')
 
-      retrieveUser(sessionStorage.token, (error, user) => { // cambio a funcion flecha para que funcione el this de dentro
-        if (error) {
-          alert(error.message)
-          this.logger.warn(error.message)
-          return
-          // myReject(error.message)
+    useEffect(() => {
+        logger.info('component did mount')
+        try {
+
+            retrieveUser(sessionStorage.token, (error, user) => {
+                if (error) {
+                    modalAlert('ERROR', error.message)
+                    logger.warn(error.message)
+                    return
+                }
+
+                setName(user.name)
+                logger.info('setName')
+
+            })
+
+            loadNotes()
+
+        } catch (error) {
+            modalAlert('ERROR', error.message)
+
+            logger.error(error.message)
         }
+    }, []) // aqui paso un array vacio para q actue como componentDidMount
 
-        this.setState({ name: user.name }) // creo que el setState es asincrono porque solo cambia cuando retrieveUser (asincrona) termina. Por eso renderiza el header sin el nombre primero, porque el nombre tarda en llegar
+    const loadNotes = () => {
+        try {
+            retrieveNotes(sessionStorage.token, (error, notes) => {
+                if (error) {
+                    modalAlert('ERROR', error.message)
 
-      })
+                    logger.error(error.message)
 
-      this.loadNotes()
+                    return
+                }
 
-    } catch (error) {
-      alert(error.message)
+                setNotes(notes)
+            })
 
-      this.logger.error(error.message)
-    }
-  }
+        } catch (error) {
+            modalAlert('ERROR', error.message)
 
-  loadNotes = () => {
-    try {
-      retrieveNotes(sessionStorage.token, (error, notes) => {
-        if (error) {
-          alert(error.message)
-
-          this.logger.error(error.message)
-
-          return
+            logger.error(error.message)
         }
-
-        this.setState({ notes })
-      })
-
-    } catch (error) {
-      alert(error.message)
-
-      this.logger.error(error.message)
     }
-  }
 
-  handleAddNote = () => {
-    try {
-      createNote(sessionStorage.token, error => {
-        if (error) {
-          alert(error.message)
+    const handleAddNote = () => {
+        try {
+            createNote(sessionStorage.token, error => {
+                if (error) {
+                    modalAlert('ERROR', error.message)
 
-          this.logger.error(error.message)
+                    logger.error(error.message)
 
-          return
+                    return
+                }
+
+                loadNotes()
+            })
+
+        } catch (error) {
+            modalAlert('ERROR', error.message)
+
+            logger.error(error.message)
         }
-
-        this.loadNotes()
-      })
-
-    } catch (error) {
-      alert(error.message)
-
-      this.logger.error(error.message)
     }
-  }
 
-  handleDeleteNoteClick = (noteId) => {
-    try {
-      deleteNote(sessionStorage.token, noteId, error => {
-        if (error) {
-          alert(error.message)
+    const handleDeleteNoteClick = (noteId) => {
+        try {
+            deleteNote(sessionStorage.token, noteId, error => {
+                if (error) {
+                    modalAlert('ERROR', error.message)
 
-          return
+                    return
+                }
+
+                loadNotes()
+            })
+
+        } catch (error) {
+            modalAlert('ERROR', error.message)
+
+            logger.error(error.message)
         }
-
-        this.loadNotes()
-      })
-
-    } catch (error) {
-      alert(error.message)
-
-      this.logger.error(error.message)
     }
-  }
 
-  handleUpdateNote = (noteId, text) => {
-    try {
-      updateNote(sessionStorage.token, noteId, text, error => {
-        if (error) {
-          alert(error.message)
+    const handleUpdateNote = (noteId, text) => {
+        try {
+            updateNote(sessionStorage.token, noteId, text, error => {
+                if (error) {
+                    modalAlert('ERROR', error.message)
 
-          this.logger.error(error.message)
+                    logger.error(error.message)
 
-          return
+                    return
+                }
+
+                // si no hay error, no pongo ninguna accion porque no hay q actualizar el DOM
+            })
+
+        } catch (error) {
+            modalAlert('ERROR', error.message)
+
+            logger.error(error.message)
         }
-
-        // si no hay error, no pongo ninguna accion porque no hay q actualizar el DOM
-      })
-
-    } catch (error) {
-      alert(error.message)
-
-      this.logger.error(error.message)
     }
-  }
 
-  handleSettingsClick = () => {
-    this.setState({ view: 'settings' })
-    this.loadNotes() // para cuando me vaya de settings, q se baje las notas y actualice el state
-  }
+    const handleSettingsClick = () => {
+        setView('settings')
+        
+        loadNotes() // para cuando me vaya a settings, q se baje las notas y actualice el state
+    }
 
-  handleNotesClick = () => {
-    this.setState({ view: 'notes' })
-  }
+    const handleNotesClick = () => {
+        setView('notes')
+    }
 
-  render() {
-    const {
-      state: { view, notes, name },
-      handleAddNote,
-      handleSettingsClick,
-      handleNotesClick,
-      handleDeleteNoteClick,
-      handleUpdateNote,
-      props: { onLogoutButtonClick }
-    } = this
-
-    this.logger.info('render')
+    logger.info('render')
 
     if (name)
-      return <div className="home-page">
+        return <div className="home-page">
 
-        <Header name={name} onLogoutButtonClick={onLogoutButtonClick}
-          onSettingsButtonClick={handleSettingsClick} onNotesButtonClick={handleNotesClick} 
-        />
-
-        {view === 'notes' && <>
-          <main className="main">
-            <NoteList notes={notes} onDeleteClick={handleDeleteNoteClick} 
-              onUpdateNote={handleUpdateNote} 
+            <Header name={name} onLogoutButtonClick={onLogoutButtonClick}
+                onSettingsButtonClick={handleSettingsClick} onNotesButtonClick={handleNotesClick}
             />
-          </main>
-          <Footer onAddNote={handleAddNote} />
-        </>}
 
-        {view === 'settings' && <main className="main">
-          <Settings />
-        </main>}
+            {view === 'notes' && <>
+                <main className="main">
+                    <NoteList notes={notes} onDeleteClick={handleDeleteNoteClick}
+                        onUpdateNote={handleUpdateNote}
+                    />
+                </main>
+                <Footer onAddNote={handleAddNote} />
+            </>}
 
-      </div>
-  }
+            {view === 'settings' && <main className="main">
+                <Settings modalAlert={modalAlert} />
+            </main>}
+
+        </div>
 }

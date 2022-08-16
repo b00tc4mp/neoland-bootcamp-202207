@@ -1,4 +1,4 @@
-function RegisterPage({onLoginLinkClick, onRegisterFormSubmit}) {
+function RegisterPage({ onLoginLinkClick, onRegisterFormSubmit, modalAlert }) {
     const logger = new Logger(RegisterPage.name)
 
     logger.info('constructor')
@@ -25,7 +25,7 @@ function RegisterPage({onLoginLinkClick, onRegisterFormSubmit}) {
         try {
             registerUser(name, email, password, function (error) {
                 if (error) {
-                    alert(error.message)
+                    modalAlert('ERROR', error.message)
 
                     logger.warn(error.message)
 
@@ -34,20 +34,20 @@ function RegisterPage({onLoginLinkClick, onRegisterFormSubmit}) {
                 
                 form.reset()
 
-                alert('New user successfully created')
+                modalAlert('SUCCESS', 'New user successfully created')
 
                 logger.debug('user registered successfully')
     
                 onRegisterFormSubmit() // esto solo cambia el view
+
             })
 
         } catch (error) {
-            alert(error.message)
+            modalAlert('ERROR', error.message)
 
             logger.warn(error.message)
         }
 
-        onRegisterFormSubmit()
     }
 
     logger.info('render')

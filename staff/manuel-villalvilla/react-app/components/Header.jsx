@@ -1,64 +1,48 @@
-class Header extends Component {
-    constructor(props) {
-        super()
+const { useState } = React
 
-        this.logger.info('constructor')
+function Header({ name, onLogoutButtonClick, onSettingsButtonClick, onNotesButtonClick }) {
+    const logger = new Logger('header')
 
-        this.state = { menuShow: false }
-        
-    }
+    logger.info('constructor')
 
-    onMenuButtonClick = () => {
-        if (this.state.menuShow)
-            this.setState({ menuShow: false })
+    const [menuShow, setMenuShow] = useState(false) // [false, f () {}]
+
+    const handleMenuButtonClick = () => {
+        if (menuShow)
+            setMenuShow(false)
         else
-            this.setState({ menuShow: true })
+            setMenuShow(true)
     }
 
-    onSettingsButtonClick = () => {
-        this.onMenuButtonClick()
-        this.props.onSettingsButtonClick()
+    const handleSettingsButtonClick = () => {
+        handleMenuButtonClick()
+        onSettingsButtonClick()
     }
 
-    onNotesButtonClick = () => {
-        this.onMenuButtonClick()
-        this.props.onNotesButtonClick()
+    const handleNotesButtonClick = () => {
+        handleMenuButtonClick()
+        onNotesButtonClick()
     }
 
-    render() {
-        const { 
-            props: { 
-                name, 
-                onLogoutButtonClick 
-            }, 
-            onMenuButtonClick, 
-            onSettingsButtonClick, 
-            onNotesButtonClick,
-            state: { menuShow },
-            logger
-        } = this
+    logger.info('render')
 
-        logger.info('render')
-
-        return <>
-        <div className="menu-header">
-            <div className="div-logout">
-                <button className="logout-button" onClick={onLogoutButtonClick}>
-                <span className="material-symbols-outlined">
-                    logout
-                </span>
-                </button>
-            </div>
-            <div className="saludo">Hola {name}!</div>
-            <div className={menuShow ? "menu rotate" : "menu"} onClick={onMenuButtonClick}>
-                <div className="menu-icon" />
-                <div className="menu-icon" />
-                <div className="menu-icon" />
-            </div>
+    return <>
+    <div className="menu-header">
+        <div className="div-logout">
+            <button className="logout-button" onClick={onLogoutButtonClick}>
+            <span className="material-symbols-outlined">
+                logout
+            </span>
+            </button>
         </div>
-        
-        <Menu show={menuShow} onSettingsButtonClick={onSettingsButtonClick} onNotesButtonClick={onNotesButtonClick}/>
-        </>
-        
-    }
+        <div className="saludo">Hola {name}!</div>
+        <div className={menuShow ? "menu rotate" : "menu"} onClick={handleMenuButtonClick}>
+            <div className="menu-icon" />
+            <div className="menu-icon" />
+            <div className="menu-icon" />
+        </div>
+    </div>
+    
+    <Menu show={menuShow} onSettingsButtonClick={handleSettingsButtonClick} onNotesButtonClick={handleNotesButtonClick}/>
+    </>
 }
