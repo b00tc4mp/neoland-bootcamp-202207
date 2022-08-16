@@ -27,20 +27,20 @@ body{
     background-attachment:fixed;
 }
 
-.headerContainer{
+.topSectionContainer{
     display: flex;
     align-items: center;
     height: 40%;
 }
 
-.header{
+.topSection{
     display: flex;
     align-items: center;
     width: 100%;
     height: 100%;
 }
 
-.headerImage{
+.topSectionImage{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -162,108 +162,10 @@ a:visited{
     font-size: 2rem;
 }
 
-.passDiv{
-    width: 100%;
-    height: auto;
-    background-color: rgb(250, 39, 39);
-    color: white;
-}
 
-.passDiv > h3{
-    font-size: 1.8rem;
-    border-bottom: 5px solid white;
-    margin-top: 2px;
-    padding-bottom: 10px;
-}
-
-.passDiv > p{
-    font-size: 1.5rem;
-    line-height: 10%;
-}
 
 /* HOME */
-header{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-    height: 10%;
-    min-height: 60px;
-    background-color: #531a7c;
-}
-header h1{
-    width: 90%;
-    text-align: center;
-    color: white;
-    font-size: 28px;
-    font-weight: 400;
-}
-.menuContainer{
-    padding-right: 5px;
-    width: 10%;
-    position: relative;
-    display: inline-block;
-}
 
-.menuIcon, .menuIcon1, .menuIcon2{
-    width: 35px;
-    height: 5px;
-    background-color: white;
-    margin-top: 6px;
-    transition: 0.4s;
-}
-
-.change .menuIcon{
-    -webkit-transform: rotate(-45deg) translate(-9px, 6px);
-  transform: rotate(-45deg) translate(-9px, 6px);
-}
-
-.change .menuIcon1{
-    opacity: 0;
-}
-
-.change .menuIcon2{
-    -webkit-transform: rotate(45deg) translate(-8px, -8px);
-  transform: rotate(45deg) translate(-8px, -8px);
-}
-
-.dropdownMenu{
-    position: absolute;
-    display: none;
-    width: 100%;
-    min-width: 70px;
-    height: 100px;
-    right: 0px;
-}
-
-.dropdownMenu a{
-    text-decoration: none;
-    color: white;
-}
-.displayBlock{
-    display:block;
-}
-
-.dropdownMenu > ul {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
-    padding:0px;
-    margin: 0;
-    list-style: none;
-    background-color: #531a7c;
-}
-
-.dropdownMenu > ul > li{
-    text-align: right;
-    font-size: 1.6rem;
-    margin-top: 2.5px;
-    margin-bottom: 2.5px;
-    padding-right: 10px;
-    color: white;
-}
 .homeMainContainer{
     display: flex;
     align-items: center;
@@ -271,165 +173,7 @@ header h1{
     height: 84%;
 }
 
-.filterNotesButtonsContainer{
-    height: 8%;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
-    margin-bottom: 5px;
-    padding: 0px 10px 0px 10px;
-}
 
-.filterNotesButtons{
-    margin: 10px 0px 0px 0px;
-    font-size: 1.4rem;
-    height: auto;
-    margin-right: 3px;
-    margin-left: 3px;
-    border: 1px solid black;
-    box-shadow: 0px 1px 3px rgb(50, 49, 49);
-    border-radius: 10px;
-}
-
-.filterRed{
-    background-color: red;
-    color: white;
-}
-
-.filterBlue{
-    background-color: blue;
-    color: white;
-}
-
-.filterGreen{
-    background-color: green;
-    color: white;
-}
-
-.filterOrange{
-    background-color: orange;
-    color: white;
-}
-
-.filterPurple{
-    background-color: #7d19c4;
-    color: white;
-}
-
-.filterGrey{
-    background-color: grey;
-    color: white;
-}
-
-.notesList{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    width: 80%;
-    list-style: none;
-  /*   gap: 50px; */
-    overflow-y: scroll;
-    margin:0;
-    padding: 10px 0px;
-    scrollbar-width: none;
-}
-
-.notesList::-webkit-scrollbar{
-    display: none;
-}
-.note{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 2rem;
-    margin-bottom: 50px;
-    height: auto;
-    width: 80%;
-    background-color:#7d19c4;
-    color: white;
-    box-shadow: 0px 3px 10px rgb(0, 0, 0);
-}
-
-/* li:first-child{
-    margin-bottom: 0px;
-} */
-
-.noteTitle{
-    text-align: center;
-    font-size: 3.6rem;
-    max-width: 80%;
-    border-bottom: 3px solid white;
-    margin: 0px;
-    padding: 0px 10px 0px 10px;
-}
-
-[contenteditable]{
-    outline: 0px solid transparent;
-}
-
-.noteText{
-    outline: none;
-    text-align: justify;
-    font-size: 2.8rem;
-    font-weight: 200;
-    min-height: 160px;
-    max-width: 100%;
-    padding: 20px 10px 20px 10px;
-}
-
-.deleteNoteButton{
-    color: white;
-    background-color: transparent;
-    border: none;
-    width: auto;
-    height: auto;
-    position: sticky;
-    align-self: flex-end;
-    margin: 0px;
-    margin-right: 8px;
-
-}
-
-.changeNoteColorContainer{
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    height:34px;
-    width: 100%;
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-.changeNoteBlue, .changeNoteRed, .changeNoteGreen, .changeNoteOrange, .changeNotePurple, .changeNoteGrey{
-    height: 100%;
-    width: 14%;
-    border: 1px solid black;
-    box-shadow: 0px 0px 2px rgb(0, 0, 0);
-
-}
-
-.changeNoteBlue{
-    background-color: blue;
-}
-
-.changeNoteRed{
-    background-color: red;
-}
-
-.changeNoteGreen{
-    background-color: green;
-}
-.changeNoteOrange{
-    background-color: orange;
-}
-.changeNotePurple{
-    background-color: #7d19c4;
-}
-.changeNoteGrey{
-    background-color: grey;
-}
 .bottomMenu{
     display: flex;
     align-items: center;
@@ -441,6 +185,7 @@ header h1{
     width: 100%;
     background-color: #531a7c;
 }
+
 .newNoteButton{
     font-size: 2.6rem;
     padding: 0px;
@@ -452,95 +197,6 @@ header h1{
     border-radius: 100px;
 }
 
-
-.containerPopUp{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: rgba(119,136,153,0.9);
-    z-index: 1;
-}
-.newNotePopUp{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 90%;
-    height: 50%;
-}
-
-.newNoteForm{
-    display:flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    width: 100%;
-    height: 100%;
-    background: whitesmoke;
-}
-
-.newNoteLabel{
-    font-size: 2.4rem;
-    font-weight: bold;
-    color:#531a7c;
-}
-
-.newNoteInput{
-    width: 100%;
-    border-bottom: 1px solid #3d0b60;
-    font-size: 1.8rem;
-    color: #531a7c;
-}
-
-.newNoteInput__title{
-    height: 10%;
-}
-
-.newNoteInput__text{
-    height: 25%;
-    overflow:scroll;
-}
-
-.newNoteLabel, .newNoteInput{
-    width: 90%;
-}
-
-.newNoteButtonsContainer{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
-    width: 90%;
-}
-
-.newNoteFormButton, .profileFormButton{
-    width: 40%;
-    background-color: #592380;
-    box-shadow: 0px 8px 30px rgb(0, 0, 0);
-    border: 1px solid #592380;
-    color:white;
-}
-
-/* HOME -> PROFILE" */
-
-.homeIcon{
-    color: white;
-    padding-left: 5%;
-}
-.profileMenuContainer{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    height: 100%;
-    width: 100%;
-    padding: 20px;
-}
-
-.profileInput{
-    height: 20%;
-}
 .off{
     display: none;
 }

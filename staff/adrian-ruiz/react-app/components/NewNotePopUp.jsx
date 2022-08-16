@@ -8,6 +8,7 @@ class NewNotePopUp extends Component {
 
     handleSubmit = event => {
         event.preventDefault()
+        debugger
         const title = this.noteTitle.current.textContent
         const text = this.noteText.current.textContent
         let result = confirm('Are you sure to create a new note?')

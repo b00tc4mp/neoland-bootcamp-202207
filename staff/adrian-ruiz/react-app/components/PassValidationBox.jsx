@@ -1,19 +1,7 @@
-class PassValidationBox extends Component {
-    constructor({props}) {
-        super()
-        
-    }
+function PassValidationBox({conditions}) {
 
-    render() {
-        const {
-            props : { conditions: conditionsConst, // I STORE THE WHOLE OBJECT IN A CONST TO RETRIEVE IT IN THE FUTURE (USEFULL TO ACCESS FORMS IN EVENTS)
-                conditions: {matchAll, matchLowerCase, matchUpperCase, matchNumbers, matchSymbols, matchLength}
-            }
-        } = this
+    const {matchAll, matchLowerCase, matchUpperCase, matchNumbers, matchSymbols, matchLength} = conditions
 
-       /*  AS I STORED THE WHOLE OBJECT I CAN ACCESS, CHECK VALUES...
-        console.log(conditionsConst)
-        console.log(conditionsConst.matchAll) */ 
         
         if (matchAll === false) {
             return (
@@ -35,5 +23,5 @@ class PassValidationBox extends Component {
                 </div>
             )
         }else return null
-    }
+    
 }

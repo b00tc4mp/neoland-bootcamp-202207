@@ -13,7 +13,7 @@ function changeNoteColor(token, userNotes, noteId, color, callback){
             callback(null)
     }
     
-    note = userNotes.find(note => note.id === noteId)
+    const note = userNotes.find(note => note.id === noteId)
     note.color = color
 
     const newData = JSON.stringify({notes: userNotes})

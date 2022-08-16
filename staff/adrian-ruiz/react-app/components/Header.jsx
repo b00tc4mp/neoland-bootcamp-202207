@@ -1,48 +1,45 @@
-class Header extends Component {
-    constructor(props) {
-        super(props)
+const { useState } = React
+function Header({onProfileClick, onHomeClick, onLogout, name}) {
+   
+    const [menu, setMenu] = useState('closed')
 
-        this.state = { menu: 'closed' }
+    const handleMenuClick = () => {
+        if (menu !== 'opened')
+            setMenu('opened')
+        else if (menu !== 'closed')
+            setMenu('closed')
     }
 
-    handleMenuClick = () => {
-        if (this.state.menu !== 'opened')
-            this.setState({ menu: 'opened' })
-        else if (this.setState !== 'closed')
-            this.setState({ menu: 'closed' })
+    const handleProfileClick = () => {
+        handleMenuClick()
+        onProfileClick()
     }
 
-    handleProfileClick = () => {
-        this.handleMenuClick()
-        this.props.onProfileClick()
+    const handleHomeClick = () => {
+        onHomeClick()
     }
 
-    handleHomeClick = () => {
-        this.props.onHomeClick()
-    }
-    render() {
-        return (<header>
-            <span className="homeIcon material-symbols-outlined" onClick={this.handleHomeClick}>
-                home
-            </span>
-            <h1 id="headerTitle">Hello, {this.props.name}</h1>
+    return (<header>
+        <span className="homeIcon material-symbols-outlined" onClick={handleHomeClick}>
+            home
+        </span>
+        <h1 id="headerTitle">Hello, {name}</h1>
+        <div className={menu === 'closed' && "menuContainer" || menu === 'opened' && 'menuContainer change'} onClick={handleMenuClick}>
+            <div className="menuIcon"></div>
+            <div className="menuIcon1"></div>
+            <div className="menuIcon2"></div>
 
-            <div className={this.state.menu === 'closed' && "menuContainer" || this.state.menu === 'opened' && 'menuContainer change'} onClick={this.handleMenuClick}>
-                <div className="menuIcon"></div>
-                <div className="menuIcon1"></div>
-                <div className="menuIcon2"></div>
+            {menu === 'opened' &&
+                <div className="dropdownMenu displayBlock">
+                    <ul>
+                        <li><a href="#" className="profileLink" onClick={handleProfileClick}>Profile</a></li>
+                        <li><a href="#" className="settingsLink">Settings</a></li>
+                        <li><a href="#" className="logoutLink" onClick={onLogout}>Logout</a></li>
+                    </ul>
+                </div>
+            }
 
-                {this.state.menu === 'opened' &&
-                    <div className="dropdownMenu displayBlock">
-                        <ul>
-                            <li><a href="#" className="profileLink" onClick={this.handleProfileClick}>Profile</a></li>
-                            <li><a href="#" className="settingsLink">Settings</a></li>
-                            <li><a href="#" className="logoutLink" onClick={this.props.onLogout}>Logout</a></li>
-                        </ul>
-                    </div>
-                }
+        </div>
+    </header>)
 
-            </div>
-        </header>)
-    }
 }
