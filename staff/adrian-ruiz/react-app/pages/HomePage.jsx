@@ -149,16 +149,18 @@ function HomePage({onLogout, onFeedback}) {
     }
 
     const handleProfileClick = () => {
-        setView('profile')
+        if(view !== 'profile'){
+            setView('profile')
 
-        logger.debug('setView', 'profile')
+            logger.debug('setView', 'profile')
+        }
     }
 
     const handleHomeClick = () => {
-
-        setView('list')
-
-        logger.debug('setView', 'list')
+        if(view !== 'list'){
+            setView('list')
+            logger.debug('setView', 'list')
+        }
         
         if (myComponentRef.current) {
             // handleScroll is a method from my Child (List panel) which I invoke by ref
@@ -178,7 +180,7 @@ function HomePage({onLogout, onFeedback}) {
                     {view === 'list' &&
                         <ListPanel notes={notes} onUpdateNote={handleUpdateNote} onDeleteNote={handleDeleteNote} onChangeColorNote={handleChangeColorNote} ref={myComponentRef} />}
                     {view === 'profile' &&
-                        <ProfileMenu />}
+                        <ProfileMenu onFeedback={onFeedback}/>}
                     <section className="bottomMenu">
                         {view === 'list' && <button className="newNoteButton"><span className="newNoteEmoji" onClick={handleAddClick}>📝</span></button>
                         }

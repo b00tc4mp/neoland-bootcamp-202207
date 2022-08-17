@@ -1,39 +1,38 @@
-class NewNotePopUp extends Component {
-    constructor(props) {
-        super(props)
+const { useRef } = React
 
-        this.noteTitle = React.createRef()
-        this.noteText = React.createRef()
-    }
+function NewNotePopUp({ onNewNoteSubmit, onCancelNewNote }) {
 
-    handleSubmit = event => {
+    const noteTitle = useRef()
+    const noteText = useRef()
+
+    const handleSubmit = event => {
         event.preventDefault()
-        debugger
-        const title = this.noteTitle.current.textContent
-        const text = this.noteText.current.textContent
-        let result = confirm('Are you sure to create a new note?')
-            if(result){
-                this.props.onNewNoteSubmit(title, text)
-            }else return
-        
-    }
-    render() {
-        return (
-            <div className="containerPopUp">
-                <div className="newNotePopUp">
-                    <form className="newNoteForm" action="#" onSubmit={this.handleSubmit}>
-                        <label htmlFor="newNoteTitle" className="newNoteLabel">Title</label>
-                        <div contenteditable="true" className="newNoteInput newNoteInput__title" name="newNoteTitle" ref={this.noteTitle}></div>
-                        <label htmlFor="newNoteText" className="newNoteLabel">Describe your new note</label>
-                        <div contenteditable="true" className="newNoteInput newNoteInput__text" name="newNoteText" ref={this.noteText}></div>
-                        <div className="newNoteButtonsContainer">
-                            <button className="newNoteFormButton" id="confirmNewNoteButton">Create note</button>
-                            <button type="button" className="newNoteFormButton" id="cancelNewNoteButton" onClick={this.props.onCancelNewNote}>Cancel</button>
-                        </div>
 
-                    </form>
-                </div>
-            </div>
-        )
+        const title = noteTitle.current.textContent
+        const text = noteText.current.textContent
+
+        let result = confirm('Are you sure to create a new note?')
+        if (result) {
+            onNewNoteSubmit(title, text)
+        } else return
     }
+
+    return (
+        <div className="containerPopUp">
+            <div className="newNotePopUp">
+                <form className="newNoteForm" action="#" onSubmit={handleSubmit}>
+                    <label htmlFor="newNoteTitle" className="newNoteLabel">Title</label>
+                    <p contentEditable="true" suppressContentEditableWarning={true} className="newNoteInput newNoteInput__title" name="newNoteTitle" ref={noteTitle}></p>
+                    <label htmlFor="newNoteText" className="newNoteLabel">Describe your new note</label>
+                    <p contentEditable="true" suppressContentEditableWarning={true} className="newNoteInput newNoteInput__text" name="newNoteText" ref={noteText}></p>
+                    <div className="newNoteButtonsContainer">
+                        <button className="newNoteFormButton" id="confirmNewNoteButton">Create note</button>
+                        <button type="button" className="newNoteFormButton" id="cancelNewNoteButton" onClick={onCancelNewNote}>Cancel</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    )
+
 }
