@@ -11,10 +11,10 @@ function NewNoteForm({onCloseClick,onArrowLeft,onFeedback}) {
             event.preventDefault()
 
             const newText = event.target.value
-            //if (newText === ""){
-            if (newText === "" || newText === undefined || newText === null){ 
+
+            if (newText === ""){ 
                 onFeedback({ message: "Nota Vacia Descartada", level: 'info' })
-                logger.warn("Nota Vacia Descartada")
+                    // logger.warn(error.message)
                 onCloseClick()}
             else {
                 onArrowLeft(newText)
@@ -24,13 +24,13 @@ function NewNoteForm({onCloseClick,onArrowLeft,onFeedback}) {
         }}>
 
         <button className="btn_arrLeft" type="submit"  >
-            <IconButton addClass="arrow_back" text="arrow_back"/>
+            <IconButton onClick={null} addClass="arrow_back" text="arrow_back"/>
         </button>
 
         <li className="list__itemNew">
-            <textarea className="list__item-textNew" id="newNote" name="newItemNote"
+            <p suppressContentEditableWarning="true" contenteditable="true" className="list__item-textNew" id="newNote" name="newItemNote"
                 placeholder="New Note!!"
-            ></textarea>
+            ></p>
         </li>
 
     </form>
