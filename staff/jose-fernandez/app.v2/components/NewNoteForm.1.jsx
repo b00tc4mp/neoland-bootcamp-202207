@@ -1,4 +1,4 @@
-function NewNoteForm(onCloseClick,onArrowLeft) {
+function NewNoteForm(props) {
     const logger = new Loggito('NewNoteForm')
 
     logger.info('render')
@@ -9,11 +9,10 @@ function NewNoteForm(onCloseClick,onArrowLeft) {
 
             const newText = event.target.innerText
 
-            if (newText === ""){ 
-                alert('nothing')
-                onCloseClick()}
+            if (newText === ""){ alert('nothing')
+                props.onCloseClick()}
             else {
-                onArrowLeft(newText)
+                props.onArrowLeft(newText)
 
                 event.target.reset()
             }

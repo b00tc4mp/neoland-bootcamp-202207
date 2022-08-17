@@ -1,4 +1,4 @@
-function NewNoteForm(onCloseClick,onArrowLeft) {
+function NewNoteForm(props) {
     const logger = new Loggito('NewNoteForm')
 
     logger.info('render')
@@ -9,16 +9,16 @@ function NewNoteForm(onCloseClick,onArrowLeft) {
 
             const newText = event.target.innerText
 
-            if (newText === ""){ 
-                alert('nothing')
-                onCloseClick()}
+            if (newText === ""){ alert('nothing')
+                props.onCloseClick()}
             else {
-                onArrowLeft(newText)
+                props.onArrowLeft(newText)
 
                 event.target.reset()
             }
         }}>
 
+        {/* <button className="btn_arrLeft" type="submit" onClick={props.onCloseClick} > */}
         <button className="btn_arrLeft" type="submit"  >
             <i className="fa-solid fa-arrow-left"></i>
         </button>

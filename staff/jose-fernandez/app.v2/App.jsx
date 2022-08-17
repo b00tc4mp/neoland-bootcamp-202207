@@ -1,41 +1,58 @@
-class App extends Component {
-    constructor() {
-        super()
+const { useState } = React
+function App() {
+    const logger = new Loggito('App')
 
-        this.state = { view: sessionStorage.token ? 'home' : 'login' }
+    const [view, setView] = useState(sessionStorage.token ? 'home' : 'login')
 
+    const [feedback, setFeedback] = useState({ message: null, level: null })
+
+    const handleNavigationToRegister = () => {
+        setView('register')
+
+        logger.debug('setView', 'register')
     }
 
-    handleNavigationToRegister = () => this.setState({ view: 'register' })
+    const handleNavigationToLogin = () => {
+        setView('login')
 
-    handleNavigationToLogin = () => this.setState({ view: 'login' })
+        logger.debug('setView', 'login')
+    }
 
-    handleNavigationToHome = () => this.setState({ view: 'home' })
+    const handleNavigationToHome = () => {
+        setView('home')
 
-    handleLogoutClick = () => {
+        logger.debug('setView', 'home')
+    }
+
+    const handleLogoutClick = () => {
         delete sessionStorage.token
 
-        this.handleNavigationToLogin()
+        handleNavigationToLogin()
     }
 
-    render() {
-        this.logger.info('render')
+    const handleAcceptFeedback = () => {
+        const feedback = { message: null, level: null }
 
-        const {
-            state:{view},
-            handleNavigationToLogin,
-            handleNavigationToRegister,
-            handleNavigationToHome,
-            handleLogoutClick
-        } =this
+        setFeedback(feedback)
 
-        if (view === 'login')
-            return <LoginPage onLinkClick={handleNavigationToRegister} onLogIn={handleNavigationToHome} />
-        else if (view === 'register')
-            return <RegisterPage onLinkClick={handleNavigationToLogin} onSingUp={handleNavigationToLogin} />
-        else if (view === 'home')
-            return <HomePage onLogoutClick={handleLogoutClick} />
+        logger.debug('setFeedback',feedback)
     }
 
+    const handleFeedback = feedback =>{
+        setFeedback(feedback)
 
+        logger.debug('setFeedback',feedback)
+    }
+
+    logger.info('render')
+
+    return <>
+        {view === 'login' && <LoginPage onLinkClick={handleNavigationToRegister} onLogIn={handleNavigationToHome} onFeedback={handleFeedback} />}
+        {view === 'register' && <RegisterPage onLinkClick={handleNavigationToLogin} onSingUp={handleNavigationToLogin} onFeedback={handleFeedback}/>}
+        {view === 'home' && <HomePage onLogoutClick={handleLogoutClick} onFeedback={handleFeedback}/>}
+    
+        {feedback.message && <Feedback level={feedback.level} message={feedback.message} onClick={handleAcceptFeedback}/>}
+    </>
 }
+
+

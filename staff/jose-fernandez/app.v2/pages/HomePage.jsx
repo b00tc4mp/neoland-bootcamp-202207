@@ -1,140 +1,155 @@
-class HomePage extends Component {
-    constructor() {
-        super()
+const { useState, useEffect } = React
 
-        this.state = { name: null, email: null, notes: null, view:'list' }
-    }
+function HomePage({ onLogoutClick, onFeedback }) {
 
-    componentDidMount = () => { // override
-        super.componentDidMount()
+    const logger = new Loggito('HomePage')
 
+    const [name, setName] = useState(null)
+    const [email, setEmail] = useState(null)
+    const [notes, setNotes] = useState(null)
+    const [view, setView] = useState('list')
+
+    useEffect(() => {
+        logger.info('"componentDidMount"')
         try {
             retrieveUser(sessionStorage.token, (error, user) => {
                 if (error) {
-                    alert(error.message)
+                    onFeedback({ message: error.message, level: 'error' })
 
-                    this.logger.warn(error.message)
+                    logger.warn(error.message)
+                    onLogoutClick()
                     return
                 }
-                this.setState({ name: user.name ,email: user.email})
+                setName(user.name)
+                setEmail(user.email)
+
+                logger.debug('setName' , user.name)
             })
         } catch (error) {
-            alert(error.message)
+            onFeedback({ message: error.message, level: 'error' })
 
-            this.logger.warn(error.message)
+            logger.warn(error.message)
         }
-        this.loadNotes()
-    }
+        loadNotes()
+    }, [])
 
-    loadNotes = () => {
+    const loadNotes = () => {
         try {
             retrieveNotes(sessionStorage.token, (error, notes) => {
                 if (error) {
-                    alert(error.message)
+                    onFeedback({ message: error.message, level: 'error' })
 
-                    this.logger.warn(error.message)
+                    logger.warn(error.message)
                     return
                 }
-                this.setState({ notes, view: 'list' })
+                // setState({ notes, view: 'list' })
+                setNotes(notes)
+                logger.debug('setNotes', notes)
             })
         } catch (error) {
-            alert(error.message)
+            onFeedback({ message: error.message, level: 'error' })
 
-            this.logger.warn(error.message)
+            logger.warn(error.message)
         }
     }
 
-    
-    handleAddClick = () => {
-        this.setState({ view: 'newNote' })
+
+    const handleAddClick = () => {
+        setView('newNote')
     }
 
-    handleArrowLeftClick = (newText) => {//onFormCreateNote
+    const handleArrowLeftClick = (newText) => {//onFormCreateNote
         try {
             createNote(sessionStorage.token, newText, error => {
                 if (error) {
-                    alert(error.message)
+                    onFeedback({ message: error.message, level: 'error' })
 
                     return
                 }
-                this.loadNotes()
-
-
+                loadNotes()
+                setView('list')
             })
 
         } catch (error) {
-            alert(error.message)
+            onFeedback({ message: error.message, level: 'error' })
+
+            logger.warn(error.message)
         }
     }
 
 
-    handleUpdateNote = (noteId, text) => {
+    const handleUpdateNote = (noteId, text) => {
         try {
             updateNote(sessionStorage.token, noteId, text, error => {
                 if (error) {
-                    alert(error.message)
+                    onFeedback({ message: error.message, level: 'error' })
                     return
                 }
+                //agregado abajo en handleSettingsClick
+                // loadNotes()
             })
         } catch (error) {
-            alert(error.message)
+            onFeedback({ message: error.message, level: 'error'})
+
+            logger.warn(error.message)
         }
     }
 
-    handleDeleteNote = noteId => {
+    const handleDeleteNote = noteId => {
         try {
             deleteNote(sessionStorage.token, noteId, error => {
                 if (error) {
-                    alert(error.message)
+                    onFeedback({ message: error.message, level: 'error' })
 
-                    this.logger.warn(error.message)
+                    logger.warn(error.message)
                     return
                 }
-                this.loadNotes()
+                loadNotes()
             })
         } catch (error) {
-            alert(error.message)
+            onFeedback({ message: error.message, level: 'error' })
 
-            this.logger.warn(error.message)
+            logger.warn(error.message)
         }
     }
 
-    handleSettingsClick = () => this.setState({ view: 'settings' })
+    const handleSettingsClick = () => {
 
-    handleReturnNoteList = () => this.setState({ view: 'list' })
+        setView('settings')
 
-    render() {
-        this.logger.info('render')
+        logger.debug('setView', 'settings')
 
-        const{  
-            state:{name,view,notes,email},
-            props:{onLogoutClick},
-            handleSettingsClick,
-            handleUpdateNote,
-            handleArrowLeftClick,
-            handleReturnNoteList,
-            handleDeleteNote,
-            handleAddClick
-        } = this
-
-        return name ?
-            <div className="container home_page ">
-                <Header name={name} onLogoutClick={onLogoutClick} onSettingsClick={handleSettingsClick} view={view} />
-
-                <main className="main_home">
-                    {view === 'list' && <NoteList notes={notes} onUpdateNote={handleUpdateNote} onDeleteNote={handleDeleteNote} />}
-                    {view === 'newNote' && <NewNoteForm onArrowLeft={handleArrowLeftClick} onCloseClick={handleReturnNoteList} />}
-                    {view === 'settings' && <Settings  onCloseClick={handleReturnNoteList} email={email} />}
-                </main>
-
-                <footer className="footer_home">
-                    {view === 'list' && <div className="btn_plus" onClick={handleAddClick}>
-                        <span className="material-symbols-outlined add">add</span>
-                    </div>}
-
-                </footer>
-            </div>
-            :
-            null
+        loadNotes()
     }
+
+    const handleReturnNoteList = () => {
+        // loadNotes()
+        setView('list')
+
+        logger.debug('setView', 'list')
+    }
+
+    const handleUpdateName = (newName) => setName(newName)
+    const handleUpdateEmail = (newEmail) => setEmail(newEmail)
+
+    logger.info('render')
+
+    return name ?
+        <div className="container home_page ">
+            <Header name={name} onLogoutClick={onLogoutClick} onSettingsClick={handleSettingsClick} view={view} />
+
+            <main className="main_home">
+                {view === 'list' && <NoteList notes={notes} onUpdateNote={handleUpdateNote} onDeleteNote={handleDeleteNote} />}
+                {view === 'newNote' && <NewNoteForm onArrowLeft={handleArrowLeftClick} onCloseClick={handleReturnNoteList} />}
+                {view === 'settings' && <Settings onCloseClick={handleReturnNoteList} email={email} onUpdateEmail={handleUpdateEmail} onFeedback={onFeedback} onUpdateName={handleUpdateName}/>}
+            </main>
+
+            <footer className="footer_home">
+                {view === 'list' && <div className="btn_plus" onClick={handleAddClick}>
+                    <span className="material-symbols-outlined add">add</span>
+                </div>}
+            </footer>
+        </div>
+        :
+        null
 }

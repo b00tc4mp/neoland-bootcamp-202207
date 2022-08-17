@@ -2,25 +2,15 @@ const {useState} = React
 function Header({ name, onLogoutClick, onSettingsClick,view:viewHome }) {
     const logger = new Loggito('Header')
     const [view, setView] = useState(null)
-    // [null, f(){}]
 
-    const handleMenuClick = () => {
-        setView('menu')
-
-        logger.debug('setView','menu')
-    }
+    const handleMenuClick = () => setView('menu')
 
     const handleCloseClick = () => {
         setView(null)
-
-        logger.debug('setView',null)
     }
 
     const handleSettingsClick = () => {
         setView(null)
-
-        logger.debug('setView',null)
-        
         onSettingsClick()
     }
 
