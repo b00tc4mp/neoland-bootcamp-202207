@@ -5,7 +5,7 @@ function Spinner() {
 
     logger.info('return')
     return <div className="spinner">
-        <img src="https://samherbert.net/svg-loaders/svg-loaders/oval.svg"></img>
+        <img alt="spinner" src="https://samherbert.net/svg-loaders/svg-loaders/oval.svg"></img>
     </div>
 }
 

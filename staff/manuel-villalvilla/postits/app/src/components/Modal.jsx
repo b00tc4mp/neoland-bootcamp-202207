@@ -1,4 +1,5 @@
 import Logger from '../utils/logger'
+import './Modal.css'
 
 function Modal({ onCloseButtonClick, title, message }) {
     const logger = new Logger(Modal.name)
