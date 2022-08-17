@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone@7.18.12/babel.js"></script>
+    
+    <title>react</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div id="root" class="container container--full"></div>
+
+</body>
+
+<!-- commons / utils -->
+<script src="./utils/loggito.js"></script>
+
+<!--business layer -->
+<script src="./logic/constants.js"></script>
+<script src="./logic/authenticateUser.js"></script>
+<script src="./logic/retrieveUser.js"></script>
+<script src="./logic/registerUser.js"></script>
+<script src="./logic/retrieveNotes.js"></script>
+<script src="./logic/createNote.js"></script>
+<script src="./logic/updateNote.js"></script>
+<script src="./logic/deleteNote.js"></script>
+<script src="./logic/UpdateUserPassword.js"></script>
+
+
+<!----------Presentation-->
+
+<script src="./components/Component.jsx" type="text/babel"></script>
+<script src="./components/LoginPage.jsx" type="text/babel"></script>
+<script src="./components/RegisterPage.js" type="text/babel"></script>
+<!-- <script src="./components/HomePage.jsx" type="text/babel"></script> -->
+<script src="./components/HomePage1.jsx" type="text/babel"></script>
+<script src="./components/App.jsx" type="text/babel"></script>
+
+
+<!-- presentation layer  -->
+<script src="index.jsx" type="text/babel"></script>
+
+</html>
