@@ -1,0 +1,13 @@
+* {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+}
+
+.wordShown {
+    letter-spacing: 18px;
+}
+
+.triesLeft {
+    font-size: small;
+    margin-top: 20px;
+}
