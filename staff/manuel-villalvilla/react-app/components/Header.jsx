@@ -35,7 +35,7 @@ function Header({ name, onLogoutButtonClick, onSettingsButtonClick, onNotesButto
             </span>
             </button>
         </div>
-        <div className="saludo">Hola {name}!</div>
+        <div className="saludo">Hi {name}!</div>
         <div className={menuShow ? "menu rotate" : "menu"} onClick={handleMenuButtonClick}>
             <div className="menu-icon" />
             <div className="menu-icon" />

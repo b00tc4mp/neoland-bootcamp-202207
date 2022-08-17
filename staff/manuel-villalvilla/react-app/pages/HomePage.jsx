@@ -127,8 +127,8 @@ function HomePage({ onLogoutButtonClick, modalAlert }) {
     }
 
     logger.info('render')
-
-    if (name)
+    
+    if (notes)
         return <div className="home-page">
 
             <Header name={name} onLogoutButtonClick={onLogoutButtonClick}
@@ -149,4 +149,6 @@ function HomePage({ onLogoutButtonClick, modalAlert }) {
             </main>}
 
         </div>
+    else
+        return <Spinner />
 }
