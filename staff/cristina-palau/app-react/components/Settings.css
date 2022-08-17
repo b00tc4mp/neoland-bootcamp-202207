@@ -1,0 +1,21 @@
+.form__update {
+    padding: 40px;
+    border-radius: 20px;
+}
+
+.form__update--password {
+    height: 50vh;
+    margin-top: 70px;
+}
+
+.form__update--email {
+    margin-bottom: 50px;
+    height: 30%;
+}
+
+.form__update {
+    display: flex;
+    height: 100%;
+    padding-top: 50px;
+    gap: 5px;
+}

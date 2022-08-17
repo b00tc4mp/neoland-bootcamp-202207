@@ -16,21 +16,19 @@ class App extends React.Component {
 
     handleOnTryCharFormSubmit = event => {
         const character = event.target.input.value
-        
+
         event.target.reset()
-        
-         const state = tryAChar(character, this.state)
+
+        const state = tryAChar(character, this.state)
 
         this.setState(state)
-       
-        }
+    }
 
     playAgainOnClick = event => {
         event.preventDefault()
 
         this.setState(startGame())
     }
-
     
     render() {
         return (
@@ -48,7 +46,6 @@ class App extends React.Component {
                         <h1 className="game title">Hangman Game</h1>
                         <h2 className="wordShown">{this.state.wordShown}</h2>
                         <Form inputType="text" placeholder="enter a character" onSubmit={this.handleOnTryCharFormSubmit} buttonText="TRY" />
-                        <p className="charactersUsed">Characters Used: {this.state.printCharacters}</p>
                         <p className="triesLeft">tries left: {this.state.triesLeft}</p>
                     </>
                 }
