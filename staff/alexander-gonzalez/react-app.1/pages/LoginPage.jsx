@@ -1,14 +1,15 @@
-function LoginPage(props) {
+function LoginPage({ onLinkClick, onLogIn, onFeedback }) {
     const logger = new Loggito(LoginPage.name)
 
     logger.info('constructor')
 
     logger.info('render')
 
+    
     const handleLinkClick = event => {
         event.preventDefault()
 
-        props.onLinkClick()
+        onLinkClick()
     }
     
     const handleFormSubmit = event => {
@@ -20,35 +21,32 @@ function LoginPage(props) {
     const passwordInput = form.password
 
     const email = emailInput.value
-    const password = passwordInput.value
-
-
-    
+    const password = passwordInput.value    
 
     try {
         authenticateUser(email, password, (error, token) => {
             if (error) {
-                alert(error.message)
+                onFeedback({ message: error.message, level: 'error'})
 
                 logger.warn(error.message)
 
                 return
 
             }
-
             logger.debug('user logged in')
 
             sessionStorage.token = token
 
-            props.onLogIn()
+              onLogIn()
         })
     } catch(error) {
-        alert(error.message)
+        onFeedback({ message: error.message, level: 'error'})
 
         logger.warn(error.message)
     }
 
 }
+
 
 
 return <main className="login-page container container--full container--spaced">

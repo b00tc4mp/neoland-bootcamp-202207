@@ -9,10 +9,44 @@ function RegisterPage(props) {
         props.onLinkClick()
     }
 
+    const handleFormSubmit = event => {
+        event.preventDefault()
+
+        const form = event.target
+
+        const nameImput = form.name
+        const emailInput = form.email
+        const passwordInput = form.password
+
+        const name = nameImput.value
+        const email = emailInput.value
+        const password = passwordInput.value
+
+        try {
+            registerUser(name, email, password, (error) => {
+                if (error) {
+                    alert(error.message)
+                    
+                    logger.warn(error.message)
+
+                    return
+                }
+                logger.debug('register reset')
+                form.reset()
+                props.onLogIn()
+            })
+        } catch (error) {
+            alert(error.message)
+
+            logger.warn(error.message)
+        }
+    }
+
+
     logger.info('render')
 
     return <main className="register-page container container--full container--spaced">
-        <form className="form">
+        <form className="form form-register" onSubmit={handleFormSubmit} >
             <div className="form__field">
                 <label htmlFor="name">Name</label>
                 <input className="input" type="text" name="name" placeholder="name" id="name" />
@@ -34,5 +68,6 @@ function RegisterPage(props) {
         <a className="anchor" href="login.html" onClick={handleLinkClick}>Login</a>
     </main>
 }
-
-
+    
+    
+    
