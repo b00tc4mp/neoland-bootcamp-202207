@@ -10,16 +10,23 @@
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
     <script src="https://unpkg.com/@babel/standalone@7.18.12/babel.js"></script>
 
-    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="style.css">
 
-    <title>Hangman</title>
+    <title>TicTactoe</title>
 </head>
 
 <body>
-    <div id="root"></div>
+    <div id="root" class="container"></div>
 
+    <script src="loggito.js"></script>
 
-    <script src="components/Form.jsx" type="text/babel"></script>
+    <script src="logic/helpers.js"></script>
+    <script src="logic/startGame.js"></script>
+    <script src="logic/makeAMove.js"></script>
+
+    
+    <script src="components/board.jsx" type="text/babel"></script> 
+    <script src="components/result.jsx" type="text/babel"></script>
     <script src="components/App.jsx" type="text/babel"></script>
     <script src="index.jsx" type="text/babel"></script>
 </body>
