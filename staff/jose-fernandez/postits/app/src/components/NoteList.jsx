@@ -8,16 +8,16 @@ function NoteList({notes,onDeleteNote,onUpdateNote}) {
     return <ul className="list-panel list ">
         {notes && notes.map(note => <li className="list__item" key={note.id}>
             <button className="btn__delete" onClick={() => onDeleteNote(note.id)}>X</button>
-            <p suppressContentEditableWarning="true" contentEditable="true" className="list__item-text" 
+            <textarea className="list__item-text" 
                 onKeyUp={event => {
                 if (window.updateNoteTimeoutId)
                     clearTimeout(window.updateNoteTimeoutId)
 
                 window.updateNoteTimeoutId = setTimeout(() => {
-                    const text = event.target.innerText
+                    const text = event.target.value
                     onUpdateNote(note.id,text)
                 }, 500)
-            }}>{note.text}</p>
+            }}defaultValue={note.text}></textarea>
 
         </li>)}
 

@@ -16,11 +16,13 @@ function RegisterPage({onLinkClick,onSingUp}){
     const handleFormSubmit = event =>{
         event.preventDefault()
 
-        const form = event.target
+        const { target: form } = event
 
-        const name= form.name.value
-        const email= form.email.value
-        const password= form.password.value
+        const { 
+            name:{value:name},
+            email: { value: email },
+            password: { value: password }
+        } = form
 
         try {
             registerUser(name, email, password, function (error) {
