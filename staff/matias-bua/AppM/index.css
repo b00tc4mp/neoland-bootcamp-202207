@@ -1,0 +1,195 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+
+/* resets */
+
+* {
+  font-family: Lato;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: rgb(47, 72, 88);
+  background: linear-gradient(
+    174deg,
+    rgba(47, 72, 88, 1) 0%,
+    rgba(51, 101, 138, 1) 30%,
+    rgba(246, 174, 45, 1) 82%,
+    rgba(242, 100, 25, 1) 100%
+  );
+  color: white;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container--spaced {
+  gap: 10px;
+}
+
+.container--distributed {
+  justify-content: space-between;
+}
+.header-top {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.input {
+  background-color: transparent;
+  border: 1px solid rgba(242, 100, 25, 1);
+  border-radius: 10px;
+  color: white;
+  font-size: 1rem;
+  caret-color: rgba(242, 100, 25, 1);
+}
+
+.input:-webkit-autofill {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: white;
+}
+
+.input::selection {
+  background-color: rgba(51, 101, 138, 1) 30%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: rgba(246, 174, 45, 1);
+}
+
+.input::placeholder {
+  color: rgba(51, 100, 138, 0.851);
+}
+
+.input:focus {
+  outline: none;
+}
+
+.button {
+  background-color: transparent;
+  border: 1px solid white;
+  padding: 5px;
+  color: white;
+  font-size: 1rem;
+  border-radius: 16px;
+}
+
+.anchor {
+  color: white;
+}
+
+.anchor:visited {
+  color: white;
+}
+
+.main {
+  overflow: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.main::-webkit-scrollbar {
+  display: none;
+}
+
+.menu {
+  position: fixed;
+  background-color: dodgerblue;
+  width: 100%;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  padding: 0;
+  margin: 0;
+}
+
+.list__item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.518);
+  color: rgb(255, 255, 255);
+  width: 300px;
+  font-size: 1.5rem;
+  min-height: 3rem;
+  padding: 0 0 1rem 0;
+}
+
+.list__item-text {
+  width: calc(100% - 2rem);
+  height: auto;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  resize: none;
+  overflow: hidden;
+}
+
+.list__item-delete-button {
+  align-self: flex-end;
+  width: 1rem;
+  height: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.transparent-button {
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 3rem;
+  cursor: pointer;
+}
+.menu-panel__list {
+  list-style: none;
+}
+/* .menu-panel {
+  position: fixed;
+} */
+.settings-panel {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  gap: 5px;
+}
+.button-change {
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  border-radius: 16px;
+  border: none;
+  width: 90px;
+}
