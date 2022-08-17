@@ -1,0 +1,320 @@
+
+html,
+body {
+  background: rgb(32,30,33);
+background: linear-gradient(34deg, rgba(32,30,33,1) 44%, rgba(253,181,29,1) 92%, rgba(252,176,69,1) 100%);
+  width: 100%;
+  margin:0%;
+  box-sizing:border-box;
+  height: 100%;
+  display: flex;
+  
+
+
+}
+
+
+header{
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.container--full {
+  height: 100%;
+}
+
+.container--row{
+  flex-direction: row;
+}
+.container--spaced{
+  gap: 10px;
+  
+}
+
+.container--distributed{
+  justify-content:space-between ;
+}
+
+.header{
+  display:flex
+}
+
+.home-page{
+
+display: flex;
+width: 90%;
+
+
+}
+
+main {
+  margin-top: 0%;
+  background: rgb(251,137,63);
+  background: radial-gradient(circle, rgba(251,137,63,1) 0%, rgba(252,132,70,0.16152398459383754) 100%);
+  display: flex;
+  justify-content:center;
+  flex-direction:column;
+  border: 10px solid black;
+  padding:10%;
+  align-items: center;
+  color:black;
+  /*border-radius: 30px;*/
+  width: 100%;
+  height: 100%;
+ margin-left: 20%;
+  margin: 0%;
+  justify-items: center;
+  overflow: scroll;
+  
+}
+
+.img{
+display: flex;
+width: 100px;
+height: 100px;
+padding-top: 25px;
+padding-bottom: 30px;
+justify-content: center;
+justify-items: center;
+
+
+
+}
+
+.iconLogin{
+  display: flex;
+  height:auto;
+  width: 100%;
+  border-radius: 1px;
+  display: flex;
+  align-items: center;
+  margin-left: 0%;
+  border: 1px solid black;
+  padding: 5px;
+  height: 100%;
+
+
+  
+} 
+
+.form {
+  display: flex;
+  
+  flex-direction: column;
+
+  gap: 10px;
+
+  padding: 5%;
+}
+
+.form__field{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+}
+
+
+
+
+.email, .password{
+color : solid black;
+/*border-radius: 30px;*/
+border: 2px solid black;
+font-size: medium;
+background-color:white;
+padding: 10px;
+align-self: center;
+display: flex;
+width: 100%;
+
+
+
+}
+a{
+  color: white;
+  font-size:medium;
+  display:flex;
+  align-items: center;
+  margin-left: 40%;
+  text-decoration: none;
+  margin: auto;
+  
+}
+.button{
+  background-color: black;
+  color: white;
+ border-radius: 20px;
+  padding: 10px;
+  
+
+  
+}
+.button:hover{
+  background: rgb(223, 224, 226);
+background: radial-gradient(circle, rgba(255, 255, 255, 0.929) %, rgba(24,28,37,0.9094231442577031) 66%);
+}
+
+.Register{
+display: flex;
+align-items: center;
+border: 10px;
+margin:auto;
+flex-direction: column;
+
+
+}
+
+.input::placeholder{
+  color: transparent;
+}
+
+.input::placeholder{
+  outline: none;
+}
+
+
+.list{
+display: flex;
+flex-direction: column;
+gap: 90px;
+padding: 0;
+overflow: scroll;
+margin: 0;
+}
+
+.list__item{
+display: flex;
+justify-content: center;
+align-items: center;
+background-color:wheat;
+color: rgb(32, 30, 26);
+font-size: 1rem;
+/*padding: 10px;*/
+width: 100%;
+text-align: center;
+size: 1rem;
+height: 100%;
+}
+
+.list__item-text {
+  width:100%;
+  height:100%;
+  background-color: transparent;
+  border:none;
+  outline: none;  
+  resize: none;
+  overflow: hidden;
+  
+  
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.transparent-button{
+  background-color: transparent;
+  border: none;
+  color:rgb(220, 217, 217);
+  font-size: 3rem;
+  cursor: pointer;
+}
+
+.transparent-button:hover{
+color: antiquewhite;
+
+
+}
+
+.list__item-delete-button{
+
+  align-items: flex-end;
+  width: 1rem;
+  height: 1rem;
+  display: flex;
+  align-items: centers;
+  justify-content: center;
+  background-color: transparent;
+  cursor: pointer;
+  border: 0;
+  color: coral;
+  
+}
+
+.list__item-delete-button:hover{
+
+  color: black;
+}
+HTML CSSResult Skip Results Iframe
+EDIT ON
+#menu ul li {
+    background-color:#2e518b;
+}
+
+#menu ul {
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+
+#menu ul a {
+  display:block;
+  color:rgb(235, 234, 219);
+  text-decoration:none;
+  font-weight:400;
+  font-size:15px;
+  padding:10px;
+  font-family:"HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+
+#menu ul li {
+  position:relative;
+  float:left;
+  margin:0;
+  padding:0;
+}
+
+#menu ul li:hover {
+  background:#5b78a7;
+}
+
+#menu ul ul {
+  display:none;
+  position:absolute;
+  top:100%;
+  left:0;
+  padding:0;
+}
+
+#menu ul ul li {
+  float:none;
+  width:150px
+}
+
+#menu ul ul a {
+  line-height:120%;
+  padding:10px 15px;
+}
+
+#menu ul li:hover > ul {
+  display:block;
+}
+  
+
+
+  
+
+
