@@ -1,0 +1,61 @@
+.Feedback {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: rgba(0, 0, 0, .7);
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    
+}
+
+.Feedback__box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 75vw;
+    height: 25vh;
+    font-size: 2rem;
+    color: white;
+    padding: 10px;
+}
+
+.FeedbackButton{
+    background: transparent;
+    color: white;
+    border: 1.5px solid black;
+    margin: 10px;
+}
+
+.Feedback--error > .Feedback__box {
+    background-color: red;
+}
+
+.Feedback--warning > .Feedback__box {
+    background-color: orange;
+}
+
+.Feedback--success > .Feedback__box {
+    background-color: green;
+}
+
+.Feedback--info > .Feedback__box {
+    background-color: dodgerblue;
+}
+
+.FeedbackTimer{
+    width: 100%;
+    height: 5%;
+    align-self: flex-start;
+    background-color: yellow;
+    animation-name: FeedbackTimer;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes FeedbackTimer{
+    from {width: 100%}
+    to {width: 0%}
+}
