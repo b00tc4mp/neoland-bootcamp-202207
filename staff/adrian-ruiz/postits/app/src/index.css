@@ -1,0 +1,205 @@
+@import url('https://fonts.googleapis.com/css2?family=Nuosu+SIL&family=Open+Sans:wght@300&family=Oswald:wght@200;300;400;600&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+
+*{
+    box-sizing: border-box;
+    font-family: 'Oswald', sans-serif;
+}
+
+body, html, .page{
+    margin: 0px;
+    height: 100%;
+    width: 100vw;
+    font-size: 62.5%;   /* Formateo el size para que 1 rem = 10 px*/
+    overflow: hidden; /* Para eliminar scroll*/
+}
+.page{
+    display: flex;
+    flex-direction: column;
+}
+body{
+    width: 100%;
+}
+.mainBackground{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-image: url('assets/main-background.jpg');
+    background-size: cover;
+    background-attachment:fixed;
+}
+
+.topSectionContainer{
+    display: flex;
+    align-items: center;
+    height: 40%;
+}
+
+.topSection{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.topSectionImage{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+#companyLogo{
+    width: 200px;
+    height: auto;
+}
+
+.formContainer{
+    height: auto;
+    min-height: 65%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    background-color:white ;
+    border-radius: 35px 35px 0px 0px;
+}
+
+
+.formDiv{
+    height: 100%;
+   /*  min-height: 300px; */
+    width: 80%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+form {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+input{
+    width: 100%;
+    height: 10%;
+    min-height: 20px;
+    margin-bottom: 20px;
+    font-size: 2.2rem;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 1px solid #3d0b60;
+    caret-color:#9203ff ; 
+    color: #531a7c;
+    background-color: transparent;
+}
+
+
+input::selection{
+   background-color: #592380;
+   color: white;
+}
+
+input:focus{
+    outline: none;
+}
+
+ input:-webkit-autofill {
+    background-clip: text;
+    -webkit-background-clip:text;
+    -webkit-text-fill-color: #934dc5;
+}
+
+
+.labelForm{
+    width: 100%;
+    font-size: 2rem;
+    margin:0;
+    color: #592380;
+    font-weight: bold;
+}
+button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    margin-top: 30px;
+    height: 30px;
+    height: 10%;
+    min-height: 30px;
+    font-size: 18px;
+}
+
+.submitButton{
+    border-radius: 35px;
+    background-color: #592380;
+    box-shadow: 0px 8px 30px lightblue;
+    border: 1px solid #592380;
+}
+
+.buttonText{
+    color: white;
+    font-size: 2rem;
+}
+
+a:visited{
+    color:black;
+}
+
+ .anchorContainer{
+    margin-top: 20px;
+} 
+
+.anchor{
+    text-decoration: none;
+    margin-top: 20px;
+    font-size: 2rem;
+}
+
+
+
+/* HOME */
+
+.homeMainContainer{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 84%;
+}
+
+
+.bottomMenu{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* position: absolute; */
+    /* bottom: 0px; */
+    height: 6%;
+    min-height: 60px;
+    width: 100%;
+    background-color: #531a7c;
+}
+
+.newNoteButton{
+    font-size: 2.6rem;
+    padding: 0px;
+    margin: 0px;
+    height: 40px;
+    width: 40px;
+    border: none;
+    background-color: transparent;
+    border-radius: 100px;
+}
+
+.off{
+    display: none;
+}
