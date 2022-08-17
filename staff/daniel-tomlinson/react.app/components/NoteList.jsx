@@ -1,28 +1,58 @@
-function NoteList(props) {
-    const logger = new Loggito('List')
+function NoteList({ notes, onDeleteNote, onUpdateNote }) {
+  const logger = new Loggito("List");
 
-    logger.info('render')
+  const noteText = {}; // dictionary
 
-    return <ul className="list-panel list">
-        {props.notes && props.notes.map(note => <li className="list__item" key={note.id}><textarea className="list__item-text" onKeyUp={event => {
+  useEffect(() => {
+    logger.info("useEffect notelist");
+
+    if (notes) {
+      notes.map((note) => textAreaAdjust(note.id));
+      logger.info("note text area adjusted");
+    }
+  });
+
+  //changed to arrow function
+  const textAreaAdjust = (noteId) => {
+    noteText[noteId].style.height = "inherit";
+    noteText[noteId].style.height = `${25 + noteText[noteId].scrollHeight}px`;
+  };
+
+  return (
+    <ul className="list-panel list">
+      {notes &&
+        notes.map((note) => (
+          <li className="list__item" key={note.id}>
+            <button
+              className="list__item-delete-button"
+              onClick={() => onDeleteNote(note.id)}
+            >
+              x
+            </button>
+            <textarea
+              ref={(ref) => (noteText[note.id] = ref)}
+              className="list__item-text"
+              onKeyUp={(event) => {
+                textAreaAdjust(note.id);
+
                 if (window.updateNoteTimeoutId)
-                    clearTimeout(window.updateNoteTimeoutId)
+                  clearTimeout(window.updateNoteTimeoutId);
 
                 window.updateNoteTimeoutId = setTimeout(() => {
-                    const text = event.target.value
-                    
-                    props.onUpdateNote(note.id, text)
-                }, 500)
-            }}>{note.text}
-      </textarea><button className="list__item-delete-button" onClick={() => props.onDeleteNote(note.id)}>x</button>
-      <p></p>
-      </li>)
-       }
+                  const text = event.target.value;
+
+                  onUpdateNote(note.id, text);
+                }, 500);
+              }}
+              defaultValue={note.text}
+            ></textarea>
+          </li>
+        ))}
     </ul>
+  );
 }
 
-
-
+// ref={titleRefId => this.noteTitle[note.id] = titleRefId}
 
 /* 
 

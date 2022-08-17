@@ -1,38 +1,66 @@
-function Menu(props) {
-    const logger = new Loggito('Menu')
+function Menu({
+  view,
+  menuView,
+  onLogoutClick,
+  onSettingsClick,
+  onNotesClick,
+}) {
+  const logger = new Loggito("Menu");
 
-    const handleLogoutClick = () => props.onLogoutClick()
+  logger.info("render");
 
-    const handleSettingsClick = () => props.onSettingsClick()
+  // this.state = { view: "notes" };
 
-    const handleNotesClick = () => props.onNotesClick()
+  const handleLogoutClick = () => onLogoutClick();
 
-    logger.info('render')
+  const handleSettingsClick = () => {
+    // this.setState({ view: "settings" });
+    onSettingsClick();
+  };
 
-    return <div className="menu-panel">
+  const handleNotesClick = () => {
+    // this.setState({ view: "notes" });
+    onNotesClick();
+  };
 
-    <ul className="dropdown-menu menu-panel__list">
-      <li className="menu-panel__list-item dropdown-item settings-button" onClick={handleSettingsClick}>
-        <button className="dropdown__link"></button><i className="fa-solid fa-poo nav-icon poo-list-style"></i>Settings</li>
-        <li className="menu-panel__list-item dropdown-item notes-button" onClick={handleNotesClick}>
-            <button className="dropdown__link ">
-                <i className="fa-solid fa-poo nav-icon poo-list-style"></i>Notes
-                </button> </li>
-        <li className="menu-panel__list-item dropdown-item logout-button" onClick={handleLogoutClick}>
-            <button className="dropdown__link"></button><i className="fa-solid fa-poo nav-icon poo-list-style"></i>Logout</li>
-    </ul>
+  const elementsMenu =
+    menuView === "notes"
+      ? [
+          { text: "Settings", action: handleSettingsClick, key: 1 },
+          { text: "Logout", action: handleLogoutClick, key: 3 },
+        ]
+      : [
+          { text: "Notes", action: handleNotesClick, key: 2 },
+          { text: "Logout", action: handleLogoutClick, key: 3 },
+        ];
 
-</div>
-
+  return (
+    <div className="menu-panel">
+      <ul className="dropdown-menu menu-panel__list">
+        {elementsMenu.map((element) => {
+          return (
+            <li
+              className="menu-panel__list-item dropdown-item settings-button"
+              key={element.key}
+              onClick={element.action}
+            >
+              <button className="dropdown__link ">
+                <i className="fa-solid fa-poo nav-icon poo-list-style"></i>
+                {element.text}
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
 }
-// instead of having my onClick on the button, I have it on the list item 
-
-
+// instead of having my onClick on the button, I have it on the list item
 
 // I need to change the declared buttons above to <IconButton />
 
-
-{/* <div className="menu-panel">
+{
+  /* <div className="menu-panel">
   
   <ul className="dropdown-menu menu-panel__list">
     <li className="menu-panel__list-item-settings dropdown-item settings-button">
@@ -45,5 +73,5 @@ function Menu(props) {
           <button></button> </li>
   </ul>
 
-</div> */}
-
+</div> */
+}

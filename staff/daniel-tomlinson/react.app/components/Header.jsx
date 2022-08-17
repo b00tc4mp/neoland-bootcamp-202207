@@ -1,33 +1,81 @@
+const { usestate } = React;
 
-class Header extends Component {
-    constructor(props) {
-        super(props)
+function Header({
+  name,
+  onLogoutClick,
+  onSettingsClick,
+  onNotesClick,
+  view: viewHome,
+}) {
+  const logger = new Loggito("Header");
 
-        this.state = { view: null }
-    }
+  const [view, setView] = useState(null); // [null, f () {}]
+  const [menuView, setMenuView] = useState("notes");
 
-    handleMenuClick = () => this.setState({ view: 'menu'})
+  const handleMenuClick = () => {
+    setView("menu");
 
-    handlecloseClick = () => this.setState({ view: null})
+    logger.debug("setView", "menu");
+  };
 
-    render() {
-        this.logger.info('render')
+  const handleCloseClick = () => {
+    setView(null);
 
-        return <header className=" header flex-container navigation-bar">
-        <div className="navigation-bar">
-          <p className="welcome">Hello, {this.props.name}!</p>
-          { this.state.view === null && <button type="menu" className="menu-button menu-button__styles menu-panel-button" onClick={this.handleMenuClick}><i className="fa-solid fa-poo nav-icon logout-button-style">
-          </i></button>}
-          { this.state.view === 'menu' && <button type="menu" className="menu-button menu-button__styles menu-panel-button" onClick={this.handleCloseClick}><i className="fa-solid fa-poo nav-icon logout-button-style">
-          </i></button>}
-        </div>
+    logger.debug("setView", null);
+  };
 
-        { this.state.view = 'menu' && <Menu onLogoutClick={this.props.onLogoutClick} onSettingsClick={this.props.onSettingsClick} onNotesClick={this.props.onNotesClick}/>}
+  const handleLogoutClick = () => {
+    onLogoutClick();
+    handleCloseClick();
+  };
 
-        <h1 className="title">Helado Oscuro</h1>
+  const handleNotesClick = () => {
+    setMenuView("notes");
+    onNotesClick();
+    handleCloseClick();
+  };
 
-    
+  const handleSettingsClick = () => {
+    setMenuView("settings");
+    onSettingsClick();
+    handleCloseClick();
+  };
+
+  logger.info("render");
+
+  return (
+    <header className=" header flex-container navigation-bar">
+      <div className="navigation-bar">
+        <p className="welcome">Hello, {name}!</p>
+        {view === null && (
+          <button
+            type="menu"
+            className="menu-button menu-button__styles menu-panel-button"
+            onClick={handleMenuClick}
+          >
+            <i className="fa-solid fa-poo nav-icon logout-button-style"></i>
+          </button>
+        )}
+        {view === "menu" && (
+          <button
+            type="menu"
+            className="menu-button menu-button__styles menu-panel-button close-menu-button-style"
+            onClick={handleCloseClick}
+          >
+            x
+          </button>
+        )}
+      </div>
+      <h1 className="title">Helado Oscuro</h1>
+      {view === "menu" && (
+        <Menu
+          onLogoutClick={handleLogoutClick}
+          onSettingsClick={handleSettingsClick}
+          onNotesClick={handleNotesClick}
+          view={viewHome}
+          menuView={menuView}
+        />
+      )}
     </header>
-
-    }
+  );
 }
