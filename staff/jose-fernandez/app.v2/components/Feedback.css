@@ -3,11 +3,13 @@
     width: 100%;
     height: 100%;
     position: absolute;
+    
 }
 
 .Feedback__box {
     width: 50vw;
     height: 25vh;
+    border-radius: 15px;
 }
 
 .Feedback--error > .Feedback__box {

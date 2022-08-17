@@ -30,7 +30,7 @@ function Settings({ onCloseClick, email, onUpdateEmail, onFeedback, onUpdateName
                     return
                 }
 
-                alert('Password updated')
+                onFeedback({ message: "Password Update", level: 'success' })
                 onCloseClick()
             })
         } catch (error) {
@@ -55,7 +55,7 @@ function Settings({ onCloseClick, email, onUpdateEmail, onFeedback, onUpdateName
                     return
                 }
                 onUpdateEmail(newEmail)
-                alert('Email updated')
+                onFeedback({ message: "Email Update", level: 'success' })
 
                 onCloseClick()
             })
@@ -85,7 +85,7 @@ function Settings({ onCloseClick, email, onUpdateEmail, onFeedback, onUpdateName
 
                 onUpdateName(newName)
 
-                alert('User name updated')
+                onFeedback({ message: "User Name Update", level: 'success' })
 
                 onCloseClick()
             })

@@ -1,4 +1,4 @@
-function NewNoteForm(onCloseClick,onArrowLeft) {
+function NewNoteForm({onCloseClick,onArrowLeft,onFeedback}) {
     const logger = new Loggito('NewNoteForm')
 
     logger.info('render')
@@ -10,7 +10,8 @@ function NewNoteForm(onCloseClick,onArrowLeft) {
             const newText = event.target.innerText
 
             if (newText === ""){ 
-                alert('nothing')
+                onFeedback({ message: "Nota Vacia Descartada", level: 'info' })
+                    // logger.warn(error.message)
                 onCloseClick()}
             else {
                 onArrowLeft(newText)

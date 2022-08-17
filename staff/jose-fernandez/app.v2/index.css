@@ -47,6 +47,15 @@ body {
     align-items: center;
 }
 
+.container--spaced {
+    gap: 10px;
+}
+
+.container--padded {
+    padding: 10px;
+}
+
+
 .login_page,
 .register_page {
     /* background-color: aqua; */

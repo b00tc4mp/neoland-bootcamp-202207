@@ -140,7 +140,7 @@ function HomePage({ onLogoutClick, onFeedback }) {
 
             <main className="main_home">
                 {view === 'list' && <NoteList notes={notes} onUpdateNote={handleUpdateNote} onDeleteNote={handleDeleteNote} />}
-                {view === 'newNote' && <NewNoteForm onArrowLeft={handleArrowLeftClick} onCloseClick={handleReturnNoteList} />}
+                {view === 'newNote' && <NewNoteForm onArrowLeft={handleArrowLeftClick} onCloseClick={handleReturnNoteList} onFeedback={onFeedback}/>}
                 {view === 'settings' && <Settings onCloseClick={handleReturnNoteList} email={email} onUpdateEmail={handleUpdateEmail} onFeedback={onFeedback} onUpdateName={handleUpdateName}/>}
             </main>
 
