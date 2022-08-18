@@ -4,8 +4,6 @@ import authenticateUser from '../logic/authenticateUser'
 function LoginPage({ onRegisterLinkClick, onLoginFormSubmit, modalAlert }) {
     const logger = new Logger(LoginPage.name)
 
-    logger.info('constructor')
-
     const handleLinkClick = event => {
         event.preventDefault()
 
@@ -48,7 +46,7 @@ function LoginPage({ onRegisterLinkClick, onLoginFormSubmit, modalAlert }) {
         }
     }
 
-    logger.info('render')
+    logger.info('return')
 
     return <main className="body-center login-page">
         <div className="form-container">

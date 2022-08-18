@@ -4,8 +4,6 @@ import registerUser from '../logic/registerUser'
 function RegisterPage({ onLoginLinkClick, onRegisterFormSubmit, modalAlert }) {
     const logger = new Logger(RegisterPage.name)
 
-    logger.info('constructor')
-
     const handleLinkClick = event => {
         event.preventDefault()
 
@@ -53,7 +51,7 @@ function RegisterPage({ onLoginLinkClick, onRegisterFormSubmit, modalAlert }) {
 
     }
 
-    logger.info('render')
+    logger.info('return')
 
     return <main className="body-center register-page">
         <div className="form-container">

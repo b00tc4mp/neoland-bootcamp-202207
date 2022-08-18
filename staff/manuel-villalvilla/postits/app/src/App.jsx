@@ -4,15 +4,13 @@ import RegisterPage from './pages/RegisterPage'
 import HomePage from './pages/HomePage'
 import Modal from './components/Modal'
 import Logger from './utils/logger'
+import Context from './utils/Context'
 
-function App () {
-
+function App() {
     const logger = new Logger(App.name) 
 
     const [view, setView] = useState(sessionStorage.token ? 'home' : 'login')
     const [modalContent, setModalContent] = useState({ message: null, title: null })
-
-    logger.info('constructor')
 
     const handleRegisterLinkClick = () => setView('register')
 
@@ -40,17 +38,16 @@ function App () {
         setModalContent({ message, title })
     }
 
-    logger.info('render')
+    logger.info('return')
 
-    // delete sessionStorage.token
-
-    return <>
+    return <Context.Provider value={{handleLogoutButtonClick, handleModal}}>
         {view === 'login' && <LoginPage onRegisterLinkClick={handleRegisterLinkClick} onLoginFormSubmit={handleLoginFormSubmit} modalAlert={handleModal} />}
         {view === 'register' && <RegisterPage onLoginLinkClick={handleLoginLinkClick} onRegisterFormSubmit={handleRegisterFormSubmit} modalAlert={handleModal} />}
-        {view === 'home' && <HomePage onLogoutButtonClick={handleLogoutButtonClick} modalAlert={handleModal} />}
+        {view === 'home' && <HomePage />}
         {modalContent.message && <Modal onCloseButtonClick={handleModalClose} message={modalContent.message} title={modalContent.title} />}
-        </>
-
+        </Context.Provider>
 }
-
+// el context sirve para enviar al contexto global esas funciones dentro de value
+// cuando invoco un componente q las necesite, viene envuelto en una funcion withContext.js
+// que le pasa esas funciones por props. Se accede a ellas con context: {funciones}
 export default App

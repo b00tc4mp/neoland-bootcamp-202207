@@ -3,7 +3,7 @@ import Logger from '../utils/logger'
 function NoteList({notes, onDeleteClick, onUpdateNote}) {
     const logger = new Logger(NoteList.name)
 
-    logger.info('render')
+    logger.info('return')
 
     return <div className="notas-display">
     <ul className="list">

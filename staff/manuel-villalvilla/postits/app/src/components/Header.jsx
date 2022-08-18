@@ -1,11 +1,10 @@
 import { useState } from 'react'
 import Menu from './Menu'
 import Logger from '../utils/logger'
+import withContext from '../utils/withContext'
 
-function Header({ name, onLogoutButtonClick, onSettingsButtonClick, onNotesButtonClick }) {
-    const logger = new Logger('header')
-
-    logger.info('constructor')
+export default withContext(function Header({ name, onSettingsButtonClick, onNotesButtonClick, context: {handleLogoutButtonClick} }) {
+    const logger = new Logger(Header.name)
 
     const [menuShow, setMenuShow] = useState(false) // [false, f () {}]
 
@@ -26,12 +25,12 @@ function Header({ name, onLogoutButtonClick, onSettingsButtonClick, onNotesButto
         onNotesButtonClick()
     }
 
-    logger.info('render')
+    logger.info('return')
 
     return <>
     <div className="menu-header">
         <div className="div-logout">
-            <button className="logout-button" onClick={onLogoutButtonClick}>
+            <button className="logout-button" onClick={handleLogoutButtonClick}>
             <span className="material-symbols-outlined">
                 logout
             </span>
@@ -47,6 +46,4 @@ function Header({ name, onLogoutButtonClick, onSettingsButtonClick, onNotesButto
     
     <Menu show={menuShow} onSettingsButtonClick={handleSettingsButtonClick} onNotesButtonClick={handleNotesButtonClick}/>
     </>
-}
-
-export default Header
+})

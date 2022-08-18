@@ -10,11 +10,10 @@ import Footer from '../components/Footer'
 import NoteList from '../components/NoteList'
 import Settings from '../components/Settings'
 import Spinner from '../components/Spinner'
+import withContext from '../utils/withContext'
 
-function HomePage({ onLogoutButtonClick, modalAlert }) {
+export default withContext(function HomePage({ context: { handleModal } }) {
     const logger = new Logger('HomePage')
-
-    logger.info('constructor')
 
     const [name, setName] = useState(null)
     const [notes, setNotes] = useState(null)
@@ -26,7 +25,7 @@ function HomePage({ onLogoutButtonClick, modalAlert }) {
 
             retrieveUser(sessionStorage.token, (error, user) => {
                 if (error) {
-                    modalAlert('ERROR', error.message)
+                    handleModal('ERROR', error.message)
                     logger.warn(error.message)
                     return
                 }
@@ -39,7 +38,7 @@ function HomePage({ onLogoutButtonClick, modalAlert }) {
             loadNotes()
 
         } catch (error) {
-            modalAlert('ERROR', error.message)
+            handleModal('ERROR', error.message)
 
             logger.error(error.message)
         }
@@ -49,7 +48,7 @@ function HomePage({ onLogoutButtonClick, modalAlert }) {
         try {
             retrieveNotes(sessionStorage.token, (error, notes) => {
                 if (error) {
-                    modalAlert('ERROR', error.message)
+                    handleModal('ERROR', error.message)
 
                     logger.error(error.message)
 
@@ -60,7 +59,7 @@ function HomePage({ onLogoutButtonClick, modalAlert }) {
             })
 
         } catch (error) {
-            modalAlert('ERROR', error.message)
+            handleModal('ERROR', error.message)
 
             logger.error(error.message)
         }
@@ -70,7 +69,7 @@ function HomePage({ onLogoutButtonClick, modalAlert }) {
         try {
             createNote(sessionStorage.token, error => {
                 if (error) {
-                    modalAlert('ERROR', error.message)
+                    handleModal('ERROR', error.message)
 
                     logger.error(error.message)
 
@@ -81,7 +80,7 @@ function HomePage({ onLogoutButtonClick, modalAlert }) {
             })
 
         } catch (error) {
-            modalAlert('ERROR', error.message)
+            handleModal('ERROR', error.message)
 
             logger.error(error.message)
         }
@@ -91,7 +90,7 @@ function HomePage({ onLogoutButtonClick, modalAlert }) {
         try {
             deleteNote(sessionStorage.token, noteId, error => {
                 if (error) {
-                    modalAlert('ERROR', error.message)
+                    handleModal('ERROR', error.message)
 
                     return
                 }
@@ -100,7 +99,7 @@ function HomePage({ onLogoutButtonClick, modalAlert }) {
             })
 
         } catch (error) {
-            modalAlert('ERROR', error.message)
+            handleModal('ERROR', error.message)
 
             logger.error(error.message)
         }
@@ -110,7 +109,7 @@ function HomePage({ onLogoutButtonClick, modalAlert }) {
         try {
             updateNote(sessionStorage.token, noteId, text, error => {
                 if (error) {
-                    modalAlert('ERROR', error.message)
+                    handleModal('ERROR', error.message)
 
                     logger.error(error.message)
 
@@ -121,7 +120,7 @@ function HomePage({ onLogoutButtonClick, modalAlert }) {
             })
 
         } catch (error) {
-            modalAlert('ERROR', error.message)
+            handleModal('ERROR', error.message)
 
             logger.error(error.message)
         }
@@ -137,13 +136,13 @@ function HomePage({ onLogoutButtonClick, modalAlert }) {
         setView('notes')
     }
 
-    logger.info('render')
+    logger.info('return')
     
     if (notes)
         return <div className="home-page">
 
-            <Header name={name} onLogoutButtonClick={onLogoutButtonClick}
-                onSettingsButtonClick={handleSettingsClick} onNotesButtonClick={handleNotesClick}
+            <Header name={name} onSettingsButtonClick={handleSettingsClick} 
+            onNotesButtonClick={handleNotesClick}
             />
 
             {view === 'notes' && <>
@@ -156,12 +155,10 @@ function HomePage({ onLogoutButtonClick, modalAlert }) {
             </>}
 
             {view === 'settings' && <main className="main">
-                <Settings modalAlert={modalAlert} />
+                <Settings />
             </main>}
 
         </div>
     else
         return <Spinner />
-}
-
-export default HomePage
+})

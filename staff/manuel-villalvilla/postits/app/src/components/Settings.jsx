@@ -1,11 +1,10 @@
 import Logger from '../utils/logger'
 import updateUserPassword from '../logic/updateUserPassword'
 import updateUserEmail from '../logic/updateUserEmail'
+import withContext from '../utils/withContext'
 
-function Settings ({ modalAlert }) {
+export default withContext(function Settings ({ context: { handleModal } }) {
     const logger = new Logger(Settings.name)
-
-    logger.info('render')
 
     const onPasswordFormSubmit = event => {
         event.preventDefault()
@@ -22,19 +21,19 @@ function Settings ({ modalAlert }) {
         try {
             updateUserPassword(sessionStorage.token, currentPass, newPass, repeatPass, error => {
                 if(error) {
-                    modalAlert('ERROR', error.message)
+                    handleModal('ERROR', error.message)
                     logger.error(error.message)
                     return
                 }
                 
                 form.reset()
                 logger.debug('user changed pass successfully')
-                modalAlert('SUCCESS', 'Password changed successfully')
+                handleModal('SUCCESS', 'Password changed successfully')
     
             })
 
         } catch(error) {
-            modalAlert('ERROR', error.message)
+            handleModal('ERROR', error.message)
             logger.error(error.message)
         }
     }
@@ -48,21 +47,23 @@ function Settings ({ modalAlert }) {
         try {
             updateUserEmail(sessionStorage.token, newEmail, error => {
                 if(error) {
-                    modalAlert('ERROR', error.message)
+                    handleModal('ERROR', error.message)
                     logger.error(error.message)
                     return
                 }
                 form.reset()
                 logger.debug('user changed email successfully')
-                modalAlert('SUCCESS', 'User email changed successfully')
+                handleModal('SUCCESS', 'User email changed successfully')
     
             })
 
         } catch(error) {
-            modalAlert('ERROR', error.message)
+            handleModal('ERROR', error.message)
             logger.error(error.message)
         }
     }
+    
+    logger.info('return')
     
     return <div className="profile">
     <h2>Profile</h2>
@@ -94,6 +95,4 @@ function Settings ({ modalAlert }) {
         </form>
     </div>
     </div>
-}
-
-export default Settings
+})

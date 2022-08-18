@@ -6,7 +6,7 @@ function Menu({show, onNotesButtonClick, onSettingsButtonClick}) {
     if (!show)
         return null
 
-    logger.info('render')
+    logger.info('return')
 
     return (<nav className="hidden-menu">
         <ul style={{listStyle: 'none'}}>
