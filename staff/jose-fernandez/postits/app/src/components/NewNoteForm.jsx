@@ -1,37 +1,41 @@
 import IconButton from './Buttons/IconButton'
 import Loggito from '../utils/Loggito'
 
-function NewNoteForm({onCloseClick,onArrowLeft,onFeedback}) {
+function NewNoteForm({ onCloseClick, onArrowLeft, onFeedback }) {
     const logger = new Loggito('NewNoteForm')
 
     logger.info('return')
 
 
-    return <form className="formcreateNote" name="formcreateNote" onSubmit={event => {
-            event.preventDefault()
+    const handleFormSubmit = event => {
+        event.preventDefault()
 
-            const newText = event.target.value
-            //if (newText === ""){
-            if (newText === "" || newText === undefined || newText === null){ 
-                onFeedback({ message: "Nota Vacia Descartada", level: 'info' })
-                logger.warn("Nota Vacia Descartada")
-                onCloseClick()}
-            else {
-                onArrowLeft(newText)
+        //antes del value colocar name de donde se recoge el valor
+        const newText = event.target.newNote.value
 
-                event.target.reset()
-            }
-        }}>
+        if (newText === "") {
+            onFeedback({ message: "Discarded empty Note", level: 'info' })
+            logger.warn("discarded empty note")
+            onCloseClick()
+        }
+        else {
+            onArrowLeft(newText)
+
+            event.target.reset()
+        }
+    }
+
+    return <form className="formcreateNote" name="formcreateNote" onSubmit={handleFormSubmit}>
 
         <button className="btn_arrLeft" type="submit"  >
-            <IconButton addClass="arrow_back" text="arrow_back"/>
+            <IconButton addClass="arrow_back" text="arrow_back" />
         </button>
 
-        <li className="list__itemNew">
-            <textarea className="list__item-textNew" id="newNote" name="newItemNote"
+        <div className="list__itemNew">
+            <textarea className="list__item-textNew" id="newNote" name="newNote"
                 placeholder="New Note!!"
             ></textarea>
-        </li>
+        </div>
 
     </form>
 }
