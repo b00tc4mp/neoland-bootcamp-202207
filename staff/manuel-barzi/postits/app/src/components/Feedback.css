@@ -8,6 +8,7 @@
 .Feedback__box {
     width: 50vw;
     height: 25vh;
+    color: var(--color)
 }
 
 .Feedback--error > .Feedback__box {

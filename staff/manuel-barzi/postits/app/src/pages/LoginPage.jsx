@@ -1,8 +1,12 @@
 import Loggito from '../utils/Loggito'
 import authenticateUser from '../logic/authenticateUser'
+import withContext from '../utils/withContext'
 
-function LoginPage({ onLinkClick, onLogIn, onFeedback }) {
+function LoginPage({ onLinkClick, onLogIn, context: { handleFeedback } }) {
     const logger = new Loggito(LoginPage.name)
+
+    // const context = useContext(Context)
+    // const handleFeedback = context.handleFeedback
 
     logger.info('constructor')
 
@@ -28,7 +32,7 @@ function LoginPage({ onLinkClick, onLogIn, onFeedback }) {
         try {
             authenticateUser(email, password, (error, token) => {
                 if (error) {
-                    onFeedback({ message: error.message, level: 'error'})
+                    handleFeedback({ message: error.message, level: 'error'})
 
                     logger.warn(error.message)
 
@@ -42,7 +46,7 @@ function LoginPage({ onLinkClick, onLogIn, onFeedback }) {
                 onLogIn()
             })
         } catch (error) {
-            onFeedback({ message: error.message, level: 'error'})
+            handleFeedback({ message: error.message, level: 'error'})
 
             logger.warn(error.message)
         }
@@ -67,4 +71,4 @@ function LoginPage({ onLinkClick, onLogIn, onFeedback }) {
     </main>
 }
 
-export default LoginPage
+export default withContext(LoginPage)

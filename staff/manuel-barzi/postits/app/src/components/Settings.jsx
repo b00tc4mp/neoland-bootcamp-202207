@@ -1,8 +1,9 @@
 import IconButton from './IconButton'
 import Loggito from '../utils/Loggito'
 import updateUserPassword from '../logic/updateUserPassword'
+import withContext from '../utils/withContext'
 
-function Settings({ onCloseClick, onFeedback }) {
+function Settings({ onCloseClick, context: { handleFeedback } }) {
     const logger = new Loggito('Settings')
 
     logger.info('return')
@@ -21,19 +22,19 @@ function Settings({ onCloseClick, onFeedback }) {
         try {
             updateUserPassword(sessionStorage.token, oldPassword, newPassword, newPasswordRepeat, error => {
                 if (error) {
-                    onFeedback({ message: error.message, level: 'warning' })
+                    handleFeedback({ message: error.message, level: 'warning' })
 
                     logger.warn(error.message)
 
                     return
                 }
 
-                alert('password updated')
+                handleFeedback({ message: 'password updated', level: 'success' })
 
                 form.reset()
             })
         } catch (error) {
-            onFeedback({ message: error.message, level: 'warning' })
+            handleFeedback({ message: error.message, level: 'warning' })
 
             logger.warn(error.message)
         }
@@ -63,4 +64,4 @@ function Settings({ onCloseClick, onFeedback }) {
     </div>
 }
 
-export default Settings
+export default withContext(Settings)

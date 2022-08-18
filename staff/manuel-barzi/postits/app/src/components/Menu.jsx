@@ -1,8 +1,9 @@
 import './Menu.css'
 import IconButton from './IconButton'
 import Loggito from '../utils/Loggito'
+import withContext from '../utils/withContext'
 
-function Menu({ view, onLogoutClick, onSettingsClick }) {
+function Menu({ view, onLogoutClick, onSettingsClick, context: { toggleTheme } }) {
     const logger = new Loggito('Menu')
 
     const handleLogoutClick = () => onLogoutClick()
@@ -11,14 +12,17 @@ function Menu({ view, onLogoutClick, onSettingsClick }) {
 
     logger.info('return')
 
-    return <ul className="Menu">
+    return <ul className="Menu container container--row">
             {view !== 'settings' && <li className="Menu__item">
                 <IconButton text="settings" onClick={handleSettingsClick} />
             </li>}
+            <li className="Menu__item">
+                <IconButton text="light" onClick={toggleTheme} />
+            </li>
             <li className="Menu__item">
                 <IconButton text="logout" onClick={handleLogoutClick} />
             </li>
         </ul>
 }
 
-export default Menu
+export default withContext(Menu)
