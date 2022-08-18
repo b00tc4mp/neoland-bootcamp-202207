@@ -8,13 +8,9 @@ import deleteNote from '../logic/deleteNote'
 import SettingsPanel from '../components/SettingsPanel'
 import NoteList from '../components/NoteList'
 import Header from '../components/Header'
-import Context from '../Context'
-import { useContext } from 'react'
- 
-  function HomePage ({ onLogoutClick }) {
-    const logger = new Loggito('HomePage')
 
-    const { handleFeedback } = useContext(Context)
+  function HomePage ({ onLogoutClick, onFeedback }) {
+    const logger = new Loggito('HomePage')
 
     const [name, setName] = useState(null)
     const [notes, setNotes] = useState(null)
@@ -26,7 +22,7 @@ import { useContext } from 'react'
     try {
       retrieveUser(sessionStorage.token, (error, user) => {
         if (error) {
-          handleFeedback ({ message: error.message, level: 'error' })
+         onFeedback({ message: error.message, level: 'error' })
 
           logger.warn(error.message);
 
@@ -40,7 +36,7 @@ import { useContext } from 'react'
        logger.debug('setName', user.name)
       });
     } catch (error) {
-      handleFeedback ({ message: error.message, level: 'error' })
+      onFeedback({ message: error.message, level: 'error'})
 
       logger.warn(error.message);
     }
@@ -52,7 +48,7 @@ import { useContext } from 'react'
     try {
       retrieveNotes(sessionStorage.token, (error, notes) => {
         if (error) {
-          handleFeedback({ message: error.message, level: 'error' })
+          onFeedback({ message: error.message, level: 'error' })
 
           logger.warn(error.message);
 
@@ -64,7 +60,7 @@ import { useContext } from 'react'
         logger.debug('setNotes', notes)
       });
     } catch (error) {
-      handleFeedback({ message: error.message, level: 'error' })
+      onFeedback({ message: error.message, level: 'error' })
 
       logger.warn(error.message);
     }
@@ -74,7 +70,7 @@ import { useContext } from 'react'
     try {
       createNote(sessionStorage.token, (error) => {
         if (error) {
-          handleFeedback({ message: error.message, level: 'error' })
+          onFeedback({ message: error.message, level: 'error' })
 
           logger.warn(error.message);
 
@@ -84,7 +80,7 @@ import { useContext } from 'react'
         loadNotes();
       });
     } catch (error) {
-      handleFeedback({ message: error.message, level: 'error' })
+      onFeedback({ message: error.message, level: 'error'})
 
       logger.warn(error.message);
     }
@@ -94,7 +90,7 @@ import { useContext } from 'react'
     try {
       updateNote(sessionStorage.token, noteId, text, error => {
         if (error) {
-          handleFeedback({ message: error.message, level: 'error' })
+          onFeedback({ message: error.message, level: 'error' })
 
           logger.warn(error.message);
 
@@ -102,7 +98,7 @@ import { useContext } from 'react'
         }
       });
     } catch (error) {
-      handleFeedback({ message: error.message, level: 'error' })
+      onFeedback({ message: error.message, level: 'error'})
 
       logger.warn(error.message);
     }
@@ -112,7 +108,7 @@ import { useContext } from 'react'
     try {
       deleteNote(sessionStorage.token, noteId, (error) => {
         if (error) {
-          handleFeedback({ message: error.message, level: 'error'})
+          onFeedback({ message: error.message, level: 'error'})
 
           logger.warn(error.message);
          
@@ -122,14 +118,14 @@ import { useContext } from 'react'
         loadNotes();
       });
     } catch (error) {
-      handleFeedback({ message: error.message, level: 'error' })
+      onFeedback({ message: error.message, level: 'error' })
 
       logger.warn(error.message);
     }
   };
 
   const handleSettingsClick = () => { 
-     setView ('settings')
+     setView ( 'settings' )
 
      logger.debug('setView', 'settings')
     
@@ -142,7 +138,7 @@ import { useContext } from 'react'
     logger.debug('setView', 'list')
   }
 
-  logger.info('return');
+  logger.info('render');
 
     return name ? 
       <div className="home-page container container--full container--distributed">
@@ -150,11 +146,11 @@ import { useContext } from 'react'
 
         <main className="main">
           {view === 'list' && <NoteList notes={notes} onDeleteNote={handleDeleteNote}onUpdateNote={handleUpdateNote} />}
-          {view === 'settings' && <SettingsPanel onCloseClick={handleSettingsCloseClick} />} 
+          {view === 'settings' && <SettingsPanel onCloseClick={handleSettingsCloseClick} onFeedback={onFeedback}/>} 
         </main>
 
         <footer className="footer">
-          {view === 'list' && <button className="transparent-button"onClick={handleAddClick}>+</button>}
+          {view === 'list' && <button className="add-button transparent-button"onClick={handleAddClick}>+</button>}
         </footer>
       </div>
      : 

@@ -9,31 +9,11 @@ html, body {
     box-sizing: border-box;
 } */
 
-:root {
-    --color: black;
-    --back-color: rgb(45, 164, 133);
-}
-
-:root.light {
-    --color: ;
-    --back-color: ;
-}
-
-/* resets */
-
-* {
-    font-family: lato;
-}
-
 body {
     margin: 0;
+    background-color: rgb(45, 164, 133);
+    color: black;
 }
-
-h1, label {
-    color: var (--color)
-}
-
-/* general */
 
 .container {
     display: flex;
@@ -54,12 +34,12 @@ h1, label {
     gap: 10px;
 }
 
-.container--padded {
-    padding: 10px;
-}
-
 .container--distributed {
     justify-content: space-between;
+}
+
+.header {
+    display: flex;
 }
 
 .form {
@@ -79,21 +59,21 @@ h1, label {
     border-top: 0;
     border-left: 0;
     border-right: 0;
-    border-bottom: 1px solid var(--color);
-    color: var(--color);
+    border-bottom: 1px solid black;
+    color: black;
     font-size: 1rem;
-    caret-color: var(--color);
+    caret-color: black;
 }
 
 .input:-webkit-autofill {
     -webkit-background-clip: text;
-    -webkit-text-fill-color: var(--color);
+    -webkit-text-fill-color: black;
 }
 
 .input::selection {
-    background-color: var(--color);
+    background-color: black;
     -webkit-background-clip: text;
-    -webkit-text-fill-color: var(--color);
+    -webkit-text-fill-color: rgb(45, 164, 133);
 }
 
 .input::placeholder {
@@ -106,21 +86,18 @@ h1, label {
 
 .button {
     background-color: transparent;
-    border: 1px;
-    border-style: solid;
-    border-color: var(--color);
+    border: 1px solid black;
     padding: 5px;
-    color: var(--color);
+    color: black;
     font-size: 1rem;
-    cursor: pointer;
 }
 
 .anchor {
-    color: var(--color);
+    color: black;
 }
 
 .anchor:visited {
-    color: var(--color);
+    color: black;
 }
 
 .main {
@@ -142,7 +119,7 @@ h1, label {
 .transparent-button {
     background-color: transparent;
     border: none;
-    color: var(--color);
+    color: black;
     font-size: 3rem;
     cursor: pointer;
 }

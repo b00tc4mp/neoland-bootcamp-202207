@@ -4,8 +4,6 @@ import RegisterPage from './pages/RegisterPage'
 import HomePage from './pages/HomePage'
 import Feedback from './components/Feedback'
 import Loggito from './utils/Loggito.js'
-import Context from './Context'
-import './App.css'
 
 
   function App() {

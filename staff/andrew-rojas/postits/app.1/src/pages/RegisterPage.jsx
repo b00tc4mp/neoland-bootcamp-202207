@@ -13,7 +13,7 @@ function RegisterPage(props) {
     props.onLinkClick()
   }
 
-  logger.info('return')
+  logger.info('render')
 
   return <main className="register-page container container--full container--spaced">
     <form className="form">

@@ -1,15 +1,11 @@
 import IconButton from './IconButton'
 import Loggito from '../utils/Loggito'
 import updateUserPassword from '../logic/updateUserPassword'
-import Context from '../Context'
-import { useContext } from 'react'
 
-function SettingsPanel ({onCloseClick }) {
+function SettingsPanel ({onCloseClick, onFeedback}) {
   const logger = new Loggito('Settings')
 
-  const { handleFeedback } = useContext (Context)
-
-  logger.info('return')
+  logger.info('render')
 
   const handleFormSubmit = event => {
     event.preventDefault()
@@ -25,19 +21,19 @@ function SettingsPanel ({onCloseClick }) {
     try {
       updateUserPassword(sessionStorage.token, oldPassword, newPassword, newPasswordRepeat, error => {
         if(error) {
-          handleFeedback({ message: error.message, level: 'warning' })
+          onFeedback({ message: error.message, level: 'warning'})
         
           logger.warn(error.message)
 
           return
         }
 
-        handleFeedback ({ message: 'password updated', level: 'success' })
+        onFeedback( {message: 'password updated', level: 'success'})
 
         form.reset()
       })
     } catch(error) {
-      handleFeedback({ message: error.message, level: 'warning' })
+      onFeedback({ message: error.message, level: 'warning' })
 
       logger.warn(error.message)
     }

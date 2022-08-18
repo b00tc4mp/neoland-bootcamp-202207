@@ -1,19 +1,13 @@
 import Loggito from '../utils/Loggito'
 import authenticateUser from '../logic/authenticateUser'
-import Context from '../Context'
-import { useContext } from 'react'
 
 
-function LoginPage({ onLinkClick, onLogIn}) {
+function LoginPage({ onLinkClick, onLogIn, onFeedback }) {
   const logger = new Loggito(LoginPage.name)
-
-  // const context = useContext(Context)
-  // coonst handleFeedback = context.handleFeedback
-  const { handleFeedback } = useContext(Context)
 
   logger.info('constructor')
 
-  logger.info('Return')
+  logger.info('render')
 
   const handleLinkClick = event => {
     event.preventDefault()
@@ -35,7 +29,7 @@ function LoginPage({ onLinkClick, onLogIn}) {
     try {
       authenticateUser(email, password, (error, token) => {
         if (error) {
-          handleFeedback({ message: error.message, level: 'error' })
+          onFeedback({ message: error.message, level: 'error' })
 
           logger.warn(error.message)
 
@@ -49,7 +43,7 @@ function LoginPage({ onLinkClick, onLogIn}) {
         onLogIn()
       })
     } catch (error) {
-      handleFeedback({ message: error.message, level: 'error' })
+      onFeedback({ message: error.message, level: 'error' })
 
       logger.warn(error.message)
     }
