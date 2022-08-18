@@ -1,1 +1,0 @@
-My [GitHub](https://github.com/andrewrojas13).
