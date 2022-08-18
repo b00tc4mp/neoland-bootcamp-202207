@@ -2,6 +2,8 @@ import{ useState } from 'react'
 import "./Header.css"
 
 import Loggito from '../utils/loggito'
+import 'material-symbols'
+import ThemeSelector from './ThemeSelector'
 
 function Header({onProfileClick, onHomeClick, onLogout, name}) {
    
@@ -35,6 +37,7 @@ function Header({onProfileClick, onHomeClick, onLogout, name}) {
             home
         </span>
         <h1 id="headerTitle">Hello, {name}</h1>
+        <ThemeSelector />
         <div className={(menu === 'closed' && "menuContainer") || (menu === 'opened' && 'menuContainer change')} onClick={handleMenuClick}>
             <div className="menuIcon"></div>
             <div className="menuIcon1"></div>

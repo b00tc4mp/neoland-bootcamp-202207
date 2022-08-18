@@ -38,9 +38,9 @@ function App() {
 
     const handleFeedback = feedback => {
         setFeedback(feedback)
-       /*  setTimeout(() => {
+        setTimeout(() => {
             setFeedback({message: null, level: null})
-        },3990) */
+        },3990)
         logger.debug('setFeedback', feedback)
     }
 

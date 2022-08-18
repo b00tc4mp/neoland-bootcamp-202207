@@ -11,7 +11,7 @@ header{
     width: 100%;
     height: 10%;
     min-height: 60px;
-    background-color: #531a7c;
+    background-color: var(--headerBg);
 }
 header h1{
     width: 90%;
@@ -76,7 +76,7 @@ header h1{
     padding:0px;
     margin: 0;
     list-style: none;
-    background-color: #531a7c;
+    background-color: var(--dropdownBg);
 }
 
 .dropdownMenu > ul > li{

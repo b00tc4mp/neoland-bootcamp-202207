@@ -5,6 +5,7 @@ import checkPassInput from '../logic/helpers'
 import PassValidationBox from '../components/PassValidationBox'
 
 import logo from "../assets/sample-logo.png"
+import ThemeSelector from '../components/ThemeSelector'
 
 function RegisterPage({navigateLogin}) {
 
@@ -87,6 +88,7 @@ function RegisterPage({navigateLogin}) {
                             </div>
                         </form>
                     </div>
+                    <ThemeSelector />
                 </section>
             </section>
         </main>

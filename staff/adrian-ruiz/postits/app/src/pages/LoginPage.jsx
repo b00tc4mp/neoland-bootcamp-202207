@@ -1,9 +1,10 @@
 import authenticateUser from '../logic/authenticateUser'
+import ThemeSelector from '../components/ThemeSelector'
 
 import Loggito from '../utils/loggito'
 import logo from "../assets/sample-logo.png"
 
-function LoginPage({onLinkClick, onLogin, onFeedback}) {
+function LoginPage({ onLinkClick, onLogin, onFeedback }) {
 
     const logger = new Loggito('LoginPage')
 
@@ -23,7 +24,7 @@ function LoginPage({onLinkClick, onLogin, onFeedback}) {
         try {
             authenticateUser(email, password, (error, token) => {
                 if (error) {
-                    onFeedback({level: "error", message: error.message})
+                    onFeedback({ level: "error", message: error.message })
 
                     logger.warn(error.message)
                     return
@@ -38,7 +39,7 @@ function LoginPage({onLinkClick, onLogin, onFeedback}) {
 
             })
         } catch (error) {
-            onFeedback({level: "error", message: error.message})
+            onFeedback({ level: "error", message: error.message })
 
             logger.warn(error.message)
         }
@@ -51,7 +52,7 @@ function LoginPage({onLinkClick, onLogin, onFeedback}) {
                 <section className="topSectionContainer">
                     <div className="topSection">
                         <div className="topSectionImage">
-                            <img src={logo} href="#/" alt="Company Logo" id="companyLogo"/>
+                            <img src={logo} href="#/" alt="Company Logo" id="companyLogo" />
                         </div>
                     </div>
                 </section>
@@ -68,6 +69,7 @@ function LoginPage({onLinkClick, onLogin, onFeedback}) {
                             </div>
                         </form>
                     </div>
+                    <ThemeSelector />
                 </section>
             </section>
 
