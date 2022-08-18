@@ -3,11 +3,11 @@ import Loggito from '../utils/loggito'
 import registerUser from '../logic/registerUser'
 import checkPassInput from '../logic/helpers'
 import PassValidationBox from '../components/PassValidationBox'
-
+import withContext from '../utils/withContext'
 import logo from "../assets/sample-logo.png"
 import ThemeSelector from '../components/ThemeSelector'
 
-function RegisterPage({navigateLogin}) {
+function RegisterPage({navigateLogin, context:{handleFeedback}}){
 
     const [matchers, setMatchers] = useState(
         {matchAll: null}, 
@@ -38,15 +38,16 @@ function RegisterPage({navigateLogin}) {
             registerUser(name, email, password, (error) => {
 
                 if (error) {
-                    alert(error.message)
+                    handleFeedback({level: 'error', message: error.message})
                     logger.debug(error.message)
                     return
                 }
+                handleFeedback({level: "success", message: 'User registered'})
                 navigateLogin()
 
             })
         } catch (error) {
-            alert(error)
+            handleFeedback({level: "error", message: error.message})
             logger.debug(error.message)
 
         }
@@ -96,4 +97,4 @@ function RegisterPage({navigateLogin}) {
 
 }
 
-export default RegisterPage
+export default withContext(RegisterPage)

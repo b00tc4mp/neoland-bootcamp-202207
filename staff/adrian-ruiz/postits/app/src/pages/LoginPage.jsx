@@ -3,8 +3,9 @@ import ThemeSelector from '../components/ThemeSelector'
 
 import Loggito from '../utils/loggito'
 import logo from "../assets/sample-logo.png"
+import withContext from '../utils/withContext'
 
-function LoginPage({ onLinkClick, onLogin, onFeedback }) {
+function LoginPage({ onLinkClick, onLogin, context:{handleFeedback}}) {
 
     const logger = new Loggito('LoginPage')
 
@@ -24,7 +25,7 @@ function LoginPage({ onLinkClick, onLogin, onFeedback }) {
         try {
             authenticateUser(email, password, (error, token) => {
                 if (error) {
-                    onFeedback({ level: "error", message: error.message })
+                    handleFeedback({ level: "error", message: error.message })
 
                     logger.warn(error.message)
                     return
@@ -39,7 +40,7 @@ function LoginPage({ onLinkClick, onLogin, onFeedback }) {
 
             })
         } catch (error) {
-            onFeedback({ level: "error", message: error.message })
+            handleFeedback({ level: "error", message: error.message })
 
             logger.warn(error.message)
         }
@@ -75,9 +76,7 @@ function LoginPage({ onLinkClick, onLogin, onFeedback }) {
 
         </main>
     )
-
-
 }
 
-export default LoginPage
+export default withContext(LoginPage)
 

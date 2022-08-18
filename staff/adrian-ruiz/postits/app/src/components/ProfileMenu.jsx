@@ -1,10 +1,10 @@
 import './ProfileMenu.css'
 import updateUserPassword from '../logic/updateUserPassword'
 import updateUserEmail from '../logic/updateUserEmail'
-
+import withContext from '../utils/withContext'
 import Loggito from '../utils/loggito'
 
-function ProfileMenu({onFeedback}) {
+function ProfileMenu({context: {handleFeedback}}) {
 
     const logger = new Loggito('Profile Menu')
 
@@ -22,15 +22,15 @@ function ProfileMenu({onFeedback}) {
             try {
                 updateUserPassword(sessionStorage.UserToken, oldPassword, newPassword, confirmNewPassword, (error) => {
                     if (error) {
-                        onFeedback({level: "error", message: error.message})
+                        handleFeedback({level: "error", message: error.message})
                         logger.warn(error.message)
                     } else {
-                        onFeedback({level: "success", message: 'Password updated successfully'})
+                        handleFeedback({level: "success", message: 'Password updated successfully'})
                         form.reset()
                     }
                 })
             } catch (error) {
-                onFeedback({level: "error", message: error.message})
+                handleFeedback({level: "error", message: error.message})
                 logger.warn(error.message)
             }
         }
@@ -47,15 +47,15 @@ function ProfileMenu({onFeedback}) {
             try {
                 updateUserEmail(sessionStorage.UserToken, newEmail, function (error) {
                     if (error) {
-                        onFeedback({level: "error", message: error.message})
+                        handleFeedback({level: "error", message: error.message})
                         logger.warn(error.message)
                     } else {
-                        onFeedback({level: "success", message: 'Email updated successfully'})
+                        handleFeedback({level: "success", message: 'Email updated successfully'})
                         form.reset()
                     }
                 })
             } catch (error) {
-                onFeedback({level: "error", message: error.message})
+                handleFeedback({level: "error", message: error.message})
                 logger.warn(error.message)
             }
         }
@@ -83,4 +83,4 @@ function ProfileMenu({onFeedback}) {
     )
 }
 
-export default ProfileMenu
+export default withContext(ProfileMenu)

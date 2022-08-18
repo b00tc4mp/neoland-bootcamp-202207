@@ -3,7 +3,7 @@ import Feedback from './components/Feedback'
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
-
+import Context from "./utils/Context"
 import Loggito from './utils/loggito'
 
 function App() {
@@ -54,18 +54,15 @@ function App() {
 
     logger.info('render')
 
-    return <>
-    
+    return <Context.Provider value={{handleFeedback}}>
     {feedback.message && <Feedback level={feedback.level} message={feedback.message} onClick={handleAcceptFeedback} />}
 
-    {view === 'login' && <LoginPage onLinkClick={handleNavigationToRegister} onLogin={handleNavigationToHome} onFeedback={handleFeedback} />}
+    {view === 'login' && <LoginPage onLinkClick={handleNavigationToRegister} onLogin={handleNavigationToHome}  />}
 
     {view === 'register' && <RegisterPage navigateLogin={handleNavigationToLogin} />}
     
-    {view === 'home' && <HomePage onLogout={handleLogout} onFeedback={handleFeedback} />}
-
-    
-    </>
+    {view === 'home' && <HomePage onLogout={handleLogout} />}
+    </Context.Provider>
 }
 
 export default App

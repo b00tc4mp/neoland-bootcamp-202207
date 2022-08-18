@@ -10,11 +10,11 @@ import retrieveNotes from '../logic/retrieveNotes'
 import updateNote from '../logic/updateNote'
 import deleteNote from '../logic/deleteNote'
 import createNote from '../logic/createNote'
-
+import withContext from '../utils/withContext'
 import Loggito from '../utils/loggito'
 
 
-function HomePage({onLogout, onFeedback}) {
+function HomePage({onLogout, context:{handleFeedback}}) {
     const [view, setView] = useState('list')
     const [name, setName] = useState('null')
     const [notes, setNotes] = useState(null)
@@ -30,7 +30,7 @@ function HomePage({onLogout, onFeedback}) {
         try {
             retrieveUser(sessionStorage.UserToken, (error, user) => {
                 if (error) {
-                    onFeedback({level: "error", message: error.message})
+                    handleFeedback({level: "error", message: error.message})
                     logger.warn(error.message)
                     return
                 }
@@ -41,7 +41,7 @@ function HomePage({onLogout, onFeedback}) {
             })
 
         } catch (error) {
-            onFeedback({level: "error", message: error.message})
+            handleFeedback({level: "error", message: error.message})
             logger.warn(error.message)
         }
 
@@ -54,7 +54,7 @@ function HomePage({onLogout, onFeedback}) {
         try {
             retrieveNotes(sessionStorage.UserToken, (error, notes) => {
                 if (error) {
-                    onFeedback({level: "error", message: error.message})
+                    handleFeedback({level: "error", message: error.message})
                     logger.warn(error.message)
 
                     return
@@ -66,7 +66,7 @@ function HomePage({onLogout, onFeedback}) {
                 logger.debug('setNotes' , notes )
             })
         } catch (error) {
-            onFeedback({level: "error", message: error.message})
+            handleFeedback({level: "error", message: error.message})
             logger.warn(error.message)
         }
     }
@@ -81,14 +81,14 @@ function HomePage({onLogout, onFeedback}) {
         try {
             updateNote(sessionStorage.UserToken, noteId, title, text, error => {
                 if (error) {
-                    onFeedback({level: "error", message: error.message})
+                    handleFeedback({level: "error", message: error.message})
                     logger.warn(error.message)
 
                     return
                 }
             })
         } catch (error) {
-            onFeedback({level: "error", message: error.message})
+            handleFeedback({level: "error", message: error.message})
             logger.warn(error.message)
         }
     }
@@ -99,7 +99,7 @@ function HomePage({onLogout, onFeedback}) {
             try {
                 deleteNote(sessionStorage.UserToken, noteId, error => {
                     if (error) {
-                        onFeedback({level: "error", message: error.message})
+                        handleFeedback({level: "error", message: error.message})
                         logger.warn(error.message)
 
                         return
@@ -109,7 +109,7 @@ function HomePage({onLogout, onFeedback}) {
 
                 })
             } catch (error) {
-                onFeedback({level: "error", message: error.message})
+                handleFeedback({level: "error", message: error.message})
                 logger.warn(error.message)
             }
         }
@@ -133,7 +133,7 @@ function HomePage({onLogout, onFeedback}) {
         try {
             createNote(sessionStorage.UserToken, title, text, (error) => {
                 if (error) {
-                    onFeedback({level: "error", message: error.message})
+                    handleFeedback({level: "error", message: error.message})
                     logger.warn(error.message)
 
                     return
@@ -147,7 +147,7 @@ function HomePage({onLogout, onFeedback}) {
 
             })
         } catch (error) {
-            onFeedback({level: "error", message: error.message})
+            handleFeedback({level: "error", message: error.message})
             logger.warn(error.message)
         }
     }
@@ -193,7 +193,7 @@ function HomePage({onLogout, onFeedback}) {
                     {view === 'list' &&
                         <ListPanel notes={notes} onUpdateNote={handleUpdateNote} onDeleteNote={handleDeleteNote} onChangeColorNote={handleChangeColorNote} ref={myComponentRef} />}
                     {view === 'profile' &&
-                        <ProfileMenu onFeedback={onFeedback}/>}
+                        <ProfileMenu />}
                     <section className="bottomMenu">
                         {view === 'list' && <button className="newNoteButton"><span className="newNoteEmoji" onClick={handleAddClick}>📝</span></button>
                         }
@@ -204,4 +204,4 @@ function HomePage({onLogout, onFeedback}) {
         )
 }
 
-export default HomePage
+export default withContext(HomePage)
