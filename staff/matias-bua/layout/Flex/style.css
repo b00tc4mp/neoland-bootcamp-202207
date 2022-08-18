@@ -1,0 +1,53 @@
+html,
+body {
+  margin: 0px;
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.caja1,
+.caja2,
+.caja3,
+.caja4,
+.caja5 {
+  border: 0.5px solid black;
+  background-color: rgba(245, 222, 179, 0.295);
+  color: rgb(241, 0, 0);
+  line-height: 120px;
+  text-align: center;
+}
+.flex-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  border: 1px solid black;
+  background: #ccc;
+  padding: 0px;
+  flex-flow: row wrap;
+}
+.caja1 {
+  width: 100%;
+  height: 20%;
+}
+.caja2 {
+  width: 20%;
+}
+.caja3 {
+  width: 60%;
+  height: 60%;
+}
+.caja4 {
+  width: 20%;
+}
+.caja5 {
+  width: 100%;
+  height: 20%;
+}
+.flex-box-all {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

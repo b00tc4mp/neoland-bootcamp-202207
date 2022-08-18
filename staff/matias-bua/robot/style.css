@@ -1,0 +1,181 @@
+*,
+body {
+  margin: 0px;
+}
+.fondo {
+  background-image: url(https://cl.buscafs.com/www.levelup.com/public/uploads/images/511364.png);
+  width: 100%;
+  height: 1000px;
+}
+h1 {
+  color: aqua;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid silver;
+  border-style: groove;
+  padding: 2px;
+}
+.robot {
+  position: absolute;
+  top: 200px;
+  left: 230px;
+}
+.head {
+  background-color: silver;
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  border: 2px solid black;
+  border-radius: 20px;
+}
+.cuello {
+  position: absolute;
+  background-color: silver;
+  width: 50px;
+  height: 25px;
+  top: 200px;
+  left: 75px;
+  border: 1px solid black;
+}
+.eye {
+  background-color: rgb(128, 177, 221);
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 45px;
+  border: 0.5px solid black;
+  border-radius: 35% 15% 15% 35%;
+}
+@keyframes pupil-movement {
+  from {
+    width: 5px;
+  }
+  to {
+    width: 30px;
+  }
+}
+.eye--right {
+  left: 40px;
+  position: absolute;
+}
+.eye--left {
+  right: 40px;
+  position: absolute;
+}
+.pupil {
+  background-color: black;
+  height: 7.5px;
+  position: absolute;
+  top: 15px;
+  left: 16px;
+  border-radius: 16px;
+  animation-name: pupil-movement;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+.nouse {
+  background-color: rgb(66, 66, 66);
+  width: 15px;
+  height: 30px;
+  position: absolute;
+  top: 75px;
+  left: 90px;
+  border: 1.5px solid black;
+  border-radius: 20% 20% 0% 20%;
+}
+.mouth {
+  background-color: rgb(97, 97, 97);
+  width: 115px;
+  height: 50px;
+  position: absolute;
+  top: 130px;
+  left: 40px;
+  border: 2px solid black;
+  border-radius: 40% 40% 40% 40%;
+}
+
+.torso {
+  background-color: rgb(115, 115, 115);
+  width: 250px;
+  height: 300px;
+  position: absolute;
+  top: 220px;
+  left: -25px;
+  border: 3px solid black;
+  border-radius: 10px;
+}
+.leg {
+  background-color: rgb(97, 97, 97);
+  height: 170px;
+  width: 65px;
+  position: absolute;
+  top: 525px;
+  border: 2px solid black;
+}
+.leg--right {
+  position: absolute;
+  right: 10px;
+}
+.leg--left {
+  position: absolute;
+  left: 10px;
+}
+.arm {
+  background-color: rgb(97, 97, 97);
+  position: absolute;
+  width: 80px;
+  height: 30px;
+  top: 275px;
+  border: 2px solid black;
+}
+
+.arm--left {
+  left: -106px;
+}
+.arm--right {
+  left: 229px;
+}
+.elbow {
+  height: 35px;
+  width: 35px;
+  position: absolute;
+  background-color: rgb(66, 66, 66);
+  border-top-left-radius: 100px;
+  border-top-right-radius: 100px;
+  border-bottom-left-radius: 100px;
+  border-bottom-right-radius: 100px;
+}
+.elbow--right {
+  top: -3px;
+  right: -20px;
+}
+.elbow--left {
+  top: -3px;
+  left: -20px;
+}
+.armm {
+  width: 20px;
+  height: 50px;
+  background-color: blue;
+  position: absolute;
+  top: 20px;
+}
+.armm--right {
+  right: -17px;
+}
+.armm--left {
+  left: -17px;
+}
+.foot {
+  height: 45px;
+  width: 68px;
+  position: absolute;
+  background-color: rgb(66, 66, 66);
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  top: 126px;
+}
+.foot--right {
+  right: 0.5;
+}
