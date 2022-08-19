@@ -11,13 +11,16 @@ import NoteList from '../components/NoteList'
 import Settings from '../components/Settings'
 import Spinner from '../components/Spinner'
 import withContext from '../utils/withContext'
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 
 export default withContext(function HomePage({ context: { handleModal } }) {
     const logger = new Logger('HomePage')
 
     const [name, setName] = useState(null)
     const [notes, setNotes] = useState(null)
-    const [view, setView] = useState('notes')
+    // const [view, setView] = useState('notes')
+    const navigate = useNavigate()
+    const location = useLocation()
 
     useEffect(() => {
         logger.info('component did mount')
@@ -127,13 +130,19 @@ export default withContext(function HomePage({ context: { handleModal } }) {
     }
 
     const handleSettingsClick = () => {
-        setView('settings')
+        if (location.pathname === '/profile')
+            return
+
+        navigate('profile')
         
         loadNotes() // para cuando me vaya a settings, q se baje las notas y actualice el state
     }
 
     const handleNotesClick = () => {
-        setView('notes')
+        if (location.pathname === '/')
+            return
+
+        navigate('/')
     }
 
     logger.info('return')
@@ -145,18 +154,19 @@ export default withContext(function HomePage({ context: { handleModal } }) {
             onNotesButtonClick={handleNotesClick}
             />
 
-            {view === 'notes' && <>
-                <main className="main">
-                    <NoteList notes={notes} onDeleteClick={handleDeleteNoteClick}
-                        onUpdateNote={handleUpdateNote}
-                    />
-                </main>
-                <Footer onAddNote={handleAddNote} />
-            </>}
-
-            {view === 'settings' && <main className="main">
-                <Settings />
-            </main>}
+            <Routes>
+                <Route path='/' element={<>
+                    <main className="main">
+                        <NoteList notes={notes} onDeleteClick={handleDeleteNoteClick}
+                            onUpdateNote={handleUpdateNote}
+                        />
+                    </main>
+                    <Footer onAddNote={handleAddNote} />
+                </>} /> 
+                <Route path='profile' element={<main className="main">
+                    <Settings />
+                </main>} />
+            </Routes>
 
         </div>
     else
