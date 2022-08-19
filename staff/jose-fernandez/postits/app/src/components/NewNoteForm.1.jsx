@@ -1,11 +1,12 @@
 import IconButton from './Buttons/IconButton'
 import Loggito from '../utils/Loggito'
-import withContext from '../utils/withContext'
+import Context from '../utils/Context'
+import {useContext} from 'react'
 
-function NewNoteForm({ onCloseClick, onArrowLeft,context:{handleFeedback} }) {
+function NewNoteForm({ onCloseClick, onArrowLeft }) {
     const logger = new Loggito('NewNoteForm')
 
-    
+    const {handleFeedback} = useContext(Context)
     logger.info('return')
 
 
@@ -42,4 +43,4 @@ function NewNoteForm({ onCloseClick, onArrowLeft,context:{handleFeedback} }) {
     </form>
 }
 
-export default withContext(NewNoteForm)
+export default NewNoteForm

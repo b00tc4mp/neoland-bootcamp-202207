@@ -3,7 +3,7 @@ import authenticateUser from '../logic/authenticateUser'
 import withContext from '../utils/withContext'
 
 
-function LoginPage({ onLinkClick, onLogIn, handleFeedback }) {
+function LoginPage({ onLinkClick, onLogIn, context:{handleFeedback} }) {
     const logger = new Loggito(LoginPage.name)    
 
     logger.info('constructor')

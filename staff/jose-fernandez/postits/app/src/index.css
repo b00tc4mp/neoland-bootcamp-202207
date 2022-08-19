@@ -46,9 +46,11 @@
     --input-border-color:gray;
     --input-placeholder-color:#1A1D4A;
     --btn-login-hover:#037E8c;
+    --menu-hover-nav-select:rgb(167, 241, 20);
     --link-home:#037E8c;
     --link-hover-selec:#436174;
     --btn-color-orig:#022e31;
+    --btn-backColor-orig:black;
     --h1-menu-color-:lawngreen;
     --btn-update:#037E8c;
     --label-login:aqua;
@@ -56,15 +58,17 @@
 
 :root.light{
     --color: black;
-    --color-orig:rgb(190, 221, 237);
+    --color-orig:rgb(5, 6, 7);
     --back-color: url("https://i.postimg.cc/43BnZmLh/clouds-sky-cloud-daytime-blue-cumulus-1627123-pxhere-com.jpg");
     --label-color:lawngreen;
     --input-border-color:black;
     --input-placeholder-color:#037E8c;
     --btn-login-hover:black;
+    --menu-hover-nav-select:skyblue;
     --link-home:black;
     --link-hover-selec:black;
     --btn-color-orig:#5074a6;
+    --btn-backColor-orig:orange;
     --h1-menu-color-:black;
     --btn-update:skyblue;
     --label-login:rgb(0, 254, 47);
@@ -353,8 +357,8 @@ input::placeholder {
     align-items: center;
     width: 45px;
     height: 45px;
-    background: var(--btn-color-orig);
-    color: var(--color);
+    background: var(--btn-backColor-orig);
+    color: var(--color-orig);
     text-align: center;
     border-radius: 20%;
     cursor: pointer;
@@ -389,13 +393,13 @@ input::placeholder {
     gap: 9%;
     /* width: 100%; */
     text-decoration: none;
-    color: var(--color);
-    background:var(--back-color);
+    color: var(--color-orig);
+    background:var(--btn-backColor-orig);
     font-weight: bold;
 }
 
 .menu__link:hover {
-    background: var(--color-orig);
+    background: var(--menu-hover-nav-select);
 }
 
 .menu__link:hover .select {
@@ -447,7 +451,7 @@ input::placeholder {
     
     border: 0;
     padding: 0;
-    background-color: var(--btn-color-orig) ;
+    background-color: var(--btn-backColor-orig) ;
     /* color: var(--color-orig); */
     border-radius: 15px;
 }
@@ -463,8 +467,8 @@ input::placeholder {
     font-weight: bold;
     border: 0;
     padding: 0;
-    color: var(--color);
-    background-color: var(--color-orig);
+    color: var(--color-orig);
+    background-color: var(--btn-backColor-orig);
 
 }
 

@@ -2,7 +2,7 @@ import Loggito from '../utils/Loggito'
 import registerUser from '../logic/registerUser'
 import withContext from '../utils/withContext'
 
-function RegisterPage({ onLinkClick, onSingUp, handleFeedback }) {
+function RegisterPage({ onLinkClick, onSingUp, context:{handleFeedback} }) {
     const logger = new Loggito(RegisterPage.name)
 
     

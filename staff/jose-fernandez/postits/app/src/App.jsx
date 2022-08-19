@@ -7,29 +7,33 @@ import HomePage from './pages/HomePage'
 import Loggito from './utils/Loggito'
 import Context from './utils/Context'
 import './App.css'
+import {Routes, Route, useNavigate,Navigate} from 'react-router-dom'
+
 
 function App() {
     const logger = new Loggito('App')
 
-    const [view, setView] = useState(sessionStorage.token ? 'home' : 'login')
+    // const [view, navigate] = useState(sessionStorage.token ? 'home' : 'login')
+    const navigate = useNavigate()
+
     const [feedback, setFeedback] = useState({ message: null, level: null })
 
     const handleNavigationToRegister = () => {
-        setView('register')
+        navigate('register')
 
-        logger.debug('setView', 'register')
+        logger.debug('navigate to register')
     }
 
     const handleNavigationToLogin = () => {
-        setView('login')
+        navigate('login')
 
-        logger.debug('setView', 'login')
+        logger.debug('navigate to login')
     }
 
     const handleNavigationToHome = () => {
-        setView('home')
+        navigate('/')
 
-        logger.debug('setView', 'home')
+        logger.debug('navigate to home')
     }
 
     const handleLogoutClick = () => {
@@ -58,9 +62,12 @@ function App() {
     //
     return <Context.Provider value={{handleFeedback,toggleTheme}}>
         <div className="App container container--full">
-        {view === 'login' && <LoginPage onLinkClick={handleNavigationToRegister} onLogIn={handleNavigationToHome}  />}
-        {view === 'register' && <RegisterPage onLinkClick={handleNavigationToLogin} onSingUp={handleNavigationToLogin} />}
-        {view === 'home' && <HomePage onLogoutClick={handleLogoutClick} />}
+        <Routes>
+            <Route path="login" element={sessionStorage.token ? <Navigate to="/"/> :<LoginPage onLinkClick={handleNavigationToRegister} onLogIn={handleNavigationToHome}  />}/>
+            <Route path='register' element={sessionStorage.token ? <Navigate to="/"/>:<RegisterPage onLinkClick={handleNavigationToLogin} onSingUp={handleNavigationToLogin} />}/>
+            {/* coloco dentro de path "/" que es direcccion al home y le agrego "*"" para que acepte a todos los hijos de home */}
+            <Route path='/*' element={sessionStorage.token ?<HomePage onLogoutClick={handleLogoutClick} onFeedback={handleFeedback}/>:<Navigate to="login"/>}/>
+        </Routes>
     
         {feedback.message && <Feedback level={feedback.level} message={feedback.message} onClick={handleAcceptFeedback}/>}
         </div>

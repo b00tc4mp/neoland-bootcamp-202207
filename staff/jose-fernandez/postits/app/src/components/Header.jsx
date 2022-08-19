@@ -6,7 +6,7 @@ import IconButton from './Buttons/IconButton'
 import Loggito from '../utils/Loggito'
 
 
-function Header({ name, onLogoutClick, onSettingsClick,view:viewHome,toggleTheme}) {
+function Header({ name, onLogoutClick, onSettingsClick,view:viewHome}) {
     const logger = new Loggito('Header')
     const [view, setView] = useState(null)
     // [null, f(){}]

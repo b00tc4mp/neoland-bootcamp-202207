@@ -8,7 +8,7 @@ import updateUserEmail from '../logic/updateUserEmail'
 import updateUserName from '../logic/updateUserName'
 import withContext from '../utils/withContext'
 
-function Settings({ onCloseClick, email, onUpdateEmail, onUpdateName, handleFeedback }) {
+function Settings({ onCloseClick, email, onUpdateEmail, onUpdateName,context: {handleFeedback} }) {
 
     
     const logger = new Loggito('Settings')

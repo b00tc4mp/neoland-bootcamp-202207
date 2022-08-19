@@ -11,16 +11,18 @@ import NoteList from '../components/NoteList'
 import NewNoteForm from '../components/NewNoteForm'
 import Settings from '../components/Settings'
 import withContext from '../utils/withContext'
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 
-//
-function HomePage({ onLogoutClick, handleFeedback }) {
+function HomePage({ onLogoutClick, context: { handleFeedback } }) {
 
     const logger = new Loggito('HomePage')
 
     const [name, setName] = useState(null)
     const [email, setEmail] = useState(null)
     const [notes, setNotes] = useState(null)
-    const [view, setView] = useState('list')
+    // const [view, setView] = useState('list')
+    const navigate = useNavigate()
+    const location = useLocation()
 
     useEffect(() => {
         logger.info('"componentDidMount"')
@@ -55,7 +57,6 @@ function HomePage({ onLogoutClick, handleFeedback }) {
                     logger.warn(error.message)
                     return
                 }
-                // setState({ notes, view: 'list' })
                 setNotes(notes)
                 logger.debug('setNotes', notes)
             })
@@ -68,7 +69,7 @@ function HomePage({ onLogoutClick, handleFeedback }) {
 
 
     const handleAddClick = () => {
-        setView('newNote')
+        navigate('newNote')
     }
 
     const handleArrowLeftClick = (newText) => {//onFormCreateNote
@@ -80,7 +81,7 @@ function HomePage({ onLogoutClick, handleFeedback }) {
                     return
                 }
                 loadNotes()
-                setView('list')
+                navigate('/')
             })
 
         } catch (error) {
@@ -128,18 +129,18 @@ function HomePage({ onLogoutClick, handleFeedback }) {
 
     const handleSettingsClick = () => {
 
-        setView('settings')
+        navigate('settings')
 
-        logger.debug('setView', 'settings')
+        logger.debug('navigate to settings')
 
         loadNotes()
     }
 
     const handleReturnNoteList = () => {
         // loadNotes()
-        setView('list')
+        navigate('/')
 
-        logger.debug('setView', 'list')
+        logger.debug('navigate to list')
     }
 
     const handleUpdateName = (newName) => setName(newName)
@@ -149,16 +150,18 @@ function HomePage({ onLogoutClick, handleFeedback }) {
 
     return name ?
         <div className="container home_page ">
-            <Header name={name} onLogoutClick={onLogoutClick} onSettingsClick={handleSettingsClick} view={view} />
+            <Header name={name} onLogoutClick={onLogoutClick} onSettingsClick={handleSettingsClick}/>
 
             <main className="main_home">
-                {view === 'list' && <NoteList notes={notes} onUpdateNote={handleUpdateNote} onDeleteNote={handleDeleteNote} />}
-                {view === 'newNote' && <NewNoteForm onArrowLeft={handleArrowLeftClick} onCloseClick={handleReturnNoteList} />}
-                {view === 'settings' && <Settings onCloseClick={handleReturnNoteList} email={email} onUpdateEmail={handleUpdateEmail} onUpdateName={handleUpdateName} />}
+                <Routes>
+                    <Route path="/" element={<NoteList notes={notes} onUpdateNote={handleUpdateNote} onDeleteNote={handleDeleteNote} />} />
+                    <Route path="newNote" element={<NewNoteForm onArrowLeft={handleArrowLeftClick} onCloseClick={handleReturnNoteList} />}/>
+                    <Route path="settings" element={<Settings onCloseClick={handleReturnNoteList} email={email} onUpdateEmail={handleUpdateEmail} onUpdateName={handleUpdateName} />}/>
+                </Routes>
             </main>
 
             <footer className="footer_home">
-                {view === 'list' && <div className="btn_plus" onClick={handleAddClick}>
+                {location.pathname === '/' && <div className="btn_plus" onClick={handleAddClick}>
                     <span className="material-symbols-outlined add">add</span>
                 </div>}
             </footer>
