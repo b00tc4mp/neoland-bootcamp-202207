@@ -1,0 +1,428 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Schoolbell&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&family=Schoolbell&display=swap');
+
+* {
+    font-family: 'Poppins', sans-serif;
+    color: grey;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0px;
+    background-image: URL('https://static.vecteezy.com/system/resources/previews/006/189/477/non_2x/elegant-seamless-pattern-cherry-blossom-vector.jpg');
+
+}
+
+.page {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.container {
+    height: 90%;
+    width: 80%;
+    margin: 2%;
+    display: flex;
+    background-color: rgba(252, 215, 221, 0.8);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 90%;
+    width: 90%;
+    align-items: center;
+    justify-content: center;
+}
+
+.form__field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 40%;
+}
+
+
+.input {
+    background-color: transparent;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 1px solid grey;
+    color: grey;
+    font-size: 1rem;
+    caret-color: grey;
+}
+
+.input:-webkit-autofill {
+    -webkit-background-clip: text;
+    background-clip: transparent;
+    -webkit-text-fill-color: grey;
+}
+
+
+.input::selection {
+    background-color: grey;
+    -webkit-background-clip: text;
+    background-clip: transparent;
+    -webkit-text-fill-color: rgb(252, 215, 221);
+}
+
+.input::placeholder {
+    color: transparent;
+}
+
+.input:focus {
+    outline: none;
+}
+
+.input::content {
+    color: transparent;
+}
+
+.button {
+    background-color: transparent;
+    border: 1px solid grey;
+    padding: 5px;
+    color: grey;
+    transition: 0.3s;
+    width: 60%;
+    align-self: center;
+}
+
+.button:hover {
+    background-color: grey;
+    border: 1px solid grey;
+    padding: 5px;
+    color: rgb(252, 215, 221);
+}
+
+a {
+    font-size: small;
+}
+
+.anchor {
+    color: grey;
+}
+
+.anchor:visited {
+    color: grey;
+}
+
+.home-page {
+    overflow: scroll;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    gap: 50px;
+}
+
+.homecontainer {
+    display: flex;
+    background-color: rgba(252, 215, 221, 0.8);
+    width: 100%;
+    position: fixed;
+    margin: 0px;
+}
+
+.topcontainer {
+    height: 60px;
+    top: 0px;
+    border: 1px solid grey;
+}
+
+.botcontainer {
+    display: flex;
+    height: 50px;
+    bottom: 0px;
+    border: 1px solid grey;
+}
+
+.menu-options {
+    background-color: rgba(128, 128, 128, 0.9);
+    border: 1px solid rgb(252, 215, 221);
+    height: 200px;
+    width: 15%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    float: right;
+    cursor: pointer;
+}
+
+.header {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+/* .profile {
+    grid-column: 3;
+    align-self: center;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profilephoto {
+    height: 50px;
+    width: 50px;
+    background-color: grey;
+    border-radius: 50%;
+    background-image: url("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png");
+    background-size: cover;
+    border: 1px solid grey;
+    background-repeat: no-repeat;
+} */
+
+.greeting {
+    width: 90%;
+    grid-column: 1;
+    grid-row: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: x-large;
+    margin-right: 20px;
+}
+
+.burger {
+    width: 10%;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    margin-right: 10px;
+    background-color: transparent;
+    border: transparent;
+    cursor: pointer;
+}
+
+.burgerline {
+    height: 5px;
+    width: 30px;
+    background-color: grey;
+    align-self: center;
+}
+
+
+.list {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 50px;
+    padding: 0;
+    margin-top: 80px;
+    /* overflow: scroll; */
+    margin-bottom: 50px;
+}
+
+.list__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: justify;
+    background-color: rgb(252, 215, 221);
+    color: black;
+    width: 300px;
+    min-height: 150px;
+    font-size: 1.5rem;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    padding: 20px;
+}
+
+.delete {
+    cursor: pointer;
+    font-size: small;
+    align-self: flex-end;
+    border: transparent;
+    background-color: transparent;
+}
+
+
+.list__item-text {
+    width: 100%;
+    height: auto;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    resize: none;
+    overflow: hidden;
+    font-size: large;
+    font-family: 'Schoolbell', cursive;
+}
+
+.homefooter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    gap: 60%;
+}
+
+.addnote {
+    display: flex;
+    height: 35px;
+    width: 35px;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s;
+    cursor: pointer;
+    border: transparent;
+    background-color: transparent;
+}
+
+.addnote:hover {
+    height: 40px;
+    width: 40px;
+    font-size: x-large;
+}
+
+
+option {
+    background-color: rgba(252, 215, 221, 0.8);
+}
+
+select {
+    background-color: transparent;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 1px solid grey;
+    color: grey;
+    font-size: 0.8rem;
+    caret-color: grey;
+
+}
+
+select::placeholder {
+    color: transparent;
+}
+
+select:focus {
+    outline: none;
+}
+
+select::content {
+    color: transparent;
+}
+
+
+.update-container {
+    margin-top: 10px;
+    align-self: center;
+    height: 100%;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-direction: column;
+}
+
+.update-form {
+    display: flex;
+    height: 40%;
+    width: 60%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    background-color: rgba(252, 215, 221, 0.9);
+    border-radius: 20px;
+}
+
+.update-form__field {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+}
+
+.logout-button {
+    border: transparent;
+    display: flex;
+    background-color: transparent;
+    color: rgb(252, 215, 221);
+    cursor: pointer;
+}
+
+.home-button {
+    border: transparent;
+    display: flex;
+    background-color: transparent;
+    color: rgb(252, 215, 221);
+    cursor: pointer;
+}
+
+.menu-list {
+    padding:0px;
+}
+.profile-button {
+    border: transparent;
+    display: flex;
+    background-color: transparent;
+    color: rgb(252, 215, 221);
+    cursor: pointer;
+}
+
+.passerror {
+    color: red;
+    font-size: x-small;
+    font-style: italic;
+}
+
+.off {
+    display: none;
+}
+
+.close {
+    position: absolute;
+    right: 32px;
+    top: 32px;
+    width: 32px;
+    height: 32px;
+    opacity: 0.7;
+    cursor:pointer;
+  }
+  .close:hover {
+    opacity: 1;
+    cursor:pointer;
+  }
+  .close:before, .close:after {
+    position: absolute;
+    left: 15px;
+    content: ' ';
+    height: 20px;
+    width: 2px;
+    cursor:pointer;
+    background-color: rgb(252, 215, 221);
+  }
+  .close:before {
+    transform: rotate(45deg);
+  }
+  .close:after {
+    transform: rotate(-45deg);
+  }
+  

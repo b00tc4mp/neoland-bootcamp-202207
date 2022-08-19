@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+
+body {
+    display: flex;
+    justify-content: center;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.fighter {
+    background-color: tomato;
+    height: 150px;
+    width: 100px;
+    position: absolute;
+    margin-top: 200px;
+    border-radius: 35%;
+    border: 2px solid black;
+}
+
+.opponent {
+    background-color: dodgerblue;
+    height: 150px;
+    width: 100px;
+    position: absolute;
+    margin-top: 200px;
+    border-radius: 35%;
+    border: 2px solid black;
+}
+
+.score {
+    border: 5px dotted black;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    height: 100px;
+    width: 500px;
+    text-align: center;
+    font-size: 2em;
+    font-family: 'Indie Flower', cursive;
+    box-sizing: content-box;
+    animation: spin 5s linear infinite;
+}
+
+.player1 {
+    background-color: tomato;
+    grid-row: 1;
+    width: 100%;
+}
+
+.player2 {
+    background-color: dodgerblue;
+    grid-row: 2;
+    width: 100%;
+}
+
+.result1 {
+    background-color: rgb(250, 153, 136);
+    grid-row: 1;
+    grid-column: 2;
+    text-align: center;
+}
+
+.result2 {
+    background-color: rgb(156, 205, 253);
+    grid-row: 2;
+    grid-column: 2;
+    text-align: center;
+}
+
+.eye {
+    position: absolute;
+    background-color: white;
+    width: 60px;
+    height: 60px;
+    left: 18px;
+    margin-top: 10px;
+    border-radius: 50%;
+    border: 1px solid black
+}
+
+.pupil {
+    position: absolute;
+    background-color: black;
+    width: 20px;
+    height: 20px;
+    left: 20px;
+    margin-top: 20px;
+    border-radius: 50%;
+    animation: pupil-move 1s ease infinite;
+    transform-origin: center;
+    animation-direction: alternate;
+}
+
+@keyframes pupil-move {
+    from {
+        -webkit-transform: translate(6px, 0)
+    }
+
+    to {
+        -webkit-transform: translate(-6px, 0)
+    }
+}
+
+.head {
+    position:absolute;
+    background-color: yellow;
+    height: 90px;
+    width: 95px;
+    border-radius: 35%;
+    border: 1px solid black;
+}

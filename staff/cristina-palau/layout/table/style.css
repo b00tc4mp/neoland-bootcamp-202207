@@ -1,0 +1,8 @@
+html, body {height:100%;
+margin:0;}
+*{box-sizing: border-box;}
+table {border: 1px solid black;
+height: 100%;
+width: 100%;}
+tr{background-color: pink;}
+.header .footer {}

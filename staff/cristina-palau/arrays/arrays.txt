@@ -1,0 +1,20 @@
+at
+concat
+every
+filter
+find
+foreach
+includes
+indexof
+join
+map
+pop
+push
+reverse
+shift 
+slice 
+unShift 
+reduce pendiente
+findindex pendiente
+splice pendiente
+toString pendiente

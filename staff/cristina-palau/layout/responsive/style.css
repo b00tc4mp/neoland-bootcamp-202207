@@ -1,0 +1,131 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@100;200;500;600&display=swap'); */
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 2px;
+    height: 100%;
+}
+
+.element {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-end;
+    background-size: cover;
+    text-align: center;
+}
+
+.aligned {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sub {
+    display: flex;
+    flex-flow: wrap;
+    height: 40%;
+    width: 50%;
+    background-color: white;
+    opacity: 0.5;
+    justify-content: center;
+    align-content: center;
+    font-size: xx-large;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+@media (max-width: 800px) {
+
+    .grid-container {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+        height: 120%;
+    }
+
+    .sub {
+        font-size: medium;
+    }
+}
+
+@media (max-width: 600px) {
+
+    body {
+        display: flex;
+        justify-content: center;
+    }
+
+    .grid-container {
+        display: flex;
+        flex-direction: column;
+        height: 150%;
+        width: 60%;
+    }
+
+    .element {
+        display: flex;
+        height: 100%
+    }
+
+    .sub {
+        font-size: xx-small;
+    }
+}
+
+.element1 {
+    background-image: url("https://fondosmil.com/fondo/22139.jpg");
+}
+
+.element2 {
+    background-image: url("https://i.pinimg.com/originals/c7/39/87/c73987ec05ce829f4ca959d1c1f576c0.jpg");
+}
+
+.element5 {
+    background-image: url("https://www.fondoswiki.com/Uploads/fondoswiki.com/ImagenesGrandes/entranable-gatito-4.jpg");
+}
+
+.element4 {
+    background-image: url("https://fondosmil.com/fondo/22147.jpg");
+}
+
+.element3 {
+    background-image: url("https://www.fondosdepantalla.top/wp-content/uploads/2016/06/gatitos-tiernos-wallpapers-hd-Fondosdepantalla.top-4.jpg");
+}
+
+.element6 {
+    background-image: url("https://i.pinimg.com/736x/d6/93/2c/d6932caf48fa1134d78042f2a943d336--animal-wallpaper-cute-cat-wallpaper.jpg");
+}
+
+.element7 {
+    background-image: url("https://3.bp.blogspot.com/-RLweyV_ju88/T0uhqVISmiI/AAAAAAAAD2Q/-9IrqZP2oD8/s1600/Gatos,%2BFull%2BHD%2B(38).jpg");
+}
+
+.element8 {
+    background-image: url("https://i.pinimg.com/736x/2b/5c/82/2b5c8276933e4a7834a522cabce75085--desktop-wallpapers-cute-kittens.jpg");
+}
+
+.element9 {
+    background-image: url("https://s1.1zoom.me/big0/316/Cats_Gray_background_Kittens_Glance_Snout_559371_1280x853.jpg");
+}
+
+.element10 {
+    background-image: url("https://fondosmil.com/fondo/22137.jpg");
+}
+
+.element11 {
+    background-image: url("https://www.itl.cat/pngfile/big/47-479277_6205-cat-hd-wallpapers-kitten-hd.jpg");
+}
+
+.element12 {
+    background-image: url("https://designsmaz.com/wp-content/uploads/2016/03/wpid-white-cat-wallpaper-1024x640.jpg");
+}

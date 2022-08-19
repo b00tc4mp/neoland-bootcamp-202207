@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App</title>
+
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+</head>
+
+<body>
+    <main class="login-page page">
+        <div class="login-container container">
+            <form class="form">
+                <div class="form__field">
+                    <label for="email">email</label>
+                    <input class="input" type="email" name="email" placeholder="e-mail" id="email-log">
+                </div>
+
+                <div class="form__field">
+                    <label for="password">password</label>
+                    <input class="input" type="password" name="password" placeholder="password" id="password-log">
+                </div>
+
+                <div class="form__field">
+                    <button class="button" type="submit">Login</button>
+                </div>
+                <div class="form_field">
+                    <a class="forgetpass" href="forgetpass.html">Did you forget your password?</a>
+                </div>
+            </form>
+            <a class="anchor" href="register-page.html">Register</a>
+        </div>
+    </main>
+
+    <main class="register-page page off">
+        <div class="register-container container">
+            <form class="form">
+                <div class="form__field">
+                    <label for="user">user</label>
+                    <input class="input" type="text" name="name" placeholder="name" id="name-reg">
+                </div>
+                <div class="form__field">
+                    <label for="email">email</label>
+                    <input class="input" type="email" name="email" placeholder="e-mail" id="email-reg">
+                </div>
+                <div class="form__field">
+                    <label for="password">password</label>
+                    <input class="input" type="password" name="password" placeholder="password" id="password-reg">
+                    <div class="passerror off">must contain at least eight characters, at least one number and both
+                        lower and uppercase letters and special characters</div>
+                </div>
+
+                <!-- <div class="form__field">security question
+                    <select class="question" name="question" id="question">
+                        <option value="value1">In what city were you born?</option>
+                        <option value="value2">What is the name of your favorite pet?</option>
+                        <option value="value3">What is your mother's maiden name?</option>
+                        <option value="value4">What high school did you attend?</option>
+                        <option value="value5">What is the name of your first school?</option>
+                        <option value="value6">What was the make of your first car?</option>
+                        <option value="value7">What was your favorite food as a child?</option>
+                    </select>
+                </div>
+
+                <div class="form__field">
+                    <label for="securityanswer">security answer</label>
+                    <input class="input" type="text" name="answer" placeholder="securityanswer" id="answer">
+                </div> -->
+
+                <div class="form__field">
+                    <button class="button" type="submit">Register</button>
+                </div>
+            </form>
+            <a class="anchor" href="login-page.html">Login</a>
+        </div>
+    </main>
+
+    <main class="password-page page off">
+        <div class="password-container container">
+            <form class="form">
+                <div class="form__field">
+                    <label for="email">email</label>
+                    <input class="input" type="email" name="email" placeholder="e-mail" id="email-pass">
+                </div>
+
+                <div class="form__field">security question
+                    <select class="passquestion" name="passquestion" id="passquestion">
+                        <option value="value1" selected>In what city were you born?</option>
+                        <option value="value2">What is the name of your favorite pet?</option>
+                        <option value="value3">What is your mother's maiden name?</option>
+                        <option value="value4">What high school did you attend?</option>
+                        <option value="value5">What is the name of your first school?</option>
+                        <option value="value6">What was the make of your first car?</option>
+                        <option value="value7">What was your favorite food as a child?</option>
+                    </select>
+                </div>
+
+                <div class="form__field">
+                    <label for="passanswer">security answer</label>
+                    <input class="input" type="text" name="passanswer" placeholder="passanswer" id="passanswer">
+                </div>
+
+                <div class="form__field">
+                    <button class="button" type="submit">continue</button>
+                </div>
+            </form>
+            <a class="anchor" href="login-page.html">Login</a>
+        </div>
+    </main>
+
+    <main class="home-page page off">
+        <div class="topcontainer homecontainer">
+            <div class="header">
+                <h1 class="greeting"></h1>
+                <button class="burger">
+                    <div class="burgerline"></div>
+                    <div class="burgerline"></div>
+                    <div class="burgerline"></div>
+                </button>
+                <div class="menu-options off">
+                    <div class=close></div>
+                    <ul class="menu-list">
+                        <li><button class=profile-button>Profile Settings</button>
+                        <li><button class="home-button off">Home</button></li>
+                        <li><button class=logout-button>Logout</button></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="notes-page">
+            <div class="note-container">
+                <ul class="list">
+                    <li class="list__item">
+                        <button class="delete">✖️</button>
+                        <p class="list__item-text" contentEditable=true>hello, note</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="update-container off">
+            <form class="update-form">Update password
+                <div class="update-form__field">
+                    <label for="password">Old Password</label>
+                    <input class="input" type="password" name="oldpassword" placeholder="old password" id="oldpassword">
+                </div>
+                <div class="update-form__field">
+                    <label for="password">New password</label>
+                    <input class="input" type="password" name="newpassword" placeholder="new password" id="newpassword">
+                </div>
+                <div class="update-form__field">
+                    <label for="password">Repeat new password</label>
+                    <input class="input" type="password" name="newpassword2" placeholder="repeat new password"
+                        id="newpassword2">
+                    <div class="passerror off">must contain at least eight characters, at least one number and both
+                        lower and uppercase letters and special characters</div>
+                </div>
+                <div class="form__field">
+                    <button class="button" type="submit">save</button>
+                </div>
+            </form>
+
+            <form class="update-form">Update e-mail
+                <div class="update-form__field">
+                    <label for="email">email</label>
+                    <input class="input" type="email" name="email" placeholder="e-mail" id="email">
+                </div>
+                <div class="form__field">
+                    <button class="button" type="submit">save</button>
+                </div>
+
+            </form>
+        </div>
+        <div class="botcontainer homecontainer">
+            <footer class="homefooter">
+                <button class="addnote">✏️</button>
+            </footer>
+        </div>
+    </main>
+
+    <!-- <script src="./data/users.js"></script>
+    <script src="./data/notes.js"></script> -->
+
+
+    <script src="constants.js"></script>
+    
+    <!--business layer -->
+    <script src="logic/authenticateUser.js"></script>
+    <script src="logic/retrieveUser.js"></script>
+    <script src="logic/registerUser.js"></script>
+    <script src="logic/retrieveNotes.js"></script>
+    <script src="logic/createNote.js"></script>
+    <script src="logic/updateNote.js"></script>
+    <script src="logic/deleteNote.js"></script>
+    <script src="logic/updateUser.js"></script>
+    
+    <!-- presentation layer -->
+    <script src="init.js"></script>
+    <script src="view/renderHome.js"></script>
+    <script src="view/renderList.js"></script>
+    <script src="main.js"></script>
+    
+
+</body>
+
+</html>
