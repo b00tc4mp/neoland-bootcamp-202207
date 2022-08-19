@@ -14,11 +14,11 @@ function Header({onProfileClick, onHomeClick, onLogout, name}) {
     const handleMenuClick = () => {
         if (menu !== 'opened'){
             setMenu('opened')
-            logger.info('Set Menu', 'opened')
+            logger.info('Set Menu -> opened')
         }
         else if (menu !== 'closed'){
             setMenu('closed')
-            logger.info('Set Menu', 'closed')
+            logger.info('Set Menu -> closed')
         }
             
     }

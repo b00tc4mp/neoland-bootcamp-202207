@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import { useState } from 'react'
 import Loggito from '../utils/loggito'
 import registerUser from '../logic/registerUser'
 import checkPassInput from '../logic/helpers'
@@ -7,15 +7,15 @@ import withContext from '../utils/withContext'
 import logo from "../assets/sample-logo.png"
 import ThemeSelector from '../components/ThemeSelector'
 
-function RegisterPage({navigateLogin, context:{handleFeedback}}){
+function RegisterPage({ navigateLogin, context: { handleFeedback } }) {
 
     const [matchers, setMatchers] = useState(
-        {matchAll: null}, 
-        {matchLowerCase: null},
-        {matchUpperCase: null},
-        {matchNumbers: null}, 
-        {matchLength: null}, 
-        {matchSymbols: null}
+        { matchAll: null },
+        { matchLowerCase: null },
+        { matchUpperCase: null },
+        { matchNumbers: null },
+        { matchLength: null },
+        { matchSymbols: null }
     )
 
     const logger = new Loggito('Register Page')
@@ -38,20 +38,27 @@ function RegisterPage({navigateLogin, context:{handleFeedback}}){
             registerUser(name, email, password, (error) => {
 
                 if (error) {
-                    handleFeedback({level: 'error', message: error.message})
+                    handleFeedback({ level: 'error', message: error.message })
                     logger.debug(error.message)
+                    // RESET ONLY EMAIL IF ERROR IS ON EMAIL
+                    if(error.message === `user with username "${email}" already exists`)
+                        form.email.value = ''
+
                     return
                 }
-                handleFeedback({level: "success", message: 'User registered'})
+                handleFeedback({ level: "success", message: 'User registered' })
+                form.reset()
                 navigateLogin()
-
             })
         } catch (error) {
-            handleFeedback({level: "error", message: error.message})
+            handleFeedback({ level: "error", message: error.message })
             logger.debug(error.message)
+            // RESET ONLY PASSWORD IF ERROR IS ON PASS
+            if (error.message === '\nPassword does not meet the requirements: \n- Between 8 and 15 characters\n- At least 1 capital letter\n- At least 1 lowercase letter\n- At least 1 symbol')
+                form.password.value = '' 
 
         }
-        form.reset()
+
     }
 
     const checkPassword = event => {
@@ -88,8 +95,9 @@ function RegisterPage({navigateLogin, context:{handleFeedback}}){
                                 <a className="anchor loginLink" href="#/" onClick={handleLinkClick}>Login</a>
                             </div>
                         </form>
+                        <ThemeSelector />
                     </div>
-                    <ThemeSelector />
+
                 </section>
             </section>
         </main>

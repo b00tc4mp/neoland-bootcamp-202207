@@ -22,7 +22,7 @@ function ProfileMenu({context: {handleFeedback}}) {
             try {
                 updateUserPassword(sessionStorage.UserToken, oldPassword, newPassword, confirmNewPassword, (error) => {
                     if (error) {
-                        handleFeedback({level: "error", message: error.message})
+                        handleFeedback({level: "warning", message: error.message})
                         logger.warn(error.message)
                     } else {
                         handleFeedback({level: "success", message: 'Password updated successfully'})

@@ -38,6 +38,9 @@
     --inputSelectionColor: white;
     --newNoteBg: whitesmoke;
     --newNoteTextColor: var(--purpleDark);
+    --ToasterSuccess: green;
+    --ToasterWarning: orange;
+    --ToasterText: white;
 }
 
 .darkTheme{
@@ -54,6 +57,9 @@
     --inputSelectionColor: var(--darkBg);
     --newNoteBg: var(--darkBg);
     --newNoteTextColor: var(--darkInputText);
+    --ToasterSuccess: #28774b;
+    --ToasterWarning: #ed872d;
+    --ToasterText: white;
 }
 
 body, html, .page{

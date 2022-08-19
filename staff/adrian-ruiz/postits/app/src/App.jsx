@@ -5,29 +5,30 @@ import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import Context from "./utils/Context"
 import Loggito from './utils/loggito'
+import { Routes, Route, useNavigate, Navigate} from 'react-router-dom'
 
 function App() {
    
     const logger = new Loggito('App')
+    const navigate = useNavigate()
 
-    const [view, setView] = useState(sessionStorage.UserToken ? 'home' : 'login')
     const [feedback, setFeedback] = useState({message: null, level: null})
     const handleNavigationToRegister = () => {
-        setView('register')
+        navigate('register')
 
-        logger.debug('setView', 'register')
+        logger.debug('navigate -> register')
     }
 
     const handleNavigationToLogin = () => {
-        setView('login')
+        navigate('login')
 
-        logger.debug('setView', 'login')
+        logger.debug('navigate -> login')
     }
 
     const handleNavigationToHome = () => {
-        setView('home')
+        navigate('/')
 
-        logger.debug('setView', 'home')
+        logger.debug('navigate -> / (home)')
     }
 
     const handleLogout = () => {
@@ -38,15 +39,16 @@ function App() {
 
     const handleFeedback = feedback => {
         setFeedback(feedback)
-        setTimeout(() => {
+        window.timer = setTimeout(() => {
             setFeedback({message: null, level: null})
-        },3990)
+        },3900)
         logger.debug('setFeedback', feedback)
     }
 
     const handleAcceptFeedback = () => {
         const feedback = {message: null, level: null}
-
+        //Cancel feedback timer if clicked on accept
+        clearTimeout(window.timer)
         setFeedback(feedback)
 
         logger.debug('Set Feedback', feedback)
@@ -56,12 +58,11 @@ function App() {
 
     return <Context.Provider value={{handleFeedback}}>
     {feedback.message && <Feedback level={feedback.level} message={feedback.message} onClick={handleAcceptFeedback} />}
-
-    {view === 'login' && <LoginPage onLinkClick={handleNavigationToRegister} onLogin={handleNavigationToHome}  />}
-
-    {view === 'register' && <RegisterPage navigateLogin={handleNavigationToLogin} />}
-    
-    {view === 'home' && <HomePage onLogout={handleLogout} />}
+    <Routes>
+        <Route path='login' element={!(sessionStorage.UserToken) ?<LoginPage onLinkClick={handleNavigationToRegister} onLogin={handleNavigationToHome}/> : <Navigate to='/'/>}/>
+        <Route path='register' element={!(sessionStorage.UserToken) ? <RegisterPage navigateLogin={handleNavigationToLogin} /> : <Navigate to='/' />}/>
+        <Route path='/*' element={sessionStorage.UserToken ? <HomePage onLogout={handleLogout}/> : <Navigate to='login'/>} /> 
+    </Routes>
     </Context.Provider>
 }
 

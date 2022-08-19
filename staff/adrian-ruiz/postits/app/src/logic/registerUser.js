@@ -27,7 +27,7 @@ function registerUser(name, email, password, callback) {
         if (status >= 500)
             callback(new Error(`Server error (${status})`))
         if (status >= 400) {
-            callback(new Error(`Client error (${JSON.parse(xhr.response).error})`))
+            callback(new Error(`${JSON.parse(xhr.response).error}`))
         } else if (status === 201)
             callback(null)
     }

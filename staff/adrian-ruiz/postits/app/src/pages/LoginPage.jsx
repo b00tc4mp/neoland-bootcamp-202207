@@ -69,8 +69,8 @@ function LoginPage({ onLinkClick, onLogin, context:{handleFeedback}}) {
                                 <a className="anchor registerLink" href="#/" onClick={handleLinkClick} >Register</a>
                             </div>
                         </form>
+                        <ThemeSelector />
                     </div>
-                    <ThemeSelector />
                 </section>
             </section>
 
