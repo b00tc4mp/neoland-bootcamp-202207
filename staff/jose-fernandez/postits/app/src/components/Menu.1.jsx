@@ -1,8 +1,12 @@
 import IconButtonMenuPanel from './Buttons/iconButtonMenuPanel'
 import Loggito from '../utils/Loggito'
-import withContext from '../utils/withContext'
-function Menu({view,onLogoutClick,onSettingsClick,context: { toggleTheme }}){
+import Context from '../utils/Context'
+import {useContext} from 'react'
+
+function Menu({view,onLogoutClick,onSettingsClick}){
     const logger = new Loggito('Menu')
+    
+    const {toggleTheme} = useContext(Context)
 
     const handleSettingsClick = () => onSettingsClick()
 
@@ -19,4 +23,4 @@ function Menu({view,onLogoutClick,onSettingsClick,context: { toggleTheme }}){
     </ul>
 </nav>
 }
-export default withContext(Menu)
+export default Menu

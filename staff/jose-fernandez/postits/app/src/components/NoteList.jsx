@@ -1,5 +1,6 @@
 // import './'
 import Loggito from '../utils/Loggito'
+import './NoteList.css'
 
 function NoteList({notes,onDeleteNote,onUpdateNote}) {
     const logger = new Loggito('List')

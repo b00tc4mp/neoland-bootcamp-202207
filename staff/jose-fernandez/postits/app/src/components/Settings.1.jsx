@@ -6,11 +6,10 @@ import IconButtonMainItemsMenuPanel from './Buttons/IconButtonMainItemsMenuPanel
 import updateUserPassword from '../logic/updateUserPassword'
 import updateUserEmail from '../logic/updateUserEmail'
 import updateUserName from '../logic/updateUserName'
-import withContext from '../utils/withContext'
 
-function Settings({ onCloseClick, email, onUpdateEmail, onUpdateName, handleFeedback }) {
 
-    
+function Settings({ onCloseClick, email, onUpdateEmail, onFeedback, onUpdateName }) {
+
     const logger = new Loggito('Settings')
 
     //ref
@@ -33,17 +32,17 @@ function Settings({ onCloseClick, email, onUpdateEmail, onUpdateName, handleFeed
         try {
             updateUserPassword(sessionStorage.token, oldPassword, newPassword, newPasswordRepeat, error => {
                 if (error) {
-                    handleFeedback({ message: error.message, level: 'warning' })
+                    onFeedback({ message: error.message, level: 'warning' })
                     logger.warn(error.message)
 
                     return
                 }
 
-                handleFeedback({ message: "Password Update", level: 'success' })
+                onFeedback({ message: "Password Update", level: 'success' })
                 onCloseClick()
             })
         } catch (error) {
-            handleFeedback({ message: error.message, level: 'warning' })
+            onFeedback({ message: error.message, level: 'warning' })
             logger.warn(error.message)
         }
     }
@@ -59,17 +58,17 @@ function Settings({ onCloseClick, email, onUpdateEmail, onUpdateName, handleFeed
         try {
             updateUserEmail(sessionStorage.token, newEmail, error => {
                 if (error) {
-                    handleFeedback({ message: error.message, level: 'warning' })
+                    onFeedback({ message: error.message, level: 'warning' })
                     logger.warn(error.message)
                     return
                 }
                 onUpdateEmail(newEmail)
-                handleFeedback({ message: "Email Update", level: 'success' })
+                onFeedback({ message: "Email Update", level: 'success' })
 
                 onCloseClick()
             })
         } catch (error) {
-            handleFeedback({ message: error.message, level: 'warning' })
+            onFeedback({ message: error.message, level: 'warning' })
             logger.warn(error.message)
         }
 
@@ -87,19 +86,19 @@ function Settings({ onCloseClick, email, onUpdateEmail, onUpdateName, handleFeed
         try {
             updateUserName(sessionStorage.token, newName, error => {
                 if (error) {
-                    handleFeedback({ message: error.message, level: 'warning' })
+                    onFeedback({ message: error.message, level: 'warning' })
                     logger.warn(error.message)
                     return
                 }
 
                 onUpdateName(newName)
 
-                handleFeedback({ message: "User Name Update", level: 'success' })
+                onFeedback({ message: "User Name Update", level: 'success' })
 
                 onCloseClick()
             })
         } catch (error) {
-            handleFeedback({ message: error.message, level: 'warning' })
+            onFeedback({ message: error.message, level: 'warning' })
             logger.warn(error.message)
         }
     }
@@ -150,4 +149,4 @@ function Settings({ onCloseClick, email, onUpdateEmail, onUpdateName, handleFeed
         <button className="btn-scrollTop"><IconButton addClass='expand_less' text='expand_less' onClick={onScrollTop}/></button>
     </>
 }
-export default withContext(Settings)
+export default Settings

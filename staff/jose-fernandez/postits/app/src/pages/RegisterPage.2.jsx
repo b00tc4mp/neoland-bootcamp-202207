@@ -1,11 +1,12 @@
 import Loggito from '../utils/Loggito'
 import registerUser from '../logic/registerUser'
-import withContext from '../utils/withContext'
+import Context from '../utils/Context'
+import { useContext } from 'react'
 
-function RegisterPage({ onLinkClick, onSingUp, handleFeedback }) {
+function RegisterPage({ onLinkClick, onSingUp }) {
     const logger = new Loggito(RegisterPage.name)
 
-    
+    const handleFeedback = useContext(Context)
     logger.info('constructor')
     logger.info('return')
 
@@ -74,4 +75,4 @@ function RegisterPage({ onLinkClick, onSingUp, handleFeedback }) {
         <a className="link link-login" href="#" onClick={handleLinkClick}>LOGIN</a>
     </main>
 }
-export default withContext(RegisterPage)
+export default RegisterPage

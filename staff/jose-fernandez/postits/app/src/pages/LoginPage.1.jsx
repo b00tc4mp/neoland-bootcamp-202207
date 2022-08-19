@@ -1,10 +1,8 @@
 import Loggito from '../utils/Loggito'
 import authenticateUser from '../logic/authenticateUser'
-import withContext from '../utils/withContext'
 
-
-function LoginPage({ onLinkClick, onLogIn, handleFeedback }) {
-    const logger = new Loggito(LoginPage.name)    
+function LoginPage({ onLinkClick, onLogIn, onFeedback }) {
+    const logger = new Loggito(LoginPage.name)
 
     logger.info('constructor')
 
@@ -28,7 +26,7 @@ function LoginPage({ onLinkClick, onLogIn, handleFeedback }) {
         try {
             authenticateUser(email, password, (error, token) => {
                 if (error) {
-                    handleFeedback({ message: error.message, level: 'error' })
+                    onFeedback({ message: error.message, level: 'error' })
 
                     logger.warn(error.message)
                     return
@@ -41,7 +39,7 @@ function LoginPage({ onLinkClick, onLogIn, handleFeedback }) {
 
             })
         } catch (error) {
-            handleFeedback({ message: error.message, level: 'error' })
+            onFeedback({ message: error.message, level: 'error' })
 
             logger.warn(error.message)
         }
@@ -68,4 +66,4 @@ function LoginPage({ onLinkClick, onLogIn, handleFeedback }) {
         <p className="nolink-register"> Not a member <a className="link link-register" href="#" onClick={handleLinkClick}> ! SINGUP NOW ¡</a></p>
     </main>
 }
-export default withContext(LoginPage)
+export default LoginPage

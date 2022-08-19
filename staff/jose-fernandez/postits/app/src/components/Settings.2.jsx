@@ -6,11 +6,12 @@ import IconButtonMainItemsMenuPanel from './Buttons/IconButtonMainItemsMenuPanel
 import updateUserPassword from '../logic/updateUserPassword'
 import updateUserEmail from '../logic/updateUserEmail'
 import updateUserName from '../logic/updateUserName'
-import withContext from '../utils/withContext'
+import {useContext} from 'react'
+import Context from '../utils/Context'
 
-function Settings({ onCloseClick, email, onUpdateEmail, onUpdateName, handleFeedback }) {
+function Settings({ onCloseClick, email, onUpdateEmail, onUpdateName }) {
 
-    
+    const{handleFeedback} = useContext(Context)
     const logger = new Loggito('Settings')
 
     //ref
@@ -150,4 +151,4 @@ function Settings({ onCloseClick, email, onUpdateEmail, onUpdateName, handleFeed
         <button className="btn-scrollTop"><IconButton addClass='expand_less' text='expand_less' onClick={onScrollTop}/></button>
     </>
 }
-export default withContext(Settings)
+export default Settings

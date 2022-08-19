@@ -1,10 +1,12 @@
 import Loggito from '../utils/Loggito'
 import authenticateUser from '../logic/authenticateUser'
-import withContext from '../utils/withContext'
+import Context from '../utils/Context'
+import {useContext} from 'react'
 
+function LoginPage({ onLinkClick, onLogIn }) {
+    const logger = new Loggito(LoginPage.name)
 
-function LoginPage({ onLinkClick, onLogIn, handleFeedback }) {
-    const logger = new Loggito(LoginPage.name)    
+    const {handleFeedback} = useContext(Context)
 
     logger.info('constructor')
 
@@ -68,4 +70,4 @@ function LoginPage({ onLinkClick, onLogIn, handleFeedback }) {
         <p className="nolink-register"> Not a member <a className="link link-register" href="#" onClick={handleLinkClick}> ! SINGUP NOW ¡</a></p>
     </main>
 }
-export default withContext(LoginPage)
+export default LoginPage

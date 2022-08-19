@@ -1,5 +1,5 @@
 // const { useState, useEffect } = React
-import { useState, useEffect } from 'react'
+import {useState,useEffect} from 'react'
 import Loggito from '../utils/Loggito'
 import retrieveUser from '../logic/retrieveUser'
 import retrieveNotes from '../logic/retrieveNotes'
@@ -10,10 +10,11 @@ import Header from '../components/Header'
 import NoteList from '../components/NoteList'
 import NewNoteForm from '../components/NewNoteForm'
 import Settings from '../components/Settings'
-import withContext from '../utils/withContext'
+import Context from '../utils/Context'
+import { useContext } from 'react'
 
-//
-function HomePage({ onLogoutClick, handleFeedback }) {
+function HomePage({ onLogoutClick }) {
+    const {handleFeedback} = useContext(Context)
 
     const logger = new Loggito('HomePage')
 
@@ -36,7 +37,7 @@ function HomePage({ onLogoutClick, handleFeedback }) {
                 setName(user.name)
                 setEmail(user.email)
 
-                logger.debug('setName', user.name)
+                logger.debug('setName' , user.name)
             })
         } catch (error) {
             handleFeedback({ message: error.message, level: 'error' })
@@ -102,7 +103,7 @@ function HomePage({ onLogoutClick, handleFeedback }) {
                 // loadNotes()
             })
         } catch (error) {
-            handleFeedback({ message: error.message, level: 'error' })
+            handleFeedback({ message: error.message, level: 'error'})
 
             logger.warn(error.message)
         }
@@ -154,7 +155,7 @@ function HomePage({ onLogoutClick, handleFeedback }) {
             <main className="main_home">
                 {view === 'list' && <NoteList notes={notes} onUpdateNote={handleUpdateNote} onDeleteNote={handleDeleteNote} />}
                 {view === 'newNote' && <NewNoteForm onArrowLeft={handleArrowLeftClick} onCloseClick={handleReturnNoteList} />}
-                {view === 'settings' && <Settings onCloseClick={handleReturnNoteList} email={email} onUpdateEmail={handleUpdateEmail} onUpdateName={handleUpdateName} />}
+                {view === 'settings' && <Settings onCloseClick={handleReturnNoteList} email={email} onUpdateEmail={handleUpdateEmail} onUpdateName={handleUpdateName}/>}
             </main>
 
             <footer className="footer_home">
@@ -166,4 +167,4 @@ function HomePage({ onLogoutClick, handleFeedback }) {
         :
         null
 }
-export default withContext(HomePage)
+export default HomePage

@@ -1,5 +1,5 @@
 // const { useState, useEffect } = React
-import { useState, useEffect } from 'react'
+import {useState,useEffect} from 'react'
 import Loggito from '../utils/Loggito'
 import retrieveUser from '../logic/retrieveUser'
 import retrieveNotes from '../logic/retrieveNotes'
@@ -10,10 +10,8 @@ import Header from '../components/Header'
 import NoteList from '../components/NoteList'
 import NewNoteForm from '../components/NewNoteForm'
 import Settings from '../components/Settings'
-import withContext from '../utils/withContext'
 
-//
-function HomePage({ onLogoutClick, handleFeedback }) {
+function HomePage({ onLogoutClick, onFeedback }) {
 
     const logger = new Loggito('HomePage')
 
@@ -27,7 +25,7 @@ function HomePage({ onLogoutClick, handleFeedback }) {
         try {
             retrieveUser(sessionStorage.token, (error, user) => {
                 if (error) {
-                    handleFeedback({ message: error.message, level: 'error' })
+                    onFeedback({ message: error.message, level: 'error' })
 
                     logger.warn(error.message)
                     onLogoutClick()
@@ -36,10 +34,10 @@ function HomePage({ onLogoutClick, handleFeedback }) {
                 setName(user.name)
                 setEmail(user.email)
 
-                logger.debug('setName', user.name)
+                logger.debug('setName' , user.name)
             })
         } catch (error) {
-            handleFeedback({ message: error.message, level: 'error' })
+            onFeedback({ message: error.message, level: 'error' })
 
             logger.warn(error.message)
         }
@@ -50,7 +48,7 @@ function HomePage({ onLogoutClick, handleFeedback }) {
         try {
             retrieveNotes(sessionStorage.token, (error, notes) => {
                 if (error) {
-                    handleFeedback({ message: error.message, level: 'error' })
+                    onFeedback({ message: error.message, level: 'error' })
 
                     logger.warn(error.message)
                     return
@@ -60,7 +58,7 @@ function HomePage({ onLogoutClick, handleFeedback }) {
                 logger.debug('setNotes', notes)
             })
         } catch (error) {
-            handleFeedback({ message: error.message, level: 'error' })
+            onFeedback({ message: error.message, level: 'error' })
 
             logger.warn(error.message)
         }
@@ -75,7 +73,7 @@ function HomePage({ onLogoutClick, handleFeedback }) {
         try {
             createNote(sessionStorage.token, newText, error => {
                 if (error) {
-                    handleFeedback({ message: error.message, level: 'error' })
+                    onFeedback({ message: error.message, level: 'error' })
 
                     return
                 }
@@ -84,7 +82,7 @@ function HomePage({ onLogoutClick, handleFeedback }) {
             })
 
         } catch (error) {
-            handleFeedback({ message: error.message, level: 'error' })
+            onFeedback({ message: error.message, level: 'error' })
 
             logger.warn(error.message)
         }
@@ -95,14 +93,14 @@ function HomePage({ onLogoutClick, handleFeedback }) {
         try {
             updateNote(sessionStorage.token, noteId, text, error => {
                 if (error) {
-                    handleFeedback({ message: error.message, level: 'error' })
+                    onFeedback({ message: error.message, level: 'error' })
                     return
                 }
                 //agregado abajo en handleSettingsClick
                 // loadNotes()
             })
         } catch (error) {
-            handleFeedback({ message: error.message, level: 'error' })
+            onFeedback({ message: error.message, level: 'error'})
 
             logger.warn(error.message)
         }
@@ -112,7 +110,7 @@ function HomePage({ onLogoutClick, handleFeedback }) {
         try {
             deleteNote(sessionStorage.token, noteId, error => {
                 if (error) {
-                    handleFeedback({ message: error.message, level: 'error' })
+                    onFeedback({ message: error.message, level: 'error' })
 
                     logger.warn(error.message)
                     return
@@ -120,7 +118,7 @@ function HomePage({ onLogoutClick, handleFeedback }) {
                 loadNotes()
             })
         } catch (error) {
-            handleFeedback({ message: error.message, level: 'error' })
+            onFeedback({ message: error.message, level: 'error' })
 
             logger.warn(error.message)
         }
@@ -153,8 +151,8 @@ function HomePage({ onLogoutClick, handleFeedback }) {
 
             <main className="main_home">
                 {view === 'list' && <NoteList notes={notes} onUpdateNote={handleUpdateNote} onDeleteNote={handleDeleteNote} />}
-                {view === 'newNote' && <NewNoteForm onArrowLeft={handleArrowLeftClick} onCloseClick={handleReturnNoteList} />}
-                {view === 'settings' && <Settings onCloseClick={handleReturnNoteList} email={email} onUpdateEmail={handleUpdateEmail} onUpdateName={handleUpdateName} />}
+                {view === 'newNote' && <NewNoteForm onArrowLeft={handleArrowLeftClick} onCloseClick={handleReturnNoteList} onFeedback={onFeedback}/>}
+                {view === 'settings' && <Settings onCloseClick={handleReturnNoteList} email={email} onUpdateEmail={handleUpdateEmail} onFeedback={onFeedback} onUpdateName={handleUpdateName}/>}
             </main>
 
             <footer className="footer_home">
@@ -166,4 +164,4 @@ function HomePage({ onLogoutClick, handleFeedback }) {
         :
         null
 }
-export default withContext(HomePage)
+export default HomePage

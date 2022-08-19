@@ -5,7 +5,8 @@ import Menu from './Menu'
 import IconButton from './Buttons/IconButton'
 import Loggito from '../utils/Loggito'
 
-function Header({ name, onLogoutClick, onSettingsClick,view:viewHome }) {
+
+function Header({ name, onLogoutClick, onSettingsClick,view:viewHome,toggleTheme}) {
     const logger = new Loggito('Header')
     const [view, setView] = useState(null)
     // [null, f(){}]
@@ -35,7 +36,11 @@ function Header({ name, onLogoutClick, onSettingsClick,view:viewHome }) {
     return <header className="header_home">
         <div className="cont__header">
             <div className="link_home" >
+            <img className="img img-home " src="https://i.postimg.cc/ZY1nHGSz/logo-Luanna.png" alt="" />
+            {/* {{toggleTheme}=== 'light'? 
                 <img className="img img-home " src="https://i.postimg.cc/ZY1nHGSz/logo-Luanna.png" alt="" />
+                :
+                <img className="img img-home " src="https://i.postimg.cc/mZqYhbGW/luanna-Logo.png" alt="" />} */}
             </div>
             <h1 className="messageTitle">Hello {name} !</h1>
 

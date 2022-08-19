@@ -1,9 +1,12 @@
 import IconButton from './Buttons/IconButton'
 import Loggito from '../utils/Loggito'
+import Context from '../utils/Context'
+import {useContext} from 'react'
 
-function NewNoteForm({ onCloseClick, onArrowLeft, onFeedback }) {
+function NewNoteForm({ onCloseClick, onArrowLeft }) {
     const logger = new Loggito('NewNoteForm')
 
+    const {handleFeedback} = useContext(Context)
     logger.info('return')
 
 
@@ -14,7 +17,7 @@ function NewNoteForm({ onCloseClick, onArrowLeft, onFeedback }) {
         const newText = event.target.newNote.value
 
         if (newText === "") {
-            onFeedback({ message: "Discarded empty Note", level: 'info' })
+            handleFeedback({ message: "Discarded empty Note", level: 'info' })
             logger.warn("discarded empty note")
             onCloseClick()
         }
