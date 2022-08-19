@@ -1,0 +1,5 @@
+major.minor.revision => 1.1.20
+
+major > non retro compatible
+minor > new features
+revision > error / bugs / fixes / corrections
