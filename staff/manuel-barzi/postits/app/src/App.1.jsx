@@ -6,8 +6,7 @@ import Feedback from './components/Feedback'
 import Loggito from './utils/Loggito.js'
 import Context from './utils/Context'
 import './App.css'
-import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
-import Hello from './components/Hello'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 
 function App() {
     const logger = new Loggito('App')
@@ -28,7 +27,7 @@ function App() {
     }
 
     const handleNavigationToHome = () => {
-        navigate('/')
+        navigate('home')
 
         logger.debug('navigate to home')
     }
@@ -60,10 +59,9 @@ function App() {
     return <Context.Provider value={{ handleFeedback, toggleTheme }}>
         <div className="App App--dark container container--full">
             <Routes>
-                <Route path="login" element={sessionStorage.token ? <Navigate to="/" /> : <LoginPage onLinkClick={handleNavigationToRegister} onLogIn={handleNavigationToHome} />} />
-                <Route path="register" element={sessionStorage.token ? <Navigate to="/" /> : <RegisterPage onLinkClick={handleNavigationToLogin} />} />
-                <Route path="hello/:to" element={<Hello />} />
-                <Route path="/*" element={sessionStorage.token ? <HomePage onLogoutClick={handleLogoutClick} /> : <Navigate to="login" />} />
+                <Route path="login" element={<LoginPage onLinkClick={handleNavigationToRegister} onLogIn={handleNavigationToHome} />} />
+                <Route path="register" element={<RegisterPage onLinkClick={handleNavigationToLogin} />} />
+                <Route path="home" element={<HomePage onLogoutClick={handleLogoutClick} />} />
             </Routes>
 
             {feedback.message && <Feedback level={feedback.level} message={feedback.message} onClick={handleAcceptFeedback} />}
