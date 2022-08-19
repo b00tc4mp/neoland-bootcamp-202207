@@ -25,7 +25,7 @@
 
         const Context = createContext()
 
-        function Box({ style, children, chateable, name }) {
+        function Box({ style, children, name }) {
             const context = useContext(Context)
             
             const { data, setData } = context
@@ -44,7 +44,7 @@
             }
 
             return <div style={style}>
-                {chateable && <div>
+                {name && <div>
                     <h3 style={{ color: 'gray' }}>{name}</h3>
                     <p style={{ backgroundColor: 'white', width: '100%', height: '100px' }}>
                         {data[name]}
