@@ -3,7 +3,7 @@ import authenticateUser from '../logic/authenticateUser'
 import withContext from '../utils/withContext'
 
 
-function LoginPage({ onLinkClick, onLogIn, context:{handleFeedback} }) {
+function LoginPage({ onLinkClick, onLogIn, context:{handleFeedback,theme} }) {
     const logger = new Loggito(LoginPage.name)    
 
     logger.info('constructor')
@@ -49,8 +49,11 @@ function LoginPage({ onLinkClick, onLogIn, context:{handleFeedback} }) {
 
     return <main className="container login_page ">
         <form className="form form-login" onSubmit={handleFormSubmit}>
-            <img className="img img-login"
-                src="https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg" alt="" />
+            
+                {/* src="https://i.postimg.cc/ZY1nHGSz/logo-Luanna.png" */}
+                {/* <img className="img img-login" src="https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg" alt="" /> */}
+                { theme==='dark' && <img className="img-login " src="https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg" alt="" />}
+                { theme==='light' && <img className="img-login " src="https://i.postimg.cc/mZqYhbGW/luanna-Logo.png" alt="" />}
 
             <div className="form__field">
                 <label className="label__movil">EMAIL</label>

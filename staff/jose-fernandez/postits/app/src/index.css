@@ -42,6 +42,7 @@
     --color: white;
     --color-orig:#037E8c;
     --back-color:url("https://images.pexels.com/photos/2486168/pexels-photo-2486168.jpeg");
+    --logo-home:url("https://i.postimg.cc/ZY1nHGSz/logo-Luanna.png");
     --label-color:aqua;
     --input-border-color:gray;
     --input-placeholder-color:#1A1D4A;
@@ -60,6 +61,7 @@
     --color: black;
     --color-orig:rgb(5, 6, 7);
     --back-color: url("https://i.postimg.cc/43BnZmLh/clouds-sky-cloud-daytime-blue-cumulus-1627123-pxhere-com.jpg");
+    --logo-home:url("https://i.postimg.cc/mZqYhbGW/luanna-Logo.png");
     --label-color:lawngreen;
     --input-border-color:black;
     --input-placeholder-color:#037E8c;
@@ -95,12 +97,16 @@ h1,label{
 
 .container {
     height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     overflow: hidden;
 }
+/* .container--full{
+    width:100%;
+} */
 .container--row{
     flex-direction: row;
 }
@@ -297,16 +303,17 @@ input::placeholder {
     align-items: center;
     width: 20%;
     height: 100%;
-    color: var(--link-home);
+    /* color: var(--link-home); */
 }
 
-.img-home {
+.logo-home {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100%;
+    height:100%;
     border-radius: 15px;
+    /* background: var(--logo-home); */
     /* border: 1px ; */
 }
 

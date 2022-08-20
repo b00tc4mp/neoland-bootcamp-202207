@@ -2,7 +2,7 @@ import Loggito from '../utils/Loggito'
 import registerUser from '../logic/registerUser'
 import withContext from '../utils/withContext'
 
-function RegisterPage({ onLinkClick, onSingUp, context:{handleFeedback} }) {
+function RegisterPage({ onLinkClick, onSingUp, context:{handleFeedback,theme} }) {
     const logger = new Loggito(RegisterPage.name)
 
     
@@ -51,9 +51,8 @@ function RegisterPage({ onLinkClick, onSingUp, context:{handleFeedback} }) {
 
     return <main className="container register_page">
         <form className="form form-register" onSubmit={handleFormSubmit}>
-
-            <img className="img img-register" src="https://th.bing.com/th/id/OIP.8oRhQutdRIwwPM6f-eTiwwAAAA?pid=ImgDet&rs=1"
-                alt="" />
+        { theme==='dark' && <img className="img-register " src="https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg" alt="" />}
+                { theme==='light' && <img className="img-register " src="https://i.postimg.cc/mZqYhbGW/luanna-Logo.png" alt="" />}
             <div className="form__field">
                 <label className="label__movil">USERNAME</label>
                 <input className="input input-user" type="text" name="name" placeholder="Username" />

@@ -8,6 +8,7 @@ import Loggito from './utils/Loggito'
 import Context from './utils/Context'
 import './App.css'
 import {Routes, Route, useNavigate,Navigate} from 'react-router-dom'
+import { useEffect } from 'react'
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
     const navigate = useNavigate()
 
     const [feedback, setFeedback] = useState({ message: null, level: null })
+    const [theme,setTheme] = useState("dark")
 
     const handleNavigationToRegister = () => {
         navigate('register')
@@ -55,18 +57,24 @@ function App() {
 
         logger.debug('setFeedback',feedback)
     }
+    
+    const handleThemes = theme =>{
+        
+    }
+    
+    const toggleTheme = () => {{document.documentElement.classList.toggle('light')}
+    if (theme === "light")setTheme("dark")
+    else setTheme("light")}
 
     logger.info('return')
-
-    const toggleTheme = () => {document.documentElement.classList.toggle('light')}
     //
-    return <Context.Provider value={{handleFeedback,toggleTheme}}>
+    return <Context.Provider value={{handleFeedback,toggleTheme, theme}}>
         <div className="App container container--full">
         <Routes>
             <Route path="login" element={sessionStorage.token ? <Navigate to="/"/> :<LoginPage onLinkClick={handleNavigationToRegister} onLogIn={handleNavigationToHome}  />}/>
             <Route path='register' element={sessionStorage.token ? <Navigate to="/"/>:<RegisterPage onLinkClick={handleNavigationToLogin} onSingUp={handleNavigationToLogin} />}/>
             {/* coloco dentro de path "/" que es direcccion al home y le agrego "*"" para que acepte a todos los hijos de home */}
-            <Route path='/*' element={sessionStorage.token ?<HomePage onLogoutClick={handleLogoutClick} onFeedback={handleFeedback}/>:<Navigate to="login"/>}/>
+            <Route path='/*' element={sessionStorage.token ?<HomePage onLogoutClick={handleLogoutClick}/>:<Navigate to="login"/>}/>
         </Routes>
     
         {feedback.message && <Feedback level={feedback.level} message={feedback.message} onClick={handleAcceptFeedback}/>}
