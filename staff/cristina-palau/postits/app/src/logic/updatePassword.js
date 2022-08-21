@@ -33,8 +33,7 @@ function updatePassword(token, oldPass, newPass, newPass2, callback) {
 
             const data = JSON.parse(json)
 
-            const oldPassword = data.password
-
+                 
 
             if(newPass !== newPass2) {
                 callback(new Error ('passwords do not match'))

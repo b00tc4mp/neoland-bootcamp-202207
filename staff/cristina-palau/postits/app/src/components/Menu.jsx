@@ -1,9 +1,12 @@
 import './Menu.css'
 import Loggito from '../utils/loggito'
 import withContext from '../utils/withContext'
+import { useLocation } from 'react-router-dom'
 
-function Menu({ view, onSettingsClick, onCloseClick, onLogoutClick, context: { toggleTheme } }) {
+function Menu({  onSettingsClick, onCloseClick, onLogoutClick, context: { toggleTheme } }) {
     const logger = new Loggito('Menu')
+
+    const location = useLocation()
 
     const handleLogoutClick = () => onLogoutClick()
     const handleCloseClick = () => onCloseClick()
@@ -16,7 +19,7 @@ function Menu({ view, onSettingsClick, onCloseClick, onLogoutClick, context: { t
         <ul className="menu-list">
             <li className="menu-panel__option"><button className="settings-button theme-button" onClick={toggleTheme}><span className="material-symbols-outlined">
                 palette </span> Theme </button></li>
-            {view !== 'settings' && <li className="menu-panel__option"><button className="settings-button profile-button" onClick={handleSettingsClick}><span className="material-symbols-outlined">
+            {location.pathname !=='/settings' && <li className="menu-panel__option"><button className="settings-button profile-button" onClick={handleSettingsClick}><span className="material-symbols-outlined">
                 manage_accounts </span>Settings</button></li>}
             <li className="menu-panel__option"><button className="settings-button logout-button" onClick={handleLogoutClick}><span className="material-symbols-outlined">
                 logout</span> Logout </button></li>

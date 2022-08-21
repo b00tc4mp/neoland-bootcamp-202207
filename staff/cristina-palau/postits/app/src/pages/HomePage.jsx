@@ -9,15 +9,16 @@ import Settings from '../components/Settings'
 import NoteList from '../components/NoteList'
 import Header from '../components/Header'
 import withContext from '../utils/withContext'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 
-function HomePage({ onLogoutClick, context: { handleFeedback }}) {
+function HomePage({ onLogoutClick, context: { handleFeedback } }) {
 
     const logger = new Loggito('HomePage')
 
     const [name, setName] = useState(null)
     const [notes, setNotes] = useState(null)
-    const [view, setView] = useState('list')
-
+    const navigate = useNavigate()
+    
     useEffect(() => { // override
         logger.info('componentDidMount')
 
@@ -119,7 +120,7 @@ function HomePage({ onLogoutClick, context: { handleFeedback }}) {
             })
 
         } catch (error) {
-            
+
             handleFeedback({ message: error.message, level: 'error' })
 
             logger.warn(error.message)
@@ -127,46 +128,49 @@ function HomePage({ onLogoutClick, context: { handleFeedback }}) {
     }
 
     const handleSettingsClick = () => {
-        setView('settings')
+        navigate('settings')
 
-        logger.debug('setView', 'settings')
+        logger.debug('navigate to settings')
 
         loadNotes()
     }
 
     const handleHomeClick = () => {
 
-        setView('list')
+        navigate('/')
 
-        logger.debug('setView', 'list')
+   
+
+        logger.debug('navigate to list')
     }
 
     logger.info('render')
 
     return name ?
         <div className="home-page page">
-            <Header name={name} onLogoutClick={onLogoutClick} onSettingsClick={handleSettingsClick} view={view} />
+            <Header name={name} onLogoutClick={onLogoutClick} onSettingsClick={handleSettingsClick} />
 
-            {view === 'list' &&
-                <>
-                    <main className="notes-page page">
-                        <NoteList notes={notes} onUpdateNote={handleUpdateNote} onDeleteNote={handleDeleteNote} />
-                    </main>
-                    <footer className="homefooter">
-                        <button className="addnote" onClick={handleAddClick}><span className="addnote--span material-symbols-outlined ">note_add</span></button>
-                    </footer>
-                </>
-            }
-            {view === 'settings' &&
-                <>
-                    <main className="settings-page page">
-                        <Settings/>
-                    </main>
-                    <footer className="homefooter">
-                        <a className="anchor home-link" onClick={handleHomeClick}><span className="homeButton material-symbols-outlined">home</span></a>
-                    </footer>
-                </>
-            }
+            <Routes>
+                <Route path="/" element={
+                    <>
+                        <main className="notes-page page">
+                            <NoteList notes={notes} onUpdateNote={handleUpdateNote} onDeleteNote={handleDeleteNote} />
+                        </main>
+                        <footer className="homefooter">
+                            <button className="addnote" onClick={handleAddClick}><span className="addnote--span material-symbols-outlined ">note_add</span></button>
+                        </footer>
+                    </>} />
+
+                <Route path="settings" element={
+                    <>
+                        <main className="settings-page page">
+                            <Settings />
+                        </main>
+                        <footer className="homefooter">
+                            <a className="anchor home-link" onClick={handleHomeClick}><span className="homeButton material-symbols-outlined">home</span></a>
+                        </footer>
+                    </>} />
+            </Routes>
         </div>
         : null
 }
