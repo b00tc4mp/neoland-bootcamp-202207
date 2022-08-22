@@ -57,11 +57,7 @@ function App() {
 
         logger.debug('setFeedback',feedback)
     }
-    
-    const handleThemes = theme =>{
-        
-    }
-    
+
     const toggleTheme = () => {{document.documentElement.classList.toggle('light')}
     if (theme === "light")setTheme("dark")
     else setTheme("light")}

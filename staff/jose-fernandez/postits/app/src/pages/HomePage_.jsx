@@ -1,5 +1,5 @@
 // const { useState, useEffect } = React
-import { useState, useEffect} from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Loggito from '../utils/Loggito'
 import IconButton from '../components/Buttons/IconButton'
 import retrieveUser from '../logic/retrieveUser'
@@ -17,6 +17,10 @@ import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 function HomePage({ onLogoutClick, context: { handleFeedback } }) {
 
     const logger = new Loggito('HomePage')
+    // ============================================
+    let settingsDoc = useRef(null)
+    
+    // ============================================
 
     const [name, setName] = useState(null)
     const [email, setEmail] = useState(null)
@@ -149,6 +153,10 @@ function HomePage({ onLogoutClick, context: { handleFeedback } }) {
     const handleUpdateName = (newName) => setName(newName)
     const handleUpdateEmail = (newEmail) => setEmail(newEmail)
 
+    
+    const handleHomeScrollTop = () => {
+        settingsDoc.scroll({ 'top': 0, 'behavior': "smooth" })
+    }
     logger.info('return')
 
     return name ?
@@ -157,9 +165,9 @@ function HomePage({ onLogoutClick, context: { handleFeedback } }) {
 
             <main className="main_home">
                 <Routes>
-                    <Route path="/" element={<NoteList notes={notes} onUpdateNote={handleUpdateNote} onDeleteNote={handleDeleteNote}  />} />
+                    <Route path="/" element={<NoteList notes={notes} onUpdateNote={handleUpdateNote} onDeleteNote={handleDeleteNote}/>} />
                     <Route path="newNote" element={<NewNoteForm onArrowLeft={handleArrowLeftClick} onCloseClick={handleReturnNoteList} />}/>
-                    <Route path="settings" element={<Settings onCloseClick={handleReturnNoteList} email={email} onUpdateEmail={handleUpdateEmail} onUpdateName={handleUpdateName} />}/>
+                    <Route path="settings" element={<Settings onCloseClick={handleReturnNoteList} email={email} onUpdateEmail={handleUpdateEmail} onUpdateName={handleUpdateName} ref={node=>settingsDoc=node} />}/>
                 </Routes>
             </main>
 
@@ -167,6 +175,7 @@ function HomePage({ onLogoutClick, context: { handleFeedback } }) {
                 {location.pathname === '/' && <div className="btn_plus" onClick={handleAddClick}>
                     <span className="material-symbols-outlined add">add</span>
                 </div>}
+                <button className="btn-scrollTop"><IconButton addClass='expand_less' text='expand_less' onClick={handleHomeScrollTop}/></button>
             </footer>
         </div>
         :

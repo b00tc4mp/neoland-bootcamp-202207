@@ -1,12 +1,13 @@
 // const {useRef} = React
-import {useRef} from 'react'
+// import {useRef} from 'react'
 import Loggito from '../utils/Loggito'
-import IconButton from './Buttons/IconButton'
+// import IconButton from './Buttons/IconButton'
 import IconButtonMainItemsMenuPanel from './Buttons/IconButtonMainItemsMenuPanel'
 import updateUserPassword from '../logic/updateUserPassword'
 import updateUserEmail from '../logic/updateUserEmail'
 import updateUserName from '../logic/updateUserName'
 import withContext from '../utils/withContext'
+import {useRef, forwardRef} from 'react'
 
 function Settings({ onCloseClick, email, onUpdateEmail, onUpdateName,context: {handleFeedback} }) {
 
@@ -14,8 +15,13 @@ function Settings({ onCloseClick, email, onUpdateEmail, onUpdateName,context: {h
     const logger = new Loggito('Settings')
 
     //ref
-    // const settDoc = useRef(null)
-    let settDoc = useRef(null)
+    // const settingsDoc = useRef(null)
+    let settingsDoc = useRef()
+    // ========================Scroll=================
+    // const onScrollTop = () =>{
+    //     settingsDoc.scroll({ 'top': 0, 'behavior': "smooth" })
+    // }
+    // ==================================================
 
     logger.info('return')
 
@@ -104,14 +110,13 @@ function Settings({ onCloseClick, email, onUpdateEmail, onUpdateName,context: {h
         }
     }
 
-    const onScrollTop = () =>{
-        settDoc.scroll({ 'top': 0, 'behavior': "smooth" })
-    }
+   
    
 
     return <>
-        {/* <div className="settings-panel formSettings"  ref={settDoc}> */}
-        <div className="settings-panel formSettings"  ref={node=>settDoc=node}>
+        {/* <div className="settings-panel formSettings"  ref={settingsDoc}> */}
+        {/* <div className="settings-panel formSettings"  ref={node=>settingsDoc=node}> */}
+        <div className="settings-panel formSettings"  ref={settingsDoc}>
             <IconButtonMainItemsMenuPanel text='close' onClick={onCloseClick} />
             <form className="formPassword contSettings" onSubmit={handleFormSubmitPassword}>
                 <div className="nameSettings">UPDATE PASSWORD: </div>
@@ -146,7 +151,7 @@ function Settings({ onCloseClick, email, onUpdateEmail, onUpdateName,context: {h
                 <button className="btn-update" type="submit">Update Username</button>
             </form>
         </div>
-        <button className="btn-scrollTop"><IconButton addClass='expand_less' text='expand_less' onClick={onScrollTop}/></button>
+        {/* <button className="btn-scrollTop"><IconButton addClass='expand_less' text='expand_less' onClick={onScrollTop}/></button> */}
     </>
 }
 export default withContext(Settings)
