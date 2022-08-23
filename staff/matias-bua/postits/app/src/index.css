@@ -3,21 +3,24 @@
 /* resets */
 
 :root {
-  --color: white;
+  --color: rgb(68, 182, 202);
   --back-color: background: rgb(47, 72, 88);
     background:linear-gradient(
     174deg,
     rgba(47, 72, 88, 1) 0%,
     rgba(51, 101, 138, 1) 30%,
     rgba(246, 174, 45, 1) 82%,
-    rgba(242, 100, 25, 1) 100%
-  );
+    rgba(242, 100, 25, 1) 100%);
+    --back-color-note: rgb(255, 230, 167);
+    --color-imput: rgb(73, 195, 179);
 } 
 
 :root.light {
   --color: black;
   --back-color: background: rgb(83,95,169);
   background: linear-gradient(180deg, rgba(83,95,169,1) 0%, rgba(121,141,222,1) 23%, rgba(86,177,200,1) 51%, rgba(93,221,200,1) 81%);
+  --back-color-note: rgb(55, 211, 177);
+  --color-imput: black;
 }
 
 * {
@@ -33,18 +36,9 @@ h1,label{
 }
 body {
   margin: 0;
-  /* background: linear-gradient(
-    174deg,
-    rgba(47, 72, 88, 1) 0%,
-    rgba(51, 101, 138, 1) 30%,
-    rgba(246, 174, 45, 1) 82%,
-    rgba(242, 100, 25, 1) 100%
-  );
-  color: white; */
 }
 
 .container {
-  /* height: 100%; <---- guarda aca */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -90,20 +84,20 @@ body {
   border-right: 0;
   border-bottom: 1px solid var(--color);
   border-radius: 10px;
-  /* color: white; */
   font-size: 1rem;
   caret-color: var(--color);
+  color: var(--color-imput);
+  
 }
 
 .input:-webkit-autofill {
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: var(--color);
+ -webkit-text-fill-color: var(--color);
 }
 
 .input::selection {
-  background-color: var(--color);
+  background-color: transparent;
   -webkit-background-clip: text;
-  -webkit-text-fill-color: var(--color);
+  -webkit-text-fill-color:var(--color);
 }
 
 .input::placeholder {
@@ -116,13 +110,12 @@ body {
 
 .button {
   background-color: transparent;
-  /* border: 1px solid white; */
-  border-style: solid;
+  border: 1px solid black;
   border-color: var(--color);
   padding: 5px;
   color: var(--color);
   font-size: 1rem;
-  border-radius: 16px;
+  border-radius: 25px;
   cursor: pointer;
 }
 
@@ -157,60 +150,12 @@ body {
   font-size: 3rem;
   cursor: pointer;
 }
-
-/* .list {
-  display: flex;
-  flex-direction: column;
-  gap: 50px;
-  padding: 0;
-  margin: 0;
-} */
-
-/* .list__item {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.518);
-  color: rgb(255, 255, 255);
-  width: 300px;
-  font-size: 1.5rem;
-  min-height: 3rem;
-  padding: 0 0 1rem 0;
-} */
-
-/* .list__item-text {
-  width: calc(100% - 2rem);
-  height: auto;
-  background-color: transparent;
-  border: none;
-  outline: none;
-  resize: none;
-  overflow: hidden;
-} */
-
-/* .list__item-delete-button {
-  align-self: flex-end;
-  width: 1rem;
-  height: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 0;
-  background-color: transparent;
-  cursor: pointer;
-} */
-
-/* .menu-panel__list {
-  list-style: none;
-} */
-
 .settings-panel {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  align-self: center;
+  align-self: center; */
   gap: 5px;
-}
+}   
 .button-change {
   display: flex;
   align-self: center;

@@ -6,25 +6,30 @@ import Feedback from './components/Feedback'
 import Loggito from './utils/Loggito'
 import Context from './utils/Context'
 import './App.css'
-
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
 function App() {
     const logger = new Loggito ('App')
 
-    const [view, setView] = useState(sessionStorage.token ? 'home' : 'login')
     const [feedback, setFeedback] = useState({message: null,  level: null })
+    const navigate = useNavigate()
 
-
-    const handleNavigationToRegister = () => {setView('register')
-        logger.debug('setView', 'register')
+    const handleNavigationToRegister = () => {
+        navigate('register')
+        // setView('register') <-- Forma de visualizar con react sin router
+        logger.debug('navigate to register')
     }
 
-    const handleNavigationToLogin = () => {setView('login')
-        logger.debug('setView', 'login')
+    const handleNavigationToLogin = () => {
+        navigate('login')
+        // setView('login')
+        logger.debug('navigate to login')
     }
 
-    const handleNavigationToHome = () => {setView('home')
-        logger.debug('setView', 'home')
+    const handleNavigationToHome = () => {
+        navigate('/')
+        // setView('home')
+        logger.debug('navigate to home')
     }
 
     const handleLogoutClick = () => {
@@ -38,30 +43,34 @@ function App() {
 
     setFeedback(feedback)
 
-    logger.debug('setFeedBack', feedback)
+    logger.debug('setFeedback', feedback)
    }
 
    const handleFeedback = feedback => {
     setFeedback(feedback)
 
-    logger.debug('setFeedBack', feedback)
+    logger.debug('setFeedback', feedback)
    }
    
-   logger.info('render')
+   logger.info('return')
 
    const toggleTheme = () => document.documentElement.classList.toggle('light')
 
 
     return <Context.Provider value={{ handleFeedback, toggleTheme}}>
-
-        {view === 'login' && <LoginPage onLinkClick={handleNavigationToRegister} onLogIn={handleNavigationToHome} />}
-
-        {view === 'register' && <RegisterPage onLinkClick={handleNavigationToLogin} />}
-
-        {view === 'home' && <HomePage onLogoutClick={handleLogoutClick} />}
-    
-        {feedback.message && <Feedback level={feedback.level} message={feedback.message} onClick={handleAcceptFeedback} />}
+        <Routes>
+            <Route path="login" element={sessionStorage.token ? <Navigate to="/" /> : <LoginPage onLinkClick={handleNavigationToRegister} onLogIn={handleNavigationToHome} />} />
+            <Route path="register" element={<RegisterPage onLinkClick={handleNavigationToLogin} />} />
+            <Route path="/*" element={sessionStorage.token? <HomePage onLogoutClick={handleLogoutClick} /> : <Navigate to='login'/>} />
+           
+        </Routes>
+            {feedback.message && <Feedback level={feedback.level} message={feedback.message} onClick={handleAcceptFeedback} />}
     </Context.Provider>
+
+       
 }
 
 export default App
+
+
+

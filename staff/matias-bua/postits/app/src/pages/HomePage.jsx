@@ -10,15 +10,17 @@ import NoteList from '../components/NoteList'
 import Header from '../components/Header'
 import withContext from '../utils/withContext'
 import updateUserPassword from '../logic/updateUserPassword'
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 
 
 
-function HomePage ({onLogoutClick, context: { handleFeedback}}){
+function HomePage ({onLogoutClick, context: { handleFeedback }}){
     const logger = new Loggito('HomePage')
 
     const [name, setName] = useState(null)
     const [notes, setNotes] = useState(null)
-    const [view, setView] = useState('list')
+    const navigate = useNavigate()
+    const location = useLocation()
 
        // this.state = { name: null, notes: null, view: 'list'}  <--- Asi se ve jsx React, sin hooks
 
@@ -28,10 +30,10 @@ function HomePage ({onLogoutClick, context: { handleFeedback}}){
             retrieveUser(sessionStorage.token, (error, user) => {
                 if(error) {
                     handleFeedback({message: error.message, level:'error'})
-                    
                     //alert(error.message) <-- De esta manera se presentan los errores al usuario de mala manera sin feedback 
-
-                   logger.warn(error.message)
+                    logger.warn(error.message)
+                    
+                    // onLogoutClick()
 
                     return
                 }
@@ -138,32 +140,36 @@ function HomePage ({onLogoutClick, context: { handleFeedback}}){
     }
 
     const handleSettingsClick = () => {
-        setView('settings')
+        navigate('settings')
 
-        logger.debug('setView', 'settings')
+        logger.debug('Navigate to settings')
 
         loadNotes()
     }
 
     const handleSettingsCloseClick = () => {
-        setView('list')
+        navigate('/')
         
-        logger.debug('setView', 'list')
+        logger.debug('Navigate to list')
     }
 
     logger.info('return')
 
         return name ?
         <div className="home-page container container--full container--distributed">
-            <Header name={name} onLogoutClick={onLogoutClick} onSettingsClick={handleSettingsClick} view={view}/>
+            <Header name={name} onLogoutClick={onLogoutClick} onSettingsClick={handleSettingsClick} />
 
             <main className="main">
-               {view === 'list' && <NoteList notes={notes} onUpdateNote={handleUpdateNote} onDeleteNote={handleDeleteNote} />}
-               {view === 'settings' && <Settings onCloseClick={handleSettingsCloseClick} />}
+                <Routes>
+                    {/* {view === 'settings' && <Settings onCloseClick={handleSettingsCloseClick} />} */}
+                    <Route path='/' element={<NoteList notes={notes} onUpdateNote={handleUpdateNote} onDeleteNote={handleDeleteNote} />} />
+                    <Route path='settings' element={<Settings onCloseClick={handleSettingsCloseClick} />} />
+                    {/* {view === 'list' && <NoteList notes={notes} onUpdateNote={handleUpdateNote} onDeleteNote={handleDeleteNote} />} */}
+               </Routes>
              </main>
 
         <footer className="footer">
-        {view === 'list' && <button className="add-button transparent-button" onClick={handleAddClick}>+</button>}
+        {location.pathname === '/' && <button className="transparent-button" onClick={handleAddClick}>+</button>}
         </footer>
     </div>
     :
