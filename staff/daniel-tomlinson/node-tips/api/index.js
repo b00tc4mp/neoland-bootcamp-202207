@@ -4,6 +4,7 @@ const api = express();
 
 const { readdir, readFile } = require("fs");
 const registerUser = require("./logic/registerUser");
+const DuplicityError = require("./errors/DuplicityError");
 
 const jsonBodyParser = express.json(); // ... const body = JSON.parse(json) -> req.body = body
 
@@ -22,7 +23,7 @@ api.post("/api/users", jsonBodyParser, (req, res) => {
 
     registerUser(name, email, password, (error) => {
       if (error) {
-        if (error.message.startsWith("user with email"))
+        if (error instanceof DuplicityError)
           res.status(409).json({ error: error.message });
         else res.status(500).json({ error: error.message });
 

@@ -1,13 +1,18 @@
 const { writeFile, readdir, readFile } = require("fs");
+const DuplicityError = require("../errors/DuplicityError");
+const SystemError = require("../errors/SystemError");
+const UnknownError = require("../errors/UnknownError");
 
 function registerUser(name, email, password, callback) {
   // TODO validate inputs
 
+  const folder = "./data/users";
+
   try {
-    readdir("./data/users", (error, files) => {
+    readdir(folder, (error, files) => {
       try {
         if (error) {
-          callback(error);
+          callback(new SystemError(`cannot list files from folder ${folder}`));
 
           return;
         }
@@ -20,7 +25,11 @@ function registerUser(name, email, password, callback) {
             readFile(`./data/users/${file}`, "utf8", (error, json) => {
               try {
                 if (error) {
-                  callback(error);
+                  callback(
+                    new SystemError(
+                      `cannot read file ${file} in folder ${folder}`
+                    )
+                  );
 
                   return;
                 }
@@ -29,7 +38,11 @@ function registerUser(name, email, password, callback) {
 
                 if (user.email === email) {
                   callback(
-                    new Error(`user with email ${email} already exists`)
+                    callback(
+                      new DuplicityError(
+                        `user with email ${email} already exists`
+                      )
+                    )
                   );
 
                   return;
@@ -60,7 +73,11 @@ function registerUser(name, email, password, callback) {
                   "utf8",
                   (error) => {
                     if (error) {
-                      callback(error);
+                      callback(
+                        new SystemError(
+                          `cannot write file ${newUser.id}.json in folder ${folder}`
+                        )
+                      );
 
                       return;
                     }
@@ -69,7 +86,7 @@ function registerUser(name, email, password, callback) {
                   }
                 );
               } catch (error) {
-                callback(error);
+                callback(new UnknownError(error.message));
               }
             });
           })(); // iife
@@ -92,7 +109,11 @@ function registerUser(name, email, password, callback) {
           "utf8",
           (error) => {
             if (error) {
-              callback(error);
+              callback(
+                new SystemError(
+                  `cannot write file ${newUser.id}.json in folder ${folder}`
+                )
+              );
 
               return;
             }
@@ -101,11 +122,11 @@ function registerUser(name, email, password, callback) {
           }
         );
       } catch (error) {
-        callback(error);
+        callback(new UnknownError(error.message));
       }
     });
   } catch (error) {
-    callback(error);
+    callback(new UnknownError(error.message));
   }
 }
 
