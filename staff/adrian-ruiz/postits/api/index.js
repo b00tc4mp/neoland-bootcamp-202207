@@ -1,73 +1,38 @@
 const express = require('express')
-const { writeFile, readdir, readFile } = require('fs')
+const {readdir, readFile } = require('fs')
+const DuplicityError = require('./errors/DuplicityError')
+const RegexError = require('./errors/RegexError')
 const jwt = require('jsonwebtoken')
+const registerUser = require('./logic/registerUser')
 
 const api = express()
 
 const jsonBodyParser = express.json()
 
 api.post('/api/users', jsonBodyParser, (req, res) => {
+    try {
 
-    const { body: { name, email, password } } = req
+        const { body: { name, email, password } } = req
 
-    readdir('./data/users', (error, files) => {
-        if (error) {
-            res.status(500).json({ error: error.message })
+        registerUser(name, email, password, error => {
+            debugger
+            if (error) {
+                if (error instanceof DuplicityError)
+                    res.status(409).json({ error: error.message })
+                else if(error instanceof RegexError)
+                    res.status(400).json({error: error.message})
+                else
+                    res.status(500).json({ error: error.message })
 
-            return
-        }
+                return
+            }
 
-        if (files.length === 0) {
-            writeUser({ name, email, password }, (error) => {
-                if (error) {
-                    res.status(500).json({ error: error.message });
-                }
+            res.status(201).send()
+        })
+    } catch (error) {
+        res.status(500).json({ error: error.message })
+    }
 
-                res.status(201).send();
-            })
-        } else {
-
-            let index = 0
-            let file = files[index];
-
-            (function iterate() {
-                readFile(`./data/users/${file}`, 'utf8', (error, json) => {
-                    if (error) {
-                        res.status(500).json({ error: error.message })
-
-                        return
-                    }
-
-                    const user = JSON.parse(json)
-
-                    if (user.email === email) {
-                        res.status(409).json(`User with email ${email} already exists`)
-
-                        return
-                    }
-
-                    index++
-                    if (index < files.length) {
-                        file = files[index]
-
-                        iterate()
-
-                        return
-                    }
-
-                    writeNewUserOnFile({ name, email, password }, (error) => {
-                        if (error) {
-                            res.status(500).json({ error: error.message });
-                        }
-
-                        res.status(201).send();
-                    })
-                })
-
-            })() // iife
-        }
-
-    })
 })
 
 api.post('/api/users/auth', jsonBodyParser, (req, res) => {
@@ -119,23 +84,5 @@ api.post('/api/users/auth', jsonBodyParser, (req, res) => {
 
 api.listen(8080, () => { console.log('api started') })
 
-function writeUser({ name, email, password }, callback) {
-    const newUser = {
-        id: `user-${Date.now()}`,
-        name,
-        email,
-        password,
-    };
 
-    const newJson = JSON.stringify(newUser);
-
-    writeFile(`./data/users/${newUser.id}.json`, newJson, "utf8", (error) => {
-        if (error) {
-            callback(error);
-            return;
-        }
-
-        callback(null);
-    });
-}
 
