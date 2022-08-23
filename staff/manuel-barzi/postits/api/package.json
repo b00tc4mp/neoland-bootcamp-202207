@@ -4,12 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node .",
+    "test": "npx jest logic/*.spec.js",
+    "test-inspect": "node --inspect-brk ./node_modules/.bin/jest logic/*.spec.js",
+    "test-inspect-cli": "node inspect ./node_modules/.bin/jest logic/*.spec.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "jest": "^28.1.3"
   }
 }
