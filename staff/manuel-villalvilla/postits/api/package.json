@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "test": "jest",
-    "test-inspect": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand"
+    "test-inspect": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand",
+    "nodemon": "npx nodemon index.js"
   },
   "keywords": [],
   "author": "",

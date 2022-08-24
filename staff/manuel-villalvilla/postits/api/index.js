@@ -1,9 +1,7 @@
 const express = require('express')
 const api = express()
-const registerUser = require('./logic/registerUser')
-const DuplicityError = require('./errors/DuplicityError')
-const CredentialsError = require('./errors/CredentialsError')
-const authenticateUser = require('./logic/authenticateUser')
+const { authenticateUser, registerUser } = require('./logic')
+const { CredentialsError, DuplicityError } = require('./errors')
 
 const jsonBodyParser = express.json() // ... const body = JSON.parse(json) -> req.body = body
 

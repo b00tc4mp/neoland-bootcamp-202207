@@ -1,69 +1,33 @@
-const { readdir, unlink, readFile, writeFile } = require('fs')
-const DuplicityError = require('../errors/DuplicityError')
+const { readFile, writeFile } = require('fs')
+const { DuplicityError } = require('../errors') // errores indexados en un index.js
 const registerUser = require('./registerUser')
+const { testDeleteFiles, readFolder } = require('../utils')
 
 describe('registerUser', () => {
-    const folder = './data/users'
+    const usersFolder = './data/users'
+
+    const name = 'Pepito Grillo'
+    const email = 'pepito@grillo.com'
+    const password = '123123123'
 
     // borro los archivos de la carpeta antes de ejecutar el test
-    beforeEach(done => { // funcion de Jest. 
-        readdir(folder, (error, files) => {
-            if (error) {
-                done(error) // funcion de jest porque todo esto es asincrono. hay q decirle a jest cuando termina el testing
-
-                return
-            }
-
-            if (files.length === 0) {
-                done()
-
-                return
-            }
-
-            let count = 0
-
-            files.forEach(file => {
-                unlink(`${folder}/${file}`, error => { // funcion de fs para borrar archivos
-                    if (error) {
-                        done(error)
-
-                        return
-                    }
-
-                    count++
-
-                    if (count === files.length)
-                        done() // funcion de jest para decirle al testing q pare porque todo esto es asincrono
-                })
-            })
-        })
-    })
+    beforeEach(done => testDeleteFiles(usersFolder, done)) // beforeEach es una funcion de Jest q se ejecuta antes de cada test
 
     it('succeds registering a new user', done => { // happy path. inserto el callback done por la asincronia del testing 
-        const name = 'Pepito Grillo'
-        const email = 'pepito@grillo.com'
-        const password = '123123123'
         // intento registrar un nuevo usuario
         registerUser(name, email, password, error => {
             expect(error).toBeNull()
+            // compruebo q ha creado 1 archivo
+            readFolder(usersFolder, (error, files) => {
+                if (error) return done(error)
 
-            readdir(folder, (error, files) => {
-                if (error) {
-                    done(error)
-    
-                    return
-                }
-                // compruebo q ha creado 1 archivo
                 expect(files).toHaveLength(1)
-
-                const file = files[0]
+                
                 // leo el archivo y lo comparo con el usuario
-                readFile(`${folder}/${file}`, 'utf8', (error, json) => {
-                    if (error) {
-                        done(error)
-
-                        return
-                    }
+                const file = files[0]
+                
+                readFile(`${usersFolder}/${file}`, 'utf8', (error, json) => {
+                    if (error) return done(error)
 
                     const user = JSON.parse(json)
 
@@ -81,9 +45,6 @@ describe('registerUser', () => {
     it('should fail when user already exists', done => { // unhappy path
         // archivos borrados por el beforeEach
         // creo usuario nuevo
-        const name = 'Pepito Grillo'
-        const email = 'pepito@grillo.com'
-        const password = '123123123'
 
         const newUser = {
             id: `user-${Math.round(Math.random() * Date.now())}`,
@@ -94,36 +55,24 @@ describe('registerUser', () => {
 
         const newJSON = JSON.stringify(newUser)
         // creo un archivo nuevo con el nuevo usuario
-        writeFile(`${folder}/${newUser.id}.json`, newJSON, 'utf8', error => {
-            if (error) {
-                done(error)
+        writeFile(`${usersFolder}/${newUser.id}.json`, newJSON, 'utf8', error => {
+            if (error) return done(error)
 
-                return
-            }
             // intento registrar un nuevo usuario con los mismos datos, unhappy path
             registerUser(name, email, password, error => {
-                if (error) {
-                    expect(error).toBeInstanceOf(DuplicityError)
-                    expect(error.message).toBe(`user with email ${email} already exists`)
-                }
+                expect(error).toBeInstanceOf(DuplicityError)
+                expect(error.message).toBe(`user with email ${email} already exists`)
+                
                 // leo la carpeta para comprobar q solo sigue habiendo 1 archivo
-                readdir(folder, (error, files) => {
-                    if (error) {
-                        done(error)
-        
-                        return
-                    }
+                readFolder(usersFolder, (error, files) => {
+                    if (error) return done(error)
         
                     expect(files).toHaveLength(1)
 
                     const file = files[0]
                     // leo el archivo para comprobar q su user.id no ha cambiado
-                    readFile(`${folder}/${file}`, 'utf8', (error, json) => {
-                        if (error) {
-                            done(error)
-    
-                            return
-                        }
+                    readFile(`${usersFolder}/${file}`, 'utf8', (error, json) => {
+                        if (error) return done(error) // early return en 1 sola linea
     
                         const user = JSON.parse(json)
 
@@ -135,4 +84,6 @@ describe('registerUser', () => {
             })
         })
     })
+    // borro los archivos de nuevo
+    afterAll(done => testDeleteFiles(usersFolder, done))
 })

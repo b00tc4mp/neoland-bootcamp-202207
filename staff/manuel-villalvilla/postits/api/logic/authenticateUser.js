@@ -1,31 +1,26 @@
-const { readFile, readdir } = require('fs')
-const CredentialsError = require('../errors/CredentialsError')
+const { readFile } = require('fs')
+const { readFolder } = require('../utils')
+const { CredentialsError } = require('../errors')
+const { validateEmail, validatePassword, validateCallback } = require('../validators')
 
 module.exports = function authenticateUser(email, password, callback) {
+    validateEmail(email)
+    validatePassword(password)
+    validateCallback(callback)
+
+    const usersFolder = './data/users'
     try {
-        readdir('./data/users/', (error, files) => {
-            if (error) {
-                callback(error, null)
+        readFolder(usersFolder, (error, files) => {
+            if (error) return callback(error)
     
-                return
-            }
-    
-            if (files.length === 0) {
-                callback(new CredentialsError('email or password incorrect'), null)
-    
-                return
-            }
+            if (files.length === 0) return callback(new CredentialsError('email or password incorrect'))
     
             let index = 0
             let file = files[index];
     
             (function iterate() {
-                readFile(`./data/users/${file}`, 'utf8', (error, json) => {
-                    if (error) {
-                        callback(error, null)
-    
-                        return
-                    }
+                readFile(`${usersFolder}/${file}`, 'utf8', (error, json) => {
+                    if (error) return callback(error)
     
                     const user = JSON.parse(json)
     
@@ -35,7 +30,7 @@ module.exports = function authenticateUser(email, password, callback) {
     
                             return
                         } else {
-                            callback(new CredentialsError('email or password incorrect'), null)
+                            callback(new CredentialsError('email or password incorrect'))
 
                             return
                         }
@@ -48,12 +43,12 @@ module.exports = function authenticateUser(email, password, callback) {
                         iterate()
                     } 
                     else 
-                        callback(new CredentialsError('email or password incorrect'), null)
+                        callback(new CredentialsError('email or password incorrect'))
 
                 })
             })()
         })
     } catch (error) {
-        callback(error, null)
+        callback(error)
     }
 }
