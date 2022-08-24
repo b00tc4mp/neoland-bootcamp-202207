@@ -1,41 +1,16 @@
 const { readdir, writeFile, unlink, readFile } = require('fs')
 const registerUser = require('./registerUser')
+const cleanFolder = require('./helpers')
 const DuplicityError = require('../errors/DuplicityError')
 
 describe('registerUser', () => {
     const folder = './data/users'
 
     beforeEach(done => {
-        readdir(folder, (error, files) => {
-            if (error) {
-                done(error)
+        cleanFolder(folder, error => {
+            if (error) return done(error)
 
-                return
-            }
-
-            files = files.filter(file => !file.startsWith('.'))
-
-            if (files.length === 0) {
-                done()
-
-                return
-            }
-            let count = 0
-
-            files.forEach(file => {
-                unlink(`${folder}/${file}`, error => {
-                    if (error) {
-                        done(error)
-
-                        return
-                    }
-
-                    count++
-
-                    if (count === files.length)
-                        done()
-                })
-            })
+            done()
         })
     })
 
@@ -140,36 +115,10 @@ describe('registerUser', () => {
     })
 
     afterAll(done => {
-        readdir(folder, (error, files) => {
-            if (error) {
-                done(error)
+        cleanFolder(folder, error => {
+            if (error) return done(error)
 
-                return
-            }
-
-            files = files.filter(file => !file.startsWith('.'))
-
-            if (files.length === 0) {
-                done()
-
-                return
-            }
-            let count = 0
-
-            files.forEach(file => {
-                unlink(`${folder}/${file}`, error => {
-                    if (error) {
-                        done(error)
-
-                        return
-                    }
-
-                    count++
-
-                    if (count === files.length)
-                        done()
-                })
-            })
+            done()
         })
     })
 })
