@@ -10,8 +10,6 @@ function registerUser(name, email, password, callback) {
 
     try {
         readdir(folder, (error, files) => {
-            files = files.filter(file => !file.startsWith('.'))
-            
             try {
                 if (error) {
                     callback(new SystemError(`cannot list files from folder ${folder}`))
