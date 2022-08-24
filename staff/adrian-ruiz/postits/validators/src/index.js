@@ -1,3 +1,8 @@
-const  {passRegexMatch} =  require("./regexMatcher");
 
-module.exports = {passRegexMatch}
+
+module.exports = {
+    validatePassword : require('./validatePassword'),
+    validateEmail: require('./validateEmail'),
+    validateName: require('./validateName'),
+    validateCallback: require('./validateCallback')
+}
