@@ -13,6 +13,8 @@ describe('registerUser', () => {
                 return
             }
 
+            files = files.filter(file => !file.startsWith('.'))
+
             if (files.length === 0) {
                 done()
 
@@ -53,6 +55,7 @@ describe('registerUser', () => {
 
                     return
                 }
+                files = files.filter(file => !file.startsWith('.'))
 
                 expect(files).toHaveLength(1)
 
@@ -111,6 +114,7 @@ describe('registerUser', () => {
 
                         return
                     }
+                    files = files.filter(file => !file.startsWith('.'))
 
                     expect(files).toHaveLength(1)
 
@@ -130,6 +134,40 @@ describe('registerUser', () => {
                         expect(user.password).toEqual('123123123Aa!')
                         done()
                     })
+                })
+            })
+        })
+    })
+
+    afterAll(done => {
+        readdir(folder, (error, files) => {
+            if (error) {
+                done(error)
+
+                return
+            }
+
+            files = files.filter(file => !file.startsWith('.'))
+
+            if (files.length === 0) {
+                done()
+
+                return
+            }
+            let count = 0
+
+            files.forEach(file => {
+                unlink(`${folder}/${file}`, error => {
+                    if (error) {
+                        done(error)
+
+                        return
+                    }
+
+                    count++
+
+                    if (count === files.length)
+                        done()
                 })
             })
         })

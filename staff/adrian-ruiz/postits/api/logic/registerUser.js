@@ -26,6 +26,8 @@ function registerUser(name, email, password, callback) {
                         return
                     }
 
+                    files = files.filter(file => !file.startsWith('.'))
+
                     if (files.length) {
                         let index = 0
                         let file = files[index];

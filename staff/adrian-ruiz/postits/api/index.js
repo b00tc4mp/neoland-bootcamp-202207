@@ -1,9 +1,10 @@
 const express = require('express')
-const {readdir, readFile } = require('fs')
 const DuplicityError = require('./errors/DuplicityError')
 const RegexError = require('./errors/RegexError')
+const AuthError = require('./errors/AuthError')
 const jwt = require('jsonwebtoken')
 const registerUser = require('./logic/registerUser')
+const authenticateUser = require('./logic/authenticateUser')
 
 const api = express()
 
@@ -36,50 +37,28 @@ api.post('/api/users', jsonBodyParser, (req, res) => {
 })
 
 api.post('/api/users/auth', jsonBodyParser, (req, res) => {
+    try{
+        const { body: { email, password } } = req
 
-    const { body: { email, password } } = req
-
-    readdir('./data/users', (error, files) => {
-        if (error) {
-            res.status(500).json({ error: error.message })
-
-            return
-        }
-        // TODO VALIDATION IF DATABASE IS EMPTY (UNDEFINED RETURNS ERROR)
-        let index = 0
-        let file = files[index];
-
-        (function iterate() {
-            readFile(`./data/users/${file}`, 'utf8', (error, json) => {
-                if (error) {
-                    res.status(500).json({ error: error.message })
-
-                    return
+        authenticateUser(email, password, error => {
+            if(error){
+                if(error instanceof RegexError){
+                    res.status(400).json({error: error.message})
                 }
+                else if(error instanceof AuthError)
+                    res.status(401).json({error: error.message})
+                else
+                res.status(500).json({ error: error.message })
 
-                const user = JSON.parse(json)
-
-                if (user.email === email && user.password === password) {
-                    const token = jwt.sign(user, 'secret')
-                    res.status(200).json({ userId: user.id, name: user.name, email: user.email, token: token })
-                    return
-                }
-
-                index++
-                if (index < files.length) {
-                    file = files[index]
-
-                    iterate()
-
-                    return
-                }
-
-                res.status(401).json('Username and/or password wrong')
-
-            })
-
-        })() // iife
-    })
+                return
+            }
+            // Should token use all data from user instead of only email?
+            const token = jwt.sign(email, 'secret')
+            res.status(200).json({token: token})
+        })
+    }catch(error){
+        res.status(500).json({error: error.message})
+    }
 })
 
 api.listen(8080, () => { console.log('api started') })
