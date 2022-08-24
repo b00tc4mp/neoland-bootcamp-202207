@@ -1,32 +1,12 @@
-const { readdir, unlink, readFile, writeFile } = require('fs')
+const { readdir, readFile, writeFile } = require('fs')
 const registerUser = require('./registerUser')
-const DuplicityError = require('../errors/DuplicityError')
+const { DuplicityError } = require('../errors')
+const { deleteFiles } = require('../utils')
 
 describe('registerUser', () => {
     const folder = './data/users'
 
-    beforeEach(done => {
-        readdir(folder, (error, files) => {
-            if (error) return done(error)
-
-            files = files.filter(file => !file.startsWith('.'))
-
-            if (!files.length) return done()
-
-            let count = 0
-
-            files.forEach(file => {
-                unlink(`${folder}/${file}`, error => {
-                    if (error) return done(error)
-
-                    count++
-
-                    if (count === files.length)
-                        done()
-                })
-            })
-        })
-    })
+    beforeEach(done => deleteFiles(folder, done))
 
     it('succeds registering a new user', done => { // happy path
         const name = 'Pepito Grillo'
@@ -73,11 +53,6 @@ describe('registerUser', () => {
         const json = JSON.stringify(user)
 
         writeFile(`${folder}/${user.id}.json`, json, 'utf8', error => {
-            // if (error) {
-            //     done(error)
-
-            //     return
-            // }
             if (error) return done(error)
 
             registerUser(name, email, password, error => {
@@ -90,17 +65,17 @@ describe('registerUser', () => {
                     files = files.filter(file => !file.startsWith('.'))
 
                     expect(files).toHaveLength(1)
-                    
+
                     readFile(`${folder}/${user.id}.json`, 'utf8', (error, json) => {
                         if (error) return done(error)
-    
+
                         const _user = JSON.parse(json)
-    
+
                         expect(_user.id).toEqual(user.id)
                         expect(_user.name).toEqual(user.name)
                         expect(_user.email).toEqual(user.email)
                         expect(_user.password).toEqual(user.password)
-    
+
                         done()
                     })
                 })
@@ -108,30 +83,5 @@ describe('registerUser', () => {
         })
     })
 
-    afterAll(done => {
-        readdir(folder, (error, files) => {
-            if (error) return done(error)
-
-            files = files.filter(file => !file.startsWith('.'))
-
-            if (!files.length) return done()
-
-            let count = 0
-
-            files.forEach(file => {
-                unlink(`${folder}/${file}`, error => {
-                    if (error) {
-                        done(error)
-
-                        return
-                    }
-
-                    count++
-
-                    if (count === files.length)
-                        done()
-                })
-            })
-        })
-    })
+    afterAll(done => deleteFiles(folder, done))
 })
