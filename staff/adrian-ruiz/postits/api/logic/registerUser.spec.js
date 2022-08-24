@@ -1,13 +1,13 @@
 const { readdir, writeFile, unlink, readFile } = require('fs')
 const registerUser = require('./registerUser')
-const cleanFolder = require('./helpers')
-const DuplicityError = require('../errors/DuplicityError')
+const {clearFolder} = require('../utils/index.js')
+const { DuplicityError } = require('errors')
 
 describe('registerUser', () => {
     const folder = './data/users'
 
     beforeEach(done => {
-        cleanFolder(folder, error => {
+        clearFolder(folder, error => {
             if (error) return done(error)
 
             done()
@@ -115,7 +115,7 @@ describe('registerUser', () => {
     })
 
     afterAll(done => {
-        cleanFolder(folder, error => {
+        clearFolder(folder, error => {
             if (error) return done(error)
 
             done()

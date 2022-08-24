@@ -1,5 +1,5 @@
 const { readdir, unlink } = require('fs')
-function cleanFolder(folder, callback) {
+function clearFolder(folder, callback) {
     readdir(folder, (error, files) => {
         if (error) {
             callback(new Error(`Can't list files from folder: ${folder}`))
@@ -31,4 +31,4 @@ function cleanFolder(folder, callback) {
     })
 }
 
-module.exports = cleanFolder
+module.exports = clearFolder

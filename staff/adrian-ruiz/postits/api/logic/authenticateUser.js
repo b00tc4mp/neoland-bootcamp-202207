@@ -1,78 +1,70 @@
 const { readdir, readFile } = require('fs')
-const { passRegexMatch } = require('validators')
-const RegexError = require('../errors/RegexError')
-const AuthError = require('../errors/AuthError')
-const SystemError = require('../errors/SystemError')
-const UnknownError = require('../errors/UnknownError')
+const { validatePassword, validateEmail, validateCallback } = require('validators')
+const { AuthError, SystemError, UnknownError } = require('errors')
 
 function authenticateUser(email, password, callback) {
     //TODO validate inputs
+    validatePassword(password)
+    validateEmail(email)
+    validateCallback(callback)
+
+    const folder = './data/users'
+
     try {
-        passRegexMatch(password, error => {
+        readdir(folder, (error, files) => {
             if (error) {
-                callback(new RegexError(error.message))
+                callback(new SystemError(`Can't list files from folder: ${folder}`))
                 return
             }
 
-            const folder = './data/users'
+            files = files.filter(file => !file.startsWith('.'))
+
+            if (files.length === 0) {
+                callback(new AuthError('Email and/or password wrong'))
+                return
+            }
 
             try {
-                readdir(folder, (error, files) => {
-                    if (error) {
-                        callback(new SystemError(`Can't list files from folder: ${folder}`))
-                        return
-                    }
+                let index = 0
+                let file = files[index];
 
-                    if (files.length === 0) {
+                (function iterate() {
+                    readFile(`./data/users/${file}`, 'utf8', (error, json) => {
+                        if (error) {
+                            callback(new SystemError(`Can't read file: ${file} in folder: ${folder}`))
+                            return
+                        }
+
+                        const user = JSON.parse(json)
+
+                        if (user.email === email) {
+                            if (user.password === password) {
+                                callback(null, user.id) 
+                                return
+                            }
+                            callback(new AuthError('Email and/or password wrong'))
+                            return
+                        }
+
+                        index++
+                        if (index < files.length) {
+                            file = files[index]
+
+                            iterate()
+
+                            return
+                        }
+
                         callback(new AuthError('Email and/or password wrong'))
-                        return
-                    }
 
-                    try {
-                        let index = 0
-                        let file = files[index];
+                    })
 
-                        (function iterate() {
-                            readFile(`./data/users/${file}`, 'utf8', (error, json) => {
-                                if (error) {
-                                    callback(new SystemError(`Can't read file: ${file} in folder: ${folder}`))
-                                    return
-                                }
-
-                                const user = JSON.parse(json)
-
-                                if (user.email === email) {
-                                    if (user.password === password) {
-                                        callback(null)
-                                        return
-                                    }
-                                    callback(new AuthError('Email and/or password wrong'))
-                                    return
-                                }
-
-                                index++
-                                if (index < files.length) {
-                                    file = files[index]
-
-                                    iterate()
-
-                                    return
-                                }
-
-                                callback(new AuthError('Email and/or password wrong'))
-
-                            })
-
-                        })()
-                    } catch (error) {
-                        callback(new UnknownError(error.message))
-                    }
-                })
-
+                })()
             } catch (error) {
                 callback(new UnknownError(error.message))
             }
         })
+
     } catch (error) {
         callback(new UnknownError(error.message))
     }
