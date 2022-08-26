@@ -14,10 +14,14 @@ api.post('/api/users', jsonBodyParser, (req, res) => {
 
         registerUser(name, email, password, error => {
             if (error) {
-                if (error instanceof DuplicityError) return res.status(409).json({ error: error.message })
-                else return res.status(409).json({ error: error.message })
-            }
+                if (error instanceof DuplicityError)
+                    res.status(409).json({ error: error.message })
+                else
+                    res.status(409).json({ error: error.message })
 
+                return
+
+            }
             res.status(201).send()
         })
     } catch (error) {
@@ -30,8 +34,13 @@ api.post('/api/users/auth', jsonBodyParser, (req, res) => {
         const { body: { email, password } } = req
         authenticateUser(email, password, error => {
             if (error) {
-                if (error instanceof AuthError) return res.status(401).json({ error: error.message })
-                else return res.status(500).json({ error: error.message })
+                if (error instanceof AuthError)
+                    res.status(401).json({ error: error.message })
+                else
+                    res.status(500).json({ error: error.message })
+
+                return
+
             }
             res.status(200).send()
         })
