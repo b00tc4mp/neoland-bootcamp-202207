@@ -1,124 +1,57 @@
-const { readdir, writeFile, unlink, readFile } = require('fs')
+const { connect, disconnect, Types: { ObjectId } } = require('mongoose')
+const { expect } = require('chai')
+const User = require('../models/user')
 const registerUser = require('./registerUser')
-const {clearFolder} = require('../utils/index.js')
 const { DuplicityError } = require('errors')
 
 describe('registerUser', () => {
-    const folder = './data/users'
+    before(() => connect('mongodb://localhost:27017/postits-test'))
 
-    beforeEach(done => {
-        clearFolder(folder, error => {
-            if (error) return done(error)
+    beforeEach(() => User.deleteMany())
 
-            done()
-        })
-    })
+    it('succeeds registering a new user', async () => { //happy path
 
-    it('succeeds registering a new user', done => { //happy path
         const name = 'SpecTesting'
         const email = 'spec@testing.com'
         const password = '123123123Aa!'
 
-        debugger
-        registerUser(name, email, password, error => {
 
-            expect(error).toBeNull()
+        const result = await registerUser(name, email, password)
+        expect(result).to.be.undefined
 
-            readdir(folder, (error, files) => {
-                if (error) {
-                    done(error)
+        const users = await User.find()
+        expect(users).to.have.length(1)
+        const [user] = users
 
-                    return
-                }
-                files = files.filter(file => !file.startsWith('.'))
-
-                expect(files).toHaveLength(1)
-
-                const file = files[0]
-
-                readFile(`${folder}/${file}`, 'utf8', (error, json) => {
-                    if (error) {
-                        done(error)
-
-                        return
-                    }
-
-                    const user = JSON.parse(json)
-
-                    expect(typeof user.id).toBe('string')
-                    expect(user.name).toEqual(name)
-                    expect(user.email).toEqual(email)
-                    expect(user.password).toEqual(password)
-
-                    done()
-                })
-            })
-        })
+        expect(user.name).to.equal(name)
+        expect(user.email).to.equal(email)
+        expect(user.password).to.equal(password)
     })
 
-    it('should fail when user already exists', done => {
-        const id = 'user-1231231231231'
+    it('should fail when user already exists', async () => {
         const name = 'SpecTesting'
         const email = 'spec@testing.com'
         const password = '123123123Aa!'
+        try {
+            const user = await User.create({ name, email, password })
 
-        const newUser = {
-            id,
-            name,
-            email,
-            password
+            const result = await registerUser(name, email, password)
+
+
+        } catch (error) {
+            expect(error).to.be.an.instanceof(DuplicityError)
+            expect(error.message).to.equal(`User with email ${email} already exists`)
+
+            const totalUsers = await User.find()
+            expect(totalUsers).to.have.lengthOf(1)
+
+            const user = totalUsers[0]
+            expect(user._id).to.be.an.instanceOf(ObjectId)
+            expect(user.name).to.equal('SpecTesting')
+            expect(user.email).to.equal('spec@testing.com')
+            expect(user.password).to.equal('123123123Aa!')
         }
-
-        const newJson = JSON.stringify(newUser)
-
-        writeFile(`${folder}/test.json`, newJson, "utf8", (error) => {
-            if (error) {
-                done(error)
-
-                return
-            }
-
-            registerUser(name, email, password, error => {
-                debugger
-                expect(error).toBeInstanceOf(DuplicityError)
-                expect(error.message).toBe(`User with email ${email} already exists`)
-
-                readdir(folder, (error, files) => {
-                    if (error) {
-                        done(error)
-
-                        return
-                    }
-                    files = files.filter(file => !file.startsWith('.'))
-
-                    expect(files).toHaveLength(1)
-
-                    let file = files[0]
-                    readFile(`${folder}/${file}`, 'utf8', (error, json) => {
-                        if (error) {
-                            done(error)
-
-                            return
-                        }
-
-                        const user = JSON.parse(json)
-
-                        expect(user.id).toEqual('user-1231231231231')
-                        expect(user.name).toEqual('SpecTesting')
-                        expect(user.email).toEqual('spec@testing.com')
-                        expect(user.password).toEqual('123123123Aa!')
-                        done()
-                    })
-                })
-            })
-        })
     })
 
-    afterAll(done => {
-        clearFolder(folder, error => {
-            if (error) return done(error)
-
-            done()
-        })
-    })
+    after(() => disconnect())
 })

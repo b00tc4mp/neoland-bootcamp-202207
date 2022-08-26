@@ -1,25 +1,21 @@
-const { validatePassword, validateEmail, validateCallback } = require('validators')
+const { validatePassword, validateEmail} = require('validators')
 const { AuthError, UnknownError } = require('errors')
 const User = require('../models/user')
 
-async function authenticateUser(email, password, callback) {
+async function authenticateUser(email, password) {
+    
     //TODO validate inputs
     validatePassword(password)
     validateEmail(email)
-    validateCallback(callback)
-    
-    try{
+
         const found = await User.findOne({
             'email': email,
             'password': password
         })
 
-        if(found) return callback(null, found.id) 
+        if(found) return found._id
         
-        callback(new AuthError('Email and/or password wrong'))
-    }catch(error){
-        callback(new UnknownError(error.message))
-    }
+        throw new AuthError('Email and/or password wrong')
 }
 
 module.exports = authenticateUser

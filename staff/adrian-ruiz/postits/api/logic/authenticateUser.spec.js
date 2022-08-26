@@ -1,106 +1,60 @@
-const { writeFile } = require('fs')
-const clearFolder = require('../utils/clearFolder')
+const { connect, disconnect, Types: { ObjectId } } = require('mongoose')
+const chai = require('chai')
+const chaiaspromise = require('chai-as-promised')
+const expect  = chai.expect
+chai.use(chaiaspromise) // Decimos a chai que utilice chaiaspromise para que reconozca los metodos extendidos
 const authenticateUser = require('./authenticateUser')
-const {AuthError, FormatError, RegexError} = require('errors')
+const { AuthError, FormatError, RegexError } = require('errors')
+const User = require('../models/user')
+
 describe('authenticateUser', () => {
-    const folder = './data/users'
 
-    beforeEach(done => {
-        clearFolder(folder, error => {
-            if (error) return done(error)
+    before(() => connect('mongodb://localhost:27017/postits-test'))
 
-            done()
-        })
-    })
+    beforeEach(() => User.deleteMany())
 
-    it('Suceeds authenticating on existing user', done => {
-        const id = 'user-1231231231231'
+    it('Suceeds authenticating on existing user', async () => {
         const name = 'SpecTesting'
         const email = 'spec@testing.com'
         const password = '123123123Aa!'
 
-        const user = {
-            id,
-            name,
-            email,
-            password
-        }
+        await User.create({name, email, password})
+        
+        const userId = await authenticateUser(email, password)
+        expect(userId).to.be.an.instanceof(ObjectId)
 
-        const json = JSON.stringify(user)
-
-        writeFile(`${folder}/${user.id}`, json, 'utf8', error => {
-            if (error) return done(error)
-
-            authenticateUser(user.email, user.password, (error, userId) => {
-                expect(error).toBeNull()
-                expect(userId).toEqual(user.id)
-
-                done()
-            })
-        })
     })
 
     //TODO unhappy paths
-    it('Fails(AUTH Error) if credentials are wrong on existing user', done => {
-        const id = 'user-1231231231231'
+    it('Fails(AUTH Error) if credentials are wrong on existing user', async () => {
+        debugger
         const name = 'SpecTesting'
         const email = 'spec@testing.com'
         const password = '123123123Aa!'
-
-        const user = {
-            id,
-            name,
-            email,
-            password
-        }
-
-        const json = JSON.stringify(user)
-
-        writeFile(`${folder}/${user.id}`, json, 'utf8', error => {
-            if (error) return done(error)
-
-            authenticateUser('wrong@wrong.es', 'wrongPass123!', (error, userId) => {
-                expect(error).toBeInstanceOf(AuthError)
-                expect(error.message).toEqual('Email and/or password wrong')
-                expect(userId).toBeUndefined()
-
-                done()
-            })
-        })
-    })
-
-    it('Fails(Throw Format Error) if mail format is wrong on existing user', done => {
-        const id = 'user-1231231231231'
-        const name = 'SpecTesting'
-        const email = 'spec@testing.com'
-        const password = '123123123Aa!'
-
-        const user = {
-            id,
-            name,
-            email,
-            password
-        }
-
-        const json = JSON.stringify(user)
-
-        writeFile(`${folder}/${user.id}`, json, 'utf8', error => {
-            if (error) return done(error)
-
-            expect(function(){authenticateUser('wrong@wrong...es', user.password, (error, userId) => {
-                console.log('Should not reach here')
-            })}).toThrow()
-
-            done()
+       
+        
+        await User.create({name, email, password})
+        
+        
+        await expect(authenticateUser(email, 'wrongPass123!')).to.eventually.be.rejectedWith('Email and/or password wrong')
+        .and.be.an.instanceOf(AuthError)
+        // YOU HAVE TO USE "AWAIT" OR RETURN ON EXPECT, INSTEAD OF FUNCTION TO TEST LIKE THAT
+       
             
-        })
+        
     })
 
-    afterAll(done => {
-        clearFolder(folder, error => {
-            if (error) return done(error)
+    it('Fails(Throw Mail Regex Error) if mail format is wrong on existing user', async () => {
+        const name = 'SpecTesting'
+        const email = 'spec@testing.com'
+        const password = '123123123Aa!'
 
-            done()
-        })
+        await User.create({name, email, password})
+
+        await expect(authenticateUser('wrong@wrong...es', password)).to.eventually.be.rejectedWith('Email is not valid')
+        .and.be.an.instanceOf(RegexError)
+
     })
+
+    after(() => disconnect())
 })
