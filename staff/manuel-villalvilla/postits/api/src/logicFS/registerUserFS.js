@@ -4,7 +4,7 @@ const { DuplicityError } = require('../errors')
 const { validateCallback } = require('../validators')
 
 module.exports = function registerUser(name, email, password, callback) { // uso un callback pq es una funcion asincrona
-    const usersFolder = './data/users'
+    const usersFolder = './src/data/users'
 
     validateCallback(callback)
 

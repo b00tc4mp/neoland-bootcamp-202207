@@ -6,7 +6,7 @@ const { validateCallback } = require('../validators')
 module.exports = function authenticateUser(email, password, callback) {
     validateCallback(callback)
 
-    const usersFolder = './data/users'
+    const usersFolder = './src/data/users'
 
     readFolder(usersFolder, (error, files) => {
         if (error) return callback(error)

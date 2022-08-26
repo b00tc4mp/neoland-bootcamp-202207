@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "jest",
+    "start": "node ./src",
+    "test": "jest ./src/*",
     "test-inspect": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand",
-    "nodemon": "npx nodemon index.js",
-    "inspect": "node --inspect-brk ."
+    "nodemon": "npx nodemon ./src",
+    "inspect": "node --inspect-brk ./src"
   },
   "keywords": [],
   "author": "",

@@ -11,7 +11,7 @@ const jsonBodyParser = express.json(); // ... const body = JSON.parse(json) -> r
 
 (async () => {
 
-    await mongoose.connect('mongodb://localhost:27017/test') // si tiene resolucion negativa, lanza un error y se va
+    await mongoose.connect('mongodb://localhost:27017/postits') // si tiene resolucion negativa, lanza un error y se va
 
     console.log('db connected')
 
@@ -23,15 +23,14 @@ const jsonBodyParser = express.json(); // ... const body = JSON.parse(json) -> r
     let countryCode
 
     api.get('/', (req, res) => {
-        // const ip = req.ip
+        // const ip = req.ip // to implement
         const ipSpain = '81.43.200.106'
         const ipMexico = '131.72.228.24'
 
-        let randomIp = '' 
+        let randomIp = '' // tengo q asignarle un string vacio para despues llenarlo con strings
         for (let i = 0; i < 4; i++) {
-            randomIp += (Math.floor(Math.random() * 255) + 1)
-            if (i < 3)
-                randomIp += '.'
+            randomIp += Math.floor(Math.random() * 255) + 1
+            if (i < 3) randomIp += '.'
         }
         
         const cookie = req.cookies // devuelve un objeto q puede estar vacio
@@ -40,9 +39,9 @@ const jsonBodyParser = express.json(); // ... const body = JSON.parse(json) -> r
             axios.get(`https://ipwho.is/${randomIp}`)
                 .then(response => {
                     const { data: { country_code: resCountryCode } } = response
-                    countryCode = resCountryCode.toLowerCase()
+                    countryCode = resCountryCode.toLowerCase() // me tira error aqui cuando la api no procesa bien la ip
                     console.log(randomIp, countryCode)
-                    res.cookie('country', countryCode, {maxAge: 10000}) // 10 segundos
+                    res.cookie('country', countryCode, {maxAge: 5000}) // 5 segundos
                     res.status(200).send(`cookie set with country: ${countryCode}`)
                 })
                 .catch(error => res.status(500).json({ error: error.message }))
@@ -62,19 +61,16 @@ const jsonBodyParser = express.json(); // ... const body = JSON.parse(json) -> r
             validateEmail(email)
             validatePassword(password)
 
-            registerUser(name, email, password, error => {
-                if (error) {
-                    if (error instanceof DuplicityError)
+            registerUser(name, email, password)
+                .then(() => res.status(201).send())
+                .catch(error => {
+                    if (error instanceof DuplicityError) { 
                         res.status(409).json({ error: error.message })
-                    else
+                    } else if (error instanceof Error) {
                         res.status(500).json({ error: error.message })
-
+                    }
                     return
-                }
-
-                res.status(201).send()
-            })
-
+                })
         } catch (error) {
             if (error instanceof FormatError || error instanceof TypeError)
                 res.status(400).json({ error: error.message })
@@ -115,10 +111,13 @@ const jsonBodyParser = express.json(); // ... const body = JSON.parse(json) -> r
 
     api.listen(8080, () => console.log('api started'))
 
+    // SIGINT - señal de interrupcion
     process.on('SIGINT', async () => { // similar a eventListener pero de node. SIGINT = CTRL+C
         await mongoose.disconnect()
 
         console.log('db disconnected')
+
+        console.log('api stopped')
 
         process.exit(0) // para q pare el server, porque ahora yo he tomado el control de CTRL+C
     })

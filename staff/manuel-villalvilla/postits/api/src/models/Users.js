@@ -8,7 +8,9 @@ module.exports = model('Users', new Schema({
     },
     email: {
         type: String,
-        required: true
+        required: true,
+        // no se podran repetir los emails. Sirve como filtro
+        unique: true
     },
     password: {
         type: String,

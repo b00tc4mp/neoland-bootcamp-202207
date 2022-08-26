@@ -1,10 +1,10 @@
 const { readFile, writeFile } = require('fs')
 const { DuplicityError } = require('../errors') // errores indexados en un index.js
-const registerUser = require('./registerUser')
+const registerUserFS = require('../logicFS/registerUserFS')
 const { testDeleteFiles, readFolder } = require('../utils')
 
-describe('registerUser', () => {
-    const usersFolder = './data/users'
+describe('registerUserFS', () => {
+    const usersFolder = './src/data/users'
 
     const name = 'Pepito Grillo'
     const email = 'pepito@grillo.com'
@@ -15,7 +15,7 @@ describe('registerUser', () => {
 
     it('succeds registering a new user', done => { // happy path. inserto el callback done por la asincronia del testing 
         // intento registrar un nuevo usuario
-        registerUser(name, email, password, error => {
+        registerUserFS(name, email, password, error => {
             expect(error).toBeNull()
             // compruebo q ha creado 1 archivo
             readFolder(usersFolder, (error, files) => {
@@ -59,7 +59,7 @@ describe('registerUser', () => {
             if (error) return done(error)
 
             // intento registrar un nuevo usuario con los mismos datos, unhappy path
-            registerUser(name, email, password, error => {
+            registerUserFS(name, email, password, error => {
                 expect(error).toBeInstanceOf(DuplicityError)
                 expect(error.message).toBe(`user with email ${email} already exists`)
                 
