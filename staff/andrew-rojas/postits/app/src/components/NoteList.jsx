@@ -5,7 +5,7 @@ import Loggito from '../utils/Loggito'
 function NoteList({ notes, onDeleteNote, onUpdateNote }) {
   const logger = new Loggito('List')
 
-  logger.info('render')
+  logger.info('return')
 
   return <ul className="NoteList">
     {notes && notes.map(note => <li className="NoteList__item" key={note.id}>

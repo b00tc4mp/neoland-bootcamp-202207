@@ -1,13 +1,10 @@
 import IconButton from './IconButton'
 import Loggito from '../utils/Loggito'
 import updateUserPassword from '../logic/updateUserPassword'
-import Context from '../Context'
-import { useContext } from 'react'
+import withContext from '../utils/withContext'
 
-function SettingsPanel ({onCloseClick }) {
+function SettingsPanel ({ onCloseClick, context: { handleFeedback } }) {
   const logger = new Loggito('Settings')
-
-  const { handleFeedback } = useContext (Context)
 
   logger.info('return')
 
@@ -67,4 +64,4 @@ function SettingsPanel ({onCloseClick }) {
 </div>
 }
 
-export default SettingsPanel
+export default withContext(SettingsPanel)

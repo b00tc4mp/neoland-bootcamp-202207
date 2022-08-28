@@ -15,8 +15,8 @@ html, body {
 }
 
 :root.light {
-    --color: ;
-    --back-color: ;
+    --color: black;
+    --back-color: rgb(173, 183, 187);
 }
 
 /* resets */

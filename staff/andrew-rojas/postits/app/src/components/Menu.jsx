@@ -1,13 +1,13 @@
 import './Menu.css'
 import IconButton from './IconButton'
 import Loggito from '../utils/Loggito'
-import Context from '../Context'
-import { useContext } from 'react'
+import withContext from '../utils/withContext'
+import { useLocation } from 'react-router-dom'
 
-function Menu({view, onLogoutClick, onSettingsClick}) {
+function Menu({ onLogoutClick, onSettingsClick, context: { toggleTheme } }) {
   const logger = new Loggito('Menu')
 
-  const { toggleTheme } = useContext (Context)
+  const location = useLocation()
 
   const handleLogoutClick = () => onLogoutClick()
 
@@ -16,7 +16,7 @@ function Menu({view, onLogoutClick, onSettingsClick}) {
   logger.info('return')
 
   return <ul className="Menu container container--row">
-      {view !== 'settings' && <li className="Menu__item">
+      {location.pathname !== 'settings' && <li className="Menu__item">
         <IconButton text="settings" onClick={handleSenttingsClick} />
       </li>}
       <li className="Menu__item">
@@ -28,4 +28,4 @@ function Menu({view, onLogoutClick, onSettingsClick}) {
     </ul>
 }
 
-export default Menu
+export default withContext(Menu)

@@ -3,9 +3,8 @@ import './Header.css'
 import Menu from './Menu'
 import IconButton from './IconButton'
 import Loggito from '../utils/Loggito'
-import 'material-symbols'
 
-function Header ({name, onLogoutClick, onSettingsClick, view: viewHome}) {
+function Header ({ name, onLogoutClick, onSettingsClick, view: viewHome }) {
   const logger =  new Loggito('Header')
 
   const [view, setView] = useState (null)  // [null, f() {}]

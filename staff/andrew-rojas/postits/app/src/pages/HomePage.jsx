@@ -8,17 +8,16 @@ import deleteNote from '../logic/deleteNote'
 import SettingsPanel from '../components/SettingsPanel'
 import NoteList from '../components/NoteList'
 import Header from '../components/Header'
-import Context from '../Context'
-import { useContext } from 'react'
+import withContext from '../utils/withContext'
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
  
-  function HomePage ({ onLogoutClick }) {
+  function HomePage ({ onLogoutClick, context: { handleFeedback} }) {
     const logger = new Loggito('HomePage')
-
-    const { handleFeedback } = useContext(Context)
 
     const [name, setName] = useState(null)
     const [notes, setNotes] = useState(null)
-    const [view, setView] = useState('list')
+    const navigate = useNavigate()
+    const location = useLocation()
 
     useEffect(() => {
       logger.info('"componentDidMount"')
@@ -129,7 +128,7 @@ import { useContext } from 'react'
   };
 
   const handleSettingsClick = () => { 
-     setView ('settings')
+     navigate ('settings')
 
      logger.debug('setView', 'settings')
     
@@ -137,28 +136,30 @@ import { useContext } from 'react'
   }
 
   const handleSettingsCloseClick = () => {
-    setView('list')
+    navigate('/')
 
-    logger.debug('setView', 'list')
+    logger.debug('navigate to list')
   }
 
   logger.info('return');
 
     return name ? 
       <div className="home-page container container--full container--distributed">
-        <Header name={name} onLogoutClick={onLogoutClick} onSettingsClick={handleSettingsClick} view={view} />
+        <Header name={name} onLogoutClick={onLogoutClick} onSettingsClick={handleSettingsClick} />
 
         <main className="main">
-          {view === 'list' && <NoteList notes={notes} onDeleteNote={handleDeleteNote}onUpdateNote={handleUpdateNote} />}
-          {view === 'settings' && <SettingsPanel onCloseClick={handleSettingsCloseClick} />} 
+          <Routes>
+            <Route path="/" element={<NoteList notes={notes} onDeleteNote={handleDeleteNote}onUpdateNote={handleUpdateNote} />} />
+            <Route path="settings" element= {<SettingsPanel onCloseClick={handleSettingsCloseClick} />} />  
+          </Routes>
         </main>
 
         <footer className="footer">
-          {view === 'list' && <button className="transparent-button"onClick={handleAddClick}>+</button>}
+          {location.pathname === '/' && <button className="transparent-button"onClick={handleAddClick}>+</button>}
         </footer>
       </div>
      : 
      null;
 }
 
-export default HomePage
+export default withContext(HomePage)

@@ -1,19 +1,16 @@
 import Loggito from '../utils/Loggito'
 import authenticateUser from '../logic/authenticateUser'
-import Context from '../Context'
-import { useContext } from 'react'
+import withContext from '../utils/withContext'
 
-
-function LoginPage({ onLinkClick, onLogIn}) {
+function LoginPage({ onLinkClick, onLogIn, context: {handleFeedback} }) {
   const logger = new Loggito(LoginPage.name)
 
   // const context = useContext(Context)
   // coonst handleFeedback = context.handleFeedback
-  const { handleFeedback } = useContext(Context)
-
+ 
   logger.info('constructor')
 
-  logger.info('Return')
+  logger.info('return')
 
   const handleLinkClick = event => {
     event.preventDefault()
@@ -74,4 +71,4 @@ function LoginPage({ onLinkClick, onLogIn}) {
   </main>
 }
 
-export default LoginPage
+export default withContext(LoginPage)
