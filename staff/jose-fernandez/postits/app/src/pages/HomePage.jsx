@@ -1,7 +1,7 @@
 // const { useState, useEffect } = React
 import { useState, useEffect} from 'react'
 import Loggito from '../utils/Loggito'
-import IconButton from '../components/Buttons/IconButton'
+// import IconButton from '../components/Buttons/IconButton'
 import retrieveUser from '../logic/retrieveUser'
 import retrieveNotes from '../logic/retrieveNotes'
 import createNote from '../logic/createNote'

@@ -1,5 +1,7 @@
 const { connect, disconnect } = require('mongoose')
 const express = require('express')
+const { DuplicityError, AuthError, FormatError } = require('./errors')
+const { registerUser } = require('./logic')
 
 connect('mongodb://localhost:27017/postits')
     .then(() => {
@@ -26,30 +28,31 @@ connect('mongodb://localhost:27017/postits')
                         return
                     })
             } catch (error) {
-                if(error instanceof TypeError || error instanceof FormatError)
-                res.status(400).json({ error: error.message })
+                if (error instanceof TypeError || error instanceof FormatError)
+                    res.status(400).json({ error: error.message })
                 else
-                res.status(500).json({ error: error.message })
+                    res.status(500).json({ error: error.message })
+            }
+        })
+
+
+        api.listen(8080, () => console.log('api started'))
+
+        process.on('SIGINT', () => {
+            if (!process.stopped) {
+                process.stopped = true
+
+                console.log('\n api stopped')
+
+                disconnect()
+                    .then(() => {
+                        console.log('db disconnected')
+
+                        process.exit(0)
+                    })
             }
         })
     })
-
-    api.listen(8080,()=>console.log('api started'))
-
-    process.on('SIGINT',()=>{
-        if(!process.stopped){
-            process.stopped = true 
-
-            console.log('\n api stopped')
-
-            disconnect()
-            .then(()=>{
-                console.log('db disconnected')
-
-                process.exit(0)
-            })
-        }
-    })
-    .catch(error=>{
+    .catch(error => {
         console.error(error)
     })

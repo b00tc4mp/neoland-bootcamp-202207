@@ -1,4 +1,4 @@
-const { model } = required('mongoose')
+const { model } = require('mongoose')
 const { user, note } = require('./schemas')
 
 module.exports = {
