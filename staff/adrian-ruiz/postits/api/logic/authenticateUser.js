@@ -1,6 +1,7 @@
 const { validatePassword, validateEmail} = require('validators')
 const { AuthError, UnknownError } = require('errors')
-const User = require('../models/user')
+const { User } = require('../models/index')
+
 
 async function authenticateUser(email, password) {
     

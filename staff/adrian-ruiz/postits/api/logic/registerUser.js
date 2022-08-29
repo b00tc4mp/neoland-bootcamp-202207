@@ -1,6 +1,6 @@
 const { UnknownError, DuplicityError } = require('errors')
 const { validateName, validatePassword, validateEmail} = require('validators')
-const User  = require('../models/user')
+const { User }  = require('../models/index')
 
 
 async function registerUser(name, email, password) {

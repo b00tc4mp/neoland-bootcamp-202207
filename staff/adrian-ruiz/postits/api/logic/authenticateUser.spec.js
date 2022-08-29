@@ -5,7 +5,7 @@ const expect  = chai.expect
 chai.use(chaiaspromise) // Decimos a chai que utilice chaiaspromise para que reconozca los metodos extendidos
 const authenticateUser = require('./authenticateUser')
 const { AuthError, FormatError, RegexError } = require('errors')
-const User = require('../models/user')
+const { User } = require('../models/')
 
 describe('authenticateUser', () => {
 

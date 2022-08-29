@@ -1,6 +1,6 @@
 const { connect, disconnect, Types: { ObjectId } } = require('mongoose')
 const { expect } = require('chai')
-const User = require('../models/user')
+const { User } = require('../models/')
 const registerUser = require('./registerUser')
 const { DuplicityError } = require('errors')
 
