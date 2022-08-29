@@ -1,13 +1,11 @@
 const { connect, disconnect } = require('mongoose')
 const express = require('express')
 const { DuplicityError, NotFoundError, AuthError, FormatError, SystemError } = require('./errors')
-const { registerUser, authenticateUser, retrieveUser } = require('./logic')
-const logger = require('./logger')(module)
-const { sign, verify, JsonWebTokenError, TokenExpiredError, NotBeforeError } = require('jsonwebtoken')
+const { registerUser, authenticateUser } = require('./logic')
 
 connect('mongodb://localhost:27017/postits')
     .then(() => {
-        logger.info('db connected')
+        console.log('db connected')
 
         const api = express()
 
@@ -25,8 +23,6 @@ connect('mongodb://localhost:27017/postits')
                         else
                             res.status(500).json({ error: 'system error' })
 
-                        logger.error(error)
-
                         return
                     })
             } catch (error) {
@@ -34,8 +30,6 @@ connect('mongodb://localhost:27017/postits')
                     res.status(400).json({ error: error.message })
                 else
                     res.status(500).json({ error: 'system error' })
-
-                logger.error(error)
             }
         })
 
@@ -45,17 +39,15 @@ connect('mongodb://localhost:27017/postits')
 
                 authenticateUser(email, password)
                     .then(userId => {
-                        const token = sign({ sub: userId }, 'Dan: copié el código de Mónica!', { expiresIn: '1h' })
+                        // TODO jwt
 
-                        res.json({ token })
+                        res.json({ userId })
                     })
                     .catch(error => {
                         if (error instanceof NotFoundError || error instanceof AuthError)
                             res.status(401).json({ error: 'wrong credentials' })
                         else
                             res.status(500).json({ error: 'system error' })
-
-                        logger.error(error)
 
                         return
                     })
@@ -64,56 +56,20 @@ connect('mongodb://localhost:27017/postits')
                     res.status(400).json({ error: error.message })
                 else
                     res.status(500).json({ error: 'system error' })
-
-                logger.error(error)
             }
         })
 
-        api.get('/api/users', (req, res) => {
-            try {
-                const { headers: { authorization } } = req
-
-                const token = authorization.substring(7)
-
-                const payload = verify(token, 'Dan: copié el código de Mónica!')
-
-                const { sub: userId } = payload
-
-                retrieveUser(userId)
-                    .then(user => res.json(user))
-                    .catch(error => {
-                        if (error instanceof NotFoundError || error instanceof AuthError)
-                            res.status(401).json({ error: 'wrong credentials' })
-                        else
-                            res.status(500).json({ error: 'system error' })
-
-                        logger.error(error)
-
-                        return
-                    })
-            } catch (error) {
-                if (error instanceof TypeError || error instanceof FormatError)
-                    res.status(400).json({ error: error.message })
-                else if(error instanceof JsonWebTokenError || error instanceof TokenExpiredError || error instanceof NotBeforeError)
-                    res.status(401).json({ error: 'token not valid'})
-                else
-                    res.status(500).json({ error: 'system error' })
-
-                logger.error(error)
-            }
-        })
-
-        api.listen(8080, () => logger.info('api started'))
+        api.listen(8080, () => console.log('api started'))
 
         process.on('SIGINT', () => {
             if (!process.stopped) {
                 process.stopped = true
 
-                logger.info('\napi stopped')
+                console.log('\napi stopped')
 
                 disconnect()
                     .then(() => {
-                        logger.info('db disconnected')
+                        console.log('db disconnected')
 
                         process.exit(0)
                     })
@@ -121,5 +77,5 @@ connect('mongodb://localhost:27017/postits')
         })
     })
     .catch(error => {
-        logger.error(error)
+        console.error(error)
     })

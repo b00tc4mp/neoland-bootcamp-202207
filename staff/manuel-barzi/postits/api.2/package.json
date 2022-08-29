@@ -9,6 +9,7 @@
     "test-inspect": "npx mocha --inspect src/logic/*.spec.js",
     "test-inspect-brk": "npx mocha --inspect-brk src/logic/*.spec.js",
     "test-inspect-cli": "npx mocha inspect src/logic/*.spec.js",
+    "test-coverage": "npx nyc --reporter=text --reporter=html mocha src/logic/*.spec.js",
     "populate": "node src/populate.js",
     "populate-inspect": "node --inspect-brk src/populate.js",
     "populate-inspect-cli": "node inspect src/populate.js"
@@ -22,6 +23,7 @@
   },
   "devDependencies": {
     "chai": "^4.3.6",
-    "mocha": "^10.0.0"
+    "mocha": "^10.0.0",
+    "nyc": "^15.1.0"
   }
 }
