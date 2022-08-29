@@ -1,17 +1,18 @@
-import {useState} from 'react'
+import { useState } from 'react'
 import './Header.css'
 import Menu from '../components/Menu'
 import Loggito from '../utils/loggito'
 
-function Header({ name, onSettingsClick, onLogoutClick, view: viewHome, onFeedback}) {
+function Header({ name, onSettingsClick, onLogoutClick, view: viewHome }) {
 
     const logger = new Loggito('Header')
 
     const [view, setView] = useState(null)
 
     const handleMenuClick = () => {
-        setView('menu')
 
+        setView('menu')
+  
         logger.debug('setView', 'menu')
     }
 
@@ -19,7 +20,7 @@ function Header({ name, onSettingsClick, onLogoutClick, view: viewHome, onFeedba
 
         setView(null)
 
-        logger.debug('setView',' null')
+        logger.debug('setView', ' null')
     }
 
 
@@ -31,7 +32,6 @@ function Header({ name, onSettingsClick, onLogoutClick, view: viewHome, onFeedba
 
         onSettingsClick()
     }
-
 
     return <div className="header">
         <h1 className="greeting">Hey, {name}!</h1>
