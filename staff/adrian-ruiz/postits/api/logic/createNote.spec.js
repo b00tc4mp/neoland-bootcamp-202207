@@ -23,7 +23,7 @@ describe('createNote', () => {
         const noteTitle = 'Spec Title'
         const noteText = 'Spec text'
         await createNote(user.id, noteTitle, noteText)
-        debugger
+        
         /* expect(user.notes).to.have.lengthOf(1)
 
         const note = user.notes[0]

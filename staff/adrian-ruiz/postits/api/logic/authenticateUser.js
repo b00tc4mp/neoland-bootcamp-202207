@@ -1,5 +1,5 @@
 const { validatePassword, validateEmail} = require('validators')
-const { AuthError, UnknownError } = require('errors')
+const { AuthError, NotFoundError } = require('errors')
 const { User } = require('../models/index')
 
 
@@ -9,14 +9,15 @@ async function authenticateUser(email, password) {
     validatePassword(password)
     validateEmail(email)
 
-        const found = await User.findOne({
-            'email': email,
-            'password': password
+        const foundUser = await User.findOne({
+            'email': email
         })
 
-        if(found) return found._id
+        if(!foundUser) throw new NotFoundError('Email and/or password wrong')
+
+        if(foundUser.password !== password) throw new AuthError('Email and/or password wrong')
         
-        throw new AuthError('Email and/or password wrong')
+        return foundUser.id
 }
 
 module.exports = authenticateUser
