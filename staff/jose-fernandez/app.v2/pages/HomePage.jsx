@@ -1,3 +1,4 @@
+//HOOKS
 const { useState, useEffect } = React
 
 function HomePage({ onLogoutClick, onFeedback }) {

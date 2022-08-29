@@ -25,4 +25,3 @@ class Loggito {
         console.log(`%cFATAL ${new Date().toISOString()} ${this.target} ${message}`, 'background-color: red; color: white;')
     }
 }
-export default Loggito
