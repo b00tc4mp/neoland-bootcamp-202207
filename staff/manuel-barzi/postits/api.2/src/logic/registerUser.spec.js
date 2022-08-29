@@ -1,10 +1,11 @@
 const { connect, disconnect } = require('mongoose')
+const { expect } = require('chai')
 const { User } = require('../models')
 const { DuplicityError } = require('../errors')
 const { registerUser } = require('.')
 
 describe('registerUser', () => {
-    beforeAll(() => connect('mongodb://localhost:27017/postits-test'))
+    before(() => connect('mongodb://localhost:27017/postits-test'))
 
     beforeEach(() => User.deleteMany())
 
@@ -15,20 +16,20 @@ describe('registerUser', () => {
 
         return registerUser(name, email, password)
             .then(res => {
-                expect(res).toBeUndefined()
+                expect(res).to.be.undefined
 
                 return User.find({ email })
             })
             .then(users => {
-                expect(users).toHaveLength(1)
+                expect(users).to.have.length(1)
 
                 const [user] = users
 
                 debugger
 
-                expect(user.name).toEqual(name)
-                expect(user.email).toEqual(email)
-                expect(user.password).toEqual(password)
+                expect(user.name).to.equal(name)
+                expect(user.email).to.equal(email)
+                expect(user.password).to.equal(password)
             })
     })
 
@@ -40,10 +41,10 @@ describe('registerUser', () => {
         return User.create({ name, email, password })
             .then(() => registerUser(name, email, password))
             .catch(error => {
-                expect(error).toBeInstanceOf(DuplicityError)
-                expect(error.message).toEqual('user already exists')
+                expect(error).to.be.instanceOf(DuplicityError)
+                expect(error.message).to.equal('user already exists')
             })
     })
 
-    afterAll(() => disconnect())
+    after(() => disconnect())
 })

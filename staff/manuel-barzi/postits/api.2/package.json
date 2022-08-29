@@ -5,10 +5,10 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src",
-    "test": "npx jest --runInBand src/logic/*.spec.js",
-    "test-inspect": "node --inspect ./node_modules/.bin/jest --runInBand src/logic/*.spec.js",
-    "test-inspect-brk": "node --inspect-brk ./node_modules/.bin/jest --runInBand src/logic/*.spec.js",
-    "test-inspect-cli": "node inspect ./node_modules/.bin/jest --runInBand src/logic/*.spec.js",
+    "test": "npx mocha src/logic/*.spec.js",
+    "test-inspect": "npx mocha --inspect src/logic/*.spec.js",
+    "test-inspect-brk": "npx mocha --inspect-brk src/logic/*.spec.js",
+    "test-inspect-cli": "npx mocha inspect src/logic/*.spec.js",
     "populate": "node src/populate.js",
     "populate-inspect": "node --inspect-brk src/populate.js",
     "populate-inspect-cli": "node inspect src/populate.js"
@@ -21,6 +21,7 @@
     "mongoose": "^6.5.3"
   },
   "devDependencies": {
-    "jest": "^29.0.1"
+    "chai": "^4.3.6",
+    "mocha": "^10.0.0"
   }
 }
