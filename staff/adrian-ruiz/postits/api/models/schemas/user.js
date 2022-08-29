@@ -1,4 +1,5 @@
-const { Schema, model, Types : {ObjectId} } = require('mongoose')
+const { Schema, Types : {ObjectId} } = require('mongoose')
+const note = require('./note')
 
 const user = new Schema({
     name:{
@@ -14,9 +15,11 @@ const user = new Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+
+    notes: [note]
 })
 
-const User = model('User', user)
 
-module.exports = User
+
+module.exports = user
