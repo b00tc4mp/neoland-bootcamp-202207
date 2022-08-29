@@ -1,16 +1,20 @@
-const { CredentialsError } = require('../errors')
-const { validateCallback } = require('../validators')
+const { CredentialsError, NotFoundError, SystemError } = require('../errors')
+const { validateEmail, validatePassword } = require('../validators')
 const { Users } = require('../models')
-const jwt = require('jsonwebtoken')
 
-module.exports = async function (email, password, callback) {
-    validateCallback(callback)
+module.exports = function (email, password) {
+    validateEmail(email)
+    validatePassword(password)
 
-    const user = await Users.findOne({ email, password })
-
-    const token = jwt.sign({ data: 'preguntarsiponeremailaqui' }, 'ilovethisshit', { expiresIn: '1h' })
-
-    if (user) return callback(null, token)
-
-    return callback(new CredentialsError('email or password incorrect'))
+    return Users.findOne({ email })
+        .catch(error => {
+            throw new SystemError(error.message)
+        })
+        .then(user => {
+            if (!user) throw new NotFoundError(`user with email ${email} not found`)
+            if (user.password !== password)
+                throw new CredentialsError('email or password incorrect')
+            
+            return user.id // devuelve el string de dentro del ObjectId
+        })
 }

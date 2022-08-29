@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./src",
-    "test": "jest ./src/*",
+    "test": "jest ./src/* --runInBand",
     "test-inspect": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand",
+    "test-coverage": "jest --runInBand --collectCoverage ./src/*",
     "nodemon": "npx nodemon ./src",
     "inspect": "node --inspect-brk ./src"
   },
@@ -20,7 +21,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.9.0",
     "mongoose": "^6.5.3",
-    "nodemon": "^2.0.19"
+    "nodemon": "^2.0.19",
+    "winston": "^3.8.1"
   },
   "devDependencies": {
     "jest": "^28.1.3"
