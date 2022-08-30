@@ -10,6 +10,21 @@ const note = new Schema({
     text: {
         type: String,
         default: ''
+    },
+
+    visibility: {
+        type: String,
+        enum: ['private', 'public'],
+        default: 'private'
+    },
+
+    createAt: {
+        type: Date,
+        default: Date.now
+    },
+
+    modifiedAt: {
+        type: Date
     }
 })
 

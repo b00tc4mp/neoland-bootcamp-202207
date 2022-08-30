@@ -7,16 +7,14 @@ function registerUser(name, email, password) {
     validateEmail(email)
     validatePassword(password)
 
-    return (async () => {
-        try {
-            await User.create({ name, email, password })
-        } catch (error) {
+    return User.create({ name, email, password })
+        .then(user => {})
+        .catch(error => {
             if (error.code === 11000)
                 throw new DuplicityError('user already exists')
 
             throw new SystemError(error.message)
-        }
-    })()
+        })
 }
 
 module.exports = registerUser

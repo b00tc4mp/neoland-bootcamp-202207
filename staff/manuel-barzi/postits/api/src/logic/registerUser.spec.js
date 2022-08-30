@@ -8,41 +8,39 @@ describe('registerUser', () => {
 
     beforeEach(() => User.deleteMany())
 
-    it('succeeds on new user', () => {  // happy path
+    it('succeeds on new user', async () => {  // happy path
         const name = 'Pepito Grillo'
         const email = 'pepito@grillo.com'
         const password = '123123123'
 
-        return registerUser(name, email, password)
-            .then(res => {
-                expect(res).toBeUndefined()
+        const res = await registerUser(name, email, password)
 
-                return User.find({ email })
-            })
-            .then(users => {
-                expect(users).toHaveLength(1)
+        expect(res).toBeUndefined()
 
-                const [user] = users
+        const users = await User.find({ email })
 
-                debugger
+        expect(users).toHaveLength(1)
 
-                expect(user.name).toEqual(name)
-                expect(user.email).toEqual(email)
-                expect(user.password).toEqual(password)
-            })
+        const [user] = users
+
+        expect(user.name).toEqual(name)
+        expect(user.email).toEqual(email)
+        expect(user.password).toEqual(password)
     })
 
-    it('fails on existing user', () => {  // unhappy path
+    it('fails on existing user', async () => {  // unhappy path
         const name = 'Pepito Grillo'
         const email = 'pepito@grillo.com'
         const password = '123123123'
 
-        return User.create({ name, email, password })
-            .then(() => registerUser(name, email, password))
-            .catch(error => {
-                expect(error).toBeInstanceOf(DuplicityError)
-                expect(error.message).toEqual('user already exists')
-            })
+        try {
+            await User.create({ name, email, password })
+            
+            await registerUser(name, email, password)
+        } catch (error) {
+            expect(error).toBeInstanceOf(DuplicityError)
+            expect(error.message).toEqual('user already exists')
+        }
     })
 
     afterAll(() => disconnect())

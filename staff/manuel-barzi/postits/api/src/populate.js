@@ -18,8 +18,8 @@ connect('mongodb://localhost:27017/postits')
 
         const wendy = new User({
             name: 'Wendy Darling',
-            //email: 'wendy@darling.com',
-            email: 'pepito@grillo.com',
+            email: 'wendy@darling.com',
+            // email: 'pepito@grillo.com',
             password: '12312123'
         })
 
@@ -57,6 +57,10 @@ connect('mongodb://localhost:27017/postits')
             note3.save(),
             note4.save()
         ])
+            .then(() => User.findById(pepito.id, 'name email').lean())
+            .then(user => {
+                debugger
+            })
     })
     .catch(error => {
         debugger
