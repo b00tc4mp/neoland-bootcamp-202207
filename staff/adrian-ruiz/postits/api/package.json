@@ -14,7 +14,6 @@
   "scripts": {
     "start": "node index.js",
     "inspect": "node --inspect-brk index.js",
-    "inspect-nyc": "node nyc --reporter=html --reporter=text mocha logic/*.spec.js",
     "start-nodemon": "npx nodemon index.js",
     "inspect-nodemon": "npx nodemon --inspect-brk index.js",
     "test": "npx mocha logic/*.spec.js",
