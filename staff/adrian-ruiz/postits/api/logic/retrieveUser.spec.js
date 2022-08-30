@@ -17,9 +17,9 @@ describe('retrieveUser', () => {
         const name = 'SpecTesting'
         const email = 'spec@testing.com'
         const password = '123123123Aa!'
-        debugger
+        
         const tempUser = await User.create({name, email, password})
-        debugger
+        
         const user = await retrieveUser(tempUser.id)
 
         expect(user.name).to.equal(name)
@@ -35,9 +35,9 @@ describe('retrieveUser', () => {
         const name = 'SpecTesting'
         const email = 'spec@testing.com'
         const password = '123123123Aa!'
-        debugger
+        
         const tempUser = await User.create({name, email, password})
-        debugger
+        
         await expect(retrieveUser('930ccb4f3895cb611289d7e7')).to.eventually.be.rejectedWith('User not found')
         .and.be.an.instanceOf(NotFoundError)
 

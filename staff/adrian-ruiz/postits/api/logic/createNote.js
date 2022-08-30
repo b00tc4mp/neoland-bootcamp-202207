@@ -13,9 +13,9 @@ async function createNote(userId, title, text = ''){
     
     if(!user) throw new NotFoundError(`${userId} not found in db`)
 
-    await Note.create({user: user._id, title, text})
+    const note = await Note.create({user: user._id, title, text})
     
-    return 
+    return note.id
 
 }
 
