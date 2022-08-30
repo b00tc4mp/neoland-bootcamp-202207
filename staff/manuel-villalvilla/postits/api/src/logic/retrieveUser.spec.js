@@ -1,19 +1,19 @@
-const { connect, disconnect } = require('mongoose')
-const { Users } = require('../models')
+const { connect, disconnect, Types: { ObjectId } } = require('mongoose')
+const { User } = require('../models')
 const { authenticateUser, retrieveUser } = require('../logic')
-const { FormatError } = require('../errors')
+const { NotFoundError } = require('../errors')
 
 describe('Retrieve User', () => {
     beforeAll(() => connect('mongodb://localhost:27017/test'))
 
-    beforeEach(() => Users.deleteMany())
+    beforeEach(() => User.deleteMany())
 
     it('should retrieve user successfully', () => { // happy path
         const name = 'Pedro'
         const email = 'pedro@pedrito.com'
         const password = '123123123'
 
-        return Users.create({ name, email, password })
+        return User.create({ name, email, password })
             .then(() => authenticateUser(email, password))
             .then(userId => retrieveUser(userId))
             .then(user => {
@@ -24,12 +24,13 @@ describe('Retrieve User', () => {
     })
 
     it('should fail retrieving user', async () => { // unhappy path
-        const userId = '630ccf7ae7300a5c88dcWRONG'
+        const userId = new ObjectId().toString()
         try {
-            const user = await retrieveUser(userId) 
+            const user = await retrieveUser(userId)
+            throw new Error('should not reach this point')
         } catch (error) {
-            expect(error).toBeInstanceOf(FormatError)
-            expect(error.message).toEqual('user id not valid')
+            expect(error).toBeInstanceOf(NotFoundError)
+            expect(error.message).toEqual('user not found')
         }
     })
 

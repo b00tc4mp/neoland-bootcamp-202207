@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
-const { Schema, model } = mongoose
+const { Schema, model, Types: { ObjectId } } = mongoose
 
-module.exports = model('Users', new Schema({
+module.exports = model('User', new Schema({
     name: {
         type: String,
         required: true
@@ -35,6 +35,6 @@ module.exports = model('Users', new Schema({
 //     }
 // })
 
-// const Users = model('Users', user)
+// const User = model('User', user)
 
-// module.exports = Users
+// module.exports = User

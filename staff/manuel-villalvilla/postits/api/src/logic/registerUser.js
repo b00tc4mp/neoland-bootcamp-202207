@@ -1,4 +1,4 @@
-const { Users } = require('../models')
+const { User } = require('../models')
 const { DuplicityError, SystemError } = require('../errors')
 const { validateText, validateEmail, validatePassword } = require('../validators')
 
@@ -10,7 +10,7 @@ module.exports = function (name, email, password) {
     validateEmail(email)
     validatePassword(password)
 
-    return Users.create({ name, email, password }) // mongo comprueba si email ya existe pq lo tiene indexado
+    return User.create({ name, email, password }) // mongo comprueba si email ya existe pq lo tiene indexado
         .then(() => {})
         .catch(error => {
             if (error.code === 11000) // el codigo de error de mongo para usuario existente

@@ -5,5 +5,7 @@ module.exports = {
     registerUser: require('./registerUser'),
     updateEmail: require('./updateEmail'),
     retrieveUser: require('./retrieveUser'),
-    updatePassword: require('./updatePassword')
+    updatePassword: require('./updatePassword'),
+    createNote: require('./createNote'),
+    retrieveNotes: require('./retrieveNotes')
 }

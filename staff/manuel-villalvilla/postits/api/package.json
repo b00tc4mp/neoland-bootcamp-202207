@@ -5,11 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./src",
-    "test": "jest ./src/* --runInBand",
-    "test-inspect": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand",
-    "test-coverage": "jest --runInBand --collectCoverage ./src/*",
+    "test": "jest ./src/* --runInBand --testTimeout=60000",
+    "test-inspect": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --testTimeout=60000",
+    "test-coverage": "jest --runInBand --testTimeout=60000 --collectCoverage ./src/*",
     "nodemon": "npx nodemon ./src",
-    "inspect": "node --inspect-brk ./src"
+    "inspect": "node --inspect-brk ./src",
+    "inspect-cli": "node --inspect ./src"
   },
   "keywords": [],
   "author": "",

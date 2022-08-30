@@ -1,12 +1,12 @@
 const { CredentialsError, NotFoundError, SystemError } = require('../errors')
 const { validateEmail, validatePassword } = require('../validators')
-const { Users } = require('../models')
+const { User } = require('../models')
 
 module.exports = function (email, password) {
     validateEmail(email)
     validatePassword(password)
 
-    return Users.findOne({ email })
+    return User.findOne({ email }).lean()
         .catch(error => {
             throw new SystemError(error.message)
         })
@@ -15,6 +15,7 @@ module.exports = function (email, password) {
             if (user.password !== password)
                 throw new CredentialsError('email or password incorrect')
             
-            return user.id // devuelve el string de dentro del ObjectId
+            return user._id.toString() // como lo he traido como un pojo con lean, tengo q extraer
+            // el id con _id y como es un objeto, convertirlo a string
         })
 }

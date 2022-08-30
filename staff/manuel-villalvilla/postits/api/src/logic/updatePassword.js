@@ -1,14 +1,13 @@
 const { CredentialsError, SystemError, NotFoundError } = require("../errors")
-const { Users } = require("../models")
+const { User } = require("../models")
 const { validateObjectId, validatePassword } = require("../validators")
 
 module.exports = function (userId, oldPassword, newPassword) {
-    debugger
     validateObjectId(userId)
     validatePassword(oldPassword)
     validatePassword(newPassword)
 
-    return Users.findById(userId)
+    return User.findById(userId)
         .catch(error => {
             throw new SystemError(error.message)
         })

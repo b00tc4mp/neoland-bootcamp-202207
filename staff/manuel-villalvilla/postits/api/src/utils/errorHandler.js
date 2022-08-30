@@ -1,0 +1,21 @@
+const { FormatError, SystemError, CredentialsError, NotFoundError, DuplicityError } = require("../errors")
+const logger  = require("./logger")
+
+module.exports = function(error, res) {
+    if (error instanceof FormatError || error instanceof TypeError) 
+        res.status(400).json({ error: error.message })
+    
+    else if (error instanceof SystemError)
+        res.status(500).json({ error: 'system error' })
+
+    else if (error instanceof CredentialsError || error instanceof NotFoundError)
+        res.status(401).json({ error: 'wrong credentials' })
+
+    else if (error instanceof DuplicityError)
+        res.status(409).json({ error: error.message })
+
+    else
+        res.status(500).json({ error: 'system error' })
+    
+    logger.error(error)
+}

@@ -11,8 +11,8 @@ module.exports = createLogger({
     // defaultMeta: { service: 'user-service' },
     transports: [
         new transports.Console(),
-        new transports.File({ filename: 'error.log', level: 'error' }),
-        new transports.File({ filename: 'info.log', level: 'info' }),
-        new transports.File({ filename: 'combined.log' })
+        new transports.File({ filename: './logs/error.log', level: 'error' }),
+        new transports.File({ filename: './logs/info.log', level: 'info' }),
+        new transports.File({ filename: './logs/combined.log' })
     ],
   })

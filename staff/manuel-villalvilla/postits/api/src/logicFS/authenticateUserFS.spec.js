@@ -3,7 +3,7 @@ const { testDeleteFiles } = require('../utils')
 const authenticateUserFS = require('../logicFS/authenticateUserFS')
 const { CredentialsError } = require('../errors') // errores indexados en un index.js
 
-describe('Authenticate User FS', () => {
+xdescribe('Authenticate User FS', () => {
     const usersFolder = './src/data/users'
 
     const newUser = {

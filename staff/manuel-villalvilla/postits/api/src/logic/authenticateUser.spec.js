@@ -1,19 +1,19 @@
 const { CredentialsError, NotFoundError } = require('../errors') // errores indexados en un index.js
 const { authenticateUser } = require('../logic')
 const { connect, disconnect } = require('mongoose')
-const { Users } = require('../models')
+const { User } = require('../models')
 
 describe('Authenticate User', () => {
     beforeAll(() => connect('mongodb://localhost:27017/test'))
 
-    beforeEach(() => Users.deleteMany())
+    beforeEach(() => User.deleteMany())
 
     it('succeeds authenticating a user', () => { // happy path
         const name = 'Pepito Grillo'
         const email = 'pepito@grillo.com'
         const password = '123123123'
 
-        return Users.create({ name, email, password })
+        return User.create({ name, email, password })
             .then(user => {
                 return authenticateUser(email, password)
                     .then(userId => {
@@ -28,6 +28,9 @@ describe('Authenticate User', () => {
         const password = '123123123'
 
         return authenticateUser(email, password)
+            .then(() => {
+                throw new Error('should not reach this point') // tiro un error si continua por aqui
+            })
             .catch(error => {
                 expect(error).toBeInstanceOf(NotFoundError)
                 expect(error.message).toEqual(`user with email ${email} not found`)
@@ -39,8 +42,11 @@ describe('Authenticate User', () => {
         const email = 'pepito@grillo.com'
         const password = '123123123'
 
-        return Users.create({ name, email, password })
+        return User.create({ name, email, password })
             .then(user => authenticateUser(email, '123123124'))
+            .then(() => {
+                throw new Error('should not reach this point')
+            })
             .catch(error => {
                 expect(error).toBeInstanceOf(CredentialsError)
                 expect(error.message).toBe('email or password incorrect')

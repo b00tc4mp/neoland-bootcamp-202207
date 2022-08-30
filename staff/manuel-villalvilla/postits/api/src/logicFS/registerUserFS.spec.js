@@ -3,7 +3,7 @@ const { DuplicityError } = require('../errors') // errores indexados en un index
 const registerUserFS = require('../logicFS/registerUserFS')
 const { testDeleteFiles, readFolder } = require('../utils')
 
-describe('registerUserFS', () => {
+xdescribe('registerUserFS', () => {
     const usersFolder = './src/data/users'
 
     const name = 'Pepito Grillo'
