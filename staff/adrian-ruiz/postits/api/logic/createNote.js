@@ -1,17 +1,19 @@
-const AuthError = require('errors/src/AuthError')
+const { NotFoundError } = require('errors')
+const { validateText } = require('validators')
 const { User, Note } = require('../models')
 
-async function createNote(userId, title, text){
-    const user = await User.findOne({id: userId})
-    
-    if(!user) throw new AuthError(`${userId} not found in db`)
+async function createNote(userId, title, text = ''){
+
+    //TODO VALIDATE INPUTS
+    validateText(title, 'Title')
+    if (typeof text !== 'string') throw new TypeError(`Text is not a string`)
 
 
-    const newNote = new Note({user: userId, title, text})
+    const user = await User.findById(userId).lean()
     
-    user.notes.push(newNote)
-    
-    await user.save()
+    if(!user) throw new NotFoundError(`${userId} not found in db`)
+
+    await Note.create({user: user._id, title, text})
     
     return 
 
