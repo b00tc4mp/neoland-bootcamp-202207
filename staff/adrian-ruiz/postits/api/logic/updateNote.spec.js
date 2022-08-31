@@ -65,6 +65,32 @@ describe('updateNote', () => {
         })()
     })
 
+    it('Succeeds just changing visibility', () => {
+
+        const name = 'SpecTesting'
+        const email = 'spec@testing.com'
+        const password = '123123123Aa!'
+
+        return (async () => {
+            const user = await User.create({ name, email, password })
+
+            const note = await Note.create({ user: user.id, title: 'Test Spec' })
+
+            const result = await updateNote({ userId: user.id, noteId: note.id, visibility:'public' })
+
+            const updatedNote = await Note.findById(note.id)
+
+            expect(result).to.be.undefined
+            expect(updatedNote.user.toString()).to.equal(user.id)
+            expect(updatedNote.title).to.equal(note.title)
+            expect(updatedNote.text).to.equal(note.text)
+            expect(updatedNote.visibility).to.equal('public')
+            expect(updatedNote.createAt).to.be.instanceOf(Date)
+            expect(updatedNote.createAt.toString()).to.equal(note.createAt.toString())
+            expect(updatedNote.modifiedAt).to.be.instanceOf(Date)
+            expect(updatedNote.modifiedAt).to.not.equal(note.modifiedAt)
+        })()
+    })
     it('Fails on note that does not belong to the user', () => {
         const name = 'SpecTesting'
         const email = 'spec@testing.com'

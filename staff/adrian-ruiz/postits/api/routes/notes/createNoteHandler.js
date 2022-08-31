@@ -1,7 +1,7 @@
 const { runWithErrorHandling } = require('../../utils')
 const logger = require('../../logger')(module)
 const createNote = require('../../logic/createNote')
-const validateToken = require('../../utils')
+const {validateToken} = require('../../utils')
 
 function createNoteHandler(req, res){
     runWithErrorHandling(() => {
