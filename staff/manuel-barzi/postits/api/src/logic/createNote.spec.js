@@ -13,9 +13,11 @@ describe('createNote', () => {
         const email = 'pepito@grillo.com'
         const password = '123123123'
 
+        const text = 'hola mundo'
+
         return User.create({ name, email, password })
             .then(user =>
-                createNote(user.id)
+                createNote(user.id, text)
                     .then(res => {
                         expect(res).toBeUndefined()
 
@@ -27,7 +29,7 @@ describe('createNote', () => {
                         const [note] = notes
 
                         expect(note.user.toString()).toEqual(user.id)
-                        expect(note.text).toEqual('')
+                        expect(note.text).toEqual(text)
                         expect(note.visibility).toEqual('private')
                         expect(note.createAt).toBeInstanceOf(Date)
                         expect(note.modifiedAt).toBeUndefined()
@@ -39,11 +41,14 @@ describe('createNote', () => {
     it('fails on non-existing user', () => {  // unhappy path
         const userId = new ObjectId().toString()
 
-        return createNote(userId)
-            .catch(error => {
-                expect(error).toBeInstanceOf(NotFoundError)
-                expect(error.message).toEqual(`user with id ${userId} not found`)
-            })
+        // return createNote(userId)
+        //     .then(() => { throw new Error('should not reach this point') })
+        //     .catch(error => {
+        //         expect(error).toBeInstanceOf(NotFoundError)
+        //         expect(error.message).toEqual(`user with id ${userId} not found`)
+        //     })
+        
+        return expect(createNote(userId)).rejects.toThrowError(NotFoundError, `user with id ${userId} not found`)
     })
 
     afterAll(() => disconnect())
