@@ -64,3 +64,7 @@ mongoose
   .then((note) => console.log("note", note))
   .then(() => mongoose.disconnect())
   .then(() => console.log("disconnected"));
+
+user > note;
+
+nota < users;
