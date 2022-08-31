@@ -1,33 +1,32 @@
 const { connect, disconnect } = require('mongoose')
-const { expect } = require('chai')
-const { User } = require('../models')
-const { DuplicityError } = require('../errors')
-const { registerUser } = require('.')
+const { User } = require('../../../models')
+const { DuplicityError } = require('../../../errors')
+const registerUser = require('.')
 
 describe('registerUser', () => {
-    before(() => connect('mongodb://127.0.0.1:27017/postits-test'))
+    beforeAll(() => connect('mongodb://127.0.0.1:27017/postits-test'))
 
     beforeEach(() => User.deleteMany())
 
-    it('succeeds on new user', () => {  // happy path
+    it('succeeds on new user', () => {  
         const name = 'Pepito Grillo'
         const email = 'pepito@grillo.com'
         const password = '123123123'
 
         return registerUser(name, email, password)
             .then(res => {
-                expect(res).to.be.undefined
+                expect(res).toBeUndefined()
 
                 return User.find({ email })
             })
             .then(users => {
-                expect(users).to.have.length(1)
+                expect(users).toHaveLength(1)
 
                 const [user] = users
 
-                expect(user.name).to.equal(name)
-                expect(user.email).to.equal(email)
-                expect(user.password).to.equal(password)
+                expect(user.name).toEqual(name)
+                expect(user.email).toEqual(email)
+                expect(user.password).toEqual(password)
             })
     })
 
@@ -39,10 +38,10 @@ describe('registerUser', () => {
         return User.create({ name, email, password })
             .then(() => registerUser(name, email, password))
             .catch(error => {
-                expect(error).to.be.instanceOf(DuplicityError)
-                expect(error.message).to.equal('user already exists')
+                expect(error).toBeInstanceOf(DuplicityError)
+                expect(error.message).toEqual('user already exists')
             })
     })
 
-    after(() => disconnect())
+    afterAll(() => disconnect())
 })

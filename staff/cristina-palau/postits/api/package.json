@@ -2,10 +2,14 @@
   "name": "api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "start": "node src",
-    "test": "npx mocha src/logic/*.spec.js",
+    "test": "npx jest --runInBand --setTimeout=60000 ./src/logic/*",
+    "test-inspect": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --setTimeout=60000",
+    "test-inspect-brk": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --setTimeout=60000",
+    "test-inspect-cli": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --setTimeout=60000 src/logic/*.spec.js",
+    "test-coverage": "npx jest --runInBand --setTimeout=60000 --CollectCoverage ./src/logic/*",
     "populate": "node src/populate.js",
     "populate-inspect": "node --inspect-brk src/populate.js",
     "populate-inspect-cli": "node inspect src/populate.js"
@@ -17,10 +21,10 @@
     "express": "^4.18.1",
     "jsonwebtoken": "^8.5.1",
     "mongo": "^0.1.0",
-    "mongoose": "^6.5.3"
+    "mongoose": "^6.5.3",
+    "winston": "^3.8.1"
   },
   "devDependencies": {
-    "chai": "^4.3.6",
-    "mocha": "^10.0.0"
+    "jest": "^29.0.1"
   }
 }

@@ -1,6 +1,6 @@
-const { User } = require('../models')
-const { DuplicityError, SystemError } = require('../errors')
-const { validateEmail, validatePassword, validateText } = require('../validators')
+const { User } = require('../../../models')
+const { DuplicityError, SystemError } = require('../../../errors')
+const { validateEmail, validatePassword, validateText } = require('../../../validators')
 
 async function registerUser(name, email, password) {
 

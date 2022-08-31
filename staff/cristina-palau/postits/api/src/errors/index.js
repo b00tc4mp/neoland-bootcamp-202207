@@ -3,5 +3,6 @@ module.exports = {
     SystemError: require('./SystemError'),
     UnknownError: require('./UnknownError'),
     FormatError: require('./FormatError'),
-    AuthError: require('./AuthError')
+    AuthError: require('./AuthError'),
+    NotFoundError: require('./NotFoundError')
 }
