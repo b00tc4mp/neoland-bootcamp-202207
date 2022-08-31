@@ -5,5 +5,6 @@ module.exports = {
     retrieveUser: require('./user/retrieveUser'),
     updatePassword: require('./user/updatePassword'),
     createNote: require('./notes/createNote'),
-    retrieveNotes: require('./notes/retrieveNotes')
+    retrieveNotes: require('./notes/retrieveNotes'),
+    updateNoteText: require('./notes/updateNoteText')
 }

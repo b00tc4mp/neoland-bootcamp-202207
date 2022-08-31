@@ -33,5 +33,6 @@ module.exports = function (userId, oldPassword, newPassword) {
             user.password = newPassword
             return user.save()
         })
+        .then(() => {})
         
 }

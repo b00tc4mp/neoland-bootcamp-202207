@@ -11,7 +11,7 @@ const { logger } = require('./utils');
 
     logger.info('db connected')
 
-    api.use('/api', homeRouter, usersRouter, notesRouter)
+    api.use('/api', usersRouter, notesRouter, homeRouter)
 
     api.listen(8080, () => logger.info('api started'))
 
