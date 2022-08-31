@@ -4,10 +4,9 @@ const { NotFoundError, AuthError } = require('errors')
 
 function updateNote({userId, noteId, title, text, visibility}){
     // TODO VALIDATE INPUTS
-    // TODO CHECK IF WORKS WITHOUT PASSING ALL ARGS ( JUST TITLE ...)
     
     return (async() => {
-        debugger
+        
         const user = await User.findById(userId)
 
         if(!user) throw new NotFoundError(`User with id ${userId} not found`)

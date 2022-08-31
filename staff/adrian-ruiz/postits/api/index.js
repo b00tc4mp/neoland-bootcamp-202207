@@ -1,14 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const { RegexError, AuthError, NotFoundError, DuplicityError, FormatError } = require('errors')
-const { sign, verify, JsonWebTokenError, TokenExpiredError, NotBeforeError } = require('jsonwebtoken')
 const logger = require('./logger')(module)
-const authenticateUser = require('./logic/authenticateUser')
-const retrieveUser = require('./logic/retrieveUser')
-const registerUser = require('./logic/registerUser')
-const createNote = require('./logic/createNote')
-const validateToken = require('./utils/validateToken')
-
 
     ; (async () => {
 
@@ -18,107 +10,9 @@ const validateToken = require('./utils/validateToken')
 
         const api = express()
 
-        const jsonBodyParser = express.json()
+        const { usersRouter, notesRouter } = require('./routes')
 
-        api.post('/api/users', jsonBodyParser, async (req, res) => {
-            try {
-
-                const { body: { name, email, password } } = req
-
-                await registerUser(name, email, password)
-
-                res.status(201).send()
-                logger.info(`User: ${email} registered succesfully`)
-
-            } catch (error) {
-                debugger
-                if (error instanceof DuplicityError)
-                    res.status(409).json({ error: error.message })
-                else if (error instanceof TypeError || error instanceof FormatError || error instanceof RegexError)
-                    res.status(400).json({ error: error.message })
-                else res.status(500).json({ error: 'System error' })
-
-                logger.error(error)
-            }
-        })
-
-        api.post('/api/users/auth', jsonBodyParser, async (req, res) => {
-            try {
-
-                const { body: { email, password } } = req
-
-                const userId = await authenticateUser(email, password)
-
-                const token = sign({ sub: userId }, 'ImagineLosingTimeToHackThis', { expiresIn: '1h' })
-
-                res.status(200).json({ token })
-                logger.info(`User: ${userId} authenticated succesfully`)
-
-            } catch (error) {
-                if (error instanceof AuthError || error instanceof NotFoundError)
-                    res.status(401).json({ error: error.message })
-                else if (error instanceof TypeError || error instanceof FormatError || error instanceof RegexError)
-                    res.status(400).json({ error: error.message })
-                else res.status(500).json({ error: 'System error' })
-
-                logger.error(error)
-            }
-        })
-
-        api.get('/api/users', (req, res) => {
-
-            try {
-                const userId = validateToken(req)
-
-                return (async () => {
-                    const user = await retrieveUser(userId)
-
-                    res.json({ name: user.name, email: user.email, notes: user.notes })
-
-                    logger.info(`User: ${user} retrieved succesfully`)
-                })()
-
-            } catch (error) {
-                // TODO CHECK TOKEN ERRORS AND LOGIC ERRORS
-                if (error instanceof NotFoundError)
-                    res.status(401).json({ error: error.message })
-                else if (error instanceof JsonWebTokenError || error instanceof TokenExpiredError || error instanceof NotBeforeError)
-                    res.status(401).json({ error: 'Token not valid' })
-                else
-                    res.status(500).json({ error: 'System error' })
-
-                logger.error(error)
-            }
-
-        })
-
-        api.post('/api/notes/', jsonBodyParser, (req, res) => {
-            try {
-                const userId = validateToken(req)
-
-                const { body: { title, text = '' } } = req;
-
-                (async () => {
-                    const noteId = await createNote(userId, title, text)
-
-                    res.status(204).send()
-
-                    logger.info(`Note: ${noteId} created succesfully`)
-                })()
-            } catch (error) {
-                if (error instanceof NotFoundError)
-                    res.status(401).json({ error: error.message })
-                else if (error instanceof JsonWebTokenError || error instanceof TokenExpiredError || error instanceof NotBeforeError)
-                    res.status(401).json({ error: 'Token not valid' })
-                else if (error instanceof TypeError || error instanceof FormatError)
-                    res.status(400).json({ error: error.message })
-                else
-                    res.status(500).json({ error: 'System error' })
-
-                logger.error(error)
-            }
-
-        })
+        api.use('/api', usersRouter, notesRouter)
 
         api.listen(8080, () => { logger.info('api started') })
 

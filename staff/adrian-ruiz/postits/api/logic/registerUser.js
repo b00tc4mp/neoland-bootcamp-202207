@@ -1,10 +1,9 @@
-const { UnknownError, DuplicityError } = require('errors')
+const { DuplicityError } = require('errors')
 const { validateName, validatePassword, validateEmail } = require('validators')
 const { User } = require('../models/index')
 
 
 function registerUser(name, email, password) {
-    //TODO validate inputs
     validateName(name)
     validatePassword(password)
     validateEmail(email)

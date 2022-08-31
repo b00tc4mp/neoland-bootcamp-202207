@@ -1,8 +1,10 @@
 const { verify } = require('jsonwebtoken')
-
-function validateToken(req){
+const { validateText } = require('validators')
+function validateToken(req) {
 
     const { headers: { authorization } } = req
+
+    validateText(authorization, 'authorization')
 
     const token = authorization.substring(7)
     const payload = verify(token, 'ImagineLosingTimeToHackThis')

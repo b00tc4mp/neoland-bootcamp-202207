@@ -1,3 +1,5 @@
 module.exports ={
-    clearFolder: require('./clearFolder')
+    clearFolder: require('./clearFolder'),
+    validateToken: require('./validateToken'),
+    runWithErrorHandling : require('./runWithErrorHandling')
 }
