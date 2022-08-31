@@ -1,0 +1,28 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx jest --runInBand logic",
+    "test-inspect": "node --inspect-brk ./node_modules/.bin/jest --runInBand --testTimeout=60000 --clearCache logic",
+    "test-inspect-cli": "node inspect ./node_modules/.bin/jest --runInBand --testTimeout=60000 --clearCache logic",
+    "test-coverage": "npx jest --runInBand --collectCoverage --clearCache src/logic/*.spec.js",
+    "populate": "node src/populate.js",
+    "populate-inspect": "node --inspect-brk src/populate.js",
+    "populate-inspect-cli": "node inspect src/populate.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.5.3",
+    "nodemon": "^2.0.19",
+    "winston": "^3.8.1"
+  },
+  "devDependencies": {
+    "jest": "^28.1.3"
+  }
+}
