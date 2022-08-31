@@ -3,5 +3,6 @@ module.exports = {
     validatePassword: require('./validatePassword'),
     validateCallback: require('./validateCallback'),
     validateText: require('./validateText'),
+    validateObjectId: require('./validateObjectId'),
     validateString: require('./validateString')
 }
