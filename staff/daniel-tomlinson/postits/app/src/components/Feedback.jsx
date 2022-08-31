@@ -1,12 +1,15 @@
 import "./Feedback.css";
 // import Loggito from "../utils/Loggito";
+import withContext from "../utils/withContext";
 
-function Feedback({ level, message, onClick }) {
+function Feedback({ context: { level, message, handleAcceptFeedback } }) {
   return (
-    <div className={`Feedback container Feedback--${level ? level : "info"}`}>
-      <div className="Feedback__box container  container--spaced  container--padded">
+    <div
+      className={`Feedback flex-container Feedback--${level ? level : "info"}`}
+    >
+      <div className="Feedback__box flex-container  container--spaced  container--padded">
         {message}
-        <button className="button" onClick={onClick}>
+        <button className="toast-accept-button" onClick={handleAcceptFeedback}>
           Accept
         </button>
       </div>
@@ -14,4 +17,4 @@ function Feedback({ level, message, onClick }) {
   );
 }
 
-export default Feedback;
+export default withContext(Feedback);

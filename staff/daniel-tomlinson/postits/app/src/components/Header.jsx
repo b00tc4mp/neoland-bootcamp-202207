@@ -76,6 +76,7 @@ function Header({
           onLogoutClick={handleLogoutClick}
           onSettingsClick={handleSettingsClick}
           onNotesClick={handleNotesClick}
+          onCloseClick={handleCloseClick}
           view={viewHome}
           menuView={menuView}
         />

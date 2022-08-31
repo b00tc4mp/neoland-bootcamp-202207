@@ -105,7 +105,7 @@ function Settings({ onCloseClick, onFeedback, onLinkClick, onResetPassword }) {
             </div>
           </div>
           <button type="submit" className="button--primary">
-            Register
+            Update
           </button>
         </form>
       </div>

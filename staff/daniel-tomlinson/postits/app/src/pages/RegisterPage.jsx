@@ -1,17 +1,19 @@
 import Loggito from "../utils/Loggito";
 import registerUser from "../logic/registerUser";
-import onFeedback from "../../App";
+// import onFeedback from "../App";
+import withContext from "../utils/withContext";
 
-function RegisterPage(props) {
+function RegisterPage({
+  context: { handleNavigationToLogin, handleFeedback },
+}) {
   const logger = new Loggito(RegisterPage.name);
-  // ("RegisterPage");
 
   logger.info("constructor");
 
   const handleClick = (event) => {
     event.preventDefault();
 
-    props.onLinkClick();
+    handleNavigationToLogin();
   };
 
   logger.info("render");
@@ -32,7 +34,7 @@ function RegisterPage(props) {
     try {
       registerUser(name, email, password, function (error) {
         if (error) {
-          onFeedback({
+          handleFeedback({
             message: error.message,
             level: "warn",
           });
@@ -44,20 +46,21 @@ function RegisterPage(props) {
 
         form.reset();
 
-        onFeedback({
+        handleFeedback({
           message: "User registered successfully",
           level: "success",
         });
+
+        handleNavigationToLogin();
       });
     } catch (error) {
-      onFeedback({
+      handleFeedback({
         message: error.message,
         level: "warn",
       });
 
       logger.warn(error.message);
     }
-    props.onRegister();
   };
 
   return (
@@ -114,4 +117,4 @@ function RegisterPage(props) {
   );
 }
 
-export default RegisterPage;
+export default withContext(RegisterPage);

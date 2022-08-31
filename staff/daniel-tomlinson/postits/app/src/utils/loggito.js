@@ -44,3 +44,5 @@ class Loggito {
     );
   }
 }
+
+export default Loggito;

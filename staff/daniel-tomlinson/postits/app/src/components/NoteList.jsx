@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import Loggito from "../utils/loggito";
+import Loggito from "../utils/Loggito";
 
 function NoteList({ notes, onDeleteNote, onUpdateNote }) {
   const logger = new Loggito("List");

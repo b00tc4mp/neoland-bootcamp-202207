@@ -8,13 +8,17 @@ import deleteNote from "../logic/deleteNote";
 import Settings from "../components/Settings";
 import NoteList from "../components/NoteList";
 import Header from "../components/Header";
+import withContext from "../utils/withContext";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 
-function HomePage({ onLogoutClick, onFeedback }) {
+function HomePage({ context: { handleLogoutClick, handleFeedback } }) {
   const logger = new Loggito("HomePage");
 
   const [name, setName] = useState(null);
   const [notes, setNotes] = useState(null);
-  const [view, setView] = useState("list");
+  // const [view, setView] = useState("list");
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     logger.info('"componentDidMount"');
@@ -22,7 +26,7 @@ function HomePage({ onLogoutClick, onFeedback }) {
     try {
       retrieveUser(sessionStorage.token, (error, user) => {
         if (error) {
-          onFeedback({ message: error.message, level: "error" });
+          handleFeedback({ message: error.message, level: "error" });
 
           logger.warn(error.message);
 
@@ -36,7 +40,7 @@ function HomePage({ onLogoutClick, onFeedback }) {
         logger.debug("setName", user.name);
       });
     } catch (error) {
-      onFeedback({ message: error.message, level: "error" });
+      handleFeedback({ message: error.message, level: "error" });
 
       logger.warn(error.message);
     }
@@ -48,7 +52,7 @@ function HomePage({ onLogoutClick, onFeedback }) {
     try {
       retrieveNotes(sessionStorage.token, (error, notes) => {
         if (error) {
-          onFeedback({ message: error.message, level: "error" });
+          handleFeedback({ message: error.message, level: "error" });
 
           logger.warn(error.message);
 
@@ -59,19 +63,17 @@ function HomePage({ onLogoutClick, onFeedback }) {
         logger.debug("setNotes", notes);
       });
     } catch (error) {
-      onFeedback({ message: error.message, level: "error" });
+      handleFeedback({ message: error.message, level: "error" });
 
       logger.warn(error.message);
     }
   };
-  //Bug fix?? Does this create the infinite loop? Or is that somewhere else?
-  //loadNotes();
 
   const handleAddClick = () => {
     try {
       createNote(sessionStorage.token, (error) => {
         if (error) {
-          onFeedback({ message: error.message, level: "error" });
+          handleFeedback({ message: error.message, level: "error" });
 
           logger.warn(error.message);
 
@@ -81,7 +83,7 @@ function HomePage({ onLogoutClick, onFeedback }) {
         loadNotes();
       });
     } catch (error) {
-      onFeedback({ message: error.message, level: "error" });
+      handleFeedback({ message: error.message, level: "error" });
 
       logger.warn(error.message);
     }
@@ -91,16 +93,15 @@ function HomePage({ onLogoutClick, onFeedback }) {
     try {
       updateNote(sessionStorage.token, noteId, text, (error) => {
         if (error) {
-          onFeedback({ message: error.message, level: "error" });
+          handleFeedback({ message: error.message, level: "error" });
 
           logger.warn(error.message);
 
           return;
         }
-        // this.loadNotes();
       });
     } catch (error) {
-      onFeedback({ message: error.message, level: "error" });
+      handleFeedback({ message: error.message, level: "error" });
 
       logger.warn(error.message);
     }
@@ -110,7 +111,7 @@ function HomePage({ onLogoutClick, onFeedback }) {
     try {
       deleteNote(sessionStorage.token, noteId, (error) => {
         if (error) {
-          onFeedback({ message: error.message, level: "error" });
+          handleFeedback({ message: error.message, level: "error" });
 
           logger.warn(error.message);
 
@@ -120,32 +121,26 @@ function HomePage({ onLogoutClick, onFeedback }) {
         loadNotes();
       });
     } catch (error) {
-      onFeedback({ message: error.message, level: "error" });
+      handleFeedback({ message: error.message, level: "error" });
 
       logger.warn(error.message);
     }
   };
 
-  // useEffect(() => {
-
-  // }, [view, menuView]);
-
   const handleSettingsClick = () => {
-    setView("settings");
+    navigate("settings");
 
-    logger.debug("setView", "settings");
-
-    // loadNotes()
+    logger.debug("navigate to settings");
   };
 
   const handleNotesClick = () => {
-    setView("list");
+    navigate("/");
 
-    logger.debug("setView", "notes");
+    logger.debug("navigate to list");
   };
 
   const handleResetPassword = () => {
-    onLogoutClick();
+    handleLogoutClick();
   };
 
   logger.info("render");
@@ -154,34 +149,53 @@ function HomePage({ onLogoutClick, onFeedback }) {
     <div className="home-page page background flex-container--homepage">
       <Header
         name={name}
-        onLogoutClick={onLogoutClick}
+        onLogoutClick={handleLogoutClick}
         onSettingsClick={handleSettingsClick}
         onNotesClick={handleNotesClick}
-        view={view}
-        onFeedback={onFeedback}
+        // view={view}
+        onFeedback={handleFeedback}
       />
       <main className="main flex-container main-page-content">
-        {view === "list" && (
-          <NoteList
-            notes={notes}
-            onUpdateNote={handleUpdateNote}
-            onDeleteNote={handleDeleteNote}
-            onFeedback={onFeedback}
+        <Routes>
+          {/*  {view === "list" && (
+            <NoteList
+              notes={notes}
+              onUpdateNote={handleUpdateNote}
+              onDeleteNote={handleDeleteNote}
+              onFeedback={handleFeedback}
+            />
+          )}
+          {view === "settings" && (
+            <Settings
+              onResetPassword={handleResetPassword}
+              onFeedback={handleFeedback}
+            />
+          )} */}
+          <Route
+            path="/"
+            element={
+              <NoteList
+                notes={notes}
+                onUpdateNote={handleUpdateNote}
+                onDeleteNote={handleDeleteNote}
+                onFeedback={handleFeedback}
+              />
+            }
           />
-        )}
-        {view === "settings" && (
-          <Settings
-            onResetPassword={handleResetPassword}
-            onFeedback={onFeedback}
+          <Route
+            path="settings"
+            element={
+              <Settings
+                onResetPassword={handleResetPassword}
+                onFeedback={handleFeedback}
+              />
+            }
           />
-        )}
+        </Routes>
       </main>
       <footer className="footer flex-container">
-        {view === "list" && (
-          <button
-            className="transparent-button add-button"
-            onClick={handleAddClick}
-          >
+        {location.pathname === "/" && (
+          <button className="transparent-button" onClick={handleAddClick}>
             +
           </button>
         )}
@@ -190,4 +204,4 @@ function HomePage({ onLogoutClick, onFeedback }) {
   ) : null;
 }
 
-export default HomePage;
+export default withContext(HomePage);

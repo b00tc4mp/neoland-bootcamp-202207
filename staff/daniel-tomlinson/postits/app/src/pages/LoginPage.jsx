@@ -1,7 +1,14 @@
 import Loggito from "../utils/Loggito";
 import authenticateUser from "../logic/authenticateUser";
+import withContext from "../utils/withContext";
 
-function LoginPage({ onLinkClick, onLogIn, onFeedback }) {
+function LoginPage({
+  context: {
+    handleNavigationToRegister,
+    handleFeedback,
+    handleNavigationToHome,
+  },
+}) {
   const logger = new Loggito(LoginPage.name);
 
   logger.info("constructor");
@@ -11,7 +18,7 @@ function LoginPage({ onLinkClick, onLogIn, onFeedback }) {
   const handleLinkClick = (event) => {
     event.preventDefault();
 
-    onLinkClick();
+    handleNavigationToRegister();
   };
 
   const handleFormSubmit = (event) => {
@@ -25,10 +32,13 @@ function LoginPage({ onLinkClick, onLogIn, onFeedback }) {
     const email = emailInput.value;
     const password = passwordInput.value;
 
+    form.reset();
+
     try {
       authenticateUser(email, password, (error, token) => {
         if (error) {
-          onFeedback({ message: error.message, level: "error" });
+          debugger;
+          handleFeedback({ message: error.message, level: "error" });
 
           logger.warn(error.message);
 
@@ -39,10 +49,11 @@ function LoginPage({ onLinkClick, onLogIn, onFeedback }) {
 
         sessionStorage.token = token;
 
-        onLogIn();
+        handleNavigationToHome();
+        // onLogIn();
       });
     } catch (error) {
-      onFeedback({ message: error.message, level: "error" });
+      handleFeedback({ message: error.message, level: "error" });
 
       logger.warn(error.message);
     }
@@ -92,4 +103,4 @@ function LoginPage({ onLinkClick, onLogIn, onFeedback }) {
   );
 }
 
-export default LoginPage;
+export default withContext(LoginPage);
