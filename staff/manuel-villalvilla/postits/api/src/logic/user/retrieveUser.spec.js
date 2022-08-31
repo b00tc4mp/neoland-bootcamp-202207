@@ -1,7 +1,7 @@
 const { connect, disconnect, Types: { ObjectId } } = require('mongoose')
-const { User } = require('../models')
-const { authenticateUser, retrieveUser } = require('../logic')
-const { NotFoundError } = require('../errors')
+const { User } = require('../../models')
+const { authenticateUser, retrieveUser } = require('../../logic')
+const { NotFoundError } = require('../../errors')
 
 describe('Retrieve User', () => {
     beforeAll(() => connect('mongodb://localhost:27017/test'))

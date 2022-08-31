@@ -1,7 +1,7 @@
 const { connect, disconnect, Types: { ObjectId } } = require('mongoose')
-const { Note, User } = require('../models')
-const { createNote } = require('../logic')
-const { NotFoundError } = require('../errors')
+const { Note, User } = require('../../models')
+const { createNote } = require('../../logic')
+const { NotFoundError } = require('../../errors')
 
 describe('Create Note', () => {
     beforeAll(() => connect('mongodb://localhost:27017/test'))
@@ -34,16 +34,19 @@ describe('Create Note', () => {
     })
 
     it('should fail with unexisting user', () => {
-        const userId = new ObjectId().toString()
+        const userId = new ObjectId()
 
-        return createNote(userId)
-            .then(() => {
-                throw new Error('it should not reach this point') // provoco un error si createNote no tira error
-            })
-            .catch(error => {
-                expect(error).toBeInstanceOf(NotFoundError)
-                expect(error.message).toEqual('user not found')
-            })
+        // return createNote(userId)
+        //     .then(() => {
+        //         throw new Error('it should not reach this point') // provoco un error si createNote no tira error
+        //     })
+        //     .catch(error => {
+        //         expect(error).toBeInstanceOf(NotFoundError)
+        //         expect(error.message).toEqual('user not found')
+        //     })
+
+        // esta linea reemplaza todo lo anterior
+        return expect(createNote(userId)).rejects.toThrowError(NotFoundError, 'user not found')
     })
 
     afterAll(() => disconnect())

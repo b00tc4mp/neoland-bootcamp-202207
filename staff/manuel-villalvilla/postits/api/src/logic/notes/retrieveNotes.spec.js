@@ -1,8 +1,7 @@
 const { connect, disconnect, Types: { ObjectId } } = require("mongoose")
-const { CredentialsError } = require("../errors")
-const { Note, User } = require("../models")
-const { retrieveNotes } = require('../logic')
-const { debug } = require("../utils/logger")
+const { NotFoundError } = require("../../errors")
+const { Note, User } = require("../../models")
+const { retrieveNotes } = require('../../logic')
 
 describe('Retrieve Notes', () => {
     beforeAll(() => connect('mongodb://localhost:27017/test'))
@@ -37,7 +36,7 @@ describe('Retrieve Notes', () => {
         return retrieveNotes(new ObjectId())
             .then(() => {throw new Error('should not reach this point')})
             .catch(error => {
-                expect(error).toBeInstanceOf(CredentialsError)
+                expect(error).toBeInstanceOf(NotFoundError)
                 expect(error.message).toEqual('user not found')
             })
     })

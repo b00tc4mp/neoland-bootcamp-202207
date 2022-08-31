@@ -1,7 +1,7 @@
 const { connect, disconnect } = require('mongoose')
-const { authenticateUser, updatePassword } = require('.')
-const { CredentialsError } = require('../errors')
-const { User } = require('../models')
+const { authenticateUser, updatePassword } = require('../../logic')
+const { CredentialsError } = require('../../errors')
+const { User } = require('../../models')
 
 describe('Update Password', () => {
     beforeAll(() => connect('mongodb://localhost:27017/test'))

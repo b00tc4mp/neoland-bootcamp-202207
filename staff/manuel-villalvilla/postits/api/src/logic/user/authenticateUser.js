@@ -1,6 +1,20 @@
-const { CredentialsError, NotFoundError, SystemError } = require('../errors')
-const { validateEmail, validatePassword } = require('../validators')
-const { User } = require('../models')
+const { CredentialsError, NotFoundError, SystemError } = require('../../errors')
+const { validateEmail, validatePassword } = require('../../validators')
+const { User } = require('../../models')
+
+/**
+ * Authenticates a user.
+ * 
+ * @param {string} email The user email.
+ * @param {string} password The user password.
+ *  
+ * @returns {Promise}
+ * 
+ * @throws {SystemError} If an error happens in db.
+ * @throws {NotFoundError} If the user is not found.
+ * @throws {FormatError} If the email | password format is not valid.
+ * @throws {TypeError} If the email | password are not strings.
+ */
 
 module.exports = function (email, password) {
     validateEmail(email)

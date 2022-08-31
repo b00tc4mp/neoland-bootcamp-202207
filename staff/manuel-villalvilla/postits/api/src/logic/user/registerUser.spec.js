@@ -1,7 +1,7 @@
-const { DuplicityError } = require('../errors') // errores indexados en un index.js
-const registerUser = require('../logic/registerUser')
+const { DuplicityError } = require('../../errors') // errores indexados en un index.js
+const { registerUser } = require('../../logic')
 const { connect, disconnect } = require('mongoose')
-const { User } = require('../models')
+const { User } = require('../../models')
 
 describe('Register User', () => {
     beforeAll(() => connect('mongodb://localhost:27017/test'))

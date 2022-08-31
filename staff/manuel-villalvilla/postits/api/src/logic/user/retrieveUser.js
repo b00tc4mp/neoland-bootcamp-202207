@@ -1,6 +1,18 @@
-const { NotFoundError, SystemError } = require('../errors')
-const { User } = require('../models')
-const { validateObjectId } = require('../validators')
+const { NotFoundError, SystemError } = require('../../errors')
+const { User } = require('../../models')
+const { validateObjectId } = require('../../validators')
+
+/**
+ * Retrieves a user.
+ * 
+ * @param {string} userId The user's id.
+ * 
+ * @returns {Promise}
+ * 
+ * @throws {SystemError} If an error happens in db.
+ * @throws {NotFoundError} If user is not found in db.
+ * @throws {FormatError} If user id is not valid.
+ */
 
 module.exports = function (userId) {
     validateObjectId(userId)

@@ -1,6 +1,21 @@
-const { User } = require('../models')
-const { DuplicityError, SystemError } = require('../errors')
-const { validateText, validateEmail, validatePassword } = require('../validators')
+const { User } = require('../../models')
+const { DuplicityError, SystemError } = require('../../errors')
+const { validateText, validateEmail, validatePassword } = require('../../validators')
+
+/**
+ * Register a new user.
+ * 
+ * @param {string} name The user's name.
+ * @param {string} email The user's email.
+ * @param {string} password The user's password.
+ *  
+ * @returns {Promise}
+ * 
+ * @throws {SystemError} If an error happens in db.
+ * @throws {DuplicityError} If the user's email already exists in db.
+ * @throws {FormatError} If name | email | password are not valid.
+ * @throws {TypeError} If name | email | password are not a string.
+ */
 
 module.exports = function (name, email, password) {
     /* como no exporto la funcion como async, si estos primeros validadores tiran error,
