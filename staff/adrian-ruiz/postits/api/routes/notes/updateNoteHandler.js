@@ -4,7 +4,7 @@ const updateNote = require('../../logic/updateNote')
 const { validateToken } = require('../../utils')
 
 function updateNoteHandler(req, res){
-    runWithErrorHandling(() => {
+    runWithErrorHandling(async () => {
         const { userId } = await validateToken(req)
         
         const { body: { title, text, visibility }} = req

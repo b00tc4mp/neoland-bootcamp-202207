@@ -1,4 +1,4 @@
-const { Schema, Types: { ObjectId } } = require('mongoose')
+const { Schema } = require('mongoose')
 
 const blacklist = new Schema({
 
@@ -10,6 +10,11 @@ const blacklist = new Schema({
     blackListedAt: {
         type: Date,
         default : Date.now
+    },
+
+    expiresAt: {
+        type: Date,
+        expires: 3660
     }
 })
 

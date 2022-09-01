@@ -11,7 +11,7 @@ function updateUserPasswordHandler(req, res){
         const { body: { oldPassword, password, confirmPassword } } = req
 
         await updateUserPassword(userId, oldPassword, password, confirmPassword)
-        await Blacklist.create({token})
+        await Blacklist.create({token, expiresAt: new Date()})
 
         res.status(204).send()
         

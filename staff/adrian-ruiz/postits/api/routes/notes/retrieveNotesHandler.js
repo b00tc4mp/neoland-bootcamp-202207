@@ -5,10 +5,10 @@ const { validateToken } = require('../../utils')
 
 function retrieveNotesHandler(req, res){
     runWithErrorHandling(() => {
-        const { userId } = await validateToken(req)
-        
 
         return (async () => {
+            const { userId } = await validateToken(req)
+
             const notes = await retrieveNotes(userId)
             
             res.json(notes)

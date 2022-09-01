@@ -4,7 +4,7 @@ const createNote = require('../../logic/createNote')
 const {validateToken} = require('../../utils')
 
 function createNoteHandler(req, res){
-    runWithErrorHandling(() => {
+    runWithErrorHandling( async () => {
         const { userId } = await validateToken(req)
 
         const { body: { title, text = '' } } = req

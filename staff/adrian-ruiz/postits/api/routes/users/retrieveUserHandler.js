@@ -5,7 +5,7 @@ const { validateToken } = require('../../utils')
 
 
 function retrieveUserHandler(req, res) {
-    runWithErrorHandling(() => {
+    runWithErrorHandling(async () => {
         const { userId } = await validateToken(req)
 
         return (async () => {
