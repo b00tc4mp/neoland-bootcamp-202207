@@ -1,4 +1,5 @@
 module.exports = {
     user : require('./user'),
-    note : require('./note')
+    note : require('./note'),
+    blacklist : require('./blacklist')
 }

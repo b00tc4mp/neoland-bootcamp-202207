@@ -13,7 +13,7 @@ describe('updateUserPassword', () => {
     beforeEach(() => Promise.all([User.deleteMany(), Note.deleteMany()]))
 
     it('Succeeds updating user password', () => {
-        debugger
+        
         const name = 'SpecTesting'
         const email = 'spec@testing.com'
         const password = '123123123Aa!'

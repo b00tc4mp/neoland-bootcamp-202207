@@ -1,6 +1,7 @@
 const { runWithErrorHandling } = require('../../utils')
 const logger = require('../../logger')(module)
 const registerUser = require('../../logic/registerUser')
+const { Blacklist } = require('../../models')
 
 function registerUserHandler(req, res){
     runWithErrorHandling(async () => {

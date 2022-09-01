@@ -11,8 +11,16 @@ function retrieveNotes(userId){
 
         if(!user) throw new NotFoundError(`User with ID: ${userId} not found`)
 
-        const notes = await Note.find({user: userId})
+        const notes = await Note.find({user: userId}).lean()
 
+        notes.forEach(note => {
+            
+            note.id = note._id.toString()
+            delete note._id
+            delete note.__v
+
+            return note
+        })
         return notes
     })()
 }

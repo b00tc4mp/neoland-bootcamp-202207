@@ -87,7 +87,7 @@ describe('retrieveNotes', () => {
     })
 
     it('Fails if userId has wrong format', () => {
-        const testId = 'Test123';
+        const testId = '01234567891';
 
         
         expect(() => retrieveNotes(testId)).to.throw(FormatError, 'User is not valid')

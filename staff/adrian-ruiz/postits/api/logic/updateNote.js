@@ -1,10 +1,12 @@
 //TODO updateNote(userId, noteId, text, title, visibility )
 const { User, Note } = require('../models')
-const { NotFoundError, AuthError } = require('errors')
+const { NotFoundError, AuthError, BadRequestError } = require('errors')
 
 function updateNote({userId, noteId, title, text, visibility}){
     // TODO VALIDATE INPUTS
     
+    if(title === undefined && text === undefined && visibility === undefined ) throw new BadRequestError('Server can\'t process the request')
+
     return (async() => {
         
         const user = await User.findById(userId)

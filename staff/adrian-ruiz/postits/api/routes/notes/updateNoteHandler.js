@@ -5,8 +5,8 @@ const { validateToken } = require('../../utils')
 
 function updateNoteHandler(req, res){
     runWithErrorHandling(() => {
-        const userId = validateToken(req)
-        debugger
+        const { userId } = await validateToken(req)
+        
         const { body: { title, text, visibility }} = req
         const noteId = req.params.noteId
         debugger

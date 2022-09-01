@@ -1,5 +1,7 @@
+const { AuthError } = require('errors')
 const { verify } = require('jsonwebtoken')
 const { validateText } = require('validators')
+const { Blacklist } = require('../models')
 function validateToken(req) {
 
     const { headers: { authorization } } = req
@@ -9,9 +11,15 @@ function validateToken(req) {
     const token = authorization.substring(7)
     const payload = verify(token, 'ImagineLosingTimeToHackThis')
 
-    const userId = payload.sub
+    return (async () => {
+        debugger
+        const blackListed = await Blacklist.findOne({ token })
+        if (blackListed) throw new AuthError('Token is blackListed')
 
-    return userId
+        const userId = payload.sub
+
+        return { userId, token }
+    })()
 }
 
 module.exports = validateToken

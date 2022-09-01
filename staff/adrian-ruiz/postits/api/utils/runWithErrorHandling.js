@@ -1,11 +1,11 @@
-const { RegexError, AuthError, NotFoundError, DuplicityError, FormatError, NotFoundError404 } = require('errors')
+const { RegexError, AuthError, NotFoundError, DuplicityError, FormatError, NotFoundError404, BadRequestError } = require('errors')
 const { JsonWebTokenError, TokenExpiredError, NotBeforeError } = require('jsonwebtoken')
 
 async function runWithErrorHandling(callback, res, logger) {
     try {
         await callback()
     } catch (error) {
-        if (error instanceof TypeError || error instanceof FormatError || error instanceof RegexError)
+        if (error instanceof TypeError || error instanceof FormatError || error instanceof RegexError || error instanceof BadRequestError)
             res.status(400).json({ error: error.message })
         else if (error instanceof DuplicityError)
             res.status(409).json({ error: error.message })

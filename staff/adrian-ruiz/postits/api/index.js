@@ -12,6 +12,14 @@ const logger = require('./logger')(module)
 
         const { usersRouter, notesRouter } = require('./routes')
 
+        api.use((_, res, next) => {
+            res.setHeader('Access-Control-Allow-Origin', '*')
+            res.setHeader('Access-Control-Allow-Methods', '*')
+            res.setHeader('Access-Control-Allow-Headers', '*')
+
+            next()
+        })
+
         api.use('/api', usersRouter, notesRouter)
 
         api.listen(8080, () => { logger.info('api started') })
