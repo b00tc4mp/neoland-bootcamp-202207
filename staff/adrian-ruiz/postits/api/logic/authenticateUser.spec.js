@@ -13,46 +13,46 @@ describe('authenticateUser', () => {
 
     beforeEach(() => User.deleteMany())
 
-    it('Suceeds authenticating on existing user', async () => {
+    it('Suceeds authenticating on existing user', () => {
         const name = 'SpecTesting'
         const email = 'spec@testing.com'
         const password = '123123123Aa!'
 
-        await User.create({name, email, password})
+        return (async() => {
+            await User.create({name, email, password})
         
-        const userId = await authenticateUser(email, password)
-        expect(userId).to.be.a('string')
-
+            const userId = await authenticateUser(email, password)
+            expect(userId).to.be.a('string')
+        })()
     })
 
     //TODO unhappy paths
-    it('Fails(AUTH Error) if credentials are wrong on existing user', async () => {
+    it('Fails(AUTH Error) if credentials are wrong on existing user', () => {
         
         const name = 'SpecTesting'
         const email = 'spec@testing.com'
         const password = '123123123Aa!'
        
+        return (async() => {
+            await User.create({name, email, password})
         
-        await User.create({name, email, password})
         
-        
-        await expect(authenticateUser(email, 'wrongPass123!')).to.eventually.be.rejectedWith('Email and/or password wrong')
-        .and.be.an.instanceOf(AuthError)
-        // YOU HAVE TO USE "AWAIT" OR RETURN ON EXPECT, INSTEAD OF FUNCTION TO TEST LIKE THAT
-       
-            
+            await expect(authenticateUser(email, 'wrongPass123!')).to.eventually.be.rejectedWith('Email and/or password wrong')
+            .and.be.an.instanceOf(AuthError)
+        })()     
         
     })
 
-    it('Fails(Throw Mail Regex Error) if mail format is wrong on existing user', async () => {
+    it('Fails(Throw Mail Regex Error) if mail format is wrong on existing user', () => {
         const name = 'SpecTesting'
         const email = 'spec@testing.com'
         const password = '123123123Aa!'
 
-        await User.create({name, email, password})
+        return (async () => {
+            await User.create({name, email, password})
 
-        await expect(authenticateUser('wrong@wrong...es', password)).to.eventually.be.rejectedWith('Email is not valid')
-        .and.be.an.instanceOf(RegexError)
+            expect(() => authenticateUser('wrong@wrong...es', password)).to.throw(RegexError, 'Email is not valid' )
+        })()
 
     })
 

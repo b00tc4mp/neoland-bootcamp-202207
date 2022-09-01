@@ -72,31 +72,31 @@ describe('createNote', () => {
         .and.be.an.instanceOf(NotFoundError)
     })
 
-    it('fails if title is empty', async() => {
+    it('fails if title is empty', () => {
         const userId = new ObjectId().toString()
         const noteTitle = ''
 
-        await expect(createNote(userId, noteTitle)).to.eventually.be.rejectedWith(`Title is empty or blank`)
-        .and.be.an.instanceOf(FormatError)
-        const notes = await Note.find()
-        expect(notes).to.have.lengthOf(0)
+        expect(() => createNote(userId, noteTitle)).to.throw(FormatError, `Title is empty or blank` )
+        
+        return (async() => {
+            const notes = await Note.find()
+            expect(notes).to.have.lengthOf(0)
+        })()
     })
 
-    it('fails if title is not a string', async() => {
+    it('fails if title is not a string', () => {
         const userId = new ObjectId().toString()
         const noteTitle = 123
 
-        await expect(createNote(userId, noteTitle)).to.eventually.be.rejectedWith(`Title is not a string`)
-        .and.be.an.instanceOf(TypeError)
+        expect (() =>createNote(userId, noteTitle)).to.throw(TypeError,`Title is not a string`)
     })
 
-    it('fails if text is not a string', async() => {
+    it('fails if text is not a string', () => {
         const userId = new ObjectId().toString()
         const noteTitle = 'Spec Title'
         const noteText = 123
 
-        await expect(createNote(userId, noteTitle, noteText)).to.eventually.be.rejectedWith(`Text is not a string`)
-        .and.be.an.instanceOf(TypeError)
+        expect(() => createNote(userId, noteTitle, noteText)).to.throw(TypeError, `Text is not a string`)
     })
 
     after(() => disconnect())

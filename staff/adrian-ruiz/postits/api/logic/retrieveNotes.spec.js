@@ -74,7 +74,7 @@ describe('retrieveNotes', () => {
             const notes = await retrieveNotes(user.id)
 
             expect(notes).to.have.lengthOf(0)
-        })
+        })()
     })
 
     it('Fails if user DOES NOT EXIST', () => {
@@ -89,9 +89,8 @@ describe('retrieveNotes', () => {
     it('Fails if userId has wrong format', () => {
         const testId = 'Test123';
 
-        return (async () => {
-            await expect(retrieveNotes(testId)).to.eventually.be.rejectedWith('User is not valid')
-        .and.be.an.instanceOf(FormatError)
-        })
+        
+        expect(() => retrieveNotes(testId)).to.throw(FormatError, 'User is not valid')
+        
     })
 })

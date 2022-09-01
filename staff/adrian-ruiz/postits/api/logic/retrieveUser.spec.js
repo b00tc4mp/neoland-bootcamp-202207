@@ -13,34 +13,37 @@ describe('retrieveUser', () => {
 
     beforeEach(() => User.deleteMany())
 
-    it('succeeds on a existing user', async () => {
+    it('succeeds on a existing user', () => {
         const name = 'SpecTesting'
         const email = 'spec@testing.com'
         const password = '123123123Aa!'
         
-        const tempUser = await User.create({name, email, password})
+        return (async() => {
+            const tempUser = await User.create({name, email, password})
         
-        const user = await retrieveUser(tempUser.id)
-
-        expect(user.name).to.equal(name)
-        expect(user.email).to.equal(email)
-        expect(user.password).to.be.undefined
-        expect(user.notes).to.have.length(0)
-
+            const user = await retrieveUser(tempUser.id)
+    
+            expect(user.name).to.equal(name)
+            expect(user.email).to.equal(email)
+            expect(user.password).to.be.undefined
+            expect(user.notes).to.have.length(0)
+    
+        })()
     })
 
     //TODO UNHAPPY PATHS
 
-    it('Fails if userId does not match with any user', async () => {
+    it('Fails if userId does not match with any user', () => {
         const name = 'SpecTesting'
         const email = 'spec@testing.com'
         const password = '123123123Aa!'
         
-        const tempUser = await User.create({name, email, password})
+        return (async() =>{
+            const tempUser = await User.create({name, email, password})
         
-        await expect(retrieveUser('930ccb4f3895cb611289d7e7')).to.eventually.be.rejectedWith('User not found')
-        .and.be.an.instanceOf(NotFoundError)
-
+            await expect(retrieveUser('930ccb4f3895cb611289d7e7')).to.eventually.be.rejectedWith('User not found')
+            .and.be.an.instanceOf(NotFoundError)
+        })()
     })
 
     after(() => disconnect())

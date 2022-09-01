@@ -74,8 +74,7 @@ describe('updateUserPassword', () => {
         return (async() => {
             const user = await User.create({ name, email, password })
             debugger
-            await expect(updateUserPassword(user.id, password, newPassword, confirmNewPassword)).to.eventually.be.rejectedWith('New password and confirm new password are not the same').and.be.an.instanceOf(AuthError)
-
+            expect(() => updateUserPassword(user.id, password, newPassword, confirmNewPassword)).to.throw(AuthError, 'New password and confirm new password are not the same')
         })()
  
     })
@@ -91,7 +90,7 @@ describe('updateUserPassword', () => {
         return (async() => {
             const user = await User.create({ name, email, password })
 
-            await expect(updateUserPassword(user.id, wrongPass, newPassword, confirmNewPassword)).to.eventually.be.rejectedWith(`\nold password does not meet the requirements: \n- Between 8 and 15 characters\n- At least 1 capital letter\n- At least 1 lowercase letter\n- At least 1 symbol`).and.be.an.instanceOf(RegexError)
+            expect(() => updateUserPassword(user.id, wrongPass, newPassword, confirmNewPassword)).to.throw(RegexError,`\nold password does not meet the requirements: \n- Between 8 and 15 characters\n- At least 1 capital letter\n- At least 1 lowercase letter\n- At least 1 symbol`)
 
         })()
  
