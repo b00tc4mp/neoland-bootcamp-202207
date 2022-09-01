@@ -7,7 +7,9 @@ const { createNoteHandler } = require('./notes')
 const usersRouter = Router()
 
 usersRouter.post('/users', jsonBodyParser, registerUserHandler)
+
 usersRouter.post('/users/auth', jsonBodyParser, authenticateUserHandler)
+
 usersRouter.get('/users', retrieveUserHandler)
 
 const notesRouter = Router()

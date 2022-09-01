@@ -1,6 +1,6 @@
 const { connect, disconnect } = require('mongoose')
 const { User } = require('../../../models')
-const { DuplicityError } = require('../../../errors')
+const { DuplicityError, FormatError } = require('../../../errors')
 const registerUser = require('.')
 
 describe('registerUser', () => {
@@ -33,14 +33,40 @@ describe('registerUser', () => {
         const email = 'pepito@grillo.com'
         const password = '123123123'
 
-        try {
-            await User.create({ name, email, password })
-            
-            await registerUser(name, email, password)
-        } catch (error) {
-            expect(error).toBeInstanceOf(DuplicityError)
-            expect(error.message).toEqual('user already exists')
-        }
+        await User.create({ name, email, password })
+        
+        // try {
+        //     await registerUser(name, email, password)
+        // } catch (error) {
+        //     expect(error).toBeInstanceOf(DuplicityError)
+        //     expect(error.message).toEqual('user already exists')
+        // }
+
+        await expect(registerUser(name, email, password)).rejects.toThrowError(DuplicityError, 'user already exists')
+    })
+
+    it('fails on non-string name', () => { // unhappy path
+        const name = 123
+        const email = 'pepito@grillo.com'
+        const password = '123123123'
+
+        expect(() => registerUser(name, email, password)).toThrowError(TypeError, 'name is not a string')
+    })
+
+    it('fails on empty name', () => { // unhappy path
+        const name = ''
+        const email = 'pepito@grillo.com'
+        const password = '123123123'
+
+        expect(() => registerUser(name, email, password)).toThrowError(FormatError, 'name is empty or blank')
+    })
+
+    it('fails on invalid email', () => { // unhappy path
+        const name = 'Pepito Grillo'
+        const email = 'pepito_grillo.com'
+        const password = '123123123'
+
+        expect(() => registerUser(name, email, password)).toThrowError(FormatError, 'email is not valid')
     })
 
     afterAll(() => disconnect())
