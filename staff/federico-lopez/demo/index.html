@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script> -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+    <script src="https://unpkg.com/@babel/standalone@7.18.12/babel.js"></script>
+
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { createContext, useContext, useState } = React
+        const { createRoot } = ReactDOM
+
+        const Context = createContext()
+
+        function Box({ style, children, name }) {
+            const context = useContext(Context)
+            
+            const { data, setData } = context
+            
+            function handleSubmit(event) {
+
+                event.preventDefault()
+
+                const { to: { value: to }, message: { value: message } } = event.target
+
+                //console.log(`${name}: ${message}`)
+
+                const newData = { ...data, [to]: `${name}: ${message}` }
+
+                setData(newData)
+            }
+
+            return <div style={style}>
+                {name && <div>
+                    <h3 style={{ color: 'gray' }}>{name}</h3>
+                    <p style={{ backgroundColor: 'white', width: '100%', height: '100px' }}>
+                        {data[name]}
+                    </p>
+                    <form onSubmit={handleSubmit}>
+                        <input type="text" name="to" placeholder="to" />
+                        <input type="text" name="message" placeholder="message" />
+                        <button>send</button>
+                    </form>
+                </div>}
+
+                {children}
+            </div>
+        }
+
+        function App() {
+            const [data, setData] = useState({}) // { peter: 'wendy: ...', jack: 'peter: ...', wendy: 'jack: ...' }
+
+            const context = { data, setData }
+
+            return <Context.Provider value={context}>
+                <Box style={{ backgroundColor: 'skyblue', display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
+                    <Box style={{ backgroundColor: 'black', padding: '1rem', margin: '1rem' }}>
+                        <Box style={{ backgroundColor: 'white', padding: '1rem' }}>
+                            <Box style={{ backgroundColor: 'cyan', padding: '1rem' }} name="peter">
+                            </Box>
+                        </Box>
+                    </Box>
+
+                    <Box style={{ backgroundColor: 'black', padding: '1rem', margin: '1rem' }}>
+                        <Box style={{ backgroundColor: 'white', padding: '1rem' }}>
+                            <Box style={{ backgroundColor: 'violet', padding: '1rem' }} name="wendy">
+                            </Box>
+                        </Box>
+                    </Box>
+
+                    <Box style={{ backgroundColor: 'black', padding: '1rem', margin: '1rem' }}>
+                        <Box style={{ backgroundColor: 'white', padding: '1rem' }}>
+                            <Box style={{ backgroundColor: 'yellow', padding: '1rem' }} name="jack">
+                            </Box>
+                        </Box>
+                    </Box>
+                </Box>
+            </Context.Provider >
+        }
+
+        createRoot(document.getElementById('root')).render(<App />)
+    </script>
+</body>
+
+</html>
