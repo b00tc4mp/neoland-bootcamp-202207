@@ -31,7 +31,7 @@ describe('createNote', () => {
                         expect(note.user.toString()).toEqual(user.id)
                         expect(note.text).toEqual(text)
                         expect(note.visibility).toEqual('private')
-                        expect(note.createAt).toBeInstanceOf(Date)
+                        expect(note.createdAt).toBeInstanceOf(Date)
                         expect(note.modifiedAt).toBeUndefined()
                     })
             )

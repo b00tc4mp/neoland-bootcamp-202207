@@ -18,7 +18,7 @@ const note = new Schema({
         default: 'private'
     },
 
-    createAt: {
+    createdAt: {
         type: Date,
         default: Date.now
     },

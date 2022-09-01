@@ -1,7 +1,7 @@
 const { User, Note } = require('../../../models')
 const { NotFoundError, SystemError } = require('../../../errors')
 const { validateString } = require('../../../validators')
-const { verifyObjectId } = require('../../../utils')
+const { verifyObjectIdString } = require('../../../utils')
 
 /**
  * Creates a note for a user.
@@ -18,7 +18,7 @@ const { verifyObjectId } = require('../../../utils')
  * @throws {SystemError} If an error happens in db.
  */
 function createNote(userId, text = '') {
-    verifyObjectId(userId, 'user id')
+    verifyObjectIdString(userId, 'user id')
     validateString(text, 'text')
 
     return User.findById(userId).lean()
