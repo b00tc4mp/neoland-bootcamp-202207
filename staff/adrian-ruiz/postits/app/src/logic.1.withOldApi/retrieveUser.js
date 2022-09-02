@@ -1,14 +1,12 @@
 /**
  * @throws {TypeError} Error on failed verification inputs
  */
- import { validateCallback } from "validators"
- const API_URL = process.env.REACT_APP_API_URL
 
 function retrieveUser(token, callback){
     // TODO token validation (regex?)
     if(token.trim().length === 0) throw new Error('Token is empty or blank')
     if(typeof token !=='string') throw new Error('Token is not a string')
-    validateCallback(callback)
+    if (typeof callback !== 'function') throw new TypeError('callback is not a function')
     
     const xhr = new XMLHttpRequest
 
@@ -24,14 +22,14 @@ function retrieveUser(token, callback){
             const data = JSON.parse(xhr.response)
             const user = {
                 name: data.name,
-                email: data.email
+                email: data.username
             }
             callback(null,user)
         }
             
     }
     
-    xhr.open('GET', `${API_URL}/users`)
+    xhr.open('GET', `https://b00tc4mp.herokuapp.com/api/v2/users/`)
 
     xhr.setRequestHeader('Authorization', `Bearer ${token}`)
     xhr.send()

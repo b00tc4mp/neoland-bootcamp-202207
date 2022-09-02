@@ -45,6 +45,7 @@ function ProfileMenu({context: {handleFeedback}}) {
         let result = window.confirm('Are you sure to update Email?')
         if (result) {
             try {
+                
                 updateUserEmail(sessionStorage.UserToken, newEmail, function (error) {
                     if (error) {
                         handleFeedback({level: "error", message: error.message})

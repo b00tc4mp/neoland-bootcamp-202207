@@ -1,13 +1,13 @@
 import {mailRegex} from "./constants"
-import { validateCallback, validateEmail } from "validators"
-import { ServerError } from "errors"
-
-const API_URL = process.env.REACT_APP_API_URL
 
 function updateUserEmail (token, newEmail, callback){
-    validateEmail(newEmail)
-    validateCallback(callback)
+    
+    if (typeof newEmail !== 'string') throw new TypeError('Email is not string')
+    if (newEmail.trim().length === 0) throw new Error('Email is empty or blank')
+    if (!mailRegex.test(newEmail)) throw new Error('Email is not valid')
+    if (typeof callback !== 'function') throw new TypeError('callback is not a function')
 
+    
     const xhr = new XMLHttpRequest
 
     xhr.onload = function(){
@@ -20,17 +20,13 @@ function updateUserEmail (token, newEmail, callback){
             callback(null)
     }
 
-    xhr.onerror = function (){
-        callback(new ServerError('Connection failed'))
-    }
-
-    xhr.open('PATCH',`${API_URL}/users/updateEmail`)
+    xhr.open('PATCH','https://b00tc4mp.herokuapp.com/api/v2/users')
 
     xhr.setRequestHeader('Content-type', 'application/json')
     xhr.setRequestHeader('Authorization', `Bearer ${token}`)
 
     const newData = {
-        email: newEmail,
+        username: newEmail,
     }
     xhr.send(JSON.stringify(newData))
 }

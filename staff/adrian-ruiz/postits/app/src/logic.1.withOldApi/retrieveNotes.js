@@ -4,7 +4,7 @@
  * 
  * @throws {TypeError} Error on failed verification inputs
  */
- const API_URL = process.env.REACT_APP_API_URL
+
 function retrieveNotes(token, callback) {
 
     // Recupero las notas del usuario
@@ -21,16 +21,15 @@ function retrieveNotes(token, callback) {
         }else if( status === 200){
             const data = JSON.parse(xhr.response)
             
-            const notes = data
+            const notes = data.notes
             callback(null,notes)
         }
             
     }
     
-    xhr.open('GET', `${API_URL}/notes`)
+    xhr.open('GET', `https://b00tc4mp.herokuapp.com/api/v2/users/`)
 
     xhr.setRequestHeader('Authorization', `Bearer ${token}`)
-    
     xhr.send()
 }
 

@@ -48,7 +48,7 @@ const ListPanel = forwardRef(({ notes, onUpdateNote, onDeleteNote, onChangeColor
     }
 
     const handleUpdateNote = (noteId) => {
-        debugger
+        
         const text = noteText[noteId].textContent
         const title = noteTitle[noteId].textContent
 
@@ -64,7 +64,7 @@ const ListPanel = forwardRef(({ notes, onUpdateNote, onDeleteNote, onChangeColor
     const handleChangeColorNote = (noteId, color) => {
         let tempNotes = [...notes] // WE HAVE TO CREATE A DUPLICATE OF STATE TO MANIPULATE TEMPORALLY
         try {
-            changeNoteColor(sessionStorage.UserToken, tempNotes, noteId, color, (error) => {
+            changeNoteColor(sessionStorage.UserToken, noteId, color, (error) => {
                 if (error) {
                     alert(error.message)
                     logger.warn(error.message)

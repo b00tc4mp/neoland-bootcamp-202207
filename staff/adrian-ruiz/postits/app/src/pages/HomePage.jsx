@@ -54,6 +54,7 @@ function HomePage({ onLogout, context: { handleFeedback } }) {
 
         try {
             retrieveNotes(sessionStorage.UserToken, (error, notes) => {
+                
                 if (error) {
                     handleFeedback({ level: "error", message: error.message })
                     logger.warn(error.message)

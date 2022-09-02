@@ -1,7 +1,5 @@
-const API_URL = process.env.REACT_APP_API_URL
-
-function changeNoteColor(token, noteId, color, callback){
-    //TODO INPUT VALIDATIONS
+function changeNoteColor(token, userNotes, noteId, color, callback){
+    //TODO input validations
     const xhr = new XMLHttpRequest
 
     xhr.onload = function() {
@@ -15,10 +13,12 @@ function changeNoteColor(token, noteId, color, callback){
             callback(null)
     }
     
+    const note = userNotes.find(note => note.id === noteId)
+    note.color = color
 
-    const newData = JSON.stringify({color})
+    const newData = JSON.stringify({notes: userNotes})
 
-    xhr.open('PATCH', `${API_URL}/notes/${noteId}`)
+    xhr.open('PATCH','https://b00tc4mp.herokuapp.com/api/v2/users')
 
     xhr.setRequestHeader('Authorization', `Bearer ${token}`)
     xhr.setRequestHeader('Content-type', 'application/json')

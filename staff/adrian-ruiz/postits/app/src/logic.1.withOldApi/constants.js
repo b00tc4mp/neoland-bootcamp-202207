@@ -7,8 +7,8 @@ const upperCaseLettersRegex = /[A-Z]/g
 const numbersRegex = /[0-9]/g
 const symbolsRegex = /[$-/:-?{-~!"^_`\[\]]/
 
-/* const regexUserId = /^user-+[0-9]{13,13}$/;
-const regexNoteId = /^note-+[0-9]{13,13}$/; */
+const regexUserId = /^user-+[0-9]{13,13}$/;
+const regexNoteId = /^note-+[0-9]{13,13}$/;
 
 export {
     requiredPass,
@@ -18,4 +18,6 @@ export {
     upperCaseLettersRegex,
     numbersRegex,
     symbolsRegex,
+    regexUserId,
+    regexNoteId
 }
