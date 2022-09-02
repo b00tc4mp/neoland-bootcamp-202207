@@ -30,7 +30,7 @@ function retrieveUser(token, callback) {
 
     // request
 
-    xhr.open('GET', 'https://b00tc4mp.herokuapp.com/api/v2/users')
+    xhr.open('GET', 'http://localhost:8080/api/users')
 
     xhr.setRequestHeader('Authorization', `Bearer ${token}`)
 

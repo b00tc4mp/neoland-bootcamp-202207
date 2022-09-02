@@ -14,7 +14,7 @@ const { validateObjectId } = require("../../validators")
  * @throws {FormatError} If the user id is not valid
  */
 
-module.exports = function(userId) { 
+module.exports = function(userId, text = '') { 
     validateObjectId(userId)
 
     return User.findById(userId).lean()
@@ -24,7 +24,7 @@ module.exports = function(userId) {
         })
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
-            return Note.create({ user: user._id })
+            return Note.create({ user: user._id, text })
                 .catch(error => {
                     throw new SystemError(error.message)
                 })

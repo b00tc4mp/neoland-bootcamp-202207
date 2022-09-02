@@ -1,5 +1,5 @@
 const { verifyToken, logger, errorHandler } = require('../../utils')
-const { CredentialsError } = require('../../errors')
+const { TokenError } = require('../../errors')
 const { updatePassword } = require('../../logic')
 
 module.exports = (req, res) => {
@@ -10,7 +10,7 @@ module.exports = (req, res) => {
 
         updatePassword(userId, oldPassword, newPassword)
             .then(() => {
-                res.status(200).send()
+                res.status(204).send()
                 logger.info(`user ${userId} updated password`)
             })
             .catch(error => {
@@ -18,7 +18,7 @@ module.exports = (req, res) => {
                 return
             })
     } catch (error) {
-        if (error instanceof TypeError) error = new CredentialsError(error) // por si viene del substring, cambiarlo
+        if (error instanceof TypeError) error = new TokenError(error) // por si viene del substring, cambiarlo
         errorHandler(error, res)
         return
     }

@@ -11,6 +11,14 @@ const { logger } = require('./utils');
 
     logger.info('db connected')
 
+    api.use((req, res, next) => {
+        res.setHeader('Access-Control-Allow-Origin', '*')
+        res.setHeader('Access-Control-Allow-Methods', '*')
+        res.setHeader('Access-Control-Allow-Headers', '*')
+
+        next()
+    })
+
     api.use('/api', usersRouter, notesRouter, homeRouter)
 
     api.listen(8080, () => logger.info('api started'))

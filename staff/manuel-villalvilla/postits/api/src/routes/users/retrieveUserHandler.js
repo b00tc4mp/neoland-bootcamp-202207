@@ -1,6 +1,6 @@
 const { verifyToken, logger, errorHandler } = require('../../utils')
 const { retrieveUser } = require('../../logic')
-const { CredentialsError } = require('../../errors')
+const { TokenError } = require('../../errors')
 
 module.exports = (req, res) => {
     try {
@@ -16,7 +16,7 @@ module.exports = (req, res) => {
                 return
             })
     } catch (error) {
-        if (error instanceof TypeError) error = new CredentialsError(error) // por si viene del substring, cambiarlo
+        if (error instanceof TypeError) error = new TokenError(error) // por si viene del substring, cambiarlo
         errorHandler(error, res)
         return
     }

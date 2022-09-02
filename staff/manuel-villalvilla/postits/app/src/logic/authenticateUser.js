@@ -35,11 +35,11 @@ function authenticateUser(email, password, callback) {
 
     // request
     
-    xhr.open('POST', 'https://b00tc4mp.herokuapp.com/api/v2/users/auth')
+    xhr.open('POST', 'http://localhost:8080/api/users/auth/')
 
     xhr.setRequestHeader('Content-type', 'application/json')
 
-    xhr.send(`{ "username": "${email}", "password": "${password}" }`)
+    xhr.send(`{ "email": "${email}", "password": "${password}" }`)
     
 }
 

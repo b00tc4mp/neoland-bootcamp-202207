@@ -1,5 +1,5 @@
 const { verify, JsonWebTokenError, NotBeforeError, TokenExpiredError } = require('jsonwebtoken')
-const { CredentialsError, SystemError } = require('../errors')
+const { TokenError, SystemError } = require('../errors')
 
 module.exports = function (token) {
     try {
@@ -7,7 +7,7 @@ module.exports = function (token) {
         return payload.sub
     } catch (error) {
         if (error instanceof JsonWebTokenError || error instanceof NotBeforeError || error instanceof TokenExpiredError)
-            throw new CredentialsError(error.message)
+            throw new TokenError(error.message)
 
         else
             throw new SystemError(error.message) // preguntar por q pasa por aqui cuando modifico la segunda parte del token

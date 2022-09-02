@@ -21,8 +21,16 @@ module.exports = function (userId) {
         .catch(error => {throw new SystemError(error)})
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
-            return Note.find({ user: userId }).lean()
+            return Note.find({ user: userId }, 'text visibility createdAt modifiedAt').lean()
                 .catch(error => {throw new SystemError(error)})
-                .then(notes => notes)
+                .then(notes => {
+                    notes.forEach(note => {
+                        // sanitize
+                        note.id = note._id.toString()
+                        delete note._id
+                        delete note.__v
+                    })
+                    return notes
+                })
         })
 }

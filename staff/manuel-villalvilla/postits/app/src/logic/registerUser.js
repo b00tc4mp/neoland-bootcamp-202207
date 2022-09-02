@@ -28,11 +28,11 @@ function registerUser(name, email, password, callback) {
 
     // request
 
-    xhr.open('POST', 'https://b00tc4mp.herokuapp.com/api/v2/users')
+    xhr.open('POST', 'http://localhost:8080/api/users/')
 
     xhr.setRequestHeader('Content-type', 'application/json')
 
-    xhr.send(`{ "name": "${name}", "username": "${email}", "password": "${password}" }`)
+    xhr.send(`{ "name": "${name}", "email": "${email}", "password": "${password}" }`)
 
 }
 

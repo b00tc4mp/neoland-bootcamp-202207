@@ -1,15 +1,16 @@
-const { verifyToken, logger, errorHandler } = require('../../utils')
-const { createNote } = require('../../logic')
+const { deleteNote } = require('../../logic')
 const { TokenError } = require('../../errors')
+const { errorHandler, logger, verifyToken } = require('../../utils')
 
 module.exports = (req, res) => {
     try {
-        const token = req.headers.authorization.substring(7)
+        const { headers: { authorization }, params: { noteId } } = req
+        const token = authorization.substring(7)
         const userId = verifyToken(token)
-        createNote(userId)
+        deleteNote(userId, noteId)
             .then(() => {
-                res.json()
-                logger.info(`user ${userId} created blank note`)
+                res.status(204).json()
+                logger.info(`user ${userId} deleted note ${noteId}`)
             })
             .catch(error => {
                 errorHandler(error, res)

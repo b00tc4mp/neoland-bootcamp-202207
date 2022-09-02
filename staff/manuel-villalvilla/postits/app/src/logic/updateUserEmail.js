@@ -12,7 +12,7 @@ function updateUserEmail (token, newEmail, callback) {
 
 
     const newData = {
-        username: newEmail
+        email: newEmail
     }
 
     const xhr = new XMLHttpRequest
@@ -30,7 +30,7 @@ function updateUserEmail (token, newEmail, callback) {
         }
     }
 
-    xhr.open('PATCH', 'https://b00tc4mp.herokuapp.com/api/v2/users')
+    xhr.open('PATCH', 'http://localhost:8080/api/users/')
 
     xhr.setRequestHeader('Authorization', `Bearer ${token}`)
     xhr.setRequestHeader('Content-type', 'application/json')

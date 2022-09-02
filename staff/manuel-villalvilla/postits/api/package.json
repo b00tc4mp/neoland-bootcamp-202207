@@ -7,10 +7,11 @@
     "start": "node ./src",
     "test": "jest ./src/* --runInBand --testTimeout=60000",
     "test-inspect": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --testTimeout=60000",
-    "test-coverage": "jest --runInBand --testTimeout=60000 --collectCoverage ./src/*",
+    "test-coverage": "jest --runInBand --testTimeout=60000 --collectCoverage",
     "nodemon": "npx nodemon ./src",
     "inspect": "node --inspect-brk ./src",
-    "inspect-cli": "node --inspect ./src"
+    "inspect-cli": "node --inspect ./src",
+    "populate": "node ./src/populate.js"
   },
   "keywords": [],
   "author": "",
