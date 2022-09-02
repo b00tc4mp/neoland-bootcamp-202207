@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <!-- favicon Llama -->
+    <link rel="icon" type="image/x-icon" href="faviconLlama.ico">
+    <!-- btn_bar-->
+    <script src="https://kit.fontawesome.com/2d3058ce83.js" crossorigin="anonymous"></script>
+    <!-- btn_LOGIN USER-->
+    <script src="https://kit.fontawesome.com/bacd1694d9.js" crossorigin="anonymous"></script>
+    <!-- btn_carShop -->
+    <script src="https://kit.fontawesome.com/6b709d27c5.js" crossorigin="anonymous"></script>
+    <!-- btn_search -->
+    <script src="https://kit.fontawesome.com/a63e24d539.js" crossorigin="anonymous"></script>
+    <title>HOME</title>
+    <script src="main.js" defer></script>
+</head>
+
+<body>
+    <!--=============================== HOME ===============================-->
+    <main class="container_home home_page  ">
+        <div class=" header_home">
+            <div class="cont__header">
+                <!-- <h1 class="messageTitle"> TIENDA ·$·$·$!!</h1> -->
+                <!-- img Luanna recortada -->
+                <img class="img img-home" src="https://i.postimg.cc/rsZvhCvh/169506285-136925785104495-7194486606775599435-n.jpg" alt="">
+                <div class="btn__login">
+                    <i class="fa-solid fa-user"><img src="" alt=""></i>
+                </div>
+                <div class="btn__search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <div class="btn__carShop">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </div>
+                <!-- <button class="btn__login " id="btn-login">LOGIN</button> -->
+                <!-- <button class="btn__register " id="btn-register">REGISTER</button> -->
+                <div class="btn__bar off">
+                    <span class="fas fa-bars " class="off" id="btn-menu"></span>
+                </div>
+            </div>
+
+            <nav class="nav-home" id="nav-home">
+                <ul class="menu-home">
+                    <li class="menu-item"><a class="menu__link">Menu1</a></li>
+                    <li class="menu-item"><a class="menu__link">Menu2</a> </li>
+                    <li class="menu-item"><a class="menu__link">Menu3</a> </li>
+                    <li class="menu-item"><a class="menu__link">Cerrar sesion</a> </li>
+                </ul>
+            </nav>
+        </div>
+    </main>
+
+    <!--=============================== LOGIN=============================== -->
+    <main class="login_page container off">
+        <div class="header_only">
+            <div class="cont__header">
+                <!-- <h1 class="messageTitle"> TIENDA ·$·$·$!!</h1> -->
+                <!-- img Luanna recortada -->
+                <div class="linkhomeLogin">
+                    <img class="img img-home " src="https://i.postimg.cc/ZY1nHGSz/logo-Luanna.png" alt="">
+                </div>
+            </div>
+        </div>
+        <form class="form form-login">
+
+            <img class="img img-login" src="https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg" alt="">
+
+            <div class="form__field">
+                <label class="label__movil">EMAIL</label>
+                <input class="input input-email" type="email" name="email" placeholder="Email" id="login-email">
+            </div>
+            <div class="form__field">
+                <label class="label__movil">PASSWORD</label>
+                <input class="input input-pass" type="password" name="password" placeholder="Password" id="login-pass">
+            </div>
+
+            <button class="button-login" type="submit">LOGIN</button>
+
+        </form>
+
+        <p class="nolink-register"> Not a member <a class="link link-register" href="#"> ! SINGUP NOW ¡</a></p>
+    </main>
+
+    <!-- ===============================REGISTER=============================== -->
+    <main class="register_page container off">
+        <div class="header_only">
+            <div class="cont__header">
+              <div class="linkhomeRegister">
+                <img class="img img-home " src="https://i.postimg.cc/ZY1nHGSz/logo-Luanna.png" alt="">
+            </div>
+                
+            </div>
+        </div>
+        <form class="form form-register">
+
+            <img class="img img-register" src="https://th.bing.com/th/id/OIP.8oRhQutdRIwwPM6f-eTiwwAAAA?pid=ImgDet&rs=1"
+                alt="">
+            <div class="form__field">
+                <label class="label__movil">USERNAME</label>
+                <input class="input input-user" type="text" name="name" placeholder="Username">
+            </div>
+            <div class="form__field">
+                <label class="label__movil">EMAIL</label>
+                <input class="input input-email" type="email" name="email" placeholder="Email">
+            </div>
+            <div class="form__field">
+                <label class="label__movil">PASSWORD</label>
+                <input class="input input-pass" type="password" name="password" placeholder="Password">
+            </div>
+
+            <button class="button-login" type="submit">SIGNUP</button>
+
+        </form>
+
+        <a class="link link-login" href="#">LOGIN</a>
+    </main>
+</body>
+
+</html>

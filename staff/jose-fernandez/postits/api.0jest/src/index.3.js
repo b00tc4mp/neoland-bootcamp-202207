@@ -1,23 +1,25 @@
 const { connect, disconnect } = require('mongoose')
 const express = require('express')
-const { DuplicityError, NotFoundError, AuthError, FormatError } = require('./errors')
+const { DuplicityError, NotFoundError, AuthError, FormatError} = require('./errors')
 const { registerUser, authenticateUser, retrieveUser, createNote } = require('./logic')
-const { createLogger } = require('./utils')
 
+const { sign, JsonWebTokenError, TokenExpiredError, NotBeforeError } = require('jsonwebtoken')
+const { verifyToken, createLogger } = require('./utils')
 const logger = createLogger(module) //arreglar
 
 connect('mongodb://localhost:27017/postits-test')
     .then(() => {
         logger.info('db connected')
         const api = express()
-        const { Router } = express
 
         const jsonBodyParser = express.json()
         // ... const body = JSON.parse(json) -> req.body = body
-        const usersRouter = Router()
-        usersRouter.post('/api/users', jsonBodyParser, (req, res) => {
-            runWithErrorHandling(() => {
+
+        api.post('/api/users', jsonBodyParser, (req, res) => {
+            try {
                 const { body: { name, email, password } } = req
+
+                // TODO check if user (email) already exists!
 
                 registerUser(name, email, password)
                     .then(() => res.status(201).send())
@@ -31,11 +33,17 @@ connect('mongodb://localhost:27017/postits-test')
 
                         return
                     })
-            }, res)
+            } catch (error) {
+                if (error instanceof TypeError || error instanceof FormatError)
+                    res.status(400).json({ error: error.message })
+                else
+                    res.status(500).json({ error: 'system error' })
+                logger.error(error)
+            }
         })
 
-        usersRouter.post('/api/users/auth', jsonBodyParser, (req, res) => {
-            runWithErrorHandling(() => {
+        api.post('/api/users/auth', jsonBodyParser, (req, res) => {
+            try {
                 const { body: { email, password } } = req
 
                 authenticateUser(email, password)
@@ -54,11 +62,18 @@ connect('mongodb://localhost:27017/postits-test')
                         logger.error(error)
                         return
                     })
-            })
+            } catch (error) {
+                if (error instanceof TypeError || error instanceof FormatError)
+                    res.status(400).json({ error: error.message })
+                else
+                    res.status(500).json({ error: 'system error' })
+
+                logger.error(error)
+            }
         })
 
-        usersRouter.get('/api/users', (req, res) => {
-            runWithErrorHandling(() => {
+        api.get('/api/users', (req, res) => {
+            try {
                 const userId = verifyToken(req)
 
                 retrieveUser(userId)
@@ -73,13 +88,22 @@ connect('mongodb://localhost:27017/postits-test')
 
                         return
                     })
-            })
+
+            } catch (error) {
+                if (error instanceof TypeError || error instanceof FormatError)
+
+                    res.status(400).json({ error: error.message })
+                else if (error instanceof JsonWebTokenError || error instanceof TokenExpiredError || error instanceof NotBeforeError)
+                    res.status(401).json({ error: 'token not valid' })
+                else
+                    res.status(500).json({ error: 'system error' })
+
+                logger.error(error)
+            }
         })
 
-
-
-        usersRouter.post('/api/notes', jsonBodyParser, (req, res) => {
-            runWithErrorHandling(() => {
+        api.post('/api/notes', jsonBodyParser, (req, res) => {
+            try {
                 const userId = verifyToken(req)
                 const { body: { text } } = req;
 
@@ -95,12 +119,18 @@ connect('mongodb://localhost:27017/postits-test')
                         logger.error(error)
                         return
                     })
-            }, res)
 
+            } catch (error) {
+                if (error instanceof TypeError || error instanceof FormatError)
+                    res.status(400).json({ error: error.message })
+                else if (error instanceof JsonWebTokenError || error instanceof TokenExpiredError || error instanceof NotBeforeError)
+                    res.status(401).json({ error: 'token not valid' })
+                else
+                    res.status(500).json({ error: 'system error' })
 
+                logger.error(error)
+            }
         })
-
-        api.use('/api', usersRouter, notesRouter)
 
         api.listen(8080, () => logger.info('api started'))
 
