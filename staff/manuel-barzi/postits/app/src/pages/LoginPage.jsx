@@ -1,6 +1,7 @@
 import Loggito from '../utils/Loggito'
 import authenticateUser from '../logic/authenticateUser'
 import withContext from '../utils/withContext'
+import { AuthError, ClientError, ServerError } from 'errors'
 
 function LoginPage({ onLinkClick, onLogIn, context: { handleFeedback } }) {
     const logger = new Loggito(LoginPage.name)
@@ -32,9 +33,15 @@ function LoginPage({ onLinkClick, onLogIn, context: { handleFeedback } }) {
         try {
             authenticateUser(email, password, (error, token) => {
                 if (error) {
-                    handleFeedback({ message: error.message, level: 'error'})
+                    if (error instanceof ServerError) {
+                        handleFeedback({ message: error.message, level: 'error' })
 
-                    logger.warn(error.message)
+                        logger.error(error.message)
+                    } else if (error instanceof ClientError || error instanceof AuthError) {
+                        handleFeedback({ message: error.message, level: 'warning' })
+
+                        logger.warn(error.message)
+                    }
 
                     return
                 }
@@ -46,7 +53,7 @@ function LoginPage({ onLinkClick, onLogIn, context: { handleFeedback } }) {
                 onLogIn()
             })
         } catch (error) {
-            handleFeedback({ message: error.message, level: 'error'})
+            handleFeedback({ message: error.message, level: 'error' })
 
             logger.warn(error.message)
         }

@@ -1,6 +1,6 @@
 const { connect, disconnect } = require('mongoose')
 const { User } = require('../../../models')
-const { DuplicityError, FormatError } = require('../../../errors')
+const { DuplicityError, FormatError } = require('errors')
 const registerUser = require('.')
 
 describe('registerUser', () => {

@@ -1,5 +1,5 @@
 const { Types: { ObjectId } } = require('mongoose')
-const { validateString } = require('../validators')
+const { validateString } = require('validators')
 
 function verifyObjectIdString(objectIdString, explain = 'id') {
     validateString(objectIdString, explain)
