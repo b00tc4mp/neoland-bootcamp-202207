@@ -1,3 +1,4 @@
+require('dotenv').config()
 const { NotFoundError } = require('errors')
 const { User, Note } = require('../models')
 const deleteNote = require('./deleteNote')
@@ -6,10 +7,11 @@ const chai = require('chai')
 const chaiaspromise = require('chai-as-promised')
 const expect = chai.expect
 chai.use(chaiaspromise)
+const { env : {MONGO_URL_TEST}} = process
 
 describe('deleteNote', () => {
 
-    before(() => connect('mongodb://localhost:27017/postits-test'))
+    before(() => connect(MONGO_URL_TEST))
 
     beforeEach(() => Promise.all([User.deleteMany(), Note.deleteMany()]))
 

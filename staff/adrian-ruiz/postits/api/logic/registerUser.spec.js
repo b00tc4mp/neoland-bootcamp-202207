@@ -1,11 +1,13 @@
+require('dotenv').config()
 const { connect, disconnect, Types: { ObjectId } } = require('mongoose')
 const { expect } = require('chai')
 const { User } = require('../models/')
 const registerUser = require('./registerUser')
 const { DuplicityError } = require('errors')
+const { env : {MONGO_URL_TEST}} = process
 
 describe('registerUser', () => {
-    before(() => connect('mongodb://localhost:27017/postits-test'))
+    before(() => connect(MONGO_URL_TEST))
 
     beforeEach(() => User.deleteMany())
 

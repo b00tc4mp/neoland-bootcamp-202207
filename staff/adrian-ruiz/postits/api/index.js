@@ -1,12 +1,15 @@
+require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const logger = require('./logger')(module)
+const { name, version } = require('./package.json')
 
+const {env : { MONGO_URL, PORT}} = process
     ; (async () => {
 
-        await mongoose.connect('mongodb://localhost:27017/postits')
+        await mongoose.connect(MONGO_URL)
 
-        logger.info('Connected to db: mongodb://localhost:27017/postits')
+        logger.info(`Connected to db: ${MONGO_URL}`)
 
         const api = express()
 
@@ -22,7 +25,7 @@ const logger = require('./logger')(module)
 
         api.use('/api', usersRouter, notesRouter)
 
-        api.listen(8080, () => { logger.info('api started') })
+        api.listen(PORT, () => { logger.info(`${name} v${version} started and listening in port ${PORT}`) })
 
         process.on('SIGINT', async () => { // similar a eventListener pero de node. SIGINT = CTRL+C         
             await mongoose.disconnect()

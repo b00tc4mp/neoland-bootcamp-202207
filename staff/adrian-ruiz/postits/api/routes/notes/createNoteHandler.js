@@ -11,7 +11,7 @@ function createNoteHandler(req, res){
 
         return (async () => {
             const noteId = await createNote(userId, title, text)
-
+            // TODO CHANGE TO 201 AND RETURN NOTE
             res.status(204).send()
 
             logger.info(`Note: ${noteId} created succesfully`)

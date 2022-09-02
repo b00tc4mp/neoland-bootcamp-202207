@@ -17,6 +17,11 @@ const note = new Schema({
         default: ''
     },
 
+    color: {
+        type: String,
+        default: '#7d19c4'
+    },
+
     visibility:{
         type: String,
         enum: ['private', 'public'],

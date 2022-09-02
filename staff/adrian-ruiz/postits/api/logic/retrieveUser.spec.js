@@ -1,3 +1,4 @@
+require('dotenv').config()
 const { connect, disconnect, Types: { ObjectId } } = require('mongoose')
 const chai = require('chai')
 const chaiaspromise = require('chai-as-promised')
@@ -6,10 +7,11 @@ chai.use(chaiaspromise)
 const retrieveUser = require('./retrieveUser')
 const { NotFoundError } = require('errors')
 const { User } = require('../models/index')
+const { env : {MONGO_URL_TEST}} = process
 
 describe('retrieveUser', () => {
 
-    before(() => connect('mongodb://localhost:27017/postits-test'))
+    before(() => connect(MONGO_URL_TEST))
 
     beforeEach(() => User.deleteMany())
 

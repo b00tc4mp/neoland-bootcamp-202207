@@ -7,12 +7,12 @@ function updateNoteHandler(req, res){
     runWithErrorHandling(async () => {
         const { userId } = await validateToken(req)
         
-        const { body: { title, text, visibility }} = req
+        const { body: { title, text, color, visibility }} = req
         const noteId = req.params.noteId
         debugger
 
         return (async () => {
-            await updateNote({userId, noteId, title, text, visibility})
+            await updateNote({userId, noteId, title, text, color, visibility})
 
             res.status(204).send()
 
