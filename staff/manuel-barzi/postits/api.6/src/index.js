@@ -1,7 +1,6 @@
 const { connect, disconnect } = require('mongoose')
-const { createLogger } = require('./utils')
+const { createLogger, cors } = require('./utils')
 const logger = createLogger(module)
-const cors = require('cors')
 
 connect('mongodb://localhost:27017/postits')
     .then(() => {
@@ -13,7 +12,7 @@ connect('mongodb://localhost:27017/postits')
         
         const { usersRouter, notesRouter } = require('./routes')   
         
-        api.use(cors())
+        api.use('*', cors)
         
         api.get('/', (req, res) => res.send('PostIts API v1.0 ;)'))
 
