@@ -5,5 +5,6 @@ module.exports = {
     validateEmail: require('./validateEmail'),
     validateName: require('./validateName'),
     validateCallback: require('./validateCallback'),
-    validateText: require('./validateText')
+    validateText: require('./validateText'),
+    validateString: require('./validateString')
 }
