@@ -1,0 +1,36 @@
+.loginPage {
+    display: grid;
+    grid-template-columns: 0.5fr 0.9fr 2.1fr 1fr 0.5fr;
+    grid-template-rows: 0.7fr 1.2fr;
+    gap: 60px 0px;
+    grid-auto-flow: row;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    grid-template-areas:
+        ". . loginForm__container . ."
+        ". carrusel__container carrusel__container carrusel__container .";
+    width: 100%;
+    height: 100%;
+    background-color: #42538D ;
+    padding: 3%;
+}
+
+
+.loginForm__container {
+    grid-area: loginForm__container;
+    width: 100%;
+    height: 100%;
+    max-width: 500px;
+    min-width: 350px;
+    background-color: white;
+}
+
+.carrusel__container {
+    width: 100%;
+    max-width: 1100px;
+    min-width: 700px;
+    height: 100%;
+    grid-area: carrusel__container;
+    background-color: white;
+}
