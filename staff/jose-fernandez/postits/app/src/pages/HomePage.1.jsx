@@ -155,13 +155,8 @@ function HomePage({ onLogoutClick, onFeedback }) {
                 {view === 'settings' && <Settings onCloseClick={handleReturnNoteList} email={email} onUpdateEmail={handleUpdateEmail} onFeedback={onFeedback} onUpdateName={handleUpdateName}/>}
             </main>
 
-            <footer className="footer_home">
-                {view === 'list' && <div className="btn_plus" onClick={handleAddClick}>
-                    <span className="material-symbols-outlined add">add</span>
-                </div>}
-            </footer>
+            <Footer/>
         </div>
-        :
-        null
+        
 }
 export default HomePage
