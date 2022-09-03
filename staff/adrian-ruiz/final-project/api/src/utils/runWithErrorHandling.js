@@ -1,7 +1,7 @@
 const { RegexError, AuthError, NotFoundError, DuplicityError, FormatError, NotFoundError404, BadRequestError } = require('errors')
 const { JsonWebTokenError, TokenExpiredError, NotBeforeError } = require('jsonwebtoken')
 
-async function runWithErrorHandling(callback, res) {
+async function runWithErrorHandling(callback, res, logger) {
     try {
         await callback()
     } catch (error) {
@@ -17,6 +17,7 @@ async function runWithErrorHandling(callback, res) {
             res.status(404).json({error: error.message})
         else res.status(500).json({ error: 'System error' })
 
+        logger.error(error)
 
     }
 }

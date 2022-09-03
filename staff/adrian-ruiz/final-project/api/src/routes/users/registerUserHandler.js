@@ -1,5 +1,6 @@
 const { runWithErrorHandling } = require('../../utils')
 const { users: {registerUser} } = require('../../logic')
+const logger = require('../../logger')(module)
 
 function registerUserHandler(req, res){
     runWithErrorHandling(async () => {
@@ -9,7 +10,7 @@ function registerUserHandler(req, res){
 
         res.status(201).send()
     
-    }, res)
+    }, res, logger)
 }
 
 module.exports = registerUserHandler

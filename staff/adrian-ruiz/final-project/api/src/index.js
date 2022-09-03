@@ -1,12 +1,13 @@
 const mongoose = require('mongoose')
 const { User, Company } = require('./models')
 const express = require('express')
+const logger = require('./logger')(module)
 
 
 ;(async () => {
 
     await mongoose.connect('mongodb://localhost:27017/ERP-testing')
-    console.log('connected to DB')
+    logger.info('Connected to DB')
 
     const api = express()
 
@@ -26,11 +27,11 @@ const express = require('express')
 
     api.use('/api', usersRouter)
 
-    api.listen(8080, () => { 'API started in port 8080' })
+    api.listen(8080, () => { logger.info('API started and listening port 8080') })
 
     process.on('SIGINT', async () => { 
         await mongoose.disconnect()
-        console.log('db disconnected')
+        logger.info('DB disconnected')
         process.exit(0)  
     })
 })()

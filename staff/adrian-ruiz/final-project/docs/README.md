@@ -2,7 +2,11 @@
 
 ![](https://i.giphy.com/media/SEWEmCymjv8XDbsb8I/giphy.webp)
 
-TODO explain App .....
+This app will make your finances much easier. Forget about headaches when creating invoices, managing inventory...
+
+Use an All-in-One app to create Estimates, Invoices, Manage Stock, (future versions will also allow you to integrar all the accounting of your company)
+
+And all of that available anywhere, anytime thanks to its compatibility with all web devices. Forgot installing heavy programs on your computer.
 
 ## Functional Description
 
