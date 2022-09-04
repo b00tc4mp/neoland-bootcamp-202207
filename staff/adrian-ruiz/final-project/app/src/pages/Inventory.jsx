@@ -1,5 +1,6 @@
 import InventorySummaryBox from '../components/InventorySummaryBox'
 import './Inventory.css'
+import EnhancedTable from '../components/InventoryTable'
 
 function Inventory() {
     return (
@@ -16,7 +17,9 @@ function Inventory() {
                     <InventorySummaryBox category='Out of stock' color='red' stock='33' />
                 </div>
             </div>
-            <div className='inventory__products'></div>
+            <div className='inventory__products'>
+                <EnhancedTable />
+            </div>
         </div>
     )
 }
