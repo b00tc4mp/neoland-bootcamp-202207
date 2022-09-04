@@ -22,15 +22,14 @@ function Info() {
             </ul>
         </section>
 
-        <section className="container-section container">
+        <section className="container-section exp container">
             <div className="info-exp">
                 <h1>Biography</h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Nam voluptatem saepe cumque eius, eligendi sunt                     nesciunt! Incidunt tempore, pariatur libero dolorem reiciendis ipsa, explicabo laborum iusto ducimus quo repellendus architecto.
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing lit.Nam voluptatem saepe cumque eius, eligendi sunt nesciunt! Incidunt tempore, pariatur libero dolorem reiciendis ipsa, explicabo laborum iusto ducimus quo repellendus architecto.
                 </p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Nam voluptatem saepe cumque eius, eligendi sunt                     nesciunt! Incidunt tempore, pariatur libero dolorem reiciendis ipsa, explicabo laborum iusto ducimus quo repellendus architecto.
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing lit.Nam voluptatem saepe cumque eius, eligendi sunt nesciunt! Incidunt tempore, pariatur libero dolorem reiciendis ipsa, explicabo laborum iusto ducimus quo repellendus architecto.
                 </p>
+                <p>My interests lie in solving problems related to large-scale distributed web development and application development.</p>
                 <div className='info-exp--details'>
                     <div className="interests">
                         <h3>Interests</h3>
@@ -42,10 +41,29 @@ function Info() {
                         </ul>
                     </div>
                     <div className="education">
-                    <h3>Education</h3>
+                        <h3>Education</h3>
                         <ul className='ul-education'>
-                            <li>Lorem</li>
-                            <li>Lorem</li>
+                            <li>
+                                <div className='container-education'>
+                                    <img className='network-icon--img graduation' src="https://i.postimg.cc/TPBjJY1P/graduate-cap.png" alt="" />
+                                    <div className="description">
+                                        <p className='course'>Further Education</p>
+                                        <p className='institution'>IE PNP JLR</p>
+                                    </div>
+                                </div>
+                                <div className='container-education'>
+                                    <img className='network-icon--img graduation' src="https://i.postimg.cc/TPBjJY1P/graduate-cap.png" alt="" />
+                                    <div className="description">
+                                        <p className='course'>Further Education</p>
+                                        <p className='institution'>IE PNP JLR</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+
+                                </div>
+                            </li>
                         </ul>
                     </div>
 
@@ -53,16 +71,54 @@ function Info() {
             </div>
 
         </section>
-        {/* convertir skills a grid */}
-        <section className="container-section container"> 
-            <div className="info-skills">
-                <h1>Skills</h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Nam voluptatem saepe cumque eius, eligendi sunt                     nesciunt! Incidunt tempore, pariatur libero dolorem reiciendis ipsa, explicabo laborum iusto ducimus quo repellendus architecto.
-                </p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Nam voluptatem saepe cumque eius, eligendi sunt                     nesciunt! Incidunt tempore, pariatur libero dolorem reiciendis ipsa, explicabo laborum iusto ducimus quo repellendus architecto.
-                </p>
+       
+        <section className="container-section skills ">
+            <div className="grid-container skills">
+                <div className="grid-item 1">
+                    <h1>Skills</h1>
+                </div>
+                <div className="grid-item 2">
+                    <div className="featurette-icon">
+                        <img className='featurette-icon--img' src="https://i.postimg.cc/Kj3ZZ6RH/js.png" alt="" />
+                    </div>
+                    <h3>JavaScript</h3>
+                    <p>Express.js, React.js</p>
+                </div>
+                <div className="grid-item 3">
+                    <div className="featurette-icon">
+                        <img className='featurette-icon--img' src="https://i.postimg.cc/Kj3ZZ6RH/js.png" alt="" />
+                    </div>
+                    <h3>JavaScript</h3>
+                    <p>Express.js, React.js</p>
+                </div>
+                <div className="grid-item 4">
+                    <div className="featurette-icon">
+                        <img className='featurette-icon--img' src="https://i.postimg.cc/Kj3ZZ6RH/js.png" alt="" />
+                    </div>
+                    <h3>JavaScript</h3>
+                    <p>Express.js, React.js</p>
+                </div>
+                <div className="grid-item 5">
+                    <div className="featurette-icon">
+                        <img className='featurette-icon--img' src="https://i.postimg.cc/Kj3ZZ6RH/js.png" alt="" />
+                    </div>
+                    <h3>JavaScript</h3>
+                    <p>Express.js, React.js</p>
+                </div>
+                <div className="grid-item 6">
+                    <div className="featurette-icon">
+                        <img className='featurette-icon--img' src="https://i.postimg.cc/Kj3ZZ6RH/js.png" alt="" />
+                    </div>
+                    <h3>JavaScript</h3>
+                    <p>Express.js, React.js</p>
+                </div>
+                <div className="grid-item 7">
+                    <div className="featurette-icon">
+                        <img className='featurette-icon--img' src="https://i.postimg.cc/Kj3ZZ6RH/js.png" alt="" />
+                    </div>
+                    <h3>JavaScript</h3>
+                    <p>Express.js, React.js</p>
+                </div>
             </div>
 
         </section>
