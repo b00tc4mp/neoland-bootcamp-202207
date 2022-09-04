@@ -106,7 +106,6 @@ dl {
 ul.ul-interests li {
     font-size: 0.9rem;
 }
-
 .info-exp--details {
     display: flex;
     flex-direction: row;
@@ -160,69 +159,34 @@ section.skills {
     background-color: #eaf2fa;
 }
 
-section.skills div.grid-container.skills {
+section.skills div.container-skills {
     /* width: 100%;
     padding-right: 15px;
     padding-left: 15px; */
-    padding: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: space-evenly; */
+    
+    /* padding: 15px; */
     margin-right: auto;
     margin-left: auto;
     
 }
-
-.grid-container{
-    display:grid;
-    /* border: 2px solid blue; */
-    grid-template-rows: repeat(7);
-    grid-template-columns: 1fr;
-    /* grid-template-columns: repeat(auto-fit,minmax(120px, 1fr)); */
-    height: 100%;
-    
+.item--skills{
+    text-align: center;
+    /* margin: 10px 0; */
+    margin: 15px;
+    width: 100%;
+    background-color: aqua;
+    /* border: 1px solid aqua; */   
 }
-.grid-item h1{
-    font-size: 2.25rem;
-}
-.grid-item{
-    /* background-color: coral; */
-    border: 1px solid aqua;
-    padding-right: 15px;
-    padding-left: 15px;
+div.item--skills p{
     text-align: center;
 }
-.grid-item:first-child{
-    /* background: darkseagreen; */
-    grid-column: 1/2;
-    grid-row: 1/2;
-}
-.grid-item:nth-child(2){
-    /* background: burlywood; */
-    grid-column:1/2;
-    grid-row: 2/3; 
-}
-.grid-item:nth-child(3){
-    /* background: burlywood; */
-    grid-column:1/2;
-    grid-row: 3/4; 
-}
-.grid-item:nth-child(4){
-    /* background: burlywood; */
-    grid-column:1/2;
-    grid-row: 4/5; 
-}
-.grid-item:nth-child(5){
-    /* background: burlywood; */
-    grid-column:1/2;
-    grid-row: 5/6; 
-}
-.grid-item:nth-child(6){
-    /* background: burlywood; */
-    grid-column:1/2;
-    grid-row: 6/7; 
-}
-.grid-item:nth-child(7){
-    /* background: burlywood; */
-    grid-column:1/2;
-    grid-row: 7/8; 
+
+.item--skills.one{
+    margin: 10px;
+    background-color: transparent;
 }
 .featurette-icon{
     padding: 5px;
@@ -241,56 +205,52 @@ section.skills div.grid-container.skills {
 .grid-item p{
     text-align: center;
 }
-
 /* =================================================== */
+section.experience{
+    width: 100%;
+}
+.item--experience{
+    text-align: center;
+    /* margin: 10px 0; */
+    margin: 15px;
+    width: 100%;
+    background-color: aqua;
+    /* border: 1px solid aqua; */   
+}
+.container-experience{
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: auto;
+    margin-left: auto;
+}
+/* =================================================== */
+@media(min-width:476px){
+    .item--skills.one{
+        flex: 100%;
+        max-width: 100%;
+        
+    }
+    .item--skills{
+        flex: 43%;
+        max-width: 50%;
+        
+    } 
+}
+@media(min-width:576px){
+    .item--skills.one{
+        flex: 100%;
+        max-width: 100%;
+        
+    }
+    .item--skills{
+        flex: 27.33333333%;
+        max-width: 33.33333333%;
+        
+    } 
+}
 
-@media(min-width){
-    .grid-item:first-child{
-        background: #900;
-        grid-column: 1/3;
-        grid-row: 1/3;
-    }
-    
-    .grid-item:nth-child(2){
-        background: burlywood;
-        grid-column:1/2;
-        grid-row: 2/3; 
-    }
-    .grid-item:nth-child(3){
-        background: rgb(2, 0, 34);
-        grid-column:2/3;
-        grid-row: 2/3; 
-    }
-    .grid-item:nth-child(4){
-        background: #bbb;
-        grid-column:1/2;
-        grid-row: 3/4; 
-    }
-    .grid-item:nth-child(5){
-        background: cornflowerblue;
-        grid-column:2/3;
-        grid-row: 3/4; 
-    }
-    .grid-item:nth-child(6){
-        background: cornflowerblue;
-        grid-column:1/2;
-        grid-row: 4/5; 
-    }
-    .grid-item:nth-child(7){
-        background: cornflowerblue;
-        grid-column:2/3;
-        grid-row: 4/5; 
-    }
-    .grid-item:nth-child(8){
-        background: cornflowerblue;
-        grid-column:1/2;
-        grid-row: 5/6; 
-    }
-    .grid-item:nth-child(9){
-        background: cornflowerblue;
-        grid-column:2/3;
-        grid-row: 5/6; 
-    }
-    
-    
+@media(min-width:760px){
+    .info-exp{
+        padding-top: 15px;
+    }  
 }

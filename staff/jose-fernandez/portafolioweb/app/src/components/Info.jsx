@@ -73,46 +73,46 @@ function Info() {
         </section>
        
         <section className="container-section skills ">
-            <div className="grid-container skills">
-                <div className="grid-item 1">
+            <div className="container-skills">
+                <div className="item--skills one">
                     <h1>Skills</h1>
                 </div>
-                <div className="grid-item 2">
+                <div className="item--skills two">
                     <div className="featurette-icon">
                         <img className='featurette-icon--img' src="https://i.postimg.cc/Kj3ZZ6RH/js.png" alt="" />
                     </div>
                     <h3>JavaScript</h3>
                     <p>Express.js, React.js</p>
                 </div>
-                <div className="grid-item 3">
+                <div className="item--skills three">
                     <div className="featurette-icon">
                         <img className='featurette-icon--img' src="https://i.postimg.cc/Kj3ZZ6RH/js.png" alt="" />
                     </div>
                     <h3>JavaScript</h3>
                     <p>Express.js, React.js</p>
                 </div>
-                <div className="grid-item 4">
+                <div className="item--skills four">
                     <div className="featurette-icon">
                         <img className='featurette-icon--img' src="https://i.postimg.cc/Kj3ZZ6RH/js.png" alt="" />
                     </div>
                     <h3>JavaScript</h3>
                     <p>Express.js, React.js</p>
                 </div>
-                <div className="grid-item 5">
+                <div className="item--skills five">
                     <div className="featurette-icon">
                         <img className='featurette-icon--img' src="https://i.postimg.cc/Kj3ZZ6RH/js.png" alt="" />
                     </div>
                     <h3>JavaScript</h3>
                     <p>Express.js, React.js</p>
                 </div>
-                <div className="grid-item 6">
+                <div className="item--skills six">
                     <div className="featurette-icon">
                         <img className='featurette-icon--img' src="https://i.postimg.cc/Kj3ZZ6RH/js.png" alt="" />
                     </div>
                     <h3>JavaScript</h3>
                     <p>Express.js, React.js</p>
                 </div>
-                <div className="grid-item 7">
+                <div className="item--skills seven">
                     <div className="featurette-icon">
                         <img className='featurette-icon--img' src="https://i.postimg.cc/Kj3ZZ6RH/js.png" alt="" />
                     </div>
@@ -122,7 +122,30 @@ function Info() {
             </div>
 
         </section>
+        {/* change experience */}
+        <section className="container-section experience ">
+            <div className="container-experience">
+                <div className="item--skills one">
+                    <h1>Experience</h1>
+                </div>
+                <div className="item--skills two">
+                    <div className="featurette-icon">
+                        <img className='featurette-icon--img' src="https://i.postimg.cc/Kj3ZZ6RH/js.png" alt="" />
+                    </div>
+                    <h3>JavaScript</h3>
+                    <p>Express.js, React.js</p>
+                </div>
+                <div className="item--skills three">
+                    <div className="featurette-icon">
+                        <img className='featurette-icon--img' src="https://i.postimg.cc/Kj3ZZ6RH/js.png" alt="" />
+                    </div>
+                    <h3>JavaScript</h3>
+                    <p>Express.js, React.js</p>
+                </div>
+                
+            </div>
 
+        </section>
 
     </div>
 }
