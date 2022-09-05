@@ -4,7 +4,7 @@ const { NotFoundError } = require('../../../errors')
 const retrieveNotes = require('.')
 
 describe('retrieveNotes', () => {
-    beforeAll(() => connect('mongodb://localhost:27017/postits-test'))
+    beforeAll(() => connect('mongodb://127.0.0.1:27017/postits-test'))
 
     beforeEach(() => Promise.all([User.deleteMany(), Note.deleteMany()]))
 

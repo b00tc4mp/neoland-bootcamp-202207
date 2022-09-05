@@ -9,7 +9,6 @@ function retrieveUser(token, callback) {
     const xhr = new XMLHttpRequest
 
     // response
-
     xhr.onload = function () {
         const status = xhr.status
 

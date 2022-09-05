@@ -22,11 +22,9 @@ function retrieveNotes(token, callback) {
 
             const json = xhr.responseText
 
-            const data = JSON.parse(json)
+            const notes = JSON.parse(json)
 
-            const notes = data.notes ? data.notes : []
-
-            callback(null, notes)
+            callback(null, notes.reverse())
         }
     }
 
