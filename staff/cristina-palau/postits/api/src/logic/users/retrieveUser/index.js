@@ -1,20 +1,22 @@
 const { User } = require('../../../models')
-const { verifyObjectId } = require('../../../utils')
-const { NotFoundError } = require('../../../errors')
+const { verifyObjectIdString } = require('../../../utils')
+const { NotFoundError, SystemError } = require('errors')
 
 
-async function retrieveUser(userId) {
-  verifyObjectId(userId, 'user id')
+function retrieveUser(userId) {
+  verifyObjectIdString(userId, 'user id')
 
-  const user = await User.findById(userId, 'name email').lean()
+  return User.findById(userId, 'name email').lean()
+    .catch(error => {
+      throw new SystemError(error.message)
+    })
+    .then(user => {
+      if (!user) throw new NotFoundError(`user with userId ${userId} not found`)
 
-  if (!user) throw new NotFoundError(`user with userId ${userId} not found`)
-
-  else {
-    delete user._id
-
-    return user
-  }
+      delete user._id
+      
+      return user
+    })
 }
 
 module.exports = retrieveUser

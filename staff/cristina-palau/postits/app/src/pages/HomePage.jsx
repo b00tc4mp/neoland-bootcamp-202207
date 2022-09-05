@@ -3,7 +3,7 @@ import Loggito from '../utils/loggito'
 import retrieveUser from '../logic/retrieveUser'
 import retrieveNotes from '../logic/retrieveNotes'
 import createNote from '../logic/createNote'
-import updateNote from '../logic/updateNote'
+import updateNoteText from '../logic/updateNoteText'
 import deleteNote from '../logic/deleteNote'
 import Settings from '../components/Settings'
 import NoteList from '../components/NoteList'
@@ -89,7 +89,7 @@ function HomePage({ onLogoutClick, context: { handleFeedback } }) {
 
     const handleUpdateNote = (noteId, text) => {
         try {
-            updateNote(sessionStorage.token, noteId, text, error => {
+            updateNoteText(sessionStorage.token, noteId, text, error => {
                 if (error) {
                     handleFeedback({ message: error.message, level: 'error' })
 

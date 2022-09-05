@@ -1,20 +1,17 @@
 const { User } = require('../../../models')
-const { validateEmail, validatePassword } = require('../../../validators')
-const { AuthError, NotFoundError, FormatError } = require('../../../errors')
+const { validateEmail, } = require('validators')
+const { verifyObjectIdString } = require('../../../utils')
+const { DuplicityError, SystemError } = require('errors')
 
 
-async function retrieveUser(email, userId) {
-  
-  validateEmail(email)
+module.exports = function updateUserEmail(userId, newEmail) {
+  verifyObjectIdString(userId)
+  validateEmail(newEmail)
 
-  const user = await User.findOne({ _id: `${userId}` })
-
-  if (!user) throw new NotFoundError(`user with userId ${userId} not found`)
-
-  const userUpdated = await User.updateOne({_id: `${userId}`})
-  let user2 = { name: user.name, email: user.email }
-  
-  return user2
+  return User.updateOne({ _id: userId }, { $set: { email: newEmail } })
+    .then(() => { })
+    .catch(error => {
+      if (error.code === 11000) throw new DuplicityError(`user with email ${newEmail} already exists`)
+      throw new SystemError(error.message)
+    })
 }
-
-module.exports = retrieveUser

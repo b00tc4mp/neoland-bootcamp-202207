@@ -1,8 +1,11 @@
-function retrieveNotes(token, callback) {
-    if (typeof token !== 'string') throw new TypeError('tokennotes is not a string')
-    if (token.trim().length === 0) throw new Error('email is empty or blank')
+import { validateCallback, validateText } from 'validators'
+import { ClientError, ServerError } from 'errors'
 
-    if (typeof callback !== 'function') throw new TypeError('callback is not a function')
+const API_URL = process.env.REACT_APP_API_URL
+
+function retrieveNotes(token, callback) {
+    validateText(token)
+    validateCallback(callback)
 
     const xhr = new XMLHttpRequest
 
@@ -12,16 +15,16 @@ function retrieveNotes(token, callback) {
         const status = xhr.status
 
         if (status >= 500)
-            callback(new Error(`server error (${status})`))
+            callback(new ServerError(`server error (${status})`))
         else if (status >= 400)
-            callback(new Error(`client error (${status})`))
+            callback(new ClientError(`client error (${status})`))
         else if (status === 200) {
 
             const json = xhr.responseText
 
             const data = JSON.parse(json)
 
-            const notes = data.notes? data.notes : []
+            const notes = data.notes ? data.notes : []
 
             callback(null, notes)
         }
@@ -29,7 +32,7 @@ function retrieveNotes(token, callback) {
 
     // request
 
-    xhr.open('GET', 'https://b00tc4mp.herokuapp.com/api/v2/users')
+    xhr.open('GET', `${API_URL}/notes`)
 
     xhr.setRequestHeader('Authorization', `Bearer ${token}`)
 

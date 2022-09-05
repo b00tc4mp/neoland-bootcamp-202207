@@ -1,10 +1,10 @@
 const { connect, disconnect } = require('mongoose')
 const { User } = require('../../../models')
-const { DuplicityError } = require('../../../errors')
+const { DuplicityError } = require('errors')
 const registerUser = require('.')
 
 describe('registerUser', () => {
-    beforeAll(() => connect('mongodb://127.0.0.1:27017/postits-test'))
+    beforeAll(() => connect(MONGO_URL_TEST))
 
     beforeEach(() => User.deleteMany())
 

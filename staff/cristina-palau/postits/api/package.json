@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src",
+    "start-inspect": "node --inspect-brk src",
     "test": "npx jest --runInBand --setTimeout=60000 ./src/logic/*",
     "test-inspect": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --setTimeout=60000",
     "test-inspect-brk": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --setTimeout=60000",
@@ -18,10 +19,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.2",
+    "errors": "file:../errors",
     "express": "^4.18.1",
     "jsonwebtoken": "^8.5.1",
     "mongo": "^0.1.0",
     "mongoose": "^6.5.3",
+    "validators": "file:../validators",
     "winston": "^3.8.1"
   },
   "devDependencies": {

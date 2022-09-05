@@ -2,16 +2,17 @@ const { runWithErrorHandling, createLogger } = require('../../utils')
 const { users: { authenticateUser } } = require('../../logic')
 const { sign } = require('jsonwebtoken')
 const logger = createLogger(module)
+const { JWT_SECRET, JWT_EXP } = process.env
 
-module.exports = async (req, res) => {
-    runWithErrorHandling (async () => {
+module.exports = (req, res) => {
+    runWithErrorHandling(() => {
         const { body: { email, password } } = req
 
-        const userId = await authenticateUser(email, password)
+        return authenticateUser(email, password)
+            .then(userId => {
+                const token = sign({ sub: userId }, JWT_SECRET, { expiresIn: JWT_EXP })
 
-        const token = sign({ sub: userId }, 'frase random para el token', { expiresIn: '1h' })
-
-        res.json({ token })
-
+                res.json({ token })
+            })
     }, res, logger)
 }

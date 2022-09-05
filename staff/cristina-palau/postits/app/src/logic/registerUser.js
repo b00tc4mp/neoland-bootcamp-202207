@@ -1,49 +1,37 @@
-import { EMAIL_REGEX } from "./constants"
-import { PASS_REGEX } from "./constants"
+import { validateEmail, validatePassword, validateCallback, validateText } from 'validators'
+import { AuthError, ClientError, ServerError, UnknownError } from 'errors'
+
+const API_URL = process.env.REACT_APP_API_URL
 
 function registerUser(name, email, password, callback) {
-    if (typeof name !== 'string') throw new TypeError('name is not a string')
-    if (name.trim().length === 0) throw new Error('name is empty or blank')
-    if (email.length < 2) throw new Error('name length is not valid')
-    
-    if (typeof email !== 'string') throw new TypeError('email is not a string')
-    if (email.trim().length === 0) throw new Error('email is empty or blank')
-    if (email.length < 6) throw new Error('email length is not valid')
-    if (!EMAIL_REGEX.test(email)) throw new Error('email is not valid')
+    validateText(name)
+    validateEmail(email)
+    validatePassword(password)
+    validateCallback(callback)
 
-    if (typeof password !== 'string') throw new TypeError('password is not a string register')
-    if (password.trim().length === 0) throw new Error('password is empty or blank')
-    if (password.length < 8) throw new Error('password length is less than 8 characters')
-    if (!PASS_REGEX.test(password)) {
-        const passError = document.querySelector('.passerror')
-        passError.classList.remove('off')
-        return
-    }
-
-    if (typeof callback !== 'function') throw new TypeError('callback is not a function')
 
     const xhr = new XMLHttpRequest
 
     // response
 
-    xhr.onload = function() {
+    xhr.onload = function () {
         const status = xhr.status
 
         if (status >= 500)
-            callback(new Error(`server error (${status})`))
+            callback(new ServerError(`server error (${status})`))
         else if (status >= 400)
-            callback(new Error(`client error (${status})`))
-        else if (status === 201) 
+            callback(new ClientError(`client error (${status})`))
+        else if (status === 201)
             callback(null);
     }
 
     // request
-    
-    xhr.open('POST', 'https://b00tc4mp.herokuapp.com/api/v2/users')
+
+    xhr.open('POST', `${API_URL}/users`)
 
     xhr.setRequestHeader('Content-type', 'application/json')
 
-    xhr.send(`{ "name": "${name}", "username": "${email}", "password": "${password}"}`)
+    xhr.send(`{ "name": "${name}", "email": "${email}", "password": "${password}"}`)
 }
 
 export default registerUser

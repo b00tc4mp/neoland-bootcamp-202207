@@ -1,5 +1,6 @@
 const { verify } = require('jsonwebtoken')
-const { validateText } = require('../validators')
+const { validateText } = require('validators')
+const { env: { JWT_SECRET } } = process
 
 module.exports = req => {
     const { headers: { authorization } } = req
@@ -8,7 +9,7 @@ module.exports = req => {
 
     const token = authorization.substring(7)
 
-    const payload = verify(token, 'frase random para el token')
+    const payload = verify(token, JWT_SECRET)
 
     const { sub: userId } = payload
 

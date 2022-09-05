@@ -1,19 +1,39 @@
 const { User, Note } = require('../../../models')
-const { NotFoundError } = require('../../../errors')
-const { verifyObjectId } = require('../../../utils')
-const { validateString } = require('../../../validators')
+const { NotFoundError, SystemError } = require('errors')
+const { verifyObjectIdString } = require('../../../utils')
+const { validateString } = require('validators')
 
-async function createNote(userId, text = '') {
-    verifyObjectId(userId, 'user id')
+/**
+ * Creates a note for a user.
+ * 
+ * @param {string} userId The user id.
+ * @param {string} text The note text.
+ * 
+ * @returns {Promise}
+ *
+ * @throws {TypeError} If any of the arguments does not match the expected type.
+ * @throws {FormatError} If any of the arguments does not match the expected format.
+ * 
+ * @throws {NotFoundError} If the user is not found.
+ */
+
+function createNote(userId, text = '') {
+    verifyObjectIdString(userId, 'user id')
     validateString(text, 'text')
 
-    const user = await User.findById(userId).lean()
+    return User.findById(userId).lean()
+        .catch(error => {
+            throw new SystemError(error.message)
+        })
+        .then(user => {
+            if (!user) throw new NotFoundError(`user with id ${userId} not found`)
 
-    if (!user) throw new NotFoundError(`user with id ${userId} not found`)
-    
-    await Note.create({ user: user._id, text })
-
-    return
+            return Note.create({ user: user._id, text })
+                .catch(error => {
+                    throw new SystemError(error.message)
+                })
+        })
+        .then(note => { })
 }
 
 module.exports = createNote

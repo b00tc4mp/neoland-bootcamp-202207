@@ -1,10 +1,10 @@
 const { connect, disconnect, Types: { ObjectId } } = require('mongoose')
 const { User } = require('../../../models')
-const { NotFoundError } = require('../../../errors')
+const { NotFoundError } = require('errors')
 const retrieveUser = require('.')
 
 describe('retrieveUser', () => {
-    beforeAll(() => connect('mongodb://127.0.0.1:27017/postits-test'))
+    beforeAll(() => connect(MONGO_URL_TEST))
 
     beforeEach(() => User.deleteMany())
 

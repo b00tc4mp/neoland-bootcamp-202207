@@ -1,11 +1,11 @@
 const { connect, disconnect } = require('mongoose')
 const { User } = require('../../../models')
-const { NotFoundError, AuthError } = require('../../../errors')
+const { NotFoundError, AuthError } = require('errors')
 const authenticateUser = require('.')
 
 describe('authenticateUser', () => {
     
-    beforeAll(() => connect('mongodb://127.0.0.1:27017/postits-test'))
+    beforeAll(() => connect(MONGO_URL_TEST))
 
     beforeEach(() => User.deleteMany())
 

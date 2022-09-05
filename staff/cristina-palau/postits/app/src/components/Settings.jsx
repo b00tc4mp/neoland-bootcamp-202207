@@ -17,13 +17,13 @@ function Settings({context: { handleFeedback }}) {
         const { target: form } = event
 
         const {
-            oldpassword: { value: oldPass },
-            newpassword: { value: newPass },
-            newpassword2: { value: newPass2 }
+            oldpassword: { value: oldPassword },
+            newpassword: { value: newPassword },
+            newpassword2: { value: newPasswordRepeat }
         } = form
 
         try {
-            updatePassword(sessionStorage.token, oldPass, newPass, newPass2, function (error) {
+            updatePassword(sessionStorage.token, oldPassword, newPassword, newPasswordRepeat, function (error) {
                 if (error) {
                 
                     handleFeedback({ message: error.message, level: 'warning'})

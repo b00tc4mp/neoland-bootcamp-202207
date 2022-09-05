@@ -1,31 +1,48 @@
+require('dotenv').config()
+
 const { connect, disconnect } = require('mongoose')
-const logger = require('./utils/createLogger')(module);
+const { createLogger } = require('./utils')
+const logger = createLogger(module)
+const cors = require('cors')
+const { name, version } = require('../package.json')
 
-    (async () => {
-        await connect('mongodb://127.0.0.1:27017/postits')
+const { env: { MONGO_URL, PORT } } = process
 
+connect(MONGO_URL)
+    .then(() => {
         logger.info('db connected')
-        
+
         const express = require('express')
 
         const api = express()
-        
+
         const { usersRouter, notesRouter } = require('./routes')
-        
+
+
+        api.use(cors())
+
+        api.get('/', (req, res) => res.send(`${name} v${version} ;)`))
+
         api.use('/api', usersRouter, notesRouter)
 
-        api.listen(8080, () => logger.info('api started'))
+        api.listen(PORT, () => logger.info(`${name} v${version} started and listening in port ${PORT}`))
 
-        process.on('SIGINT', async () => {
+
+        process.on('SIGINT', () => {
             if (!process.stopped) {
                 process.stopped = true
 
                 logger.info('api stopped')
 
-                await disconnect()
-                logger.info('db disconnected')
-                process.exit(0)
+                disconnect()
+                    .then(() => {
+                        logger.info('db disconnected')
+                        process.exit(0)
 
+                    })
             }
         })
-    })()
+    })
+    .catch(error => {
+        logger.error(error)
+    })

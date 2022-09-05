@@ -1,21 +1,30 @@
 const { User } = require('../../../models')
-const { DuplicityError, SystemError } = require('../../../errors')
-const { validateEmail, validatePassword, validateText } = require('../../../validators')
+const { DuplicityError, SystemError } = require('errors')
+const { validateEmail, validatePassword, validateText } = require('validators')
 
-async function registerUser(name, email, password) {
+/**
+ * 
+ * @param {string} name 
+ * @param {string} email 
+ * @param {string} password 
+ * 
+ * 
+ * @returns 
+ */
 
+ function registerUser(name, email, password) {
     validateText(name, 'name')
     validateEmail(email)
     validatePassword(password)
 
-    const userFound = await User.findOne({ email: email })
+    return User.create({ name, email, password })
+        .then(user => {})
+        .catch(error => {
+            if (error.code === 11000)
+                throw new DuplicityError('user already exists')
 
-    if (userFound) throw new DuplicityError('user already exists')
-
-    await User.create({name, email, password})
-
-    return
-
+            throw new SystemError(error.message)
+        })
 }
 
 module.exports = registerUser

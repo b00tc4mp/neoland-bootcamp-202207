@@ -1,21 +1,22 @@
 const { User } = require('../../../models')
-const { validateEmail, validatePassword } = require('../../../validators')
-const { AuthError, NotFoundError} = require('../../../errors')
+const { NotFoundError, AuthError, SystemError } = require('errors')
+const { validateEmail, validatePassword } = require('validators')
 
-
-async function authenticateUser(email, password) {
+function authenticateUser(email, password) {
     validateEmail(email)
     validatePassword(password)
 
-    const userFounded = await User.findOne({ email: `${email}` })
+    return User.findOne({ email })
+        .catch(error => {
+            throw new SystemError(error.message)
+        })
+        .then(user => {
+            if (!user) throw new NotFoundError(`user with email ${email} not found`)
 
-    if (!userFounded) throw new NotFoundError(`user with email ${email} not found`)
+            if (user.password !== password) throw new AuthError('wrong password')
 
-    if (userFounded.password !== password) throw new AuthError('wrong password')
-
-    else
-        return userFounded.id
+            return user.id
+        })
 }
-
 
 module.exports = authenticateUser
