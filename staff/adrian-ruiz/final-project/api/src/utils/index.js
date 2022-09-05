@@ -1,3 +1,4 @@
 module.exports = {
-    runWithErrorHandling : require('./runWithErrorHandling')
+    runWithErrorHandling : require('./runWithErrorHandling'),
+    validateToken : require('./validateToken')
 }

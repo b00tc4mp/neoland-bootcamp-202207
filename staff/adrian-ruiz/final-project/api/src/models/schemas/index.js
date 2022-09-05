@@ -3,5 +3,6 @@ module.exports = {
     company : require('./company'),
     invoice : require('./invoice'),
     customer : require('./customer'),
-    inventoryItem: require('./inventoryItem')
+    inventoryItem: require('./inventoryItem'),
+    blacklist : require('./blacklist')
 }

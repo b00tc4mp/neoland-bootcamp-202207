@@ -1,4 +1,4 @@
-const { Schema } = require('mongoose')
+const { Schema, Types : {ObjectId} } = require('mongoose')
 
 const company = new Schema({
     name:{
@@ -11,6 +11,12 @@ const company = new Schema({
 
     legalId: {
         type: String,
+    },
+
+    admin: {
+        type: ObjectId,
+        ref: 'User'
+        // How to make it required. I need company to create user and I need user to create company??
     },
 
     telephone: {

@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const { User, Company } = require('./models')
 const express = require('express')
 const logger = require('./logger')(module)
 
@@ -11,7 +10,7 @@ const logger = require('./logger')(module)
 
     const api = express()
 
-    const { usersRouter } = require('./routes')
+    const { usersRouter, companiesRouter, inventoryRouter } = require('./routes')
 
 
    /*  
@@ -25,7 +24,7 @@ const logger = require('./logger')(module)
         next()
     }) */
 
-    api.use('/api', usersRouter)
+    api.use('/api', usersRouter, companiesRouter, inventoryRouter)
 
     api.listen(8080, () => { logger.info('API started and listening port 8080') })
 

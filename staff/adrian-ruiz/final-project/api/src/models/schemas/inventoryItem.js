@@ -27,6 +27,8 @@ const inventoryItem = new Schema({
         type: Number
     },
 
+    // cost: Number,
+
     averageCost: {
         type: Number
     },

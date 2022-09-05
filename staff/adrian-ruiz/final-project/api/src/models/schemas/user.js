@@ -23,9 +23,9 @@ const user = new Schema({
         ref: 'Company'
     },
 
-    rol: {
+    role: {
         type: String,
-        enum: ['admin', 'accountant', 'employer'],
+        enum: ['admin', 'accountant', 'employee'],
         required: true
     }
 

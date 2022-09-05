@@ -66,7 +66,7 @@ const invoice = new Schema({
     status : {
         type: String,
         required: true,
-        enum: ['Overdue', 'Pending', 'Paid'],
+        enum: ['Overdue', 'Pending', 'Paid'], // TODO cambiar a minuscula
         default: 'Pending'
     }
 })
