@@ -1,4 +1,4 @@
-const { FormatError } = require('../errors')
+const { FormatError } = require('errors')
 
 function validateText(text, explain = 'text') {
     if (typeof text !== 'string') throw new TypeError(`${explain} is not a string`)

@@ -1,3 +1,4 @@
+const API_URL = process.env.REACT_APP_API_URL
 function retrieveUser(token, callback) {
     //condicionales de entrada en el input
     //Si el token no es string, muestro el error ...
@@ -44,7 +45,7 @@ function retrieveUser(token, callback) {
     //request
 
     //el metodo open es para crear una conexion con el servidor remoto(iniciarlizar la conexion) 
-    xhr.open('GET', 'https://b00tc4mp.herokuapp.com/api/v2/users')
+    xhr.open('GET', `${API_URL}/users`)
 
     //el metodo setRequestHeader establece el valor de un encabezado de solicitud HTTP. Debe llamar después de open(), pero antes de send().setRequestHeader()
     xhr.setRequestHeader('Authorization', `bearer ${token}`)

@@ -1,5 +1,5 @@
 import {EMAIL_REGEX} from './constants'
-
+const API_URL = process.env.REACT_APP_API_URL
 function registerUser(name, email, password, callback) {
     // TODO validate inputs
     //condicionales de entrada en el input
@@ -42,13 +42,13 @@ function registerUser(name, email, password, callback) {
     //request
 
     //el metodo open es para crear una conexion con el servidor remoto(iniciarlizar la conexion) 
-    xhr.open('POST', 'https://b00tc4mp.herokuapp.com/api/v2/users')
+    xhr.open('POST', `${API_URL}/v2/users`)
 
     //el metodo setRequestHeader establece el valor de un encabezado de solicitud HTTP. Debe llamar después de open(), pero antes de send().setRequestHeader()
     xhr.setRequestHeader('Content-type', 'application/json')
 
     //el metodo send es para el envio de la solicitud al servidor
-    xhr.send(`{"name": "${name}","username": "${email}","password": "${password}"}`)
+    xhr.send(`{"name": "${name}","email": "${email}","password": "${password}"}`)
 }
 
 // registerUser("jose fer", "jose@fer.com", "123123123", console.log)
