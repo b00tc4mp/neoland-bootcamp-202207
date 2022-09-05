@@ -7,21 +7,23 @@ import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
 function Dashboard() {
 
-   
+
     return (
+
         <div className="dashboardGrid">
             <div className="header">
                 <Header />
             </div>
             <div className="sidebar">
-                <Sidebar/>
+                <Sidebar />
             </div>
             <Routes>
-                <Route path='inventory' element={<Inventory/>} />
+                <Route path='inventory' element={<Inventory />} />
                 <Route path='/*' element={<SummaryReports />} />
             </Routes>
-            
+
         </div>
+
     )
 }
 
