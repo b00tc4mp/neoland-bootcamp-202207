@@ -1,6 +1,8 @@
 import registerUser from '../logic/registerUser'
 import Loggito from '../utils/loggito'
 import withContext from '../utils/withContext'
+import logoAnimado from '../images/logoAnimado.gif'
+
 
 function RegisterPage({ onRegister, onLinkClick, context: { handleFeedback } }) {
 
@@ -12,7 +14,6 @@ function RegisterPage({ onRegister, onLinkClick, context: { handleFeedback } }) 
         event.preventDefault()
 
         const { target: form } = event
-
         const { name: { value: name },
             email: { value: email },
             password: { value: password }
@@ -30,11 +31,9 @@ function RegisterPage({ onRegister, onLinkClick, context: { handleFeedback } }) 
                 }
 
                 handleFeedback({ message: 'your user has been registered', level: 'success' })
-
                 event.target.reset()
-
+                
                 onRegister()
-
             })
         } catch (error) {
 
@@ -42,7 +41,6 @@ function RegisterPage({ onRegister, onLinkClick, context: { handleFeedback } }) 
 
             logger.warn(error.message)
         }
-
     }
 
     const handleLinkClick = event => {
@@ -53,25 +51,23 @@ function RegisterPage({ onRegister, onLinkClick, context: { handleFeedback } }) 
 
     logger.info('render')
 
-    return <main className="register-page page">
-        <form className="form" method="get" onSubmit={handleFormSubmit}>
-
-            <label htmlFor="name">User</label>
-            <input className="input" type="text" name="name" placeholder="name" id="name-reg" />
-
-            <label htmlFor="email">Email</label>
-            <input className="input" type="email" name="email" placeholder="e-mail" id="email-reg" />
-
-
-            <label htmlFor="password">Password</label>
-            <input className="input" type="password" name="password" placeholder="password" id="password-reg" />
-
-            <button className="button" type="submit">Register</button>
-
+    return <main className="page registerPage">
+        <img className="logo"  alt="logo" src={logoAnimado}/>
+        <form className="form loginForm" method="get" onSubmit={handleFormSubmit}>
+            <label className="formLabel" htmlFor="name">Nombre</label>
+            <input className="input" type="name" name="name" placeholder="nombre" id="name" />
+            <label className="formLabel" htmlFor="email">Email</label>
+            <input className="input" type="email" name="email" placeholder="e-mail" id="email" />
+            <label className="formLabel" htmlFor="password">Contraseña</label>
+            <input className="input" type="password" name="password" placeholder="contraseña" id="password" />
+            <button className="button" type="submit">Continuar</button>
         </form>
         <a className="anchor" href="login-page.html" onClick={handleLinkClick}>Login</a>
-    </main>
+    </main >
+
 }
 
 export default withContext(RegisterPage)
+
+
 
