@@ -5,6 +5,7 @@ const { sign } = require('jsonwebtoken')
 
 function authenticateUserHandler(req, res){
     runWithErrorHandling(async () => {
+
         const { body: { email, password } } = req
 
         const {userId, companyId} = await authenticateUser(email, password)

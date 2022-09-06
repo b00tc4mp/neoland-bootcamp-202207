@@ -13,6 +13,11 @@ const invoice = new Schema({
     },
 
     customer:{  // PUEDO HACER UN REF A UN ID DE LA DB CUSTOMERS Y SACAR TODOS LOS DATOS DE AHI? -> NO TENDRIA SENTIDO PORQUE EN UNA FACTURA EL CLIENTE PODRIA TENER ALGUN DATO DIFERENTE A LO CORRESPONDIENTE EN SU DB
+        refId : {
+            type: ObjectId,
+            ref: 'Customer',
+            required: true
+        },
         name : {
             required: true,
             type: String
@@ -66,8 +71,8 @@ const invoice = new Schema({
     status : {
         type: String,
         required: true,
-        enum: ['Overdue', 'Pending', 'Paid'], // TODO cambiar a minuscula
-        default: 'Pending'
+        enum: ['overdue', 'pending', 'paid'], 
+        default: 'pending'
     }
 })
 

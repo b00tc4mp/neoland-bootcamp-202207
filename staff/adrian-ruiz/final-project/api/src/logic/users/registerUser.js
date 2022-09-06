@@ -19,7 +19,10 @@ function registerUser(name, email, password, companyId, role) {
 
         if (!companyFound) throw new NotFoundError(`Company with ID ${companyId} not found`)
 
-        await User.create({ name, email, password, company: companyId, role })
+        const user = await User.create({ name, email, password, company: companyId, role })
+
+        companyFound.users.push(user.id)
+        companyFound.save()
     })()
 }
 

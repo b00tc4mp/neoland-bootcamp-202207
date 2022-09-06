@@ -4,9 +4,9 @@ const logger = require('../../logger')(module)
 
 function registerUserHandler(req, res){
     runWithErrorHandling(async () => {
-        const { body: { name, email, password, companyId, rol } } = req
+        const { body: { name, email, password, companyId, role } } = req
 
-        await registerUser(name, email, password, companyId, rol)
+        await registerUser(name, email, password, companyId, role)
 
         res.status(201).send()
     

@@ -12,9 +12,30 @@ const estimate = new Schema({
         required: true
     },
 
-    customer:{  
-        required: true,
-        ref: 'Customer'
+    customer:{
+        refId : {
+            type: ObjectId,
+            ref: 'Customer',
+            required: true
+        },
+        name : {
+            required: true,
+            type: String
+        },
+
+        billingAddress: {
+            required : true,
+            type: String
+        },
+
+        shippingAddress: {
+            type: String
+        },
+
+        email: {
+            type: String,
+            required: true
+        }
     },
 
     terms: {
@@ -40,8 +61,8 @@ const estimate = new Schema({
     status : {
         type: String,
         required: true,
-        enum: ['Accepted', 'Rejected', 'Pending'],
-        default: 'Pending'
+        enum: ['accepted', 'rejected', 'pending'],
+        default: 'pending'
     }
 })
 

@@ -14,11 +14,13 @@ const customer = new Schema({
 
     contactName: {
         firstName: {
-            type: String
+            type: String,
+            required: true
         },
         lastName: {
             type: String
-        }
+        },
+        required: false
     },
 
     email: {

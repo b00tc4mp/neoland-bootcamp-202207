@@ -1,8 +1,8 @@
 const { InventoryItem , Company } = require('../../models')
-const { NotFoundError, DuplicityError } = require('errors')
+const { NotFoundError, DuplicityError, FormatError } = require('errors')
 const { Types: { ObjectId } } = require('mongoose')
 
-function createInventoryItem({company, name, sku, category, cost, averageCost, description, minStock, stock}){
+function createInventoryItem(company, { name, sku, category, cost, averageCost, description, minStock, stock}){
     //TODO VALIDATE INPUTS
     if (!(ObjectId.isValid(company))) throw new FormatError('Company ID is not valid');
 

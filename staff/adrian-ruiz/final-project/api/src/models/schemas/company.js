@@ -1,4 +1,5 @@
 const { Schema, Types : {ObjectId} } = require('mongoose')
+const user = require('./user')
 
 const company = new Schema({
     name:{
@@ -19,6 +20,11 @@ const company = new Schema({
         // How to make it required. I need company to create user and I need user to create company??
     },
 
+    users: [{
+        type: ObjectId,
+        ref: 'User'
+    }],
+
     telephone: {
         type: Number
     },
@@ -33,7 +39,8 @@ const company = new Schema({
 
     postalAddress: {
         street : {
-            type : String
+            type : String,
+            req: true
         },
         town : {
             type : String
@@ -46,12 +53,14 @@ const company = new Schema({
         },
         country : {
             type : String
-        }
+        },
+        req : false
     },
 
     physicalAddress: {
         street : {
-            type : String
+            type : String,
+            req : true
         },
         town : {
             type : String
@@ -64,7 +73,8 @@ const company = new Schema({
         },
         country : {
             type : String
-        }
+        },
+        req : false
     },
 
     sector: {

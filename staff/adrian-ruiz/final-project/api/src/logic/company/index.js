@@ -1,3 +1,5 @@
 module.exports = {
-    registerCompany : require('./registerCompany')
+    registerCompany : require('./registerCompany'),
+    updateCompanyDetails : require('./updateCompanyDetails'),
+    deleteCompany : require('./deleteCompany')
 }

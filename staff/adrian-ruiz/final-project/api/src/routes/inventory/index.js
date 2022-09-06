@@ -1,4 +1,6 @@
 module.exports = {
     createInventoryItemHandler : require('./createInventoryItemHandler'),
-    updateInventoryItemHandler : require('./updateInventoryItemHandler')
+    updateInventoryItemHandler : require('./updateInventoryItemHandler'),
+    deleteInventoryItemHandler : require('./deleteInventoryItemHandler'),
+    retrieveStockHandler : require('./retrieveStockHandler')
 }

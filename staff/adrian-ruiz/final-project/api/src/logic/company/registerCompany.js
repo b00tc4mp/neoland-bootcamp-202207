@@ -18,6 +18,7 @@ function registerCompany(name, email, password) {
         const newCompany = await Company.create({name: `${name}'s Company`, companyEmail: email })
         const newUser = await User.create({ name, email, password, company: newCompany.id, role : 'admin' })
         newCompany.admin = newUser.id
+        newCompany.users.push(newUser.id)
         newCompany.save()
     })()
 }
