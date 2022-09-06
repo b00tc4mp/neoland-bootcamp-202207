@@ -1,13 +1,10 @@
-// import Loggito from '../utils/Loggito'
+// import './RegisterPage.css'
+import IconButton from '../components/Buttons/IconButton'
 import registerUser from '../logic/registerUser'
 import withContext from '../utils/withContext'
 
-function RegisterPage({ onLinkClick, onSingUp, context: { handleFeedback } }) {
-    // const logger = new Loggito(RegisterPage.name)
+function RegisterPage({ onCloseClick, onLinkClick, onSingUp, context: { handleFeedback, theme } }) {
 
-
-    // logger.info('constructor')
-    // logger.info('return')
 
     const handleLinkClick = event => {
         event.preventDefault()
@@ -31,11 +28,11 @@ function RegisterPage({ onLinkClick, onSingUp, context: { handleFeedback } }) {
                 if (error) {
                     handleFeedback({ message: error.message, level: 'error' })
 
-                    // logger.warn(error.message)
+
                     return
                 }
                 handleFeedback({ message: error.message, level: 'error' })
-                // logger.debug('registered user')
+
 
                 event.target.reset()
                 onSingUp()
@@ -44,15 +41,25 @@ function RegisterPage({ onLinkClick, onSingUp, context: { handleFeedback } }) {
         } catch (error) {
             handleFeedback({ message: error.message, level: 'error' })
 
-            // logger.warn(error.message)
+
         }
 
     }
 
+    const handleNavigationToHome = () => {
+        onCloseClick()
+    }
+
     return <main className="container register_page">
         <form className="form form-register" onSubmit={handleFormSubmit}>
+            {/* { theme==='dark' && <img className="img-register " src="https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg" alt="" />}
+                { theme==='light' && <img className="img-register " src="https://i.postimg.cc/mZqYhbGW/luanna-Logo.png" alt="" />} */}
+            <div className='container--btn-close'>
+                <IconButton addClass='btn-close' text='close' onClick={handleNavigationToHome} />
+            </div>
+
             <img className="img-register " src="https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg" alt="" />
-      
+
             <div className="form__field">
                 <label className="label__movil">USERNAME</label>
                 <input className="input input-user" type="text" name="name" placeholder="Username" />
@@ -73,5 +80,4 @@ function RegisterPage({ onLinkClick, onSingUp, context: { handleFeedback } }) {
         <a className="link link-login" href="#" onClick={handleLinkClick}>LOGIN</a>
     </main>
 }
-// export default RegisterPage
 export default withContext(RegisterPage)

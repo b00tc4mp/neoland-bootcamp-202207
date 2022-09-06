@@ -40,9 +40,9 @@ function App() {
 
         <div className="App container container--full container--width">
             <Routes>
-                <Route path='login' element={sessionStorage.token ? <Navigate to="/" /> : <LoginPage onLinkClick={handleNavigationToRegister} onLogIn={handleNavigationToHome} />}/>
+                <Route path='login' element={sessionStorage.token ? <Navigate to="/" /> : <LoginPage onCloseClick={handleNavigationToHome} onLinkClick={handleNavigationToRegister} onLogIn={handleNavigationToHome} />}/>
 
-                <Route path='register' element={sessionStorage.token ? <Navigate to="/" /> : <RegisterPage onLinkClick={handleNavigationToLogin} onSingUp={handleNavigationToLogin} />} />
+                <Route path='register' element={sessionStorage.token ? <Navigate to="/" /> : <RegisterPage onCloseClick={handleNavigationToHome} onLinkClick={handleNavigationToLogin} onSingUp={handleNavigationToLogin} />} />
 
                 <Route path='/*' element={<HomePage onLoginClick={handleNavigationToLogin}/> }/>
 

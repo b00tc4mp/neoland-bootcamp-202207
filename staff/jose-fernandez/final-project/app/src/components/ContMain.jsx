@@ -6,31 +6,39 @@ import withContext from '../utils/withContext'
 function ContMain() {
 
     const [view, setView] = useState('play')
-    const onPlayVideo = () => {
-        setView('stop')
-        // autoPlay='false'
-    }
+    let vid = document.getElementById("videoOne");
     const onStopVideo = () => {
         setView('play')
+        vid.play();
     }
+    const onPlayVideo = () => {
+        setView('stop')
+        vid.pause()
+    }
+
 
     return <div className="container ContMain">
         <section className="container-section promotionOne container">
             <div className='video-sectionOne'>
                 {/* <video className='video-promotionOne' controls src="https://brand.assets.adidas.com/video/upload/q_auto,vc_auto/video/upload/FW22-Outdoor-UBS-hero-launch-HP-Masthead-dual-m_cwpxqw.mp4" preload='auto' autoPlay type="video/mp4"></video> */}
-                <video className='video-promotionOne' autoPlay loop>
+                <video id='videoOne' className='video-promotionOne' autoPlay loop>
                     <source src="https://brand.assets.adidas.com/video/upload/q_auto,vc_auto/video/upload/FW22-Outdoor-UBS-hero-launch-HP-Masthead-dual-m_cwpxqw.mp4" type="video/mp4" />
                 </video>
             </div>
             <div className='control-play'>
-                {view === "play" && <a href="" onClick={onStopVideo}><img className='featurette-icon--img' src="https://i.postimg.cc/2yDYngbJ/pause.png" alt="" /></a>}
-                {view === "stop" && <a href="" onClick={onPlayVideo}><img className='featurette-icon--img' src="https://i.postimg.cc/mZQXnvMk/play.png" alt="" /></a>}
+                {view === "stop" && <a onClick={onStopVideo}><img className='featurette-icon--img' src="https://i.postimg.cc/mZQXnvMk/play.png" alt="" /></a>}
+                {view === "play" && <a onClick={onPlayVideo}><img className='featurette-icon--img' src="https://i.postimg.cc/2yDYngbJ/pause.png" alt="" /></a>}
             </div>
             <div className="container-portrait">
                 <div className="portrait-title">
-                    <h2>José María Fernández Paredes</h2>
-                    <h3>Informatic Engineer</h3>
-                    <h3><a href="https://www.javascript.com/">JavaScript</a></h3>
+                    <h2>LA CUMBRE NOS UNE</h2>
+                    <h3>¡Atentos! Las cumbres no entienden de mapas ni grados de dificultad. ¿Te atreves a encontrar la tuya?</h3>
+                    <div className='btn--portrait-title'>
+                        <a href="https://www.javascript.com/" >
+                            <span>MÁS INFORMACIÓN</span>
+                            <img className='featurette-icon--img' src="https://i.postimg.cc/KYqFk224/right-arrow.png" alt="" />
+                        </a>
+                    </div>
                 </div>
             </div>
 

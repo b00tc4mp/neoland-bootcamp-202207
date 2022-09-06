@@ -70,7 +70,7 @@ dl {
 .video-promotionOne{
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    /* object-fit: cover; */
     z-index: -1;
 }
 
@@ -101,6 +101,7 @@ button .control-play{
 .container-portrait{
     display: flex;
     justify-content: flex-start;
+    text-align: start;
     width: 90%;
     position: absolute;
 }
@@ -122,12 +123,31 @@ button .control-play{
 .portrait-title h3 {
     font-size: 1rem;
     font-weight: 300;
-    color: rgba(0, 0, 0, 0.54);
+    color: rgba(3, 3, 3, 0.54);
     margin: 0px 0 10px 0;
 }
 
 .portrait-title h3 a {
     text-decoration: none;
+}
+
+.btn--portrait-title{
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+}
+.btn--portrait-title a{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px;
+    background-color: #fff;
+    padding: 0 10px;
+    font-size: 14px;
+    width: 185px;
+    height: 45px;
+    text-decoration: none;
+    text-align: center;
 }
 
 .network-icon {
