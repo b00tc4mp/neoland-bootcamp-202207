@@ -8,7 +8,7 @@ import "./timeSelect.scss";
 
 const handleFormSubmit = () => {};
 
-function TeacherScreen3CreateQuestion({ pin, nameOfClass }) {
+function Teacher3CreateQuestion({ pin, nameOfClass }) {
   return (
     <div className="game-screen">
       <main className="game-screen-main flex--spaced">
@@ -62,4 +62,4 @@ function TeacherScreen3CreateQuestion({ pin, nameOfClass }) {
   );
 }
 
-export default TeacherScreen3CreateQuestion;
+export default Teacher3CreateQuestion;

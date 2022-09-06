@@ -7,7 +7,7 @@
 
 const handleFormSubmit = () => {};
 
-function TeacherScreen6ResponseStats({ pin, nameOfClass, stats }) {
+function Teacher6ResponseStats({ pin, nameOfClass, stats }) {
   return (
     <div className="game-screen">
       <main className="game-screen-main flex--spaced">
@@ -26,4 +26,4 @@ function TeacherScreen6ResponseStats({ pin, nameOfClass, stats }) {
   );
 }
 
-export default TeacherScreen6ResponseStats;
+export default Teacher6ResponseStats;

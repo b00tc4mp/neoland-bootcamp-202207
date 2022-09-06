@@ -1,3 +1,4 @@
+import { SOCKET } from "../SOCKET";
 // import "./ScreenTemplate.1.css";
 // import "./ScreenTemplate.1.scss";
 import Spinner from "../Spinner";
@@ -5,16 +6,18 @@ import Spinner from "../Spinner";
 
 // const handleLeaveClick = () => {};
 
-const handleFormSubmit = () => {};
+function Student2Connected({ nickname }) {
+  // let className =
 
-function ScreenStudent8WaitingForQuestion({
-  gameHeader,
-  gameMain,
-  gameFooter,
-}) {
+  // const handleFormSubmit = (event) => {};
+
   return (
     <div className="game-screen">
-      <main className="game-screen-main flex--space-around">
+      <main className="game-screen-main">
+        <p className="info">Connected as: {nickname}</p>
+        <span className="material-symbols-outlined tick-icon">
+          check_circle
+        </span>
         <p className="info">Waiting for question to be sent...</p>
         <Spinner />
       </main>
@@ -26,4 +29,4 @@ function ScreenStudent8WaitingForQuestion({
   );
 }
 
-export default ScreenStudent8WaitingForQuestion;
+export default Student2Connected;

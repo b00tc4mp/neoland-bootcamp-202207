@@ -1,20 +1,18 @@
 // import "./ScreenTemplate.1.css";
 // import "./ScreenTemplate.1.scss";
-// import Spinner from "./Spinner";
+import Spinner from "../Spinner";
 // import CountdownTimer from "./CountdownTimer";
 
 // const handleLeaveClick = () => {};
 
 const handleFormSubmit = () => {};
 
-function ScreenStudent6Correct() {
+function Student5WaitingForFeedback({ gameHeader, gameMain, gameFooter }) {
   return (
     <div className="game-screen">
       <main className="game-screen-main flex--space-around">
-        <span class="material-symbols-outlined feedback-icon">
-          sentiment_satisfied
-        </span>
-        <p className="info">Well done!</p>
+        <p className="info">Waiting for all responses to be sent...</p>
+        <Spinner />
       </main>
 
       <footer className="game-screen-footer">
@@ -24,4 +22,4 @@ function ScreenStudent6Correct() {
   );
 }
 
-export default ScreenStudent6Correct;
+export default Student5WaitingForFeedback;

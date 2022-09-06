@@ -7,7 +7,7 @@
 
 const handleFormSubmit = () => {};
 
-function TeacherScreen7ClassClosed({}) {
+function Teacher7ClassClosed({}) {
   return (
     <div className="game-screen">
       <main className="game-screen-main">
@@ -29,4 +29,4 @@ function TeacherScreen7ClassClosed({}) {
   );
 }
 
-export default TeacherScreen7ClassClosed;
+export default Teacher7ClassClosed;

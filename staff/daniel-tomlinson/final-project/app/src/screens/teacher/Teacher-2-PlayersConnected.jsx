@@ -11,7 +11,7 @@ const handleFormSubmit = () => {};
 const pin = "TODO: generate";
 const nameOfClass = "TODO: generate";
 
-function TeacherScreen2PlayersConnected({ pin, nameOfClass }) {
+function Teacher2PlayersConnected({ pin, nameOfClass }) {
   return (
     <div className="game-screen">
       <main className="game-screen-main flex--spaced">
@@ -33,4 +33,4 @@ function TeacherScreen2PlayersConnected({ pin, nameOfClass }) {
   );
 }
 
-export default TeacherScreen2PlayersConnected;
+export default Teacher2PlayersConnected;

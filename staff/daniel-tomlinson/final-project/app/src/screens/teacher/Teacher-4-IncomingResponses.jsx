@@ -7,7 +7,7 @@ import CountdownTimer from "../CountdownTimer";
 
 const handleFormSubmit = () => {};
 
-function TeacherScreen4IncomingResponses({
+function Teacher4IncomingResponses({
   pin,
   nameOfClass,
   timeLimit,
@@ -49,4 +49,4 @@ function TeacherScreen4IncomingResponses({
   );
 }
 
-export default TeacherScreen4IncomingResponses;
+export default Teacher4IncomingResponses;

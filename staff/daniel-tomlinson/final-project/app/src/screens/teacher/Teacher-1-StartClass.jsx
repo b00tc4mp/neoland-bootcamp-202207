@@ -6,7 +6,7 @@ import { SOCKET } from "../SOCKET";
 
 // const handleLeaveClick = () => {};
 
-function TeacherScreen1StartClass({ gameHeader, gameMain, gameFooter }) {
+function Teacher1StartClass({ handleScreenChangeT1 }) {
   const handleFormSubmit = (event) => {
     event.preventDefault();
 
@@ -16,10 +16,15 @@ function TeacherScreen1StartClass({ gameHeader, gameMain, gameFooter }) {
 
     const nameOfClass = nameOfClassInput.value;
 
+    const pin = Math.round(Math.random() * 100000000);
+
     form.reset();
 
-    SOCKET.emit("1", {
-      gameScreen: "Student1StartClass",
+    handleScreenChangeT1("Teacher2PlayersConnected", nameOfClass, pin);
+
+    SOCKET.emit("T1", {
+      gameScreen: "",
+      pin: { pin },
       nameOfClass: { nameOfClass },
     });
   };
@@ -44,7 +49,7 @@ function TeacherScreen1StartClass({ gameHeader, gameMain, gameFooter }) {
           </div>
 
           <button href="" type="submit" className="footer-button form-button">
-            Login
+            generate code
           </button>
         </form>
       </main>
@@ -54,4 +59,4 @@ function TeacherScreen1StartClass({ gameHeader, gameMain, gameFooter }) {
   );
 }
 
-export default TeacherScreen1StartClass;
+export default Teacher1StartClass;

@@ -7,7 +7,7 @@ import "../ScreenTemplate.1.scss";
 
 // const handleFormSubmit = () => {};
 
-function ScreenStudent3GetReady({ gameHeader, gameMain, gameFooter }) {
+function Student3GetReady({ gameHeader, gameMain, gameFooter }) {
   return (
     <div className="game-screen">
       <main className="game-screen-main flex--from-top">
@@ -63,4 +63,4 @@ function ScreenStudent3GetReady({ gameHeader, gameMain, gameFooter }) {
   );
 }
 
-export default ScreenStudent3GetReady;
+export default Student3GetReady;

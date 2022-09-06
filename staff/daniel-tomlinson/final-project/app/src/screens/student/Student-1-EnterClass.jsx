@@ -1,11 +1,40 @@
+import { SOCKET } from "../SOCKET";
 // import "./ScreenTemplate.1.css";
 // import "./ScreenTemplate.1.scss";
 // import Spinner from "./Spinner";
 // import CountdownTimer from "./CountdownTimer";
 
-const handleFormSubmit = () => {};
+function Student1EnterClass({ pin, nameOfClass, handleScreenChangeS1 }) {
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
 
-function ScreenStudent1EnterClass({ gameHeader, gameMain, gameFooter }) {
+    const form = event.target;
+
+    const pinInput = form.pin;
+    const nameOfClassInput = form.nameOfClass;
+    const nicknameInput = form.nickname;
+
+    const pinValue = pinInput.value;
+    const nameOfClassValue = nameOfClassInput.value;
+    const nickname = nicknameInput.value;
+
+    const pinString = String(pin.pin);
+    const nameOfClassString = nameOfClass.nameOfClass;
+
+    debugger;
+    if (pinString === pinValue && nameOfClassString === nameOfClassValue) {
+      SOCKET.emit("S1", {
+        gameScreen: "",
+        nickname: { nickname },
+      });
+      handleScreenChangeS1("Student2Connected", nickname);
+      form.reset();
+    } else {
+      alert(
+        `Could not find game with pin ${pinValue} and name ${nameOfClassValue}`
+      );
+    }
+  };
   return (
     <div className="game-screen">
       <main className="game-screen-main flex--spaced">
@@ -65,4 +94,4 @@ function ScreenStudent1EnterClass({ gameHeader, gameMain, gameFooter }) {
   );
 }
 
-export default ScreenStudent1EnterClass;
+export default Student1EnterClass;

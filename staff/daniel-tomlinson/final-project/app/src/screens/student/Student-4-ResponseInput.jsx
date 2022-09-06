@@ -7,7 +7,7 @@ import CountdownTimer from "../CountdownTimer";
 
 const handleFormSubmit = () => {};
 
-function ScreenStudent4ResponseInput({ question, timeLimit }) {
+function Student4ResponseInput({ question, timeLimit }) {
   return (
     <div className="game-screen">
       <main className="game-screen-main">
@@ -48,4 +48,4 @@ function ScreenStudent4ResponseInput({ question, timeLimit }) {
   );
 }
 
-export default ScreenStudent4ResponseInput;
+export default Student4ResponseInput;

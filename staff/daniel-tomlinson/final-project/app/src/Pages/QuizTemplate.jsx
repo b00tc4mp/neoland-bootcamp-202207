@@ -1,37 +1,102 @@
 import { useState } from "react";
 
-import ScreenStudent1EnterClass from "../screens/student/ScreenStudent-1-EnterClass";
-import ScreenStudent2Connected from "../screens/student/ScreenStudent-2-Connected";
-import ScreenStudent3GetReady from "../screens/student/ScreenStudent-3-GetReady";
-import ScreenStudent4ResponseInput from "../screens/student/ScreenStudent-4-ResponseInput";
-import ScreenStudent5WaitingForFeedback from "../screens/student/ScreenStudent-5-WaitingForFeedback";
-import ScreenStudent6Correct from "../screens/student/ScreenStudent-6-Correct";
-import ScreenStudent7Incorrect from "../screens/student/ScreenStudent-7-Incorrect";
-import ScreenStudent8WaitingForQuestion from "../screens/student/ScreenStudent-8-WaitingForQuestion";
+import Student1EnterClass from "../screens/student/Student-1-EnterClass";
+import Student2Connected from "../screens/student/Student-2-Connected";
+import Student3GetReady from "../screens/student/Student-3-GetReady";
+import Student4ResponseInput from "../screens/student/Student-4-ResponseInput";
+import Student5WaitingForFeedback from "../screens/student/Student-5-WaitingForFeedback";
+import Student6Correct from "../screens/student/Student-6-Correct";
+import Student7Incorrect from "../screens/student/Student-7-Incorrect";
+import Student8WaitingForQuestion from "../screens/student/Student-8-WaitingForQuestion";
 
-import TeacherScreen1StartClass from "../screens/teacher/TeacherScreen-1-StartClass";
-import TeacherScreen2PlayersConnected from "../screens/teacher/TeacherScreen-2-PlayersConnected";
-import TeacherScreen3CreateQuestion from "../screens/teacher/TeacherScreen-3-CreateQuestion";
-import TeacherScreen4Incomingresponses from "../screens/teacher/TeacherScreen-4-IncomingResponses";
-import TeacherScreen5MarkResponses from "../screens/teacher/TeacherScreen-5-MarkResponses";
-import TeacherScreen6ResponseStats from "../screens/teacher/TeacherScreen-6-ResponseStats";
-import TeacherScreen7ClassClosed from "../screens/teacher/TeacherScreen-7-ClassClosed";
+import Teacher1StartClass from "../screens/teacher/Teacher-1-StartClass";
+import Teacher2PlayersConnected from "../screens/teacher/Teacher-2-PlayersConnected";
+import Teacher3CreateQuestion from "../screens/teacher/Teacher-3-CreateQuestion";
+import Teacher4Incomingresponses from "../screens/teacher/Teacher-4-IncomingResponses";
+import Teacher5MarkResponses from "../screens/teacher/Teacher-5-MarkResponses";
+import Teacher6ResponseStats from "../screens/teacher/Teacher-6-ResponseStats";
+import Teacher7ClassClosed from "../screens/teacher/Teacher-7-ClassClosed";
 
-import ScreenTeacherStudent from "../screens/app/ScreenTeacherStudent";
+import TeacherStudent from "../screens/app/TeacherStudent";
 import { SOCKET } from "../screens/SOCKET";
 
 function QuizTemplate() {
-  const [gameScreen, setGameScreen] = useState("default");
+  const [gameScreen, setGameScreen] = useState("TeacherStudent");
+  const [nameOfClass, setNameOfClass] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [pin, setPin] = useState("");
+  const [timeLimit, setTimeLimit] = useState("30 seconds");
+  const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState("");
+  const [feedback, setFeedback] = useState("");
 
   // setGameScreen("Teacher1StartClass");
 
   const handleLeaveClick = () => {};
 
-  SOCKET.on("1.5", (data) => {
-    console.log("data received by client:");
+  const handleStartStudent = (gameScreen) => {
+    setGameScreen(gameScreen);
+  };
+
+  const handleStartTeacher = (gameScreen) => {
+    setGameScreen(gameScreen);
+  };
+
+  const handleScreenChangeT1 = (gameScreen, nameOfClass, pin) => {
+    setGameScreen(gameScreen);
+    setNameOfClass(nameOfClass);
+    setPin(pin);
+  };
+
+  const handleScreenChangeS1 = (gameScreen, nickname) => {
+    setGameScreen(gameScreen);
+    setNickname(nickname);
+  };
+
+  SOCKET.on("T1.5", (data) => {
+    console.log("T1 data received by client:");
+    console.log(data);
+    setNameOfClass(data.nameOfClass);
+    setPin(data.pin);
+    // setGameScreen(data.gameScreen);
+  });
+
+  SOCKET.on("T3.5", (data) => {
+    console.log("T3 data received by client:");
     console.log(data);
     setGameScreen(data.gameScreen);
   });
+
+  SOCKET.on("T4.5", (data) => {
+    console.log("T4 data received by client:");
+    console.log(data);
+    setGameScreen(data.gameScreen);
+  });
+
+  SOCKET.on("T5.5", (data) => {
+    console.log("T5 data received by client:");
+    console.log(data);
+    setGameScreen(data.gameScreen);
+  });
+
+  SOCKET.on("T6.5", (data) => {
+    console.log("T6 data received by client:");
+    console.log(data);
+    setGameScreen(data.gameScreen);
+  });
+
+  SOCKET.on("S1.5", (data) => {
+    console.log("S1 data received by client:");
+    console.log(data);
+    setGameScreen(data.gameScreen);
+  });
+
+  SOCKET.on("S4.5", (data) => {
+    console.log("S4 data received by client:");
+    console.log(data);
+    setGameScreen(data.gameScreen);
+  });
+
   return (
     <div className="game-screen">
       <header className="game-screen-header">
@@ -48,26 +113,64 @@ function QuizTemplate() {
         </button>
       </header>
       <main className="game-screen-main">
-        {/* <ScreenStudent1EnterClass /> */}
-        {/* <ScreenStudent2Connected /> */}
-        {/* <ScreenStudent3GetReady /> */}
-        {/* <ScreenStudent4ResponseInput /> */}
-        {/* <ScreenStudent5WaitingForFeedback /> */}
-        {/* <ScreenStudent6Correct /> */}
-        {/* <ScreenStudent7Incorrect /> */}
-        <ScreenStudent8WaitingForQuestion />
+        {/* <Student1EnterClass /> */}
+        {gameScreen === "Student1EnterClass" && (
+          <Student1EnterClass
+            nameOfClass={nameOfClass}
+            pin={pin}
+            handleScreenChangeS1={handleScreenChangeS1}
+          />
+        )}
+        {/* <Student2Connected /> */}
+        {gameScreen === "Student2Connected" && (
+          <Student2Connected nickname={nickname} />
+        )}
+        {/* <Student3GetReady /> */}
+        {gameScreen === "Student3GetReady" && <Student3GetReady />}
+        {/* <Student4ResponseInput /> */}
+        {gameScreen === "Student4ResponseInput" && <Student4ResponseInput />}
+        {/* <Student5WaitingForFeedback /> */}
+        {gameScreen === "Student5WaitingForFeedback" && (
+          <Student5WaitingForFeedback />
+        )}
+        {gameScreen === "Student6Correct" && <Student6Correct />}
+        {/* <Student7Incorrect /> */}
+        {gameScreen === "Student7Incorrect" && <Student7Incorrect />}
+        {/* <Student8WaitingForQuestion /> */}
+        {gameScreen === "Student8WaitingForQuestion" && (
+          <Student8WaitingForQuestion />
+        )}
 
-        {/* <TeacherScreen1StartClass /> */}
-        {/* {gameScreen === "Teacher1StartClass" && <TeacherScreen1StartClass />} */}
-        {/* {gameScreen === "Student1StartClass" && <ScreenStudent1EnterClass />} */}
-        {/* <TeacherScreen2PlayersConnected /> */}
-        {/* <TeacherScreen3CreateQuestion /> */}
-        {/* <TeacherScreen4Incomingresponses /> */}
-        {/* <TeacherScreen5MarkResponses /> */}
-        {/* <TeacherScreen6ResponseStats /> */}
-        {/* <TeacherScreen7ClassClosed /> */}
+        {/* <Teacher1StartClass /> */}
+        {gameScreen === "Teacher1StartClass" && (
+          <Teacher1StartClass handleScreenChangeT1={handleScreenChangeT1} />
+        )}
+        {/* <Teacher2PlayersConnected /> */}
+        {gameScreen === "Teacher2PlayersConnected" && (
+          <Teacher2PlayersConnected nameOfClass={nameOfClass} pin={pin} />
+        )}
+        {/* <Teacher3CreateQuestion /> */}
+        {gameScreen === "Teacher3CreateQuestion" && (
+          <Teacher3CreateQuestion nickname={nickname} />
+        )}
+        {/* <Teacher4Incomingresponses /> */}
+        {gameScreen === "Teacher4IncomingResponse" && (
+          <Teacher4Incomingresponses />
+        )}
+        {/* <Teacher5MarkResponses /> */}
+        {gameScreen === "Teacher5MarkResponses" && <Teacher5MarkResponses />}
+        {/* <Teacher6ResponseStats /> */}
+        {gameScreen === "Teacher6ResponseStats" && <Teacher6ResponseStats />}
+        {/* <Teacher7ClassClosed /> */}
+        {gameScreen === "Teacher7ClassClosed" && <Teacher7ClassClosed />}
 
         {/* {gameScreen === "default" && <ScreenTeacherStudent />} */}
+        {gameScreen === "TeacherStudent" && (
+          <TeacherStudent
+            handleStartStudent={handleStartStudent}
+            handleStartTeacher={handleStartTeacher}
+          />
+        )}
       </main>
       {/* {gamePhase === "gamePhaseKey" && <ScreenTemplate1 />} */}
 

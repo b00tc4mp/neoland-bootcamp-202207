@@ -7,7 +7,7 @@
 
 const handleFormSubmit = () => {};
 
-function TeacherScreen5MarkResponses({
+function Teacher5MarkResponses({
   pin,
   nameOfClass,
   // responsesReceived: [responsesReceived],
@@ -39,4 +39,4 @@ function TeacherScreen5MarkResponses({
   );
 }
 
-export default TeacherScreen5MarkResponses;
+export default Teacher5MarkResponses;
