@@ -2,10 +2,11 @@ const { connect, disconnect } = require('mongoose')
 const { User } = require('../../../models')
 const { NotFoundError, AuthError } = require('errors')
 const authenticateUser = require('.')
+const { env: { MONGO_URL_TEST } } = process
 
 describe('authenticateUser', () => {
     
-    beforeAll(() => connect(MONGO_URL_TEST))
+    beforeAll(() => connect('mongodb://127.0.0.1:27017/menuger-test'))
 
     beforeEach(() => User.deleteMany())
 

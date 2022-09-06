@@ -164,7 +164,7 @@ function HomePage({ onLogoutClick, context: { handleFeedback } }) {
                 <Route path="settings" element={
                     <>
                         <main className="settings-page page">
-                            <Settings />
+                            <Settings onLogoutClick={handleLinkClick}/>
                         </main>
                         <footer className="homefooter">
                             <a className="anchor home-link" onClick={handleHomeClick}><span className="homeButton material-symbols-outlined">home</span></a>

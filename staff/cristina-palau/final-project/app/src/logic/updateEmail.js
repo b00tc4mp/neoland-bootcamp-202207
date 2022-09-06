@@ -28,7 +28,7 @@ function updateEmail(token, newEmail, callback) {
     xhr.setRequestHeader('Content-type', 'application/json')
 
     //const json2 = JSON.stringify({ notes: notes })
-    xhr.send(`{ "username": "${newEmail}"}`)
+    xhr.send(`{ "newEmail": "${newEmail}"}`)
 
 }
 

@@ -52,7 +52,7 @@ function LoginPage({ onLinkClick, onLogin, context: { handleFeedback } }) {
 
     return <main className="loginPage page">
 
-        <img className="logo" alt="logo" src={logoAnimado}/>
+        <img className="logo logoForm" alt="logo" src={logoAnimado}/>
 
         <form className="form loginForm" method="get" onSubmit={handleFormSubmit}>
             <label className="formLabel" htmlFor="email">Email</label>

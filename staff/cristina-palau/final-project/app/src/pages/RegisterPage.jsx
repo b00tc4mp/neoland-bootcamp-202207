@@ -2,7 +2,7 @@ import registerUser from '../logic/registerUser'
 import Loggito from '../utils/loggito'
 import withContext from '../utils/withContext'
 import logoAnimado from '../images/logoAnimado.gif'
-
+import './pages.css'
 
 function RegisterPage({ onRegister, onLinkClick, context: { handleFeedback } }) {
 
@@ -52,7 +52,7 @@ function RegisterPage({ onRegister, onLinkClick, context: { handleFeedback } }) 
     logger.info('render')
 
     return <main className="page registerPage">
-        <img className="logo"  alt="logo" src={logoAnimado}/>
+        <img className="logo logoForm"  alt="logo" src={logoAnimado}/>
         <form className="form loginForm" method="get" onSubmit={handleFormSubmit}>
             <label className="formLabel" htmlFor="name">Nombre</label>
             <input className="input" type="name" name="name" placeholder="nombre" id="name" />
