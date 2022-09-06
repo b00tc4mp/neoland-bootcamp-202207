@@ -37,7 +37,7 @@ Admin (super user)
 
 ### Data Model
 
-User
+User *
 - id: ObjectId
 - name (optional when 'anonymous')
 - email (optional when 'anonymous')
@@ -45,20 +45,20 @@ User
 - role: string (enum: ['anonymous', 'client', 'admin'])
 - cart: Cart
 
-Product
+Product *
 - id: ObjectId
 - sku: string
 - price: number
 - discount: number (optional)
 - stock: number
 
-Item (embedded)
+Item (embedded)*
 - id: ObjectId
 - product: ObjectId
 - price: number
 - qty: number (default 1)
 
-Cart (embedded)
+Cart (embedded)*
 - id: ObjectId
 - items: [Item]
 
@@ -75,7 +75,7 @@ Order
 - date
 - paymentAddress: Address
 - shippingAddress: Address
-- payment method: string (enum ['credit card', 'paypal', ...])
+- paymentMethod: string (enum ['credit card', 'paypal', ...])
 
 ### Sequence
 ### Components

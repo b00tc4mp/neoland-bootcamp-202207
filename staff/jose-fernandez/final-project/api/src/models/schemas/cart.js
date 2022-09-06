@@ -1,7 +1,7 @@
 const {Schema} = require('mongoose')
 
 const cart = new Schema({
-  items:[Item]
+  // items:[Items]
 })
 
 module.exports = cart

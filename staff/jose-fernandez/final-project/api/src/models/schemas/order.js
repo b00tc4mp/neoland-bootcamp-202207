@@ -16,7 +16,8 @@ const order = new Schema({
     shippingAddress: { ref: 'Address' },
     paymentMethod:{
         type:String,
-        enum:['credit card','paypal']
+        enum:['creditCard','paypal'],
+        required:true
     }
 
 })
