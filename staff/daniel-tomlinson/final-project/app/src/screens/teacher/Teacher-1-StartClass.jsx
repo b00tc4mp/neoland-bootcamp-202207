@@ -1,4 +1,4 @@
-import { SOCKET } from "../SOCKET";
+// import { SOCKET } from "../SOCKET";
 // import "./ScreenTemplate.1.css";
 // import "./ScreenTemplate.1.scss";
 // import Spinner from "./Spinner";
@@ -6,7 +6,7 @@ import { SOCKET } from "../SOCKET";
 
 // const handleLeaveClick = () => {};
 
-function Teacher1StartClass({ handleScreenChangeT1 }) {
+function Teacher1StartClass({ handleScreenChangeT1, socket }) {
   const handleFormSubmit = (event) => {
     event.preventDefault();
 
@@ -22,7 +22,7 @@ function Teacher1StartClass({ handleScreenChangeT1 }) {
 
     handleScreenChangeT1("Teacher2PlayersConnected", nameOfClass, pin);
 
-    SOCKET.emit("T1", {
+    socket.emit("T1", {
       gameScreen: "",
       pin: { pin },
       nameOfClass: { nameOfClass },

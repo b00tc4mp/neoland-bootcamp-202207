@@ -1,10 +1,15 @@
-import { SOCKET } from "../SOCKET";
+// import { SOCKET } from "../SOCKET";
 // import "./ScreenTemplate.1.css";
 // import "./ScreenTemplate.1.scss";
 // import Spinner from "./Spinner";
 // import CountdownTimer from "./CountdownTimer";
 
-function Student1EnterClass({ pin, nameOfClass, handleScreenChangeS1 }) {
+function Student1EnterClass({
+  pin,
+  nameOfClass,
+  handleScreenChangeS1,
+  socket,
+}) {
   const handleFormSubmit = (event) => {
     event.preventDefault();
 
@@ -23,7 +28,7 @@ function Student1EnterClass({ pin, nameOfClass, handleScreenChangeS1 }) {
 
     debugger;
     if (pinString === pinValue && nameOfClassString === nameOfClassValue) {
-      SOCKET.emit("S1", {
+      socket.emit("S1", {
         gameScreen: "",
         nickname: { nickname },
       });
