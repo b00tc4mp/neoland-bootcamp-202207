@@ -1,5 +1,6 @@
 module.exports = {
     AuthError: require('./AuthError'),
+    ForbiddenError: require('./ForbiddenError'),
     BadRequestError: require('./BadRequestError'),
     NotFoundError: require('./NotFoundError'),
     NotFoundError404: require('./NotFoundError404'),
