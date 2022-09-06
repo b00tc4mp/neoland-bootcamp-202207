@@ -88,7 +88,7 @@ Sprint 0
 
 - DONE figma
 - DONE data model
-- TODO data model to mongoose
+- DONE data model to mongoose
 - TODO populate data
 - TODO implement users logic
 - TODO implement users api routes
