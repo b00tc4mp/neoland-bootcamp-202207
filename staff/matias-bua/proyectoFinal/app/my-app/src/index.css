@@ -1,0 +1,60 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+
+/* resets */
+
+/* :root {
+  --color: rgb(68, 182, 202);
+  --back-color: background: rgb(47, 72, 88);
+    background:linear-gradient(
+    174deg,
+    rgba(47, 72, 88, 1) 0%,
+    rgba(51, 101, 138, 1) 30%,
+    rgba(246, 174, 45, 1) 82%,
+    rgba(242, 100, 25, 1) 100%);
+    --back-color-note: rgb(255, 230, 167);
+    --color-imput: rgb(73, 195, 179);
+} 
+
+:root.light {
+  --color: black;
+  --back-color: background: rgb(83,95,169);
+  background: linear-gradient(180deg, rgba(83,95,169,1) 0%, rgba(121,141,222,1) 23%, rgba(86,177,200,1) 51%, rgba(93,221,200,1) 81%);
+  --back-color-note: rgb(55, 211, 177);
+  --color-imput: black;
+} */
+
+* {
+  font-family: Lato;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+}
+h1,label{
+  color: var(--color)
+}
+
+.container--full{
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  flex-direction: column;  
+}
+
+.form__field{
+  display: flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction: column;
+  background-color: aqua;
+  gap: 5px;
+}
+
+.buttons{
+  display: flex;
+  justify-content: space-around;
+}
