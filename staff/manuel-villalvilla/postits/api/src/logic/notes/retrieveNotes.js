@@ -1,6 +1,6 @@
-const { SystemError, NotFoundError } = require("../../errors")
+const { SystemError, NotFoundError } = require("errors")
 const { Note, User } = require("../../models")
-const { validateObjectId } = require("../../validators")
+const { validateObjectId } = require("validators")
 
 /**
  * Retrieves user's notes.

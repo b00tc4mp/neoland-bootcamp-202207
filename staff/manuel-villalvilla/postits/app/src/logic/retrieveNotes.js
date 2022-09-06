@@ -1,3 +1,5 @@
+const API_URL = process.env.REACT_APP_API_URL
+
 function retrieveNotes (token, callback) {
     const xhr = new XMLHttpRequest
 
@@ -24,7 +26,7 @@ function retrieveNotes (token, callback) {
 
     // request
 
-    xhr.open('GET', 'http://localhost:8080/api/notes')
+    xhr.open('GET', `${API_URL}/notes`)
 
     xhr.setRequestHeader('Authorization', `Bearer ${token}`)
 

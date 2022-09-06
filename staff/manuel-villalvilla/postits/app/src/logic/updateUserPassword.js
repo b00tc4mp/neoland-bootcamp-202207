@@ -1,3 +1,5 @@
+const API_URL = process.env.REACT_APP_API_URL
+
 function updateUserPassword (token, oldPassword, newPassword, newPasswordRepeat, callback) {
     if (typeof token !== 'string') throw new TypeError('user id is not a string')
     if (token.trim().length === 0) throw new Error('user id is empty or blank')
@@ -43,7 +45,7 @@ function updateUserPassword (token, oldPassword, newPassword, newPasswordRepeat,
         }
     }
 
-    xhr.open('PATCH', 'http://localhost:8080/api/users/auth')
+    xhr.open('PATCH', `${API_URL}/users/auth`)
 
     xhr.setRequestHeader('Authorization', `Bearer ${token}`)
     xhr.setRequestHeader('Content-type', 'application/json')

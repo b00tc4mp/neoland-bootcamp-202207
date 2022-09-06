@@ -1,3 +1,5 @@
+const API_URL = process.env.REACT_APP_API_URL
+
 function createNote(token, callback) {
     // TODO input validation
 
@@ -19,7 +21,7 @@ function createNote(token, callback) {
 
     // request
 
-    xhr.open('POST', 'http://localhost:8080/api/notes')
+    xhr.open('POST', `${API_URL}/notes`)
 
     xhr.setRequestHeader('Authorization', `Bearer ${token}`)
 

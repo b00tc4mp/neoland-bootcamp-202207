@@ -1,10 +1,12 @@
 const { connect, disconnect, Types: { ObjectId } } = require("mongoose")
 const { Note, User } = require("../../models")
 const { updateNoteVisibility } = require('../../logic')
-const { NotFoundError, CredentialsError } = require("../../errors")
+const { NotFoundError, CredentialsError } = require("errors")
+require('dotenv').config()
+const MONGO_URL_TEST = process.env.MONGO_URL_TEST
 
 describe('Update Note Visibility', () => {
-    beforeAll(() => connect('mongodb://localhost:27017/test'))
+    beforeAll(() => connect(MONGO_URL_TEST))
 
     beforeEach(() => Promise.all([Note.deleteMany(), User.deleteMany()]))
 

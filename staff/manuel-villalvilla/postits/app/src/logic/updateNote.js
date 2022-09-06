@@ -1,3 +1,5 @@
+const API_URL = process.env.REACT_APP_API_URL
+
 function updateNote(token, noteId, text, callback) {
     if (typeof token !== 'string') throw new TypeError('user id is not a string')
     if (token.trim().length === 0) throw new Error('user id is empty or blank')
@@ -27,7 +29,7 @@ function updateNote(token, noteId, text, callback) {
 
     // request
 
-    xhr.open('PATCH', `http://localhost:8080/api/notes?note=${noteId}&text=${text}`)
+    xhr.open('PATCH', `${API_URL}/notes?note=${noteId}&text=${text}`)
 
     xhr.setRequestHeader('Authorization', `Bearer ${token}`)
 

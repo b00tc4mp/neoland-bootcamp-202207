@@ -1,7 +1,7 @@
 const { readFile, writeFile } = require('fs')
 const { readFolder } = require('../utils')
-const { DuplicityError } = require('../errors')
-const { validateCallback } = require('../validators')
+const { DuplicityError } = require('errors')
+const { validateCallback } = require('validators')
 
 module.exports = function registerUser(name, email, password, callback) { // uso un callback pq es una funcion asincrona
     const usersFolder = './src/data/users'

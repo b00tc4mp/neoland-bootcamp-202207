@@ -1,3 +1,5 @@
+const API_URL = process.env.REACT_APP_API_URL
+
 /**
  * Deletes a note from database
  * 
@@ -34,7 +36,7 @@
 
     // request
 
-    xhr.open('DELETE', `http://localhost:8080/api/notes/${noteId}`)
+    xhr.open('DELETE', `${API_URL}/notes/${noteId}`)
 
     xhr.setRequestHeader('Authorization', `Bearer ${token}`)
 

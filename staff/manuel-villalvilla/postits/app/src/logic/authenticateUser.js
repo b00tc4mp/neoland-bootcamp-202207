@@ -1,3 +1,5 @@
+const API_URL = process.env.REACT_APP_API_URL
+
 function authenticateUser(email, password, callback) {
     const EMAIL_REGEX = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     if (typeof email !== 'string') throw new TypeError('email is not a string')
@@ -35,7 +37,7 @@ function authenticateUser(email, password, callback) {
 
     // request
     
-    xhr.open('POST', 'http://localhost:8080/api/users/auth/')
+    xhr.open('POST', `${API_URL}/users/auth`)
 
     xhr.setRequestHeader('Content-type', 'application/json')
 

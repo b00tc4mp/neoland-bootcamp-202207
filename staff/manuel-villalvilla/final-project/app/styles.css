@@ -1,0 +1,80 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
+#__next {
+    margin: 0;
+    height: 100%;
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.header {
+    display: flex;
+    padding: 3%;
+}
+
+.logo {
+    width: 20%;
+}
+
+.header-buttons {
+    display: flex;
+    align-items: center;
+    width: 80%;
+    justify-content: flex-end;
+    gap: 5px;
+}
+
+.buscar-button, .publicar-button {
+    height: 50px;
+    width: 100px;
+    border-radius: 20px;
+    border-color: rgb(233, 96, 155);
+    border-width: 2px;
+    border-style: solid;
+}
+
+.main {
+    padding: 3%;
+}
+
+.results-list {
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    list-style-type: none;
+}
+
+.pagination {
+    padding: 0px;
+    display: flex;
+    justify-content: space-between;
+    list-style-type: none;
+    gap: 5px;
+}
+
+.pagination-page {
+    background-color: pink;
+    cursor: pointer;
+}
+
+.footer {
+    padding: 3%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: space-between;
+    align-items: center;
+}

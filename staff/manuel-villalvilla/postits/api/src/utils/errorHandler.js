@@ -1,4 +1,4 @@
-const { FormatError, SystemError, CredentialsError, NotFoundError, DuplicityError, TokenError } = require("../errors")
+const { FormatError, SystemError, CredentialsError, NotFoundError, DuplicityError, TokenError } = require('errors')
 const logger  = require("./logger")
 
 module.exports = function(error, res) {

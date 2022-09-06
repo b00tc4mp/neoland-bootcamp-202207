@@ -1,4 +1,4 @@
-const { FormatError } = require('../errors')
+const { FormatError } = require('errors')
 
 module.exports = function (password) {
     if (typeof password !== 'string') throw new TypeError('password is not a string')

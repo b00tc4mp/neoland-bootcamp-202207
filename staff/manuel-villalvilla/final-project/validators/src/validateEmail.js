@@ -1,4 +1,4 @@
-const { FormatError } = require('../errors')
+const { FormatError } = require('errors')
 const EMAIL_REGEX = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
 
 module.exports =  function (email) {

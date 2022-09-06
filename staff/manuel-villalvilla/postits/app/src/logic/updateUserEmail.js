@@ -1,3 +1,5 @@
+const API_URL = process.env.REACT_APP_API_URL
+
 function updateUserEmail (token, newEmail, callback) {
     // {
     //     "username" : "otroemail@email.com"
@@ -30,7 +32,7 @@ function updateUserEmail (token, newEmail, callback) {
         }
     }
 
-    xhr.open('PATCH', 'http://localhost:8080/api/users/')
+    xhr.open('PATCH', `${API_URL}/users`)
 
     xhr.setRequestHeader('Authorization', `Bearer ${token}`)
     xhr.setRequestHeader('Content-type', 'application/json')

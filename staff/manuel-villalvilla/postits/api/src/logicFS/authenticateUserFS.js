@@ -1,7 +1,7 @@
 const { readFile } = require('fs')
 const { readFolder } = require('../utils')
-const { CredentialsError } = require('../errors')
-const { validateCallback } = require('../validators')
+const { CredentialsError } = require('errors')
+const { validateCallback } = require('validators')
 
 module.exports = function authenticateUser(email, password, callback) {
     validateCallback(callback)

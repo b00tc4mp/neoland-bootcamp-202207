@@ -1,5 +1,5 @@
 const { readFile, writeFile } = require('fs')
-const { DuplicityError } = require('../errors') // errores indexados en un index.js
+const { DuplicityError } = require('errors') // errores indexados en un index.js
 const registerUserFS = require('../logicFS/registerUserFS')
 const { testDeleteFiles, readFolder } = require('../utils')
 
