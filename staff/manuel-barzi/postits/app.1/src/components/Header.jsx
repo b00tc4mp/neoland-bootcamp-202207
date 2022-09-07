@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import './Header.sass'
+import './Header.css'
 import Menu from './Menu'
 import IconButton from './IconButton'
 import Loggito from '../utils/Loggito'

@@ -1,4 +1,4 @@
-import './NoteList.sass'
+import './NoteList.css'
 import Loggito from '../utils/Loggito'
 
 function NoteList({ notes, onDeleteNote, onUpdateNoteText }) {

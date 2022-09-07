@@ -1,4 +1,4 @@
-import './Feedback.sass'
+import './Feedback.css'
 import Loggito from '../utils/Loggito'
 
 function Feedback({ level, message, onClick }) {

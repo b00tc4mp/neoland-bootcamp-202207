@@ -1,4 +1,4 @@
-import './Menu.sass'
+import './Menu.css'
 import IconButton from './IconButton'
 import Loggito from '../utils/Loggito'
 import withContext from '../utils/withContext'

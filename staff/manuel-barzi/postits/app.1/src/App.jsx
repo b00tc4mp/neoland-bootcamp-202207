@@ -5,7 +5,7 @@ import HomePage from './pages/HomePage'
 import Feedback from './components/Feedback'
 import Loggito from './utils/Loggito.js'
 import Context from './utils/Context'
-import './App.sass'
+import './App.css'
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 import Hello from './components/Hello'
 

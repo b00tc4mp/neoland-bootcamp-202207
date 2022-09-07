@@ -1,0 +1,22 @@
+.Feedback
+    background-color: rgba(0, 0, 0, .7)
+    width: 100%
+    height: 100%
+    position: absolute
+
+    &__box
+        width: 50vw
+        height: 25vh
+        color: var(--color)
+
+    &--error > &__box
+        background-color: red
+
+    &--warning > &__box
+        background-color: orange
+
+    &--success > &__box
+        background-color: green
+
+    &--info > &__box
+        background-color: dodgerblue
