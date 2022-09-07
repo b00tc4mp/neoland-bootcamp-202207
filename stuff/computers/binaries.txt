@@ -1,0 +1,13 @@
+1bit -> 0 or 1
+1nibble -> 4bits
+1byte -> 2nibbles or 8bits (ej: 1100 1110)
+
+// characters (utf8)
+A -> 65 -> 0100 0001
+
+// colores (RGB -> Red Green Blue)
+Green -> 0000 0000  1111 1111  0000 0000
+Violet -> 1111 1111  0000 0000  1111 1111 -> FF 00 FF
+
+
+

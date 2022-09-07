@@ -1,0 +1,1 @@
+const motos = ['Kawasaki Ninja', 'Ducatti Panigale', 'Derbi Variant', 'Buell']

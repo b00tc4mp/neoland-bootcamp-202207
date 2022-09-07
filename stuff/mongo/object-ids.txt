@@ -1,0 +1,32 @@
+1 byte -> 8 bits -> 2 nibbles
+
+--
+how does mongo object id work?
+
+it uses hexadecimal -> [0, 1, 2, 3... 9, A, B, C, D, E, F]
+
+0000b -> 0d -> 0hex
+...
+10001b -> 9d -> 9hex
+1010b -> 10d -> Ahex
+...
+1100b -> 13d -> Dhex
+1110b -> 14d -> Ehex
+1111b -> 15d -> Fhex
+
+object id -> 12 bytes -> 24 nibbles -> uses hexadecimal!
+
+630df416f74f96c58ed82fd6 -> 24 chars
+
+0110 0011
+0000 1101
+1111 0100
+0001 0110
+1111 0111
+0100 1111
+1001 0110
+1100 0101
+1000 1110
+1101 1000
+0010 1111
+1101 0110

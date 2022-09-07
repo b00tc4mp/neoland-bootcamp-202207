@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        html,
+        body {
+            height: 100%;
+            background-color: gray;
+        }
+
+        /* ID class element */
+
+        div#box-chachi.box:nth-child(1)::before {
+            /* 1 2 2  */
+            content: '🔗';
+        }
+
+        div#box-chachi.box:nth-child(1) {
+            /* 1 2 1  */
+            background-color: tomato;
+            border-color: dodgerblue;
+        }
+
+        div#box-chachi.box.box-cool::before {
+            /* 1 2 2 */
+            content: '🫶';
+        }
+
+        div#box-chachi.box.box-cool {
+            /* 1 2 1 */
+            background-color: pink;
+            border-color: violet;
+        }
+
+        div#box-chachi.box {
+            /* 1 1 1  */
+            background-color: khaki;
+            border-color: brown;
+        }
+
+        div#box-chachi {
+            /* 1 0 1  */
+            background-color: gold;
+            border-color: greenyellow;
+        }
+
+        #box-chachi {
+            /* 1 0 0 */
+            background-color: dodgerblue;
+            border-color: orangered;
+        }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: skyblue;
+            padding: 1rem;
+            border: 10px dashed black;
+        }
+
+        .box-cool {
+            background-color: violet;
+            border-color: cyan;
+        }
+
+        .box {
+            background-color: orange;
+        }
+
+        ul>li:nth-child(3) {
+            background-color: yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box-chachi" class="box">3
+        <div id="box-chachi" class="box-cool box" style="background-color: white;">2
+            <div class="box">1
+            </div>
+        </div>
+    </div>
+
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script> -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+    <script src="https://unpkg.com/@babel/standalone@7.18.12/babel.js"></script>
+
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { createContext, useContext, useState } = React
+        const { createRoot } = ReactDOM
+
+        const Context = createContext()
+
+        function Box({ style, children, clickable }) {
+            const context = useContext(Context)
+
+            const { color, setColor } = context
+
+            if (clickable) {
+                style.cursor = 'pointer'
+
+                if (color)
+                    style.backgroundColor = color
+            }
+
+            function handleClick(event) {
+                event.stopPropagation()
+
+                setColor(event.target.style.backgroundColor)
+            }
+
+            return <div style={style} onClick={clickable ? handleClick : null}>
+                {children}
+            </div>
+        }
+
+        function App() {
+            const [color, setColor] = useState()
+
+            const context = { color, setColor }
+
+            return <Context.Provider value={context}>
+                <Box style={{ backgroundColor: 'skyblue', display: 'flex', justifyContent: 'center' }}>
+                    <Box style={{ backgroundColor: 'black', width: '100px', height: '100px', padding: '1rem', margin: '1rem' }} clickable={true}>
+                        <Box style={{ backgroundColor: 'white', width: '50px', height: '50px', padding: '1rem' }}>
+                            <Box style={{ backgroundColor: 'cyan', width: '25px', height: '25px', padding: '1rem' }} clickable={true}>
+                            </Box>
+                        </Box>
+                    </Box>
+
+                    <Box style={{ backgroundColor: 'black', width: '100px', height: '100px', padding: '1rem', margin: '1rem' }}>
+                        <Box style={{ backgroundColor: 'white', width: '50px', height: '50px', padding: '1rem' }}>
+                            <Box style={{ backgroundColor: 'violet', width: '25px', height: '25px', padding: '1rem' }} clickable={true}>
+                            </Box>
+                        </Box>
+                    </Box>
+                </Box>
+            </Context.Provider>
+        }
+
+        createRoot(document.getElementById('root')).render(<App />)
+    </script>
+</body>
+
+</html>
