@@ -1,5 +1,5 @@
 const { User, Company } = require('../../models')
-const { DuplicityError, NotFoundError, FormatError } = require('errors')
+const { DuplicityError  } = require('errors')
 const { validateEmail, validatePassword, validateRole } = require('validators')
 
 function registerCompany(name, email, password) {
@@ -15,7 +15,7 @@ function registerCompany(name, email, password) {
 
         if (found || foundCompany) throw new DuplicityError(`Email ${email} is already on use`)
 
-        const newCompany = await Company.create({name: `${name}'s Company`, companyEmail: email })
+        const newCompany = await Company.create({name: `${name}'s Company`, companyEmail: email})
         const newUser = await User.create({ name, email, password, company: newCompany.id, role : 'admin' })
         newCompany.admin = newUser.id
         newCompany.users.push(newUser.id)

@@ -39,7 +39,6 @@ const company = new Schema({
     postalAddress: {
         street : {
             type : String,
-            req: true
         },
         town : {
             type : String
@@ -53,13 +52,11 @@ const company = new Schema({
         country : {
             type : String
         },
-        req : false
     },
 
     physicalAddress: {
         street : {
-            type : String,
-            req : true
+            type : String
         },
         town : {
             type : String
@@ -73,7 +70,6 @@ const company = new Schema({
         country : {
             type : String
         },
-        req : false
     },
 
     sector: {
