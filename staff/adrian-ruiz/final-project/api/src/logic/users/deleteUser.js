@@ -5,9 +5,10 @@ const { Types: { ObjectId }} = require('mongoose')
 
 function deleteUser(adminId, companyId, userId){
     //TODO Validate INPUTS
-    if (!(ObjectId.isValid(adminId))) throw new FormatError('Admin ID is not valid');
+    
     if (!(ObjectId.isValid(companyId))) throw new FormatError('Company ID is not valid');
     if (!(ObjectId.isValid(userId))) throw new FormatError('User ID is not valid');
+    if (!(ObjectId.isValid(adminId))) throw new FormatError('Admin ID is not valid');
 
 
     return (async() => {
@@ -22,7 +23,7 @@ function deleteUser(adminId, companyId, userId){
 
         if(!admin) throw new NotFoundError(`Admin with id${adminId} not found or does not belong to company ${companyId}`)
 
-        await InventoryItem.findByIdAndDelete(itemId)
+        await user.delete()
         
     })()
 }

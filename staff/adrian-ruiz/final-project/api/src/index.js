@@ -10,7 +10,7 @@ const logger = require('./logger')(module)
 
     const api = express()
 
-    const { usersRouter, companiesRouter, inventoryRouter } = require('./routes')
+    const { usersRouter, companiesRouter, inventoryRouter, estimatesRouter, customersRouter, invoicesRouter } = require('./routes')
 
 
    /*  
@@ -24,7 +24,7 @@ const logger = require('./logger')(module)
         next()
     }) */
 
-    api.use('/api', usersRouter, companiesRouter, inventoryRouter)
+    api.use('/api', usersRouter, companiesRouter, inventoryRouter, estimatesRouter, customersRouter, invoicesRouter)
 
     api.listen(8080, () => { logger.info('API started and listening port 8080') })
 

@@ -15,12 +15,10 @@ const customer = new Schema({
     contactName: {
         firstName: {
             type: String,
-            required: true
         },
         lastName: {
             type: String
         },
-        required: false
     },
 
     email: {
@@ -42,7 +40,6 @@ const customer = new Schema({
     billingAddress: {
         street: {
             type: String,
-            required: true
         },
         town: {
             type: String,
@@ -51,19 +48,16 @@ const customer = new Schema({
             type: String,
         },
         zipCode: {
-            type: Number
+            type: String
         },
         country: {
             type: String
         },
-        required: false // LIKE THIS, billingAddress IS NOT REQUIRED, BUT IF IT EXISTS, THEN STREET IS REQUIRED
-        //TODO, TEST THAT
     },
 
     shippingAddress: {
         street: {
             type: String,
-            required: true
         },
         town: {
             type: String,
@@ -77,7 +71,6 @@ const customer = new Schema({
         country: {
             type: String
         },
-        required: false
     },
 
     payTerms: {

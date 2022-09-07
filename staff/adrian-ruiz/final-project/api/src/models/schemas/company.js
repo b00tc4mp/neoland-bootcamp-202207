@@ -1,5 +1,4 @@
 const { Schema, Types : {ObjectId} } = require('mongoose')
-const user = require('./user')
 
 const company = new Schema({
     name:{

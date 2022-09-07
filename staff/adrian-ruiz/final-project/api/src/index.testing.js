@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const { User, Company } = require('./models')
+const {mongoose, Types: {ObjectId}} = require('mongoose')
+const { User, Company, InventoryItem } = require('./models')
 mongoose.connect('mongodb://localhost:27017/ERP-testing')
 
 const companyData = {
@@ -27,9 +27,11 @@ const companyData = {
     sector: 'IT'
 }
 
+const falseId = new ObjectId
+
     ; (async () => {
         const company1 = await Company.create(companyData)
-        await User.create({ name: 'Testing', email: 'test@test.com', password: '123', company: company1.id, rol: 'admin' })
+        await User.create({ name: 'Testing', email: 'test@test.com', password: '123123Aa!', company: falseId , role: 'admin' })
         const populatedUsers = await User.find().populate('company')
         console.log(populatedUsers)
     })()

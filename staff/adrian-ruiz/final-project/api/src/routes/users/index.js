@@ -3,5 +3,6 @@ module.exports = {
     authenticateUserHandler : require('./authenticateUserHandler'),
     retrieveUserHandler : require('./retrieveUserHandler'),
     updateUserEmailHandler : require('./updateUserEmailHandler'),
-    updateUserPasswordHandler : require('./updateUserPasswordHandler')
+    updateUserPasswordHandler : require('./updateUserPasswordHandler'),
+    deleteUserHandler : require('./deleteUserHandler')
 }

@@ -1,7 +1,7 @@
-const { Schema, Types : { ObjectId } } = require('mongoose')
+const { Schema, Types: { ObjectId } } = require('mongoose')
 
 const estimate = new Schema({
-    company:{
+    company: {
         type: ObjectId,
         required: true,
         ref: 'Company'
@@ -12,19 +12,19 @@ const estimate = new Schema({
         required: true
     },
 
-    customer:{
-        refId : {
+    customer: {
+        refId: {
             type: ObjectId,
             ref: 'Customer',
             required: true
         },
-        name : {
+        name: {
             required: true,
             type: String
         },
 
         billingAddress: {
-            required : true,
+            required: true,
             type: String
         },
 
@@ -40,7 +40,7 @@ const estimate = new Schema({
 
     terms: {
         type: String,
-        required : true
+        required: true
         // TODO, HOW TO REF ANOTHER COLLECTIONS ( TODO ) AND MAKE ONLY OPTIONS AVAILABLE FROM THAT
     },
 
@@ -49,16 +49,29 @@ const estimate = new Schema({
         required: true
     },
 
-    products: {
-        // TODO, HOW TO REF / SET RULES TO GET ARRAY OF PRODUCTS WITH ITS VALUES(QTY, PRICE, TAX...) ??
-    },
+    products: [{
+        id: {
+            type: ObjectId,
+            ref: 'InventoryItem'
+        },
+        amount: {
+            type: Number,
+            required: true
+        },
+        price: {
+            type: Number,
+            required: true
+        }
+    }]
+    // TODO, HOW TO REF / SET RULES TO GET ARRAY OF PRODUCTS WITH ITS VALUES(QTY, PRICE, TAX...) ??
+    ,
 
     totalAmount: {
         type: Number,
         required: true,
     },
 
-    status : {
+    status: {
         type: String,
         required: true,
         enum: ['accepted', 'rejected', 'pending'],

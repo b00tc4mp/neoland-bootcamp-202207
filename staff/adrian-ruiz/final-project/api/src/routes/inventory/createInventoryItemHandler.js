@@ -3,7 +3,6 @@ const { inventory: {createInventoryItem} } = require('../../logic')
 const logger = require('../../logger')(module)
 
 function createInventoryItemHandler(req, res){
-    //TODO VALIDATE TOKEN
     runWithErrorHandling(async () => {
         const { companyId } = await validateToken(req)
 
