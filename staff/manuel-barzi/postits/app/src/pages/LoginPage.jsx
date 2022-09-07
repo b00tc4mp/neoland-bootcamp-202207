@@ -1,5 +1,5 @@
 import Loggito from '../utils/Loggito'
-import authenticateUser from '../logic/authenticateUser'
+import { authenticateUser } from '../logic'
 import withContext from '../utils/withContext'
 import { AuthError, ClientError, ServerError } from 'errors'
 

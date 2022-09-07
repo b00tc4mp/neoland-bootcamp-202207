@@ -1,6 +1,7 @@
 import Loggito from '../utils/Loggito'
 // TODO add logic!
-// import registerUser from '../logic/registerUser'
+// import { registerUser } from '../logic'
+
 
 function RegisterPage(props) {
     const logger = new Loggito(RegisterPage.name)
