@@ -1,18 +1,23 @@
-import {EMAIL_REGEX} from './constants'
+import { validateEmail, validatePassword, validateCallback } from 'validators'
+import { AuthError, ClientError, ServerError, UnknownError } from 'errors'
+
 const API_URL = process.env.REACT_APP_API_URL
+
+/** 
+ * Checks user credentials against database
+ * 
+ * @param {string} email The user email
+ * @param {string} password The user password
+ * @param {function} callback The function expression that provides a result
+ * 
+ * @throws {FormatError | TypeError} On invalid inputs
+ */
 
 function authenticateUser(email, password, callback) {
     //TODO validate inputs
-    if (typeof email !== 'string') throw new TypeError('email is not a string')
-    if (email.trim().length === 0) throw new Error('email is empty or blank')
-    if (email.length < 6) throw new Error('email length is not valid')
-    if (!EMAIL_REGEX.test(email)) throw new Error('email is not valid')
-
-    if (typeof password !== 'string') throw new TypeError('password is not a string')
-    if (password.trim().length === 0) throw new Error('password is empty or blank')
-    if (password.length < 8) throw new Error('password length is less than 8 characters')
-
-    if (typeof callback !== 'function') throw new TypeError('callback is not a function')
+    validateEmail(email)
+    validatePassword(password)
+    validateCallback(callback)
 
 
     const xhr=new XMLHttpRequest
@@ -20,24 +25,42 @@ function authenticateUser(email, password, callback) {
     //response
     xhr.onload=function(){
         const status= xhr.status
+        const json = xhr.responseText
 
+        const { error, token } = JSON.parse(json)
         
-        if (status >= 500)
-            callback(new Error(`server error(${status})`))
-        else if (status >= 400)
-            callback(new Error(`client error Auth(${status})`))
-        else if (status === 200){
-            //recibo un JSON en la propiedad responseText del XHR
-            const json = xhr.responseText
+        // if (status >= 500)
+        //     callback(new Error(`server error(${status})`))
+        // else if (status >= 400)
+        //     callback(new Error(`client error Auth(${status})`))
+        // else if (status === 200){
+        //     //recibo un JSON en la propiedad responseText del XHR
+        //     const json = xhr.responseText
             
-            //Parseo el JSON a JS
-            const data=JSON.parse(json)
+        //     //Parseo el JSON a JS
+        //     const data=JSON.parse(json)
             
-            //Accedoa a la propiedad token del objeto
-            const token =data.token
+        //     //Accedoa a la propiedad token del objeto
+        //     const token =data.token
 
-            //llamo a callback con null, en el parametro  de manejo de errores
-            callback(null,token)
+        //     //llamo a callback con null, en el parametro  de manejo de errores
+        //     callback(null,token)
+        // }
+        switch(true) {
+            case (status >= 500):
+                callback(new ServerError(error))
+                break
+            case (status === 401):
+                callback(new AuthError(error))
+                break
+            case (status >= 400): 
+                callback(new ClientError(error))
+                break
+            case (status === 200):
+                callback(null, token)
+                break
+            default:
+                callback(new UnknownError(`unexpected status ${status}`))
         }
     }
 

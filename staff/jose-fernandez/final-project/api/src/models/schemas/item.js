@@ -3,6 +3,7 @@ const { Schema, Types: { ObjectId } } = require('mongoose')
 const item = new Schema({
     product: {
         type: ObjectId,
+        ref: 'Product',
         required: true
     },
     price: {

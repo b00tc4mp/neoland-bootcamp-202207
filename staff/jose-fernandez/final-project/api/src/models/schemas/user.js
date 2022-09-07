@@ -1,4 +1,9 @@
+const cart =require('./cart')
 const {Schema} = require('mongoose')
+
+function randomEmail() {
+    return `${Date.now()}-${Math.random()}@anonymous.mail`
+}
 
 const user = new Schema({
     name: String,
@@ -8,7 +13,7 @@ const user = new Schema({
     // },
     email:{
         type: String,
-        // required:true,
+        default: randomEmail,
         unique:true
     },
     password:{
@@ -21,10 +26,7 @@ const user = new Schema({
         // required:true,
         default:'anonymous'
     },
-    cart:{
-        ref:'Cart'
-    }
-
+    cart
 })
 
 module.exports = user

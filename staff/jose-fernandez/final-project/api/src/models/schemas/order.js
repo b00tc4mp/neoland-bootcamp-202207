@@ -1,3 +1,5 @@
+const cart = require('./cart')
+const address = require('./address')
 const { Schema, Types: { ObjectId } } = require('mongoose')
 
 const order = new Schema({
@@ -5,19 +7,17 @@ const order = new Schema({
         type: ObjectId,
         required: true
     },
-    cart: {
-        ref: 'Cart'
-    },
+    cart,
     date: {
         type: Date,
         required: true
     },
-    paymentAddress: { ref: 'Address' },
-    shippingAddress: { ref: 'Address' },
-    paymentMethod:{
-        type:String,
-        enum:['creditCard','paypal'],
-        required:true
+    paymentAddress: address,
+    shippingAddress: address,
+    paymentMethod: {
+        type: String,
+        enum: ['creditCard', 'paypal'],
+        required: true
     }
 
 })

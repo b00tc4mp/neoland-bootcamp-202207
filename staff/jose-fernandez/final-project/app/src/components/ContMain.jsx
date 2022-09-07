@@ -4,15 +4,16 @@ import withContext from '../utils/withContext'
 // import IconButton from './Buttons/IconButton'
 
 function ContMain() {
-
     const [view, setView] = useState('play')
-    let vid = document.getElementById("videoOne");
-    const onStopVideo = () => {
+    //use ref vid
+    const handleOnClickPlayVideo = () => {
         setView('play')
+        let vid = document.getElementById("videoOne");
         vid.play();
     }
-    const onPlayVideo = () => {
+    const handleOnClickStopVideo = () => {
         setView('stop')
+        let vid = document.getElementById("videoOne");
         vid.pause()
     }
 
@@ -21,13 +22,13 @@ function ContMain() {
         <section className="container-section promotionOne container">
             <div className='video-sectionOne'>
                 {/* <video className='video-promotionOne' controls src="https://brand.assets.adidas.com/video/upload/q_auto,vc_auto/video/upload/FW22-Outdoor-UBS-hero-launch-HP-Masthead-dual-m_cwpxqw.mp4" preload='auto' autoPlay type="video/mp4"></video> */}
-                <video id='videoOne' className='video-promotionOne' autoPlay loop>
+                <video id='videoOne' className='video-promotionOne' autoPlay loop muted>
                     <source src="https://brand.assets.adidas.com/video/upload/q_auto,vc_auto/video/upload/FW22-Outdoor-UBS-hero-launch-HP-Masthead-dual-m_cwpxqw.mp4" type="video/mp4" />
                 </video>
             </div>
             <div className='control-play'>
-                {view === "stop" && <a onClick={onStopVideo}><img className='featurette-icon--img' src="https://i.postimg.cc/mZQXnvMk/play.png" alt="" /></a>}
-                {view === "play" && <a onClick={onPlayVideo}><img className='featurette-icon--img' src="https://i.postimg.cc/2yDYngbJ/pause.png" alt="" /></a>}
+                {view === "stop" && <a onClick={handleOnClickPlayVideo}><img className='featurette-icon--img' src="https://i.postimg.cc/mZQXnvMk/play.png" alt="play video" /></a>}
+                {view === "play" && <a onClick={handleOnClickStopVideo}><img className='featurette-icon--img' src="https://i.postimg.cc/2yDYngbJ/pause.png" alt="pause video" /></a>}
             </div>
             <div className="container-portrait">
                 <div className="portrait-title">
