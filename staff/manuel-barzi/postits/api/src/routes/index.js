@@ -2,7 +2,7 @@ const express = require('express')
 const { Router, json } = express
 const jsonBodyParser = json()
 const { registerUserHandler, authenticateUserHandler, retrieveUserHandler } = require('./users')
-const { createNoteHandler, retrieveNotesHandler, updateNoteTextHandler } = require('./notes')
+const { createNoteHandler, retrieveNotesHandler, updateNoteTextHandler, searchNotesHandler } = require('./notes')
 
 const usersRouter = Router()
 
@@ -18,6 +18,7 @@ const notesRouter = Router()
 notesRouter.post('/notes', jsonBodyParser, createNoteHandler)
 notesRouter.get('/notes', retrieveNotesHandler)
 notesRouter.patch('/notes/:noteId', jsonBodyParser, updateNoteTextHandler)
+notesRouter.get('/notes/search', searchNotesHandler)
 
 module.exports = {
     usersRouter,
