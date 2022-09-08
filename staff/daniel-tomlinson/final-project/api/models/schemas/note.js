@@ -3,20 +3,14 @@ const {
   Types: { ObjectId },
 } = require("mongoose");
 
-const question = new Schema({
-  owner: {
+const note = new Schema({
+  user: {
     type: ObjectId,
     required: true,
     ref: "User",
   },
 
-  question: {
-    type: String,
-    required: true,
-    default: "",
-  },
-
-  suggestedAnswer: {
+  text: {
     type: String,
     default: "",
   },
@@ -24,7 +18,7 @@ const question = new Schema({
   visibility: {
     type: String,
     enum: ["private", "public"],
-    default: "public",
+    default: "private",
   },
 
   createAt: {
@@ -35,21 +29,6 @@ const question = new Schema({
   modifiedAt: {
     type: Date,
   },
-
-  tags: {
-    type: Array,
-    default: [],
-  },
-
-  likes: {
-    type: Number,
-    default: 0,
-  },
-
-  plays: {
-    type: Number,
-    default: 0,
-  },
 });
 
-module.exports = question;
+module.exports = note;

@@ -16,16 +16,6 @@ const user = new Schema({
     type: String,
     required: true,
   },
-
-  favouriteQuestions: {
-    type: Array,
-    default: [],
-  },
-
-  favouriteQuizzes: {
-    type: Array,
-    default: [],
-  },
 });
 
 module.exports = user;

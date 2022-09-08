@@ -1,7 +1,7 @@
 const { model } = require("mongoose");
-const { user, question } = require("./schemas");
+const { user, note } = require("./schemas");
 
 module.exports = {
   User: model("User", user),
-  Question: model("Question", question),
+  Note: model("Note", note),
 };
