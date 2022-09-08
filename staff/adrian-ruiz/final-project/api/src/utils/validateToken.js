@@ -2,6 +2,7 @@ const { AuthError } = require('errors')
 const { verify } = require('jsonwebtoken')
 const { validateText } = require('validators')
 const { Blacklist } = require('../models')
+const {env : { JWT_SECRET}} = process
 function validateToken(req) {
 
     const { headers: { authorization } } = req
@@ -9,7 +10,7 @@ function validateToken(req) {
     validateText(authorization, 'authorization')
 
     const token = authorization.substring(7)
-    const payload = verify(token, 'ImagineLosingTimeToHackThis')
+    const payload = verify(token, JWT_SECRET)
 
     return (async () => {
         

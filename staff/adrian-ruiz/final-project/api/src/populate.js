@@ -1,9 +1,11 @@
 const mongoose = require('mongoose')
 const {Company, User, InventoryItem, Customer, Estimate, Invoice} = require('./models')
+require('dotenv').config()
+const {env : { MONGO_URL }} = process
 
 ;(async () => {
 
-    await mongoose.connect('mongodb://localhost:27017/ERP-testing')
+    await mongoose.connect(MONGO_URL)
 
     await Promise.all([Company.deleteMany(), User.deleteMany(), InventoryItem.deleteMany(), Customer.deleteMany(), Estimate.deleteMany(), Invoice.deleteMany()])
 
@@ -18,6 +20,7 @@ const {Company, User, InventoryItem, Customer, Estimate, Invoice} = require('./m
     const users = [
         {
             name : "Adrian",
+            lastName : "Ruiz",
             email : "12@12.com",
             password : "123123123Aa!",
             company: company.id,
@@ -25,6 +28,7 @@ const {Company, User, InventoryItem, Customer, Estimate, Invoice} = require('./m
         },
         {
             name : "Accountant",
+            lastName : "Surname",
             email : "a12@12.com",
             password : "123123123Aa!",
             company: company.id,
@@ -32,6 +36,7 @@ const {Company, User, InventoryItem, Customer, Estimate, Invoice} = require('./m
         },
         {
             name : "Employee",
+            lastName : "Surname",
             email : "e12@12.com",
             password : "123123123Aa!",
             company: company.id,
@@ -58,7 +63,7 @@ const {Company, User, InventoryItem, Customer, Estimate, Invoice} = require('./m
         },
         {
             company : company.id,
-            name : "Populated item 2",
+            name : "Populated item 3",
             sku : "SKU-P0003",
         }]
 

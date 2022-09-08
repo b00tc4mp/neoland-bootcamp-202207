@@ -27,7 +27,8 @@ function createInvoice(company, {invoiceNumber, customer, terms, invoiceDate, du
 
             throw new NotFoundError(`items with ids ${notFoundIds} not found`)
         }
-
+        //TODO DESCONTAR STOCK DIRECTAMENTE EN ESTE MOMENTO
+        
         return await Invoice.create({company, invoiceNumber, customer, terms, invoiceDate, dueDate, products, balance: totalAmount, totalAmount, status})
     })()
 }

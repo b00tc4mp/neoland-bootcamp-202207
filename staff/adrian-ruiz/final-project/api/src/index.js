@@ -1,20 +1,18 @@
 const mongoose = require('mongoose')
 const express = require('express')
 const logger = require('./logger')(module)
+require('dotenv').config()
 
+const {env : { MONGO_URL, PORT}} = process
 
 ;(async () => {
 
-    await mongoose.connect('mongodb://localhost:27017/ERP-testing')
-    logger.info('Connected to DB')
+    await mongoose.connect(MONGO_URL)
+    logger.info(`Connected to DB: ${MONGO_URL}`)
 
     const api = express()
 
     const { usersRouter, companiesRouter, inventoryRouter, estimatesRouter, customersRouter, invoicesRouter } = require('./routes')
-
-
-   /*  
-   ESTO PARA CUANDO CONECTEMOS CON LA APP
 
    api.use((_, res, next) => {
         res.setHeader('Access-Control-Allow-Origin', '*')
@@ -22,11 +20,11 @@ const logger = require('./logger')(module)
         res.setHeader('Access-Control-Allow-Headers', '*')
 
         next()
-    }) */
+    })
 
     api.use('/api', usersRouter, companiesRouter, inventoryRouter, estimatesRouter, customersRouter, invoicesRouter)
 
-    api.listen(8080, () => { logger.info('API started and listening port 8080') })
+    api.listen(PORT, () => { logger.info(`API started and listening port: ${PORT}`) })
 
     process.on('SIGINT', async () => { 
         await mongoose.disconnect()

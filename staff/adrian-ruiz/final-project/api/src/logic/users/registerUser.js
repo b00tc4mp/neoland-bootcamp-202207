@@ -3,7 +3,7 @@ const { DuplicityError, NotFoundError, FormatError } = require('errors')
 const { validateEmail, validatePassword, validateRole } = require('validators')
 const { Types: { ObjectId } } = require('mongoose')
 
-function registerUser(name, email, password, companyId, role) {
+function registerUser(name, lastName, email, password, companyId, role) {
     validateEmail(email)
     validatePassword(password)
     validateRole(role)
@@ -19,7 +19,7 @@ function registerUser(name, email, password, companyId, role) {
 
         if (!companyFound) throw new NotFoundError(`Company with ID ${companyId} not found`)
 
-        const user = await User.create({ name, email, password, company: companyId, role })
+        const user = await User.create({ name, lastName, email, password, company: companyId, role })
 
         companyFound.users.push(user.id)
         companyFound.save()
