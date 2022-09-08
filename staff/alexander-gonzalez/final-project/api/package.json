@@ -1,0 +1,36 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src",
+    "test": "npx mocha src/logic/**/spec.js",
+    "test-inspect": "npx mocha --inspect src/logic/**/spec.js",
+    "test-inspect-brk": "npx mocha --inspect-brk  src/logic/**/spec.js",
+    "test-inspect-cli": "npx mocha inspect src/logic/**/spec.js",
+    "test-coverage": "npx nyc --reporter=text --reporter=html mocha src/logic/**/spec.js",
+    "populate": "node src/populate.js",
+    "populate-inspect": "node --inspect-brk src/populate.js",
+    "populate-inspect-cli": "node inspect src/populate.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.2",
+    "errors": "file:../errors",
+    "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.5.4",
+    "node": "^18.8.0",
+    "validators": "file:../validators",
+    "winston": "^3.8.1"
+  },
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "mocha": "^10.0.0",
+    "nodemon": "^2.0.19"
+  }
+}
