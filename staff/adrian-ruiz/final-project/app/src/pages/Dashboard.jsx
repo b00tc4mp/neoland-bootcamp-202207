@@ -1,9 +1,9 @@
 import './Dashboard.css'
 import Header from '../components/Header'
 import Sidebar from '../components/Sidebar'
-import Inventory from './Inventory'
+import Inventory from '../components/Inventory'
 import SummaryReports from '../components/SummaryReports'
-import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 
 function Dashboard() {
 

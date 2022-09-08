@@ -1,8 +1,25 @@
+import { useEffect, useState } from 'react'
 import InventorySummaryBox from '../components/InventorySummaryBox'
 import './Inventory.css'
 import EnhancedTable from '../components/InventoryTable'
+import { retrieveStock } from '../logic'
+import { toaster } from 'evergreen-ui'
 
 function Inventory() {
+    const [stock, setStock] = useState(null)
+
+    useEffect(() => {
+        ;(async () => {
+            try {
+                const stock = await retrieveStock(sessionStorage.UserToken)
+                setStock(stock)
+                console.log('i fire once');
+                
+            } catch (error) {
+                toaster.warning('Something went wrong', {duration : 2.5, description: error.message})
+            }
+        })()
+    },[])
     return (
         <div className="main-section__inventory">
             <button className='inventory__newProductButton'>New Product</button>
@@ -18,7 +35,7 @@ function Inventory() {
                 </div>
             </div>
             <div className='inventory__products'>
-                <EnhancedTable />
+                {stock && <EnhancedTable stock={stock}/>}
             </div>
         </div>
     )

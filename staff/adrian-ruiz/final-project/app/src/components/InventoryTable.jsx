@@ -23,42 +23,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 
-function createData(name, sku, category, cost, minqty, stock) {
-    return {
-        name,
-        sku,
-        category,
-        cost,
-        minqty,
-        stock
-    };
-}
-
-const rows = [
-    createData('Cupcake', 305, 3.7, 67, 4.3, 5),
-    createData('Donut', 452, 25.0, 51, 4.9, 3),
-    createData('Eclair', 262, 16.0, 24, 6.0, 11),
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 22),
-    createData('Gingerbread', 356, 16.0, 49, 3.9, 33),
-    createData('Honeycomb', 408, 3.2, 87, 6.5, 44),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 7),
-    createData('Jelly Bean', 375, 0.0, 94, 0.0, 6),
-    createData('KitKat', 518, 26.0, 65, 7.0,2),
-    createData('Lollipop', 392, 0.2, 98, 0.0, 0),
-    createData('Marshmallow', 318, 0, 81, 2.0, -5),
-    createData('Nougat', 360, 19.0, 9, 37.0, 99),
-    createData('Oreo', 437, 18.0, 63, 4.0, 1234),
-    createData('Oreo2', 437, 18.0, 63, 4.0, 3),
-    createData('Oreo3', 437, 18.0, 63, 4.0, 77),
-    createData('Oreo4', 437, 18.0, 63, 4.0, 0),
-    createData('Oreo5', 437, 18.0, 63, 4.0, 22),
-    createData('Oreo6', 437, 18.0, 63, 4.0, 3),
-    createData('Oreo7', 437, 18.0, 63, 4.0, 98),
-    createData('Oreo8', 437, 18.0, 63, 4.0, 23),
-    createData('Oreo9', 437, 18.0, 63, 4.0, 44),
-    createData('Oreo10', 437, 18.0, 63, 4.0, 55),
-];
-
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
         return -1;
@@ -249,7 +213,10 @@ EnhancedTableToolbar.propTypes = {
     numSelected: PropTypes.number.isRequired,
 };
 
-export default function EnhancedTable() {
+export default function EnhancedTable({stock}) {
+    
+    const rows = stock
+    
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('stock');
     const [selected, setSelected] = React.useState([]);
@@ -313,11 +280,11 @@ export default function EnhancedTable() {
 
     return (
         <Box sx={{ width: '100%', height: '100%' }}>
-            <Paper sx={{ width: '100%', height: '100%', mb: 2, overflow: 'hidden' }}>
+            <Paper sx={{ width: '100%', height: '99%', mb: 2, overflow: 'hidden' }}>
                 <EnhancedTableToolbar numSelected={selected.length} />
                 <TableContainer
                 sx={{
-                    height: '85%',
+                    height: '84%',
                     maxHeight: '57vh'
                 }}
                 >
