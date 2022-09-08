@@ -22,7 +22,7 @@ function updateEmail(token, newEmail, callback) {
 
     // request
 
-    xhr.open('PATCH', `${API_URL}/users`)
+    xhr.open('PATCH', `${API_URL}/users/email`)
 
     xhr.setRequestHeader('Authorization', `Bearer ${token}`)
     xhr.setRequestHeader('Content-type', 'application/json')

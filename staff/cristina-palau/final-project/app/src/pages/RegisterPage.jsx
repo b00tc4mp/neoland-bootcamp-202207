@@ -62,7 +62,7 @@ function RegisterPage({ onRegister, onLinkClick, context: { handleFeedback } }) 
             <input className="input" type="password" name="password" placeholder="contraseña" id="password" />
             <button className="button" type="submit">Continuar</button>
         </form>
-        <a className="anchor" href="login-page.html" onClick={handleLinkClick}>Login</a>
+        <a className="anchor" href="login-page.html" onClick={handleLinkClick}>Iniciar Sesión</a>
     </main >
 
 }

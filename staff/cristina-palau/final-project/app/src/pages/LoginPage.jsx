@@ -58,11 +58,11 @@ function LoginPage({ onLinkClick, onLogin, context: { handleFeedback } }) {
             <label className="formLabel" htmlFor="email">Email</label>
             <input className="input" type="email" name="email" placeholder="e-mail" id="email" />
             <label className="formLabel" htmlFor="password">Contraseña</label>
-            <input className="input" type="password" name="password" placeholder="password" id="password" />
+            <input className="input" type="password" name="password" placeholder="contraseña" id="password" />
             <button className="button" type="submit">Continuar</button>
         </form>
 
-        <a className="anchor" href="register-page.html" onClick={handleLinkClick}>Register</a>
+        <a className="anchor" href="register-page.html" onClick={handleLinkClick}>Registro</a>
     </main >
 
 }

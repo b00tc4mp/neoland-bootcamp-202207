@@ -1,9 +1,9 @@
 .header {
     width: 100%;
-    height: 150px;
+    height: 100px;
     justify-content: space-between;
     display: flex;
-    padding: 15px;
+
 }
 
 .homeMenu {
@@ -13,7 +13,7 @@
     flex-direction: column;
     gap: 30px;
     align-items: center;
-    padding: 80px 40px 60px 40px;
+    padding: 30px 40px 60px 40px;
 }
 
 .footer {

@@ -2,18 +2,12 @@ import Loggito from '../utils/loggito'
 import updateEmail from '../logic/updateEmail'
 import updatePassword from '../logic/updatePassword'
 import withContext from '../utils/withContext'
-import './Settings.css'
+import './Settings.sass'
 
-function Settings({context: {handleFeedback }, onLogoutClick}) {
+function Settings({ context: { handleFeedback } }) {
     const logger = new Loggito('Settings')
-  
+
     logger.info('render')
-
-    const onLinkClick = event => {
-        event.preventDefault()
-
-        onLogoutClick()
-    }
 
     const onUpdatePassword = event => {
 
@@ -29,23 +23,23 @@ function Settings({context: {handleFeedback }, onLogoutClick}) {
         try {
             updatePassword(sessionStorage.token, oldPassword, newPassword, newPasswordRepeat, function (error) {
                 if (error) {
-                
-                    handleFeedback({ message: error.message, level: 'warning'})
-                    
+
+                    handleFeedback({ message: error.message, level: 'warning' })
+
                     logger.warn(error.message)
-                   
+
                     return
                 }
 
-                handleFeedback({ message: 'your password has been updated', level: 'success'})
+                handleFeedback({ message: 'your password has been updated', level: 'success' })
 
                 form.reset()
 
             })
         } catch (error) {
-            
-            handleFeedback({ message: error.message, level: 'warning'})
-                    
+
+            handleFeedback({ message: error.message, level: 'warning' })
+
             logger.warn(error.message)
         }
     }
@@ -57,34 +51,34 @@ function Settings({context: {handleFeedback }, onLogoutClick}) {
         const { target: form } = event
 
         const {
-            newEmail: { value: newEmail},
+            newEmail: { value: newEmail },
         } = form
 
         try {
             updateEmail(sessionStorage.token, newEmail, function (error) {
                 if (error) {
-                   
+
                     handleFeedback({ message: error.message, level: 'error' })
 
-                   logger.warn(error.message)
+                    logger.warn(error.message)
                     return
                 }
 
-                handleFeedback({ message: 'your email has been updated', level: 'success'})
-                
+                handleFeedback({ message: 'your email has been updated', level: 'success' })
+
                 form.reset()
             })
         } catch (error) {
 
-            handleFeedback({ message: error.message, level: 'warning'})
-                    
-           logger.warn(error.message)
+            handleFeedback({ message: error.message, level: 'warning' })
+
+            logger.warn(error.message)
         }
     }
 
     return <>
         <form className="form settingsForm updatePasswordForm" onSubmit={onUpdatePassword}>
-<h2>Update password</h2>
+            <h3>Update password</h3>
             <label htmlFor="password">Old Password</label>
             <input className="input" type="password" name="oldPassword" placeholder="old password" id="oldpassword" />
 
@@ -100,13 +94,13 @@ function Settings({context: {handleFeedback }, onLogoutClick}) {
         </form>
 
         <form className="form settingsForm updateEmailForm" onSubmit={onUpdateEmail}>
-            
-        <h2>Update password</h2>
-        <label htmlFor="email">Email</label>
+
+            <h3>Update password</h3>
+            <label htmlFor="email">Email</label>
             <input className="input" type="email" name="newEmail" placeholder="new email" id="newemail" />
             <button className="button" type="submit">Guardar</button>
         </form>
-        <a className="anchor" href="login-page.html" onClick={onLinkClick}>Cerrar sesión</a>
+        
     </>
 
 }

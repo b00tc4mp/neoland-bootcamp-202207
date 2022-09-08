@@ -1,5 +1,6 @@
 import './HomePage.css'
 import './pages.css'
+import '../index.css'
 import logoAnimado from '../images/logoAnimado.gif'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import Settings from '../components/Settings'
@@ -59,16 +60,17 @@ function HomePage({ onLogoutClick }) {
                         </main>
                     </>} />
 
-                <Route path="settings" element={<div className="settingsPage">
+                <Route path="settings" element={<>
                     <main className="settingsMenu">
                         <Settings onLogoutClick={handleLinkClick} />
                     </main>
-                    <footer className="footer">
-                        <button className='homeButton' onClick={handleNavigationHome}>Home</button>
+                    <footer className="setingsFooter footer">
+                    <a className="anchor" href="login-page.html" onClick={handleLinkClick}>Cerrar sesión</a>
+                        <button className='transparentButton homeButton' onClick={handleNavigationHome}>Home</button>
                     </footer>
-                </div>} />
+                </>} />
 
-                <Route path="recipes" element={<div className="recipesPage">
+                <Route path="recipes/*" element={<div className="recipesPage">
                     <main className="recipesMenu">
                         <Recipes />
                     </main>

@@ -24,7 +24,7 @@ function updatePassword(token, oldPassword, newPassword, newPasswordRepeat, call
 
     // request
 
-    xhr.open('PATCH', `${API_URL}/users`)
+    xhr.open('PATCH', `${API_URL}/users/password`)
 
     xhr.setRequestHeader('Authorization', `Bearer ${token}`)
     xhr.setRequestHeader('Content-type', 'application/json')

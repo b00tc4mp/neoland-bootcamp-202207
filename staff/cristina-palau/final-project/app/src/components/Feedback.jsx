@@ -1,4 +1,4 @@
-import './Feedback.css'
+import './Feedback.sass'
 
 function Feedback ({ level, message, onClick}) {
     return <div className={`Feedback container Feedback--${level ? level : 'info'}`}>
