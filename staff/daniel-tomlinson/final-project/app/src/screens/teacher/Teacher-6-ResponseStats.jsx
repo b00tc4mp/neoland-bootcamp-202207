@@ -7,7 +7,16 @@
 
 const handleFormSubmit = () => {};
 
-function Teacher6ResponseStats({ pin, nameOfClass, stats }) {
+function Teacher6ResponseStats({
+  pin,
+  nameOfClass,
+  stats,
+  handleScreenChangeT6,
+}) {
+  const onButtonClick = () => {
+    handleScreenChangeT6("Teacher2PlayersConnected");
+  };
+
   return (
     <div className="game-screen">
       <main className="game-screen-main flex--spaced">
@@ -18,7 +27,9 @@ function Teacher6ResponseStats({ pin, nameOfClass, stats }) {
           </p>
         </div>
         Stats
-        <button className="footer-button">New round</button>
+        <button className="footer-button" onClick={onButtonClick}>
+          New round
+        </button>
       </main>
 
       <footer className="game-screen-footer"></footer>

@@ -10,8 +10,16 @@ const handleFormSubmit = () => {};
 function Teacher5MarkResponses({
   pin,
   nameOfClass,
+  handleScreenChangeT5,
+  response,
+  // question,
   // responsesReceived: [responsesReceived],
 }) {
+  // const responseString = response.response;
+  const onButtonClick = () => {
+    debugger;
+    handleScreenChangeT5("Teacher6ResponseStats");
+  };
   return (
     <div className="game-screen">
       <main className="game-screen-main flex--spaced">
@@ -26,12 +34,14 @@ function Teacher5MarkResponses({
           <p className="info correct">
             TODO: create these inputs by mapping student responses
           </p>
-          <p className="info incorrect">Student response 1</p>
+          <p className="info incorrect">{response}</p>
           <p className="info">Student response 2</p>
           <p className="info">Student response 3</p>
           <p className="info">Student response 4</p>
         </div>
-        <button className="footer-button">send</button>
+        <button className="footer-button" onClick={onButtonClick}>
+          send
+        </button>
       </main>
 
       <footer className="game-screen-footer"></footer>

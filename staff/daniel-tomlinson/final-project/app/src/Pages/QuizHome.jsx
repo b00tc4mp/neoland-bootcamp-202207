@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import TeacherStudent from "../screens/app/TeacherStudent";
+import TeacherStudent from "../screens/quiz-home/TeacherStudent";
 
 function QuizHome({
   handleStartStudent,

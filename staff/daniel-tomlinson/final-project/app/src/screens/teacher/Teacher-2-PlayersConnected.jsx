@@ -7,11 +7,22 @@ const handleLeaveClick = () => {};
 
 const handleFormSubmit = () => {};
 
-//TODO:
-const pin = "TODO: generate";
-const nameOfClass = "TODO: generate";
+function Teacher2PlayersConnected({
+  pin,
+  nameOfClass,
+  nickname,
+  handleScreenChangeT2,
+  socket,
+}) {
+  const nicknameString = nickname.nickname;
 
-function Teacher2PlayersConnected({ pin, nameOfClass }) {
+  const onButtonClick = () => {
+    // socket.emit("T2", {
+    // gameScreen: "Student3GetReady",
+    // });
+    handleScreenChangeT2("Teacher3CreateQuestion");
+  };
+
   return (
     <div className="game-screen">
       <main className="game-screen-main flex--spaced">
@@ -22,10 +33,12 @@ function Teacher2PlayersConnected({ pin, nameOfClass }) {
         <div className="grouped-elements">
           <p className="paragraph--bold">Players connected:</p>
           <div className="info">
-            <ul>TODO: generate list, map???</ul>
+            <ul>{nicknameString}</ul>
           </div>
         </div>
-        <button className="footer-button">start game</button>
+        <button className="footer-button" onClick={onButtonClick}>
+          start game
+        </button>
       </main>
 
       <footer className="game-screen-footer"></footer>

@@ -9,13 +9,13 @@ import "../ScreenTemplate.1.scss";
 
 // const handleFormSubmit = () => {};
 
-function Student3GetReady({ handleScreenChangeS3 }) {
+function Teacher3BGetReady({ handleScreenChangeT3B }) {
   useEffect(() => {
     /* const countdownStart = Date.now();
 
     if (Date.now() > countdownStart + 4000)
       handleScreenChangeS3("Student4GetReady"); */
-    setTimeout(() => handleScreenChangeS3("Student4ResponseInput"), 4650);
+    setTimeout(() => handleScreenChangeT3B("Teacher4IncomingResponses"), 4670);
   }, []);
 
   return (
@@ -76,4 +76,4 @@ function Student3GetReady({ handleScreenChangeS3 }) {
   );
 }
 
-export default Student3GetReady;
+export default Teacher3BGetReady;

@@ -26,10 +26,8 @@ function Student1EnterClass({
     const pinString = String(pin.pin);
     const nameOfClassString = nameOfClass.nameOfClass;
 
-    debugger;
     if (pinString === pinValue && nameOfClassString === nameOfClassValue) {
       socket.emit("S1", {
-        gameScreen: "",
         nickname: { nickname },
       });
       handleScreenChangeS1("Student2Connected", nickname);

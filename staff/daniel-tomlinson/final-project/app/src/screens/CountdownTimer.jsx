@@ -1,8 +1,10 @@
+import { useEffect } from "react";
+
 import "./CountdownTimer.css";
 
 // modificar aquí la cantidad de segundos y en el stilo .start
 
-var contador = 10;
+/* var contador = 10;
 
 setTimeout(() => {
   document.querySelector(".meter .bar span").style.display = "block";
@@ -26,9 +28,36 @@ setTimeout(() => {
 
 function finalCuentaAtras() {
   alert("ha finalizado la cuenta atras");
-}
+} */
 
-function CountdownTimer() {
+function CountdownTimer({ timeLimit }) {
+  useEffect(() => {
+    let timeLimitSeconds = timeLimit / 1000;
+    let contador = timeLimitSeconds;
+
+    setTimeout(() => {
+      document.querySelector(".meter .bar span").style.display = "block";
+
+      document.querySelector(".meter .bar span").classList.add("start");
+
+      document.querySelector(".meter .num").innerHTML = contador;
+
+      var interval = setInterval(() => {
+        contador--;
+
+        document.querySelector(".meter .num").innerHTML = contador;
+
+        if (contador <= 0) {
+          clearInterval(interval);
+
+          finalCuentaAtras();
+        }
+      }, 1000);
+    }, 500);
+  });
+  function finalCuentaAtras() {
+    alert("ha finalizado la cuenta atras");
+  }
   return (
     <div className="timer-container">
       <div className="meter">

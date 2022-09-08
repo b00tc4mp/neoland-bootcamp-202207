@@ -16,7 +16,7 @@ function QuizStudent({ socket }) {
   const [pin, setPin] = useState("");
   const [timeLimit, setTimeLimit] = useState("30 seconds");
   const [question, setQuestion] = useState("");
-  const [answer, setAnswer] = useState("");
+  const [response, setResponse] = useState("");
   const [feedback, setFeedback] = useState("");
 
   const handleLeaveClick = () => {};
@@ -24,6 +24,14 @@ function QuizStudent({ socket }) {
   const handleScreenChangeS1 = (gameScreen, nickname) => {
     setGameScreen(gameScreen);
     setNickname(nickname);
+  };
+
+  const handleScreenChangeS3 = (gameScreen) => {
+    setGameScreen(gameScreen);
+  };
+
+  const handleScreenChangeS4 = (gameScreen) => {
+    setGameScreen(gameScreen);
   };
 
   useEffect(() => {
@@ -34,9 +42,17 @@ function QuizStudent({ socket }) {
       setPin(data.pin);
     });
 
+    socket.on("T2.5", (data) => {
+      console.log("T2 data received by client:");
+      console.log(data);
+      setGameScreen(data.gameScreen);
+    });
+
     socket.on("T3.5", (data) => {
       console.log("T3 data received by client:");
       console.log(data);
+      setTimeLimit(data.timeLimit);
+      setQuestion(data.question);
       setGameScreen(data.gameScreen);
     });
 
@@ -50,6 +66,7 @@ function QuizStudent({ socket }) {
       console.log("T5 data received by client:");
       console.log(data);
       setGameScreen(data.gameScreen);
+      setFeedback(feedback);
     });
 
     socket.on("T6.5", (data) => {
@@ -89,9 +106,18 @@ function QuizStudent({ socket }) {
           <Student2Connected nickname={nickname} />
         )}
         {/* <Student3GetReady /> */}
-        {gameScreen === "Student3GetReady" && <Student3GetReady />}
+        {gameScreen === "Student3GetReady" && (
+          <Student3GetReady handleScreenChangeS3={handleScreenChangeS3} />
+        )}
         {/* <Student4ResponseInput /> */}
-        {gameScreen === "Student4ResponseInput" && <Student4ResponseInput />}
+        {gameScreen === "Student4ResponseInput" && (
+          <Student4ResponseInput
+            question={question}
+            timeLimit={timeLimit}
+            handleScreenChangeS4={handleScreenChangeS4}
+            socket={socket}
+          />
+        )}
         {/* <Student5WaitingForFeedback /> */}
         {gameScreen === "Student5WaitingForFeedback" && (
           <Student5WaitingForFeedback />

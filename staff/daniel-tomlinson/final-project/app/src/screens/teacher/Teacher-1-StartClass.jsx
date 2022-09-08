@@ -16,7 +16,8 @@ function Teacher1StartClass({ handleScreenChangeT1, socket }) {
 
     const nameOfClass = nameOfClassInput.value;
 
-    const pin = Math.round(Math.random() * 100000000);
+    // const pin = Math.round(Math.random() * 100000000);
+    const pin = Math.round(Math.random() * 100);
 
     form.reset();
 

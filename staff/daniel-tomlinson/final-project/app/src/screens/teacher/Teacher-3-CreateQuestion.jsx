@@ -6,9 +6,35 @@ import "./timeSelect.scss";
 
 // const handleLeaveClick = () => {};
 
-const handleFormSubmit = () => {};
+function Teacher3CreateQuestion({
+  pin,
+  nameOfClass,
+  handleScreenChangeT3,
+  socket,
+}) {
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
 
-function Teacher3CreateQuestion({ pin, nameOfClass }) {
+    const form = event.target;
+
+    const questionInput = form.question;
+    const timeLimitInput = form.timeLimit;
+
+    const question = questionInput.value;
+    const timeLimit = timeLimitInput.value;
+
+    form.reset();
+
+    // socket.to("1").emit("T3", {
+    socket.emit("T3", {
+      gameScreen: "Student3GetReady",
+      timeLimit: { timeLimit },
+      question: { question },
+    });
+
+    handleScreenChangeT3("Teacher3BGetReady", question, timeLimit);
+  };
+
   return (
     <div className="game-screen">
       <main className="game-screen-main flex--spaced">
@@ -17,25 +43,23 @@ function Teacher3CreateQuestion({ pin, nameOfClass }) {
             PIN: {pin} <br></br>
             Class: {nameOfClass}
           </p>
-          <select>
-            <option selected value="0">
-              Time limit...
-            </option>
-            <option value="1">10 seconds</option>
-            <option value="2">20 seconds</option>
-            <option value="3">30 seconds</option>
-            <option value="4">45 seconds</option>
-            <option value="5">1 minute</option>
-            <option value="6">1 min 30 sec</option>
-            <option value="7">2 mins</option>
-            <option value="7">no limit</option>
-          </select>
         </div>
         <form
           action=""
           className="form form--spread"
           onSubmit={handleFormSubmit}
         >
+          <select id="timeLimit">
+            <option value="30000">Time limit...</option>
+            <option value="10000">10 seconds</option>
+            <option value="20000">20 seconds</option>
+            <option value="30000">30 seconds</option>
+            <option value="45000">45 seconds</option>
+            <option value="50000">1 minute</option>
+            <option value="60000">1 min 30 sec</option>
+            <option value="70000">2 mins</option>
+            <option value="80000">no limit</option>
+          </select>
           <div className="form-field">
             <label htmlFor="question" className="input-label">
               Question:
