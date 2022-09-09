@@ -1,30 +1,22 @@
 const { User, Product } = require('../../../models')
 const { NotFoundError, SystemError } = require('errors')
-const { verifyObjectIdString } = require('../../../utils')
+// const { verifyObjectIdString } = require('../../../utils')
 
-function retrieveProducts(userId) {
-    verifyObjectIdString(userId, 'user id')
+function retrieveProducts() {
+    // verifyObjectIdString()
 
-    return User.findById(userId).lean()
+    return Product.find({ }).lean()
         .catch(error => {
             throw new SystemError(error.message)
         })
-        .then(user => {
-            if (!user) throw new NotFoundError(`user with id ${userId} not found`)
-
-            return Note.find({ user: userId }, 'text visibility createdAt modifiedAt').lean()
-                .catch(error => {
-                    throw new SystemError(error.message)
-                })
-        })
-        .then(notes => {
-            notes.forEach(note => {
+        .then(products => {
+            products.forEach(product => {
                 //sanitize
-                note.id = note._id.toString()
-                delete note._id
-                delete note.__v
+                product.id = product._id.toString()
+                delete product._id
+                delete product.__v
             })
-            return notes
+            return products
         })
 }
 

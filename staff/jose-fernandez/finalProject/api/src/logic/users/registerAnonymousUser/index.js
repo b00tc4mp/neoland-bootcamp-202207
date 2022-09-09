@@ -8,21 +8,23 @@
 //     }
 // }
 // module.exports = registerAnonymousUser
+
 const {User} = require('../../../models')
-const {DuplicityError, SystemError} = require('errors')
-// const {validateEmail}= require('validators')
+const {SystemError, BadRequestError} = require('errors')
+const {validateCart}= require('validators')
 
 function registerAnonymousUser(cart){
-    // validateEmail(email)
-    //validateCart => si !carrito o product.length >0  throw new BadREquestError('cart is empty')
+    //validateCart => si !carrito o product.length <0  throw new BadREquestError('cart is empty')
+    validateCart(cart)
+
 
     return User.create({cart})
     .then(user=>{
         return user._id.toString()
     })
     .catch(error =>{
-        if(error.code===11000)
-        throw new DuplicityError('user already exists')
+        if(error.code===400)
+        throw new BadRequestError('cart is blank')
 
     throw new SystemError(error.message)
     })

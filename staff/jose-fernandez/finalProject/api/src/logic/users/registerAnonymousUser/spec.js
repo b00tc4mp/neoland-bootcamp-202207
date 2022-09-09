@@ -1,11 +1,14 @@
+require('dotenv').config()
+
 const { connect, disconnect } = require('mongoose')
-const { User,Product,Item } = require('../../../models')
-const { DuplicityError } = require('errors')
+const { User,Product,Item,Cart } = require('../../../models')
+const { BadRequestError } = require('errors')
 const  registerAnonymousUser = require('.')
 
-describe('registerAnonymousUser', () => {
-    //antes de todo me conecto a la base de datos
-    beforeAll(() => connect('mongodb://localhost:27017/finalProject'))
+const { MONGO_URL_TEST } = process.env;
+
+describe("registerAnonymousUser", () => {
+  beforeAll(() => connect(MONGO_URL_TEST));
 
     beforeEach(() => User.deleteMany()) //eliminar cada usuario
 
@@ -17,14 +20,26 @@ describe('registerAnonymousUser', () => {
             discount: 0,
             stock: 114
         })
+        const product2 = new Product({
+            name:'techFleece',
+            sku: 'nkh1444',
+            price: 180,
+            discount: 0,
+            stock: 114
+        })
 
         const item1 = new Item({
             product: product1.id,
             price: 300,
             qty: 2
         })
+        const item2 = new Item({
+            product: product2.id,
+            price: 360,
+            qty: 2
+        })
         //carrito
-        const cart = [item1]
+        const cart = new Cart([item1,item2])
       
 
         return registerAnonymousUser(cart)
@@ -56,6 +71,9 @@ describe('registerAnonymousUser', () => {
             })
             .catch(error => {
                 //import
+                debugger
+                
+                // expect(error).toBeInstanceOf(ValidationError)
                 expect(error).toBeInstanceOf(BadRequestError)
                 expect(error.message).toEqual('cart is empty')
 

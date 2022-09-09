@@ -1,11 +1,13 @@
+require('dotenv').config()
+
 const { connect, disconnect } = require('mongoose')
 const { User } = require('../../../models')
 const { DuplicityError } = require('errors')
 const  registerUser = require('.')
+const { MONGO_URL_TEST } = process.env;
 
-describe('registerUser', () => {
-    //antes de todo me conecto a la base de datos
-    beforeAll(() => connect('mongodb://localhost:27017/finalProject'))
+describe("registerUser", () => {
+  beforeAll(() => connect(MONGO_URL_TEST));
 
     beforeEach(() => User.deleteMany()) //eliminar cada usuario
 

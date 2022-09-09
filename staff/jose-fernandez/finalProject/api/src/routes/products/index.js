@@ -1,3 +1,4 @@
 module.exports = {
-    searchProductHandler: require('./searchProductHandler')
+    searchProductHandler: require('./searchProductHandler'),
+    retrieveProductsHandler: require('./retrieveProductsHandler')
 }

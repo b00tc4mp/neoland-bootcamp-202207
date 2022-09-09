@@ -1,11 +1,14 @@
+require('dotenv').config()
+
 const { connect, disconnect, Types:{ObjectId} } = require('mongoose')
 const { User } = require('../../../models')
 const { NotFoundError} = require('errors')
 const retrieveUser  = require('.')
 
-describe('retrieveUser', () => {
-    //antes de todo me conecto a la base de datos
-    beforeAll(() => connect('mongodb://localhost:27017/finalProject'))
+const { MONGO_URL_TEST } = process.env;
+
+describe("retrieveUser", () => {
+  beforeAll(() => connect(MONGO_URL_TEST));
 
     beforeEach(() => User.deleteMany()) //eliminar cada usuario
 
