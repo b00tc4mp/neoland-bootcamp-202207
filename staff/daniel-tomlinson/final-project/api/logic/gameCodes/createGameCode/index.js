@@ -1,4 +1,4 @@
-const { User, Note } = require("../../../models");
+const { User, GameCode } = require("../../../models");
 const { NotFoundError, SystemError } = require("errors");
 const { validateString } = require("validators");
 const { verifyObjectId } = require("../../../utils");
@@ -18,9 +18,11 @@ const { verifyObjectId } = require("../../../utils");
  * @throws {SystemError} If an error happens in db.
  */
 
-function createGame(userId, text) {
+function createGameCode(userId, nameOfClass, pin) {
+  debugger;
   verifyObjectId(userId, "user id");
-  validateString(text, "text");
+  validateString(nameOfClass, "nameOfClass");
+  validateString(pin, "pin");
 
   return User.findById(userId)
     .lean()
@@ -30,11 +32,13 @@ function createGame(userId, text) {
     .then((user) => {
       if (!user) throw new NotFoundError(`user with id ${userId} not found`);
 
-      return Note.create({ user: user._id, text }).catch((error) => {
-        throw new systemError(error.message);
-      });
+      return GameCode.create({ user: user._id, nameOfClass, pin }).catch(
+        (error) => {
+          throw new systemError(error.message);
+        }
+      );
     })
-    .then((note) => {});
+    .then((gameCode) => {});
 }
 
-module.exports = createGame;
+module.exports = createGameCode;

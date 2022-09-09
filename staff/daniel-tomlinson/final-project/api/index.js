@@ -139,7 +139,7 @@ connect(MONGO_URL)
   .then(() => {
     logger.info("db connected");
 
-    const { usersRouter, notesRouter, gamesRouter } = require("./routes");
+    const { usersRouter, notesRouter, gameCodesRouter } = require("./routes");
 
     api.use(cors());
 
@@ -151,7 +151,7 @@ connect(MONGO_URL)
       next();
     })*/ api.get("/", (req, res) => res.send(`${name} v${version} ;)`));
 
-    api.use("/api", usersRouter, notesRouter, gamesRouter);
+    api.use("/api", usersRouter, notesRouter, gameCodesRouter);
 
     server.listen(PORT, () => console.log(`API running on port ${PORT}`));
 

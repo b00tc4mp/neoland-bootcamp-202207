@@ -5,7 +5,7 @@ const {
 } = require("../../utils");
 const {
   //game here didn't work - written as games in the logic index
-  games: { createGame },
+  gameCodes: { createGameCode },
 } = require("../../logic");
 const { NotFoundError } = require("errors");
 const logger = createLogger(module);
@@ -16,10 +16,10 @@ module.exports = (req, res) => {
       const userId = verifyToken(req);
 
       const {
-        body: { text },
+        body: { nameOfClass, pin },
       } = req;
 
-      createGame(userId, text)
+      createGameCode(userId, nameOfClass, pin)
         .then(() => res.status(201).send())
         .catch((error) => {
           if (error instanceof NotFoundError)
