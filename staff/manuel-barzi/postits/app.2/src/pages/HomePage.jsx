@@ -10,7 +10,6 @@ import NoteList from '../components/NoteList'
 import Header from '../components/Header'
 import withContext from '../utils/withContext'
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
-import { searchNotes } from '../logic'
 
 function HomePage({ onLogoutClick, context: { handleFeedback } }) {
     const logger = new Loggito('HomePage')
@@ -19,7 +18,6 @@ function HomePage({ onLogoutClick, context: { handleFeedback } }) {
     const [notes, setNotes] = useState(null)
     const navigate = useNavigate()
     const location = useLocation()
-    const [query, setQuery] = useState(null)
 
     useEffect(() => {
         logger.info('"componentDidMount"')
@@ -49,42 +47,21 @@ function HomePage({ onLogoutClick, context: { handleFeedback } }) {
         loadNotes()
     }, [])
 
-    useEffect(() => {
-        logger.info('on query changed')
-
-        loadNotes()
-    }, [query])
-
     const loadNotes = () => {
         try {
-            if (!query)
-                retrieveNotes(sessionStorage.token, (error, notes) => {
-                    if (error) {
-                        handleFeedback({ message: error.message, level: 'error' })
+            retrieveNotes(sessionStorage.token, (error, notes) => {
+                if (error) {
+                    handleFeedback({ message: error.message, level: 'error' })
 
-                        logger.warn(error.message)
+                    logger.warn(error.message)
 
-                        return
-                    }
+                    return
+                }
 
-                    setNotes(notes)
+                setNotes(notes)
 
-                    logger.debug('setNotes', notes)
-                })
-            else
-                searchNotes(sessionStorage.token, query, (error, notes) => {
-                    if (error) {
-                        handleFeedback({ message: error.message, level: 'error' })
-
-                        logger.warn(error.message)
-
-                        return
-                    }
-
-                    setNotes(notes)
-
-                    logger.debug('setNotes', notes)
-                })
+                logger.debug('setNotes', notes)
+            })
         } catch (error) {
             handleFeedback({ message: error.message, level: 'error' })
 
@@ -102,8 +79,6 @@ function HomePage({ onLogoutClick, context: { handleFeedback } }) {
 
                     return
                 }
-
-                setQuery(null)
 
                 loadNotes()
             })
@@ -166,13 +141,11 @@ function HomePage({ onLogoutClick, context: { handleFeedback } }) {
         logger.debug('navigate to list')
     }
 
-    const handleSearch = query => setQuery(query)
-
     logger.info('return')
 
     return name ?
         <div className="home-page container container--full container--distributed">
-            <Header name={name} onLogoutClick={onLogoutClick} onSettingsClick={handleSettingsClick} onSearch={handleSearch} />
+            <Header name={name} onLogoutClick={onLogoutClick} onSettingsClick={handleSettingsClick} />
 
             <main className="main">
                 <Routes>

@@ -2,7 +2,7 @@ import Loggito from '../utils/Loggito'
 import './IconButton.sass'
 
 function IconButton({ onClick, text }) {
-    const logger = new Loggito('IconButton')
+    const logger = new Loggito('return')
 
     logger.info('return')
 

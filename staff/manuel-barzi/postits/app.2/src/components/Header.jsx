@@ -3,14 +3,11 @@ import './Header.sass'
 import Menu from './Menu'
 import IconButton from './IconButton'
 import Loggito from '../utils/Loggito'
-import { useLocation } from 'react-router-dom'
-import Search from './Search'
 
-function Header({ name, onLogoutClick, onSettingsClick, view: viewHome, onSearch }) {
+function Header({ name, onLogoutClick, onSettingsClick, view: viewHome }) {
     const logger = new Loggito('Header')
 
     const [view, setView] = useState(null) // [null, f () {}]
-    const location = useLocation()
 
     const handleMenuClick = () => {
         setView('menu')
@@ -20,7 +17,7 @@ function Header({ name, onLogoutClick, onSettingsClick, view: viewHome, onSearch
 
     const handleCloseClick = () => {
         setView(null)
-
+    
         logger.debug('setView', null)
     }
 
@@ -41,8 +38,6 @@ function Header({ name, onLogoutClick, onSettingsClick, view: viewHome, onSearch
             {view === null && <IconButton text="menu" onClick={handleMenuClick} />}
             {view === 'menu' && <IconButton text="close" onClick={handleCloseClick} />}
         </div>
-
-        {view !== 'menu' && <Search onQuery={onSearch}/>}
 
         {view === 'menu' && <Menu onLogoutClick={onLogoutClick} onSettingsClick={handleSettingsClick} view={viewHome} />}
     </header>
