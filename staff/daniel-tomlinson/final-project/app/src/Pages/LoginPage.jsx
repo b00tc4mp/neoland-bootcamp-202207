@@ -60,7 +60,7 @@ function LoginPage({
   };
 
   const onQuickPlayClick = () => {
-    handleQuickPlayClick("login");
+    handleQuickPlayClick();
   };
 
   return (

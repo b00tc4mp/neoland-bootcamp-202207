@@ -1,8 +1,8 @@
 const API_URL = process.env.REACT_APP_API_URL;
 
-function createGame(token, callback) {
+function createGameCode(token, nameOfClass, pin, callback) {
   //TODO validate inputs
-
+  debugger;
   if (typeof token !== "string") throw new TypeError("token is not a string");
   if (token.trim().length === 0) throw new Error("token is empty or blank");
 
@@ -21,14 +21,14 @@ function createGame(token, callback) {
     else if (status === 201) callback(null);
   };
 
-  xhr.open("POST", `${API_URL}/notes`);
+  xhr.open("POST", `${API_URL}/gameCodes`);
 
   xhr.setRequestHeader("Authorization", `Bearer ${token}`);
   xhr.setRequestHeader("Content-type", "application/json");
 
-  const json = JSON.stringify({ text: "" });
+  const json = JSON.stringify({ nameOfClass, pin });
   console.log(json);
   xhr.send(json);
 }
 
-export default createGame;
+export default createGameCode;

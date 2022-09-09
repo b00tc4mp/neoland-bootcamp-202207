@@ -10,7 +10,7 @@ import Teacher6ResponseStats from "../screens/teacher/Teacher-6-ResponseStats";
 import Teacher7ClassClosed from "../screens/teacher/Teacher-7-ClassClosed";
 
 import Loggito from "../utils/Loggito";
-import createGame from "../logic/createNote";
+import createGameCode from "../logic/createGameCode";
 
 import withContext from "../utils/withContext";
 
@@ -28,9 +28,12 @@ function QuizTeacher({ socket, context: { handleFeedback } }) {
 
   const handleLeaveClick = () => {};
 
-  const handleStartClass = () => {
+  const handleStartClass = (nameOfClass, pin) => {
     try {
-      createGame(sessionStorage.token, (error) => {
+      debugger;
+      const pinString = `${pin}`;
+
+      createGameCode(sessionStorage.token, nameOfClass, pinString, (error) => {
         if (error) {
           handleFeedback({ message: error.message, level: "error" });
 
@@ -38,8 +41,6 @@ function QuizTeacher({ socket, context: { handleFeedback } }) {
 
           return;
         }
-
-        // loadNotes();
       });
     } catch (error) {
       handleFeedback({ message: error.message, level: "error" });
@@ -52,7 +53,7 @@ function QuizTeacher({ socket, context: { handleFeedback } }) {
     setGameScreen(gameScreen);
     setNameOfClass(nameOfClass);
     setPin(pin);
-    handleStartClass();
+    handleStartClass(nameOfClass, pin);
   };
 
   const handleScreenChangeT2 = (gameScreen) => {

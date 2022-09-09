@@ -77,7 +77,7 @@ function App() {
     // (`${theme}`);
   };
 
-  const handleQuickPlayClick = (view) => {
+  const handleQuickPlayClick = () => {
     // setView(view);
     navigate("quickPlay");
   };
@@ -124,6 +124,7 @@ function App() {
           element={
             sessionStorage.token ? <HomePage /> : <Navigate to="login" />
           }
+          // handleQuickPlayClick={handleQuickPlayClick}
         />
       </Routes>
 

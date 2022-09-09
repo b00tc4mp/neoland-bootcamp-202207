@@ -2,16 +2,24 @@ import { useState, useEffect } from "react";
 import Loggito from "../utils/Loggito";
 import retrieveUser from "../logic/retrieveUser";
 import retrieveNotes from "../logic/retrieveNotes";
-import createNote from "../logic/createGame";
+import createNote from "../logic/createNote";
+import createGameCode from "../logic/createGameCode";
 import updateNoteText from "../logic/updateNoteText";
 import deleteNote from "../logic/deleteNote";
 import Settings from "../components/Settings";
 import NoteList from "../components/NoteList";
 import Header from "../components/Header";
+import QuickPlayPage from "./QuickPlayPage";
 import withContext from "../utils/withContext";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 
-function HomePage({ context: { handleLogoutClick, handleFeedback } }) {
+function HomePage({
+  context: {
+    handleLogoutClick,
+    handleFeedback,
+    // handleQuickPlayClick
+  },
+}) {
   const logger = new Loggito("HomePage");
 
   const [name, setName] = useState(null);
@@ -47,6 +55,13 @@ function HomePage({ context: { handleLogoutClick, handleFeedback } }) {
 
     loadNotes();
   }, []);
+
+  const onQuickPlayClick = () => {
+    // debugger;
+    // delete sessionStorage.token;
+    // handleQuickPlayClick();
+    navigate("quickPlayInHome");
+  };
 
   const loadNotes = () => {
     try {
@@ -156,6 +171,9 @@ function HomePage({ context: { handleLogoutClick, handleFeedback } }) {
         onFeedback={handleFeedback}
       />
       <main className="main flex-container main-page-content">
+        <button className="button--primary" onClick={onQuickPlayClick}>
+          Quick Play
+        </button>
         <Routes>
           {/*  {view === "list" && (
             <NoteList
@@ -171,6 +189,7 @@ function HomePage({ context: { handleLogoutClick, handleFeedback } }) {
               onFeedback={handleFeedback}
             />
           )} */}
+          <Route path="quickPlayInHome" element={<QuickPlayPage />} />
           <Route
             path="/"
             element={
