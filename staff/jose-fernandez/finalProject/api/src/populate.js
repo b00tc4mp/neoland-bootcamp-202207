@@ -6,28 +6,28 @@ connect('mongodb://localhost:27017/finalProject')
     .then(() => Promise.all([Address.deleteMany(), Cart.deleteMany(), Item.deleteMany(), Order.deleteMany(), Product.deleteMany(), User.deleteMany()]))
     .then(() => {
         //firts
-        const airMax90 = new Product({
+        const product1 = new Product({
             name:'airMax90',
             sku: 'nkh1144',
             price: 150,
             discount: 0,
             stock: 114
         })
-        const airMax270 = new Product({
+        const product2 = new Product({
             name:'airMax270',
             sku: 'nkh1244',
             price: 140,
             discount: 0,
             stock: 114
         })
-        const airJordan = new Product({
+        const product3 = new Product({
             name:'airJordan',
             sku: 'nkh1344',
             price: 190,
             discount: 0,
             stock: 114
         })
-        const techFleece = new Product({
+        const product4 = new Product({
             name:'techFleece',
             sku: 'nkh1444',
             price: 180,
@@ -35,32 +35,32 @@ connect('mongodb://localhost:27017/finalProject')
             stock: 114
         })
         return Promise.all([
-            airMax90.save(),
-            airMax270.save(),
-            airJordan.save(),
-            techFleece.save()
+            product1.save(),
+            product2.save(),
+            product3.save(),
+            product4.save()
         ])
     })
-    .then(([airMax90, airMax270, airJordan, techFleece]) => {
+    .then(([product1, product2, product3, product4]) => {
         //primero crear producto
-        //embebido se declara antes de salvar
+        //embebido se declara antes de save()
         const item1 = new Item({
-            product: airMax90.id,
+            product: product1.id,
             price: 300,
             qty: 2
         })
         const item2 = new Item({
-            product: airMax270.id,
+            product: product2.id,
             price: 140,
             qty: 1
         })
         const item3 = new Item({
-            product: airJordan.id,
+            product: product3.id,
             price: 570,
             qty: 3
         })
         const item4 = new Item({
-            product: techFleece.id,
+            product: product4.id,
             price: 180,
             qty: 1
         })

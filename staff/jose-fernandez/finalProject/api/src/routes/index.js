@@ -17,7 +17,7 @@ usersRouter.get('/users',retrieveUserHandler)
 
 
 const productRouter = Router()
-productRouter.get('/products',searchProductHandler)
+productRouter.get('/products/search',searchProductHandler)
 // notesRouter.post('/notes', jsonBodyParser,createNoteHandler)
 // notesRouter.get('/notes', retrieveNotesHandler)
 // notesRouter.patch('/notes/:noteId', jsonBodyParser,updateNoteTextHandler)

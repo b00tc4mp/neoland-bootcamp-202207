@@ -1,14 +1,16 @@
+require('dotenv').config()
+
 const { connect, disconnect, Types: { ObjectId }, } = require("mongoose");
-const { Product, Item, Car } = require("../../../models");
+const { Product, Item, Cart } = require("../../../models");
 const { NotFoundError } = require("errors");
 const searchProduct = require(".");
 
 const { MONGO_URL_TEST } = process.env;
 
 describe("searchProduct", () => {
-  before(() => connect(MONGO_URL_TEST));
+  beforeAll(() => connect(MONGO_URL_TEST));
 
-  beforeEach(() => Promise.all([City.deleteMany()]));
+  beforeEach(() => Promise.all([Product.deleteMany()]));
 
   it("succeeds on existing Product", () => {
     // happy path
@@ -34,18 +36,19 @@ describe("searchProduct", () => {
       discount: 0,
       stock: 118
     })
+    const query = 'airMax90'
 
     return Promise.all([product1.save(), product2.save(), product3.save()])
       .then(([product1, product2, product3]) =>
-        SearchProduct('airMax90')
-          .then((Product) => {
-            expect(Product).to.have.length(1);
-
-            expect(Product[0].name).toEqual('airMax90')
-            expect(Product[1].sku).toEqual('nkh1144')
-            expect(Product[2].price).toEqual(140)
-            expect(Product[3].discount).toEqual(0)
-            expect(Product[4].stock).toEqual(114)
+        searchProduct(query)
+          .then((products) => {
+            expect(products).toHaveLength(1);
+      
+            expect(products[0].name).toEqual('airMax90')
+            expect(products[0].sku).toEqual('nkh1144')
+            expect(products[0].price).toEqual(150)
+            expect(products[0].discount).toEqual(0)
+            expect(products[0].stock).toEqual(114)
 
 
           })
@@ -80,9 +83,9 @@ describe("searchProduct", () => {
 
     return Promise.all([product1.save(), product2.save(), product3.save()]).then(
       ([product1, product2, product3]) =>
-        SearchProduct('air')
+        searchProduct('air')
           .then((Product) => {
-            expect(Product).to.have.length(3);
+            expect(Product).toHaveLength(3);
 
           })
     );
@@ -100,5 +103,5 @@ describe("searchProduct", () => {
       });
   });
 
-  after(() => disconnect());
+  afterAll(() => disconnect());
 });

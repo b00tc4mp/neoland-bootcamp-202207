@@ -1,5 +1,5 @@
 const { connect, disconnect } = require('mongoose')
-const { User,Product } = require('../../../models')
+const { User,Product,Item } = require('../../../models')
 const { DuplicityError } = require('errors')
 const  registerAnonymousUser = require('.')
 
@@ -10,25 +10,29 @@ describe('registerAnonymousUser', () => {
     beforeEach(() => User.deleteMany()) //eliminar cada usuario
 
     it('succeds on new user anonymous', () => {  //happy path
-        const airMax90 = new Product({
+        const product1 = new Product({
+            name:'airMax90',
             sku: 'nkh1144',
             price: 150,
             discount: 0,
             stock: 114
         })
-        const wendy = new User({
-           
-            cart:[item1,item2],
-            email: '1662578284582-0.48371241617067273@anonymous.mail'
-        })
-       
 
-        return registerAnonymousUser(email)
+        const item1 = new Item({
+            product: product1.id,
+            price: 300,
+            qty: 2
+        })
+        //carrito
+        const cart = [item1]
+      
+
+        return registerAnonymousUser(cart)
             .then(res => {
                 //no espero un resultado por la tanto lo coloco como no definido
-                expect(res).toBeUndefined()
+                expect(res).toBeDefined()
                 //prometo el regreso de del email del usuario encontrado
-                return User.find({ create })
+                return User.find()
             })
             .then(users => {
                 //espero que la longitud de users sea 1
@@ -37,28 +41,23 @@ describe('registerAnonymousUser', () => {
                 const [user] = users
 
                 expect(user.name).toBeUndefined()
-                expect(user.email).toEqual(email)
+                expect(user.email).toBeDefined()
                 expect(user.password).toBeUndefined()
             })
     })
 
     it('fails on empty cart', () => {//unhappy path
-
-        const wendy = new User({
-           
-            cart:[],
-            email: '1662578284582-0.48371241617067273@anonymous.mail'
-        })
-       
+        const cart=[]
 
         //con el metodo .create creamos usuario que nos retorna el parametro user
-        return User.create({ name, email, password })
+        return User.create({ cart })
             .then(() => {
-                return registerAnonymousUser(name, email, password)
+                return registerAnonymousUser(cart)
             })
             .catch(error => {
-                expect(error).toBeInstanceOf(DuplicityError)
-                expect(error.message).toEqual('user already exists')
+                //import
+                expect(error).toBeInstanceOf(BadRequestError)
+                expect(error.message).toEqual('cart is empty')
 
             })
     })

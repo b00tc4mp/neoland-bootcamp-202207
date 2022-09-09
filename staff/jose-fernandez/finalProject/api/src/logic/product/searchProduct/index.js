@@ -7,11 +7,12 @@ function searchProduct(query) {
     // verifyObjectIdString(product, 'product')
     validateString(query)
 
-    return Product.findBy({name:{$regex: new RegExp(query)}},'text visibility ').lean()
+    return Product.find({name:{$regex: new RegExp(query)}}).lean()
         .catch(error => {
             throw new SystemError(error.message)
         })
         .then(products => {
+            // console.log(products)
             if (!products) throw new NotFoundError(`product with ${query} characters does not exist`)
             products.forEach(product => {
 

@@ -9,11 +9,12 @@
 // }
 // module.exports = registerAnonymousUser
 const {User} = require('../../../models')
-const{DuplicityError, SystemError} = require('errors')
-const {validateEmail}= require('validators')
+const {DuplicityError, SystemError} = require('errors')
+// const {validateEmail}= require('validators')
 
 function registerAnonymousUser(cart){
     // validateEmail(email)
+    //validateCart => si !carrito o product.length >0  throw new BadREquestError('cart is empty')
 
     return User.create({cart})
     .then(user=>{
