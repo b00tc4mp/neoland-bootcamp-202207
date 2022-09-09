@@ -3,8 +3,7 @@ const { Router, json } = express
 const jsonBodyParser = json()
 const { registerUserHandler, authenticateUserHandler, retrieveUserHandler, updateUserEmailHandler, updateUserPasswordHandler } = require('./users')
 const { createIngredientHandler, searchIngredientHandler} = require('./ingredients')
-const { createRecipeHandler } = require('./recipes')
-
+const { createRecipeHandler, retrieveRecipeHandler, retrieveUserRecipesHandler, updateRecipeHandler, deleteRecipeHandler } = require('./recipes')
 
 const usersRouter = Router()
 
@@ -27,6 +26,14 @@ ingredientsRouter.get('/ingredients/search', searchIngredientHandler)
 const recipesRouter = Router ()
 
 recipesRouter.post('/recipes', jsonBodyParser, createRecipeHandler)
+
+recipesRouter.get('/recipes', retrieveUserRecipesHandler)
+
+recipesRouter.get('/recipes/:recipeId', retrieveRecipeHandler)
+
+recipesRouter.delete('/recipes/:recipeId', deleteRecipeHandler)
+
+recipesRouter.patch('/recipes/:recipeId', jsonBodyParser, updateRecipeHandler)
 
 module.exports = {
     usersRouter,

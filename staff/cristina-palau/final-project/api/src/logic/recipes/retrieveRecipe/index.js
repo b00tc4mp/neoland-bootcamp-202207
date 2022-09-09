@@ -26,11 +26,9 @@ function retrieveRecipe(userId, recipeId) {
             delete recipe.__v
 
             recipe.ingredients.forEach(ingredient => {
-
                 ingredient.id = ingredient._id.toString()
                 delete ingredient._id
                 delete ingredient.__v
-                // TODO sanitize
             })
 
             return recipe
