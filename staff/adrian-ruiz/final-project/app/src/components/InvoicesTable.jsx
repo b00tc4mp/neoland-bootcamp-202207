@@ -55,40 +55,40 @@ function stableSort(array, comparator) {
 
 const headCells = [
     {
+        id: 'date',
+        numeric: false,
+        disablePadding: false,
+        label: 'Date',
+    },
+    {
         id: 'name',
         numeric: false,
         disablePadding: false,
-        label: 'Product/Service',
+        label: 'Customer name',
     },
     {
-        id: 'sku',
-        numeric: true,
+        id: 'invoiceNumber',
+        numeric: false,
         disablePadding: false,
-        label: 'SKU',
+        label: 'Invoice N#',
     },
     {
-        id: 'category',
-        numeric: true,
+        id: 'status',
+        numeric: false,
         disablePadding: false,
-        label: 'Category',
+        label: 'Status',
     },
     {
-        id: 'cost',
+        id: 'balance',
         numeric: true,
         disablePadding: false,
-        label: 'Cost Price',
+        label: 'Balance',
     },
     {
-        id: 'minqty',
+        id: 'amount',
         numeric: true,
         disablePadding: false,
-        label: 'Min Qty',
-    },
-    {
-        id: 'stock',
-        numeric: true,
-        disablePadding: false,
-        label: 'Stock',
+        label: 'Amount',
     },
 ];
 
@@ -188,7 +188,7 @@ const EnhancedTableToolbar = (props) => {
                     id="tableTitle"
                     component="div"
                 >
-                    Stock
+                    Invoices
                 </Typography>
             )}
 
@@ -213,16 +213,16 @@ EnhancedTableToolbar.propTypes = {
     numSelected: PropTypes.number.isRequired,
 };
 
-export default function EnhancedTable({stock}) {
+export default function EnhancedTable({data}) {
     
-    const rows = stock
+    const rows = data
     
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('stock');
     const [selected, setSelected] = React.useState([]);
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
-    const [rowsPerPage, setRowsPerPage] = React.useState(15);
+    const [rowsPerPage, setRowsPerPage] = React.useState(rows.length);
 
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
@@ -284,7 +284,10 @@ export default function EnhancedTable({stock}) {
                 <EnhancedTableToolbar numSelected={selected.length} />
                 <TableContainer
                 sx={{
-                    height: '80%',
+                    maxHeight: '90vh',
+                    maxWidth: '90vw'
+                    
+                   /*  overflow: 'hidden' */
                 }}
                 >
                     <Table stickyHeader
@@ -320,11 +323,11 @@ export default function EnhancedTable({stock}) {
                                                 }
                                             }}
                                             hover
-                                            onClick={(event) => handleClick(event, row.name)}
+                                            onClick={(event) => handleClick(event, row.date)}
                                             role="checkbox"
                                             aria-checked={isItemSelected}
                                             tabIndex={-1}
-                                            key={row.name}
+                                            key={row.date}
                                             selected={isItemSelected}
                                         >
                                             <TableCell
@@ -333,13 +336,13 @@ export default function EnhancedTable({stock}) {
                                                 scope="row"
                                                 padding="default"
                                             >
-                                                {row.name}
+                                                {row.invoiceDate}
                                             </TableCell>
-                                            <TableCell align="right">{row.sku}</TableCell>
-                                            <TableCell align="right">{row.category}</TableCell>
-                                            <TableCell align="right">{row.cost}</TableCell>
-                                            <TableCell align="right">{row.minqty}</TableCell>
-                                            <TableCell align="right">{row.stock}</TableCell>
+                                            <TableCell align="left">{row.customer.name}</TableCell>
+                                            <TableCell align="left">{row.invoiceNumber}</TableCell>
+                                            <TableCell align="left">{row.status}</TableCell>
+                                            <TableCell align="right">{row.balance}</TableCell>
+                                            <TableCell align="right">{row.totalAmount}</TableCell>
                                             <TableCell padding="checkbox">
                                                 <Checkbox
                                                     color="primary"
@@ -358,13 +361,13 @@ export default function EnhancedTable({stock}) {
                                         height: (dense ? 33 : 53) * emptyRows,
                                     }}
                                 >
-                                    <TableCell colSpan={7} />
+                                    <TableCell colSpan={4} />
                                 </TableRow>
                             )}
                         </TableBody>
                     </Table>
                 </TableContainer>
-                <TablePagination
+               {/*  <TablePagination
                     rowsPerPageOptions={[8, 10, 25]}
                     component="div"
                     count={rows.length}
@@ -372,7 +375,7 @@ export default function EnhancedTable({stock}) {
                     page={page}
                     onPageChange={handleChangePage}
                     onRowsPerPageChange={handleChangeRowsPerPage}
-                />
+                /> */}
                 {/* <FormControlLabel
                 control={<Switch checked={dense} onChange={handleChangeDense} />}
                 label="Dense padding"

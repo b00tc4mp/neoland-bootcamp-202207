@@ -23,6 +23,43 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 
+/* function createData(name, phone, balance) {
+    return {
+      name,
+      phone,
+      balance
+    };
+  }
+  
+  const rows = [
+    createData('Cupcake', 305, 3.7),
+    createData('Donut', 452, 25.0),
+    createData('Eclair', 262, 16.0),
+    createData('Frozen yoghurt', 159, 6.0),
+    createData('Gingerbread', 356, 16.0),
+    createData('Honeycomb', 408, 3.2),
+    createData('Ice cream sandwich', 237, 9.0),
+    createData('Jelly Bean', 375, 0.0),
+    createData('KitKat', 518, 26.0),
+    createData('Lollipop', 392, 0.2),
+    createData('Marshmallow', 318, 0),
+    createData('Nougat', 360, 19.0),
+    createData('Oreo', 437, 18.0),
+    createData('Cupcake2', 305, 3.7),
+    createData('Donut2', 452, 25.0),
+    createData('Eclair2', 262, 16.0),
+    createData('Frozen yoghurt2', 159, 6.0),
+    createData('Gingerbread2', 356, 16.0),
+    createData('Honeycomb2', 408, 3.2),
+    createData('Ice cream sandwich2', 237, 9.0),
+    createData('Jelly Bean2', 375, 0.0),
+    createData('KitKat2', 518, 26.0),
+    createData('Lollipop2', 392, 0.2),
+    createData('Marshmallow2', 318, 0),
+    createData('Nougat2', 360, 19.0),
+    createData('Oreo2', 437, 18.0),
+  ]; */
+
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
         return -1;
@@ -58,38 +95,20 @@ const headCells = [
         id: 'name',
         numeric: false,
         disablePadding: false,
-        label: 'Product/Service',
+        label: 'Customer name',
     },
     {
-        id: 'sku',
+        id: 'phone',
         numeric: true,
         disablePadding: false,
-        label: 'SKU',
+        label: 'Phone',
     },
     {
-        id: 'category',
+        id: 'balance',
         numeric: true,
         disablePadding: false,
-        label: 'Category',
-    },
-    {
-        id: 'cost',
-        numeric: true,
-        disablePadding: false,
-        label: 'Cost Price',
-    },
-    {
-        id: 'minqty',
-        numeric: true,
-        disablePadding: false,
-        label: 'Min Qty',
-    },
-    {
-        id: 'stock',
-        numeric: true,
-        disablePadding: false,
-        label: 'Stock',
-    },
+        label: 'Balance',
+    }
 ];
 
 function EnhancedTableHead(props) {
@@ -213,16 +232,16 @@ EnhancedTableToolbar.propTypes = {
     numSelected: PropTypes.number.isRequired,
 };
 
-export default function EnhancedTable({stock}) {
+export default function EnhancedTable({data}) {
     
-    const rows = stock
+    const rows = data
     
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('stock');
     const [selected, setSelected] = React.useState([]);
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
-    const [rowsPerPage, setRowsPerPage] = React.useState(15);
+    const [rowsPerPage, setRowsPerPage] = React.useState(rows.length);
 
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
@@ -284,7 +303,9 @@ export default function EnhancedTable({stock}) {
                 <EnhancedTableToolbar numSelected={selected.length} />
                 <TableContainer
                 sx={{
-                    height: '80%',
+                    maxHeight: '90vh',
+                    
+                   /*  overflow: 'hidden' */
                 }}
                 >
                     <Table stickyHeader
@@ -335,11 +356,8 @@ export default function EnhancedTable({stock}) {
                                             >
                                                 {row.name}
                                             </TableCell>
-                                            <TableCell align="right">{row.sku}</TableCell>
-                                            <TableCell align="right">{row.category}</TableCell>
-                                            <TableCell align="right">{row.cost}</TableCell>
-                                            <TableCell align="right">{row.minqty}</TableCell>
-                                            <TableCell align="right">{row.stock}</TableCell>
+                                            <TableCell align="right">{row.phone}</TableCell>
+                                            <TableCell align="right">{row.balance}</TableCell>
                                             <TableCell padding="checkbox">
                                                 <Checkbox
                                                     color="primary"
@@ -358,13 +376,13 @@ export default function EnhancedTable({stock}) {
                                         height: (dense ? 33 : 53) * emptyRows,
                                     }}
                                 >
-                                    <TableCell colSpan={7} />
+                                    <TableCell colSpan={4} />
                                 </TableRow>
                             )}
                         </TableBody>
                     </Table>
                 </TableContainer>
-                <TablePagination
+               {/*  <TablePagination
                     rowsPerPageOptions={[8, 10, 25]}
                     component="div"
                     count={rows.length}
@@ -372,7 +390,7 @@ export default function EnhancedTable({stock}) {
                     page={page}
                     onPageChange={handleChangePage}
                     onRowsPerPageChange={handleChangeRowsPerPage}
-                />
+                /> */}
                 {/* <FormControlLabel
                 control={<Switch checked={dense} onChange={handleChangeDense} />}
                 label="Dense padding"

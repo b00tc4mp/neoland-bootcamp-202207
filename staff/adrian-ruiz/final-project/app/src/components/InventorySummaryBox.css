@@ -28,3 +28,7 @@
 .summaryBox__category{
     font-size: 2.2rem;
 }
+
+.summaryBox__stock{
+    padding-bottom: 5%;
+}

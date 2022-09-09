@@ -19,7 +19,7 @@ function LoginPage({ onLogin, navigateRegister }) {
                     form.reset()
                     onLogin()
                 } catch (error) {
-                    toaster.warning('Something went wrong', {duration : 50, description: error.message})
+                    toaster.warning('Something went wrong', {duration : 3, description: error.message})
                 }
             })()
     }
