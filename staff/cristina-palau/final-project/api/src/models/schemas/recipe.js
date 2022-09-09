@@ -19,7 +19,16 @@ const recipe = new Schema({
         required: true,
     },
 
-    ingredients: [ingredientItem]
+    ingredients: [ingredientItem], 
+    
+    createAt: {
+        type: Date,
+        default: Date.now
+    },
+
+    modifiedAt: {
+        type: Date
+    }
 })
 
 module.exports = recipe
