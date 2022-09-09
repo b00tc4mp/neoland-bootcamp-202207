@@ -12,6 +12,7 @@ function createInventoryItemHandler(req, res){
 
         res.status(204).send()
     
+        logger.info(`Company: ${companyId} created item succesfully`)
     }, res, logger)
 }
 

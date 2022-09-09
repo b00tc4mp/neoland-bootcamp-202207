@@ -94,7 +94,7 @@ const {env : { MONGO_URL }} = process
             billingAddress: "Populated Street Estimate"
         },
         terms : "30 days",
-        estimateDate : "01/01/2022",
+        estimateDate : new Date(),
         products : [{
             id: _items[0].id,
             price : 35,
@@ -117,7 +117,7 @@ const {env : { MONGO_URL }} = process
             billingAddress: "Populated Street Estimate2"
         },
         terms : "30 days",
-        estimateDate : "01/01/2022",
+        estimateDate : new Date(),
         products : [{
             id: _items[0].id,
             price : 20,
@@ -143,8 +143,8 @@ const {env : { MONGO_URL }} = process
                 billingAddress: "Populated Street Invoice"
             },
             terms : "30 days",
-            invoiceDate : "01/01/2022",
-            dueDate : "01/02/2022",
+            invoiceDate : new Date("01/01/2022"),
+            dueDate : new Date("01/01/2022"),
             products : [{
                 id: _items[0].id,
                 price : 35,
@@ -168,8 +168,8 @@ const {env : { MONGO_URL }} = process
                 billingAddress: "Populated Street Invoice"
             },
             terms : "30 days",
-            invoiceDate : "01/01/2022",
-            dueDate : "01/02/2022",
+            invoiceDate : new Date("01/01/2022"),
+            dueDate : new Date("01/01/2022"),
             products : [{
                 id: _items[0].id,
                 price : 20,
@@ -181,7 +181,7 @@ const {env : { MONGO_URL }} = process
                 amount: 5
             }],
             totalAmount: 50,
-            balance: 100
+            balance: 50
         }]
 
     await Invoice.create(invoices)

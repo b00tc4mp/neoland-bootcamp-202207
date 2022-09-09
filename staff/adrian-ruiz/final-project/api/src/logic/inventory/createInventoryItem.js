@@ -18,7 +18,7 @@ function createInventoryItem(company, { name, sku, category, cost, averageCost, 
             if(found.name === name) throw new DuplicityError(`There's already a product named ${name}`)
             else if(found.sku === sku) throw new DuplicityError(`There's already a product with SKU ${sku}`)
         } 
-
+        if(!category) category = 'uncategorized'
         await InventoryItem.create({ company, name, sku , category , cost, averageCost, description, minStock, stock })
     })()
 }
