@@ -2,7 +2,7 @@ const { User, Recipe, IngredientItem } = require('../../../models')
 const { NotFoundError, SystemError, FormatError } = require('errors')
 const { verifyObjectIdString,  } = require('../../../utils')
 const { verifyIngredient } = require('../../ingredients')
-const { validateString, validateArray, validateObject, validateNumber } = require('validators')
+const { validateString, validateArray } = require('validators')
 
 function createRecipe(userId, title, persons, ingredients) {
     
@@ -20,12 +20,12 @@ function createRecipe(userId, title, persons, ingredients) {
             if (!user) throw new NotFoundError(`user with id ${userId} not found`)
 
             const ingredientItems = ingredients.map(ingredient => {
-                const { id, quantity, unit } = ingredient
+                const { id, quantity, units } = ingredient
 
                 const ingredientItem = new IngredientItem({
                     ingredient: id,
                     quantity: quantity,
-                    unit
+                    units
                 })
 
                 return ingredientItem
