@@ -16,6 +16,13 @@ function Recipes() {
 
         logger.debug('navigate to new recipe')
     }
+    const handleNavigationRecipes = event => {
+        event.preventDefault()
+
+        navigate('/')
+
+        logger.debug('navigate to recipes')
+    }
 
     return <Routes>
         <Route path="/" element={<>
@@ -40,7 +47,7 @@ function Recipes() {
             </div>
         </>} />
         <Route path="newrecipe" element={<>
-            <NewRecipe />
+            <NewRecipe onBackClick={handleNavigationRecipes} />
         </>} />
     </Routes>
 }

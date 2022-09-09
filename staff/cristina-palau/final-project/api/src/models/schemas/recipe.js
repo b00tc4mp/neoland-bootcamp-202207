@@ -1,29 +1,25 @@
-// const { Schema } = require('mongoose')
+const { Schema, Types: {ObjectId} } = require('mongoose')
+const ingredientItem = require('./ingredientItem')
 
-// const recipe = new Schema({
-//     creator: {
-//         type: ObjectId,
-//         required: true,
-//         ref: 'User'
-//     },
+const recipe = new Schema({
+    creator: {
+        type: ObjectId,
+        required: true,
+        ref: 'User'
+    },
 
-//     title: {
-//         type: String,
-//         required: true,
-//         default: "Nueva receta"
-//     },
+    title: {
+        type: String,
+        required: true,
+        default: "Nueva receta"
+    },
 
-//     persons: {
-//         type: Number,
-//         required: true,
-//     },
+    persons: {
+        type: Number,
+        required: true,
+    },
 
-//     ingredients: [{
-//         ingredient: {type: ObjectId, ref: 'Ingredient'},
-//         quantity: {type: Number, required: true, default: 0},
-//         quantityType: {type: String, enum: ['kg', 'un', 'l'], required: false}
-//     }]
-    
-// })
+    ingredients: [ingredientItem]
+})
 
-// module.exports = recipe
+module.exports = recipe

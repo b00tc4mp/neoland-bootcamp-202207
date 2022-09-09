@@ -3,5 +3,5 @@ module.exports = {
     verifyObjectIdString: require('./verifyObjectIdString'),
     verifyToken: require('./verifyToken'),
     runWithErrorHandling: require('./runWithErrorHandling.js'),
-    verifyIngredient: require('./verifyIngredient')
+    verifyIngredient: require('../logic/ingredients/verifyIngredient')
 }

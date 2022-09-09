@@ -1,5 +1,6 @@
 const { Types: { ObjectId } } = require('mongoose')
 const { validateString } = require('validators')
+const FormatError = require('errors')
 
 function verifyObjectIdString(objectIdString, explain = 'id') {
     validateString(objectIdString, explain)

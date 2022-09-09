@@ -2,7 +2,7 @@ import Loggito from '../utils/loggito'
 import './NewRecipe.sass'
 import { useState } from 'react'
 
-function NewRecipe() {
+function NewRecipe(handleNavigationRecipes) {
     const logger = new Loggito('New Recipe')
 
     logger.info('render')
@@ -13,6 +13,12 @@ function NewRecipe() {
 
         let newIngredient = { quantity: "", unit: "", ingredient: "" }
         setIngredients([...ingredients, newIngredient])
+    }
+
+    const onBackClick= event => {
+        event.preventDefault()
+
+        handleNavigationRecipes()
     }
 
     return <>
@@ -26,16 +32,16 @@ function NewRecipe() {
             <div className="ingredientsContainer"> {ingredients.map((input, index) => {
                 return (
                     <div key={index}>
-                        <input className="input newRecipeInput quantInput" typeof="number" name="quantity" value={input.quantity} placeholder="cantidad" id="cantidad" />
-                        <input className="input newRecipeInput unitInput" name="unit" placeholder="unit" id="unidad" value={input.unit} />
-                        <input className="input newRecipeInput ingredientInput" name="ingredient" placeholder="ingrediente" id="ingrediente" value={input.ingredient} />
+                        <input className="input newRecipeInput quantInput" typeof="number" name="quantity" placeholder="cantidad" id="cantidad" />
+                        <input className="input newRecipeInput unitInput" name="unit" placeholder="unit" id="unidad"  />
+                        <input className="input newRecipeInput ingredientInput" name="ingredient" placeholder="ingrediente" id="ingrediente"  />
                     </div>)
             })}
                 <button className="addIngredient" onClick={addIngredient}>+</button>
             </div>
             <div className="buttonsContainer">
-                <button>Atrás</button>
-                <button>Guardar</button>
+                <button className="backButton" onClick={onBackClick}>Atrás</button>
+                <button className="saveButton">Guardar</button>
             </div>
         </form>
 

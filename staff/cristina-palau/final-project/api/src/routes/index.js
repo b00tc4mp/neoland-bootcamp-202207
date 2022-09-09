@@ -2,7 +2,10 @@ const express = require('express')
 const { Router, json } = express
 const jsonBodyParser = json()
 const { registerUserHandler, authenticateUserHandler, retrieveUserHandler, updateUserEmailHandler, updateUserPasswordHandler } = require('./users')
-const { createIngredientHandler} = require('./ingredients')
+const { createIngredientHandler, searchIngredientHandler} = require('./ingredients')
+const { createRecipeHandler } = require('./recipes')
+
+
 const usersRouter = Router()
 
 usersRouter.post('/users', jsonBodyParser, registerUserHandler)
@@ -19,8 +22,14 @@ const ingredientsRouter = Router ()
 
 ingredientsRouter.post('/ingredients', jsonBodyParser, createIngredientHandler)
 
+ingredientsRouter.get('/ingredients/search', searchIngredientHandler)
+
+const recipesRouter = Router ()
+
+recipesRouter.post('/recipes', jsonBodyParser, createRecipeHandler)
 
 module.exports = {
     usersRouter,
-    ingredientsRouter
+    ingredientsRouter,
+    recipesRouter
 }

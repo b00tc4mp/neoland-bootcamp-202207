@@ -6,5 +6,5 @@ module.exports = {
     validateString: require('./validateString'),
     validateObject: require('./validateObject'),
     validateArray: require('./validateArray'),
-    validateNumber: require('./validateObject'),
+    validateNumber: require('./validateNumber'),
 }
