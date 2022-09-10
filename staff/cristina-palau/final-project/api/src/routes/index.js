@@ -3,7 +3,7 @@ const { Router, json } = express
 const jsonBodyParser = json()
 const { registerUserHandler, authenticateUserHandler, retrieveUserHandler, updateUserEmailHandler, updateUserPasswordHandler } = require('./users')
 const { createIngredientHandler, searchIngredientHandler} = require('./ingredients')
-const { createRecipeHandler, retrieveRecipeHandler, retrieveUserRecipesHandler, updateRecipeHandler, deleteRecipeHandler } = require('./recipes')
+const { createRecipeHandler, retrieveRecipeHandler, retrieveUserRecipesHandler, updateRecipeHandler, deleteRecipeHandler, retrievePublicRecipesHandler } = require('./recipes')
 
 const usersRouter = Router()
 
@@ -28,6 +28,8 @@ const recipesRouter = Router ()
 recipesRouter.post('/recipes', jsonBodyParser, createRecipeHandler)
 
 recipesRouter.get('/recipes', retrieveUserRecipesHandler)
+
+recipesRouter.get('/recipes/public', retrievePublicRecipesHandler)
 
 recipesRouter.get('/recipes/:recipeId', retrieveRecipeHandler)
 

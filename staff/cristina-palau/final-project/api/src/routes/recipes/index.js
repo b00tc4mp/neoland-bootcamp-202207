@@ -4,5 +4,6 @@ module.exports = {
     retrieveRecipeHandler: require('./retrieveRecipeHandler'),
     deleteRecipeHandler: require('./deleteRecipeHandler'),
     updateRecipeHandler: require('./updateRecipeHandler'),
+    retrievePublicRecipesHandler: require('./retrievePublicRecipesHandler'),
 
 }
