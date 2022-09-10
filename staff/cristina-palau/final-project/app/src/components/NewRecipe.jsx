@@ -15,12 +15,6 @@ function NewRecipe(handleNavigationRecipes) {
         setIngredients([...ingredients, newIngredient])
     }
 
-    const onBackClick= event => {
-        event.preventDefault()
-
-        handleNavigationRecipes()
-    }
-
     return <>
         <h3>Nueva receta</h3>
         <form className="newRecipeForm" >
@@ -33,14 +27,14 @@ function NewRecipe(handleNavigationRecipes) {
                 return (
                     <div key={index}>
                         <input className="input newRecipeInput quantInput" typeof="number" name="quantity" placeholder="cantidad" id="cantidad" />
-                        <input className="input newRecipeInput unitInput" name="unit" placeholder="unit" id="unidad"  />
-                        <input className="input newRecipeInput ingredientInput" name="ingredient" placeholder="ingrediente" id="ingrediente"  />
+                        <input className="input newRecipeInput unitInput" name="unit" placeholder="unit" id="unidad" />
+                        <input className="input newRecipeInput ingredientInput" name="ingredient" placeholder="ingrediente" id="ingrediente" />
                     </div>)
             })}
                 <button className="addIngredient" onClick={addIngredient}>+</button>
             </div>
             <div className="buttonsContainer">
-                <button className="backButton" onClick={onBackClick}>Atrás</button>
+                <button className="backButton" onClick={handleNavigationRecipes}>Atrás</button>
                 <button className="saveButton">Guardar</button>
             </div>
         </form>

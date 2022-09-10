@@ -3,7 +3,6 @@ import Loggito from '../utils/loggito'
 import withContext from '../utils/withContext'
 import logoAnimado from '../images/logoAnimado.gif'
 
-
 function LoginPage({ onLinkClick, onLogin, context: { handleFeedback } }) {
 
     const logger = new Loggito(LoginPage.name)
@@ -52,7 +51,7 @@ function LoginPage({ onLinkClick, onLogin, context: { handleFeedback } }) {
 
     return <main className="loginPage page">
 
-        <img className="logo logoForm" alt="logo" src={logoAnimado}/>
+        <img className="logo form-logo" alt="logo" src={logoAnimado}/>
 
         <form className="form loginForm" method="get" onSubmit={handleFormSubmit}>
             <label className="formLabel" htmlFor="email">Email</label>

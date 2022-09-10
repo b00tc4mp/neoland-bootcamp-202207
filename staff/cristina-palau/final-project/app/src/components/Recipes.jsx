@@ -26,7 +26,7 @@ function Recipes() {
 
     return <Routes>
         <Route path="/" element={<>
-            <div className="myRecipes recipesContainer">
+            <div className="recipes-container__myRecipes container-recipes">
                 <div className="recipe">receta de prueba</div>
                 <div className="recipe">receta de prueba2</div>
                 <div className="recipe">receta de prueba</div>
@@ -34,20 +34,21 @@ function Recipes() {
                 <div className="recipe">receta de prueba</div>
             </div>
 
-            <div className="addRecipeContainer">
-                <button className="addRecipe transparentButton" onClick={handleNavigationNewRecipe}>Añadir nueva receta +</button>
-            </div>
 
-            <div className="inspiration recipesContainer">
-                <div className="recipe">receta pública</div>
-                <div className="recipe">receta pública2</div>
+            <div className="recipes-container__inspiration container-recipes">
                 <div className="recipe">receta pública</div>
                 <div className="recipe">receta pública</div>
                 <div className="recipe">receta pública</div>
+                <div className="recipe">receta pública</div>
+                <div className="retrievePublicRecipe">añadir más</div>
+                </div>
+
+            <div className="addRecipe">
+                <button className="addRecipe__button transparentButton" onClick={handleNavigationNewRecipe}>Añadir nueva receta +</button>
             </div>
         </>} />
         <Route path="newrecipe" element={<>
-            <NewRecipe onBackClick={handleNavigationRecipes} />
+            <NewRecipe onClick={handleNavigationRecipes} />
         </>} />
     </Routes>
 }

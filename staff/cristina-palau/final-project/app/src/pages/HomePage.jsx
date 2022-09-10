@@ -1,6 +1,6 @@
-import './HomePage.css'
-import './pages.css'
-import '../index.css'
+import './HomePage.sass'
+import './pages.sass'
+import '../index.sass'
 import logoAnimado from '../images/logoAnimado.gif'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import Settings from '../components/Settings'
@@ -43,7 +43,7 @@ function HomePage({ onLogoutClick }) {
     }
 
     return sessionStorage.token ?
-        <div className="page homePage">
+        <div className="page page-homepage">
             <header className="header homeHeader">
                 <img className="logo headerLogo" alt="logo" src={logoAnimado} />
                 <div className="theme headerTheme"></div>
