@@ -1,0 +1,286 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.container-login{
+  position: absolute;
+  background-color: rgb(85, 166, 48);
+  width: 100%;
+  height: 80%;
+}
+
+.header {
+  position: absolute;
+  background-color: rgb(85, 166, 48);
+  width: 100%;
+  height: 30%;
+  border: black 3px solid;
+  border-radius: 0 0 100px 100px;
+}
+
+
+.container-login, .container-register, .container-create {
+  border-radius: 0 0 120px 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  border: black 3px solid;
+}
+
+.logo-login {
+  position: absolute;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 10%;
+  height: 25%;
+  align-content: center;
+  top: 60%;
+}
+
+.title-welcome { 
+  position: absolute;
+  margin-top: 0;
+  top: 85%;
+  font-size: 30px;
+}
+
+.title {
+  position: absolute;
+  left: 60px;
+  top: 65%;
+}
+
+.login-page, .register-page, .create-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  height: 50%;
+  margin: 0;
+}
+
+.home-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  height: 50%;
+  margin: 0;
+}
+
+.container-form {
+  position: absolute;
+  top: 60%;
+}
+
+.container-form-1 {
+  position: absolute;
+  top: 50%;
+}
+
+.container-form-2 {
+  position: absolute;
+  top: 20%;
+  left: 35%;
+  text-align: start;
+  font-size: 18px;
+}
+
+.container-form-4 {
+  position: absolute;
+  top: 20%;
+  left: 35%;
+  text-align: start;
+  font-size: 18px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-create {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+
+.form-logout {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.input {
+  background-color: transparent;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 1px solid black;
+  color: black;
+  font-size: 1rem;
+  caret-color: black;
+}
+
+
+.input:-webkit-autofill {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: black;
+}
+
+.input::selection {
+  background-color: b;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: white;
+}
+
+.input::placeholder {
+  color: transparent;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.question-login, .question-create{
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.button {
+  background-color: rgb(85, 166, 48);
+  border-radius: 20px;
+}
+
+.button-create {
+  position: absolute;
+  background-color: rgb(85, 166, 48);
+  border-radius: 20px;
+  border: black 3px solid;
+  font-size: 18px;
+  bottom: 5%;
+  width: 30%;
+  height: 5%;
+}
+
+.button-back {
+  position: absolute;
+  background-color: rgb(85, 166, 48);
+  border-radius: 20px;
+  border: black 3px solid;
+  bottom: 7%;
+  width: 7%;
+  height: 20%;
+  right: 10%;
+
+}
+
+.anchor {
+  color: rgb(59, 37, 255);
+  left: 70px;
+  position: absolute;
+}
+
+.anchor:visited {
+  color: rgb(0, 0, 0);
+}
+
+.off {
+  display: none;
+}
+
+.grid-container {
+  position: absolute;
+  display: grid;
+  grid-template-columns: auto auto;
+  top: 25%;
+  gap: 20px;
+}
+
+.grid-create {
+  position: absolute;
+  display: grid;
+  top: 25%;
+  width: 50%;
+  height: 60%;
+}
+
+.search{ 
+  position: absolute;
+  background-color: rgb(85, 166, 48);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  text-align: center;
+  border-radius: 20px;
+  border: black 3px solid;
+  height: 5%;
+  width: 40%;
+  top: 20%
+}
+
+.grid-products {
+  position: absolute;
+  display: grid;
+  top: 30%;
+  width: 50%;
+  height: 60%;
+}
+
+.grid-item {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  font-size: 30px;
+  text-align: center;
+  width: 200px;
+  height: 200px;
+  border-radius: 20px;
+}
+
+.item-create, .my-products {
+  background-color: rgb(85, 166, 48);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  border: black 3px solid;
+  
+}
+
+.button-menu {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 20px;
+  background-color: rgb(85, 166, 48);
+  
+}
+
+.logo-plus, .logo-products,  .logo-input, .logo-output, .logo-report, .logo-settings, .logo-logout, .logo-back {
+  background-position: center;
+  background-repeat: no-repeat;
+  max-width: 60%;
+  max-height: 60%;
+  filter: brightness();
+  mix-blend-mode: multiply;
+  
+}
+
