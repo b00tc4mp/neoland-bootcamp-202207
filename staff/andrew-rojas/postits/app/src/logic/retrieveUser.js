@@ -1,3 +1,5 @@
+const API_URL = process.env.REACT_APP_API_URL
+
 function retrieveUser(token, callback) {
   if (typeof token !== 'string') throw new TypeError('token is not a string')
   if (token.trim().length === 0) throw new Error('token is empty or blank')
@@ -31,7 +33,7 @@ function retrieveUser(token, callback) {
 
   // request
 
-  xhr.open('GET', 'https://b00tc4mp.herokuapp.com/api/v2/users')
+  xhr.open('GET', `${API_URL}/users`)
 
   xhr.setRequestHeader('Authorization', `Bearer ${token}`)
 

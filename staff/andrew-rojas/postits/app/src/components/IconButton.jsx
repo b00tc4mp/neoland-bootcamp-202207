@@ -6,7 +6,7 @@ function IconButton({ onClick, text }) {
 
   logger.info('return')
   
-  return <button className="IconButton transparent-button" onClick={onClick}><span className="material-symbols-outlined">{text}</span></button>
+  return <button className="IconButton transparent-button container" onClick={onClick}><span className="material-symbols-outlined">{text}</span></button>
 }
 
 export default IconButton

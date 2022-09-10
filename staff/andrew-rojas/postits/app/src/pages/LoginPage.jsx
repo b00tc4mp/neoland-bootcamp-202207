@@ -1,12 +1,13 @@
 import Loggito from '../utils/Loggito'
 import authenticateUser from '../logic/authenticateUser'
 import withContext from '../utils/withContext'
+import { AuthError, ClientError, ServerError } from 'errors'
 
 function LoginPage({ onLinkClick, onLogIn, context: {handleFeedback} }) {
   const logger = new Loggito(LoginPage.name)
 
   // const context = useContext(Context)
-  // coonst handleFeedback = context.handleFeedback
+  // const handleFeedback = context.handleFeedback
  
   logger.info('constructor')
 
@@ -32,25 +33,31 @@ function LoginPage({ onLinkClick, onLogIn, context: {handleFeedback} }) {
     try {
       authenticateUser(email, password, (error, token) => {
         if (error) {
+          if (error instanceof ServerError) { 
           handleFeedback({ message: error.message, level: 'error' })
 
           logger.warn(error.message)
+        } else if (error instanceof ClientError || error instanceof AuthError) {   
+          handleFeedback({ message: error.message, level: 'warning'})
 
-          return
+          logger.warn(error.message)
         }
 
-        logger.debug('user logged in')
+        return
+      }
 
-        sessionStorage.token = token
+      logger.debug('user logged in')
 
-        onLogIn()
-      })
-    } catch (error) {
+      sessionStorage.token = token
+
+      onLogIn()
+    }) 
+  }catch (error) {
       handleFeedback({ message: error.message, level: 'error' })
 
       logger.warn(error.message)
-    }
   }
+}
 
   return <main className="login-page container container--full container--spaced">
     <form className="form" method="get" onSubmit={handleFormSubmit}>

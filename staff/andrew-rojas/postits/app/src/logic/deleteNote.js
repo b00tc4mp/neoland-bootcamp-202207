@@ -8,7 +8,6 @@
  * @throws {TypeError} On invalid inputs
  */
  function deleteNote(token, noteId, callback) {
-  // TODO validate inputs
   if (typeof token !== 'string') throw new TypeError('token is not a string')
   if (token.trim().length === 0) throw new Error('token is empty or blank')
 

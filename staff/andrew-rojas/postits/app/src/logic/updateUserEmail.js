@@ -1,3 +1,5 @@
+const API_URL = process.env.REACT_APP_API_URL
+
 function updateUserEmail (token, newEmail, callback){
     
   if (typeof newEmail !== 'string') throw new TypeError('Email is not string')
@@ -24,7 +26,7 @@ function updateUserEmail (token, newEmail, callback){
 
   // request
 
-  xhr.open('PATCH','https://b00tc4mp.herokuapp.com/api/v2/users')
+  xhr.open('PATCH', )
 
   xhr.setRequestHeader('Authorization', `Bearer ${token}`)
   xhr.setRequestHeader('Content-type', 'application/json')

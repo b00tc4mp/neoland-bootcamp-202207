@@ -1,7 +1,6 @@
 import './NoteList.css'
 import Loggito from '../utils/Loggito'
 
-
 function NoteList({ notes, onDeleteNote, onUpdateNote }) {
   const logger = new Loggito('List')
 
@@ -21,8 +20,7 @@ function NoteList({ notes, onDeleteNote, onUpdateNote }) {
         onUpdateNote(note.id, text)
         }, 500)
       }} >{note.text}</p>
-    </li>)}
-    
+    </li>)}  
   </ul>
 }
 

@@ -57,19 +57,12 @@ import Hello from './components/Hello'
 
     const toggleTheme = () => document.documentElement.classList.toggle('light')
 
-    // const context = { handleFeedback }
-
-    // return <Context.Provider value={context}>
-
     return <Context.Provider value={{ handleFeedback, toggleTheme }}>
     <div className="App App--dark container container--full"> 
     <Routes>     
       <Route path="login" element={sessionStorage.token ? <Navigate to="/" /> : <LoginPage onLinkClick={handleNavigationToRegister} onLogIn={handleNavigationToHome} />} />
-
       <Route path="register" element={sessionStorage.token ? <Navigate to="/" /> : <RegisterPage onLinkClick={handleNavigationToLogin} />} />
-
       <Route path="hello/:to" element={<Hello />} />
-    
       <Route path="/*" element={sessionStorage.token ? <HomePage onLogoutClick={handleLogoutClick} /> : <Navigate to="login" />} />
     </Routes>
 

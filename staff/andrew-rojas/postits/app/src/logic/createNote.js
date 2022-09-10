@@ -1,5 +1,6 @@
+const API_URL = process.env.REACT_APP_API_URL
+
 function createNote (token, callback) {
-  //Todo validate inputs
   if (typeof token !== 'string') throw new TypeError('token is not a string')
   if (token.trim().length === 0) throw new Error('token is empty or blank')
 
@@ -16,56 +17,20 @@ function createNote (token, callback) {
       callback(new Error(`server error (${status})`))
     else if (status >= 400)
       callback(new Error(`client error (${status})`))
-    else if (status === 200) {
-      const json = xhr.responseText
-
-      const data = JSON.parse(json)
-
-      const notes = data.notes ? data.notes : []
-
-      const note = {
-        id: `note-${Date.now()}`,
-        text: ''
-      }
-
-      notes.push(note)
-
-      const xhr2 = new XMLHttpRequest()
-
-      // response
-
-      xhr2.onload = function () {
-      const status = xhr2.status
-
-        if (status >= 500)
-          callback(new Error(`server error (${status})`))
-        else if (status >= 400)
-          callback(new Error(`client error (${status})`))
-        else if (status === 204)
-          callback(null)
-      }
-
+    else if (status === 201)
+      callback(null) 
+  }
+  
       // request
 
-      xhr2.open('PATCH', 'https://b00tc4mp.herokuapp.com/api/v2/users')
+      xhr.open('POST', `${API_URL}/notes`)
 
-      xhr2.setRequestHeader('Authorization', `Bearer ${token}`)
-      xhr2.setRequestHeader('Content-type', 'application/json')
+      xhr.setRequestHeader('Authorization', `Bearer ${token}`)
+      xhr.setRequestHeader('Content-type', 'application/json')
 
-      //const json2 = JSON.stringify({ notes: notes })
-      const json2 = JSON.stringify({ notes })
+      const json = JSON.stringify({ text: '' })
 
-      xhr2.send(json2)
+      xhr.send(json)
     }
-  }
-
-  // request
-
-  xhr.open('GET', 'https://b00tc4mp.herokuapp.com/api/v2/users')
-
-  xhr.setRequestHeader('Authorization', `Bearer ${token}`)
-
-  xhr.send()
-}
 
 export default createNote

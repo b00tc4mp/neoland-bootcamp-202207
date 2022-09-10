@@ -56,17 +56,11 @@ import { Routes, Route, useNavigate } from 'react-router-dom'
 
     const toggleTheme = () => {document.documentElement.classList.toggle('light')}
 
-    // const context = { handleFeedback }
-
-    // return <Context.Provider value={context}>
-
     return <Context.Provider value={{ handleFeedback, toggleTheme }}>
     <div className="App App--dark container container--full"> 
     <Routes>     
       <Route path="login" element={<LoginPage onLinkClick={handleNavigationToRegister} onLogIn={handleNavigationToHome} />} />
-
       <Route path="register" element={<RegisterPage onLinkClick={handleNavigationToLogin} />} />
-    
       <Route path="home" element={<HomePage onLogoutClick={handleLogoutClick} />} />
     </Routes>
 
