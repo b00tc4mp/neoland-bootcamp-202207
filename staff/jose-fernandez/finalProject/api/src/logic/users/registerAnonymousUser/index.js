@@ -17,7 +17,7 @@ function registerAnonymousUser(cart){
     //validateCart => si !carrito o product.length <0  throw new BadREquestError('cart is empty')
     validateCart(cart)
 
-
+    debugger
     return User.create({cart})
     .then(user=>{
         return user._id.toString()
@@ -25,7 +25,8 @@ function registerAnonymousUser(cart){
     .catch(error =>{
         if(error.code===400)
         throw new BadRequestError('cart is blank')
-
+        
+        debugger
     throw new SystemError(error.message)
     })
 }

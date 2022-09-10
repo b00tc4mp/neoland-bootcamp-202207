@@ -1,12 +1,13 @@
 const express = require('express')
 const {Router, json} = express
 const jsonBodyParser = json()
-const {registerUserHandler, authenticateUserHandler, retrieveUserHandler} = require('./users')
+const {registerUserHandler, authenticateUserHandler, retrieveUserHandler,registerAnonymousUserHandler} = require('./users')
 const { searchProductHandler,retrieveProductsHandler} = require('./products')
 
 const usersRouter = Router()
 
 usersRouter.post('/users', jsonBodyParser, registerUserHandler)
+usersRouter.post('/usersAnonymous', jsonBodyParser, registerAnonymousUserHandler)
 
 usersRouter.post('/users/auth',jsonBodyParser,authenticateUserHandler)
 
