@@ -45,8 +45,8 @@ function HomePage({ onLogoutClick }) {
     return sessionStorage.token ?
         <div className="page page-homepage">
             <header className="header homeHeader">
-                <img className="logo headerLogo" alt="logo" src={logoAnimado} />
-                <div className="theme headerTheme"></div>
+                
+                
 
             </header>
 

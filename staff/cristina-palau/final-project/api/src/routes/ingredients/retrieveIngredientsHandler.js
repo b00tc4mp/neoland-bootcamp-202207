@@ -1,5 +1,5 @@
 const { runWithErrorHandling, createLogger, verifyToken } = require('../../utils')
-const { ingredients: { searchIngredient } } = require('../../logic')
+const { ingredients: { retrieveIngredients } } = require('../../logic')
 const logger = createLogger(module)
 
 module.exports = (req, res) => {
@@ -7,9 +7,7 @@ module.exports = (req, res) => {
 
         const userId = verifyToken(req)
 
-        const { query: { q: query } } = req
-
-        return searchIngredient(userId, query)
+        return retrieveIngredients(userId)
             .then(ingredients => res.status(200).json(ingredients))
     }, res, logger)
 }

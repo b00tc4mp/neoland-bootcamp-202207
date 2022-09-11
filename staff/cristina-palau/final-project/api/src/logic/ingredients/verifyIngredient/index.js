@@ -5,7 +5,7 @@ function verifyIngredient(ingredient) {
     validateObject(ingredient)
 
     const { id, quantity, units } = ingredient
-    debugger
+
     verifyObjectIdString(id, 'ingredient id')
     validateNumber(quantity, 'ingredient quantity')
     validateString(units, 'ingredient unit')

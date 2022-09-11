@@ -20,8 +20,6 @@ function retrieveNotes(userId) {
         .then(notes => {
             notes.forEach(note => {
                 // sanitize
-                debugger
-
                 note.id = note._id.toString()
                 delete note._id
 

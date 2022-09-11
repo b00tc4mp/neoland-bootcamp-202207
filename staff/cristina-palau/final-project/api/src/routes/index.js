@@ -2,7 +2,7 @@ const express = require('express')
 const { Router, json } = express
 const jsonBodyParser = json()
 const { registerUserHandler, authenticateUserHandler, retrieveUserHandler, updateUserEmailHandler, updateUserPasswordHandler } = require('./users')
-const { createIngredientHandler, searchIngredientHandler} = require('./ingredients')
+const { createIngredientHandler, searchIngredientHandler, retrieveIngredientsHandler} = require('./ingredients')
 const { createRecipeHandler, retrieveRecipeHandler, retrieveUserRecipesHandler, updateRecipeHandler, deleteRecipeHandler, retrievePublicRecipesHandler } = require('./recipes')
 
 const usersRouter = Router()
@@ -20,6 +20,8 @@ usersRouter.patch('/users/password/',jsonBodyParser, updateUserPasswordHandler)
 const ingredientsRouter = Router ()
 
 ingredientsRouter.post('/ingredients', jsonBodyParser, createIngredientHandler)
+
+ingredientsRouter.get('/ingredients', retrieveIngredientsHandler)
 
 ingredientsRouter.get('/ingredients/search', searchIngredientHandler)
 

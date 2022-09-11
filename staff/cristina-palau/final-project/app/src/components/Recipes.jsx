@@ -1,6 +1,7 @@
 import Loggito from '../utils/loggito'
 import './Recipes.sass'
 import NewRecipe from './NewRecipe'
+import MyRecipesList from './MyRecipesList'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 
 function Recipes() {
@@ -17,23 +18,15 @@ function Recipes() {
         logger.debug('navigate to new recipe')
     }
     const handleNavigationRecipes = event => {
-        event.preventDefault()
-
-        navigate('/')
+      
+        navigate('/recipes')
 
         logger.debug('navigate to recipes')
     }
 
     return <Routes>
         <Route path="/" element={<>
-            <div className="recipes-container__myRecipes container-recipes">
-                <div className="recipe">receta de prueba</div>
-                <div className="recipe">receta de prueba2</div>
-                <div className="recipe">receta de prueba</div>
-                <div className="recipe">receta de prueba</div>
-                <div className="recipe">receta de prueba</div>
-            </div>
-
+           <MyRecipesList />
 
             <div className="recipes-container__inspiration container-recipes">
                 <div className="recipe">receta pública</div>
@@ -48,7 +41,7 @@ function Recipes() {
             </div>
         </>} />
         <Route path="newrecipe" element={<>
-            <NewRecipe onClick={handleNavigationRecipes} />
+            <NewRecipe onBackClick={handleNavigationRecipes} />
         </>} />
     </Routes>
 }
