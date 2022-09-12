@@ -14,7 +14,11 @@ import createGameCode from "../logic/createGameCode";
 
 import withContext from "../utils/withContext";
 
-function QuizTeacher({ socket, context: { handleFeedback } }) {
+function QuizTeacher({
+  socket,
+  handleLeaveClass,
+  context: { handleFeedback },
+}) {
   const logger = new Loggito("QuizTeacher");
 
   const [gameScreen, setGameScreen] = useState("Teacher1StartClass");
@@ -31,7 +35,11 @@ function QuizTeacher({ socket, context: { handleFeedback } }) {
 
   const handleLeaveClick = () => {};
 
-  const handleStartClass = (nameOfClass, pin, host) => {
+  const onLeaveClass = () => {
+    handleLeaveClass();
+  };
+
+  const handleStartClass = (gameScreen, nameOfClass, pin, host) => {
     try {
       const pinString = `${pin}`;
 
@@ -55,14 +63,33 @@ function QuizTeacher({ socket, context: { handleFeedback } }) {
 
       logger.warn(error.message);
     }
+    handleScreenChangeT1(gameScreen, nameOfClass, pin, host);
+  };
+
+  const handleCloseGameTeacher = () => {
+    const hostTemp = host;
+    socket.emit("Tclose", { hostTemp });
+
+    setGameScreen("Teacher7ClassClosed");
+    setNameOfClass("");
+    setNickname([]);
+    setPin("");
+    setHost("");
+    setTimeLimit("30 seconds");
+    setQuestion("");
+    setResponses([]);
+    setCorrect(0);
+    setIncorrect(0);
+
+    // handleCloseGame();
   };
 
   const handleScreenChangeT1 = (gameScreen, nameOfClass, pin, host) => {
+    // handleStartClass(nameOfClass, pin, host);
     setGameScreen(gameScreen);
     setNameOfClass(nameOfClass);
     setPin(pin);
     setHost(host);
-    handleStartClass(nameOfClass, pin, host);
   };
 
   const handleScreenChangeT2 = (gameScreen) => {
@@ -90,6 +117,11 @@ function QuizTeacher({ socket, context: { handleFeedback } }) {
   };
 
   const handleScreenChangeT6 = (gameScreen) => {
+    setGameScreen(gameScreen);
+    setResponses([]);
+  };
+
+  const handleScreenChangeT7 = (gameScreen) => {
     setGameScreen(gameScreen);
   };
 
@@ -127,14 +159,22 @@ function QuizTeacher({ socket, context: { handleFeedback } }) {
   return (
     <div className="game-screen">
       <header className="game-screen-header">
-        <span className="material-symbols-outlined button-icon">
-          arrow_back_ios_new
-        </span>
+        {gameScreen === "Teacher1StartClass" && (
+          <span
+            className="material-symbols-outlined button-icon"
+            onClick={onLeaveClass}
+          >
+            arrow_back_ios_new
+          </span>
+        )}
+        {gameScreen !== "Teacher1StartClass" && (
+          <span className="menu-icon-spaceholder"></span>
+        )}
         <h1 className="app-title">App Name</h1>
         <button
           type="menu"
           className="material-symbols-outlined  button-icon"
-          onClick={handleLeaveClick}
+          onClick={handleCloseGameTeacher}
         >
           exit_to_app
         </button>
@@ -143,7 +183,8 @@ function QuizTeacher({ socket, context: { handleFeedback } }) {
         {/* <Teacher1StartClass /> */}
         {gameScreen === "Teacher1StartClass" && (
           <Teacher1StartClass
-            handleScreenChangeT1={handleScreenChangeT1}
+            // handleScreenChangeT1={handleScreenChangeT1}
+            handleStartClass={handleStartClass}
             socket={socket}
           />
         )}
@@ -212,7 +253,10 @@ function QuizTeacher({ socket, context: { handleFeedback } }) {
         )}
         {/* <Teacher7ClassClosed /> */}
         {gameScreen === "Teacher7ClassClosed" && (
-          <Teacher7ClassClosed host={host} />
+          <Teacher7ClassClosed
+            handleScreenChangeT7={handleScreenChangeT7}
+            host={host}
+          />
         )}
       </main>
       {/* {gamePhase === "gamePhaseKey" && <ScreenTemplate1 />} */}

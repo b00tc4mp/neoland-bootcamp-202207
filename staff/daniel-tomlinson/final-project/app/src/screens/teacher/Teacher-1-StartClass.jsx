@@ -6,7 +6,11 @@
 
 // const handleLeaveClick = () => {};
 
-function Teacher1StartClass({ handleScreenChangeT1, socket }) {
+function Teacher1StartClass({
+  handleScreenChangeT1,
+  socket,
+  handleStartClass,
+}) {
   const handleFormSubmit = (event) => {
     event.preventDefault();
 
@@ -23,7 +27,8 @@ function Teacher1StartClass({ handleScreenChangeT1, socket }) {
 
     form.reset();
 
-    handleScreenChangeT1("Teacher2PlayersConnected", nameOfClass, pin, host);
+    // handleScreenChangeT1("Teacher2PlayersConnected", nameOfClass, pin, host);
+    handleStartClass("Teacher2PlayersConnected", nameOfClass, pin, host);
 
     socket.emit("T1", {
       pin: { pin },

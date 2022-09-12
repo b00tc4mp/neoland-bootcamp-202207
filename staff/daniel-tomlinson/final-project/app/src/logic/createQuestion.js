@@ -1,16 +1,26 @@
 const API_URL = process.env.REACT_APP_API_URL;
 
-function createGameCode(token, nameOfClass, pin, host, callback) {
+function createQuestion(
+  token,
+  question,
+  suggestedAnswer,
+  timeLimit,
+  publicPrivate,
+  callback
+) {
   //TODO validate inputs
+
   if (typeof token !== "string") throw new TypeError("token is not a string");
   if (token.trim().length === 0) throw new Error("token is empty or blank");
-
-  if (typeof nameOfClass !== "string")
-    throw new TypeError("name of class is not a string");
-  if (nameOfClass.trim().length === 0)
-    throw new Error("name of class is empty or blank");
-
-  // TODO: validate pin and host
+  if (typeof question !== "string")
+    throw new TypeError("question is not a string");
+  debugger;
+  if (question.trim().length === 0)
+    throw new Error("question is empty or blank");
+  if (typeof suggestedAnswer !== "string")
+    throw new TypeError("suggested answer is not a string");
+  if (typeof timeLimit !== "number")
+    throw new TypeError("time limit is not a number");
 
   if (typeof callback !== "function")
     throw new TypeError("callback is not a function");
@@ -27,14 +37,19 @@ function createGameCode(token, nameOfClass, pin, host, callback) {
     else if (status === 201) callback(null);
   };
 
-  xhr.open("POST", `${API_URL}/gameCodes`);
+  xhr.open("POST", `${API_URL}/questions`);
 
   xhr.setRequestHeader("Authorization", `Bearer ${token}`);
   xhr.setRequestHeader("Content-type", "application/json");
 
-  const json = JSON.stringify({ nameOfClass, pin, host });
+  const json = JSON.stringify({
+    question,
+    suggestedAnswer,
+    timeLimit,
+    publicPrivate,
+  });
   console.log(json);
   xhr.send(json);
 }
 
-export default createGameCode;
+export default createQuestion;

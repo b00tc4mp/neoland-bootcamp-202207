@@ -14,8 +14,8 @@ function Student7Incorrect({ handleScreenChangeS7 }) {
     setTimeout(() => handleScreenChangeS7("Student8WaitingForQuestion"), 15000);
   }, []);
   return (
-    <div className="game-screen">
-      <main className="game-screen-main flex--space-around">
+    <div className="game-screen incorrect">
+      <main className="game-screen-main flex--space-around incorrect">
         <span class="material-symbols-outlined feedback-icon">
           sentiment_dissatisfied
         </span>

@@ -38,6 +38,29 @@ function Teacher4IncomingResponses({
     }, timeLimit);
   });
 
+  /* useEffect(() => {
+    let timeLimitSeconds = timeLimit / 1000;
+    let contador = timeLimitSeconds;
+
+    setTimeout(() => {
+      document.querySelector(".num").innerHTML = contador;
+
+      var interval = setInterval(() => {
+        contador--;
+
+        document.querySelector(".num").innerHTML = contador;
+
+        if (contador <= 0) {
+          clearInterval(interval);
+        }
+      }, 1000);
+    }, 500);
+  }); */
+
+  /* const progressBarTime = timeLimit / 1000;
+  const progressBarTimeStyle = "fill " + progressBarTime + " linear";
+  const progressBarTimeStyleObject = { animation: `fill ${timeLimit} linear` }; */
+
   return (
     <div className="game-screen">
       <main className="game-screen-main flex--spaced">
@@ -46,6 +69,15 @@ function Teacher4IncomingResponses({
             PIN: {pin} <br></br>
             Class: {nameOfClass}
           </p>
+          {/* <div clasName="grouped-elements"> */}
+          <div className="progress-bar">
+            <div
+              className="progress"
+              style={{ animation: `fill ${timeLimit / 1000}s linear` }}
+            ></div>
+          </div>
+          <div className="num"></div>
+          {/* </div> */}
           {/* <CountdownTimer timeLimit={timeLimit} /> */}
         </div>
         <div className="grouped-elements">

@@ -12,6 +12,15 @@
   --color-feedback-incorrect: #af4d98;
 }
 
+:root {
+  --color-primary: hsl(209, 58%, 59%);
+  --color-primary-hover: #347fc4;
+  --color-secondary: #307dc4;
+  --color-headings: hsl(209, 58%, 39%);
+  --color-headings-hover: hsl(209, 58%, 29%);
+  --color-border: hsl(209, 58%, 69%);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -137,6 +146,9 @@ code {
   cursor: pointer;
 }
 
+.button-icon {
+  width: auto;
+}
 .button-icon:hover {
   color: var(--color-teacher-secondary);
 }
@@ -300,10 +312,29 @@ input:focus {
 
 .correct {
   background-color: var(--color-feedback-correct);
+  height: 100%;
+  /* width: 25%; */
+}
+
+.correct-screen {
+  background-color: var(--color-feedback-correct);
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
 }
 
 .incorrect {
   background-color: var(--color-feedback-incorrect);
+  height: 100%;
+  /* width: 25%; */
+}
+
+.incorrect-screen {
+  background-color: var(--color-feedback-correct);
 }
 
 .class-closed {
@@ -320,17 +351,14 @@ input:focus {
 /* ==================================================================== */
 /* ==================================================================== */
 
-:root {
+/* :root {
   --color-primary: #d66ba0;
   --color-primary-hover: #c25f91;
   --color-secondary: #e5a9a9;
-  /* --color-accent: #9df7e5; */
   --color-headings: #af4d98;
   --color-headings-hover: #9b4386;
-  /* --color-body: #918ca4; */
-  /* --color-body-darker: #5c5577; */
   --color-border: #f4e4ba;
-}
+} */
 
 :root.clasic {
   --color-primary: #d66ba0;
@@ -913,4 +941,73 @@ button {
   margin-right: 140px;
   margin-top: 108px;
   border-radius: 0 0 1rem 1rem;
+}
+
+/* ====================================== */
+
+body {
+  text-align: center;
+  height: 100%;
+  background: linear-gradient(45deg, #094cfa, #4d0ee4);
+}
+
+.progress-bar {
+  width: 60%;
+  height: 35px;
+  /* margin: 80px auto; */
+  padding: 5px;
+  background: white;
+  border-radius: 10px;
+}
+
+.progress {
+  width: 1%;
+  height: 100%;
+  background: #50c89c;
+  border-radius: 5px;
+}
+
+@keyframes fill {
+  0% {
+    width: 100%;
+  }
+
+  /* 50% {
+    width: 50%;
+  } */
+
+  100% {
+    width: 1%;
+  }
+}
+
+.num {
+  background-color: var(--color-teacher-secondary-hover);
+  padding: 4px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  text-align: center;
+  text-justify: center;
+}
+
+.stats-panel {
+  height: 100%;
+  width: 100%;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+
+.stats-icon {
+  font-size: 60px;
+  margin: 0;
+  padding: 0;
+}
+
+.stats-bar {
+  width: 25%;
+}
+
+.menu-icon-spaceholder {
+  width: 44px;
 }

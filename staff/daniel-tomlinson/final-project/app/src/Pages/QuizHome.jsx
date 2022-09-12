@@ -5,6 +5,7 @@ function QuizHome({
   handleStartStudent,
   handleStartTeacher,
   handleLeaveClick,
+  handleLeaveClass,
 }) {
   //   const [gameScreen, setGameScreen] = useState("TeacherStudent");
   //   const [userType, setUserType] = useState("Home");
@@ -21,11 +22,18 @@ function QuizHome({
     handleStartTeacher("Teacher");
   };
 
+  const onLeaveClass = () => {
+    handleLeaveClass();
+  };
+
   useEffect(() => {});
   return (
     <div className="game-screen">
       <header className="game-screen-header">
-        <span className="material-symbols-outlined button-icon">
+        <span
+          className="material-symbols-outlined button-icon"
+          onClick={onLeaveClass}
+        >
           arrow_back_ios_new
         </span>
         <h1 className="app-title">App Name</h1>

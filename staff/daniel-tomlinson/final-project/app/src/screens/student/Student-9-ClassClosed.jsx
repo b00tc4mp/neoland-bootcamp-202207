@@ -8,13 +8,11 @@ import { useEffect } from "react";
 
 const handleFormSubmit = () => {};
 
-function Teacher7ClassClosed({ handleScreenChangeT7 }) {
+function Student9ClassClosed({ handleScreenChangeS9 }) {
   useEffect(() => {
-    setTimeout(() => handleScreenChangeT7("Teacher1StartClass"), 7000);
+    setTimeout(() => handleScreenChangeS9("Student1EnterClass"), 7000);
   }, []);
-  const onHomeClick = () => {
-    handleScreenChangeT7("Teacher1StartClass");
-  };
+
   return (
     <div className="game-screen">
       <main className="game-screen-main">
@@ -23,15 +21,6 @@ function Teacher7ClassClosed({ handleScreenChangeT7 }) {
           <br></br>
           Thanks for playing!
         </p>
-        <div className="grouped-elements">
-          <button
-            className="material-symbols-outlined home-icon"
-            onClick={onHomeClick}
-          >
-            home
-          </button>
-          <p>Home</p>
-        </div>
       </main>
 
       <footer className="game-screen-footer">
@@ -41,4 +30,4 @@ function Teacher7ClassClosed({ handleScreenChangeT7 }) {
   );
 }
 
-export default Teacher7ClassClosed;
+export default Student9ClassClosed;

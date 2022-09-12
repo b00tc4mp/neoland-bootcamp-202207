@@ -29,6 +29,10 @@ function HomePage({
   const location = useLocation();
 
   useEffect(() => {
+    console.log(location);
+  }, [location]);
+
+  useEffect(() => {
     logger.info('"componentDidMount"');
 
     try {
@@ -158,22 +162,32 @@ function HomePage({
     handleLogoutClick();
   };
 
+  const handleLeaveClass = () => {
+    navigate("/");
+    debugger;
+    // navigate("settings");
+  };
+
   logger.info("render");
 
   return name ? (
     <div className="home-page page background flex-container--homepage">
-      <Header
-        name={name}
-        onLogoutClick={handleLogoutClick}
-        onSettingsClick={handleSettingsClick}
-        onNotesClick={handleNotesClick}
-        // view={view}
-        onFeedback={handleFeedback}
-      />
+      {location.pathname !== "/quickPlayInHome" && (
+        <Header
+          name={name}
+          onLogoutClick={handleLogoutClick}
+          onSettingsClick={handleSettingsClick}
+          onNotesClick={handleNotesClick}
+          // view={view}
+          onFeedback={handleFeedback}
+        />
+      )}
       <main className="main flex-container main-page-content">
-        <button className="button--primary" onClick={onQuickPlayClick}>
-          Quick Play
-        </button>
+        {location.pathname !== "/quickPlayInHome" && (
+          <button className="button--primary" onClick={onQuickPlayClick}>
+            Quick Play
+          </button>
+        )}
         <Routes>
           {/*  {view === "list" && (
             <NoteList
@@ -191,7 +205,12 @@ function HomePage({
           )} */}
           <Route
             path="quickPlayInHome"
-            element={<QuickPlayPage handleFeedback={handleFeedback} />}
+            element={
+              <QuickPlayPage
+                handleFeedback={handleFeedback}
+                handleLeaveClass={handleLeaveClass}
+              />
+            }
           />
           <Route
             path="/"

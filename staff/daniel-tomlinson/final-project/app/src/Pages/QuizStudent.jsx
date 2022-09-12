@@ -8,8 +8,9 @@ import Student5WaitingForFeedback from "../screens/student/Student-5-WaitingForF
 import Student6Correct from "../screens/student/Student-6-Correct";
 import Student7Incorrect from "../screens/student/Student-7-Incorrect";
 import Student8WaitingForQuestion from "../screens/student/Student-8-WaitingForQuestion";
+import Student9ClassClosed from "../screens/student/Student-9-ClassClosed";
 
-function QuizStudent({ socket, handleFeedback }) {
+function QuizStudent({ socket, handleFeedback, handleLeaveClass }) {
   const [gameScreen, setGameScreen] = useState("Student1EnterClass");
   const [nameOfClass, setNameOfClass] = useState("");
   const [nickname, setNickname] = useState("");
@@ -21,6 +22,10 @@ function QuizStudent({ socket, handleFeedback }) {
   const [feedback, setFeedback] = useState("");
 
   const handleLeaveClick = () => {};
+
+  const onLeaveClass = () => {
+    handleLeaveClass();
+  };
 
   const handleScreenChangeS1 = (gameScreen, nickname, host) => {
     setGameScreen(gameScreen);
@@ -41,6 +46,10 @@ function QuizStudent({ socket, handleFeedback }) {
   };
 
   const handleScreenChangeS7 = (gameScreen) => {
+    setGameScreen(gameScreen);
+  };
+
+  const handleScreenChangeS9 = (gameScreen) => {
     setGameScreen(gameScreen);
   };
 
@@ -85,14 +94,37 @@ function QuizStudent({ socket, handleFeedback }) {
       console.log(data);
       setGameScreen(data.gameScreen);
     });
+
+    socket.on("Tclose.5", (data) => {
+      console.log("Tclose data received by client:");
+      console.log(data);
+      setGameScreen("Student9ClassClosed");
+
+      setNameOfClass("");
+      setNickname("");
+      setPin("");
+      setHost("");
+      setTimeLimit("30 seconds");
+      setQuestion("");
+      setResponse("");
+      setFeedback("");
+    });
   }, []);
 
   return (
     <div className="game-screen">
       <header className="game-screen-header">
-        <span className="material-symbols-outlined button-icon">
-          arrow_back_ios_new
-        </span>
+        {gameScreen === "Student1EnterClass" && (
+          <span
+            className="material-symbols-outlined button-icon"
+            onClick={onLeaveClass}
+          >
+            arrow_back_ios_new
+          </span>
+        )}
+        {gameScreen !== "Student1EnterClass" && (
+          <span className="menu-icon-spaceholder"></span>
+        )}
         <h1 className="app-title">App Name</h1>
         <button
           type="menu"
@@ -157,6 +189,13 @@ function QuizStudent({ socket, handleFeedback }) {
         {gameScreen === "Student8WaitingForQuestion" && (
           <Student8WaitingForQuestion
           // host={host}
+          />
+        )}
+        {/* <Student9ClassClosed /> */}
+        {gameScreen === "Student9ClassClosed" && (
+          <Student9ClassClosed
+            handleScreenChangeS9={handleScreenChangeS9}
+            // host={host}
           />
         )}
       </main>

@@ -6,11 +6,15 @@ import QuizTeacher from "./QuizTeacher";
 import io from "socket.io-client";
 const socket = io.connect("http://localhost:8080", { autoconnect: false });
 
-function QuizTemplate({ handleFeedback }) {
+function QuizTemplate({ handleFeedback, handleLeaveClass }) {
   // const [gameScreen, setGameScreen] = useState("TeacherStudent");
   const [userType, setUserType] = useState("Home");
 
   const handleLeaveClick = () => {};
+
+  const onLeaveClass = () => {
+    handleLeaveClass();
+  };
 
   const handleStartStudent = (userType) => {
     setUserType(userType);
@@ -20,17 +24,21 @@ function QuizTemplate({ handleFeedback }) {
     setUserType(userType);
   };
 
+  // const handleCloseClick = () => {};
+
   useEffect(() => {
     socket.connect();
   }, []);
 
   return (
-    <main className="game-screen">
+    <main className="game-screen" name="quickPlayPageMain">
       {userType === "Home" && (
         <QuizHome
           handleLeaveClick={handleLeaveClick}
           handleStartStudent={handleStartStudent}
           handleStartTeacher={handleStartTeacher}
+          handleLeaveClass={onLeaveClass}
+          // handlecloseClick={handleCloseClick}
         />
       )}
       {userType === "Student" && (
@@ -38,10 +46,15 @@ function QuizTemplate({ handleFeedback }) {
           handleLeaveClick={handleLeaveClick}
           socket={socket}
           handleFeedback={handleFeedback}
+          handleLeaveClass={onLeaveClass}
         />
       )}
       {userType === "Teacher" && (
-        <QuizTeacher handleLeaveClick={handleLeaveClick} socket={socket} />
+        <QuizTeacher
+          handleLeaveClick={handleLeaveClick}
+          socket={socket}
+          handleLeaveClass={onLeaveClass}
+        />
       )}
     </main>
   );

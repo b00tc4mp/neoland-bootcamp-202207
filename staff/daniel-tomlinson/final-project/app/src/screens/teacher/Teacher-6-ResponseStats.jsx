@@ -19,6 +19,9 @@ function Teacher6ResponseStats({
     handleScreenChangeT6("Teacher2PlayersConnected");
   };
 
+  const correctPercent = (correct / (correct + incorrect)) * 100;
+  const incorrectPercent = (incorrect / (correct + incorrect)) * 100;
+
   // const correctStats = document.getElementById("correct-stats");
   // correctStats.style = { height: "80%" };
 
@@ -31,15 +34,28 @@ function Teacher6ResponseStats({
             Class: {nameOfClass}
           </p>
         </div>
-        Stats
-        <span
-          className="correct"
-          // id="correct-stats"
-        >
-          {correct}
-        </span>
-        <span className="incorrect">{incorrect}</span>
-        <span></span>
+
+        <div className="stats-panel game-screen-main flex-row">
+          <div
+            className="correct stats-bar"
+            style={{ height: `${correctPercent}%` }}
+          >
+            {correct}
+            <span class="material-symbols-outlined stats-icon">
+              sentiment_satisfied
+            </span>
+          </div>
+          <div
+            className="incorrect stats-bar"
+            style={{ height: `${incorrectPercent}%` }}
+          >
+            {incorrect}
+            <span class="material-symbols-outlined stats-icon">
+              sentiment_dissatisfied
+            </span>
+          </div>
+        </div>
+
         <button className="footer-button" onClick={onButtonClick}>
           New round
         </button>
