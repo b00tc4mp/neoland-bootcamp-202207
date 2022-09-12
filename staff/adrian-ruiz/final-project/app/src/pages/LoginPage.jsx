@@ -1,8 +1,22 @@
 import './LoginPage.css'
-import { authenticateUser } from '../logic'
+import { authenticateUser, authenticateUserGoogle } from '../logic'
 import { toaster } from 'evergreen-ui'
+import GoogleLogin from 'react-google-login'
+import { useEffect } from 'react'
+import { gapi } from 'gapi-script'
+const REACT_APP_GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID
 function LoginPage({ onLogin, navigateRegister }) {
 
+    useEffect(() => {
+        function start() {
+            gapi.client.init({
+                clientId : REACT_APP_GOOGLE_CLIENT_ID,
+                scope: ""
+            })
+        }
+
+        gapi.load('client:auth2', start)
+    })
     const loginHandler = (event) => {
 
         event.preventDefault()
@@ -12,17 +26,36 @@ function LoginPage({ onLogin, navigateRegister }) {
             password: { value: password }
         } } = event
 
-            ;(async () => {
+            ; (async () => {
                 try {
                     const token = await authenticateUser(email, password)
                     sessionStorage.setItem('UserToken', token)
                     form.reset()
                     onLogin()
                 } catch (error) {
-                    toaster.warning('Something went wrong', {duration : 3, description: error.message})
+                    toaster.warning('Something went wrong', { duration: 3, description: error.message })
                 }
             })()
     }
+
+    const loginGoogleSuccessHandler = res => {
+        ; (async () => {
+            try {
+                const token = await authenticateUserGoogle(res.googleId)
+                sessionStorage.setItem('UserToken', token)
+                onLogin()
+            } catch (error) {
+                toaster.warning('Something went wrong', { duration: 3, description: error.message })
+            }
+        })()
+    }
+
+    const loginGoogleFailHandler = res => {
+        
+        toaster.warning('Login with google error')
+        console.log(res)
+    }
+
     return (
         <div className="loginPage">
             <div className="loginForm__container">
@@ -37,7 +70,13 @@ function LoginPage({ onLogin, navigateRegister }) {
                         <a href='#' className='form__link__right'>Forgot your password?</a>
                     </div>
                     <button className='form__button form__submit' type="submit">Log In</button>
-                    <button className='form__button form__google'>Sign with Google</button>
+                    <GoogleLogin
+                        clientId={REACT_APP_GOOGLE_CLIENT_ID}
+                        buttonText="Log In with Google"
+                        onSuccess={loginGoogleSuccessHandler}
+                        onFailure={loginGoogleFailHandler}
+                        cookiePolicy={'single_host_origin'}
+                    />
                 </form>
             </div>
             <div className="carrusel__container"></div>

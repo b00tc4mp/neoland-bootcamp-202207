@@ -1,4 +1,3 @@
-import './InventoryTable.css'
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { alpha } from '@mui/material/styles';
@@ -195,7 +194,7 @@ const EnhancedTableToolbar = (props) => {
             {numSelected > 0 ? (
                 <Tooltip title="Delete">
                     <IconButton>
-                        <DeleteIcon />
+                        <DeleteIcon/>
                     </IconButton>
                 </Tooltip>
             ) : (
@@ -232,7 +231,7 @@ export default function EnhancedTable({data}) {
 
     const handleSelectAllClick = (event) => {
         if (event.target.checked) {
-            const newSelected = rows.map((n) => n.name);
+            const newSelected = rows.map((n) => n.invoiceNumber);
             setSelected(newSelected);
             return;
         }
@@ -258,19 +257,7 @@ export default function EnhancedTable({data}) {
 
         setSelected(newSelected);
     };
-
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
-
-    const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
-    };
-
-    const handleChangeDense = (event) => {
-        setDense(event.target.checked);
-    };
+   
 
     const isSelected = (name) => selected.indexOf(name) !== -1;
 
@@ -309,7 +296,7 @@ export default function EnhancedTable({data}) {
                             {stableSort(rows, getComparator(order, orderBy))
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row, index) => {
-                                    const isItemSelected = isSelected(row.name);
+                                    const isItemSelected = isSelected(row.invoiceNumber);
                                     const labelId = `enhanced-table-checkbox-${index}`;
 
                                     return (
@@ -323,18 +310,18 @@ export default function EnhancedTable({data}) {
                                                 }
                                             }}
                                             hover
-                                            onClick={(event) => handleClick(event, row.date)}
+                                            onClick={(event) => handleClick(event, row.invoiceNumber)}
                                             role="checkbox"
                                             aria-checked={isItemSelected}
                                             tabIndex={-1}
-                                            key={row.date}
+                                            key={`${row.invoiceDate}${index}`}
                                             selected={isItemSelected}
                                         >
                                             <TableCell
                                                 component="th"
                                                 id={labelId}
                                                 scope="row"
-                                                padding="default"
+                                                padding="normal"
                                             >
                                                 {row.invoiceDate}
                                             </TableCell>

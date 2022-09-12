@@ -1,7 +1,22 @@
 import './RegisterPage.css'
-import { registerUser } from '../logic'
+import { registerUser, registerUserGoogle } from '../logic'
 import { toaster } from 'evergreen-ui'
+import GoogleLogin from 'react-google-login'
+import { useEffect } from 'react'
+import { gapi } from 'gapi-script'
+const REACT_APP_GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID
 function RegisterPage({ navigateLogin }) {
+
+    useEffect(() => {
+        function start() {
+            gapi.client.init({
+                clientId : REACT_APP_GOOGLE_CLIENT_ID,
+                scope: ""
+            })
+        }
+
+        gapi.load('client:auth2', start)
+    })
 
     const registerHandler = event => {
         event.preventDefault()
@@ -23,6 +38,30 @@ function RegisterPage({ navigateLogin }) {
                 toaster.warning('Something went wrong', {duration : '2.5', description: error.message})
             }
         })()
+    }
+
+    const SignupGoogleSuccessHandler = res => {
+        const {profileObj : {
+            email,
+            givenName : name,
+            familyName : lastName,
+            googleId,
+
+        }} = res
+        ; (async () => {
+            try {
+                await registerUserGoogle(name, lastName, email, googleId)
+                navigateLogin()
+                toaster.success('Account registered successfully with Google')
+            } catch (error) {
+                toaster.warning('Something went wrong', {duration : '2.5', description: error.message})
+            }
+        })()
+    }
+
+    const SignupGoogleFailHandler = res => {
+        toaster.warning('Login with google error')
+        console.log(res)
     }
     return (
         <div className="registerPage">
@@ -48,7 +87,13 @@ function RegisterPage({ navigateLogin }) {
                         <a href='#' className='form__link' onClick={navigateLogin}>Already have an account? Login</a>
                     </div>
                     <button className='form__button form__submit' type="submit">Create Account</button>
-                    <button className='form__button form__google'>TODO Sign Up with Google</button>
+                    <GoogleLogin
+                        clientId={REACT_APP_GOOGLE_CLIENT_ID}
+                        buttonText="Sign Up with Google"
+                        onSuccess={SignupGoogleSuccessHandler}
+                        onFailure={SignupGoogleFailHandler}
+                        cookiePolicy={'single_host_origin'}
+                    />
                 </form>
             </div>
         </div>

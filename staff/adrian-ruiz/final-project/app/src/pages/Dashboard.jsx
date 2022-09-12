@@ -6,7 +6,7 @@ import SummaryReports from '../components/SummaryReports'
 import { Routes, Route } from 'react-router-dom'
 import CustomersList from '../components/CustomersList'
 import InvoicesList from '../components/InvoicesList'
-import NewProductPanel from '../components/NewProductPanel'
+import EstimatesList from '../components/EstimatesList'
 
 function Dashboard() {
 
@@ -26,6 +26,7 @@ function Dashboard() {
                 <Route path='/*' element={<SummaryReports />} />
                 <Route path='inventory' element={<Inventory />} />
                 <Route path='/customers' element={<CustomersList />} />
+                <Route path='/estimates' element={<EstimatesList />} />
                 <Route path='/invoices' element={<InvoicesList />} />
                 
             </Routes>

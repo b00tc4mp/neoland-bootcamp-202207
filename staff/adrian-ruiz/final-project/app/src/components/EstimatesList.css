@@ -1,4 +1,4 @@
-.main-section__invoices{
+.main-section__estimates{
     grid-area: main-section;
     display: flex;
     flex-direction: column;
@@ -8,7 +8,7 @@
     padding: 1%;
 }
 
-.invoices__tableContainer{
+.estimates__tableContainer{
     width: 100%;
     height: 89%;
 }

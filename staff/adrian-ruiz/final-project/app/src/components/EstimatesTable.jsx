@@ -7,7 +7,6 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import Toolbar from '@mui/material/Toolbar';
@@ -16,48 +15,9 @@ import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
-
-/* function createData(name, phone, balance) {
-    return {
-      name,
-      phone,
-      balance
-    };
-  }
-  
-  const rows = [
-    createData('Cupcake', 305, 3.7),
-    createData('Donut', 452, 25.0),
-    createData('Eclair', 262, 16.0),
-    createData('Frozen yoghurt', 159, 6.0),
-    createData('Gingerbread', 356, 16.0),
-    createData('Honeycomb', 408, 3.2),
-    createData('Ice cream sandwich', 237, 9.0),
-    createData('Jelly Bean', 375, 0.0),
-    createData('KitKat', 518, 26.0),
-    createData('Lollipop', 392, 0.2),
-    createData('Marshmallow', 318, 0),
-    createData('Nougat', 360, 19.0),
-    createData('Oreo', 437, 18.0),
-    createData('Cupcake2', 305, 3.7),
-    createData('Donut2', 452, 25.0),
-    createData('Eclair2', 262, 16.0),
-    createData('Frozen yoghurt2', 159, 6.0),
-    createData('Gingerbread2', 356, 16.0),
-    createData('Honeycomb2', 408, 3.2),
-    createData('Ice cream sandwich2', 237, 9.0),
-    createData('Jelly Bean2', 375, 0.0),
-    createData('KitKat2', 518, 26.0),
-    createData('Lollipop2', 392, 0.2),
-    createData('Marshmallow2', 318, 0),
-    createData('Nougat2', 360, 19.0),
-    createData('Oreo2', 437, 18.0),
-  ]; */
 
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -91,23 +51,35 @@ function stableSort(array, comparator) {
 
 const headCells = [
     {
+        id: 'date',
+        numeric: false,
+        disablePadding: false,
+        label: 'Date',
+    },
+    {
         id: 'name',
         numeric: false,
         disablePadding: false,
         label: 'Customer name',
     },
     {
-        id: 'phone',
-        numeric: true,
+        id: 'estimateNumber',
+        numeric: false,
         disablePadding: false,
-        label: 'Phone',
+        label: 'Estimate N#',
     },
     {
-        id: 'balance',
+        id: 'status',
+        numeric: false,
+        disablePadding: false,
+        label: 'Status',
+    },
+    {
+        id: 'amount',
         numeric: true,
         disablePadding: false,
-        label: 'Balance',
-    }
+        label: 'Amount',
+    },
 ];
 
 function EnhancedTableHead(props) {
@@ -206,7 +178,7 @@ const EnhancedTableToolbar = (props) => {
                     id="tableTitle"
                     component="div"
                 >
-                    Customers
+                    Estimates
                 </Typography>
             )}
 
@@ -236,7 +208,7 @@ export default function EnhancedTable({data}) {
     const rows = data
     
     const [order, setOrder] = React.useState('asc');
-    const [orderBy, setOrderBy] = React.useState('customers');
+    const [orderBy, setOrderBy] = React.useState('stock');
     const [selected, setSelected] = React.useState([]);
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
@@ -303,6 +275,7 @@ export default function EnhancedTable({data}) {
                 <TableContainer
                 sx={{
                     maxHeight: '90vh',
+                    maxWidth: '90vw'
                     
                    /*  overflow: 'hidden' */
                 }}
@@ -340,11 +313,11 @@ export default function EnhancedTable({data}) {
                                                 }
                                             }}
                                             hover
-                                            onClick={(event) => handleClick(event, row.name)}
+                                            onClick={(event) => handleClick(event, row.date)}
                                             role="checkbox"
                                             aria-checked={isItemSelected}
                                             tabIndex={-1}
-                                            key={row.name}
+                                            key={row.date}
                                             selected={isItemSelected}
                                         >
                                             <TableCell
@@ -353,10 +326,12 @@ export default function EnhancedTable({data}) {
                                                 scope="row"
                                                 padding="normal"
                                             >
-                                                {row.name}
+                                                {row.estimateDate}
                                             </TableCell>
-                                            <TableCell align="right">{row.phone}</TableCell>
-                                            <TableCell align="right">{row.balance}</TableCell>
+                                            <TableCell align="left">{row.customer.name}</TableCell>
+                                            <TableCell align="left">{row.estimateNumber}</TableCell>
+                                            <TableCell align="left">{row.status}</TableCell>
+                                            <TableCell align="right">{row.totalAmount}</TableCell>
                                             <TableCell padding="checkbox">
                                                 <Checkbox
                                                     color="primary"
@@ -381,19 +356,6 @@ export default function EnhancedTable({data}) {
                         </TableBody>
                     </Table>
                 </TableContainer>
-               {/*  <TablePagination
-                    rowsPerPageOptions={[8, 10, 25]}
-                    component="div"
-                    count={rows.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
-                /> */}
-                {/* <FormControlLabel
-                control={<Switch checked={dense} onChange={handleChangeDense} />}
-                label="Dense padding"
-            /> */}
             </Paper>
         </Box>
     );

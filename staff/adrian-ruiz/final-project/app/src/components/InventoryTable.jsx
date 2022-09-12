@@ -1,4 +1,3 @@
-import './InventoryTable.css'
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { alpha } from '@mui/material/styles';
@@ -79,7 +78,7 @@ const headCells = [
         label: 'Cost Price',
     },
     {
-        id: 'minqty',
+        id: 'minStock',
         numeric: true,
         disablePadding: false,
         label: 'Min Qty',
@@ -331,14 +330,14 @@ export default function EnhancedTable({stock}) {
                                                 component="th"
                                                 id={labelId}
                                                 scope="row"
-                                                padding="default"
+                                                padding="normal"
                                             >
                                                 {row.name}
                                             </TableCell>
                                             <TableCell align="right">{row.sku}</TableCell>
                                             <TableCell align="right">{row.category}</TableCell>
                                             <TableCell align="right">{row.cost}</TableCell>
-                                            <TableCell align="right">{row.minqty}</TableCell>
+                                            <TableCell align="right">{row.minStock}</TableCell>
                                             <TableCell align="right">{row.stock}</TableCell>
                                             <TableCell padding="checkbox">
                                                 <Checkbox

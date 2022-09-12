@@ -5,6 +5,10 @@ import retrieveCustomers from './retrieveCustomers'
 import retrieveInvoices from './retrieveInvoices'
 import createProduct from './createProduct'
 import createCustomer from './createCustomer'
+import authenticateUserGoogle from './authenticateUserGoogle'
+import registerUserGoogle from './registerUserGoogle'
+import retrieveEstimates from './retrieveEstimates'
+import createInvoice from './createInvoice'
 
 export {
     authenticateUser,
@@ -12,6 +16,10 @@ export {
     retrieveStock,
     retrieveCustomers,
     retrieveInvoices,
+    retrieveEstimates,
     createProduct,
-    createCustomer
+    createCustomer,
+    authenticateUserGoogle,
+    registerUserGoogle,
+    createInvoice
 }
