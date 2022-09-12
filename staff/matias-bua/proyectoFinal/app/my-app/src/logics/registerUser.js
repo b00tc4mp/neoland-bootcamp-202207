@@ -2,7 +2,7 @@ import { EMAIL_REGEX } from './constants'
 
 const API_URL = process.env.REACT_APP_API_URL
 
-function registerUser(name, email, password, callback) {
+function registerUser(name,lastname, email, password, birth, phonenumber, callback) {
     if (typeof name !== 'string') throw new TypeError('name is not a string')
     if (name.trim().length === 0) throw new Error('name is empty or blank')
 
@@ -20,7 +20,7 @@ function registerUser(name, email, password, callback) {
     const xhr = new XMLHttpRequest
 
     // response
-
+debugger
     xhr.onload = function() {
         const status = xhr.status
 
@@ -38,7 +38,7 @@ function registerUser(name, email, password, callback) {
 
     xhr.setRequestHeader('Content-type', 'application/json')
 
-    xhr.send(`{ "name": "${name}", "email": "${email}", "password": "${password}" }`)
+    xhr.send(`{ "name": "${name}", "lastname": "${lastname}", "email": "${email}", "password": "${password}","birth": "${birth}", "phonenumber": "${phonenumber}" }`)
 }
 
 export default registerUser

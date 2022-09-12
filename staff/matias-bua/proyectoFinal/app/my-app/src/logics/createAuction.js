@@ -1,6 +1,6 @@
 const API_URL = process.env.REACT_APP_API_URL
 
-function createNote(token, callback) {
+function createAuction(token, callback) {
     if (typeof token !== 'string') throw new TypeError('token is not a string')
     if (token.trim().length === 0) throw new Error('token is empty or blank')
 
@@ -23,15 +23,15 @@ function createNote(token, callback) {
 
     // request
 
-    xhr.open('POST', `${API_URL}/notes`)
+    xhr.open('POST', `${API_URL}/auction`)
 
     xhr.setRequestHeader('Authorization', `Bearer ${token}`)
     xhr.setRequestHeader('Content-type', 'application/json')
 
-    const json = JSON.stringify({ text: '' })
+    const json = JSON.stringify(json)
 
     xhr.send(json)
 }
 
 
-export default createNote
+export default createAuction
