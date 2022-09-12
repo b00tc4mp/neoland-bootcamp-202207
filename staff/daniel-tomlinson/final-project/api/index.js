@@ -135,6 +135,15 @@ connect(MONGO_URL)
         socket.to(`${host}_room`).emit("T6.5", data);
       });
 
+      socket.on("Tclose", (data) => {
+        console.log("Tclose server");
+        console.log(data);
+
+        const host = data.hostTemp;
+        console.log(host);
+        socket.to(`${host}_room`).emit("Tclose.5", data);
+      });
+
       socket.on("S1", (data) => {
         console.log("S1 server");
         console.log(data);
@@ -162,7 +171,12 @@ connect(MONGO_URL)
   .then(() => {
     logger.info("db connected");
 
-    const { usersRouter, notesRouter, gameCodesRouter } = require("./routes");
+    const {
+      usersRouter,
+      notesRouter,
+      gameCodesRouter,
+      questionsRouter,
+    } = require("./routes");
 
     api.use(cors());
 
@@ -174,7 +188,7 @@ connect(MONGO_URL)
       next();
     })*/ api.get("/", (req, res) => res.send(`${name} v${version} ;)`));
 
-    api.use("/api", usersRouter, notesRouter, gameCodesRouter);
+    api.use("/api", usersRouter, notesRouter, gameCodesRouter, questionsRouter);
 
     server.listen(PORT, () => console.log(`API running on port ${PORT}`));
 
