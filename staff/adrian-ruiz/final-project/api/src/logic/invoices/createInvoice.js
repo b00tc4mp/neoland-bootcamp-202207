@@ -17,19 +17,26 @@ function createInvoice(company, {invoiceNumber, customer, terms, invoiceDate, du
         if (!customerFound) throw new NotFoundError(`Customer with ID ${customer.refId} not found`)
 
         const productIds = products.map(({id}) => id)
-       
-        const itemsFound = await InventoryItem.find({ _id: {  $in: productIds}}).lean()
 
+        const itemsFound = await InventoryItem.find({ _id: {  $in: productIds}})
         if (itemsFound.length !== productIds.length) {
-            const foundIds = itemsFound.map(item => item._id.toString())
+            const foundIds = itemsFound.map(item => item.id)
 
             const notFoundIds = productIds.filter(productId => !foundIds.includes(productId))
 
             throw new NotFoundError(`items with ids ${notFoundIds} not found`)
         }
-        //TODO DESCONTAR STOCK DIRECTAMENTE EN ESTE MOMENTO
         
-        return await Invoice.create({company, invoiceNumber, customer, terms, invoiceDate, dueDate, products, balance: totalAmount, totalAmount, status})
+        await Invoice.create({company, invoiceNumber, customer, terms, invoiceDate, dueDate, products, balance: totalAmount, totalAmount, status})
+
+        // MODIFICO CADA DOCUMENTO PARA POSTERIORMENTE GUARDARLOS TODOS CON BULK
+        itemsFound.forEach(item => {
+            const product = products.find(product => product.id === item._id.toString())
+
+            item.stock = item.stock - product.amount
+        })
+
+        await InventoryItem.bulkSave(itemsFound)
     })()
 }
 

@@ -4,5 +4,6 @@ module.exports = {
     retrieveUser : require('./retrieveUser'),
     updateUserEmail : require('./updateUserEmail'),
     updateUserPassword : require('./updateUserPassword'),
-    deleteUser : require('./deleteUser')
+    deleteUser : require('./deleteUser'),
+    authenticateGoogle : require('./authenticateGoogle')
 }

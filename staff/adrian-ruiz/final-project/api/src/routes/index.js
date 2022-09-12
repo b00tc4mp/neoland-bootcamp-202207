@@ -1,8 +1,8 @@
 const express = require('express')
 const { Router, json } = express
 const jsonBodyParser = json()
-const { registerUserHandler, authenticateUserHandler, retrieveUserHandler, updateUserEmailHandler, updateUserPasswordHandler, deleteUserHandler } = require('./users')
-const { registerCompanyHandler, updateCompanyDetailsHandler, deleteCompanyHandler } = require('./companies')
+const { registerUserHandler, authenticateUserHandler, retrieveUserHandler, updateUserEmailHandler, updateUserPasswordHandler, deleteUserHandler, authenticateGoogleHandler } = require('./users')
+const { registerCompanyHandler, updateCompanyDetailsHandler, deleteCompanyHandler, registerCompanyGoogleHandler } = require('./companies')
 const { createInventoryItemHandler, updateInventoryItemHandler, deleteInventoryItemHandler, retrieveStockHandler } = require('./inventory')
 const { createEstimateHandler, deleteEstimateHandler, retrieveEstimatesHandler, updateEstimateHandler } = require('./estimates')
 const { createCustomerHandler, updateCustomerHandler, deleteCustomerHandler, retrieveCustomersHandler } = require('./customers')
@@ -11,6 +11,8 @@ const { createInvoiceHandler, deleteInvoiceHandler, retrieveInvoicesHandler, upd
 const companiesRouter = Router()
 
 companiesRouter.post('/companies', jsonBodyParser, registerCompanyHandler)
+
+companiesRouter.post('/companies/google', jsonBodyParser, registerCompanyGoogleHandler)
 
 companiesRouter.patch('/companies', jsonBodyParser, updateCompanyDetailsHandler)
 
@@ -21,6 +23,8 @@ const usersRouter = Router()
 usersRouter.post('/users', jsonBodyParser, registerUserHandler)
 
 usersRouter.post('/users/auth', jsonBodyParser, authenticateUserHandler)
+
+usersRouter.post('/users/auth/google', jsonBodyParser, authenticateGoogleHandler)
 
 usersRouter.get('/users', retrieveUserHandler)
 
@@ -69,6 +73,7 @@ invoicesRouter.get('/invoices', retrieveInvoicesHandler)
 invoicesRouter.patch('/invoices/:invoiceId', jsonBodyParser, updateInvoiceHandler)
 
 invoicesRouter.delete('/invoices/:invoiceId', deleteInvoiceHandler)
+
 
 module.exports = {
     usersRouter,

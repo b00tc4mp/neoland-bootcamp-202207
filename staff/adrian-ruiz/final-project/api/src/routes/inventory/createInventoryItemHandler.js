@@ -6,9 +6,9 @@ function createInventoryItemHandler(req, res){
     runWithErrorHandling(async () => {
         const { companyId } = await validateToken(req)
 
-        const { body: { name, sku, category, cost, averageCost, description, minStock, stock} } = req
+        const { body: { name, sku, category, cost, averageCost, description, minStock, initStock} } = req
 
-        await createInventoryItem(companyId, { name, sku, category, cost, averageCost, description, minStock, stock})
+        await createInventoryItem(companyId, { name, sku, category, cost, averageCost, description, minStock, stock : initStock})
 
         res.status(204).send()
     

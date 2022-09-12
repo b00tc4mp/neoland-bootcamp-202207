@@ -32,6 +32,10 @@ const user = new Schema({
         type: String,
         enum: ['admin', 'accountant', 'employee'],
         required: true
+    },
+
+    googleId:{
+        type: String
     }
 
 })

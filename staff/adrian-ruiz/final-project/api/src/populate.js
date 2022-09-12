@@ -55,16 +55,22 @@ const {env : { MONGO_URL }} = process
             company : company.id,
             name : "Populated item 1",
             sku : "SKU-P0001",
+            stock: 50,
+            minStock : 20
         },
         {
             company : company.id,
             name : "Populated item 2",
             sku : "SKU-P0002",
+            stock: 33,
+            minStock: 10
         },
         {
             company : company.id,
             name : "Populated item 3",
             sku : "SKU-P0003",
+            stock: 200,
+            minStock: 100
         }]
 
         const _items = await InventoryItem.create(items)

@@ -8,5 +8,5 @@ module.exports = {
     Estimate: model('Estimate', estimate),
     Customer: model('Customer', customer),
     InventoryItem: model('InventoryItem', inventoryItem),
-    Blacklist: model('Blacklist', blacklist)
+    Blacklist: model('Blacklist', blacklist),
 }
