@@ -19,14 +19,16 @@ function Teacher1StartClass({ handleScreenChangeT1, socket }) {
     // const pin = Math.round(Math.random() * 100000000);
     const pin = Math.round(Math.random() * 100);
 
+    const host = socket.id;
+
     form.reset();
 
-    handleScreenChangeT1("Teacher2PlayersConnected", nameOfClass, pin);
+    handleScreenChangeT1("Teacher2PlayersConnected", nameOfClass, pin, host);
 
     socket.emit("T1", {
-      gameScreen: "",
       pin: { pin },
       nameOfClass: { nameOfClass },
+      host: { host },
     });
   };
   return (

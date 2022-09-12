@@ -19,29 +19,37 @@ function QuizTeacher({ socket, context: { handleFeedback } }) {
 
   const [gameScreen, setGameScreen] = useState("Teacher1StartClass");
   const [nameOfClass, setNameOfClass] = useState("");
-  const [nickname, setNickname] = useState("");
+  const [nickname, setNickname] = useState([]);
   const [pin, setPin] = useState("");
+  const [host, setHost] = useState("");
   const [timeLimit, setTimeLimit] = useState("30 seconds");
   const [question, setQuestion] = useState("");
-  const [response, setResponse] = useState("");
+  const [responses, setResponses] = useState([]);
   const [feedback, setFeedback] = useState("");
+  const [correct, setCorrect] = useState(0);
+  const [incorrect, setIncorrect] = useState(0);
 
   const handleLeaveClick = () => {};
 
-  const handleStartClass = (nameOfClass, pin) => {
+  const handleStartClass = (nameOfClass, pin, host) => {
     try {
-      debugger;
       const pinString = `${pin}`;
 
-      createGameCode(sessionStorage.token, nameOfClass, pinString, (error) => {
-        if (error) {
-          handleFeedback({ message: error.message, level: "error" });
+      createGameCode(
+        sessionStorage.token,
+        nameOfClass,
+        pinString,
+        host,
+        (error) => {
+          if (error) {
+            handleFeedback({ message: error.message, level: "error" });
 
-          logger.warn(error.message);
+            logger.warn(error.message);
 
-          return;
+            return;
+          }
         }
-      });
+      );
     } catch (error) {
       handleFeedback({ message: error.message, level: "error" });
 
@@ -49,11 +57,12 @@ function QuizTeacher({ socket, context: { handleFeedback } }) {
     }
   };
 
-  const handleScreenChangeT1 = (gameScreen, nameOfClass, pin) => {
+  const handleScreenChangeT1 = (gameScreen, nameOfClass, pin, host) => {
     setGameScreen(gameScreen);
     setNameOfClass(nameOfClass);
     setPin(pin);
-    handleStartClass(nameOfClass, pin);
+    setHost(host);
+    handleStartClass(nameOfClass, pin, host);
   };
 
   const handleScreenChangeT2 = (gameScreen) => {
@@ -74,8 +83,10 @@ function QuizTeacher({ socket, context: { handleFeedback } }) {
     setGameScreen(gameScreen);
   };
 
-  const handleScreenChangeT5 = (gameScreen) => {
+  const handleScreenChangeT5 = (gameScreen, correct, incorrect) => {
     setGameScreen(gameScreen);
+    setCorrect(correct);
+    setIncorrect(incorrect);
   };
 
   const handleScreenChangeT6 = (gameScreen) => {
@@ -86,15 +97,32 @@ function QuizTeacher({ socket, context: { handleFeedback } }) {
     socket.on("S1.5", (data) => {
       console.log("S1 data received by client:");
       console.log(data);
-      setNickname(data.nickname);
+      console.log("nickname:");
+      console.log(nickname);
+      // let includes = nickname.includes(data.nickname.nickname);
+      // console.log("includes");
+      // console.log(includes);
+      // if (includes === false) {
+      setNickname((nickname) => [...nickname, data.nickname.nickname]);
+      console.log("Nickname received:");
+      console.log(data.nickname.nickname);
+      // }
     });
 
     socket.on("S4.5", (data) => {
       console.log("S4 data received by client:");
       console.log(data);
-      setResponse(data.response);
+      // const exists = responses.filter(
+      // (dataSet) => dataSet.socketId === data.socketId
+      // );
+      // console.log(exists);
+      // if (exists === 0) {
+      setResponses((responses) => [...responses, data]);
+      console.log("responses state in QuizTeacher");
+      console.log(responses);
+      // }
     });
-  });
+  }, []);
 
   return (
     <div className="game-screen">
@@ -127,6 +155,7 @@ function QuizTeacher({ socket, context: { handleFeedback } }) {
             nickname={nickname}
             handleScreenChangeT2={handleScreenChangeT2}
             socket={socket}
+            // host={host}
           />
         )}
         {/* <Teacher3CreateQuestion /> */}
@@ -136,11 +165,15 @@ function QuizTeacher({ socket, context: { handleFeedback } }) {
             nameOfClass={nameOfClass}
             socket={socket}
             handleScreenChangeT3={handleScreenChangeT3}
+            host={host}
           />
         )}
         {/* <Teacher3BGetReady /> */}
         {gameScreen === "Teacher3BGetReady" && (
-          <Teacher3BGetReady handleScreenChangeT3B={handleScreenChangeT3B} />
+          <Teacher3BGetReady
+            handleScreenChangeT3B={handleScreenChangeT3B}
+            // host={host}
+          />
         )}
         {/* <Teacher4Incomingresponses /> */}
         {gameScreen === "Teacher4IncomingResponses" && (
@@ -150,8 +183,9 @@ function QuizTeacher({ socket, context: { handleFeedback } }) {
             timeLimit={timeLimit}
             question={question}
             socket={socket}
-            response={response}
+            responses={responses}
             handleScreenChangeT4={handleScreenChangeT4}
+            host={host}
           />
         )}
         {/* <Teacher5MarkResponses /> */}
@@ -160,16 +194,26 @@ function QuizTeacher({ socket, context: { handleFeedback } }) {
             pin={pin}
             nameOfClass={nameOfClass}
             socket={socket}
-            response={response}
+            responses={responses}
             handleScreenChangeT5={handleScreenChangeT5}
+            host={host}
           />
         )}
         {/* <Teacher6ResponseStats /> */}
         {gameScreen === "Teacher6ResponseStats" && (
-          <Teacher6ResponseStats handleScreenChangeT6={handleScreenChangeT6} />
+          <Teacher6ResponseStats
+            handleScreenChangeT6={handleScreenChangeT6}
+            host={host}
+            pin={pin}
+            nameOfClass={nameOfClass}
+            correct={correct}
+            incorrect={incorrect}
+          />
         )}
         {/* <Teacher7ClassClosed /> */}
-        {gameScreen === "Teacher7ClassClosed" && <Teacher7ClassClosed />}
+        {gameScreen === "Teacher7ClassClosed" && (
+          <Teacher7ClassClosed host={host} />
+        )}
       </main>
       {/* {gamePhase === "gamePhaseKey" && <ScreenTemplate1 />} */}
 

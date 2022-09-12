@@ -5,21 +5,77 @@
 
 // const handleLeaveClick = () => {};
 
+import { useState } from "react";
+
 const handleFormSubmit = () => {};
 
 function Teacher5MarkResponses({
   pin,
   nameOfClass,
   handleScreenChangeT5,
-  response,
+  responses,
+  host,
+  socket,
   // question,
-  // responsesReceived: [responsesReceived],
 }) {
   // const responseString = response.response;
+
+  let correct = 0;
+  let incorrect = 0;
+
   const onButtonClick = () => {
     debugger;
-    handleScreenChangeT5("Teacher6ResponseStats");
+
+    responses.forEach((response) => {
+      let element = document.getElementById(response.socketId);
+
+      if (element.className === "info response-list-item correct") {
+        socket.emit("T5", {
+          gameScreen: "Student6Correct",
+          socketId: response.socketId,
+          host: host,
+        });
+        console.log("Emitted 'correct' to:");
+        console.log(response.socketId);
+        correct += 1;
+      } else if (element.className === "info response-list-item incorrect") {
+        socket.emit("T5", {
+          gameScreen: "Student7Incorrect",
+          socketId: response.socketId,
+          host: host,
+        });
+        console.log("Emitted 'incorrect' to:");
+        console.log(response.socketId);
+        incorrect += 1;
+      }
+    });
+
+    handleScreenChangeT5("Teacher6ResponseStats", correct, incorrect);
   };
+
+  const [responsesMarked, setResponsesMarked] = useState([]);
+
+  const handleMarkResponse = (event) => {
+    console.log("handleMarkResponse clicked");
+    console.log(event.target.innerHTML);
+    // console.log(event.target.key);
+    console.log(event.target.className);
+    console.log(event.target.dataset.id);
+    // console.log(event.target.dataset.clicks);
+    console.log(event.target);
+
+    const markedResponse = {};
+    if (event.target.className === "info response-list-item")
+      event.target.className = "info response-list-item correct";
+    else if (event.target.className === "info response-list-item correct")
+      event.target.className = "info response-list-item incorrect";
+    else if (event.target.className === "info response-list-item incorrect")
+      event.target.className = "info response-list-item correct";
+  };
+
+  console.log("Responses received at T5 Mark Responses");
+  console.log(responses);
+
   return (
     <div className="game-screen">
       <main className="game-screen-main flex--spaced">
@@ -31,13 +87,21 @@ function Teacher5MarkResponses({
         </div>
         <div className="grouped-elements">
           <p className="paragraph--bold">Click to mark correct or incorrect.</p>
-          <p className="info correct">
-            TODO: create these inputs by mapping student responses
-          </p>
-          <p className="info incorrect">{response}</p>
-          <p className="info">Student response 2</p>
-          <p className="info">Student response 3</p>
-          <p className="info">Student response 4</p>
+
+          {responses.map((responseData) => {
+            return (
+              <p
+                className="info response-list-item"
+                key={responseData.socketId}
+                onClick={handleMarkResponse}
+                data-Id={responseData.socketId}
+                id={responseData.socketId}
+                // data-clicks={0}
+              >
+                {responseData.response}
+              </p>
+            );
+          })}
         </div>
         <button className="footer-button" onClick={onButtonClick}>
           send

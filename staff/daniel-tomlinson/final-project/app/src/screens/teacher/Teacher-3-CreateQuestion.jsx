@@ -11,6 +11,7 @@ function Teacher3CreateQuestion({
   nameOfClass,
   handleScreenChangeT3,
   socket,
+  host,
 }) {
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -30,6 +31,7 @@ function Teacher3CreateQuestion({
       gameScreen: "Student3GetReady",
       timeLimit: { timeLimit },
       question: { question },
+      host: { host },
     });
 
     handleScreenChangeT3("Teacher3BGetReady", question, timeLimit);

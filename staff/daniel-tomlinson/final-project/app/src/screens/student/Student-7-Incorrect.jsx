@@ -5,9 +5,14 @@
 
 // const handleLeaveClick = () => {};
 
+import { useEffect } from "react";
+
 const handleFormSubmit = () => {};
 
-function Student7Incorrect({ gameHeader, gameMain, gameFooter }) {
+function Student7Incorrect({ handleScreenChangeS7 }) {
+  useEffect(() => {
+    setTimeout(() => handleScreenChangeS7("Student8WaitingForQuestion"), 15000);
+  }, []);
   return (
     <div className="game-screen">
       <main className="game-screen-main flex--space-around">

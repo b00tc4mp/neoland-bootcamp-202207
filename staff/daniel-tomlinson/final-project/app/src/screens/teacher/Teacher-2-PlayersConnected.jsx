@@ -14,7 +14,7 @@ function Teacher2PlayersConnected({
   handleScreenChangeT2,
   socket,
 }) {
-  const nicknameString = nickname.nickname;
+  // const nicknameString = nickname.nickname;
 
   const onButtonClick = () => {
     // socket.emit("T2", {
@@ -33,7 +33,15 @@ function Teacher2PlayersConnected({
         <div className="grouped-elements">
           <p className="paragraph--bold">Players connected:</p>
           <div className="info">
-            <ul>{nicknameString}</ul>
+            {/* <ul>{nicknameString}</ul> */}
+            {nickname.map((ncknme) => {
+              return (
+                <li className="" key="ncknme">
+                  {/* {ncknme.nickname} */}
+                  {ncknme}
+                </li>
+              );
+            })}
           </div>
         </div>
         <button className="footer-button" onClick={onButtonClick}>

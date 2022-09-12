@@ -6,7 +6,7 @@ import QuizTeacher from "./QuizTeacher";
 import io from "socket.io-client";
 const socket = io.connect("http://localhost:8080", { autoconnect: false });
 
-function QuizTemplate() {
+function QuizTemplate({ handleFeedback }) {
   // const [gameScreen, setGameScreen] = useState("TeacherStudent");
   const [userType, setUserType] = useState("Home");
 
@@ -34,7 +34,11 @@ function QuizTemplate() {
         />
       )}
       {userType === "Student" && (
-        <QuizStudent handleLeaveClick={handleLeaveClick} socket={socket} />
+        <QuizStudent
+          handleLeaveClick={handleLeaveClick}
+          socket={socket}
+          handleFeedback={handleFeedback}
+        />
       )}
       {userType === "Teacher" && (
         <QuizTeacher handleLeaveClick={handleLeaveClick} socket={socket} />

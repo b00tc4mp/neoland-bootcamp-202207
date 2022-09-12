@@ -4,11 +4,14 @@
 // import Spinner from "./Spinner";
 // import CountdownTimer from "./CountdownTimer";
 
+import retrieveGameCode from "../../logic/retrieveGameCode";
+
 function Student1EnterClass({
   pin,
   nameOfClass,
   handleScreenChangeS1,
   socket,
+  handleFeedback,
 }) {
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -19,24 +22,53 @@ function Student1EnterClass({
     const nameOfClassInput = form.nameOfClass;
     const nicknameInput = form.nickname;
 
-    const pinValue = pinInput.value;
-    const nameOfClassValue = nameOfClassInput.value;
+    const pin = pinInput.value;
+    const nameOfClass = nameOfClassInput.value;
     const nickname = nicknameInput.value;
 
-    const pinString = String(pin.pin);
-    const nameOfClassString = nameOfClass.nameOfClass;
+    // const pinString = String(pin.pin);
+    // const nameOfClassString = nameOfClass.nameOfClass;
 
-    if (pinString === pinValue && nameOfClassString === nameOfClassValue) {
-      socket.emit("S1", {
-        nickname: { nickname },
+    // const loadNotes = () => {
+    try {
+      retrieveGameCode(pin, (error, gameCodes) => {
+        if (error) {
+          handleFeedback({ message: error.message, level: "error" });
+
+          // logger.warn(error.message);
+
+          return;
+        }
+        // setNotes(notes);
+        let gameCodeFiltered = gameCodes.filter(
+          (gameCode) =>
+            gameCode.nameOfClass === nameOfClass && gameCode.pin === pin
+        );
+
+        if (
+          (gameCodeFiltered.length = 1)
+          // pinString === gameCode.pin &&
+          // nameOfClassString === gameCode.nameOfClass
+        ) {
+          const host = gameCodeFiltered[0].host;
+          socket.emit("S1", {
+            nickname: { nickname },
+            host: { host },
+          });
+          handleScreenChangeS1("Student2Connected", nickname, host);
+          form.reset();
+        } else {
+          alert(`Could not find game with pin ${pin} and name ${nameOfClass}`);
+        }
+
+        // logger.debug("setNotes", notes);
       });
-      handleScreenChangeS1("Student2Connected", nickname);
-      form.reset();
-    } else {
-      alert(
-        `Could not find game with pin ${pinValue} and name ${nameOfClassValue}`
-      );
+    } catch (error) {
+      handleFeedback({ message: error.message, level: "error" });
+
+      // logger.warn(error.message);
     }
+    // };
   };
   return (
     <div className="game-screen">

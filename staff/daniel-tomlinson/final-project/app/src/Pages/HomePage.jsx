@@ -189,7 +189,10 @@ function HomePage({
               onFeedback={handleFeedback}
             />
           )} */}
-          <Route path="quickPlayInHome" element={<QuickPlayPage />} />
+          <Route
+            path="quickPlayInHome"
+            element={<QuickPlayPage handleFeedback={handleFeedback} />}
+          />
           <Route
             path="/"
             element={

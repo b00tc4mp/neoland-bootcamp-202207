@@ -12,10 +12,15 @@ function Teacher6ResponseStats({
   nameOfClass,
   stats,
   handleScreenChangeT6,
+  correct,
+  incorrect,
 }) {
   const onButtonClick = () => {
     handleScreenChangeT6("Teacher2PlayersConnected");
   };
+
+  // const correctStats = document.getElementById("correct-stats");
+  // correctStats.style = { height: "80%" };
 
   return (
     <div className="game-screen">
@@ -27,6 +32,14 @@ function Teacher6ResponseStats({
           </p>
         </div>
         Stats
+        <span
+          className="correct"
+          // id="correct-stats"
+        >
+          {correct}
+        </span>
+        <span className="incorrect">{incorrect}</span>
+        <span></span>
         <button className="footer-button" onClick={onButtonClick}>
           New round
         </button>

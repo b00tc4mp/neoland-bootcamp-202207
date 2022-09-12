@@ -14,21 +14,23 @@ function Teacher4IncomingResponses({
   timeLimit,
   responsesReceivedTotal,
   // responsesReceived: [responsesReceived],
-  response,
+  responses,
   question,
   handleScreenChangeT4,
   socket,
+  host,
 }) {
   const questionString = question.question;
-  const responseString = response.response;
+  const responseString = responses.response;
 
   // const timeLimitNumber = Math.floor(timeLimit.timeLimit);
 
   console.log(timeLimit);
+  console.log(responses);
 
   const onButtonClick = () => {
     handleScreenChangeT4("Teacher5MarkResponses");
-    socket.emit("T4");
+    socket.emit("T4", { host });
   };
   useEffect(() => {
     setTimeout(() => {
@@ -54,7 +56,13 @@ function Teacher4IncomingResponses({
           <p className="paragraph--bold">
             Responses received: {responsesReceivedTotal}
           </p>
-          <p className="info">{response}</p>
+          {responses.map((response) => {
+            return (
+              <p className="info" key={response.socketId} id={socket.Id}>
+                {response.response}
+              </p>
+            );
+          })}
         </div>
         <button
           href=""

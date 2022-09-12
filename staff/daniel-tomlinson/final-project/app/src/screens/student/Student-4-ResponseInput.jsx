@@ -11,6 +11,7 @@ function Student4ResponseInput({
   timeLimit,
   socket,
   handleScreenChangeS4,
+  host,
 }) {
   const questionString = question.question;
   const timeLimitSeconds = Math.floor(timeLimit.timeLimit);
@@ -27,9 +28,9 @@ function Student4ResponseInput({
 
     // const response = String(responseValue.rersponse);
 
-    debugger;
+    const socketId = socket.id;
 
-    socket.emit("S4", { response });
+    socket.emit("S4", { response, socketId, host });
 
     handleScreenChangeS4("Student5WaitingForFeedback");
   };
@@ -45,8 +46,11 @@ function Student4ResponseInput({
     const response = responseInput.value;
 
     // const response = String(responseValue.rersponse);
+    debugger;
 
-    socket.emit("S4", { response });
+    const socketId = socket.id;
+
+    socket.emit("S4", { response, socketId, host });
 
     handleScreenChangeS4("Student5WaitingForFeedback");
   };

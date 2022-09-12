@@ -9,11 +9,12 @@ import Student6Correct from "../screens/student/Student-6-Correct";
 import Student7Incorrect from "../screens/student/Student-7-Incorrect";
 import Student8WaitingForQuestion from "../screens/student/Student-8-WaitingForQuestion";
 
-function QuizStudent({ socket }) {
+function QuizStudent({ socket, handleFeedback }) {
   const [gameScreen, setGameScreen] = useState("Student1EnterClass");
   const [nameOfClass, setNameOfClass] = useState("");
   const [nickname, setNickname] = useState("");
   const [pin, setPin] = useState("");
+  const [host, setHost] = useState("");
   const [timeLimit, setTimeLimit] = useState("30 seconds");
   const [question, setQuestion] = useState("");
   const [response, setResponse] = useState("");
@@ -21,9 +22,10 @@ function QuizStudent({ socket }) {
 
   const handleLeaveClick = () => {};
 
-  const handleScreenChangeS1 = (gameScreen, nickname) => {
+  const handleScreenChangeS1 = (gameScreen, nickname, host) => {
     setGameScreen(gameScreen);
     setNickname(nickname);
+    setHost(host);
   };
 
   const handleScreenChangeS3 = (gameScreen) => {
@@ -34,10 +36,19 @@ function QuizStudent({ socket }) {
     setGameScreen(gameScreen);
   };
 
+  const handleScreenChangeS6 = (gameScreen) => {
+    setGameScreen(gameScreen);
+  };
+
+  const handleScreenChangeS7 = (gameScreen) => {
+    setGameScreen(gameScreen);
+  };
+
   useEffect(() => {
     socket.on("T1.5", (data) => {
       console.log("T1 data received by client:");
       console.log(data);
+      console.log(socket);
       setNameOfClass(data.nameOfClass);
       setPin(data.pin);
     });
@@ -99,15 +110,19 @@ function QuizStudent({ socket }) {
             pin={pin}
             handleScreenChangeS1={handleScreenChangeS1}
             socket={socket}
+            handleFeedback={handleFeedback}
           />
         )}
         {/* <Student2Connected /> */}
         {gameScreen === "Student2Connected" && (
-          <Student2Connected nickname={nickname} />
+          <Student2Connected nickname={nickname} host={host} />
         )}
         {/* <Student3GetReady /> */}
         {gameScreen === "Student3GetReady" && (
-          <Student3GetReady handleScreenChangeS3={handleScreenChangeS3} />
+          <Student3GetReady
+            handleScreenChangeS3={handleScreenChangeS3}
+            host={host}
+          />
         )}
         {/* <Student4ResponseInput /> */}
         {gameScreen === "Student4ResponseInput" && (
@@ -116,18 +131,33 @@ function QuizStudent({ socket }) {
             timeLimit={timeLimit}
             handleScreenChangeS4={handleScreenChangeS4}
             socket={socket}
+            host={host}
           />
         )}
         {/* <Student5WaitingForFeedback /> */}
         {gameScreen === "Student5WaitingForFeedback" && (
-          <Student5WaitingForFeedback />
+          <Student5WaitingForFeedback
+          // host={host}
+          />
         )}
-        {gameScreen === "Student6Correct" && <Student6Correct />}
+        {gameScreen === "Student6Correct" && (
+          <Student6Correct
+            handleScreenChangeS6={handleScreenChangeS6}
+            // host={host}
+          />
+        )}
         {/* <Student7Incorrect /> */}
-        {gameScreen === "Student7Incorrect" && <Student7Incorrect />}
+        {gameScreen === "Student7Incorrect" && (
+          <Student7Incorrect
+            handleScreenChangeS7={handleScreenChangeS7}
+            // host={host}
+          />
+        )}
         {/* <Student8WaitingForQuestion /> */}
         {gameScreen === "Student8WaitingForQuestion" && (
-          <Student8WaitingForQuestion />
+          <Student8WaitingForQuestion
+          // host={host}
+          />
         )}
       </main>
       {/* {gamePhase === "gamePhaseKey" && <ScreenTemplate1 />} */}
