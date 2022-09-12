@@ -18,14 +18,16 @@ describe("registerAnonymousUser", () => {
             sku: 'nkh1144',
             price: 150,
             discount: 0,
-            stock: 114
+            stock: 114,
+            img:'https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg'
         })
         const product2 = new Product({
             name: 'techFleece',
             sku: 'nkh1444',
             price: 180,
             discount: 0,
-            stock: 114
+            stock: 114,
+            img:'https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg'
         })
 
         Promise.all([product1.save(), product2.save()])

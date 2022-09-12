@@ -20,21 +20,24 @@ describe("retrieveProduct", () => {
       sku: 'nkh1144',
       price: 150,
       discount: 0,
-      stock: 114
+      stock: 114,
+      img:'https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg'
     })
     const product2 = new Product({
       name: 'airMax270',
       sku: 'nkh1244',
       price: 140,
       discount: 0,
-      stock: 116
+      stock: 116,
+      img:'https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg'
     })
     const product3 = new Product({
       name: 'airJordan',
       sku: 'nkh1344',
       price: 190,
       discount: 0,
-      stock: 118
+      stock: 118,
+      img:'https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg'
     })
 
     return Promise.all([product1.save(), product2.save(), product3.save()])
