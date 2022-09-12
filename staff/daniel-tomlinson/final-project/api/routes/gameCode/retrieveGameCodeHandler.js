@@ -4,26 +4,24 @@ const {
   verifyToken,
 } = require("../../utils");
 const {
-  //game here didn't work - written as games in the logic index
-  gameCodes: { createGameCode },
+  gameCodes: { retrieveGameCode },
 } = require("../../logic");
-const { NotFoundError } = require("errors");
+const { NotFoundError, AuthError } = require("errors");
 const logger = createLogger(module);
 
 module.exports = (req, res) => {
   runWithErrorHandling(
     () => {
-      const userId = verifyToken(req);
-
       const {
-        body: { nameOfClass, pin, host },
+        body: { pin },
       } = req;
+      // const userId = verifyToken(req);
 
-      createGameCode(userId, nameOfClass, pin, host)
-        .then(() => res.status(201).send())
+      retrieveGameCode(pin)
+        .then((gameCode) => res.json(gameCode))
         .catch((error) => {
-          if (error instanceof NotFoundError)
-            res.status(404).json({ error: error.message });
+          if (error instanceof NotFoundError || error instanceof AuthError)
+            res.status(401).json({ error: "wrong credentials" });
           else res.status(500).json({ error: "system error" });
 
           logger.error(error);

@@ -16,6 +16,12 @@ const gameCode = new Schema({
     required: true,
   },
 
+  host: {
+    type: String,
+    // default: "",
+    required: true,
+  },
+
   createAt: {
     type: Date,
     default: Date.now,

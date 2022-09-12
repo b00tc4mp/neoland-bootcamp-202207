@@ -79,60 +79,83 @@ connect(MONGO_URL)
     io.on("connection", (socket) => {
       console.log(`User connected: ${socket.id}`);
 
-      /* socket.on("join_room", (data) => {
-        socket.join(data);
-      }); */
-
       socket.on("T1", (data) => {
         console.log("T1 server");
         console.log(data);
+        // createHost(data);
+        const host = data.host.host;
+        socket.join(host);
+        console.log("Teacher joined room:");
+        console.log(host);
         socket.broadcast.emit("T1.5", data);
       });
 
       socket.on("T2", (data) => {
         console.log("T2 server");
         console.log(data);
+
+        // const host = data.host.host;
         socket.broadcast.emit("T2.5", data);
       });
 
       socket.on("T3", (data) => {
         console.log("T3 server");
         console.log(data);
-        // socket.broadcast.emit("T3.5", data);
 
-        socket.to("1").emit("T3.5", data);
+        const host = data.host.host;
+        // socket.broadcast.emit("T3.5", data);
+        console.log("Sent question to:");
+        console.log(`${host}_room`);
+
+        socket.to(`${host}_room`).emit("T3.5", data);
       });
 
       socket.on("T4", (data) => {
         console.log("T4 server");
         console.log(data);
-        socket.to("1").emit("T4.5", data);
+
+        const host = data.host.host;
+        socket.to(`${host}_room`).emit("T4.5", data);
       });
 
       socket.on("T5", (data) => {
         console.log("T5 server");
         console.log(data);
-        socket.to("1").emit("T5.5", data);
+        const feedbackRecipient = data.socketId;
+        // const host = data.host.host;
+        // socket.to(`${host}_room`).emit("T5.5", data);
+        io.to(feedbackRecipient).emit("T5.5", data);
       });
 
       socket.on("T6", (data) => {
         console.log("T6 server");
         console.log(data);
-        socket.to("1").emit("T6.5", data);
+
+        const host = data.host.host;
+        socket.to(`${host}_room`).emit("T6.5", data);
       });
 
       socket.on("S1", (data) => {
         console.log("S1 server");
         console.log(data);
-        socket.join("1");
-        console.log("joined room");
-        socket.broadcast.emit("S1.5", data);
+        // createHostStudent(data);
+        const host = data.host.host;
+        socket.join(`${host}_room`);
+        console.log("Student joined room");
+        console.log(`${host}_room`);
+        // socket.broadcast.emit("S1.5", data);
+        socket.to(host).emit("S1.5", data);
       });
 
       socket.on("S4", (data) => {
         console.log("S4 server");
         console.log(data);
-        socket.broadcast.emit("S4.5", data);
+
+        const host = data.host;
+        // socket.broadcast.emit("S4.5", data);
+        console.log("host:");
+        console.log(host);
+        socket.to(host).emit("S4.5", data);
       });
     });
   })

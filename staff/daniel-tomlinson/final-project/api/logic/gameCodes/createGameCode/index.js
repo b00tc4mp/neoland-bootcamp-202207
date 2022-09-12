@@ -18,11 +18,12 @@ const { verifyObjectId } = require("../../../utils");
  * @throws {SystemError} If an error happens in db.
  */
 
-function createGameCode(userId, nameOfClass, pin) {
+function createGameCode(userId, nameOfClass, pin, host) {
   debugger;
   verifyObjectId(userId, "user id");
   validateString(nameOfClass, "nameOfClass");
   validateString(pin, "pin");
+  validateString(host, "host");
 
   return User.findById(userId)
     .lean()
@@ -32,7 +33,7 @@ function createGameCode(userId, nameOfClass, pin) {
     .then((user) => {
       if (!user) throw new NotFoundError(`user with id ${userId} not found`);
 
-      return GameCode.create({ user: user._id, nameOfClass, pin }).catch(
+      return GameCode.create({ user: user._id, nameOfClass, pin, host }).catch(
         (error) => {
           throw new systemError(error.message);
         }
