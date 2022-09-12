@@ -2,7 +2,7 @@ const express = require('express')
 const { Router, json } = express
 const jsonBodyParser = json()
 const { registerUserHandler, authenticateUserHandler, retrieveUserHandler } = require('./users')
-// const { createNoteHandler, retrieveNotesHandler, updateNoteTextHandler } = require('./notes')
+const { createAuction } = require('./auction')
 
 const usersRouter = Router()
 
@@ -13,13 +13,13 @@ usersRouter.get('/users', retrieveUserHandler)
 // TODO usersRouter.patch('/users/password', jsonBodyParser, updateUserPasswordHandler)
 // TODO usersRouter.patch('/users/info', jsonBodyParser, updateUserInfoHandler)
 
-// const postRouter = Router()
+const auctionRouter = Router()
 
-// notesRouter.post('/post', jsonBodyParser, createNoteHandler)
-// notesRouter.get('/post', retrieveNotesHandler)
-// notesRouter.patch('/post/:postId', jsonBodyParser, updateNoteTextHandler)
+auctionRouter.post('/users/auction', jsonBodyParser, createAuction)
+// auctionRouter.get('/auction', retrieveauctionHandler)
+// auctionRouter.patch('/auction/:auctionId', jsonBodyParser, updateNoteTextHandler)
 
 module.exports = {
-    usersRouter
-    // postRouter
+    usersRouter,
+    auctionRouter
 }

@@ -3,6 +3,8 @@ const { User } = require('../../../models')
 const { NotFoundError } = require('errors')
 const retrieveUser = require('.')
 
+const { MONGO_URL_TEST } = process.env
+
 describe('retrieveUser', () => {
     beforeAll(() => connect('mongodb://localhost:27017/postits-test'))
 

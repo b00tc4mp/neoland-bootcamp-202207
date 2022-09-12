@@ -3,6 +3,8 @@ const { User } = require('../../../models')
 const { NotFoundError, AuthError } = require('errors')
 const authenticateUser = require('.')
 
+const { MONGO_URL_TEST } = process.env
+
 describe('authenticateUser', () => {
     beforeAll(() => connect('mongodb://localhost:27017/postits-test'))
 
@@ -37,7 +39,7 @@ describe('authenticateUser', () => {
         const name = 'Pepito Grillo'
         const email = 'pepito@grillo.com'
         const password = '123123123'
-
+ 
         return User.create({ name, email, password })
             .then(user =>
                 authenticateUser(email, password + '-wrong')

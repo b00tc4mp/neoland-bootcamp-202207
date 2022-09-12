@@ -1,4 +1,5 @@
 module.exports = {
     user: require('./user'),
-    post: require('./post')
+    auction: require('./auction'),
+    bid: require('./bid')
 }
