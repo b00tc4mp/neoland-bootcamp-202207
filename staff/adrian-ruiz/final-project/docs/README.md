@@ -139,8 +139,8 @@ Sprint 0
 - DONE data model
 - INPROGRESS figma to react
 - DONE data model to mongoose
-- TODO populate data into db(populate.js)
-- TODO implement users logic
+- DONE populate data into db(populate.js)
+- DONE implement users logic
 - DONE implement users api routes
 - DONE implement env file
 - TODO API specs
@@ -150,11 +150,19 @@ Sprint 0
 
 Sprint 1
 
-- TODO ...
+- TODO update Invoices/Inventory/Estimates/Customers from APP
+- TODO delete Invoices/Inventory/Estimates/Customers from APP
+- TODO search Invoices/Inventory/Estimates/Customers from APP
+- TODO settings panel
+- TODO make PLUS button on header interactive to create Invoices/Inventory/Estimates/Customers
+- TODO define "item" schema and embeed on invoices // Fix app logic
 
 Sprint 2
 
-- TODO ...
+- TODO logo design and use in Header & favicon
+- TODO search bar in header to find everything on APP
+- TODO login image slider with features
+- TODO design animations : Hover, submits, open menus, spinners...
 
 Sprint 3
 
