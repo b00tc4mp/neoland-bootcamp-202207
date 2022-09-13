@@ -1,14 +1,14 @@
 import './HomePage.sass'
 import './pages.sass'
 import '../index.sass'
-import logoAnimado from '../images/logoAnimado.gif'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import Settings from '../components/Settings'
-import Recipes from '../components/Recipes'
+import RecipesMenu from '../components/RecipesMenu'
 import Loggito from '../utils/loggito'
 
 
 function HomePage({ onLogoutClick }) {
+
     const navigate = useNavigate()
     const logger = new Loggito('HomePage')
 
@@ -72,7 +72,7 @@ function HomePage({ onLogoutClick }) {
 
                 <Route path="recipes/*" element={<div className="recipesPage">
                     <main className="recipesMenu">
-                        <Recipes />
+                        <RecipesMenu />
                     </main>
                     <footer className="footer">
                         <button className='transparentButton homeButton' onClick={handleNavigationHome}>Home</button>
