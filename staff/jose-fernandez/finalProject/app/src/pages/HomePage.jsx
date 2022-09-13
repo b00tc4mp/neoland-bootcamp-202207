@@ -8,12 +8,14 @@ import Footer from '../components/Footer'
 import Header from '../components/Header'
 import ContMain from '../components/ContMain'
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
+import Search from '../components/Search'
 
 function HomePage({ onLogoutClick,onLoginClick, context: { handleFeedback } }) {
 
     const [name, setName] = useState(null)
     const [email, setEmail] = useState(null)
     const [products, setProducts] = useState(null)
+    const [query, setQuery] = useState(null)
 
 
     // const [view, setView] = useState('list')
@@ -43,6 +45,10 @@ function HomePage({ onLogoutClick,onLoginClick, context: { handleFeedback } }) {
         }
     }, [])
 
+    useEffect(() => {
+        loadProducts()
+    }, [query])
+
     const loadProducts = () => {
         try {
             retrieveProducts( (error, products) => {
@@ -66,8 +72,13 @@ function HomePage({ onLogoutClick,onLoginClick, context: { handleFeedback } }) {
 
         navigate('profile')
 
-        loadProducts()
+        // loadProducts()
     }
+
+    // const handleSearchClick = () => {
+    //     // loadProducts()
+        
+    // }
 
     const handleReturnProductList = () => {
         // loadProducts()
@@ -76,14 +87,20 @@ function HomePage({ onLogoutClick,onLoginClick, context: { handleFeedback } }) {
 
     const handleUpdateName = (newName) => setName(newName)
     const handleUpdateEmail = (newEmail) => setEmail(newEmail)
+    const handleSearch = query =>{
+        navigate('search')
+     setQuery(query)
+    }
+        
 
     // return email?
     return <div className="container container--full container--width homePage">
-        <Header onLoginClick={handleLoginClick} onProfileClick={handleProfileClick} />
+        <Header onLoginClick={handleLoginClick} onProfileClick={handleProfileClick} onSearch={handleSearch} />
 
         <main className="main-home">
             <Routes>
                 <Route path="/" element={<ContMain products={products}/>} />
+                <Route path='search' element={<Search onCloseClick={handleReturnProductList}/> }/>
                 {/* <Route path="profile" element={<Profile onCloseClick={handleReturnProductList} email={email} onUpdateEmail={handleUpdateEmail} onUpdateName={handleUpdateName} />} /> */}
                 {/* {email ?
                     <Route path="profile" element={<Profile onCloseClick={handleReturnProductList} email={email} onUpdateEmail={handleUpdateEmail} onUpdateName={handleUpdateName} />} />
