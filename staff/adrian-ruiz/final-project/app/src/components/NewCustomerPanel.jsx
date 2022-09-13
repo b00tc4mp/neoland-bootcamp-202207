@@ -1,6 +1,6 @@
 import { createCustomer } from '../logic'
 import { toaster } from 'evergreen-ui'
-function NewCustomerPanel({ onCloseClick }) {
+function NewCustomerPanel({ onCloseClick, onCreateCustomer }) {
 
     const handleNewCustomerSubmit = event => {
         event.preventDefault()
@@ -31,8 +31,9 @@ function NewCustomerPanel({ onCloseClick }) {
                     await createCustomer(sessionStorage.UserToken, name, { email, phone, legalId, billingAddress: { street, town, state, postalCode, country }, shippingAddress: { shippingStreet, shippingTown, shippingState, shippingPostalCode, shippingCountry }, payTerms, website })
 
                     toaster.success(`Customer ${name} created successfully`, { duration: 3 })
+                    onCreateCustomer()
                     form.reset()
-                    onCloseClick()
+                    
                 } catch (error) {
                     toaster.warning(error.message, { duration: 3 })
                 }
@@ -53,7 +54,7 @@ function NewCustomerPanel({ onCloseClick }) {
                     <form className='newFormPanel__form' onSubmit={handleNewCustomerSubmit}>
                         <div className='newFormPanel__categoryTitle'><h2 className='newFormPanel__categorySpan'>Contact details</h2></div>
                         <label className='form__label' htmlFor="name">Name*</label>
-                        <input className='form__input newFormPanel__input' type='text' name='name' required='true'></input>
+                        <input className='form__input newFormPanel__input' type='text' name='name'></input>
                         <label className='form__label' htmlFor="email">Email</label>
                         <input className='form__input' type='email' name='email'></input>
                         <label className='form__label' htmlFor="phone">Phone</label>

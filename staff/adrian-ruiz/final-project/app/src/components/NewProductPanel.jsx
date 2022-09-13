@@ -1,6 +1,6 @@
 import { createProduct } from '../logic'
 import { toaster } from 'evergreen-ui'
-function NewProductPanel({ onCloseClick }) {
+function NewProductPanel({ onCloseClick, onCreateProduct }) {
 
     const handleNewProductSubmit = event => {
         event.preventDefault()
@@ -22,7 +22,7 @@ function NewProductPanel({ onCloseClick }) {
 
                     toaster.success(`Product ${name} created successfully`, {duration : 3})
                     form.reset()
-                    onCloseClick()
+                    onCreateProduct()
                 }catch(error){
                     toaster.warning(error.message, {duration : 3})
                 }

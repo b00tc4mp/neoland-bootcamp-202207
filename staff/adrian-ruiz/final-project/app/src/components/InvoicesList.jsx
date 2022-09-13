@@ -29,14 +29,38 @@ function InvoicesList() {
     const handleSetViewList = () => {
         setView('invoicesList')
     }
+
+    const handleCreateInvoice = () => {
+        ; (async () => {
+            try {
+                const updatedInvoices = await retrieveInvoices(sessionStorage.UserToken)
+                setInvoices(updatedInvoices)
+                setView('invoicesList')
+
+            } catch (error) {
+                toaster.warning('Something went wrong', { duration: 2.5, description: error.message })
+            }
+        })()
+    }
+    const handleDeleteInvoice = () => {
+        ; (async () => {
+            try {
+                const updatedInvoices = await retrieveInvoices(sessionStorage.UserToken)
+                setInvoices(updatedInvoices)
+
+            } catch (error) {
+                toaster.warning('Something went wrong', { duration: 2.5, description: error.message })
+            }
+        })()
+    }
     return (
         <div className="main-section__invoices">
-            {view === 'newInvoice' ? <InvoiceCreatorPanel handleSetViewList={handleSetViewList}/>
+            {view === 'newInvoice' ? <InvoiceCreatorPanel handleSetViewList={handleSetViewList} onCreateInvoice={handleCreateInvoice}/>
                 :
                 <>
                     <button className='newButton' onClick={newInvoiceClickHandler}>New Invoice</button>
                     <div className='invoices__tableContainer'>
-                        {invoices && <EnhancedTable data={invoices} />}
+                        {invoices && <EnhancedTable data={invoices} onDeleteInvoice={handleDeleteInvoice} />}
                     </div>
                 </>
             }

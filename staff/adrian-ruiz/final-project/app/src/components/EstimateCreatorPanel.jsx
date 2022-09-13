@@ -1,8 +1,8 @@
-import './InvoiceCreatorPanel.css'
+import './EstimateCreatorPanel.css'
 import { useState, useRef, useEffect } from 'react'
 import { toaster } from 'evergreen-ui'
-import { createInvoice, retrieveCustomers, retrieveStock } from '../logic'
-function InvoiceCreatorPanel({ handleSetViewList, onCreateInvoice }) {
+import { createEstimate, retrieveCustomers, retrieveStock } from '../logic'
+function EstimateCreatorPanel({ handleSetViewList, onCreateEstimate }) {
 
     const [rows, setRows] = useState([{ id: 0, value: 0, qty: 0, tax: 0 }, { id: 1, value: 0, qty: 0, tax: 0 }, { id: 2, value: 0, qty: 0, tax: 0 }])
     const [totalAmount, setTotalAmount] = useState(0)
@@ -110,20 +110,19 @@ function InvoiceCreatorPanel({ handleSetViewList, onCreateInvoice }) {
         
     }
 
-    const handleNewInvoiceSubmit = event => {
+    const handleNewEstimateSubmit = event => {
         event.preventDefault()
 
         try {
             const { target: form,
                 target: {
-                    invoiceNumber: { value: invoiceNumber },
+                    invoiceNumber: { value: estimateNumber },
                     customer: { value: customerName },
                     customerEmail: { value: customerEmail },
                     billingAddress: { value: billingAddress },
                     shippingAddress: { value: shippingAddress },
                     terms: { value: terms },
-                    invoiceDate: { value: invoiceDate },
-                    dueDate: { value: dueDate }
+                    invoiceDate: { value: estimateDate }
                 } } = event
             // TODO LINK CUSTOMER NAME TO REFID ON DB
             //TODO CREATE SHIPPING ADDRESS ON INVOICE DB
@@ -169,10 +168,10 @@ function InvoiceCreatorPanel({ handleSetViewList, onCreateInvoice }) {
 
                 ; (async () => {
                     try {
-                        await createInvoice(sessionStorage.UserToken, invoiceNumber, { customer, terms, invoiceDate, dueDate, products, totalAmount })
+                        await createEstimate(sessionStorage.UserToken, estimateNumber, { customer, terms, estimateDate, products, totalAmount })
 
-                        toaster.success(`Invoice ${invoiceNumber} created successfully`)
-                        onCreateInvoice()
+                        toaster.success(`Estimate ${estimateNumber} created successfully`)
+                        onCreateEstimate()
                     } catch (error) {
                         toaster.warning(error.message, { duration: 3 })
                     }
@@ -186,13 +185,13 @@ function InvoiceCreatorPanel({ handleSetViewList, onCreateInvoice }) {
 
     return (
         <div className="invoiceCreator__container">
-            <form className="invoiceCreator__form" onSubmit={handleNewInvoiceSubmit} ref={formRef}>
+            <form className="invoiceCreator__form" onSubmit={handleNewEstimateSubmit} ref={formRef}>
                 <div className="invoiceCreator__customerAndEmail">
                     <div className='invoiceCreator__inputContainer w25'>
                         <label className="form__label" htmlFor="customer" >Customer</label>
                         <input type='text' className='invoiceCreator__inputCustomer' name="customer" onChange={handleCustomerInput} list='customersList'></input>
                         <datalist id='customersList'>
-                            {customers && customers.map(({ name, id }) => <option value={name}>{name}</option>)}
+                            {customers && customers.map(({ name }) => <option value={name}>{name}</option>)}
                         </datalist >
                     </div>
                     <div className="invoiceCreator__inputContainer w25">
@@ -201,7 +200,7 @@ function InvoiceCreatorPanel({ handleSetViewList, onCreateInvoice }) {
                     </div>
                     <div className='separator30'></div>
                     <div className='invoiceCreator__invoiceNumber'>
-                        <label className="form__label" htmlFor="invoiceNumber">Invoice N#</label>
+                        <label className="form__label" htmlFor="invoiceNumber">Estimate N#</label>
                         <input type='text' className='invoiceCreator__inputCustomer' name="invoiceNumber"></input>
                     </div>
                 </div>
@@ -217,10 +216,8 @@ function InvoiceCreatorPanel({ handleSetViewList, onCreateInvoice }) {
                     <div className="invoiceCreator__section2__row1">
                         <label className="form__label" htmlFor="terms">Terms</label>
                         <input type='text' className="form__input" name='terms'></input>
-                        <label className="form__label" htmlFor="invoiceDate">Invoice date</label>
+                        <label className="form__label" htmlFor="invoiceDate">Estimate date</label>
                         <input type='date' className="form__input" name='invoiceDate'></input>
-                        <label className="form__label" htmlFor="dueDate">Due date</label>
-                        <input type='date' className="form__input" name='dueDate'></input>
                     </div>
                     <div className='invoiceCreator__totalAmount'>
                         <h2 className='totalAmount__title'>Total <br></br>Amount</h2>
@@ -260,7 +257,7 @@ function InvoiceCreatorPanel({ handleSetViewList, onCreateInvoice }) {
                 </div>
                 <div className='invoiceCreator__footer'>
                 <button type='button' className='invoiceCreator__cancelButton' onClick={handleSetViewList}>Cancel</button>
-                <button type='submit' className='invoiceCreator__newInvoiceButton'>Create invoice</button>
+                <button type='submit' className='invoiceCreator__newInvoiceButton'>Create estimate</button>
                     
 
                 </div>
@@ -271,4 +268,4 @@ function InvoiceCreatorPanel({ handleSetViewList, onCreateInvoice }) {
     )
 }
 
-export default InvoiceCreatorPanel
+export default EstimateCreatorPanel

@@ -8,6 +8,12 @@ function retrieveInvoices(token){
         try{
             const response = await axios({method: 'GET', url: `${API_URL}/invoices`, headers: {Authorization : `Bearer ${token}`} })
             
+            response.data.forEach(invoice => {
+                let date = new Date(invoice.invoiceDate)
+                let dateModified = new Intl.DateTimeFormat('en-GB').format(date)
+                invoice.invoiceDate = dateModified
+            })
+
             return response.data
 
         }catch(error){

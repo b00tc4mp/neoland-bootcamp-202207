@@ -30,14 +30,42 @@ function CustomersList() {
         setView('customers')
     }
 
+    const handleCreateCustomer = () => {
+        // SET CUSTOMER DOES NOT WORK PROPERLY... UPDATED CUSTOMERS IS FINE BUT CONSOLE.LOG CUSTOMERS DOES NOT UPDATE STATE
+        debugger
+        ; (async () => {
+            try {
+                const updatedCustomers = await retrieveCustomers(sessionStorage.UserToken)
+                setCustomers(updatedCustomers)
+                console.log(customers)
+                setView('customers')
+
+            } catch (error) {
+                toaster.warning('Something went wrong', { duration: 2.5, description: error.message })
+            }
+        })()
+    }
+
+    const handleDeleteCustomer = () => {
+        ; (async () => {
+            try {
+                const updatedCustomers = await retrieveCustomers(sessionStorage.UserToken)
+                setCustomers(updatedCustomers)
+
+            } catch (error) {
+                toaster.warning('Something went wrong', { duration: 2.5, description: error.message })
+            }
+        })()
+    }
+
     return (
         <>
-        {view === 'newCustomer' && <NewCustomerPanel onCloseClick={handleCloseClick}/>}
+        {view === 'newCustomer' && <NewCustomerPanel onCloseClick={handleCloseClick} onCreateCustomer={handleCreateCustomer}/>}
         <div className="main-section__customers">
             <button className='newButton' onClick={handleNewCustomerClick}>New Customer</button>
             <div className='customers__tableContainer'>
 
-                {customers && <EnhancedTable data={customers} />}
+                {customers && <EnhancedTable data={customers} onDeleteCustomer={handleDeleteCustomer} />}
             </div>
         </div>
         </>

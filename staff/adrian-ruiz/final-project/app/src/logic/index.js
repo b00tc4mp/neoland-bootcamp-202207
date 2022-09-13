@@ -9,6 +9,11 @@ import authenticateUserGoogle from './authenticateUserGoogle'
 import registerUserGoogle from './registerUserGoogle'
 import retrieveEstimates from './retrieveEstimates'
 import createInvoice from './createInvoice'
+import createEstimate from './createEstimate'
+import deleteEstimate from './deleteEstimate'
+import deleteInvoice from './deleteInvoice'
+import deleteProduct from './deleteProduct'
+import deleteCustomer from './deleteCustomer'
 
 export {
     authenticateUser,
@@ -21,5 +26,10 @@ export {
     createCustomer,
     authenticateUserGoogle,
     registerUserGoogle,
-    createInvoice
+    createInvoice,
+    createEstimate,
+    deleteEstimate,
+    deleteInvoice,
+    deleteProduct,
+    deleteCustomer
 }

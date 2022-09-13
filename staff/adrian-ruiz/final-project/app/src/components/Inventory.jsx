@@ -30,9 +30,35 @@ function Inventory() {
         setView('summary')
     }
 
+    const handleCreateProduct = () => {
+        ; (async () => {
+            try {
+                const updatedStock = await retrieveStock(sessionStorage.UserToken)
+                setStock(updatedStock)
+                setView('summary')
+
+            } catch (error) {
+                toaster.warning('Something went wrong', { duration: 2.5, description: error.message })
+            }
+        })()
+    }
+
+    const handleDeleteProduct = () => {
+        ; (async () => {
+            try {
+                const updatedStock = await retrieveStock(sessionStorage.UserToken)
+                setStock(updatedStock)
+                /* setView('summary') */
+
+            } catch (error) {
+                toaster.warning('Something went wrong', { duration: 2.5, description: error.message })
+            }
+        })()
+    }
+
     return (
         <>
-        {view === 'newProduct' && <NewProductPanel onCloseClick={handleCloseClick}/>}
+        {view === 'newProduct' && <NewProductPanel onCloseClick={handleCloseClick} onCreateProduct={handleCreateProduct}/>}
         <div className="main-section__inventory">
         <button className='newButton' onClick={handleNewProductClick}>New Product</button>
             <div className='inventory__summary'>
@@ -48,7 +74,7 @@ function Inventory() {
                 </div>
             </div>
             <div className='inventory__products'>
-                {stock && <EnhancedTable stock={stock} />}
+                {stock && <EnhancedTable stock={stock} onDeleteProduct={handleDeleteProduct} />}
             </div>
         </div>
         </>

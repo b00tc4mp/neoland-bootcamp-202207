@@ -7,7 +7,6 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import Toolbar from '@mui/material/Toolbar';
@@ -16,48 +15,11 @@ import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
-import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
-
-/* function createData(name, phone, balance) {
-    return {
-      name,
-      phone,
-      balance
-    };
-  }
-  
-  const rows = [
-    createData('Cupcake', 305, 3.7),
-    createData('Donut', 452, 25.0),
-    createData('Eclair', 262, 16.0),
-    createData('Frozen yoghurt', 159, 6.0),
-    createData('Gingerbread', 356, 16.0),
-    createData('Honeycomb', 408, 3.2),
-    createData('Ice cream sandwich', 237, 9.0),
-    createData('Jelly Bean', 375, 0.0),
-    createData('KitKat', 518, 26.0),
-    createData('Lollipop', 392, 0.2),
-    createData('Marshmallow', 318, 0),
-    createData('Nougat', 360, 19.0),
-    createData('Oreo', 437, 18.0),
-    createData('Cupcake2', 305, 3.7),
-    createData('Donut2', 452, 25.0),
-    createData('Eclair2', 262, 16.0),
-    createData('Frozen yoghurt2', 159, 6.0),
-    createData('Gingerbread2', 356, 16.0),
-    createData('Honeycomb2', 408, 3.2),
-    createData('Ice cream sandwich2', 237, 9.0),
-    createData('Jelly Bean2', 375, 0.0),
-    createData('KitKat2', 518, 26.0),
-    createData('Lollipop2', 392, 0.2),
-    createData('Marshmallow2', 318, 0),
-    createData('Nougat2', 360, 19.0),
-    createData('Oreo2', 437, 18.0),
-  ]; */
+import { toaster } from 'evergreen-ui'
+import DeleteDialog from './DeleteDialog'
+import { deleteCustomer } from '../logic'
 
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -149,15 +111,6 @@ function EnhancedTableHead(props) {
                     </TableCell>
                 ))}
                 <TableCell padding="checkbox">
-                    <Checkbox
-                        color="primary"
-                        indeterminate={numSelected > 0 && numSelected < rowCount}
-                        checked={rowCount > 0 && numSelected === rowCount}
-                        onChange={onSelectAllClick}
-                        inputProps={{
-                            'aria-label': 'select all desserts',
-                        }}
-                    />
                 </TableCell>
             </TableRow>
         </TableHead>
@@ -174,7 +127,7 @@ EnhancedTableHead.propTypes = {
 };
 
 const EnhancedTableToolbar = (props) => {
-    const { numSelected } = props;
+    const { numSelected, handleDeleteClick } = props;
 
     return (
         <Toolbar
@@ -212,17 +165,11 @@ const EnhancedTableToolbar = (props) => {
 
             {numSelected > 0 ? (
                 <Tooltip title="Delete">
-                    <IconButton>
+                    <IconButton onClick={handleDeleteClick}>
                         <DeleteIcon />
                     </IconButton>
                 </Tooltip>
-            ) : (
-                <Tooltip title="Filter list">
-                    <IconButton>
-                        <FilterListIcon />
-                    </IconButton>
-                </Tooltip>
-            )}
+            ) : null}
         </Toolbar>
     );
 };
@@ -231,16 +178,17 @@ EnhancedTableToolbar.propTypes = {
     numSelected: PropTypes.number.isRequired,
 };
 
-export default function EnhancedTable({data}) {
+export default function EnhancedTable({data, onDeleteCustomer}) {
     
     const rows = data
     
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('customers');
-    const [selected, setSelected] = React.useState([]);
+    const [selected, setSelected] = React.useState(undefined);
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
     const [rowsPerPage, setRowsPerPage] = React.useState(rows.length);
+    const [isShown, setIsShown] = React.useState(false);
 
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
@@ -250,56 +198,65 @@ export default function EnhancedTable({data}) {
 
     const handleSelectAllClick = (event) => {
         if (event.target.checked) {
-            const newSelected = rows.map((n) => n.name);
+            const newSelected = undefined;
             setSelected(newSelected);
             return;
         }
-        setSelected([]);
+        return
     };
 
     const handleClick = (event, name) => {
-        const selectedIndex = selected.indexOf(name);
-        let newSelected = [];
-
-        if (selectedIndex === -1) {
-            newSelected = newSelected.concat(selected, name);
-        } else if (selectedIndex === 0) {
-            newSelected = newSelected.concat(selected.slice(1));
-        } else if (selectedIndex === selected.length - 1) {
-            newSelected = newSelected.concat(selected.slice(0, -1));
-        } else if (selectedIndex > 0) {
-            newSelected = newSelected.concat(
-                selected.slice(0, selectedIndex),
-                selected.slice(selectedIndex + 1),
-            );
-        }
-
+        let newSelected
+        selected === name ? newSelected = null : newSelected = name
         setSelected(newSelected);
     };
 
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
+    const handleDeleteClick = () => {
+        setIsShown(true)
 
-    const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
-    };
+    }
 
-    const handleChangeDense = (event) => {
-        setDense(event.target.checked);
-    };
+    const confirmDeleteClick = () => {
 
-    const isSelected = (name) => selected.indexOf(name) !== -1;
+        console.log('Confirmed')
+        let customerFound = rows.find(row => {
+            if (row.name === selected) {
+                return row
+            }
+        })
+
+        if (!customerFound) throw new Error('Customer selected not found')
+
+            ; (async () => {
+                try {
+                    await deleteCustomer(sessionStorage.UserToken, customerFound.id)
+                    toaster.success(`Customer ${customerFound.name} deleted successfully`)
+
+                    onDeleteCustomer()
+                    setIsShown(false)
+                    setSelected(undefined)
+                } catch (error) {
+                    toaster.warning('Something went wrong', { duration: 2.5, description: error.message })
+                }
+            })()
+    }
+
+    const handleCancelClick = () => {
+        setIsShown(false)
+    }
+
+    const isSelected = (name) => selected === name;
 
     // Avoid a layout jump when reaching the last page with empty rows.
     const emptyRows =
         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
     return (
+        <>
+        {selected && <DeleteDialog status={isShown} item={'customer'} title={`Delete customer ${selected}`} onConfirm={confirmDeleteClick} onCancelClick={handleCancelClick} />}
         <Box sx={{ width: '100%', height: '100%' }}>
             <Paper sx={{ width: '100%', height: '100%', mb: 2, overflow: 'hidden' }}>
-                <EnhancedTableToolbar numSelected={selected.length} />
+                <EnhancedTableToolbar numSelected={selected ? 1 : 0} handleDeleteClick={handleDeleteClick} />
                 <TableContainer
                 sx={{
                     maxHeight: '90vh',
@@ -313,7 +270,7 @@ export default function EnhancedTable({data}) {
                         size={dense ? 'small' : 'medium'}
                     >
                         <EnhancedTableHead
-                            numSelected={selected.length}
+                           numSelected={selected ? 1 : 0}
                             order={order}
                             orderBy={orderBy}
                             onSelectAllClick={handleSelectAllClick}
@@ -381,20 +338,8 @@ export default function EnhancedTable({data}) {
                         </TableBody>
                     </Table>
                 </TableContainer>
-               {/*  <TablePagination
-                    rowsPerPageOptions={[8, 10, 25]}
-                    component="div"
-                    count={rows.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
-                /> */}
-                {/* <FormControlLabel
-                control={<Switch checked={dense} onChange={handleChangeDense} />}
-                label="Dense padding"
-            /> */}
             </Paper>
         </Box>
+        </>
     );
 }
