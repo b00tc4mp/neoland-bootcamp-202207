@@ -33,8 +33,8 @@ function createEstimate(company, estimateNumber, customer, terms, estimateDate, 
         // Primero comprobamos que el length sea distinto, lo que significará que algun item no lo ha encontrado, o que ha encontrado 2 items con el mismo ID (no deberia pasar)
         // de los documentos itemsFound hacemos map para quedarnos solo con el id
         // hacemos un filter para comprobar en el array de TODOS los IDs, si alguno de estos NO SE INCLUYE en el array de ENCONTRADOS(foundIds)
-
-        return await Estimate.create({company, estimateNumber, customer, terms, estimateDate, products, totalAmount, status})
+        
+        return await Estimate.create({company, estimateNumber, customer, terms, estimateDate , products, totalAmount, status})
     })()
 }
 

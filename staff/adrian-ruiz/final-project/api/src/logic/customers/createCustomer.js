@@ -1,5 +1,5 @@
 const { User, Company, Customer } = require('../../models')
-const { NotFoundError, FormatError, ForbiddenError } = require('errors')
+const { NotFoundError, FormatError, ForbiddenError, DuplicityError } = require('errors')
 const { Types: { ObjectId } } = require('mongoose')
 
 function createCustomer(userId, company, name, {contactName, email, phone, website, legalId, billingAddress, shippingAddress, payTerms}) {
@@ -15,6 +15,9 @@ function createCustomer(userId, company, name, {contactName, email, phone, websi
         const user = await User.findOne({_id : userId, company})
         if (!user) throw new NotFoundError(`Customer with ID ${userId} not found`)
         if (user.role === 'accountant') throw new ForbiddenError(`User ${userId} does not have permission to create Customers`)
+
+        const customer = await Customer.findOne({company, name})
+        if(customer) throw new DuplicityError(`There's already a customer created with name ${name}`)
 
         await Customer.create({company , name, contactName, email, phone, website, legalId, billingAddress, shippingAddress, payTerms })
         
