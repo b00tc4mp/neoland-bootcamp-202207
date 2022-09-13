@@ -1,6 +1,5 @@
 import Loggito from '../utils/loggito'
 import './NewRecipe.sass'
-import {FormatError} from 'errors'
 import { useState, useEffect } from 'react'
 import retrieveIngredients from '../logic/retrieveIngredients'
 import createRecipe from '../logic/createRecipe'
@@ -9,7 +8,7 @@ function NewRecipe({ onBackClick }) {
     const logger = new Loggito('New Recipe')
 
     logger.info('render')
-    const [ingredientsRow, setIngredientsRow] = useState([{ quantity: "", unit: "", ingredient: "" }])
+    const [rows, setRows] = useState([{ id: 0, quantity: 0, unit: "", ingredient: "" }])
     const [ingredients, setIngredients] = useState([])
 
     useEffect(() => {
@@ -29,55 +28,126 @@ function NewRecipe({ onBackClick }) {
         }
     }, [])
 
-    const addIngredient = event => {
-        event.preventDefault()
+    function printIngredientsRow() {
+        return rows.map(row =>
+            <div className="ingredientsContainer" key={row.id}>
+                <input type="number" className="input newRecipeInput quantInput" name={`quantity${row.id}`} placeholder="cantidad" onChange={(event) => handleChangeQuantity(event, row.id)} />
+                <select className="select newRecipeInput unitSelect" defaultValue={"kg"} name={`unit${row.id}`} placeholder="unit" onChange={(event) => handleChangeUnit(event, row.id)}>
+                    <option value="kg" >kg</option>
+                    <option value="unit">unt</option>
+                    <option value="l">l</option>
+                </select>
+                <input className="input newRecipeInput ingredientInput" typeof='text' name={`ingredient${row.id}`} placeholder="ingrediente" autoComplete="off" list="ingredientsList" onChange={(event) => handleChangeIngredient(event, row.id)} />
 
-        let newIngredientRow = { quantity: "", unit: "", ingredient: "" }
-        setIngredientsRow([...ingredientsRow, newIngredientRow])
+                <datalist id="ingredientsList">
+                    {
+                        ingredients.map(({ name, id }) => <option key={id} value={name}>{name}</option>)
+                    }
+                </datalist>
+            </div>)
     }
+
+    const handleChangeQuantity = (event, rowId) => {
+        let data = [...rows]
+
+        const row = data.find(row => rowId === row.id)
+
+        row.quantity = event.target.value
+
+        setRows(data)
+    }
+
+    const handleChangeUnit = (event, rowId) => {
+        let data = [...rows]
+
+        const row = data.find(row => rowId === row.id)
+
+        row.unit = event.target.value
+
+        setRows(data)
+    }
+
+    const handleChangeIngredient = (event, rowId) => {
+        const { target, target: { value: ingredientValue } } = event
+
+        ingredientValue.length >= 3 && target.setAttribute('list', 'ingredientsList')
+        ingredientValue.length < 3 && target.removeAttribute('list', 'ingredientsList')
+
+        let data = [...rows]
+
+        const row = data.find(row => rowId === row.id)
+
+        row.ingredient = event.target.value
+
+        setRows(data)
+    }
+
 
     const handleCreateRecipe = event => {
         event.preventDefault()
-       
-        const { target: form,
-            target: {
-                title: { value: title },
-                persons: { value: persons },
-            } } = event
-        
-        if (!persons) throw new Error("persons is empty or blank")
-        else if (!title) throw new Error("title is empty or blank")
 
-        const ingredientsItem = []
-        debugger
-        console.log("OOOOOO", ingredientsRow)
-        ingredientsRow.forEach(row => {
+        try {
             const { target: form,
                 target: {
-                    [`quantity[${row.index}]`]: { value: quantity }, //const quantity = quantity[0].value
-                    [`unit[${row.index}]`]: { value: unit },
-                    [`ingredient[${row.index}]`]: { value: ingredient }
+                    title: { value: title },
+                    persons: { value: persons },
                 } } = event
 
-            debugger
-            if (!quantity) throw new Error("quantity is empty or blank")
-            else if (!unit) throw new Error("unit is empty or blank")
-            else if (!unit) throw new Error("ingredient is empty or blank")
+            if (!persons) throw new Error("persons is empty or blank")
+            else if (!title) throw new Error("title is empty or blank")
 
-            ingredientsItem.push({ quantity, unit, ingredient })
-        })
-        try {
-            createRecipe(title, persons, ingredientsItem, (error) => {
-                if (error) {
+            const ingredientsItem = []
 
-                    logger.warn(error.message)
+            rows.forEach(row => {
+                const { target: form,
+                    target: {
+                        [`quantity${row.id}`]: { value: quantityString },
+                        [`unit${row.id}`]: { value: unit },
+                        [`ingredient${row.id}`]: { value: ingredientName },
+                    } } = event
 
-                    return
-                }
+             
+                let ingredientFound = ingredients.find(ingredient =>  ingredient.name === ingredientName)
+                if (!ingredientName) throw new Error('ingredient not found')
+                let id = ingredientFound.id
+
+            
+                if (!quantityString) throw new Error("quantity is empty or blank")
+                else if (!unit) throw new Error("unit is empty or blank")
+                else if (!unit) throw new Error("ingredient is empty or blank")
+
+                let quantity = parseInt(quantityString)
+                ingredientsItem.push({ quantity, unit, id })
+
             })
+
+            try {
+                createRecipe(sessionStorage.token, title, parseInt(persons), ingredientsItem, (error) => {
+                    if (error) {
+
+                        logger.warn(error.message)
+
+                        return
+                    }
+                })
+            } catch (error) {
+                logger.warn(error.message)
+            }
+
         } catch (error) {
             logger.warn(error.message)
         }
+    }
+
+
+    const addIngredient = event => {
+        event.preventDefault()
+
+        const lastRow = rows[rows.length - 1]
+
+        let newRow = { id: lastRow.id + 1, quantity: 0, unit: "", ingredient: "" }
+
+        setRows([...rows, newRow])
     }
 
     const handleBackClick = event => {
@@ -88,36 +158,13 @@ function NewRecipe({ onBackClick }) {
 
     return <>
         <h3>Nueva receta</h3>
-        <form className="newRecipeForm" name="form" onSubmit={handleCreateRecipe} >
+        <form className="newRecipeForm" onSubmit={handleCreateRecipe} >
             <div className="recipeHeaderContainer">
-                <input className="input newRecipeInput titleInput" name="title" placeholder="Título" id="title" />
-                <input className="input newRecipeInput personsInput" name="persons" placeholder="pax" id="persons" />
+                <input type="text" className="input newRecipeInput titleInput"  name="title" placeholder="Título" id="title" />
+                <input type="number" className="input newRecipeInput personsInput"  name="persons" placeholder="pax" id="persons" />
             </div>
             <p>Ingredientes</p>
-            <div className="ingredientsContainer"> {ingredientsRow.map((input, index) => {
-                return (
-                    <div className="ingredientsContainer" key={index}>
-                        <input className="input newRecipeInput quantInput" value={input.quantity} typeof="number" name="quantity" placeholder="cantidad" id="quantity" />
-                        <select className="select newRecipeInput unitSelect" value={input.unit} name="unit" placeholder="unit" id="unit" >
-                            <option value="kg">kg</option>
-                            <option value="unit">unt</option>
-                            <option value="l">l</option>
-                        </select>
-                        <input className="input newRecipeInput ingredientInput" value={input.ingredient} typeof='text' name="ingredient" placeholder="ingrediente" id="ingredient" autoComplete="off" list="ingredientsList" onChange={event => {
-
-                            const { target, target: { value: ingredientValue } } = event
-
-                            ingredientValue.length >= 3 && target.setAttribute('list', 'ingredientsList')
-                            ingredientValue.length < 3 && target.removeAttribute('list', 'ingredientsList')
-                        }} />
-
-                        <datalist id="ingredientsList">
-                            {
-                                ingredients.map(({ name, id }) => <option key={id} value={name}>{name}</option>)
-                            }
-                        </datalist>
-                    </div>)
-            })}
+            <div className="ingredientsContainer"> {printIngredientsRow()}
                 <button className="addIngredient" onClick={addIngredient}>+</button>
             </div>
             <div className="buttonsContainer">

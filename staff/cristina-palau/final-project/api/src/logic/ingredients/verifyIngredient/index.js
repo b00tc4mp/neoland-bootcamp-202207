@@ -2,13 +2,14 @@ const { validateObject, validateNumber, validateString } = require('validators')
 const verifyObjectIdString = require('../../../utils/verifyObjectIdString')
 
 function verifyIngredient(ingredient) {
+    debugger
     validateObject(ingredient)
 
-    const { id, quantity, units } = ingredient
+    const { id, quantity, unit } = ingredient
 
     verifyObjectIdString(id, 'ingredient id')
     validateNumber(quantity, 'ingredient quantity')
-    validateString(units, 'ingredient unit')
+    validateString(unit, 'ingredient unit')
 
 }
 

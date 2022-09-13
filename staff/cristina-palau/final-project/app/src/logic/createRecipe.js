@@ -5,6 +5,7 @@ import { ClientError, ServerError } from 'errors'
 const API_URL = process.env.REACT_APP_API_URL
 
 function createRecipe(token, title, persons, ingredients, callback) {
+ 
     validateText(token)
     validateString(title)
     validateNumber(persons)
@@ -30,10 +31,14 @@ function createRecipe(token, title, persons, ingredients, callback) {
     // request
 
     xhr.open('POST', `${API_URL}/recipes/`)
+    
+    xhr.setRequestHeader('Content-type', 'application/json')
 
     xhr.setRequestHeader('Authorization', `Bearer ${token}`)
 
-    xhr.send(`{"token": ${token}, "title": ${title}, "persons: ${persons}, "ingredients": ${[ingredients]}}`)
+    const json = JSON.stringify({ title, persons, ingredients })
+    
+    xhr.send(json)
 }
 
 export default createRecipe

@@ -1,17 +1,18 @@
 const { User, Recipe, IngredientItem } = require('../../../models')
 const { NotFoundError, SystemError, FormatError } = require('errors')
-const { verifyObjectIdString,  } = require('../../../utils')
+const { verifyObjectIdString, } = require('../../../utils')
 const { verifyIngredient } = require('../../ingredients')
-const { validateString, validateArray } = require('validators')
+const { validateString, validateArray, validateNumber } = require('validators')
 
 function createRecipe(userId, title, persons, ingredients) {
     
     verifyObjectIdString(userId, 'user id')
     validateString(title, 'title')
+    validateNumber(persons)
     validateArray(ingredients)
     
     ingredients.forEach(ingredient => verifyIngredient(ingredient))
-
+    debugger
     return User.findById(userId).lean()
         .catch(error => {
             throw new SystemError(error.message)
@@ -20,12 +21,12 @@ function createRecipe(userId, title, persons, ingredients) {
             if (!user) throw new NotFoundError(`user with id ${userId} not found`)
 
             const ingredientItems = ingredients.map(ingredient => {
-                const { id, quantity, units } = ingredient
+                const { id, quantity, unit } = ingredient
 
                 const ingredientItem = new IngredientItem({
                     ingredient: id,
                     quantity: quantity,
-                    units
+                    unit
                 })
 
                 return ingredientItem

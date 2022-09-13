@@ -12,8 +12,8 @@ const ingredientItem = new Schema({
         default: 0 
     },
 
-    units: { type: String,
-        enum: ['kg', 'un', 'l'], 
+    unit: { type: String,
+        enum: ['kg', 'unit', 'l'], 
         required: true
     }
 })
