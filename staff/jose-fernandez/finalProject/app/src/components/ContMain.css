@@ -98,7 +98,7 @@ button .control-play {
     left: 0;
     box-sizing: border-box;
     gap: 10px;
-    z-index: 1;
+    z-index: 0;
 }
 
 .control-play .featurette-icon--img {
@@ -271,30 +271,38 @@ section.products div.container-products.slider {
     display: grid;
     max-width: 100vw;
     grid-auto-flow: column;
-    grid-auto-columns: 43%;
+    grid-auto-columns: 35%;
     gap: 1rem;
+    /* margin: -34% 5px 5px 23px; */
     margin-top: -34%;
     overflow-x: auto;
     overscroll-behavior-inline: contain;
 }
+/* section.products div.container-products.slider div.slider:first-child{
+    margin-left: 10px;
+} */
 
 .item--products {
     text-align: center;
     /* margin: 10px 0; */
-    margin: 15px;
-    width: 100%;
-    background-color: aqua;
+    margin: 1px;
+    width: 49%;
+    background-color: #fff;
     /* border: 1px solid aqua; */
 }
 
 .item--products.slider {
     text-align: center;
     /* margin: 10px 0; */
-    margin: 15px 5px;
+    margin: 15px 0px;
     width: 100%;
     max-width: 100%;
     padding: 0%;
-    background-color: aqua;
+    background-color: transparent;
+}
+.item--products.slider h3 {
+    margin-left: 4px ;
+    margin-right: 4px ;
 }
 
 div.item--products p {
@@ -302,6 +310,7 @@ div.item--products p {
 }
 
 .item--products.one {
+    width: 100%;
     margin: 10px;
     background-color: transparent;
 }
@@ -317,7 +326,7 @@ div.item--products p {
 
 .featurette-icon--img.products {
     height: 200px;
-    width: 200px;
+    width: inherit;
 }
 
 .featurette-icon--img.products.slider {

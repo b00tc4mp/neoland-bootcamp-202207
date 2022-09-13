@@ -1,26 +1,35 @@
 import './Header.css'
+import { useState } from 'react'
 import IconButton from './Buttons/IconButton'
 import withContext from '../utils/withContext'
+import Menu from './Menu'
 
-function Header({onLoginClick,onSearch,onCloseClick}) {
-
+function Header({products,onLoginClick, onListProductsMen,onListProductsWomen,onListProductsKids,onSearchClick,onCloseClick, view:onSearch}) {
+    const [view, setView] = useState(null)
     const handleLoginClick= () =>{
         onLoginClick()
     }
     const handleSearchClick=()=>{
-        onSearch()
+        onSearchClick()
     }
     const handleCloseClick=()=>{
-        onCloseClick()
+        setView(null)
+        // onCloseClick()
+    }
+
+
+    const handleMenuClick=()=>{
+        setView('menu')
+        // onMenuClick()
     }
 
     return <header className="container Header">
         <div className="container-header">
-            <div className="menu-button">
-                {<IconButton addClass="btn-menu" text="menu" />}
-                {/* {view === null && <IconButton addClass="btn-menu" text="menu" onClick={handleMenuClick} />}
-                {view === "menu" && <IconButton addClass="btn-menu" text="close" onClick={handleCloseClick} />} */}
+            <div className="menu-button" >
+                { view === null &&<IconButton addClass="btn-menu" text="menu" onClick={handleMenuClick}  />}
+                { view === 'menu' &&<IconButton addClass="btn-menu" text="close" onClick={handleCloseClick}  />}
             </div>
+
             <a className="logo" href='#' ><img className='img-logo' src="https://i.postimg.cc/ZY1nHGSz/logo-Luanna.png" alt="" /></a>
             <div className='header-buttons--right'>
             {<IconButton addClass="btn-header" text="person" onClick={handleLoginClick}/>}
@@ -29,7 +38,7 @@ function Header({onLoginClick,onSearch,onCloseClick}) {
             </div>
 
         </div>
-        {/* {<Menu />} */}
+        {view === "menu" &&<Menu onListProductsMen={onListProductsMen} onListProductsWomen={onListProductsWomen} onListProductsKids={onListProductsKids} products={products} />}
     </header>
 }
 export default withContext(Header)

@@ -6,7 +6,7 @@ import IconButton from './Buttons/IconButton'
 import Loggito from '../utils/Loggito'
 import withContext from '../utils/withContext'
 
-function Header({ name, onLogoutClick, onSettingsClick, view: viewHome,  context:{theme}   }) {
+function Header({ name, onLogoutClick, onSettingsClick ,  context:{theme}   }) {
     const logger = new Loggito('Header')
     const [view, setView] = useState(null)
     // [null, f(){}]
@@ -46,7 +46,7 @@ function Header({ name, onLogoutClick, onSettingsClick, view: viewHome,  context
                 {view === "menu" && <IconButton addClass="btn-menu" text="close" onClick={handleCloseClick} />}
             </div>
         </div>
-        {view === "menu" && <Menu onLogoutClick={onLogoutClick} onSettingsClick={handleSettingsClick} view={viewHome} />}
+        {view === "menu" && <Menu onLogoutClick={onLogoutClick} onSettingsClick={handleSettingsClick} />}
     </header>
 }
 

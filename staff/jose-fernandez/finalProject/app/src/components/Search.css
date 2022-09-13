@@ -3,9 +3,11 @@
 }
 .container.search input{
     background-color: aliceblue;
+    font-size: 17px;
 }
-.chevron_left {
-    margin: 5%;
+.material-symbols-outlined.chevron_left {
+    margin: 5% 84% 5% 0%;
+    font-size: 40px;
 }
 .container--search{
     display: flex;

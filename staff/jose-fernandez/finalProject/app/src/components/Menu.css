@@ -1,0 +1,28 @@
+/* .Header div.container-header{
+    height: 100%;
+} */
+.container.list{
+    /* position: absolute; */
+    /* background-color: rgba(160, 239, 225, 0.9); */
+    background-color: #fff;
+    display: block;
+    height: 100%;
+    width: 100%;
+    /* margin: 5%; */
+} 
+.material-symbols-outlined.close{
+    font-size: 40px;
+    /* margin: 5% 5% 5% 184%; */
+}
+.material-symbols-outlined.chevron_right{
+    font-size: 40px;
+    
+}
+.menu__link{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 40px;
+    width: 50%;
+    margin: 5% 84% 5% 5%;
+}

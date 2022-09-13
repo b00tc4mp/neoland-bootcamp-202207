@@ -42,7 +42,7 @@ function registerUser(name, email, password, callback) {
     //request
 
     //el metodo open es para crear una conexion con el servidor remoto(iniciarlizar la conexion) 
-    xhr.open('POST', `${API_URL}/v2/users`)
+    xhr.open('POST', `${API_URL}/users`)
 
     //el metodo setRequestHeader establece el valor de un encabezado de solicitud HTTP. Debe llamar después de open(), pero antes de send().setRequestHeader()
     xhr.setRequestHeader('Content-type', 'application/json')

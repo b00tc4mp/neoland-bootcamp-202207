@@ -22,7 +22,8 @@ describe("searchProduct", () => {
       discount: 0,
       stock: 114,
       img:'https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg',
-      type:'shoes'
+      type:'shoes',
+      categ:'men'
     })
     const product2 = new Product({
       name: 'airMax270',
@@ -31,7 +32,8 @@ describe("searchProduct", () => {
       discount: 0,
       stock: 116,
       img:'https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg',
-      type:'shoes'
+      type:'shoes',
+      categ:'men'
     })
     const product3 = new Product({
       name: 'airMaxJordan',
@@ -40,7 +42,8 @@ describe("searchProduct", () => {
       discount: 0,
       stock: 118,
       img:'https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg',
-      type:'shoes'
+      type:'shoes',
+      categ:'men'
     })
     const query = 'airMax90'
 
@@ -57,7 +60,7 @@ describe("searchProduct", () => {
             expect(products[0].stock).toEqual(114)
             expect(products[0].img).toEqual('https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg')
             expect(products[0].type).toEqual('shoes')
-
+            expect(products[0].categ).toEqual('men')
 
           })
       );
@@ -73,7 +76,8 @@ describe("searchProduct", () => {
       discount: 0,
       stock: 114,
       img:'https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg',
-      type:'shoes'
+      type:'shoes',
+      categ:'men'
     })
     const product2 = new Product({
       name: 'airMax270',
@@ -82,7 +86,8 @@ describe("searchProduct", () => {
       discount: 0,
       stock: 116,
       img:'https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg',
-      type:'shoes'
+      type:'shoes',
+      categ:'men'
     })
     const product3 = new Product({
       name: 'airMaxJordan',
@@ -91,7 +96,8 @@ describe("searchProduct", () => {
       discount: 0,
       stock: 118,
       img:'https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg',
-      type:'shoes'
+      type:'shoes',
+      categ:'men'
     })
 
 

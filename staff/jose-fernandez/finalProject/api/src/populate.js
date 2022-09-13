@@ -7,68 +7,95 @@ connect('mongodb://localhost:27017/finalProject')
     .then(() => {
         //firts
         const product1 = new Product({
-            name:'airMax90',
+            name:'Nike Air Max 90',
             sku: 'nkh1144',
             price: 150,
             discount: 0,
             stock: 114,
             img:'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/b5eba256-ef26-45d1-852f-c1992be17a3e/air-max-90-zapatillas-PTBWZ5.png',
-            type:'shoes'
+            type:'shoes',
+            categ:'men'
         })
         const product2 = new Product({
-            name:'airMax270',
+            name:'Nike Air Max 270',
             sku: 'nkh1244',
             price: 140,
             discount: 0,
             stock: 114,
             img:'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/1eeaacc0-e07c-4024-a5f7-57f2fd23e8a2/air-max-270-g-zapatillas-de-golf-3GkJ0N.png',
-            type:'shoes'
+            type:'shoes',
+            categ:'men'
         })
         const product3 = new Product({
-            name:'airJordan',
+            name:'Nike Air Jordan',
             sku: 'nkh1344',
             price: 190,
             discount: 0,
             stock: 114,
             img:'https://static.nike.com/a/videos/t_PDP_864_v1/f_auto,b_rgb:f5f5f5,so_1.55/adc356bd-8925-41e5-a297-e3b8f1db0973/air-jordan-1-mid-zapatillas-D8Q2S1.jpg',
-            type:'shoes'
+            type:'shoes',
+            categ:'men'
         })
         const product4 = new Product({
-            name:'techFleece',
+            name:'Nike Tech Fleece',
             sku: 'nkh1444',
             price: 180,
             discount: 0,
             stock: 114,
             img:'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/8bd58820-be5a-4d0b-898c-e7b63c146226/paris-saint-germain-tech-fleece-jogger-wflZmc.png',
-            type:'clothing'
+            type:'clothing',
+            categ:'men'
         })
         const product5 = new Product({
-            name:'offCourt',
+            name:'Nike Off Court',
             sku: 'nkh1110',
             price: 110,
             discount: 0,
             stock: 180,
             img:'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/h5jqhhyekxesgqfxwgpj/offcourt-mens-slides-Xkb8kb.png',
-            type:'shoes'
+            type:'shoes',
+            categ:'men'
 
         })
         const product6 = new Product({
-            name:'airForce1',
+            name:'Nike Air Force 1',
             sku: 'nkh11f1',
             price: 110,
             discount: 0,
             stock: 390,
             img:'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/350e7f3a-979a-402b-9396-a8a998dd76ab/air-force-1-07-mens-shoes-xDpsTk.png',
-            type:'shoes'
+            type:'shoes',
+            categ:'men'
         })
         const product7 = new Product({
-            name:'phoenixFleece',
+            name:'Nike Phoenix Fleece',
             sku: 'nkh15p3',
             price: 80,
             discount: 0,
             stock: 230,
             img:'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/d811ae57-d99e-4713-84aa-850b532041bb/sportswear-phoenix-fleece-womens-high-waisted-joggers-ftkzwQ.png',
-            type:'clothing'
+            type:'clothing',
+            categ:'women'
+        })
+        const product8 = new Product({
+            name:'FC Barcelona Collection Essentials',
+            sku: 'nkh15p8',
+            price: 44.99,
+            discount: 0,
+            stock: 230,
+            img:'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/225efc6f-24a5-4724-b503-88e20aba6dbe/fc-barcelona-collection-essentials-camiseta-de-manga-corta-oversize-Sm8Xcr.png',
+            type:'clothing',
+            categ:'women'
+        })
+        const product9 = new Product({
+            name:'Nike Sportswear',
+            sku: 'nkh15k3',
+            price: 40,
+            discount: 0,
+            stock: 160,
+            img:'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/e01eb1ed-8f4c-45ef-9745-4e48c847a4a1/sportswear-pantalon-corto-XGQk60.png',
+            type:'clothing',
+            categ:'kids'
         })
         return Promise.all([
             product1.save(),
@@ -77,10 +104,12 @@ connect('mongodb://localhost:27017/finalProject')
             product4.save(),
             product5.save(),
             product6.save(),
-            product7.save()
+            product7.save(),
+            product8.save(),
+            product9.save()
         ])
     })
-    .then(([product1, product2, product3, product4,product5,product6,product7]) => {
+    .then(([product1, product2, product3, product4]) => {
         //primero crear producto
         //embebido se declara antes de save()
         const item1 = new Item({

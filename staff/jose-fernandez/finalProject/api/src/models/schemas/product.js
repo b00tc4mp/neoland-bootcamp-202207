@@ -28,7 +28,11 @@ const product = new Schema({
   },
   type:{
     type:String,
-    required:true
+    // required:true
+  },
+  categ:{
+    type:String,
+    // required:true
   }
 })
 
