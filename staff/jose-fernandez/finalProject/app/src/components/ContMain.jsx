@@ -1,9 +1,11 @@
 import './ContMain.css'
-import { useState,useRef } from 'react'
+import { useState, useRef } from 'react'
 import withContext from '../utils/withContext'
+import ProductsList from './ProductsList'
+// import ProductsList from './NN'
 // import IconButton from './Buttons/IconButton'
 
-function ContMain() {
+function ContMain({ products }) {
     const [view, setView] = useState('play')
     //use ref vid
     let vid = useRef(null)
@@ -24,7 +26,7 @@ function ContMain() {
         <section className="container-section promotionOne container">
             <div className='video-sectionOne'>
                 {/* <video className='video-promotionOne' controls src="https://brand.assets.adidas.com/video/upload/q_auto,vc_auto/video/upload/FW22-Outdoor-UBS-hero-launch-HP-Masthead-dual-m_cwpxqw.mp4" preload='auto' autoPlay type="video/mp4"></video> */}
-                <video id='videoOne' className='video-promotionOne' autoPlay loop muted ref={node=>vid=node} >
+                <video id='videoOne' className='video-promotionOne' autoPlay loop muted ref={node => vid = node} >
                     <source src="https://brand.assets.adidas.com/video/upload/q_auto,vc_auto/video/upload/FW22-Outdoor-UBS-hero-launch-HP-Masthead-dual-m_cwpxqw.mp4" type="video/mp4" />
                 </video>
             </div>
@@ -47,130 +49,45 @@ function ContMain() {
 
         </section>
 
-        <section className="container-section exp container">
-            <div className="info-exp">
-                <h1>Biography</h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing lit.Nam voluptatem saepe cumque eius, eligendi sunt nesciunt! Incidunt tempore, pariatur libero dolorem reiciendis ipsa, explicabo laborum iusto ducimus quo repellendus architecto.
-                </p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing lit.Nam voluptatem saepe cumque eius, eligendi sunt nesciunt! Incidunt tempore, pariatur libero dolorem reiciendis ipsa, explicabo laborum iusto ducimus quo repellendus architecto.
-                </p>
-                <p>My interests lie in solving problems related to large-scale distributed web development and application development.</p>
-                <div className='info-exp--details'>
-                    <div className="interests">
-                        <h3>Interests</h3>
-                        <ul className='ul-interests'>
-                            <li>Lorem</li>
-                            <li>Lorem</li>
-                            <li>Lorem</li>
-                            <li>Lorem</li>
-                        </ul>
+        <section className="container-section promotionTwo container">
+            <div className='img-sectionTwo'>
+                <img className='img-promotionTwo' src="https://brand.assets.adidas.com/image/upload/f_auto,q_auto,fl_lossy/if_w_gt_960,w_960/esES/Images/football-fw22-federations-spain-hp-mh-t_tcm190-920814.jpg" alt="" />
+            </div>
+            {/* <div className='backgroundSlider'>
+                <img src="https://brand.assets.adidas.com/image/upload/f_auto,q_auto,fl_lossy/esES/Images/football-fw22-federations-spain-catlp-psc-m_tcm190-920832.jpg" alt="" />
+            </div> */}
+            <div className="container-portrait">
+                <div className="portrait-title">
+                    <h3>EQUIPACIONES ESPAÑA COPA MUNDIAL DE LA FIFA 2022™</h3>
+                    
+                    <div className='btn--portrait-title'>
+                        <a href="https://www.javascript.com/" >
+                            <span>COMPRAR</span>
+                            <img className='featurette-icon--img' src="https://i.postimg.cc/KYqFk224/right-arrow.png" alt="" />
+                        </a>
                     </div>
-                    <div className="education">
-                        <h3>Education</h3>
-                        <ul className='ul-education'>
-                            <li>
-                                <div className='container-education'>
-                                    <img className='network-icon--img graduation' src="https://i.postimg.cc/TPBjJY1P/graduate-cap.png" alt="" />
-                                    <div className="description">
-                                        <p className='course'>Further Education</p>
-                                        <p className='institution'>IE PNP JLR</p>
-                                    </div>
-                                </div>
-                                <div className='container-education'>
-                                    <img className='network-icon--img graduation' src="https://i.postimg.cc/TPBjJY1P/graduate-cap.png" alt="" />
-                                    <div className="description">
-                                        <p className='course'>Further Education</p>
-                                        <p className='institution'>IE PNP JLR</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div>
-
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-
                 </div>
             </div>
 
         </section>
 
-        <section className="container-section skills ">
-            <div className="container-skills">
-                <div className="item--skills one">
-                    <h1>Skills</h1>
-                </div>
-                <div className="item--skills two">
-                    <div className="featurette-icon">
-                        <img className='featurette-icon--img' src="https://i.postimg.cc/Kj3ZZ6RH/js.png" alt="" />
+        <section className="container-section products slider ">
+            <div className='backgroundSlider'>
+                <img src="https://brand.assets.adidas.com/image/upload/f_auto,q_auto,fl_lossy/esES/Images/football-fw22-federations-spain-catlp-psc-m_tcm190-920832.jpg" alt="" />
+            </div>
+            <div className="container-products slider">
+                {products && products.map(product => <div className="item--products slider" key={product.id}>
+                    <div className="featurette-icon slider">
+                        <img className='featurette-icon--img products slider' src={product.img} alt="" />
                     </div>
-                    <h3>JavaScript</h3>
-                    <p>Express.js, React.js</p>
-                </div>
-                <div className="item--skills three">
-                    <div className="featurette-icon">
-                        <img className='featurette-icon--img' src="https://i.postimg.cc/Kj3ZZ6RH/js.png" alt="" />
-                    </div>
-                    <h3>JavaScript</h3>
-                    <p>Express.js, React.js</p>
-                </div>
-                <div className="item--skills four">
-                    <div className="featurette-icon">
-                        <img className='featurette-icon--img' src="https://i.postimg.cc/Kj3ZZ6RH/js.png" alt="" />
-                    </div>
-                    <h3>JavaScript</h3>
-                    <p>Express.js, React.js</p>
-                </div>
-                <div className="item--skills five">
-                    <div className="featurette-icon">
-                        <img className='featurette-icon--img' src="https://i.postimg.cc/Kj3ZZ6RH/js.png" alt="" />
-                    </div>
-                    <h3>JavaScript</h3>
-                    <p>Express.js, React.js</p>
-                </div>
-                <div className="item--skills six">
-                    <div className="featurette-icon">
-                        <img className='featurette-icon--img' src="https://i.postimg.cc/Kj3ZZ6RH/js.png" alt="" />
-                    </div>
-                    <h3>JavaScript</h3>
-                    <p>Express.js, React.js</p>
-                </div>
-                <div className="item--skills seven">
-                    <div className="featurette-icon">
-                        <img className='featurette-icon--img' src="https://i.postimg.cc/Kj3ZZ6RH/js.png" alt="" />
-                    </div>
-                    <h3>JavaScript</h3>
-                    <p>Express.js, React.js</p>
-                </div>
+                    <p>${product.price}</p>
+                    <h3>{product.name}</h3>
+                </div>)}
             </div>
 
         </section>
-        {/* change experience */}
-        <section className="container-section experience ">
-            <div className="container-experience">
-                <div className="item--skills one">
-                    <h1>Experience</h1>
-                </div>
-                <div className="item--skills two">
-                    <div className="featurette-icon">
-                        <img className='featurette-icon--img' src="https://i.postimg.cc/Kj3ZZ6RH/js.png" alt="" />
-                    </div>
-                    <h3>JavaScript</h3>
-                    <p>Express.js, React.js</p>
-                </div>
-                <div className="item--skills three">
-                    <div className="featurette-icon">
-                        <img className='featurette-icon--img' src="https://i.postimg.cc/Kj3ZZ6RH/js.png" alt="" />
-                    </div>
-                    <h3>JavaScript</h3>
-                    <p>Express.js, React.js</p>
-                </div>
+        <ProductsList products={products} />
 
-            </div>
-
-        </section>
 
     </div>
 }

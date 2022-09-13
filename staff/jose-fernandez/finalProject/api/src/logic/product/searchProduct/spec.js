@@ -21,7 +21,8 @@ describe("searchProduct", () => {
       price: 150,
       discount: 0,
       stock: 114,
-      img:'https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg'
+      img:'https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg',
+      type:'shoes'
     })
     const product2 = new Product({
       name: 'airMax270',
@@ -29,7 +30,8 @@ describe("searchProduct", () => {
       price: 140,
       discount: 0,
       stock: 116,
-      img:'https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg'
+      img:'https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg',
+      type:'shoes'
     })
     const product3 = new Product({
       name: 'airMaxJordan',
@@ -37,7 +39,8 @@ describe("searchProduct", () => {
       price: 190,
       discount: 0,
       stock: 118,
-      img:'https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg'
+      img:'https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg',
+      type:'shoes'
     })
     const query = 'airMax90'
 
@@ -53,6 +56,7 @@ describe("searchProduct", () => {
             expect(products[0].discount).toEqual(0)
             expect(products[0].stock).toEqual(114)
             expect(products[0].img).toEqual('https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg')
+            expect(products[0].type).toEqual('shoes')
 
 
           })
@@ -68,7 +72,8 @@ describe("searchProduct", () => {
       price: 150,
       discount: 0,
       stock: 114,
-      img:'https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg'
+      img:'https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg',
+      type:'shoes'
     })
     const product2 = new Product({
       name: 'airMax270',
@@ -76,7 +81,8 @@ describe("searchProduct", () => {
       price: 140,
       discount: 0,
       stock: 116,
-      img:'https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg'
+      img:'https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg',
+      type:'shoes'
     })
     const product3 = new Product({
       name: 'airMaxJordan',
@@ -84,7 +90,8 @@ describe("searchProduct", () => {
       price: 190,
       discount: 0,
       stock: 118,
-      img:'https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg'
+      img:'https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg',
+      type:'shoes'
     })
 
 

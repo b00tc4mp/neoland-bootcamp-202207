@@ -43,7 +43,7 @@ dl {
 }
 
 /* ==================================== */
-.container-section.promotionOne{
+.container-section.promotionOne, .container-section.promotionTwo {
     padding: 0%;
     margin: 0%;
     margin-top: 2%;
@@ -51,23 +51,28 @@ dl {
     overflow: hidden;
     min-height: 30vh;
 }
+.container-section.promotionTwo div.container-portrait {
+    margin-top: 243px;
+}
+.container-section.promotionTwo div.container-portrait div.portrait-title h3{
+    margin: 5px 0 10px 0;
+}
+.container-section.promotionTwo div.container-portrait div.portrait-title DIV.btn--portrait-title{
+    width: 115PX;
+}
 .promotionOne {
     text-align: center;
     padding: 30px 10px;
     /* position: relative; */
 }
-.video-sectionOne{
+
+.video-sectionOne,.img-sectionTwo {
     /* display: flex; */
     width: 100%;
     height: 100%;
 }
 
-.promotionOne video{
-    /* margin-left: -5%;
-    margin-right: -5%; */
-}
-
-.video-promotionOne{
+.video-promotionOne,.img-promotionTwo {
     width: 100%;
     height: 100%;
     /* object-fit: cover; */
@@ -78,11 +83,12 @@ dl {
 .info-section {
     padding: 5%;
 }
-button .control-play{
+
+button .control-play {
     background-color: transparent;
 }
 
-.control-play{
+.control-play {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
@@ -94,25 +100,29 @@ button .control-play{
     gap: 10px;
     z-index: 1;
 }
-.control-play .featurette-icon--img{
+
+.control-play .featurette-icon--img {
     width: 40px;
     height: 40px;
 }
-.container-portrait{
+
+.container-portrait {
     display: flex;
     justify-content: flex-start;
     text-align: start;
     width: 90%;
     position: absolute;
 }
-.portrait-title{
-    display: flex; 
+
+.portrait-title {
+    display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 0 10px;
     background-color: rgba(251, 251, 251, 0.54);
     /* width: 100%; */
 }
+
 .portrait-title h2 {
     font-size: 1.75em;
     font-weight: 300;
@@ -131,12 +141,13 @@ button .control-play{
     text-decoration: none;
 }
 
-.btn--portrait-title{
+.btn--portrait-title {
     display: flex;
     justify-content: flex-start;
     width: 100%;
 }
-.btn--portrait-title a{
+
+.btn--portrait-title a {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -227,27 +238,47 @@ ul.ul-education li .description p.institution {
 }
 
 /* ==================================== */
-section.skills {
+section.products {
     margin: 0;
     width: 100%;
     background-color: #eaf2fa;
 }
 
-section.skills div.container-skills {
-    /* width: 100%;
-    padding-right: 15px;
-    padding-left: 15px; */
+section.products.slider {
+    margin: 0;
+    /* width: %; */
+    background-color: #eaf2fa;
+}
+
+section.products div.container-products {
     display: flex;
     flex-wrap: wrap;
-    /* justify-content: space-evenly; */
-
-    /* padding: 15px; */
     margin-right: auto;
     margin-left: auto;
 
 }
 
-.item--skills {
+.backgroundSlider {
+    width: 100%;
+}
+
+.backgroundSlider img {
+    width: 100%;
+}
+
+section.products div.container-products.slider {
+    position: relative;
+    display: grid;
+    max-width: 100vw;
+    grid-auto-flow: column;
+    grid-auto-columns: 43%;
+    gap: 1rem;
+    margin-top: -34%;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+}
+
+.item--products {
     text-align: center;
     /* margin: 10px 0; */
     margin: 15px;
@@ -256,11 +287,21 @@ section.skills div.container-skills {
     /* border: 1px solid aqua; */
 }
 
-div.item--skills p {
+.item--products.slider {
+    text-align: center;
+    /* margin: 10px 0; */
+    margin: 15px 5px;
+    width: 100%;
+    max-width: 100%;
+    padding: 0%;
+    background-color: aqua;
+}
+
+div.item--products p {
     text-align: center;
 }
 
-.item--skills.one {
+.item--products.one {
     margin: 10px;
     background-color: transparent;
 }
@@ -272,6 +313,17 @@ div.item--skills p {
 .featurette-icon--img {
     height: 30px;
     width: 30px;
+}
+
+.featurette-icon--img.products {
+    height: 200px;
+    width: 200px;
+}
+
+.featurette-icon--img.products.slider {
+    height: 150px;
+    width: 110px;
+
 }
 
 .featurette h3 {
@@ -308,35 +360,50 @@ section.experience {
 
 /* =================================================== */
 @media(min-width:476px) {
-    .item--skills.one {
+    .item--products.one {
         flex: 100%;
         max-width: 100%;
 
     }
 
-    .item--skills {
+    .item--products {
         flex: 43%;
         max-width: 50%;
 
     }
+
+    section.products div.container-products.slider {
+        grid-auto-columns: 45%;
+    }
 }
 
 @media(min-width:576px) {
-    .item--skills.one {
+    .item--products.one {
         flex: 100%;
         max-width: 100%;
-
     }
 
-    .item--skills {
+    .item--products {
         flex: 27.33333333%;
         max-width: 33.33333333%;
+    }
 
+    section.products div.container-products.slider {
+        grid-auto-columns: 37%;
     }
 }
 
 @media(min-width:760px) {
     .info-exp {
         padding-top: 15px;
+    }
+
+    section.products div.container-products.slider {
+        grid-auto-columns: 14%;
+        margin-top: -19%;
+    }
+    section.products div.backgroundSlider img {
+        height: 390px;
+    
     }
 }

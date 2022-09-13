@@ -1,23 +1,101 @@
+import { useEffect,useState } from 'react'
+import retrieveUser from '../logic/retrieveUser'
+import retrieveProducts from '../logic/retrieveProducts'
+
 import withContext from '../utils/withContext'
+import Profile from '../components/Profile'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import ContMain from '../components/ContMain'
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 
-function HomePage({onLoginClick,context: { handleFeedback }}) {
+function HomePage({ onLogoutClick,onLoginClick, context: { handleFeedback } }) {
 
-    const handleLoginClick= () =>{
+    const [name, setName] = useState(null)
+    const [email, setEmail] = useState(null)
+    const [products, setProducts] = useState(null)
+
+
+    // const [view, setView] = useState('list')
+    const navigate = useNavigate()
+    const location = useLocation()
+
+    useEffect(() => {
+        if(sessionStorage.token){
+            try {
+                retrieveUser(sessionStorage.token, (error, user) => {
+                    if (error) {
+                        handleFeedback({ message: error.message, level: 'error' })
+    
+                        onLogoutClick()
+                        return
+                    }
+                    setName(user.name)
+                    setEmail(user.email)
+                })
+            } catch (error) {
+                handleFeedback({ message: error.message, level: 'error' })
+            }
+            loadProducts()
+        }
+        else{
+            loadProducts()
+        }
+    }, [])
+
+    const loadProducts = () => {
+        try {
+            retrieveProducts( (error, products) => {
+                if (error) {
+                    handleFeedback({ message: error.message, level: 'error' })
+
+                    return
+                }
+                setProducts(products)
+            })
+        } catch (error) {
+            handleFeedback({ message: error.message, level: 'error' })
+        }
+    }
+
+    const handleLoginClick = () => {
         onLoginClick()
     }
 
+    const handleProfileClick = () => {
+
+        navigate('profile')
+
+        loadProducts()
+    }
+
+    const handleReturnProductList = () => {
+        // loadProducts()
+        navigate('/')
+    }
+
+    const handleUpdateName = (newName) => setName(newName)
+    const handleUpdateEmail = (newEmail) => setEmail(newEmail)
+
+    // return email?
     return <div className="container container--full container--width homePage">
-        <Header onLoginClick={handleLoginClick}/>
+        <Header onLoginClick={handleLoginClick} onProfileClick={handleProfileClick} />
 
         <main className="main-home">
-        <ContMain />
-
+            <Routes>
+                <Route path="/" element={<ContMain products={products}/>} />
+                {/* <Route path="profile" element={<Profile onCloseClick={handleReturnProductList} email={email} onUpdateEmail={handleUpdateEmail} onUpdateName={handleUpdateName} />} /> */}
+                {/* {email ?
+                    <Route path="profile" element={<Profile onCloseClick={handleReturnProductList} email={email} onUpdateEmail={handleUpdateEmail} onUpdateName={handleUpdateName} />} />
+                    :
+                    <Route path="login" element={<ContMain />} />
+                } */}
+            </Routes>
         </main>
 
         <Footer />
     </div>
+    // :
+    // null
 }
 export default withContext(HomePage)

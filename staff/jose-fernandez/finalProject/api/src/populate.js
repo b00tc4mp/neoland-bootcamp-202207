@@ -12,7 +12,8 @@ connect('mongodb://localhost:27017/finalProject')
             price: 150,
             discount: 0,
             stock: 114,
-            img:'https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg'
+            img:'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/b5eba256-ef26-45d1-852f-c1992be17a3e/air-max-90-zapatillas-PTBWZ5.png',
+            type:'shoes'
         })
         const product2 = new Product({
             name:'airMax270',
@@ -20,7 +21,8 @@ connect('mongodb://localhost:27017/finalProject')
             price: 140,
             discount: 0,
             stock: 114,
-            img:'https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg'
+            img:'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/1eeaacc0-e07c-4024-a5f7-57f2fd23e8a2/air-max-270-g-zapatillas-de-golf-3GkJ0N.png',
+            type:'shoes'
         })
         const product3 = new Product({
             name:'airJordan',
@@ -28,7 +30,8 @@ connect('mongodb://localhost:27017/finalProject')
             price: 190,
             discount: 0,
             stock: 114,
-            img:'https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg'
+            img:'https://static.nike.com/a/videos/t_PDP_864_v1/f_auto,b_rgb:f5f5f5,so_1.55/adc356bd-8925-41e5-a297-e3b8f1db0973/air-jordan-1-mid-zapatillas-D8Q2S1.jpg',
+            type:'shoes'
         })
         const product4 = new Product({
             name:'techFleece',
@@ -36,16 +39,48 @@ connect('mongodb://localhost:27017/finalProject')
             price: 180,
             discount: 0,
             stock: 114,
-            img:'https://i.postimg.cc/XJt6N71Q/169506285-136925785104495-7194486606775599435-n.jpg'
+            img:'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/8bd58820-be5a-4d0b-898c-e7b63c146226/paris-saint-germain-tech-fleece-jogger-wflZmc.png',
+            type:'clothing'
+        })
+        const product5 = new Product({
+            name:'offCourt',
+            sku: 'nkh1110',
+            price: 110,
+            discount: 0,
+            stock: 180,
+            img:'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/h5jqhhyekxesgqfxwgpj/offcourt-mens-slides-Xkb8kb.png',
+            type:'shoes'
+
+        })
+        const product6 = new Product({
+            name:'airForce1',
+            sku: 'nkh11f1',
+            price: 110,
+            discount: 0,
+            stock: 390,
+            img:'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/350e7f3a-979a-402b-9396-a8a998dd76ab/air-force-1-07-mens-shoes-xDpsTk.png',
+            type:'shoes'
+        })
+        const product7 = new Product({
+            name:'phoenixFleece',
+            sku: 'nkh15p3',
+            price: 80,
+            discount: 0,
+            stock: 230,
+            img:'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/d811ae57-d99e-4713-84aa-850b532041bb/sportswear-phoenix-fleece-womens-high-waisted-joggers-ftkzwQ.png',
+            type:'clothing'
         })
         return Promise.all([
             product1.save(),
             product2.save(),
             product3.save(),
-            product4.save()
+            product4.save(),
+            product5.save(),
+            product6.save(),
+            product7.save()
         ])
     })
-    .then(([product1, product2, product3, product4]) => {
+    .then(([product1, product2, product3, product4,product5,product6,product7]) => {
         //primero crear producto
         //embebido se declara antes de save()
         const item1 = new Item({
