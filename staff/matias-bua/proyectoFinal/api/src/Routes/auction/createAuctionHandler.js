@@ -9,8 +9,6 @@ module.exports = (req, res) => {
         
         const { body: { title, dateForBit, value, createdAt, image } } = req
 
-        debugger
-
         return createAuction({ author: userId, title, dateForBit: new Date(dateForBit), value, createdAt: new Date(createdAt), image })
             .then(() => res.status(201).send())
     }, res, logger)

@@ -15,19 +15,19 @@ const auction = new Schema({
 
     title: {
         type: String,
-        requred: true
-        // default: ''
-    },
-
-    category: {
-        type: String,
+        requred: true,
         default: ''
     },
 
-    subCategory: {
-        type: String,
-        default: ''
-    },
+    // category: {
+    //     type: String,
+    //     default: ''
+    // },
+
+    // subCategory: {
+    //     type: String,
+    //     default: ''
+    // },
 
     description: {
         type: String,

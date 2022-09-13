@@ -1,12 +1,17 @@
+require('dotenv').config()
+
 const { connect, disconnect } = require("mongoose");
 const { User, Auction, Bid } = require("./models");
 
-connect("mongodb://localhost:27017/proyectoFinal")
+const { env: {MONGO_URL}} = process
+
+connect(MONGO_URL)
   .then(() => {
     console.log("db connected");
 
     return Promise.all([User.deleteMany(), Auction.deleteMany()]);
   })
+
   .then(() => {
     const arttatack = new User({
       name: "Art",
@@ -92,6 +97,7 @@ connect("mongodb://localhost:27017/proyectoFinal")
       image: "111",
       bids: [bid1],
     });
+
     const auction3 = new Auction({
       author: artesano.id,
       productName: "epoxy resin",
@@ -104,6 +110,7 @@ connect("mongodb://localhost:27017/proyectoFinal")
       image: "111",
       // createdAt: Date
     });
+
     const auction4 = new Auction({
       author: elsahlame.id,
       productName: "Crafts",
@@ -123,6 +130,7 @@ connect("mongodb://localhost:27017/proyectoFinal")
       auction3.save(),
       auction4.save(),
     ]);
+    
   })
   .catch((error) => {
     console.log(`there was an error. Message: ${error.message}`);
