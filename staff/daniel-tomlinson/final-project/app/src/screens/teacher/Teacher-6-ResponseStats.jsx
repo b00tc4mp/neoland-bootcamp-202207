@@ -41,7 +41,7 @@ function Teacher6ResponseStats({
             style={{ height: `${correctPercent}%` }}
           >
             {correct}
-            <span class="material-symbols-outlined stats-icon">
+            <span className="material-symbols-outlined stats-icon">
               sentiment_satisfied
             </span>
           </div>
@@ -50,7 +50,7 @@ function Teacher6ResponseStats({
             style={{ height: `${incorrectPercent}%` }}
           >
             {incorrect}
-            <span class="material-symbols-outlined stats-icon">
+            <span className="material-symbols-outlined stats-icon">
               sentiment_dissatisfied
             </span>
           </div>

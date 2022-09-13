@@ -54,13 +54,13 @@ function QuizStudent({ socket, handleFeedback, handleLeaveClass }) {
   };
 
   useEffect(() => {
-    socket.on("T1.5", (data) => {
+    /* socket.on("T1.5", (data) => {
       console.log("T1 data received by client:");
       console.log(data);
       console.log(socket);
       setNameOfClass(data.nameOfClass);
       setPin(data.pin);
-    });
+    }); */
 
     socket.on("T2.5", (data) => {
       console.log("T2 data received by client:");

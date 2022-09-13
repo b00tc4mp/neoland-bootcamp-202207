@@ -20,6 +20,8 @@ function Student4ResponseInput({
   const handleFormSubmit = (event) => {
     event.preventDefault();
 
+    clearTimeout(timeout);
+
     const form = event.target;
 
     const responseInput = form.response;
@@ -35,25 +37,30 @@ function Student4ResponseInput({
     handleScreenChangeS4("Student5WaitingForFeedback");
   };
 
-  const handleFormSubmit2 = (event) => {
+  const handleFormSubmit2 = () => {
     // event.preventDefault();
+
+    const button = document.getElementsByClassName("response-submit-button");
+
+    debugger;
+
+    button[0].click();
+  };
+
+  /* const handleFormSubmit2 = () => {
 
     const form = document.getElementsByClassName("form");
 
     const responseInput = form[0].response;
 
-    // const responseValue = responseInput.value;
     const response = responseInput.value;
-
-    // const response = String(responseValue.rersponse);
-    debugger;
 
     const socketId = socket.id;
 
     socket.emit("S4", { response, socketId, host });
 
     handleScreenChangeS4("Student5WaitingForFeedback");
-  };
+  }; */
 
   socket.on("T4", () => {
     console.log("T4 received by client");
@@ -61,11 +68,13 @@ function Student4ResponseInput({
   });
 
   // useEffect(() => {
-  setTimeout(() => {
-    // const form = document.getElementsByClassName("form");
-    // form[0].submit();
+
+  let timeout = setTimeout(handleFormSubmit2, timeLimitNumber);
+
+  /*   setTimeout(() => {
     handleFormSubmit2();
-  }, timeLimitNumber);
+  }, timeLimitNumber); */
+
   // }, [])
   return (
     <div className="game-screen">
@@ -94,7 +103,11 @@ function Student4ResponseInput({
             />
           </div>
 
-          <button href="" type="submit" className="footer-button">
+          <button
+            href=""
+            type="submit"
+            className="footer-button response-submit-button"
+          >
             Submit
           </button>
         </form>

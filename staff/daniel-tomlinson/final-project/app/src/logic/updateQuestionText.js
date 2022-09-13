@@ -1,8 +1,15 @@
 const API_URL = process.env.REACT_APP_API_URL;
 
-function retrieveNotes(token, callback) {
+function updateQuestion(token, questionId, text, callback) {
   if (typeof token !== "string") throw new TypeError("token is not a string");
   if (token.trim().length === 0) throw new Error("token is empty or blank");
+
+  if (typeof questionId !== "string")
+    throw new TypeError("question id is not a string");
+  if (questionId.trim().length === 0)
+    throw new Error("question id is empty or blank");
+
+  if (typeof text !== "string") throw new TypeError("text is not a string");
 
   if (typeof callback !== "function")
     throw new TypeError("callback is not a function");
@@ -16,21 +23,17 @@ function retrieveNotes(token, callback) {
 
     if (status >= 500) callback(new Error(`server error(${status})`));
     else if (status >= 400) callback(new Error(`client error(${status})`));
-    else if (status === 200) {
-      const json = xhr.responseText;
-
-      const data = JSON.parse(json);
-
-      callback(null, data.reverse());
-    }
+    else if (status === 204) callback(null);
   };
 
-  // XMLHttprequest
-  xhr.open("GET", `${API_URL}/notes`);
+  xhr.open("PATCH", `${API_URL}/questions/${questionId}`);
 
   xhr.setRequestHeader("Authorization", `Bearer ${token}`);
+  xhr.setRequestHeader("Content-type", "application/json");
 
-  xhr.send();
+  const json = JSON.stringify({ text });
+
+  xhr.send(json);
 }
 
-export default retrieveNotes;
+export default updateQuestion;

@@ -10,6 +10,8 @@ function createQuestion(
 ) {
   //TODO validate inputs
 
+  debugger;
+
   if (typeof token !== "string") throw new TypeError("token is not a string");
   if (token.trim().length === 0) throw new Error("token is empty or blank");
   if (typeof question !== "string")
@@ -19,8 +21,8 @@ function createQuestion(
     throw new Error("question is empty or blank");
   if (typeof suggestedAnswer !== "string")
     throw new TypeError("suggested answer is not a string");
-  if (typeof timeLimit !== "number")
-    throw new TypeError("time limit is not a number");
+  if (typeof timeLimit !== "string")
+    throw new TypeError("time limit is not a string");
 
   if (typeof callback !== "function")
     throw new TypeError("callback is not a function");

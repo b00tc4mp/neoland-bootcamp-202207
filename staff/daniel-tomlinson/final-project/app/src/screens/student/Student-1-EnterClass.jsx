@@ -54,6 +54,7 @@ function Student1EnterClass({
           socket.emit("S1", {
             nickname: { nickname },
             host: { host },
+            socketId: socket.id,
           });
           handleScreenChangeS1("Student2Connected", nickname, host);
           form.reset();

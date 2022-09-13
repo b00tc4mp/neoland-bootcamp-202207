@@ -1,16 +1,27 @@
 import { useState, useEffect } from "react";
 import Loggito from "../utils/Loggito";
-import retrieveUser from "../logic/retrieveUser";
-import retrieveNotes from "../logic/retrieveNotes";
-import createNote from "../logic/createNote";
-import createGameCode from "../logic/createGameCode";
-import updateNoteText from "../logic/updateNoteText";
-import deleteNote from "../logic/deleteNote";
+// import retrieveUser from "../logic/retrieveUser";
+// import retrieveQuestions from "../logic/retrieveQuestions";
+// import createQuestion from "../logic/createQuestion";
+// import createGameCode from "../logic/createGameCode";
+// import updateQuestionText from "../logic/updateQuestionText";
+// import deleteQuestion from "../logic/deleteQuestion";
 import Settings from "../components/Settings";
-import NoteList from "../components/NoteList";
+import QuestionList from "../components/QuestionList";
 import Header from "../components/Header";
 import QuickPlayPage from "./QuickPlayPage";
+import CreateQuestionPanel from "../components/CreateQuestionPanel";
 import withContext from "../utils/withContext";
+
+import {
+  searchQuestions,
+  retrieveUser,
+  retrieveQuestions,
+  createQuestion,
+  createGameCode,
+  updateQuestionText,
+  deleteQuestion,
+} from "../logic";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 
 function HomePage({
@@ -23,7 +34,8 @@ function HomePage({
   const logger = new Loggito("HomePage");
 
   const [name, setName] = useState(null);
-  const [notes, setNotes] = useState(null);
+  const [questions, setQuestions] = useState(null);
+  const [query, setQuery] = useState(null);
   // const [view, setView] = useState("list");
   const navigate = useNavigate();
   const location = useLocation();
@@ -57,7 +69,7 @@ function HomePage({
       logger.warn(error.message);
     }
 
-    loadNotes();
+    loadQuestions();
   }, []);
 
   const onQuickPlayClick = () => {
@@ -67,9 +79,9 @@ function HomePage({
     navigate("quickPlayInHome");
   };
 
-  const loadNotes = () => {
+  /* const loadQuestions = () => {
     try {
-      retrieveNotes(sessionStorage.token, (error, notes) => {
+      retrieveQuestions(sessionStorage.token, (error, questions) => {
         if (error) {
           handleFeedback({ message: error.message, level: "error" });
 
@@ -77,40 +89,92 @@ function HomePage({
 
           return;
         }
-        setNotes(notes);
+        setQuestions(questions);
 
-        logger.debug("setNotes", notes);
+        logger.debug("setQuestions", questions);
       });
     } catch (error) {
       handleFeedback({ message: error.message, level: "error" });
 
       logger.warn(error.message);
     }
+  }; */
+
+  useEffect(() => {
+    logger.info("on query changed");
+
+    loadQuestions();
+  }, [query]);
+
+  const loadQuestions = () => {
+    try {
+      if (!query)
+        retrieveQuestions(sessionStorage.token, (error, questions) => {
+          if (error) {
+            handleFeedback({ message: error.message, level: "error" });
+
+            logger.warn(error.message);
+
+            return;
+          }
+
+          setQuestions(questions);
+
+          logger.debug("setQuestions", questions);
+        });
+      else
+        searchQuestions(sessionStorage.token, query, (error, questions) => {
+          if (error) {
+            handleFeedback({ message: error.message, level: "error" });
+
+            logger.warn(error.message);
+
+            return;
+          }
+
+          setQuestions(questions);
+
+          logger.debug("setQuestions", questions);
+        });
+    } catch (error) {
+      handleFeedback({ message: error.message, level: "error" });
+
+      logger.warn(error.message);
+    }
   };
+
+  /*   const handleAddClick = () => {
+    try {
+      createQuestion(sessionStorage.token, (error) => {
+        if (error) {
+          handleFeedback({ message: error.message, level: "error" });
+
+          logger.warn(error.message);
+
+          return;
+        }
+
+        loadQuestions();
+      });
+    } catch (error) {
+      handleFeedback({ message: error.message, level: "error" });
+
+      logger.warn(error.message);
+    }
+  }; */
 
   const handleAddClick = () => {
-    try {
-      createNote(sessionStorage.token, (error) => {
-        if (error) {
-          handleFeedback({ message: error.message, level: "error" });
-
-          logger.warn(error.message);
-
-          return;
-        }
-
-        loadNotes();
-      });
-    } catch (error) {
-      handleFeedback({ message: error.message, level: "error" });
-
-      logger.warn(error.message);
-    }
+    navigate("createQuestion");
   };
 
-  const handleUpdateNote = (noteId, text) => {
+  const handleReturn = () => {
+    navigate("./");
+    loadQuestions();
+  };
+
+  const handleUpdateQuestion = (questionId, text) => {
     try {
-      updateNoteText(sessionStorage.token, noteId, text, (error) => {
+      updateQuestionText(sessionStorage.token, questionId, text, (error) => {
         if (error) {
           handleFeedback({ message: error.message, level: "error" });
 
@@ -126,9 +190,10 @@ function HomePage({
     }
   };
 
-  const handleDeleteNote = (noteId) => {
+  const handleDeleteQuestion = (questionId) => {
     try {
-      deleteNote(sessionStorage.token, noteId, (error) => {
+      deleteQuestion(sessionStorage.token, questionId, (error) => {
+        debugger;
         if (error) {
           handleFeedback({ message: error.message, level: "error" });
 
@@ -137,7 +202,7 @@ function HomePage({
           return;
         }
 
-        loadNotes();
+        loadQuestions();
       });
     } catch (error) {
       handleFeedback({ message: error.message, level: "error" });
@@ -152,7 +217,7 @@ function HomePage({
     logger.debug("navigate to settings");
   };
 
-  const handleNotesClick = () => {
+  const handleQuestionsClick = () => {
     navigate("/");
 
     logger.debug("navigate to list");
@@ -164,9 +229,10 @@ function HomePage({
 
   const handleLeaveClass = () => {
     navigate("/");
-    debugger;
     // navigate("settings");
   };
+
+  const handleSearch = (query) => setQuery(query);
 
   logger.info("render");
 
@@ -177,23 +243,24 @@ function HomePage({
           name={name}
           onLogoutClick={handleLogoutClick}
           onSettingsClick={handleSettingsClick}
-          onNotesClick={handleNotesClick}
+          onQuestionsClick={handleQuestionsClick}
           // view={view}
           onFeedback={handleFeedback}
+          onSearch={handleSearch}
         />
       )}
       <main className="main flex-container main-page-content">
         {location.pathname !== "/quickPlayInHome" && (
           <button className="button--primary" onClick={onQuickPlayClick}>
-            Quick Play
+            Join or Start Quiz
           </button>
         )}
         <Routes>
           {/*  {view === "list" && (
-            <NoteList
-              notes={notes}
-              onUpdateNote={handleUpdateNote}
-              onDeleteNote={handleDeleteNote}
+            <QuestionList
+              questions={questions}
+              onUpdateQuestion={handleUpdateQuestion}
+              onDeleteQuestion={handleDeleteQuestion}
               onFeedback={handleFeedback}
             />
           )}
@@ -213,12 +280,21 @@ function HomePage({
             }
           />
           <Route
+            path="createQuestion"
+            element={
+              <CreateQuestionPanel
+                handleFeedback={handleFeedback}
+                handleReturn={handleReturn}
+              />
+            }
+          />
+          <Route
             path="/"
             element={
-              <NoteList
-                notes={notes}
-                onUpdateNote={handleUpdateNote}
-                onDeleteNote={handleDeleteNote}
+              <QuestionList
+                questions={questions}
+                onUpdateQuestion={handleUpdateQuestion}
+                onDeleteQuestion={handleDeleteQuestion}
                 onFeedback={handleFeedback}
               />
             }

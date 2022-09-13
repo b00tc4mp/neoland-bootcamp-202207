@@ -3,8 +3,6 @@ const API_URL = process.env.REACT_APP_API_URL;
 function createNote(token, callback) {
   //TODO validate inputs
 
-  debugger;
-
   if (typeof token !== "string") throw new TypeError("token is not a string");
   if (token.trim().length === 0) throw new Error("token is empty or blank");
 

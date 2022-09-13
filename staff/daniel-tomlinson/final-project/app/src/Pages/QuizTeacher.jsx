@@ -32,6 +32,7 @@ function QuizTeacher({
   const [feedback, setFeedback] = useState("");
   const [correct, setCorrect] = useState(0);
   const [incorrect, setIncorrect] = useState(0);
+  const [socketsConnected, setSocketsConnected] = useState([]);
 
   const handleLeaveClick = () => {};
 
@@ -125,20 +126,46 @@ function QuizTeacher({
     setGameScreen(gameScreen);
   };
 
+  /* const addNickname = async (data) => {
+    const nicknameReceived = data.nickname.nickname;
+    console.log(`nicknameReceived: ${nicknameReceived}`);
+    const socketIdReceived = data.socketId;
+    console.log(`socketIdReceived: ${socketIdReceived}`);
+
+    await setSocketsConnected((socketsConnected) => [
+      ...socketsConnected,
+      data.socketId,
+    ]);
+
+    console.log(`socketsConnected: ${socketsConnected}`);
+
+    if (!socketsConnected.includes(data.socketId)) {
+      await setNickname((nickname) => [...nickname, data.nickname.nickname]);
+      console.log(`nickname array: ${nickname}`);
+    }
+  }; */
+
   useEffect(() => {
     socket.on("S1.5", (data) => {
       console.log("S1 data received by client:");
       console.log(data);
+
+      // addNickname(data);
+
       console.log("nickname:");
       console.log(nickname);
-      // let includes = nickname.includes(data.nickname.nickname);
-      // console.log("includes");
-      // console.log(includes);
-      // if (includes === false) {
-      setNickname((nickname) => [...nickname, data.nickname.nickname]);
+      debugger;
+      setSocketsConnected((socketsConnected) => [
+        ...socketsConnected,
+        data.socketId,
+      ]);
+      console.log("Sockets connected:");
+      console.log(socketsConnected);
+      debugger;
+      if (!socketsConnected.includes(data.socketId))
+        setNickname((nickname) => [...nickname, data.nickname.nickname]);
       console.log("Nickname received:");
       console.log(data.nickname.nickname);
-      // }
     });
 
     socket.on("S4.5", (data) => {
