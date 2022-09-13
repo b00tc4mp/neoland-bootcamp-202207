@@ -12,7 +12,7 @@ function retrievePublicRecipes(userId) {
     .then(user => {
         if (!user) throw new NotFoundError(`user with id ${userId} not found`)
 
-        return Recipe.aggregate([ { $sample: { size: 4 } } ])
+        return Recipe.aggregate([ { $sample: { size: 3 } } ])
             .catch(error => {
                 throw new SystemError(error.message)
             })
