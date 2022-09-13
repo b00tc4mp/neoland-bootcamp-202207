@@ -1,32 +1,39 @@
 import { useState, useEffect } from 'react'
 import Loggito from '../utils/Loggito'
 import retrieveUser from '../logic/retrieveUser'
+import {searchCities} from '../logic'
 import Settings from '../components/Settings'
 import Header from '../components/Header'
 import withContext from '../utils/withContext'
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
+import { Routes, Route, useNavigate } from 'react-router-dom'
+import Search from '../components/Search'
+import CityView from '../components/CityView'
+
+
+
 
 
 function HomePage ({ onLogoutClick, context: {handleFeedback } }) {
     const logger = new Loggito('HomePage')
 
     const [name, setName] = useState(null)
-    //const [notes, setNotes] = useState(null)
+    const [cities, setCities] = useState(null)
     const navigate = useNavigate()
-    const location = useLocation()
+    const [query, setQuery] = useState(null)
 
     useEffect(() => {
         logger.info('"componentDidMount"')
+
         try {
             retrieveUser(sessionStorage.token, (error, user) => {
                 if (error) {
                    handleFeedback({ message: error.message, level: 'error'})
 
-                  logger.warn(error.message)
+                   logger.warn(error.message)
 
-                  onLogoutClick()
+                   onLogoutClick()
 
-                    return
+                   return 
                 }
 
              setName(user.name)
@@ -41,22 +48,44 @@ function HomePage ({ onLogoutClick, context: {handleFeedback } }) {
         }
 
       // loadNotes()
+
     }, [])
 
-   /* const loadNotes = () => {
+    useEffect(() => {
+        logger.info('on query changed')
+
+        loadCities()
+    }, [query])
+    
+    const loadCities = () => {
         try {
-            retrieveNotes(sessionStorage.token, (error, notes) => {
-                if (error) {
-                   handleFeedback({ message: error.message, level: 'error'})
+            if (!query) return 
+            // retrieveCities(sessionStorage.token, query, (error, cities) => {
+            //     if(error) {
+            //        handleFeedback({ message: error.message, level: 'error'})
 
-                    logger.warn(error.message)
+            //         logger.warn(error.message)
 
-                    return
+            //         return (cities)
+            //     }
+
+            //         setCities(cities)
+
+            //         logger.debug('setCities', cities)
+            // })
+            else 
+                searchCities(sessionStorage.token, query, (error, cities) => {
+                    if (error) {
+                        handleFeedback({ message: error.message, level: 'error' })
+
+                        logger.warn(error.message)
+
+                         return (cities)
                 }
 
-                    setNotes(notes)
+                setCities(cities)
 
-                    logger.debug('setNotes', notes)
+                logger.debug('setCities', cities)
             })
         } catch (error) {
            handleFeedback({message: error.message, level: 'error'})
@@ -65,7 +94,7 @@ function HomePage ({ onLogoutClick, context: {handleFeedback } }) {
         }
     }
 
-    const handleAddClick = () => {
+   /* const handleAddClick = () => {
         try {
             createNote(sessionStorage.token, error => {
                 if (error) {
@@ -134,11 +163,14 @@ function HomePage ({ onLogoutClick, context: {handleFeedback } }) {
     const handleSettingsCloseClick = () => {
         navigate('/')
 
-        logger.debug('navigate to list')
+        logger.debug('navigate to search')
     }
 
     logger.info('return')
 
+    const handleSearch = query => setQuery(query)
+
+    logger.info('return')
 
     return name ?
     <div className="home-page container container--full container--distributed">
@@ -146,9 +178,20 @@ function HomePage ({ onLogoutClick, context: {handleFeedback } }) {
 
         <main className="main">
             <Routes>
-             
-                <Route path="settings" element={<Settings onCloseClick={handleSettingsCloseClick} />} />
+                 <Route path="/" element={<Search cities={cities}  onQuery={handleSearch}/> } />
+                 <Route path="settings" element={<Settings onCloseClick={handleSettingsCloseClick} />} />
             </Routes>
+
+            <CityView cities={cities}/>
+
+
+         {cities && cities.map(city => {
+                return <li key={city._id}>
+                        <p>{city.name}</p>
+                        <p>{city.description}</p>
+                        </li>
+                })
+                }
         </main>
 
         <footer className="footer">

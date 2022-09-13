@@ -17,6 +17,11 @@ const city = new Schema({
         required:true
     },
 
+    coords:{
+        type: [Number],
+        required:true
+    },
+
     places: [place]
 })
 

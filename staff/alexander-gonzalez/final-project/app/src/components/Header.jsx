@@ -5,6 +5,7 @@ import IconButton from './IconButton'
 import Loggito from '../utils/Loggito'
 
 
+
 function Header ({ name, onLogoutClick, onSettingsClick, view: viewHome }) {
     const logger = new Loggito('Header') 
 
@@ -40,7 +41,7 @@ function Header ({ name, onLogoutClick, onSettingsClick, view: viewHome }) {
                 {view === null && <IconButton text="menu" onClick={handleMenuClick} />}
                 {view === 'menu' && <IconButton text="close" onClick={handleCloseClick} />}
             </div>
-
+          
             { view === 'menu' && <Menu onLogoutClick={onLogoutClick} onSettingsClick={handleSettingsClick} view={viewHome} />}
         </header>
     }

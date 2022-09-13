@@ -16,6 +16,7 @@ connect("mongodb://localhost:27017/wanderlust")
         " Edificio emblematico de papel fundamental entre 1682 y 1789. Comprendiendo entre 3 palacios, Gran Trianon, Versalles, Pequeño Trianon. Famosa residencia del Rey Sol Luis XIV.",
       url: " TODO",
       likes: 0,
+      coords:[48.85859, 2.12040]
     });
 
     louvreMuseum = new Place({
@@ -26,6 +27,7 @@ connect("mongodb://localhost:27017/wanderlust")
         "Ubicado en el antiguo palacio del Louvre, es el museo nacional de Francia consagrado tanto a las bellas artes como arqueologia y artes decorativas anteriores al Impresionismo. Grandes obras famosas como, Gioconda, la Venus de Milo, Libertad guiando al pueblo, La balsa de la Medusa, etc.",
       url: " TODO",
       likes: 0,
+      coords:[48.86070, 2.33773]
     });
 
      notreDame = new Place({
@@ -36,6 +38,7 @@ connect("mongodb://localhost:27017/wanderlust")
         "La catedral de Notre Dame es una sede de archidiocesis de Paris, de estilo Gotico su construccion comenzo en el año 1163, y para 1260 ya estaba finalizada. cabe recordar que en el 15 de abril del 2019 sufrio el mayor daño posible a raiz de un incendio y aun esta en construccion y reparacion.",
       url: " TODO",
       likes: 0,
+      coords:[48.85312, 2.35034]
     });
 
     londonTower = new Place({
@@ -45,6 +48,8 @@ connect("mongodb://localhost:27017/wanderlust")
       description: " ",
       url: " TODO",
       likes: 0,
+      coords:[51.50833, -0.07590]
+
     });
 
     towerBridge = new Place({
@@ -54,6 +59,7 @@ connect("mongodb://localhost:27017/wanderlust")
       description: " ",
       url: " TODO",
       likes: 0,
+      coords:[51.50556, -0.07540]
     });
 
     bigBen = new Place({
@@ -63,6 +69,7 @@ connect("mongodb://localhost:27017/wanderlust")
       description: " ",
       url: " TODO",
       likes: 0,
+      coords:[51.50095, -0.12463]
     });
 
     britishMuseum = new Place({
@@ -72,6 +79,7 @@ connect("mongodb://localhost:27017/wanderlust")
       description: " ",
       url: " TODO",
       likes: 0,
+      coords :[51.51954, -0.12672]
     });
 
     buckinghamPalace = new Place({
@@ -81,6 +89,7 @@ connect("mongodb://localhost:27017/wanderlust")
       description: " ",
       url: " TODO",
       likes: 0,
+      coords:[51.50158, -0.14188]
     });
 
     coliseo = new Place({
@@ -90,6 +99,7 @@ connect("mongodb://localhost:27017/wanderlust")
       description: " ",
       url: " TODO",
       likes: 0,
+      coodinate:[41.89020, 12.49223]
     });
 
     foroRomano = new Place({
@@ -99,6 +109,7 @@ connect("mongodb://localhost:27017/wanderlust")
       description: " ",
       url: " TODO",
       likes: 0,
+      coords:[41.89254,12.48532]
     });
 
     vaticano = new Place({
@@ -108,6 +119,7 @@ connect("mongodb://localhost:27017/wanderlust")
       description: " ",
       url: " TODO",
       likes: 0,
+      coords:[41.90236, 12.45389]
     });
 
     fontanaDiTrevi = new Place({
@@ -117,6 +129,7 @@ connect("mongodb://localhost:27017/wanderlust")
       description: " ",
       url: " TODO",
       likes: 0,
+      coords:[41.90110, 12.48328]
     });
 
     castellSantAngelo = new Place({
@@ -126,6 +139,7 @@ connect("mongodb://localhost:27017/wanderlust")
       description: " ",
       url: " TODO",
       likes: 0,
+      coords:[41.90329, 12.46626]
     });
   })
 
@@ -138,6 +152,7 @@ connect("mongodb://localhost:27017/wanderlust")
         "Construida en 1889 para la Exposicion Universal, la Torre Eiffel se convirtio en el principal simbolo de Paris y es el monumento mas visitado del mundo. Cuenta con una estructura de hierro de 300 metros de alto y tardando solo 2 años 2 meses y 5 dias, desde 1887 a 1889.",
       url: " TODO",
       likes: 0,
+      coords:[48.85859, 2.29436] // solucionar coords por coordinate ([..., ...])
     });
 
     arcDeTriomf = new Place({
@@ -148,6 +163,7 @@ connect("mongodb://localhost:27017/wanderlust")
         " Monumento emblematico de la capital francesa, construido entre 1806 - 1836 por orden de Napoleon Bonaparte para conmemorar la victoria en la batalla de Austerlitz",
       url: " TODO",
       likes: 0,
+      coords:[48.87389, 2.29519]
     });
 
     const pepito = new User({
@@ -183,6 +199,7 @@ connect("mongodb://localhost:27017/wanderlust")
         versallesPalace,
         notreDame,
       ],
+      coords:[48.856944444444, 2.3513888888889]
     });
 
     const london = new City({
@@ -198,6 +215,7 @@ connect("mongodb://localhost:27017/wanderlust")
         bigBen,
         buckinghamPalace,
       ],
+      coords:[51.50853, -0.12574]
     });
 
     const roma = new City({
@@ -213,6 +231,7 @@ connect("mongodb://localhost:27017/wanderlust")
         fontanaDiTrevi,
         castellSantAngelo,
       ],
+      coords:[41.8905, 12.4942]
     });
 
     return Promise.all([paris.save(), london.save(), roma.save()]);

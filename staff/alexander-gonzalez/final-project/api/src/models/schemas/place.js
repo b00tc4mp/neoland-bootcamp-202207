@@ -27,6 +27,11 @@ const place = new Schema({
     likes:{
         type:[ObjectId],
         ref: 'Place'
+    },
+
+    coords:{
+        type: [Number],
+        required:true
     }
 
 })
