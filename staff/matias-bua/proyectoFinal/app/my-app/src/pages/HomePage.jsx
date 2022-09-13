@@ -12,7 +12,7 @@ import NewAuction from '../components/NewAuction'
 import Mail from '../components/Mail'
 import Setting from '../components/Setting'
 
-function HomePage({ onLogoutClick, onSettingsClick, context: { handleFeedback } }) {
+function HomePage({ onLogoutClick, onSettingClick, context: { handleFeedback } }) {
 
 
   const logger = new Loggito('HomePage')
@@ -95,7 +95,7 @@ const handleSettingClick = () => {
 }
 
   return <div className="HeaderHome">
-    <Header onLogoutClick={onLogoutClick} onSettingsClick={onSettingsClick}/>
+    <Header onLogoutClick={onLogoutClick} onSettingClick={handleSettingClick}/>
 
     
 
@@ -105,7 +105,7 @@ const handleSettingClick = () => {
       <Route path="saved" element={<Saved/>}/>
       <Route path="newauction" element={<NewAuction/>}/>
       <Route path="mail" element={<Mail/>}/>
-      <Route path="settings" element={<Setting/>}/>
+      <Route path="setting" element={<Setting/>}/>
 
     </Routes> 
 

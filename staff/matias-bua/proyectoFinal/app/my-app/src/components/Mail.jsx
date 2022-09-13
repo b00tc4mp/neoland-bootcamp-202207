@@ -8,8 +8,6 @@ function Mail({ onLinkClick, context: { handleFeedback }}) {
     const logger = new Loggito('Settings')
 
 
-
-
     return <main className="mailContainer">
             
         <div className="form__field">

@@ -1,10 +1,10 @@
-// import updateUserPassword from '../logic/updateUserPassword'
 import Loggito from '../utils/Loggito'
-// import IconButton from './IconButton'
 import withContext from '../utils/withContext'
+// import IconButton from './IconButton'
+// import updateUserPassword from '../logic/updateUserPassword'
 
 function Setting({ context: { handleFeedback }}) {
-    const logger = new Loggito('Settings')
+    const logger = new Loggito('Setting')
 
     logger.info('render')
 

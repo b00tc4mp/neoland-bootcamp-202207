@@ -16,7 +16,7 @@ function updateUserPassword(token, oldPassword, newPassword, newPasswordRepeat, 
 
   if (typeof callback !== 'function') throw new TypeError('callback is not a function')
 
-  const xhr = new XMLHttpRequest
+  const xhr = new XMLHttpRequest()
 
   // response
 
@@ -33,7 +33,7 @@ function updateUserPassword(token, oldPassword, newPassword, newPasswordRepeat, 
 
   // request
 
-  xhr.open('PATCH', 'https://b00tc4mp.herokuapp.com/api/v2/users')
+  xhr.open('PATCH', 'https://localhost:8080/api/v2/users')
 
   xhr.setRequestHeader('Authorization', `Bearer ${token}`)
   xhr.setRequestHeader('Content-type', 'application/json')

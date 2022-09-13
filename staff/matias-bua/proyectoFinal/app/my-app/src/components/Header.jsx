@@ -4,9 +4,10 @@ import IconButton from './IconButton'
 import Loggito from '../utils/Loggito'
 import MenuHeader from './MenuHeader'
 import Search from './Search'
+// import Setting from './Setting'
 
 
-function Header ({ onLogoutClick, onSettingsClick, view: viewHome, onSearch}) {
+function Header ({ onLogoutClick, onSettingClick, view: viewHome, onSearch}) {
 
     const logger = new Loggito('header')
 
@@ -26,12 +27,12 @@ function Header ({ onLogoutClick, onSettingsClick, view: viewHome, onSearch}) {
         logger.debug('setView', null)
     }
 
-    const handleSettingsClick = () => {
+    const handleSettingClick = () => {
        setView(null)
 
        logger.debug('setView',null)
 
-       onSettingsClick()
+       onSettingClick()
     }
 
     logger.info('render')
@@ -43,7 +44,7 @@ function Header ({ onLogoutClick, onSettingsClick, view: viewHome, onSearch}) {
             { view === 'menu' && <IconButton text="close" onClick={handleCloseClick} />}
         </div>
 
-        { view === 'menu' && <MenuHeader onLogoutClick={onLogoutClick} onSettingsClick={handleSettingsClick} view={viewHome} />}
+        { view === 'menu' && <MenuHeader onLogoutClick={onLogoutClick} onSettingClick={handleSettingClick} view={viewHome} />}
     </header>
     }
 
