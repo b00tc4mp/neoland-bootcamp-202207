@@ -3,7 +3,7 @@ const { env: { MONGO_URL, PORT } } = process
 const { connect, disconnect } = require('mongoose')
 const { logger } = require('./utils')
 const cors = require('cors')
-const { adsRouter } = require('./routes')
+const { adsRouter, usersRouter } = require('./routes')
 const { name, version } = require('../package.json')
 
 connect(MONGO_URL)
@@ -16,7 +16,8 @@ connect(MONGO_URL)
 
         api.use(cors())
 
-        api.use('/api', adsRouter)
+        api.use('/api', adsRouter, usersRouter)
+
 
         api.listen(PORT, () => logger.info(`${name} v${version} started`))
 

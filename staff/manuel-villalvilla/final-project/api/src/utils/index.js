@@ -1,4 +1,5 @@
 module.exports = {
     logger: require('./logger'),
-    validateObjectId: require('./validateObjectId')
+    validateObjectId: require('./validateObjectId'),
+    errorHandler: require('./errorHandler')
 }

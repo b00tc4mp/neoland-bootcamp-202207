@@ -5,5 +5,6 @@ module.exports = {
     NotFoundError: require('./NotFoundError'),
     SystemError: require('./SystemError'),
     TokenError: require('./TokenError'),
-    MongoError: require('./MongoError')
+    MongoError: require('./MongoError'),
+    FiltersError: require('./FiltersError')
 }
