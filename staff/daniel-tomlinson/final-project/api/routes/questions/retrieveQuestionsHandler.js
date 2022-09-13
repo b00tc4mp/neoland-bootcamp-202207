@@ -4,7 +4,7 @@ const {
   verifyToken,
 } = require("../../utils");
 const {
-  notes: { retrieveNotes },
+  questions: { retrieveQuestions },
 } = require("../../logic");
 const { NotFoundError, AuthError } = require("errors");
 const logger = createLogger(module);
@@ -14,8 +14,8 @@ module.exports = (req, res) => {
     () => {
       const userId = verifyToken(req);
 
-      retrieveNotes(userId)
-        .then((notes) => res.json(notes))
+      retrieveQuestions(userId)
+        .then((questions) => res.json(questions))
         .catch((error) => {
           if (error instanceof NotFoundError || error instanceof AuthError)
             res.status(401).json({ error: "wrong credentials" });

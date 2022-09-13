@@ -15,7 +15,6 @@ module.exports = (req, res) => {
 
       authenticateUser(email, password)
         .then((userId) => {
-          debugger;
           const token = sign(
             { sub: userId },
             "Dan: copié el código de Mónica!",

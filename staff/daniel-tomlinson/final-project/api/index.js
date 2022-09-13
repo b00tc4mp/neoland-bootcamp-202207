@@ -18,13 +18,13 @@ connect(MONGO_URL)
 
     const api = express();
 
-    const { usersRouter, notesRouter } = require("./routes");
+    const { usersRouter, questionsRouter } = require("./routes");
 
     api.use(cors());
 
     api.get("/", (req, res) => res.send(`${name} v${version} ;)`));
 
-    api.use("/api", usersRouter, notesRouter);
+    api.use("/api", usersRouter, questionsRouter);
 
     api.listen(PORT, () =>
       logger.info(`${name} v${version} started and listening in port ${PORT}`)
@@ -87,7 +87,7 @@ connect(MONGO_URL)
         socket.join(host);
         console.log("Teacher joined room:");
         console.log(host);
-        socket.broadcast.emit("T1.5", data);
+        // socket.broadcast.emit("T1.5", data);
       });
 
       socket.on("T2", (data) => {
@@ -173,7 +173,7 @@ connect(MONGO_URL)
 
     const {
       usersRouter,
-      notesRouter,
+      // questionsRouter,
       gameCodesRouter,
       questionsRouter,
     } = require("./routes");
@@ -188,7 +188,13 @@ connect(MONGO_URL)
       next();
     })*/ api.get("/", (req, res) => res.send(`${name} v${version} ;)`));
 
-    api.use("/api", usersRouter, notesRouter, gameCodesRouter, questionsRouter);
+    api.use(
+      "/api",
+      usersRouter,
+      // questionsRouter,
+      gameCodesRouter,
+      questionsRouter
+    );
 
     server.listen(PORT, () => console.log(`API running on port ${PORT}`));
 

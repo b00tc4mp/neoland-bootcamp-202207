@@ -6,12 +6,18 @@ const {
   authenticateUserHandler,
   retrieveUserHandler,
 } = require("./user");
-const { createNoteHandler, retrieveNotesHandler } = require("./notes");
+const {
+  createQuestionHandler,
+  retrieveQuestionsHandler,
+  searchQuestionsHandler,
+  updateQuestionTextHandler,
+  deleteQuestionHandler,
+} = require("./questions");
 const {
   createGameCodeHandler,
   retrieveGameCodeHandler,
 } = require("./gameCode");
-const { createQuestionHandler } = require("./questions");
+// const { createQuestionHandler } = require("./questions");
 
 const usersRouter = Router();
 
@@ -21,11 +27,26 @@ usersRouter.post("/users/auth", jsonBodyParser, authenticateUserHandler);
 
 usersRouter.get("/users", retrieveUserHandler);
 
-const notesRouter = Router();
+// TODO usersRouter.patch('/users/email', jsonBodyParser, updateUserEmailHandler)
+// TODO usersRouter.patch('/users/password', jsonBodyParser, updateUserPasswordHandler)
+// TODO usersRouter.patch('/users/info', jsonBodyParser, updateUserInfoHandler)
 
-notesRouter.post("/notes", jsonBodyParser, createNoteHandler);
+const questionsRouter = Router();
 
-notesRouter.get("/notes", retrieveNotesHandler);
+// questionsRouter.post("/questions", jsonBodyParser, createQuestionHandler);
+questionsRouter.post("/questions", jsonBodyParser, createQuestionHandler);
+
+questionsRouter.get("/questions", retrieveQuestionsHandler);
+
+questionsRouter.patch(
+  "/questions/:questionId",
+  jsonBodyParser,
+  updateQuestionTextHandler
+);
+
+questionsRouter.get("/questions/search", searchQuestionsHandler);
+
+questionsRouter.delete("/questions/:questionId", deleteQuestionHandler);
 
 const gameCodesRouter = Router();
 
@@ -33,13 +54,11 @@ gameCodesRouter.post("/gameCodes", jsonBodyParser, createGameCodeHandler);
 
 gameCodesRouter.get("/gameCodes", jsonBodyParser, retrieveGameCodeHandler);
 
-const questionsRouter = Router();
-
-questionsRouter.post("/questions", jsonBodyParser, createQuestionHandler);
+// const questionsRouter = Router();
 
 module.exports = {
   usersRouter,
-  notesRouter,
+  questionsRouter,
   gameCodesRouter,
   questionsRouter,
 };

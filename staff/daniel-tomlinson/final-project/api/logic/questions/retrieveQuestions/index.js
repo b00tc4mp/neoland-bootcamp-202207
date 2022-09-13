@@ -1,8 +1,8 @@
-const { Note, User } = require("../../../models");
+const { Question, User } = require("../../../models");
 const { DuplicityError, NotFoundError, SystemError } = require("errors");
 const { validateString } = require("validators");
 
-function retrieveNotes(userId) {
+function retrieveQuestions(userId) {
   // validateString
 
   return User.findById(userId)
@@ -14,15 +14,17 @@ function retrieveNotes(userId) {
       debugger;
       if (!user) throw new NotFoundError(`user with id ${userId} not found`);
 
-      return Note.find({ user: userId }).catch((error) => {
-        throw new NotFoundError(`no notes found for user with id ${userId}`);
+      return Question.find({ user: userId }).catch((error) => {
+        throw new NotFoundError(
+          `no questions found for user with id ${userId}`
+        );
       });
     })
-    .then((notes) => {
+    .then((questions) => {
       debugger;
       // TODO sanitize
-      return notes;
+      return questions;
     });
 }
 
-module.exports = retrieveNotes;
+module.exports = retrieveQuestions;
