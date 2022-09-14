@@ -1,41 +1,43 @@
-const { Schema, Types: { ObjectId } } = require("mongoose")
+const {
+  Schema,
+  Types: { ObjectId },
+} = require("mongoose");
 
-const product = new Schema ({
+const product = new Schema({
   user: {
     type: ObjectId,
-    req: true,
-    ref: "User"
+    required: true,
+    ref: "User",
   },
 
-  productName: {
+  name: {
     type: String,
-    req: true,
-    ref: "User"
+    required: true,
   },
 
   category: {
     type: String,
-    required: true
+    required: true,
   },
 
   quantity: {
     type: Number,
-    required: true
+    required: true,
   },
 
   description: {
     type: String,
-    default: ""
+    default: "",
   },
 
-   createAt: {
-     type: Date,
-     default: Date.now
-   },
+  createAt: {
+    type: Date,
+    default: Date.now,
+  },
 
   modifiedAt: {
-     type: Date
-  }
-})
+    type: Date,
+  },
+});
 
-module.exports = product
+module.exports = product;

@@ -4,13 +4,13 @@ const { NotFoundError, AuthError } = require("errors")
 const authenticateUser = require(".")
 
 describe("authenticateUser", () => {
-  beforeAll(() => connect("mongodb://localhost:27017/postits-test"))
+  beforeAll(() => connect("mongodb://localhost:27017/product-test"))
 
   beforeEach(() => User.deleteMany())
 
   it("succeeds on existing user", () => { // happy path
-    const name = "Lewis Hamilton"
-    const email = "lewis@hamilton.com"
+    const name = "Michael Jordan"
+    const email = "michael@jordan.com"
     const password = "123123123"
 
     return User.create({ name, email, password })
@@ -23,7 +23,7 @@ describe("authenticateUser", () => {
   })
 
   it("fails on non-existing user", () => { // unhappy path
-    const email = "lewis@hamilton.com"
+    const email = "michael@jordan.com"
     const password = "123123123"
 
     return authenticateUser(email, password)
@@ -34,8 +34,8 @@ describe("authenticateUser", () => {
   })
 
   it("fails on existing user but wrong password", () => { // unhappy path
-    const name = "Lewis Hamilton"
-    const email = "lewis@hamilton.com"
+    const name = "Michael Jordan"
+    const email = "michael@jordan.com"
     const password = "123123123"
 
     return User.create({ name, email, password })

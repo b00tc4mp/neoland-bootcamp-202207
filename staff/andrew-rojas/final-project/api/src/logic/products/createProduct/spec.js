@@ -33,7 +33,7 @@ describe('createProduct', () => {
             const [product] = products
 
             expect(product.user.toString()).toEqual(user.id)
-            expect(product.productName).toEqual(productName)
+            expect(product.name).toEqual(productName)
             expect(product.category).toEqual(category)
             expect(product.quantity).toEqual(quantity)
             expect(product.description).toEqual(description)
@@ -42,6 +42,8 @@ describe('createProduct', () => {
           })
       )
   })
+
+  
 
   afterAll(() => disconnect())
 

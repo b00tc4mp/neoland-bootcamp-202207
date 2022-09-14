@@ -2,7 +2,9 @@ const express = require('express')
 const { Router, json } = express
 const jsonBodyParser = json()
 const { registerUserHandler, authenticateUserHandler, retrieveUserHandler } = require('./users')
-const { createProductHandler } = require('./products')
+const { createProductHandler, retrieveProductsHandler, deleteProductHandler } = require('./products')
+const { movementHandler } = require('./movement')
+
 
 
 const usersRouter = Router()
@@ -17,8 +19,15 @@ usersRouter.get('/users', retrieveUserHandler)
 const productRouter = Router()
 
 productRouter.post('/product', jsonBodyParser, createProductHandler)
+productRouter.get('/product', retrieveProductsHandler)
+productRouter.delete('/product', deleteProductHandler)
+
+const movementRouter = Router()
+
+movementRouter.post('/movement', jsonBodyParser, movementHandler)
 
 module.exports = {
   usersRouter,
-  productRouter
+  productRouter,
+  movementRouter
 }

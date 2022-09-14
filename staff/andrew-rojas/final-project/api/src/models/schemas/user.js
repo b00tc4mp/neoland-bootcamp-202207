@@ -17,6 +17,11 @@ const user = new Schema({
     req: true
   },
 
+  role : {
+    type: String,
+    enum : ['admin', 'employee']
+  }
+
 })
 
 module.exports = user

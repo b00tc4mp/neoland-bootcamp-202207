@@ -4,9 +4,9 @@ const logger = createLogger(module)
 
 module.exports = (req, res) => {
   runWithErrorHandling(() => {
-    const { body: { name, email, password } } = req
+    const { body: { adminEmail, adminPassword, name, email, password } } = req
 
-    return registerUser(name, email, password)
+    return registerUser(adminEmail, adminPassword, name, email, password)
       .then(() => res.status(201).send())
     }, res, logger)
 }
