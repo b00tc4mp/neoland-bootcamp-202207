@@ -46,8 +46,6 @@ function HomePage({ onLogoutClick }) {
         <div className="page page-homepage">
             <header className="header homeHeader">
                 
-                
-
             </header>
 
             <Routes>

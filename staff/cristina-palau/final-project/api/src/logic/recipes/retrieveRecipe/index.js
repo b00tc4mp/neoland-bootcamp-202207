@@ -31,7 +31,10 @@ function retrieveRecipe(userId, recipeId) {
                 delete ingredient.__v
             })
 
+            debugger
+            
             return recipe
+
         })
 }
 module.exports = retrieveRecipe

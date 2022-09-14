@@ -12,7 +12,7 @@ function createRecipe(userId, title, persons, ingredients) {
     validateArray(ingredients)
     
     ingredients.forEach(ingredient => verifyIngredient(ingredient))
-    debugger
+   
     return User.findById(userId).lean()
         .catch(error => {
             throw new SystemError(error.message)
@@ -42,19 +42,3 @@ function createRecipe(userId, title, persons, ingredients) {
 
 module.exports = createRecipe
 
-/*
-ex: ingredients
-[
-    {
-        id: '1233123321',
-        quantity: 123,
-        unit: 'kg'
-    },
-     {
-        id: '1233123321',
-        quantity: 123,
-        unit: 'kg'
-    },
-    ...
-]
-*/

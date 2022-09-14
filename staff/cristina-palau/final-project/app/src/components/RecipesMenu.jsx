@@ -4,10 +4,13 @@ import './RecipesMenu.sass'
 import NewRecipe from './NewRecipe'
 import MyRecipesList from './MyRecipesList'
 import PublicRecipesList from './PublicRecipesList'
-import { Routes, Route, useNavigate } from 'react-router-dom'
+import PublicRecipe from './PublicRecipe'
+import UserRecipe from './UserRecipe'
+import { Routes, Route, useNavigate, useParams } from 'react-router-dom'
 import retrieveUserRecipes from '../logic/retrieveUserRecipes'
 import retrieveUser from '../logic/retrieveUserRecipes'
 import retrievePublicRecipes from '../logic/retrievePublicRecipes'
+import retrieveRecipe from '../logic/retrieveRecipe'
 import deleteRecipe from '../logic/deleteRecipe'
 
 function RecipesMenu() {
@@ -17,6 +20,9 @@ function RecipesMenu() {
 
     const [userRecipes, setUserRecipes] = useState(null)
     const [publicRecipes, setPublicRecipes] = useState(null)
+    const [recipe, setRecipe] = useState(null)
+
+
     const navigate = useNavigate()
 
     useEffect(() => { // override
@@ -35,11 +41,13 @@ function RecipesMenu() {
 
             logger.warn(error.message)
         }
+
         loadUserRecipes()
         loadPublicRecipes()
+
     }, [])
 
-    const loadUserRecipes = () => {
+    function loadUserRecipes() {
         try {
             retrieveUserRecipes(sessionStorage.token, (error, userRecipes) => {
                 if (error) {
@@ -59,9 +67,10 @@ function RecipesMenu() {
         }
     }
 
-    const loadPublicRecipes = () => {
+    function loadPublicRecipes() {
         try {
             retrievePublicRecipes(sessionStorage.token, (error, publicRecipes) => {
+
                 if (error) {
 
                     logger.warn(error.message)
@@ -73,6 +82,53 @@ function RecipesMenu() {
 
                 logger.debug('setPublicRecipes', publicRecipes)
             })
+        } catch (error) {
+
+            logger.warn(error.message)
+        }
+    }
+
+    const handleClickUserRecipe = recipeId => {
+        try {
+            retrieveRecipe(sessionStorage.token, recipeId, (error, recipe) => {
+                debugger
+
+                if (error) {
+
+                    logger.warn(error.message)
+
+                    return
+                }
+
+                setRecipe(recipe)
+
+                console.log(recipe)
+
+                navigate(`myrecipes/${recipeId}`)
+            })
+
+        } catch (error) {
+
+            logger.warn(error.message)
+        }
+    }
+
+    const handleClickPublicRecipe = recipeId => {
+        try {
+            retrieveRecipe(sessionStorage.token, recipeId, (error, recipe) => {
+                debugger
+                if (error) {
+
+                    logger.warn(error.message)
+
+                    return
+                }
+
+                setRecipe(recipe)
+
+                navigate(`public/${recipeId}`)
+            })
+
         } catch (error) {
 
             logger.warn(error.message)
@@ -91,6 +147,7 @@ function RecipesMenu() {
                 }
 
                 loadUserRecipes()
+
             })
         } catch (error) {
 
@@ -121,19 +178,30 @@ function RecipesMenu() {
         logger.debug('navigate to recipes')
     }
 
+
     return <Routes>
         <Route path="/" element={<>
-            <MyRecipesList recipes={userRecipes} onDeleteRecipe={handleDeleteRecipe} />
-
-            <PublicRecipesList recipes={publicRecipes} reloadPublicRecipes={handleReloadPublicRecipes} />
+        
+            <MyRecipesList recipes={userRecipes} onRecipeClick={handleClickUserRecipe} onDeleteRecipe={handleDeleteRecipe} />
 
             <div className="addRecipe">
                 <button className="addRecipe__button transparentButton" onClick={handleNavigationNewRecipe}>Añadir nueva receta +</button>
             </div>
+            <PublicRecipesList recipes={publicRecipes} onRecipeClick={handleClickPublicRecipe} reloadPublicRecipes={handleReloadPublicRecipes} />
+
         </>} />
         <Route path="newrecipe" element={<>
             <NewRecipe onBackClick={handleNavigationRecipes} />
         </>} />
+
+        <Route path="myrecipes/:id" element={<>
+            <UserRecipe recipe={recipe} onBackClick={handleNavigationRecipes} />
+        </>} />
+
+        <Route path="public/:id" element={<>
+            <PublicRecipe recipe={recipe} onBackClick={handleNavigationRecipes} />
+        </>} />
+
     </Routes>
 }
 export default RecipesMenu
