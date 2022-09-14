@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import Loggito from "../utils/Loggito";
-import retrieveUser from "../logic/retrieveUser";
+
 import withContext from "../utils/withContext";
 import Menu from "../components/Menu";
-import CreateArticle from "../components/CreateArticle";
+import CreateProduct from "../components/CreateProduct";
 import MyProducts from "../components/MyProducts";
 import ProductInput from "../components/ProductInput";
 import ProductOutput from "../components/ProductOutput";
@@ -13,46 +13,17 @@ import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import back from "../assets/back.jpg"
 
 
+
 function HomePage({ onLogoutClick, context: { handleFeedback } }) {
   const logger = new Loggito("HomePage");
   const navigate = useNavigate();
   const location = useLocation();
 
-  
-
-  const [ setName ] = useState(null);
-
-  useEffect(() => {
-    logger.info('"componentDidMount"');
-
-    try {
-      retrieveUser(sessionStorage.token, (error, user) => {
-        if (error) {
-          handleFeedback({ message: error.message, level: "error" });
-
-          logger.warn(error.message);
-
-          onLogoutClick();
-
-          return;
-        }
-
-        setName(user.name)
-
-        logger.debug("setName", user.name);
-      })
-    } catch (error) {
-      handleFeedback({ message: error.message, level: "error" });
-
-      logger.warn(error.message);
-    }
-  });
-
-  const handleNavigateToArticle = () => {
-    navigate("/article");
+  const handleNavigateToProduct = () => {
+    navigate("/product");
   };
 
-  const handleNavigateMyProduct = () => {
+  const handleNavigateMyProducts = () => {
     navigate("/products")
   };
 
@@ -61,7 +32,7 @@ function HomePage({ onLogoutClick, context: { handleFeedback } }) {
    };
 
    const handleNavigateOutput = () => {
-     navigate("/Output")
+     navigate("/outputs")
    };
 
    const handleNavigateReport = () => {
@@ -77,18 +48,18 @@ function HomePage({ onLogoutClick, context: { handleFeedback } }) {
    };
   
   const handleNavigateToHome = () => {
-    //TODO
+    navigate("/")
   };
 
 
   var title = 'Home'  
-  if(location.pathname === '/article') title = 'Create Article'
+  if(location.pathname === '/product') title = 'Create Product'
 
   if(location.pathname === '/products') title = 'My Products'
 
-  if(location.pathname === '/input') title = 'Product Input'
+  if(location.pathname === '/inputs') title = 'Product Input'
 
-  if(location.pathname === '/output') title = 'Product Output'
+  if(location.pathname === '/outputs') title = 'Product Output'
 
   if(location.pathname === '/reports') title = ' Reports'
 
@@ -102,11 +73,11 @@ function HomePage({ onLogoutClick, context: { handleFeedback } }) {
       <header> 
         <h2 className="title"> {title} </h2> 
       </header>
-      <button className="button-back"><img src={back} alt="logo de back" className="logo-back"/></button>
+      <button className="button-back" onClick={handleNavigateToHome}><img src={back} alt="logo de back" className="logo-back"/></button>
       </div>
       <Routes>
-        <Route path="/*" element={<Menu onHomeClick={handleNavigateToHome} onArticleClick={handleNavigateToArticle} onProductsClick={handleNavigateMyProduct} onInputsClick={handleNavigateInput} onOutputsClick={handleNavigateOutput} onReportsClick={handleNavigateReport} onSettingsClick={handleNavigateSetting} onLogoutClick={handleNavigateLogout} />} />
-        <Route path="/article" element={<CreateArticle/>} />
+        <Route path="/*" element={<Menu onHomeClick={handleNavigateToHome} onArticleClick={handleNavigateToProduct} onProductsClick={handleNavigateMyProducts} onInputsClick={handleNavigateInput} onOutputsClick={handleNavigateOutput} onReportsClick={handleNavigateReport} onSettingsClick={handleNavigateSetting} onLogoutClick={handleNavigateLogout} />} />
+        <Route path="/product" element={<CreateProduct/>} />
         <Route path="/products" element={<MyProducts/>} />
         <Route path="/inputs" element={<ProductInput/>} />
         <Route path="/outputs" element={<ProductOutput/>} />

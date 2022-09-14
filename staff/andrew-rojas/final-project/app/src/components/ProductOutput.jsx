@@ -2,7 +2,6 @@
 
 function ProductOutput() {
   return (
-    
     <>
     <div className="grid-create">
       <div className="item-create">
@@ -10,7 +9,7 @@ function ProductOutput() {
   
         <form className="form-create">
         <div className="form__field">
-          <label htmlFor="name">Article name :</label>
+          <label htmlFor="name">Product Name :</label>
           <input className="input" type="text" name="name" placeholder="articlename" id="articlename"/>
         </div>
   

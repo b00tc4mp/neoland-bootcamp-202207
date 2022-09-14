@@ -1,11 +1,15 @@
+// import { useLocation } from "react-router-dom";
+import Search from "./Search"
 
 
+function MyProducts({ onSearch }) {
 
-function MyProducts() {
+  // const location = useLocation()
+  
   return (
      <>  
       <div className="search">
-
+        <Search  />
       </div>
 
         <div className="grid-products">

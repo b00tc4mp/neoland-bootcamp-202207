@@ -10,7 +10,7 @@ body {
   box-sizing: border-box;
 }
 
-.container-login{
+.container-login, .container-register{
   position: absolute;
   background-color: rgb(85, 166, 48);
   width: 100%;
@@ -35,16 +35,6 @@ body {
   border: black 3px solid;
 }
 
-.logo-login {
-  position: absolute;
-  background-position: center;
-  background-repeat: no-repeat;
-  width: 10%;
-  height: 25%;
-  align-content: center;
-  top: 60%;
-}
-
 .title-welcome { 
   position: absolute;
   margin-top: 0;
@@ -52,10 +42,17 @@ body {
   font-size: 30px;
 }
 
+.title-create {
+  position: absolute;
+  bottom: 10%;
+  font-size: 30px;
+}
+
 .title {
   position: absolute;
   left: 60px;
-  top: 65%;
+  top: 66%;
+  font-size: 21px;
 }
 
 .login-page, .register-page, .create-page {
@@ -92,7 +89,7 @@ body {
 .container-form-2 {
   position: absolute;
   top: 20%;
-  left: 35%;
+  left: 20%;
   text-align: start;
   font-size: 18px;
 }
@@ -100,7 +97,7 @@ body {
 .container-form-4 {
   position: absolute;
   top: 20%;
-  left: 35%;
+  left: 20%;
   text-align: start;
   font-size: 18px;
 }
@@ -121,6 +118,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 35px;
+  font-size: 20px;
 }
 
 .form-logout {
@@ -176,7 +174,7 @@ body {
   border-radius: 20px;
   border: black 3px solid;
   font-size: 18px;
-  bottom: 5%;
+  bottom: 7%;
   width: 30%;
   height: 5%;
 }
@@ -186,10 +184,11 @@ body {
   background-color: rgb(85, 166, 48);
   border-radius: 20px;
   border: black 3px solid;
-  bottom: 7%;
-  width: 7%;
-  height: 20%;
-  right: 10%;
+  bottom: 11%;
+  width: 14%;
+  height:23%;
+  right: 16%;
+  cursor: pointer;
 
 }
 
@@ -211,15 +210,15 @@ body {
   position: absolute;
   display: grid;
   grid-template-columns: auto auto;
-  top: 25%;
+  top: 19%;
   gap: 20px;
 }
 
 .grid-create {
   position: absolute;
   display: grid;
-  top: 25%;
-  width: 50%;
+  top: 23%;
+  width: 86%;
   height: 60%;
 }
 
@@ -228,18 +227,25 @@ body {
   background-color: rgb(85, 166, 48);
   border: 1px solid rgba(0, 0, 0, 0.8);
   text-align: center;
+  align-content: center;
   border-radius: 20px;
   border: black 3px solid;
-  height: 5%;
-  width: 40%;
-  top: 20%
+  height: 4%;
+  width: 70%;
+  top: 17%
+}
+
+.search-row{
+  position: absolute;
+  right: 12%;
+  top: 18%;  
 }
 
 .grid-products {
   position: absolute;
   display: grid;
-  top: 30%;
-  width: 50%;
+  top: 23%;
+  width: 86%;
   height: 60%;
 }
 
@@ -248,8 +254,8 @@ body {
   border: 1px solid rgba(0, 0, 0, 0.8);
   font-size: 30px;
   text-align: center;
-  width: 200px;
-  height: 200px;
+  width: 160px;
+  height: 150px;
   border-radius: 20px;
 }
 
@@ -272,6 +278,30 @@ body {
   border-radius: 20px;
   background-color: rgb(85, 166, 48);
   
+}
+
+.logo-login {
+  position: absolute;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 40%;
+  height: 25%;
+  align-content: center;
+  top: 60%;
+}
+
+.create-account{
+
+  position: absolute;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 40%;
+  height: 25%;
+  align-content: center;
+  top: 60%;
+  filter: brightness();
+  mix-blend-mode: multiply;
+
 }
 
 .logo-plus, .logo-products,  .logo-input, .logo-output, .logo-report, .logo-settings, .logo-logout, .logo-back {

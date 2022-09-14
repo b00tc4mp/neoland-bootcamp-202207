@@ -23,7 +23,7 @@ function Settings(){
         </div>
 
         <div className="form__field">
-          <label htmlFor="name">terms & conditions </label>
+          <label htmlFor="name">Terms & conditions </label>
         </div>
 
         <div className="form__field">

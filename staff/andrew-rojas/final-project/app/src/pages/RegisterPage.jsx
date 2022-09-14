@@ -1,6 +1,7 @@
 import Loggito from '../utils/Loggito'
 import withContext from '../utils/withContext'
 import registerUser from '../logic/registerUser'
+import createAccount from '../assets/create-account.jpg'
 
 function RegisterPage({onRegister, onLinkClick, context: {handleFeedback}}) {
   const logger = new Loggito(RegisterPage.name)
@@ -10,13 +11,16 @@ function RegisterPage({onRegister, onLinkClick, context: {handleFeedback}}) {
     event.preventDefault()
 
     const { target: form } = event
-    const { name: { value: name },
+    const { 
+        adminEmail: { value: adminEmail },
+        adminPassword: { value: adminPassword }, 
+        name: { value: name },
         email: { value: email },
         password: { value: password }
     } = form
 
     try {
-        registerUser(name, email, password, function (error) {
+        registerUser( adminEmail, adminPassword, name, email, password, function (error) {
             if (error) {
 
                 handleFeedback({ message: error.message, level: 'error' })
@@ -48,11 +52,23 @@ function RegisterPage({onRegister, onLinkClick, context: {handleFeedback}}) {
 
   return <main className="register-page">
   <div className="container-register">
+  <img src={createAccount} alt="logo de crearUsuario" className="create-account"/> 
     <h2 className="title-create">Create Account</h2>
   </div>
 
   <div className="container-form-1">  
     <form className="form" onSubmit={handleFormSubmit}>
+
+    <div className="form__field">
+        <label htmlFor="adminEmail">Admin Email</label>
+        <input className="input" type="email" name="adminEmail" placeholder="adminEmail" id="adminEmail"/>
+      </div>
+      
+    <div className="form__field">
+        <label htmlFor="adminPassword">Admin Password</label>
+        <input className="input" type="password" name="adminPassword" placeholder="adminPassword" id="adminPassword"/>
+      </div>
+
       <div className="form__field">
         <label htmlFor="name">Name</label>
         <input className="input" type="text" name="name" placeholder="name" id="name"/>
