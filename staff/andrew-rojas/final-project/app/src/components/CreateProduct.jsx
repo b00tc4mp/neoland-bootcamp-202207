@@ -3,6 +3,7 @@ import withContext from '../utils/withContext'
 import { ServerError } from 'errors'
 import createProduct from '../logic/createProduct'
 
+
 function CreateProduct({ onCreate, context:{handleFeedback} }) {
   const  logger = new Loggito(CreateProduct.name)
 
@@ -10,25 +11,23 @@ function CreateProduct({ onCreate, context:{handleFeedback} }) {
 
   logger.info('return')
 
-
-
   const handleFormSubmit = event => {
     event.preventDefault()
 
     const form = event.target
 
-    const productNameInput = form.productName 
+    const nameInput = form.name 
     const categoryInput = form.category
     const quantityInput = form.quantity 
     const descriptionInput = form.description
 
-    const productName = productNameInput.value
+    const name = nameInput.value
     const category = categoryInput.value
     const quantity = quantityInput.value
     const description = descriptionInput.value
 
       try {
-        createProduct(productName, category, quantity, description, (error) => {
+        createProduct(sessionStorage.token, name, category, parseInt(quantity), description, (error) => {
           if(error) {
             if (error instanceof ServerError) { 
             handleFeedback({ message: error.message, level: 'error' })
@@ -49,6 +48,7 @@ function CreateProduct({ onCreate, context:{handleFeedback} }) {
     }
   }
 
+
   return ( 
   
   <>
@@ -58,8 +58,8 @@ function CreateProduct({ onCreate, context:{handleFeedback} }) {
 
       <form className="form-create" onSubmit={handleFormSubmit}>
       <div className="form__field">
-        <label htmlFor="productName">Product name :</label>
-        <input className="input" type="text" name="productName" placeholder="productName" id="productName"/>
+        <label htmlFor="name">Product name :</label>
+        <input className="input" type="text" name="name" placeholder="name" id="name"/>
       </div>
 
       <div className="form__field">
@@ -77,12 +77,14 @@ function CreateProduct({ onCreate, context:{handleFeedback} }) {
         <input className="input" type="text" name="description" placeholder="description" id="description"/>
       </div>
 
+      <div>   
+      <button className="button-create" type="submit" >Create</button>
+      </div>
+
      </form>
       </div>   
     </div>
   </div>
-
-  <button className="button-create" type="submit">Create</button>
   </>
   )  
 }

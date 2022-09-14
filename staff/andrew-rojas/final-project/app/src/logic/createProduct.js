@@ -1,4 +1,4 @@
-import { validateString, validateCallback, verifyObjectIdString } from 'validators'
+import { validateString, validateCallback,validateQuantity } from 'validators'
 import { AuthError, ClientError, ServerError, UnknownError } from 'errors'
 
 const API_URL = process.env.REACT_APP_API_URL
@@ -6,7 +6,7 @@ const API_URL = process.env.REACT_APP_API_URL
 /**
  * Checks create Product database
  * 
- * @param {string} productName The product name
+ * @param {string} name The product name
  * @param {string} category The category product
  * @param {number} quantity The quantity product
  * @param {string} description The description product
@@ -15,12 +15,14 @@ const API_URL = process.env.REACT_APP_API_URL
  * @throws {FormatError | TypeError} On invalid inputs
  */
 
-function createProduct(userId, productName, category, quantity, description, callback) {
-  verifyObjectIdString(userId, "user id")
-  validateString(productName, "product name")
+function createProduct(token, name, category, quantity, description, callback) {
+  debugger
+  // verifyObjectIdString(userId, "user id")
+  //validateText(token)
+  validateString(name, "name")
   validateString(category, "category")
+  validateQuantity(quantity, "quantity")
   validateString(description, "description")
-  if(typeof quantity !== "number") throw new TypeError(`${quantity} is not a number`)
   validateCallback(callback, "callback")
 
   const xhr = new XMLHttpRequest()
@@ -60,9 +62,13 @@ function createProduct(userId, productName, category, quantity, description, cal
 
    xhr.open('POST', `${API_URL}/product`)
 
+   xhr.setRequestHeader('Authorization', `Bearer ${token}`)
+
    xhr.setRequestHeader('Content-type', 'application/json')
 
-   xhr.send(`{ "productName": "${productName}", "category": "${category}", "quantity": "${quantity}, "description": "${description}" }`)
+   const json = JSON.stringify({ name, category, quantity, description, callback })
+    
+    xhr.send(json)
 }
 
 export default createProduct
