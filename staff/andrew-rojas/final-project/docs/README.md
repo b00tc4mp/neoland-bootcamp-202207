@@ -76,6 +76,7 @@ Sprint 0
 
 Sprint 1
 
+- Cosas Realizadas
 -Ordenar todas las carpetas y espacios para poder ser mas facil acceder a los archivos/modulos.
 -Descargar el react.
 -Identificar cuales son las librerias que se van a utilizar.
@@ -84,21 +85,21 @@ Sprint 1
 -Hacer en la APP una pagina de Login/Register sencillas.
 -Definir el modelo de datos a utilizar USER.
 -Realizar la Logica de User (register/authenticate/retrieve).
--Hacer pruebas de la logica en insomnia.
--Testear con jest las logicas (register/authenticate/retrieve).
+-Testear con jest las logicas 
 -Unir la API con la APP para tener el User.
 -APP Hacer una pagina de HOME, y solo colocar en el las cosas que se repetiran en las demas paginas (HEADER/FOOTER).
 -APP crear los componentes que manejara la app. (crearlos y probarlos en la home, luego pasarlos a Componentes).
 -APP crear las rutas que te lleven de Home a cada uno de los componententes.
+-Crear un Usuario administrador (que sea quien cree los usuarios)
+-Hacer el diagrama en la web
+-Trabajar en el boton de BACK 
 
 
 Cosas pendientes...
--Crear un Usuario administrador (que sea quien cree los usuarios)
 -Siempre revisar el Doc. y asegurarte de que actualizastes los avances
--Hacer el diagrama en la web
+-Constantemente hacer pruebas de las logicas en insomnia.
 -Ir trabajndo poco a poco las Logicas en la API
 -Seguir intentando ajustar la pantalla @MediasQueris
--Trabajar en el boton de BACK 
 -Investigar como hacer un buscador para los productos 
 -Revisar siempre que se se suban las actualizaciones del trabajo en el repositorio (GITHUB)
 
