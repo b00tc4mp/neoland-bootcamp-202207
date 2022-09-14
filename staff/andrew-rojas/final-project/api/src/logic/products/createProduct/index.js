@@ -1,6 +1,6 @@
 const { User, Product } = require ("../../../models")
 const { NotFoundError, SystemError} = require("errors")
-const { validateString } = require ("validators")
+const { validateString, validateQuantity } = require ("validators")
 const { verifyObjectIdString } = require("../../../utils")
 
 // TODO rename to createProduct
@@ -9,7 +9,8 @@ function createProduct(userId, name, category, quantity, description = '') {
   validateString(name, "name")
   validateString(category, "category")
   validateString(description, "description")
-  if(typeof quantity !== "number") throw new TypeError(`${quantity} is not a number`)
+  validateQuantity(quantity, "number")
+  // if(typeof quantity !== "number") throw new TypeError(`${quantity} is not a number`)
 
     return User.findById(userId).lean()
       .catch(error => {

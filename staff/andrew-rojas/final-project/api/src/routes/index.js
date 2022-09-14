@@ -20,7 +20,7 @@ const productRouter = Router()
 
 productRouter.post('/product', jsonBodyParser, createProductHandler)
 productRouter.get('/product', retrieveProductsHandler)
-productRouter.delete('/product', deleteProductHandler)
+productRouter.delete('/product/:productId', deleteProductHandler)
 
 const movementRouter = Router()
 
