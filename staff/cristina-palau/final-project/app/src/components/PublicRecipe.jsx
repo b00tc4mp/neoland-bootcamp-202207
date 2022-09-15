@@ -55,7 +55,7 @@ function PublicRecipe({ onBackClick, recipe }) {
 
             recipeState.ingredients.forEach((ingredient) => {
                 const quantityString = ingredient.quantity
-                const unit = ingredient.unit                      // const quantity.string = quantity(index).quantity
+                const unit = ingredient.unit 
                 const ingredientName = ingredient.ingredient.name
 
                 let ingredientFound = ingredients.find(ingredients => ingredients.name === ingredientName)

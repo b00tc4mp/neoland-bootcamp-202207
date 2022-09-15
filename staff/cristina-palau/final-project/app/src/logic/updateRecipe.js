@@ -29,7 +29,7 @@ function updateRecipe(token, recipeId, title, persons, ingredients, callback) {
 
     // request
 
-    xhr.open('POST', `${API_URL}/recipes/${recipeId}`)
+    xhr.open('PATCH', `${API_URL}/recipes/${recipeId}`)
 
     xhr.setRequestHeader('Content-type', 'application/json')
 

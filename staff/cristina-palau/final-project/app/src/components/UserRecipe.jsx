@@ -5,11 +5,10 @@ import { useParams } from 'react-router-dom'
 import retrieveIngredients from '../logic/retrieveIngredients'
 import retrieveRecipe from '../logic/retrieveRecipe'
 import createRecipe from '../logic/createRecipe'
-import updateRecipe from '../logic/createRecipe'
+import updateRecipe from '../logic/updateRecipe'
 
 
-function UserRecipe({ onBackClick, recipe, loadUserRecipes }) {
-
+function UserRecipe({ onBackClick, recipe }) {
     const logger = new Loggito('User Recipe')
     const { id } = useParams()
 
@@ -22,8 +21,8 @@ function UserRecipe({ onBackClick, recipe, loadUserRecipes }) {
         if (!recipeState) {
             retrieveRecipe(sessionStorage.token, id, (error, recipeFromLogic) => {
                 if (error) {
-                    console.log(error)
-                    //TODO
+
+                    logger.warn(error.message)
 
                     return
                 }
@@ -67,6 +66,22 @@ function UserRecipe({ onBackClick, recipe, loadUserRecipes }) {
         setRecipeState(newRecipe)
     }
 
+    const handleChangeTitle = event => {
+        let title = event.target.value
+
+        const newTitle = { ...recipeState, title }
+
+        setRecipeState(newTitle)
+    }
+
+    const handleChangePersons = event => {
+        let persons = event.target.value
+
+        const newPersons = { ...recipeState, persons }
+
+        setRecipeState(newPersons)
+    }
+
     const handleChangeIngredient = (event, ingredientId) => {
         const { target, target: { value: ingredientValue } } = event
 
@@ -83,31 +98,21 @@ function UserRecipe({ onBackClick, recipe, loadUserRecipes }) {
         setRecipeState(newRecipe)
     }
 
-    const handleUpdateRecipe = event => {
-        event.preventDefault()
-
+    const handleUpdateRecipe = (recipeId) => {
         try {
-            const { target: form,
-                target: {
-                    title: { value: title },
-                    persons: { value: persons },
-                } } = event
-
+            const { title, persons } = recipeState
+            debugger
             if (!persons) throw new Error("persons is empty or blank")
             else if (!title) throw new Error("title is empty or blank")
 
             const ingredientsItem = []
-
-            recipeState.ingredients.forEach(index => {
-                const { target: form,
-                    target: {
-                        [`quantity${index}`]: { value: quantityString },
-                        [`unit${index}`]: { value: unit },
-                        [`ingredient${index}`]: { value: ingredientName },
-                    } } = event
-
-
-                let ingredientFound = ingredients.find(ingredient => ingredient.name === ingredientName)
+            debugger
+            recipeState.ingredients.forEach(ingredient => {
+                const quantityString = ingredient.quantity
+                const unit = ingredient.unit
+                const ingredientName = ingredient.ingredient.name
+                debugger
+                let ingredientFound = ingredients.find(ingredients => ingredients.name === ingredientName)
                 if (!ingredientName) throw new Error('ingredient not found')
                 let id = ingredientFound.id
 
@@ -116,13 +121,13 @@ function UserRecipe({ onBackClick, recipe, loadUserRecipes }) {
                 else if (!unit) throw new Error("unit is empty or blank")
                 else if (!unit) throw new Error("ingredient is empty or blank")
 
-                const quantity = parseInt(quantityString)
+                let quantity = parseInt(quantityString)
                 ingredientsItem.push({ quantity, unit, id })
-
             })
-
+            debugger
             try {
-                updateRecipe(sessionStorage.token, title, parseInt(persons), ingredientsItem, (error) => {
+                updateRecipe(sessionStorage.token, recipeId, title, parseInt(persons), ingredientsItem, (error) => {
+                    debugger
                     if (error) {
 
                         logger.warn(error.message)
@@ -139,31 +144,23 @@ function UserRecipe({ onBackClick, recipe, loadUserRecipes }) {
         }
     }
 
-    const handleCreateRecipe = event => {
-        event.preventDefault()
+    const handleCreateRecipe = () => {
+        console.log('createRecipe')
 
         try {
-            const { target: form,
-                target: {
-                    title: { value: title },
-                    persons: { value: persons },
-                } } = event
-
+            const { title, persons } = recipeState
+            debugger
             if (!persons) throw new Error("persons is empty or blank")
             else if (!title) throw new Error("title is empty or blank")
 
             const ingredientsItem = []
-
-            recipeState.ingredients.forEach(index => {
-                const { target: form,
-                    target: {
-                        [`quantity${index}`]: { value: quantityString },
-                        [`unit${index}`]: { value: unit },
-                        [`ingredient${index}`]: { value: ingredientName },
-                    } } = event
-
-
-                let ingredientFound = ingredients.find(ingredient => ingredient.name === ingredientName)
+            debugger
+            recipeState.ingredients.forEach(ingredient => {
+                const quantityString = ingredient.quantity
+                const unit = ingredient.unit
+                const ingredientName = ingredient.ingredient.name
+                debugger
+                let ingredientFound = ingredients.find(ingredients => ingredients.name === ingredientName)
                 if (!ingredientName) throw new Error('ingredient not found')
                 let id = ingredientFound.id
 
@@ -204,9 +201,9 @@ function UserRecipe({ onBackClick, recipe, loadUserRecipes }) {
 
         const copyOfIngredients = [...recipeState.ingredients]
         copyOfIngredients.splice(deletingIndexIngredient, 1)
-       
+
         const newRecipe = { ...recipeState, ingredients: copyOfIngredients }
-     
+
         setRecipeState(newRecipe)
     }
 
@@ -228,12 +225,11 @@ function UserRecipe({ onBackClick, recipe, loadUserRecipes }) {
         <h3>Guardar receta Usuario</h3>
         <form className="newRecipeForm">
             <div className="recipeHeaderContainer">
-                <input type="text" defaultValue={recipeState ? recipeState.title : ''} className="input newRecipeInput titleInput" name="title" placeholder="Título" id="title" />
-                <input type="number" defaultValue={recipeState ? recipeState.persons : ''} className="input newRecipeInput personsInput" name="persons" placeholder="pax" id="persons" />
+                <input type="text" defaultValue={recipeState ? recipeState.title : ''} className="input newRecipeInput titleInput" name="title" placeholder="Título" id="title" onChange={(event) => handleChangeTitle(event)} />
+                <input type="number" defaultValue={recipeState ? recipeState.persons : ''} className="input newRecipeInput personsInput" name="persons" placeholder="pax" id="persons" onChange={(event) => handleChangePersons(event)} />
             </div>
             <p>Ingredientes</p>
             <div className="ingredientsContainer">
-
                 {recipeState && recipeState.ingredients && recipeState.ingredients.map((ingredient, index) =>
                     <div className="ingredientsContainer" key={ingredient.id}>
                         <input type="number" defaultValue={ingredient.quantity} className="input newRecipeInput quantInput" name={`quantity${index}`} placeholder="cantidad" onChange={(event) => handleChangeQuantity(event, ingredient.id)} />
@@ -250,19 +246,26 @@ function UserRecipe({ onBackClick, recipe, loadUserRecipes }) {
                         </datalist>
                         <button type="button" className="deleteButton" onClick={(event) => {
                             event.preventDefault()
-                            
+
                             handleDeleteIngredient(ingredient.id)
                         }}>X</button>
                     </div>
                 )}
 
-
                 <button className="addIngredient" onClick={addIngredient}>+</button>
             </div>
 
             <div className="buttonsContainer">
-                <button className="createButton" type="button" onClick={handleUpdateRecipe}>Actualizar receta</button>
-                <button className="createButton" type="button" onClick={handleCreateRecipe}>Crear nueva receta</button>
+                <button className="createButton" type="button"onClick={(event) => {
+                    event.preventDefault()
+
+                    handleUpdateRecipe(id)
+                }}>Actualizar receta</button>
+                <button className="createButton" type="button" onClick={(event) => {
+                    event.preventDefault()
+
+                    handleCreateRecipe()
+                }}>Crear nueva receta</button>
             </div>
         </form>
         <button className="backButton" onClick={handleBackClick}>Atrás</button>

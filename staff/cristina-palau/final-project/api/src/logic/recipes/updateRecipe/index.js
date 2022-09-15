@@ -30,12 +30,12 @@ function updateRecipe(userId, recipeId, title, persons, ingredients) {
             if (recipe.creator.toString() !== userId) throw new AuthError(`recipe with id ${recipeId} does not belong to user with id ${userId}`)
 
             const ingredientItems = ingredients.map(ingredient => {
-                const { id, quantity, units } = ingredient
+                const { id, quantity, unit } = ingredient
 
                 const ingredientItem = new IngredientItem({
                     ingredient: id,
                     quantity: quantity,
-                    units
+                    unit
                 })
 
                 return ingredientItem

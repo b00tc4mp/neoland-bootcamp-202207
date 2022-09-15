@@ -152,7 +152,6 @@ function NewRecipe({ onBackClick, printIngredientsRow }) {
             </div>
             <p>Ingredientes</p>
             <div className="ingredientsContainer"> {
-
                 rows.map(row =>
                     <div className="ingredientsContainer" key={row.id}>
                         <input type="number" className="input newRecipeInput quantInput" name={`quantity${row.id}`} placeholder="cantidad" onChange={(event) => handleChangeQuantity(event, row.id)} />
