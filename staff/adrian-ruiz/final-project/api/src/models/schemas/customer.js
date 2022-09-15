@@ -40,36 +40,46 @@ const customer = new Schema({
     billingAddress: {
         street: {
             type: String,
+            default : ''
         },
         town: {
             type: String,
+            default : ''
         },
         state: {
             type: String,
+            default : ''
         },
         zipCode: {
-            type: String
+            type: String,
+            default : ''
         },
         country: {
-            type: String
+            type: String,
+            default : ''
         },
     },
 
     shippingAddress: {
-        street: {
+        shippingStreet: {
             type: String,
+            default : ''
         },
-        town: {
+        shippingTown: {
             type: String,
+            default : ''
         },
-        state: {
+        shippingState: {
             type: String,
+            default : ''
         },
-        zipCode: {
-            type: Number
+        shippingZipCode: {
+            type: String,
+            default : ''
         },
-        country: {
-            type: String
+        shippingCountry: {
+            type: String,
+            default : ''
         },
     },
 

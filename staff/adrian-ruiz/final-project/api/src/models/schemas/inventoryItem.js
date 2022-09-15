@@ -10,7 +10,6 @@ const inventoryItem = new Schema({
     name: {
         type: String,
         required: true,
-        //TODO -> I WOULD LIKE TO MAKE IT UNIQUE IN COMPANY, BUT IF I USE COMPANY, THEN WOULD BE CONFLICT IF 2 DIFERENT COMPANIES USE THE SAME NAME
     },
 
     sku: {
@@ -24,25 +23,30 @@ const inventoryItem = new Schema({
     },
 
     cost: {
-        type: Number
+        type: Number,
+        default : ''
     },
 
     // cost: Number,
 
     averageCost: {
-        type: Number
+        type: Number,
+        default: ''
     },
 
     description:{
-        type: String
+        type: String,
+        default: ''
     },
 
     minStock: {
-        type: Number
+        type: Number,
+        default: ''
     },
 
     stock : {
-        type: Number
+        type: Number,
+        default: ''
     }
 
 })

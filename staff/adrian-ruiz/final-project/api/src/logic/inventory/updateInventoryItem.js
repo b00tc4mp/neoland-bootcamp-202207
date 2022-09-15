@@ -18,7 +18,7 @@ function updateInventoryItem(itemId, companyId, { name, sku, category, cost, ave
 
         const found = await InventoryItem.findOne({ $and :[ {companyId}, { $or:[{ name }, {$and : [{ sku :{$ne: undefined} }, {sku}]}]} ]})
 
-        if (found){
+        if (found && item.id !== found.id){
             if(found.name === name) throw new DuplicityError(`There's already a product named ${name}`)
             else if(found.sku === sku) throw new DuplicityError(`There's already a product with SKU ${sku}`)
         } 

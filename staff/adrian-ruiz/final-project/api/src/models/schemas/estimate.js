@@ -34,7 +34,7 @@ const estimate = new Schema({
 
         email: {
             type: String,
-            required: true
+            /* required: true */
         }
     },
 
@@ -52,13 +52,27 @@ const estimate = new Schema({
     products: [{
         id: {
             type: ObjectId,
-            ref: 'InventoryItem'
+            ref: 'InventoryItem',
+            required: true
         },
+        name:{
+            type: String,
+            required: true,
+        },
+        
+        description:{
+            type: String
+        },
+
         amount: {
             type: Number,
             required: true
         },
         price: {
+            type: Number,
+            required: true
+        },
+        tax:{
             type: Number,
             required: true
         }

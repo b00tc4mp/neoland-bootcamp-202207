@@ -3,10 +3,11 @@ const { Router, json } = express
 const jsonBodyParser = json()
 const { registerUserHandler, authenticateUserHandler, retrieveUserHandler, updateUserEmailHandler, updateUserPasswordHandler, deleteUserHandler, authenticateGoogleHandler } = require('./users')
 const { registerCompanyHandler, updateCompanyDetailsHandler, deleteCompanyHandler, registerCompanyGoogleHandler } = require('./companies')
-const { createInventoryItemHandler, updateInventoryItemHandler, deleteInventoryItemHandler, retrieveStockHandler } = require('./inventory')
-const { createEstimateHandler, deleteEstimateHandler, retrieveEstimatesHandler, updateEstimateHandler } = require('./estimates')
-const { createCustomerHandler, updateCustomerHandler, deleteCustomerHandler, retrieveCustomersHandler } = require('./customers')
+const { createInventoryItemHandler, updateInventoryItemHandler, deleteInventoryItemHandler, retrieveStockHandler, retrieveAItemHandler } = require('./inventory')
+const { createEstimateHandler, deleteEstimateHandler, retrieveEstimatesHandler, updateEstimateHandler, retrieveAEstimateHandler } = require('./estimates')
+const { createCustomerHandler, updateCustomerHandler, deleteCustomerHandler, retrieveCustomersHandler, retrieveACustomerHandler } = require('./customers')
 const { createInvoiceHandler, deleteInvoiceHandler, retrieveInvoicesHandler, updateInvoiceHandler } = require('./invoices')
+const { inventory } = require('../logic')
 
 const companiesRouter = Router()
 
@@ -40,6 +41,8 @@ inventoryRouter.post('/items', jsonBodyParser, createInventoryItemHandler)
 
 inventoryRouter.get('/items', retrieveStockHandler)
 
+inventoryRouter.get('/items/:itemId', retrieveAItemHandler)
+
 inventoryRouter.patch('/items/:itemId', jsonBodyParser, updateInventoryItemHandler)
 
 inventoryRouter.delete('/items/:itemId', deleteInventoryItemHandler)
@@ -50,6 +53,8 @@ estimatesRouter.post('/estimates', jsonBodyParser, createEstimateHandler)
 
 estimatesRouter.get('/estimates', retrieveEstimatesHandler)
 
+estimatesRouter.get('/estimates/:estimateId', retrieveAEstimateHandler)
+
 estimatesRouter.patch('/estimates/:estimateId', jsonBodyParser, updateEstimateHandler)
 
 estimatesRouter.delete('/estimates/:estimateId', deleteEstimateHandler)
@@ -59,6 +64,8 @@ const customersRouter = Router()
 customersRouter.post('/customers', jsonBodyParser, createCustomerHandler)
 
 customersRouter.get('/customers', retrieveCustomersHandler)
+
+customersRouter.get('/customers/:customerId', retrieveACustomerHandler)
 
 customersRouter.patch('/customers/:customerId', jsonBodyParser, updateCustomerHandler)
 

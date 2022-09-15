@@ -1,5 +1,5 @@
-const { User, Customer } = require('../../models')
-const { NotFoundError, FormatError, ForbiddenError } = require('errors')
+const { User, Customer, Estimate, Invoice } = require('../../models')
+const { NotFoundError, FormatError, ForbiddenError, BadRequestError } = require('errors')
 const { Types: { ObjectId }} = require('mongoose')
 
 
@@ -12,7 +12,13 @@ function deleteCustomer(userId, company, customerId){
     return (async() => {
         
         const customer = await Customer.findOne({_id : customerId, company})
-        if(!customer) throw new NotFoundError(`Customer with ID ${customerId} not found in Company with ID ${company}`)
+        if(!customer) throw new NotFoundError(`Customer ${customerId} not found in Company with ID ${company}`)
+        
+        const customerEstimates = await Estimate.findOne({company, 'customer.refId' : customerId})
+        if(customerEstimates) throw new BadRequestError(`Customer ${customer.name} have existing estimates. Please first delete all estimates`)
+
+        const customerInvoices = await Invoice.findOne({company, 'customer.refId': customerId})
+        if(customerInvoices) throw new BadRequestError(`Customer ${customer.name} have existing invoices. Please first delete all invoices`)
 
         const user = await User.findById(userId)
 
