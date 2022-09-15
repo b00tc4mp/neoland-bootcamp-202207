@@ -5,12 +5,14 @@ import createQuestion from "./createQuestion";
 import deleteQuestion from "./deleteQuestion";
 import registerUser from "./registerUser";
 import resetEmail from "./resetEmail";
-import resetPassword from "./resetPassword";
+import updatePassword from "./updatePassword";
 import retrieveGameCode from "./retrieveGameCode";
 import retrieveQuestions from "./retrieveQuestions";
+import retrieveQuestionsPublic from "./retrieveQuestionsPublic";
 import retrieveQuestionForEdit from "./retrieveQuestionForEdit";
 import retrieveUser from "./retrieveUser";
 import searchQuestions from "./searchQuestions";
+import searchQuestionsPublic from "./searchQuestionsPublic";
 import updateQuestionText from "./updateQuestionText";
 import updateQuestionEdit from "./updateQuestionEdit";
 
@@ -22,12 +24,14 @@ export {
   deleteQuestion,
   registerUser,
   resetEmail,
-  resetPassword,
+  updatePassword,
   retrieveGameCode,
   retrieveQuestions,
+  retrieveQuestionsPublic,
   retrieveQuestionForEdit,
   retrieveUser,
   searchQuestions,
+  searchQuestionsPublic,
   updateQuestionText,
   updateQuestionEdit,
 };

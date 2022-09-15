@@ -1,11 +1,11 @@
 // import IconButton from './IconButton'
 import Loggito from "../utils/Loggito";
-import resetPassword from "../logic/resetPassword";
+import updatePassword from "../logic/updatePassword";
 
 // onCloseClick isn't in my code
 // But!! info needs to be passed to Home to change on submit
 // On successful form submit should go to login
-function Settings({ onCloseClick, onFeedback, onLinkClick, onResetPassword }) {
+function Settings({ onCloseClick, onFeedback, onLinkClick, onUpdatePassword }) {
   const logger = new Loggito("Settings");
 
   logger.info("constructor");
@@ -28,18 +28,18 @@ function Settings({ onCloseClick, onFeedback, onLinkClick, onResetPassword }) {
 
     const oldPasswordInput = form.oldPassword;
     const newPasswordInput = form.newPassword;
-    const retypePasswordInput = form.retypePassword;
+    const confirmPasswordInput = form.confirmPassword;
 
     const oldPassword = oldPasswordInput.value;
     const newPassword = newPasswordInput.value;
-    const retypePassword = retypePasswordInput.value;
+    const confirmPassword = confirmPasswordInput.value;
 
     try {
-      resetPassword(
+      updatePassword(
         sessionStorage.token,
         oldPassword,
         newPassword,
-        retypePassword,
+        confirmPassword,
         function (error) {
           if (error) {
             onFeedback({ message: error.message, level: "warning" });
@@ -51,7 +51,7 @@ function Settings({ onCloseClick, onFeedback, onLinkClick, onResetPassword }) {
 
           form.reset();
 
-          onResetPassword();
+          onUpdatePassword();
         }
       );
     } catch (error) {
@@ -94,12 +94,12 @@ function Settings({ onCloseClick, onFeedback, onLinkClick, onResetPassword }) {
             </div>
 
             <div className="form__field">
-              <label htmlFor="password">retype password</label>
+              <label htmlFor="password">confirm password</label>
               <input
                 type="password"
-                placeholder="retype password"
-                name="retypePassword"
-                id="retypePassword"
+                placeholder="confirm password"
+                name="confirmPassword"
+                id="confirmPassword"
                 className="input-item"
               />
             </div>

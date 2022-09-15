@@ -22,13 +22,14 @@ function retrieveQuestionForEdit(token, questionId, callback) {
     const data = JSON.parse(json);
 
     callback(null, data);
-
+    debugger;
     if (status >= 500) callback(new Error(`server error(${status})`));
     else if (status >= 400) callback(new Error(`client error(${status})`));
     else if (status === 200) callback(null, data);
   };
 
   xhr.open("GET", `${API_URL}/questions/${questionId}`);
+  debugger;
 
   xhr.setRequestHeader("Authorization", `Bearer ${token}`);
   xhr.setRequestHeader("Content-type", "application/json");

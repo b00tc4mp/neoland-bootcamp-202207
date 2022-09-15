@@ -20,8 +20,10 @@ import withContext from "../utils/withContext";
 
 import {
   searchQuestions,
+  searchQuestionsPublic,
   retrieveUser,
   retrieveQuestions,
+  retrieveQuestionsPublic,
   createQuestion,
   createGameCode,
   updateQuestionText,
@@ -40,6 +42,7 @@ function HomePage({
 
   const [name, setName] = useState(null);
   const [questions, setQuestions] = useState(null);
+  const [questionsPublic, setQuestionsPublic] = useState(null);
   const [query, setQuery] = useState(null);
   const [questionBeingEditedId, setQuestionBeingEditedId] = useState(null);
   const [editedLocation, setEditedLocation] = useState(null);
@@ -76,7 +79,9 @@ function HomePage({
       logger.warn(error.message);
     }
 
+    //Maybe better to move this to happen when each page is loaded, instead of loading all on initial load.
     loadQuestions();
+    loadQuestionsPublic();
   }, []);
 
   const onQuickPlayClick = () => {
@@ -85,8 +90,8 @@ function HomePage({
 
   useEffect(() => {
     logger.info("on query changed");
-
-    loadQuestions();
+    if (location.pathname === "/questionsList") loadQuestions();
+    else if (location.pathname === "/communityList") loadQuestionsPublic();
   }, [query]);
 
   const loadQuestions = () => {
@@ -116,6 +121,42 @@ function HomePage({
           }
 
           setQuestions(questions);
+
+          logger.debug("setQuestions", questions);
+        });
+    } catch (error) {
+      handleFeedback({ message: error.message, level: "error" });
+
+      logger.warn(error.message);
+    }
+  };
+
+  const loadQuestionsPublic = () => {
+    try {
+      if (!query)
+        retrieveQuestionsPublic((error, questions) => {
+          if (error) {
+            handleFeedback({ message: error.message, level: "error" });
+
+            logger.warn(error.message);
+
+            return;
+          }
+
+          setQuestionsPublic(questions);
+
+          logger.debug("setQuestionsPublic", questions);
+        });
+      else
+        searchQuestionsPublic(query, (error, questions) => {
+          if (error) {
+            handleFeedback({ message: error.message, level: "error" });
+
+            logger.warn(error.message);
+
+            return;
+          }
+          setQuestionsPublic(questions);
 
           logger.debug("setQuestions", questions);
         });
@@ -199,13 +240,13 @@ function HomePage({
     logger.debug("navigate to settings");
   };
 
-  const handleQuestionsClick = () => {
+  const handleHomeClick = () => {
     navigate("/");
 
-    logger.debug("navigate to list");
+    logger.debug("navigate to home");
   };
 
-  const handleResetPassword = () => {
+  const handleUpdatePassword = () => {
     handleLogoutClick();
   };
 
@@ -216,8 +257,16 @@ function HomePage({
 
   const handleSearch = (query) => setQuery(query);
 
+  const handleSearchPublic = (query) => setQuery(query);
+
   const handleMyQuestionsClick = () => {
+    // loadQuestions();
     navigate("questionsList");
+  };
+
+  const handleCommunityClick = () => {
+    // loadQuestionsPublic();
+    navigate("communityList");
   };
 
   const handleFavouritesClick = () => {
@@ -252,7 +301,7 @@ function HomePage({
           name={name}
           onLogoutClick={handleLogoutClick}
           onSettingsClick={handleSettingsClick}
-          onQuestionsClick={handleQuestionsClick}
+          onHomeClick={handleHomeClick}
           onFeedback={handleFeedback}
         />
       )}
@@ -280,6 +329,7 @@ function HomePage({
             element={
               <LandingPanel
                 handleMyQuestionsClick={handleMyQuestionsClick}
+                handleCommunityClick={handleCommunityClick}
                 handleFavouritesClick={handleFavouritesClick}
                 handleCollectionsClick={handleCollectionsClick}
               />
@@ -309,7 +359,20 @@ function HomePage({
               />
             }
           />
-          <Route path="communityList" element={<CommunityList />} />
+          <Route
+            path="communityList"
+            element={
+              <CommunityList
+                questionsPublic={questionsPublic}
+                onUpdateQuestion={handleUpdateQuestion}
+                onDeleteQuestion={handleDeleteQuestion}
+                onEditQuestion={handleEditQuestion}
+                onFeedback={handleFeedback}
+                onReturn={handleReturn}
+                onSearchPublic={handleSearchPublic}
+              />
+            }
+          />
 
           <Route
             path="editQuestion"
@@ -357,7 +420,7 @@ function HomePage({
             path="settings"
             element={
               <Settings
-                onResetPassword={handleResetPassword}
+                onUpdatePassword={handleUpdatePassword}
                 onFeedback={handleFeedback}
               />
             }

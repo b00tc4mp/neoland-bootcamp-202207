@@ -10,7 +10,7 @@ function Menu({
   menuView,
   onLogoutClick,
   onSettingsClick,
-  onNotesClick,
+  onHomeClick,
   onCloseClick,
   context: { handleThemeChange },
 }) {
@@ -28,8 +28,8 @@ function Menu({
     onSettingsClick();
   };
 
-  const handleNotesClick = () => {
-    onNotesClick();
+  const handleHomeClick = () => {
+    onHomeClick();
   };
 
   const onThemeMenuClick = () => {
@@ -58,7 +58,7 @@ function Menu({
     onCloseClick();
   };
 
-  const elementsMenu =
+  /*  const elementsMenu =
     menuView === "notes"
       ? [
           { text: "Settings", action: handleSettingsClick, key: 1 },
@@ -67,6 +67,19 @@ function Menu({
         ]
       : [
           { text: "Notes", action: handleNotesClick, key: 2 },
+          { text: "Theme", action: onThemeMenuClick, key: 3 },
+          { text: "Logout", action: handleLogoutClick, key: 4 },
+        ]; */
+
+  const elementsMenu =
+    menuView === "home"
+      ? [
+          { text: "Settings", action: handleSettingsClick, key: 1 },
+          { text: "Theme", action: onThemeMenuClick, key: 3 },
+          { text: "Logout", action: handleLogoutClick, key: 4 },
+        ]
+      : [
+          { text: "Home", action: handleHomeClick, key: 2 },
           { text: "Theme", action: onThemeMenuClick, key: 3 },
           { text: "Logout", action: handleLogoutClick, key: 4 },
         ];

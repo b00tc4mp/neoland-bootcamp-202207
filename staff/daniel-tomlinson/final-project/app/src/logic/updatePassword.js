@@ -1,8 +1,10 @@
-function resetPassword(
+const API_URL = process.env.REACT_APP_API_URL;
+
+function updatePassword(
   token,
   oldPassword,
   newPassword,
-  retypedNewPassword,
+  confirmNewPassword,
   callback
 ) {
   //====== validation ======//
@@ -14,6 +16,9 @@ function resetPassword(
   if (newPassword.trim().length === 0)
     throw new Error("new password is empty or blank");
   //TO DO validate type of name e.g. first name / surname
+
+  if (newPassword.trim() !== confirmNewPassword.trim())
+    throw new Error("passwords do  not match");
 
   if (newPassword.length < 8)
     throw new Error("password length is less than 8 characters");
@@ -51,7 +56,7 @@ function resetPassword(
   };
   // XMLHttprequest
 
-  xhr.open("PATCH", "https://b00tc4mp.herokuapp.com/api/v2/users");
+  xhr.open("PATCH", `${API_URL}/users/password`);
 
   xhr.setRequestHeader("Authorization", `Bearer ${token}`);
   xhr.setRequestHeader("Content-type", "application/json");
@@ -59,4 +64,4 @@ function resetPassword(
   xhr.send(JSON.stringify({ oldPassword: oldPassword, password: newPassword }));
 }
 
-export default resetPassword;
+export default updatePassword;

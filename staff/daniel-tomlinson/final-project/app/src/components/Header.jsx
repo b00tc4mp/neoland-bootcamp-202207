@@ -10,7 +10,7 @@ function Header({
   name,
   onLogoutClick,
   onSettingsClick,
-  onQuestionsClick,
+  onHomeClick,
   onSearch,
   view: viewHome,
 }) {
@@ -36,9 +36,9 @@ function Header({
     handleCloseClick();
   };
 
-  const handleQuestionsClick = () => {
-    setMenuView("questions");
-    onQuestionsClick();
+  const handleHomeClick = () => {
+    setMenuView("home");
+    onHomeClick();
     handleCloseClick();
   };
 
@@ -87,7 +87,7 @@ function Header({
           <Menu
             onLogoutClick={handleLogoutClick}
             onSettingsClick={handleSettingsClick}
-            onQuestionsClick={handleQuestionsClick}
+            onHomeClick={handleHomeClick}
             onCloseClick={handleCloseClick}
             view={viewHome}
             menuView={menuView}

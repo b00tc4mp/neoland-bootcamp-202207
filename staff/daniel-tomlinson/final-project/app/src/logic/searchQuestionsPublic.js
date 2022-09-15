@@ -3,8 +3,7 @@ import { AuthError, ClientError, ServerError, UnknownError } from "errors";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-function searchQuestions(token, query, callback) {
-  validateText(token, "token");
+function searchQuestionsPublic(query, callback) {
   validateString(query, "query");
   validateCallback(callback);
 
@@ -36,11 +35,11 @@ function searchQuestions(token, query, callback) {
     }
   };
 
-  xhr.open("GET", `${API_URL}/questions/search?q=${query}`);
+  xhr.open("GET", `${API_URL}/questions/public/search?q=${query}`);
 
-  xhr.setRequestHeader("Authorization", `Bearer ${token}`);
+  xhr.setRequestHeader("Content-type", "application/json");
 
   xhr.send();
 }
 
-export default searchQuestions;
+export default searchQuestionsPublic;
