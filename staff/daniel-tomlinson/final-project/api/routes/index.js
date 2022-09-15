@@ -32,7 +32,8 @@ usersRouter.post("/users/auth", jsonBodyParser, authenticateUserHandler);
 
 usersRouter.get("/users", retrieveUserHandler);
 
-usersRouter.patch("/users/password", jsonBodyParser, updatePasswordHandler);
+// usersRouter.patch("/users/password", jsonBodyParser, updatePasswordHandler);
+usersRouter.patch("/users/details", jsonBodyParser, updatePasswordHandler);
 
 // TODO usersRouter.patch('/users/email', jsonBodyParser, updateUserEmailHandler)
 // TODO usersRouter.patch('/users/password', jsonBodyParser, updateUserPasswordHandler)

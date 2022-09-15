@@ -10,7 +10,6 @@ module.exports = (req, res) => {
     () => {
       retrieveQuestionsPublic()
         .then((questions) => {
-          debugger;
           return res.json(questions);
         })
 

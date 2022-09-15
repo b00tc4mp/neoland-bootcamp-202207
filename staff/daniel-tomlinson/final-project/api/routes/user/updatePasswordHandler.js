@@ -7,18 +7,21 @@ const logger = require("../../logger")(module);
 function updatePasswordHandler(req, res) {
   runWithErrorHandling(
     async () => {
-      debugger;
       const userId = await verifyToken(req);
 
-      const {
+      /* const {
         body: { oldPassword, password },
-      } = req;
+      } = req; */
 
-      await updatePassword(userId, oldPassword, password);
+      await updatePassword(
+        userId,
+        req.body
+        // oldPassword, password
+      );
 
       res.status(204).send();
 
-      logger.info(`User: ${userId} changed password succesfully`);
+      logger.info(`User: ${userId} updated details succesfully`);
     },
     res,
     logger
