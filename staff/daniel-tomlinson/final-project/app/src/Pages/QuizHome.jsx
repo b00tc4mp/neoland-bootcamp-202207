@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import TeacherStudent from "../screens/quiz-home/TeacherStudent";
 
 function QuizHome({
@@ -7,9 +7,6 @@ function QuizHome({
   handleLeaveClick,
   handleLeaveClass,
 }) {
-  //   const [gameScreen, setGameScreen] = useState("TeacherStudent");
-  //   const [userType, setUserType] = useState("Home");
-
   const onLeaveClick = () => {
     handleLeaveClick();
   };

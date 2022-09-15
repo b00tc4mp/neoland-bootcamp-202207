@@ -1,30 +1,55 @@
-// import "./ScreenTemplate.1.css";
-// import "./ScreenTemplate.1.scss";
-// import Spinner from "./Spinner";
-// import CountdownTimer from "./CountdownTimer";
-
-// import "./timeSelect.scss";
-
 import Loggito from "../utils/Loggito";
-import createQuestion from "../logic/createQuestion";
+import retrieveQuestionForEdit from "../logic/retrieveQuestionForEdit";
+import updateQuestionEdit from "../logic/updateQuestionEdit";
+import { useEffect, useState } from "react";
 
 import withContext from "../utils/withContext";
-// const handleLeaveClick = () => {};
 
-function CreateQuestionPanel({
-  //   pin,
-  //   nameOfClass,
-  //   handleScreenChangeT3,
-  //   socket,
-  //   host,
-  handleReturn,
+function EditQuestionPanel({
+  onReturn,
+  questionBeingEditedId,
+  editedLocation,
+  handleNavigateTo,
   context: { handleFeedback },
 }) {
-  const logger = new Loggito("Create Question");
+  const logger = new Loggito("Edit Question");
+  const [questionForEdit, setQuestionForEdit] = useState("");
 
-  const onReturn = () => {
-    handleReturn();
+  const handleReturn = () => {
+    onReturn();
   };
+
+  const loadQuestionForEdit = () => {
+    try {
+      retrieveQuestionForEdit(
+        sessionStorage.token,
+        questionBeingEditedId,
+        (error, question) => {
+          if (error) {
+            handleFeedback({ message: error.message, level: "error" });
+
+            logger.warn(error.message);
+
+            return;
+          }
+
+          setQuestionForEdit(question);
+
+          logger.debug("setQuestionForEdit", question);
+
+          return;
+        }
+      );
+    } catch (error) {
+      handleFeedback({ message: error.message, level: "error" });
+
+      logger.warn(error.message);
+    }
+  };
+
+  useEffect(() => {
+    loadQuestionForEdit();
+  }, []);
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -46,8 +71,9 @@ function CreateQuestionPanel({
     form.reset();
 
     try {
-      createQuestion(
+      updateQuestionEdit(
         sessionStorage.token,
+        questionBeingEditedId,
         question,
         suggestedAnswer,
         timeLimit,
@@ -61,8 +87,8 @@ function CreateQuestionPanel({
             return;
           }
 
-          // loadNotes();
-          handleReturn();
+          handleNavigateTo(editedLocation);
+          // handleReturn();
         }
       );
     } catch (error) {
@@ -70,35 +96,36 @@ function CreateQuestionPanel({
 
       logger.warn(error.message);
     }
-
-    // socket.to("1").emit("T3", {
-    /* socket.emit("T3", {
-      gameScreen: "Student3GetReady",
-      timeLimit: { timeLimit },
-      question: { question },
-      host: { host },
-      publicPrivate: { publicPrivate },
-      suggestedAnswer: { suggestedAnswer },
-    }); */
-
-    // handleScreenChangeT3("Teacher3BGetReady", question, timeLimit);
   };
+
+  useEffect(() => {
+    const timeLimitElement = document.getElementById("timeLimit");
+    const visibilityElement = document.getElementById("visibility");
+    const questionElement = document.getElementById("question");
+    const suggestedAnswerElement = document.getElementById("suggestedAnswer");
+
+    console.log(`questionBeingEdited: ${questionForEdit}`);
+
+    console.log(`timeLimitElement: ${timeLimitElement}`);
+    console.log(`visibilityElement: ${visibilityElement}`);
+    console.log(`questionElement: ${questionElement}`);
+    console.log(`suggestedAnswerElement: ${suggestedAnswerElement}`);
+
+    timeLimitElement.value = questionForEdit.timeLimit;
+    visibilityElement.value = questionForEdit.visibility;
+    questionElement.value = questionForEdit.question;
+    suggestedAnswerElement.value = questionForEdit.suggestedAnswer;
+  }, [questionForEdit]);
 
   return (
     <div className="game-screen">
       <span
         className="material-symbols-outlined button-icon"
-        onClick={onReturn}
+        onClick={handleReturn}
       >
         arrow_back_ios_new
       </span>
       <main className="game-screen-main flex--spaced">
-        {/* <div className="grouped-elements">
-          <p className="info--bold">
-            PIN: {pin} <br></br>
-            Class: {nameOfClass}
-          </p>
-        </div> */}
         <form
           action=""
           className="form form--spread"
@@ -147,16 +174,14 @@ function CreateQuestionPanel({
           </div>
 
           <button href="" type="submit" className="footer-button">
-            Send
+            Save
           </button>
         </form>
       </main>
 
-      <footer className="game-screen-footer">
-        {/* <button className="footer-button">Start Game</button> */}
-      </footer>
+      <footer className="game-screen-footer"></footer>
     </div>
   );
 }
 
-export default withContext(CreateQuestionPanel);
+export default withContext(EditQuestionPanel);

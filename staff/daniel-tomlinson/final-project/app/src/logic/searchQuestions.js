@@ -11,8 +11,6 @@ function searchQuestions(token, query, callback) {
 
   const xhr = new XMLHttpRequest();
 
-  // response
-
   xhr.onload = function () {
     const status = xhr.status;
 
@@ -38,8 +36,6 @@ function searchQuestions(token, query, callback) {
         callback(new UnknownError(`unexpected status ${status}`));
     }
   };
-
-  // request
 
   xhr.open("GET", `${API_URL}/questions/search?q=${query}`);
   debugger;

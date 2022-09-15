@@ -25,8 +25,6 @@ function registerUser(name, email, password, callback) {
 
   const xhr = new XMLHttpRequest();
 
-  //response
-
   xhr.onload = function () {
     const status = xhr.status;
     debugger;
@@ -36,8 +34,6 @@ function registerUser(name, email, password, callback) {
     else if (status >= 400) callback(new Error(`client error(${status})`));
     else if (status === 201) callback(null);
   };
-
-  // XMLHttprequest
 
   xhr.open("POST", `${API_URL}/users`);
 

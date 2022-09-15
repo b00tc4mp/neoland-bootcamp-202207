@@ -9,8 +9,6 @@ function retrieveQuestions(token, callback) {
 
   const xhr = new XMLHttpRequest();
 
-  //response
-
   xhr.onload = function () {
     const status = xhr.status;
 
@@ -25,7 +23,6 @@ function retrieveQuestions(token, callback) {
     }
   };
 
-  // XMLHttprequest
   xhr.open("GET", `${API_URL}/questions`);
 
   xhr.setRequestHeader("Authorization", `Bearer ${token}`);

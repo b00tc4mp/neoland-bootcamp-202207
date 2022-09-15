@@ -557,7 +557,8 @@ p {
 }
 
 .welcome {
-  color: var(--color-headings);
+  /* color: var(--color-headings); */
+  color: white;
   line-height: 1.1;
   text-align: center;
   font-size: 2rem;
@@ -806,7 +807,7 @@ button {
   /* height: 80%;
   top: 60px;
   position: absolute; */
-  overflow: scroll;
+
   /* margin-block-start: 0;
   margin-block-end: 0; */
 
@@ -840,6 +841,7 @@ button {
   flex-shrink: 0;
   overflow: scroll;
   flex-wrap: nowrap;
+  border-radius: 10px;
 }
 
 .list__item-text {
@@ -859,6 +861,7 @@ button {
   /* height: calc(100% - 2rem); */
   /* overflow: hidden; */
   max-height: 200px;
+  color: white;
 }
 
 .resetPassword-elements {
@@ -1019,4 +1022,43 @@ body {
 
 .search-button {
   width: auto;
+}
+
+.home-page-button {
+  font-size: 2.5rem;
+  font-weight: 600;
+  padding: 2rem;
+  width: 90%;
+}
+
+.home-page-start-button {
+  font-size: 2.5rem;
+  font-weight: 600;
+  padding: 1.5rem;
+  width: 60%;
+}
+
+.question-options-grouped {
+  width: 100%;
+  display: flex;
+  /* flex-direction: column; */
+  /* flex-grow: 1; */
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+}
+
+.question-option-button {
+  padding: 0.2 rem;
+  margin: none;
+  width: auto;
+  font-size: 2rem;
+}
+
+.questions-list-panel {
+  height: 100%;
+}
+
+.questions-list {
+  height: 50%;
 }

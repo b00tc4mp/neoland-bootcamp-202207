@@ -4,7 +4,7 @@ import Menu from "./Menu";
 // import IconButton from './IconButton'
 import Loggito from "../utils/Loggito";
 
-import Search from "./Search";
+// import Search from "./Search";
 
 function Header({
   name,
@@ -94,7 +94,7 @@ function Header({
           />
         )}
       </div>
-      {view !== "menu" && <Search onQuery={onSearch} />}
+      {/* {view !== "menu" && <Search onQuery={onSearch} />} */}
     </header>
   );
 }

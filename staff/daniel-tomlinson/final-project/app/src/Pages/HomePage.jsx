@@ -7,8 +7,13 @@ import Loggito from "../utils/Loggito";
 // import updateQuestionText from "../logic/updateQuestionText";
 // import deleteQuestion from "../logic/deleteQuestion";
 import Settings from "../components/Settings";
-import QuestionList from "../components/QuestionList";
+import QuestionsList from "../components/QuestionsList";
+import CommunityList from "../components/CommunityList";
+import FavouritesList from "../components/FavouritesList";
+import CollectionsList from "../components/CollectionsList";
 import Header from "../components/Header";
+import LandingPanel from "../components/LandingPanel";
+import EditQuestionPanel from "../components/EditQuestionPanel";
 import QuickPlayPage from "./QuickPlayPage";
 import CreateQuestionPanel from "../components/CreateQuestionPanel";
 import withContext from "../utils/withContext";
@@ -36,6 +41,8 @@ function HomePage({
   const [name, setName] = useState(null);
   const [questions, setQuestions] = useState(null);
   const [query, setQuery] = useState(null);
+  const [questionBeingEditedId, setQuestionBeingEditedId] = useState(null);
+  const [editedLocation, setEditedLocation] = useState(null);
   // const [view, setView] = useState("list");
   const navigate = useNavigate();
   const location = useLocation();
@@ -73,32 +80,8 @@ function HomePage({
   }, []);
 
   const onQuickPlayClick = () => {
-    // debugger;
-    // delete sessionStorage.token;
-    // handleQuickPlayClick();
     navigate("quickPlayInHome");
   };
-
-  /* const loadQuestions = () => {
-    try {
-      retrieveQuestions(sessionStorage.token, (error, questions) => {
-        if (error) {
-          handleFeedback({ message: error.message, level: "error" });
-
-          logger.warn(error.message);
-
-          return;
-        }
-        setQuestions(questions);
-
-        logger.debug("setQuestions", questions);
-      });
-    } catch (error) {
-      handleFeedback({ message: error.message, level: "error" });
-
-      logger.warn(error.message);
-    }
-  }; */
 
   useEffect(() => {
     logger.info("on query changed");
@@ -193,7 +176,6 @@ function HomePage({
   const handleDeleteQuestion = (questionId) => {
     try {
       deleteQuestion(sessionStorage.token, questionId, (error) => {
-        debugger;
         if (error) {
           handleFeedback({ message: error.message, level: "error" });
 
@@ -234,6 +216,33 @@ function HomePage({
 
   const handleSearch = (query) => setQuery(query);
 
+  const handleMyQuestionsClick = () => {
+    navigate("questionsList");
+  };
+
+  const handleFavouritesClick = () => {
+    navigate("favouritesList");
+  };
+
+  const handleCollectionsClick = () => {
+    navigate("collectionsList");
+  };
+
+  const handleEditQuestion = (questionId, location) => {
+    setQuestionBeingEditedId(questionId);
+    setEditedLocation(location);
+    navigate("editQuestion");
+  };
+
+  const handleNavigateTo = (location) => {
+    navigate(`/`);
+    navigate(`${location.pathname}`);
+  };
+
+  /*   useEffect(() => {
+    navigate("editQuestion");
+  }, [questionBeingEditedId]); */
+
   logger.info("render");
 
   return name ? (
@@ -244,32 +253,19 @@ function HomePage({
           onLogoutClick={handleLogoutClick}
           onSettingsClick={handleSettingsClick}
           onQuestionsClick={handleQuestionsClick}
-          // view={view}
           onFeedback={handleFeedback}
-          onSearch={handleSearch}
         />
       )}
       <main className="main flex-container main-page-content">
-        {location.pathname !== "/quickPlayInHome" && (
-          <button className="button--primary" onClick={onQuickPlayClick}>
-            Join or Start Quiz
+        {location.pathname === "/" && (
+          <button
+            className="button--primary home-page-start-button"
+            onClick={onQuickPlayClick}
+          >
+            play
           </button>
         )}
         <Routes>
-          {/*  {view === "list" && (
-            <QuestionList
-              questions={questions}
-              onUpdateQuestion={handleUpdateQuestion}
-              onDeleteQuestion={handleDeleteQuestion}
-              onFeedback={handleFeedback}
-            />
-          )}
-          {view === "settings" && (
-            <Settings
-              onResetPassword={handleResetPassword}
-              onFeedback={handleFeedback}
-            />
-          )} */}
           <Route
             path="quickPlayInHome"
             element={
@@ -280,22 +276,80 @@ function HomePage({
             }
           />
           <Route
+            path="/"
+            element={
+              <LandingPanel
+                handleMyQuestionsClick={handleMyQuestionsClick}
+                handleFavouritesClick={handleFavouritesClick}
+                handleCollectionsClick={handleCollectionsClick}
+              />
+            }
+          />
+          <Route
             path="createQuestion"
             element={
               <CreateQuestionPanel
                 handleFeedback={handleFeedback}
                 handleReturn={handleReturn}
+                handleNavigateTo={handleNavigateTo}
               />
             }
           />
           <Route
-            path="/"
+            path="questionsList"
             element={
-              <QuestionList
+              <QuestionsList
                 questions={questions}
                 onUpdateQuestion={handleUpdateQuestion}
                 onDeleteQuestion={handleDeleteQuestion}
+                onEditQuestion={handleEditQuestion}
                 onFeedback={handleFeedback}
+                onReturn={handleReturn}
+                onSearch={handleSearch}
+              />
+            }
+          />
+          <Route path="communityList" element={<CommunityList />} />
+
+          <Route
+            path="editQuestion"
+            element={
+              <EditQuestionPanel
+                questions={questions}
+                onUpdateQuestion={handleUpdateQuestion}
+                onDeleteQuestion={handleDeleteQuestion}
+                onEditQuestion={handleEditQuestion}
+                onFeedback={handleFeedback}
+                onReturn={handleReturn}
+                editedLocation={editedLocation}
+                questionBeingEditedId={questionBeingEditedId}
+                handleNavigateTo={handleNavigateTo}
+              />
+            }
+          />
+          <Route
+            path="favouritesList"
+            element={
+              <FavouritesList
+                questions={questions}
+                onUpdateQuestion={handleUpdateQuestion}
+                onDeleteQuestion={handleDeleteQuestion}
+                onEditQuestion={handleEditQuestion}
+                onFeedback={handleFeedback}
+                onReturn={handleReturn}
+              />
+            }
+          />
+          <Route
+            path="collectionsList"
+            element={
+              <CollectionsList
+                questions={questions}
+                onUpdateQuestion={handleUpdateQuestion}
+                onDeleteQuestion={handleDeleteQuestion}
+                onEditQuestion={handleEditQuestion}
+                onFeedback={handleFeedback}
+                onReturn={handleReturn}
               />
             }
           />
@@ -311,7 +365,7 @@ function HomePage({
         </Routes>
       </main>
       <footer className="footer flex-container">
-        {location.pathname === "/" && (
+        {location.pathname === "questionsList" && (
           <button className="transparent-button" onClick={handleAddClick}>
             +
           </button>

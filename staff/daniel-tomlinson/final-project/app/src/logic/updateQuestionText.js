@@ -1,6 +1,6 @@
 const API_URL = process.env.REACT_APP_API_URL;
 
-function updateQuestion(token, questionId, text, callback) {
+function updateQuestionText(token, questionId, text, callback) {
   if (typeof token !== "string") throw new TypeError("token is not a string");
   if (token.trim().length === 0) throw new Error("token is empty or blank");
 
@@ -16,8 +16,6 @@ function updateQuestion(token, questionId, text, callback) {
 
   const xhr = new XMLHttpRequest();
 
-  //response
-
   xhr.onload = function () {
     const status = xhr.status;
 
@@ -26,7 +24,7 @@ function updateQuestion(token, questionId, text, callback) {
     else if (status === 204) callback(null);
   };
 
-  xhr.open("PATCH", `${API_URL}/questions/${questionId}`);
+  xhr.open("PATCH", `${API_URL}/questions/${questionId}/text`);
 
   xhr.setRequestHeader("Authorization", `Bearer ${token}`);
   xhr.setRequestHeader("Content-type", "application/json");
@@ -36,4 +34,4 @@ function updateQuestion(token, questionId, text, callback) {
   xhr.send(json);
 }
 
-export default updateQuestion;
+export default updateQuestionText;

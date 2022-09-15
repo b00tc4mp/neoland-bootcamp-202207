@@ -5,24 +5,23 @@ function createQuestion(
   question,
   suggestedAnswer,
   timeLimit,
-  publicPrivate,
+  visibility,
   callback
 ) {
   //TODO validate inputs
-
-  debugger;
 
   if (typeof token !== "string") throw new TypeError("token is not a string");
   if (token.trim().length === 0) throw new Error("token is empty or blank");
   if (typeof question !== "string")
     throw new TypeError("question is not a string");
-  debugger;
   if (question.trim().length === 0)
     throw new Error("question is empty or blank");
   if (typeof suggestedAnswer !== "string")
     throw new TypeError("suggested answer is not a string");
   if (typeof timeLimit !== "string")
     throw new TypeError("time limit is not a string");
+  if (typeof visibility !== "string")
+    throw new TypeError("visibility is not a string");
 
   if (typeof callback !== "function")
     throw new TypeError("callback is not a function");
@@ -48,7 +47,7 @@ function createQuestion(
     question,
     suggestedAnswer,
     timeLimit,
-    publicPrivate,
+    visibility,
   });
   console.log(json);
   xhr.send(json);

@@ -54,12 +54,10 @@ function authenticateUser(email, password, callback) {
     callback(new ServerError("connection failed"));
   };
 
-  // XMLHttprequest
-
   xhr.open("POST", `${API_URL}/users/auth`);
 
   xhr.setRequestHeader("Content-type", "application/json");
-  // Bearer needs a space after it to work
+
   xhr.send(`{ "email": "${email}", "password": "${password}"}`);
 }
 

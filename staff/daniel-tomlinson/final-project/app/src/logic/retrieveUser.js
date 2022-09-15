@@ -9,8 +9,6 @@ function retrieveUser(token, callback) {
 
   const xhr = new XMLHttpRequest();
 
-  //response
-
   xhr.onload = function () {
     const status = xhr.status;
 
@@ -29,8 +27,6 @@ function retrieveUser(token, callback) {
       callback(null, user);
     }
   };
-
-  // XMLHttprequest
 
   xhr.open("GET", `${API_URL}/users`);
 

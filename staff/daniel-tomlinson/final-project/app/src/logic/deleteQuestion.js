@@ -35,7 +35,6 @@ function deleteQuestion(token, questionId, callback) {
   xhr.open("DELETE", `${API_URL}/questions/${questionId}`);
 
   xhr.setRequestHeader("Authorization", `Bearer ${token}`);
-  // xhr.setRequestHeader("Content-type", "application/json");
 
   xhr.send(JSON.stringify({ questionId }));
 }
