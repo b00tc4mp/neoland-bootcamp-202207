@@ -1,27 +1,35 @@
 import authenticateUser from './authenticateUser'
 import registerUser from './registerUser'
 import retrieveStock from './retrieveStock'
+import retrieveAItem from './retrieveAItem'
 import retrieveCustomers from './retrieveCustomers'
+import retrieveACustomer from './retrieveACustomer'
 import retrieveInvoices from './retrieveInvoices'
 import createProduct from './createProduct'
 import createCustomer from './createCustomer'
 import authenticateUserGoogle from './authenticateUserGoogle'
 import registerUserGoogle from './registerUserGoogle'
 import retrieveEstimates from './retrieveEstimates'
+import retrieveAEstimate from './retrieveAEstimate'
 import createInvoice from './createInvoice'
 import createEstimate from './createEstimate'
 import deleteEstimate from './deleteEstimate'
 import deleteInvoice from './deleteInvoice'
 import deleteProduct from './deleteProduct'
 import deleteCustomer from './deleteCustomer'
+import editCustomer from './editCustomer'
+import editItem from './editItem'
 
 export {
     authenticateUser,
     registerUser,
     retrieveStock,
+    retrieveAItem,
     retrieveCustomers,
+    retrieveACustomer,
     retrieveInvoices,
     retrieveEstimates,
+    retrieveAEstimate,
     createProduct,
     createCustomer,
     authenticateUserGoogle,
@@ -31,5 +39,7 @@ export {
     deleteEstimate,
     deleteInvoice,
     deleteProduct,
-    deleteCustomer
+    deleteCustomer,
+    editCustomer,
+    editItem
 }

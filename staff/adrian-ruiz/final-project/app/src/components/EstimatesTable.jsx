@@ -16,18 +16,30 @@ import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import { visuallyHidden } from '@mui/utils';
 import { deleteEstimate } from '../logic';
 import { toaster } from 'evergreen-ui'
 import DeleteDialog from './DeleteDialog'
 
 function descendingComparator(a, b, orderBy) {
-    if (b[orderBy] < a[orderBy]) {
-        return -1;
+    if ((typeof a[orderBy] === 'string') && (typeof b[orderBy] === 'string')) {
+        if (b[orderBy].toUpperCase() < a[orderBy].toUpperCase()) {
+            return -1;
+        }
+        if (b[orderBy].toUpperCase() > a[orderBy].toUpperCase()) {
+            return 1;
+        }
     }
-    if (b[orderBy] > a[orderBy]) {
-        return 1;
+    else {
+        if (b[orderBy] < a[orderBy]) {
+            return -1;
+        }
+        if (b[orderBy] > a[orderBy]) {
+            return 1;
+        }
     }
+
     return 0;
 }
 
@@ -139,7 +151,7 @@ EnhancedTableHead.propTypes = {
 };
 
 const EnhancedTableToolbar = (props) => {
-    const { numSelected, handleDeleteClick } = props;
+    const { numSelected, handleDeleteClick, handleEditClick } = props;
 
     return (
         <Toolbar
@@ -176,11 +188,18 @@ const EnhancedTableToolbar = (props) => {
             )}
 
             {numSelected > 0 ? (
-                <Tooltip title="Delete">
-                    <IconButton onClick={handleDeleteClick}>
-                        <DeleteIcon />
-                    </IconButton>
-                </Tooltip>
+                <>
+                    <Tooltip title="Edit">
+                        <IconButton onClick={handleEditClick}>
+                            <EditIcon />
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Delete">
+                        <IconButton onClick={handleDeleteClick}>
+                            <DeleteIcon />
+                        </IconButton>
+                    </Tooltip>
+                </>
             ) : null}
         </Toolbar>
     );
@@ -190,7 +209,7 @@ EnhancedTableToolbar.propTypes = {
     numSelected: PropTypes.number.isRequired,
 };
 
-export default function EnhancedTable({ data, onDeleteEstimate }) {
+export default function EnhancedTable({ data, onDeleteEstimate, onEditClick }) {
 
     const rows = data
 
@@ -199,8 +218,8 @@ export default function EnhancedTable({ data, onDeleteEstimate }) {
     const [selected, setSelected] = React.useState(undefined);
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
-    const [rowsPerPage, setRowsPerPage] = React.useState(rows.length);
     const [isShown, setIsShown] = React.useState(false);
+    const rowsPerPage = rows.length;
 
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
@@ -223,6 +242,10 @@ export default function EnhancedTable({ data, onDeleteEstimate }) {
         setSelected(newSelected);
     };
 
+    const handleEditClick = () => {
+        const foundEstimate = rows.find(row => row.estimateNumber === selected)
+        onEditClick(foundEstimate.id)
+    }
 
     const handleDeleteClick = () => {
         setIsShown(true)
@@ -267,10 +290,10 @@ export default function EnhancedTable({ data, onDeleteEstimate }) {
             {selected && <DeleteDialog status={isShown} item={'estimate'} title={`Delete estimate Number ${selected}`} onConfirm={confirmDeleteClick} onCancelClick={handleCancelClick} />}
             <Box sx={{ width: '100%', height: '100%' }}>
                 <Paper sx={{ width: '100%', height: '100%', mb: 2, overflow: 'hidden' }}>
-                    <EnhancedTableToolbar numSelected={selected ? 1 : 0} handleDeleteClick={handleDeleteClick} />
+                    <EnhancedTableToolbar numSelected={selected ? 1 : 0} handleDeleteClick={handleDeleteClick} handleEditClick={handleEditClick} />
                     <TableContainer
                         sx={{
-                            maxHeight: '90vh',
+                            height: '100%',
                             maxWidth: '90vw'
                         }}
                     >

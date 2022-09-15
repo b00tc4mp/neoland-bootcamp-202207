@@ -16,22 +16,35 @@ import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import { visuallyHidden } from '@mui/utils';
 import { deleteProduct } from '../logic';
 import { toaster } from 'evergreen-ui'
 import DeleteDialog from './DeleteDialog'
 
 function descendingComparator(a, b, orderBy) {
-    if (b[orderBy] < a[orderBy]) {
-        return -1;
+    if ((typeof a[orderBy] === 'string') && (typeof b[orderBy] === 'string')) {
+        if (b[orderBy].toUpperCase() < a[orderBy].toUpperCase()) {
+            return -1;
+        }
+        if (b[orderBy].toUpperCase() > a[orderBy].toUpperCase()) {
+            return 1;
+        }
     }
-    if (b[orderBy] > a[orderBy]) {
-        return 1;
+    else {
+        if (b[orderBy] < a[orderBy]) {
+            return -1;
+        }
+        if (b[orderBy] > a[orderBy]) {
+            return 1;
+        }
     }
+
     return 0;
 }
 
 function getComparator(order, orderBy) {
+
     return order === 'desc'
         ? (a, b) => descendingComparator(a, b, orderBy)
         : (a, b) => -descendingComparator(a, b, orderBy);
@@ -40,6 +53,8 @@ function getComparator(order, orderBy) {
 // This method is created for cross-browser compatibility, if you don't
 // need to support IE11, you can use Array.prototype.sort() directly
 function stableSort(array, comparator) {
+
+
     const stabilizedThis = array.map((el, index) => [el, index]);
     stabilizedThis.sort((a, b) => {
         const order = comparator(a[0], b[0]);
@@ -48,6 +63,7 @@ function stableSort(array, comparator) {
         }
         return a[1] - b[1];
     });
+    console.log(stabilizedThis)
     return stabilizedThis.map((el) => el[0]);
 }
 
@@ -145,7 +161,7 @@ EnhancedTableHead.propTypes = {
 };
 
 const EnhancedTableToolbar = (props) => {
-    const { numSelected, handleDeleteClick } = props;
+    const { numSelected, handleDeleteClick, handleEditClick } = props;
 
     return (
         <Toolbar
@@ -182,11 +198,18 @@ const EnhancedTableToolbar = (props) => {
             )}
 
             {numSelected > 0 ? (
-                <Tooltip title="Delete">
-                    <IconButton onClick={handleDeleteClick}>
-                        <DeleteIcon />
-                    </IconButton>
-                </Tooltip>
+                <>
+                    <Tooltip title="Edit">
+                        <IconButton onClick={handleEditClick}>
+                            <EditIcon />
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Delete">
+                        <IconButton onClick={handleDeleteClick}>
+                            <DeleteIcon />
+                        </IconButton>
+                    </Tooltip>
+                </>
             ) : null}
         </Toolbar>
     );
@@ -196,7 +219,7 @@ EnhancedTableToolbar.propTypes = {
     numSelected: PropTypes.number.isRequired,
 };
 
-export default function EnhancedTable({ stock, onDeleteProduct }) {
+export default function EnhancedTable({ stock, onDeleteProduct, onEditClick }) {
 
     const rows = stock
 
@@ -231,6 +254,11 @@ export default function EnhancedTable({ stock, onDeleteProduct }) {
         setSelected(newSelected);
     };
 
+    const handleEditClick = () => {
+        const foundItem = rows.find(row => row.name === selected)
+        onEditClick(foundItem.id)
+    }
+
     const handleDeleteClick = () => {
         setIsShown(true)
     }
@@ -244,18 +272,18 @@ export default function EnhancedTable({ stock, onDeleteProduct }) {
 
         if (!productFound) throw new Error('Product selected not found')
 
-        ; (async () => {
-            try {
-                await deleteProduct(sessionStorage.UserToken, productFound.id)
-                toaster.success(`Product ${productFound.name} deleted successfully`)
+            ; (async () => {
+                try {
+                    await deleteProduct(sessionStorage.UserToken, productFound.id)
+                    toaster.success(`Product ${productFound.name} deleted successfully`)
 
-                onDeleteProduct()
-                setIsShown(false)
-                setSelected(undefined)
-            } catch (error) {
-                toaster.warning('Something went wrong', { duration: 2.5, description: error.message })
-            }
-        })()
+                    onDeleteProduct()
+                    setIsShown(false)
+                    setSelected(undefined)
+                } catch (error) {
+                    toaster.warning('Something went wrong', { duration: 2.5, description: error.message })
+                }
+            })()
     }
 
     const handleCancelClick = () => {
@@ -272,10 +300,10 @@ export default function EnhancedTable({ stock, onDeleteProduct }) {
             {selected && <DeleteDialog status={isShown} item={'product'} title={`Delete product ${selected}`} onConfirm={confirmDeleteClick} onCancelClick={handleCancelClick} />}
             <Box sx={{ width: '100%', height: '100%' }}>
                 <Paper sx={{ width: '100%', height: '100%', mb: 2, overflow: 'hidden' }}>
-                    <EnhancedTableToolbar numSelected={selected ? 1 : 0} handleDeleteClick={handleDeleteClick} />
+                    <EnhancedTableToolbar numSelected={selected ? 1 : 0} handleDeleteClick={handleDeleteClick} handleEditClick={handleEditClick} />
                     <TableContainer
                         sx={{
-                            maxHeight: '90vh',
+                            height: '100%',
                             maxWidth: '90vw'
                         }}
                     >

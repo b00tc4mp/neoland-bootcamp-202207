@@ -1,15 +1,13 @@
-import {BadRequestError} from 'errors'
 const axios = require('axios').default
 const API_URL = process.env.REACT_APP_API_URL
 
-function createCustomer(token, name, {email, phone, legalId, billingAddress, shippingAddress, payTerms, website}){
+function editItem(token, itemId, {name, sku, category, description, cost, minStock}){
     //TODO INPUT VALIDATIONS 
-   if(!name) throw new BadRequestError('Customer name is required')
 
     return (async() => {
         try{
-            await axios.post(`${API_URL}/customers`,
-            {name, email, phone, legalId, billingAddress, shippingAddress, payTerms, website},
+            await axios.patch(`${API_URL}/items/${itemId}`,
+            {name, sku, category, description, cost, minStock},
             {headers: 
                 {'Content-type' : 'application/json', Authorization : `Bearer ${token}`},
             })
@@ -28,4 +26,4 @@ function createCustomer(token, name, {email, phone, legalId, billingAddress, shi
     })() 
 }
 
-export default createCustomer
+export default editItem

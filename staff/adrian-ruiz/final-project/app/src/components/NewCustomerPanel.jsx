@@ -2,7 +2,7 @@ import { createCustomer } from '../logic'
 import { toaster } from 'evergreen-ui'
 function NewCustomerPanel({ onCloseClick, onCreateCustomer }) {
 
-    const handleNewCustomerSubmit = event => {
+    const handleNewCustomerSubmit = async event => {
         event.preventDefault()
 
         const { target: form,
@@ -26,7 +26,6 @@ function NewCustomerPanel({ onCloseClick, onCreateCustomer }) {
 
             } } = event
 
-            ; (async () => {
                 try {
                     await createCustomer(sessionStorage.UserToken, name, { email, phone, legalId, billingAddress: { street, town, state, postalCode, country }, shippingAddress: { shippingStreet, shippingTown, shippingState, shippingPostalCode, shippingCountry }, payTerms, website })
 
@@ -37,8 +36,6 @@ function NewCustomerPanel({ onCloseClick, onCreateCustomer }) {
                 } catch (error) {
                     toaster.warning(error.message, { duration: 3 })
                 }
-
-            })()
     }
     return (
         <div className="newFormPanel__page">

@@ -1,21 +1,23 @@
 import './EstimateCreatorPanel.css'
 import { useState, useRef, useEffect } from 'react'
 import { toaster } from 'evergreen-ui'
-import { createEstimate, retrieveCustomers, retrieveStock } from '../logic'
-function EstimateCreatorPanel({ handleSetViewList, onCreateEstimate }) {
+import { createEstimate, retrieveStock } from '../logic'
+function EstimateEditPanel({ estimate, handleSetViewList, onCreateEstimate }) {
 
-    const [rows, setRows] = useState([{ id: 0, value: 0, qty: 0, tax: 0 }, { id: 1, value: 0, qty: 0, tax: 0 }, { id: 2, value: 0, qty: 0, tax: 0 }])
-    const [totalAmount, setTotalAmount] = useState(0)
+    let initialTotal = 0
+    estimate.products.forEach((product, index) => {
+        product.index = index
+        initialTotal += ((product.price * product.amount) * (product.tax / 100 + 1))
+    })
+
+    const [rows, setRows] = useState(estimate)
+    const [totalAmount, setTotalAmount] = useState(initialTotal)
     const formRef = useRef(null)
-    const [customers, setCustomers] = useState([])
-    const [selectedCustomer, setSelectedCustomer] = useState({})
     const [stock, setStock] = useState([])
 
     useEffect(() => {
         ; (async () => {
             try {
-                const customers = await retrieveCustomers(sessionStorage.UserToken)
-                setCustomers(customers)
                 const stock = await retrieveStock(sessionStorage.UserToken)
                 setStock(stock)
 
@@ -26,50 +28,50 @@ function EstimateCreatorPanel({ handleSetViewList, onCreateEstimate }) {
     }, [])
 
     function printRows() {
-
-        return rows.map(row =>
-            <div className="invoiceCreator__productRow" key={row.id}>
-                <input type='text' className="form__invoiceProductName" name={`productName${row.id}`} placeholder='Select product' list='productsList'></input>
+        console.log(rows)
+        return rows.products.map(row =>
+            <div className="invoiceCreator__productRow" key={row.index}>
+                <input type='text' className="form__invoiceProductName" name={`productName${row.index}`} placeholder='Select product' list='productsList' defaultValue={row.name}></input>
                 <datalist id='productsList'>
                     {stock && stock.map(({ name }) => <option value={name}>{name}</option>)}
                 </datalist >
-                <input type='text' className="form__invoiceProductDescription" name={`productDescription${row.id}`} placeholder='Item/Service description...'></input>
-                <input type='number' className="form__invoiceProductQty" name={`productQty${row.id}`} onChange={(event) => handleChangeQty(event, row.id)}></input>
-                <input type='number' className="form__invoiceProductUnitPrice" name={`productUnitPrice${row.id}`} onChange={(event) => handleChangeUnitPrice(event, row.id)}></input>
-                <input type='text' className="form__invoiceProductTax" name={`productTax${row.id}`} onChange={(event) => handleChangeTax(event, row.id)}></input>
-                <input type='number' className="form__invoiceProductTotal" name={`productTotal${row.id}`} value={(row.value * row.qty) * (row.tax / 100 + 1)} readOnly></input>
-                <span className="material-symbols-outlined deleteRow" onClick={() => handleDeleteRow(row.id)}>delete_forever</span>
+                <input type='text' className="form__invoiceProductDescription" name={`productDescription${row.index}`} placeholder='Item/Service description...' defaultValue={row.description}></input>
+                <input type='number' className="form__invoiceProductQty" name={`productQty${row.index}`} onChange={(event) => handleChangeQty(event, row.index)} defaultValue={row.amount}></input>
+                <input type='number' className="form__invoiceProductUnitPrice" name={`productUnitPrice${row.index}`} onChange={(event) => handleChangeUnitPrice(event, row.index)} defaultValue={row.price}></input>
+                <input type='text' className="form__invoiceProductTax" name={`productTax${row.index}`} onChange={(event) => handleChangeTax(event, row.index)} defaultValue={row.tax}></input>
+                <input type='number' className="form__invoiceProductTotal" name={`productTotal${row.index}`} value={(row.price * row.amount) * (row.tax / 100 + 1)} readOnly></input>
+                <span className="material-symbols-outlined deleteRow" onClick={() => handleDeleteRow(row.index)}>delete_forever</span>
             </div>
         )
     }
 
-    const handleChangeUnitPrice = (event, rowId) => {
-        let _rows = [...rows]
-        const row = _rows.find(row => rowId === row.id)
-        row.value = event.target.value
+    const handleChangeUnitPrice = (event, index) => {
+        const _rows = { ...rows }
+        const product = _rows.products.find(row => index === row.index)
+        product.price = event.target.value
         setRows(_rows)
         handleTotalAmount()
     }
 
-    const handleChangeQty = (event, rowId) => {
-        let _rows = [...rows]
-        const row = _rows.find(row => rowId === row.id)
-        row.qty = event.target.value
+    const handleChangeQty = (event, index) => {
+        const _rows = { ...rows }
+        const product = _rows.products.find(row => index === row.index)
+        product.amount = event.target.value
         setRows(_rows)
         handleTotalAmount()
     }
 
-    const handleChangeTax = (event, rowId) => {
-        let _rows = [...rows]
-        const row = _rows.find(row => rowId === row.id)
-        row.tax = event.target.value
+    const handleChangeTax = (event, index) => {
+        let _rows = { ...rows }
+        const product = _rows.products.find(row => index === row.index)
+        product.tax = event.target.value
         setRows(_rows)
         handleTotalAmount()
     }
 
     const handleTotalAmount = () => {
         let amount = 0
-        rows.forEach(row => amount += (row.value * row.qty) * (row.tax / 100 + 1))
+        rows.products.forEach(row => amount += (row.price * row.amount) * (row.tax / 100 + 1))
 
         setTotalAmount(amount)
     }
@@ -78,39 +80,41 @@ function EstimateCreatorPanel({ handleSetViewList, onCreateEstimate }) {
     const handleAddRow = event => {
         event.preventDefault()
 
-        const lastRow = rows[rows.length - 1]
+        const updatedEstimate = { ...rows }
+
+        const lastRow = updatedEstimate.products[updatedEstimate.products.length - 1]
 
         const newRow = {
-            id: lastRow.id + 1,
-            value: 0,
-            qty: 0,
+            name: '',
+            description: '',
+            index: lastRow.index + 1,
+            price: 0,
+            amount: 0,
             tax: 0
         }
 
-        setRows([...rows, newRow])
+        updatedEstimate.products.push(newRow)
+        console.log(updatedEstimate)
+        setRows(updatedEstimate)
+        console.log(rows)
     }
 
-    const handleDeleteRow = rowId => {
-        if (rows.length > 1) {
-            setRows(rows.filter(_row => _row.id !== rowId))
+    const handleDeleteRow = index => {
+        debugger
+        if (rows.products.length > 1) {
+            const updatedEstimate = { ...rows }
+            const updatedProducts = []
+            updatedEstimate.products.forEach(product => {
+                if (product.index !== index) updatedProducts.push(product)
+            })
+
+            updatedEstimate.products = updatedProducts
+
+            setRows(updatedEstimate)
         }
     }
 
-    const handleCustomerInput = event => {
-        const { target: { value: customer } } = event
-        let customerFound = customers.find(_customer => _customer.name === customer)
-
-        if(!customerFound){
-            setSelectedCustomer({})
-            return
-        }
-
-        setSelectedCustomer(customerFound)
-        return
-        
-    }
-
-    const handleNewEstimateSubmit = event => {
+    /* const handleNewEstimateSubmit = event => {
         event.preventDefault()
 
         try {
@@ -124,12 +128,8 @@ function EstimateCreatorPanel({ handleSetViewList, onCreateEstimate }) {
                     terms: { value: terms },
                     invoiceDate: { value: estimateDate }
                 } } = event
-            // TODO LINK CUSTOMER NAME TO REFID ON DB
-            //TODO CREATE SHIPPING ADDRESS ON INVOICE DB
+        
             // TODO CREATE PRODUCT TAX ON DB MODEL (DO I NEED PRODUCT TOTAL??)
-            let customerFound = customers.find(_customer => _customer.name === customerName)
-            if (!customerFound) throw new Error(`Customer ${customerName} is not an valid option`)
-            let refId = customerFound.id
 
             const customer = { refId, name: customerName, email: customerEmail, billingAddress, shippingAddress }
 
@@ -138,16 +138,16 @@ function EstimateCreatorPanel({ handleSetViewList, onCreateEstimate }) {
                 const { target: form,
                     target: {
                         [`productName${row.id}`]: { value: productName },
-                        [`productDescription${row.id}`]: { value: description },
+                        [`productDescription${row.id}`]: { value: productDescription },
                         [`productQty${row.id}`]: { value: productQty },
                         [`productUnitPrice${row.id}`]: { value: productUnitPrice },
-                        [`productTax${row.id}`]: { value: tax },
+                        [`productTax${row.id}`]: { value: productTax },
                         [`productTotal${row.id}`]: { value: productTotal }
                     } } = event
 
 
 
-                if (productName || description || productQty || productUnitPrice || tax) {
+                if (productName || productDescription || productQty || productUnitPrice || productTax) {
 
                     if (productName && productQty && productUnitPrice) {
                         let id
@@ -159,7 +159,7 @@ function EstimateCreatorPanel({ handleSetViewList, onCreateEstimate }) {
                         let price = parseInt(productUnitPrice)
                         let total = parseInt(productTotal)
 
-                        products.push({ id, name: productName, description, amount, price, tax, total })
+                        products.push({ id, productDescription, amount, price, productTax, total })
                     }
                     else throw new Error('All products need Name, QTY and Unit Price')
                 }
@@ -181,43 +181,41 @@ function EstimateCreatorPanel({ handleSetViewList, onCreateEstimate }) {
         } catch (error) {
             toaster.warning(error.message, { duration: 3 })
         }
-    }
+    } */
 
     return (
         <div className="invoiceCreator__container">
-            <form className="invoiceCreator__form" onSubmit={handleNewEstimateSubmit} ref={formRef}>
+            <form className="invoiceCreator__form" /* onSubmit={handleNewEstimateSubmit} */ ref={formRef}>
                 <div className="invoiceCreator__customerAndEmail">
                     <div className='invoiceCreator__inputContainer w25'>
                         <label className="form__label" htmlFor="customer" >Customer</label>
-                        <input type='text' className='invoiceCreator__inputCustomer' name="customer" onChange={handleCustomerInput} list='customersList'></input>
-                        <datalist id='customersList'>
-                            {customers && customers.map(({ name }) => <option value={name}>{name}</option>)}
-                        </datalist >
+                        <input type='text' className='invoiceCreator__inputCustomer' name="customer" defaultValue={estimate.customer.name} readOnly></input>
+
                     </div>
                     <div className="invoiceCreator__inputContainer w25">
                         <label className="form__label" htmlFor="customerEmail">Customer email</label>
-                        <input type='email' className='invoiceCreator__inputCustomerEmail' name="customerEmail" defaultValue={selectedCustomer.email === undefined ? '' : selectedCustomer.email}></input>
+                        <input type='email' className='invoiceCreator__inputCustomerEmail' name="customerEmail" defaultValue={estimate.customer.email}></input>
                     </div>
                     <div className='separator30'></div>
                     <div className='invoiceCreator__invoiceNumber'>
                         <label className="form__label" htmlFor="invoiceNumber">Estimate N#</label>
-                        <input type='text' className='invoiceCreator__inputCustomer' name="invoiceNumber"></input>
+                        <input type='text' className='invoiceCreator__inputCustomer' name="invoiceNumber" defaultValue={estimate.estimateNumber}></input>
                     </div>
                 </div>
                 <div className="invoiceCreator__section2">
                     <div className="invoiceCreator__address">
                         <label className="form__label" htmlFor="billingAddress">Customer billing address</label>
-                        <textarea className='invoiceCreator__AddressInput' name='billingAddress' defaultValue={selectedCustomer.billingAddress === undefined ? '' : (`${selectedCustomer.billingAddress.street}\n${selectedCustomer.billingAddress.town}\n${selectedCustomer.billingAddress.state}\n${selectedCustomer.billingAddress.zipCode}\n${selectedCustomer.billingAddress.country}`)}></textarea>
+                        <textarea className='invoiceCreator__AddressInput' name='billingAddress' defaultValue={estimate.billingAddress === undefined ? '' : (`${estimate.billingAddress.street}\n${estimate.billingAddress.town}\n${estimate.billingAddress.state}\n${estimate.billingAddress.zipCode}\n${estimate.billingAddress.country}`)}></textarea>
                     </div>
                     <div className="invoiceCreator__address">
                         <label className="form__label" htmlFor="shippingAddress">Customer shipping address</label>
-                        <textarea className='invoiceCreator__AddressInput' name='shippingAddress' defaultValue={selectedCustomer.shippingAddress === undefined ? '' : `${selectedCustomer.shippingAddress.shippingStreet}\n${selectedCustomer.shippingAddress.shippingTown}\n${selectedCustomer.shippingAddress.shippingState}\n${selectedCustomer.shippingAddress.shippingZipCode}\n${selectedCustomer.shippingAddress.shippingCountry}`}></textarea>
+                        <textarea className='invoiceCreator__AddressInput' name='shippingAddress' defaultValue={estimate.shippingAddress === undefined ? '' : `${estimate.shippingAddress.shippingStreet}\n${estimate.shippingAddress.shippingTown}\n${estimate.shippingAddress.shippingState}\n${estimate.shippingAddress.shippingZipCode}\n${estimate.shippingAddress.shippingCountry}`}></textarea>
                     </div>
                     <div className="invoiceCreator__section2__row1">
-                        <label className="form__label" htmlFor="terms">Terms</label>
-                        <input type='text' className="form__input" name='terms' defaultValue={selectedCustomer.payTerms}></input>
+                        <label className="form__label" htmlFor="terms" >Terms</label>
+                        <input type='text' className="form__input" name='terms' defaultValue={estimate.terms}></input>
                         <label className="form__label" htmlFor="invoiceDate">Estimate date</label>
-                        <input type='date' className="form__input" name='invoiceDate'></input>
+                        <input type='date' className="form__input" name='invoiceDate' defaultValue={estimate.estimateDate} ></input>
                     </div>
                     <div className='invoiceCreator__totalAmount'>
                         <h2 className='totalAmount__title'>Total <br></br>Amount</h2>
@@ -256,9 +254,9 @@ function EstimateCreatorPanel({ handleSetViewList, onCreateEstimate }) {
 
                 </div>
                 <div className='invoiceCreator__footer'>
-                <button type='button' className='invoiceCreator__cancelButton' onClick={handleSetViewList}>Cancel</button>
-                <button type='submit' className='invoiceCreator__newInvoiceButton'>Create estimate</button>
-                    
+                    <button type='button' className='invoiceCreator__cancelButton' onClick={handleSetViewList}>Cancel</button>
+                    <button type='submit' className='invoiceCreator__newInvoiceButton'>Create estimate</button>
+
 
                 </div>
             </form>
@@ -268,4 +266,4 @@ function EstimateCreatorPanel({ handleSetViewList, onCreateEstimate }) {
     )
 }
 
-export default EstimateCreatorPanel
+export default EstimateEditPanel

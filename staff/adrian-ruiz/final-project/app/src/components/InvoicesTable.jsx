@@ -16,18 +16,30 @@ import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import { visuallyHidden } from '@mui/utils';
 import { toaster } from 'evergreen-ui'
 import DeleteDialog from './DeleteDialog'
 import { deleteInvoice } from '../logic'
 
 function descendingComparator(a, b, orderBy) {
-    if (b[orderBy] < a[orderBy]) {
-        return -1;
+    if ((typeof a[orderBy] === 'string') && (typeof b[orderBy] === 'string')) {
+        if (b[orderBy].toUpperCase() < a[orderBy].toUpperCase()) {
+            return -1;
+        }
+        if (b[orderBy].toUpperCase() > a[orderBy].toUpperCase()) {
+            return 1;
+        }
     }
-    if (b[orderBy] > a[orderBy]) {
-        return 1;
+    else {
+        if (b[orderBy] < a[orderBy]) {
+            return -1;
+        }
+        if (b[orderBy] > a[orderBy]) {
+            return 1;
+        }
     }
+
     return 0;
 }
 
@@ -145,7 +157,7 @@ EnhancedTableHead.propTypes = {
 };
 
 const EnhancedTableToolbar = (props) => {
-    const { numSelected, handleDeleteClick } = props;
+    const { numSelected, handleDeleteClick, handleEditClick } = props;
 
     return (
         <Toolbar
@@ -182,11 +194,18 @@ const EnhancedTableToolbar = (props) => {
             )}
 
             {numSelected > 0 ? (
-                <Tooltip title="Delete">
-                    <IconButton onClick={handleDeleteClick}>
-                        <DeleteIcon />
-                    </IconButton>
-                </Tooltip>
+                <>
+                    <Tooltip title="Edit">
+                        <IconButton onClick={handleEditClick}>
+                            <EditIcon />
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Delete">
+                        <IconButton onClick={handleDeleteClick}>
+                            <DeleteIcon />
+                        </IconButton>
+                    </Tooltip>
+                </>
             ) : null}
         </Toolbar>
     );
@@ -196,7 +215,7 @@ EnhancedTableToolbar.propTypes = {
     numSelected: PropTypes.number.isRequired,
 };
 
-export default function EnhancedTable({ data, onDeleteInvoice }) {
+export default function EnhancedTable({ data, onDeleteInvoice, onEditClick }) {
 
     const rows = data
 
@@ -205,8 +224,8 @@ export default function EnhancedTable({ data, onDeleteInvoice }) {
     const [selected, setSelected] = React.useState(undefined);
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
-    const [rowsPerPage, setRowsPerPage] = React.useState(rows.length);
     const [isShown, setIsShown] = React.useState(false);
+    const rowsPerPage = rows.length;
 
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
@@ -229,13 +248,18 @@ export default function EnhancedTable({ data, onDeleteInvoice }) {
         setSelected(newSelected);
     };
 
+    const handleEditClick = () => {
+        const foundInvoice = rows.find(row => row.invoiceNumber === selected)
+        onEditClick(foundInvoice.id)
+    }
+
     const handleDeleteClick = () => {
         setIsShown(true)
 
     }
 
     const confirmDeleteClick = () => {
-        
+
         let invoiceFound = rows.find(row => {
             if (row.invoiceNumber === selected) {
                 return row
@@ -244,18 +268,18 @@ export default function EnhancedTable({ data, onDeleteInvoice }) {
 
         if (!invoiceFound) throw new Error('Invoice selected not found')
 
-        ; (async () => {
-            try {
-                await deleteInvoice(sessionStorage.UserToken, invoiceFound.id)
-                toaster.success(`Invoice ${invoiceFound.InvoiceNumber} deleted successfully`)
+            ; (async () => {
+                try {
+                    await deleteInvoice(sessionStorage.UserToken, invoiceFound.id)
+                    toaster.success(`Invoice ${invoiceFound.InvoiceNumber} deleted successfully`)
 
-                onDeleteInvoice()
-                setIsShown(false)
-                setSelected(undefined)
-            } catch (error) {
-                toaster.warning('Something went wrong', { duration: 2.5, description: error.message })
-            }
-        })()
+                    onDeleteInvoice()
+                    setIsShown(false)
+                    setSelected(undefined)
+                } catch (error) {
+                    toaster.warning('Something went wrong', { duration: 2.5, description: error.message })
+                }
+            })()
     }
 
     const handleCancelClick = () => {
@@ -273,7 +297,7 @@ export default function EnhancedTable({ data, onDeleteInvoice }) {
             {selected && <DeleteDialog status={isShown} item={'invoice'} title={`Delete invoice Number ${selected}`} onConfirm={confirmDeleteClick} onCancelClick={handleCancelClick} />}
             <Box sx={{ width: '100%', height: '100%' }}>
                 <Paper sx={{ width: '100%', height: '100%', mb: 2, overflow: 'hidden' }}>
-                    <EnhancedTableToolbar numSelected={selected ? 1 : 0} handleDeleteClick={handleDeleteClick} />
+                    <EnhancedTableToolbar numSelected={selected ? 1 : 0} handleDeleteClick={handleDeleteClick} handleEditClick={handleEditClick}/>
                     <TableContainer
                         sx={{
                             maxHeight: '90vh',

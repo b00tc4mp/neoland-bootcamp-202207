@@ -13,7 +13,6 @@ function Dashboard() {
 
     return (
         <>
-        {/* <NewProductPanel /> */}
         <div className="dashboardGrid">
             <div className="header">
                 <Header />

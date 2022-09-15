@@ -1,14 +1,16 @@
 import './EstimatesList.css'
 import { useEffect, useState } from 'react'
 import EnhancedTable from './EstimatesTable'
-import { retrieveEstimates } from '../logic'
+import { retrieveAEstimate, retrieveEstimates } from '../logic'
 import { toaster } from 'evergreen-ui'
 import EstimateCreatorPanel from './EstimateCreatorPanel'
+import EstimateEditPanel from './EstimateEditPanel'
 
 function EstimatesList() {
 
     const [estimates, setEstimates] = useState(null)
     const [view, setView] = useState('estimatesList')
+    const [estimateToEdit, setEstimateToEdit] = useState(null)
 
     useEffect(() => {
         ; (async () => {
@@ -55,14 +57,33 @@ function EstimatesList() {
         })()
     }
 
+    const handleEditEstimateClick = async estimateId => {
+        const estimate = await retrieveAEstimate(sessionStorage.UserToken, estimateId)
+        console.log(estimate)
+        setEstimateToEdit(estimate)
+        setView('editEstimate')
+    }
+
+    const handleEditEstimate = async () => {
+        try {
+            const estimates = await retrieveEstimates(sessionStorage.UserToken)
+            setEstimates(estimates)
+            setView('estimatesList')
+
+        } catch (error) {
+            toaster.warning('Something went wrong', { duration: 2.5, description: error.message })
+        }
+    }
     return (
-        
+
         <div className="main-section__estimates">
-            {view === 'newEstimate' ? <EstimateCreatorPanel handleSetViewList={handleSetViewList} onCreateEstimate={handleCreateEstimate} /> :
+            {view === 'editEstimate' && <EstimateEditPanel estimate={estimateToEdit} handleSetViewList={handleSetViewList} onCreateEstimate={handleCreateEstimate} />}
+            {view === 'newEstimate' && <EstimateCreatorPanel handleSetViewList={handleSetViewList} onCreateEstimate={handleCreateEstimate} />}
+            {view === 'estimatesList' &&
                 <>
                     <button className='newButton' onClick={newEstimateClickHandler} >New Estimate</button>
                     <div className='estimates__tableContainer'>
-                        {estimates && <EnhancedTable data={estimates} onDeleteEstimate={handleDeleteEstimate} />}
+                        {estimates && <EnhancedTable data={estimates} onDeleteEstimate={handleDeleteEstimate} onEditClick={handleEditEstimateClick}/>}
                     </div>
                 </>
             }

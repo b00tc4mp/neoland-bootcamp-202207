@@ -29,11 +29,11 @@ function InvoiceCreatorPanel({ handleSetViewList, onCreateInvoice }) {
 
         return rows.map(row =>
             <div className="invoiceCreator__productRow" key={row.id}>
-                <input type='text' className="form__invoiceProductName" name={`productName${row.id}`} placeholder='Select product' list='productsList'></input>
+                <input type='text' className="form__invoiceProductName" name={`productName${row.id}`} placeholder='Select product' list='productsList' onChange={(event) => handleChangeName(event, row.id)}></input>
                 <datalist id='productsList'>
                     {stock && stock.map(({ name }) => <option value={name}>{name}</option>)}
                 </datalist >
-                <input type='text' className="form__invoiceProductDescription" name={`productDescription${row.id}`} placeholder='Item/Service description...'></input>
+                <input type='text' className="form__invoiceProductDescription" name={`productDescription${row.id}`} placeholder='Item/Service description...' defaultValue={row.description ? row.description : ''}></input>
                 <input type='number' className="form__invoiceProductQty" name={`productQty${row.id}`} onChange={(event) => handleChangeQty(event, row.id)}></input>
                 <input type='number' className="form__invoiceProductUnitPrice" name={`productUnitPrice${row.id}`} onChange={(event) => handleChangeUnitPrice(event, row.id)}></input>
                 <input type='text' className="form__invoiceProductTax" name={`productTax${row.id}`} onChange={(event) => handleChangeTax(event, row.id)}></input>
@@ -72,6 +72,17 @@ function InvoiceCreatorPanel({ handleSetViewList, onCreateInvoice }) {
         rows.forEach(row => amount += (row.value * row.qty) * (row.tax / 100 + 1))
 
         setTotalAmount(amount)
+    }
+
+    const handleChangeName = (event, rowId) => {
+        
+        let _rows = [...rows]
+        const row = _rows.find(row => rowId === row.id)
+        row.name = event.target.value
+        const item = stock.find(item => item.name === event.target.value)
+        row.description = item ? item.description : ''
+        
+        setRows(_rows)
     }
 
 
@@ -208,15 +219,15 @@ function InvoiceCreatorPanel({ handleSetViewList, onCreateInvoice }) {
                 <div className="invoiceCreator__section2">
                     <div className="invoiceCreator__address">
                         <label className="form__label" htmlFor="billingAddress">Customer billing address</label>
-                        <textarea className='invoiceCreator__AddressInput' name='billingAddress' defaultValue={selectedCustomer.billingAddress === undefined ? '' : selectedCustomer.billingAddress}></textarea>
+                        <textarea className='invoiceCreator__AddressInput' name='billingAddress' defaultValue={selectedCustomer.billingAddress === undefined ? '' : (`${selectedCustomer.billingAddress.street}\n${selectedCustomer.billingAddress.town}\n${selectedCustomer.billingAddress.state}\n${selectedCustomer.billingAddress.zipCode}\n${selectedCustomer.billingAddress.country}`)}></textarea>
                     </div>
                     <div className="invoiceCreator__address">
                         <label className="form__label" htmlFor="shippingAddress">Customer shipping address</label>
-                        <textarea className='invoiceCreator__AddressInput' name='shippingAddress' defaultValue={selectedCustomer.shippingAddress === undefined ? '' : selectedCustomer.shippingAddress}></textarea>
+                        <textarea className='invoiceCreator__AddressInput' name='shippingAddress' defaultValue={selectedCustomer.shippingAddress === undefined ? '' : `${selectedCustomer.shippingAddress.shippingStreet}\n${selectedCustomer.shippingAddress.shippingTown}\n${selectedCustomer.shippingAddress.shippingState}\n${selectedCustomer.shippingAddress.shippingZipCode}\n${selectedCustomer.shippingAddress.shippingCountry}`}></textarea>
                     </div>
                     <div className="invoiceCreator__section2__row1">
                         <label className="form__label" htmlFor="terms">Terms</label>
-                        <input type='text' className="form__input" name='terms'></input>
+                        <input type='text' className="form__input" name='terms' defaultValue={selectedCustomer.payTerms}></input>
                         <label className="form__label" htmlFor="invoiceDate">Invoice date</label>
                         <input type='date' className="form__input" name='invoiceDate'></input>
                         <label className="form__label" htmlFor="dueDate">Due date</label>
