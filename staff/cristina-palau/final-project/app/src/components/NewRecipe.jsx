@@ -28,25 +28,6 @@ function NewRecipe({ onBackClick, printIngredientsRow }) {
         }
     }, [])
 
-    function printIngredientsRow() {
-        return rows.map(row =>
-            <div className="ingredientsContainer" key={row.id}>
-                <input type="number" className="input newRecipeInput quantInput" name={`quantity${row.id}`} placeholder="cantidad" onChange={(event) => handleChangeQuantity(event, row.id)} />
-                <select className="select newRecipeInput unitSelect" defaultValue={"kg"} name={`unit${row.id}`} placeholder="unit" onChange={(event) => handleChangeUnit(event, row.id)}>
-                    <option value="kg" >kg</option>
-                    <option value="unit">unt</option>
-                    <option value="l">l</option>
-                </select>
-                <input className="input newRecipeInput ingredientInput" typeof='text' name={`ingredient${row.id}`} placeholder="ingrediente" autoComplete="off" list="ingredientsList" onChange={(event) => handleChangeIngredient(event, row.id)} />
-                <datalist id="ingredientsList">
-                    {
-                        ingredients.map(({ name, id }) => <option key={id} value={name}>{name}</option>)
-                    }
-                </datalist>
-                <button className="deleteButton" onClick={() => handleDeleteRow(row.id)}>X</button>
-            </div>)
-    }
-
     const handleChangeQuantity = (event, rowId) => {
         let data = [...rows]
 
@@ -170,7 +151,26 @@ function NewRecipe({ onBackClick, printIngredientsRow }) {
                 <input type="number" className="input newRecipeInput personsInput" name="persons" placeholder="pax" id="persons" />
             </div>
             <p>Ingredientes</p>
-            <div className="ingredientsContainer"> {printIngredientsRow()}
+            <div className="ingredientsContainer"> {
+
+                rows.map(row =>
+                    <div className="ingredientsContainer" key={row.id}>
+                        <input type="number" className="input newRecipeInput quantInput" name={`quantity${row.id}`} placeholder="cantidad" onChange={(event) => handleChangeQuantity(event, row.id)} />
+                        <select className="select newRecipeInput unitSelect" defaultValue={"kg"} name={`unit${row.id}`} placeholder="unit" onChange={(event) => handleChangeUnit(event, row.id)}>
+                            <option value="kg" >kg</option>
+                            <option value="unit">unt</option>
+                            <option value="l">l</option>
+                        </select>
+                        <input className="input newRecipeInput ingredientInput" typeof='text' name={`ingredient${row.id}`} placeholder="ingrediente" autoComplete="off" list="ingredientsList" onChange={(event) => handleChangeIngredient(event, row.id)} />
+                        <datalist id="ingredientsList">
+                            {
+                                ingredients.map(({ name, id }) => <option key={id} value={name}>{name}</option>)
+                            }
+                        </datalist>
+                        <button className="deleteButton" onClick={() => handleDeleteRow(row.id)}>X</button>
+                    </div>)
+
+            }
                 <button className="addIngredient" onClick={addIngredient}>+</button>
             </div>
             <div className="buttonsContainer">

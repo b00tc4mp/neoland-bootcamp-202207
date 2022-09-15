@@ -52,23 +52,19 @@ function PublicRecipe({ onBackClick, recipe }) {
             const { title, persons } = recipeState
 
             const ingredientsItem = []
-            debugger
-            recipeState.ingredients.forEach(index => {
-                const {
-                        [`quantity${index}`]: { value: quantityString },
-                        [`unit${index}`]: { value: unit },
-                        [`ingredient${index}`]: { value: ingredientName },
-                    } = recipeState.ingredients
 
-                debugger
-                let ingredientFound = ingredients.find(ingredient => ingredient.name === ingredientName)
+            recipeState.ingredients.forEach((ingredient) => {
+                const quantityString = ingredient.quantity
+                const unit = ingredient.unit                      // const quantity.string = quantity(index).quantity
+                const ingredientName = ingredient.ingredient.name
+
+                let ingredientFound = ingredients.find(ingredients => ingredients.name === ingredientName)
                 if (!ingredientName) throw new Error('ingredient not found')
                 let id = ingredientFound.id
-                debugger
+                
                 const quantity = parseInt(quantityString)
-                ingredientsItem.push({ quantity, unit, id })
+                ingredientsItem.push({ quantity, unit, id })})
 
-                debugger
                 createRecipe(sessionStorage.token, title, parseInt(persons), ingredientsItem, (error) => {
                     if (error) {
 
@@ -76,9 +72,7 @@ function PublicRecipe({ onBackClick, recipe }) {
 
                         return
                     }
-                    debugger
                 })
-            })
 
         } catch (error) {
             logger.warn(error.message)
