@@ -36,18 +36,19 @@ function RecipesMenu() {
 
                     return
                 }
+
+                loadUserRecipes(user)
+                loadPublicRecipes(user)
             })
         } catch (error) {
 
             logger.warn(error.message)
         }
 
-        loadUserRecipes()
-        loadPublicRecipes()
 
     }, [])
 
-    function loadUserRecipes() {
+    const loadUserRecipes = () => {
         try {
             retrieveUserRecipes(sessionStorage.token, (error, userRecipes) => {
                 if (error) {
@@ -67,7 +68,7 @@ function RecipesMenu() {
         }
     }
 
-    function loadPublicRecipes() {
+    const loadPublicRecipes = () => {
         try {
             retrievePublicRecipes(sessionStorage.token, (error, publicRecipes) => {
 
@@ -91,7 +92,7 @@ function RecipesMenu() {
     const handleClickUserRecipe = recipeId => {
         try {
             retrieveRecipe(sessionStorage.token, recipeId, (error, recipe) => {
-                debugger
+             
 
                 if (error) {
 
@@ -116,7 +117,7 @@ function RecipesMenu() {
     const handleClickPublicRecipe = recipeId => {
         try {
             retrieveRecipe(sessionStorage.token, recipeId, (error, recipe) => {
-                debugger
+         
                 if (error) {
 
                     logger.warn(error.message)
@@ -181,7 +182,7 @@ function RecipesMenu() {
 
     return <Routes>
         <Route path="/" element={<>
-        
+
             <MyRecipesList recipes={userRecipes} onRecipeClick={handleClickUserRecipe} onDeleteRecipe={handleDeleteRecipe} />
 
             <div className="addRecipe">

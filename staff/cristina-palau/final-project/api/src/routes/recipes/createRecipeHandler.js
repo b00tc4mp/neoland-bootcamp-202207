@@ -7,7 +7,7 @@ module.exports = (req, res) => {
         const userId = verifyToken(req)
 
         const { body: { title, persons, ingredients } } = req
-
+      
         return createRecipe(userId, title, persons, ingredients)
             .then(() => res.status(201).send())
     }, res, logger)

@@ -1,12 +1,11 @@
 import { validateCallback, validateText, validateString, validateArray, validateNumber } from 'validators'
 import { ClientError, ServerError } from 'errors'
 
-
 const API_URL = process.env.REACT_APP_API_URL
 
-function createRecipe(token, title, persons, ingredients, callback) {
+function updateRecipe(token, recipeId, title, persons, ingredients, callback) {
     debugger
-    validateText(token)
+    validateText(token, recipeId)
     validateString(title)
     validateNumber(persons)
     validateArray(ingredients)
@@ -30,7 +29,7 @@ function createRecipe(token, title, persons, ingredients, callback) {
 
     // request
 
-    xhr.open('POST', `${API_URL}/recipes/`)
+    xhr.open('POST', `${API_URL}/recipes/${recipeId}`)
 
     xhr.setRequestHeader('Content-type', 'application/json')
 
@@ -41,4 +40,4 @@ function createRecipe(token, title, persons, ingredients, callback) {
     xhr.send(json)
 }
 
-export default createRecipe
+export default updateRecipe

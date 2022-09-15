@@ -8,8 +8,6 @@ function retrieveRecipe(token, recipeId, callback) {
     validateText(recipeId)
     validateCallback(callback)
 
-    debugger
-    
     const xhr = new XMLHttpRequest
 
     // response

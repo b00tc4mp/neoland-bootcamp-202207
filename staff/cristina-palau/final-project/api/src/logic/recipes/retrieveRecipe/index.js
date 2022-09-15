@@ -5,7 +5,7 @@ const { verifyObjectIdString } = require('../../../utils')
 function retrieveRecipe(userId, recipeId) {
     verifyObjectIdString(userId, 'user id')
     verifyObjectIdString(recipeId, 'recipe id')
-
+  
     return User.findById(userId).lean()
         .catch(error => {
             throw new SystemError(error.message)
@@ -31,10 +31,7 @@ function retrieveRecipe(userId, recipeId) {
                 delete ingredient.__v
             })
 
-            debugger
-            
             return recipe
-
         })
 }
 module.exports = retrieveRecipe

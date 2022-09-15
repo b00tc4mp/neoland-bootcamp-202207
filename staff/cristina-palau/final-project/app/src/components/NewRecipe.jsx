@@ -106,12 +106,12 @@ function NewRecipe({ onBackClick, printIngredientsRow }) {
                         [`ingredient${row.id}`]: { value: ingredientName },
                     } } = event
 
-             
-                let ingredientFound = ingredients.find(ingredient =>  ingredient.name === ingredientName)
+
+                let ingredientFound = ingredients.find(ingredient => ingredient.name === ingredientName)
                 if (!ingredientName) throw new Error('ingredient not found')
                 let id = ingredientFound.id
 
-            
+
                 if (!quantityString) throw new Error("quantity is empty or blank")
                 else if (!unit) throw new Error("unit is empty or blank")
                 else if (!unit) throw new Error("ingredient is empty or blank")
@@ -139,12 +139,12 @@ function NewRecipe({ onBackClick, printIngredientsRow }) {
         }
     }
 
-const handleDeleteRow = rowId =>{
-    
-    if (rows.length > 1) {
-        setRows(rows.filter(_row => _row.id !== rowId))
+    const handleDeleteRow = rowId => {
+
+        if (rows.length > 1) {
+            setRows(rows.filter(_row => _row.id !== rowId))
+        }
     }
-}
 
     const addIngredient = event => {
         event.preventDefault()
@@ -166,8 +166,8 @@ const handleDeleteRow = rowId =>{
         <h3>Nueva receta</h3>
         <form className="newRecipeForm" onSubmit={handleCreateRecipe} >
             <div className="recipeHeaderContainer">
-                <input type="text" className="input newRecipeInput titleInput"  name="title" placeholder="Título" id="title" />
-                <input type="number" className="input newRecipeInput personsInput"  name="persons" placeholder="pax" id="persons" />
+                <input type="text" className="input newRecipeInput titleInput" name="title" placeholder="Título" id="title" />
+                <input type="number" className="input newRecipeInput personsInput" name="persons" placeholder="pax" id="persons" />
             </div>
             <p>Ingredientes</p>
             <div className="ingredientsContainer"> {printIngredientsRow()}

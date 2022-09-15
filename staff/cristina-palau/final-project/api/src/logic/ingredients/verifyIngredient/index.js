@@ -10,7 +10,6 @@ function verifyIngredient(ingredient) {
     verifyObjectIdString(id, 'ingredient id')
     validateNumber(quantity, 'ingredient quantity')
     validateString(unit, 'ingredient unit')
-
 }
 
 module.exports = verifyIngredient
