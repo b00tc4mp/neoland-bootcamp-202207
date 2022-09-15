@@ -3,6 +3,8 @@ import retrieveQuestionForEdit from "../logic/retrieveQuestionForEdit";
 import updateQuestionEdit from "../logic/updateQuestionEdit";
 import { useEffect, useState } from "react";
 
+import createQuestion from "../logic/createQuestion";
+
 import withContext from "../utils/withContext";
 
 function EditQuestionPanel({
@@ -53,6 +55,7 @@ function EditQuestionPanel({
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
+    debugger;
 
     const form = event.target;
 
@@ -69,32 +72,59 @@ function EditQuestionPanel({
     if (!suggestedAnswer) suggestedAnswer = "";
 
     form.reset();
+    if (editedLocation.pathname === "/questionsList") {
+      try {
+        updateQuestionEdit(
+          sessionStorage.token,
+          questionBeingEditedId,
+          question,
+          suggestedAnswer,
+          timeLimit,
+          visibility,
+          (error) => {
+            if (error) {
+              handleFeedback({ message: error.message, level: "error" });
 
-    try {
-      updateQuestionEdit(
-        sessionStorage.token,
-        questionBeingEditedId,
-        question,
-        suggestedAnswer,
-        timeLimit,
-        visibility,
-        (error) => {
-          if (error) {
-            handleFeedback({ message: error.message, level: "error" });
+              logger.warn(error.message);
 
-            logger.warn(error.message);
+              return;
+            }
 
-            return;
+            handleNavigateTo(editedLocation);
+            // handleReturn();
           }
+        );
+      } catch (error) {
+        handleFeedback({ message: error.message, level: "error" });
 
-          handleNavigateTo(editedLocation);
-          // handleReturn();
-        }
-      );
-    } catch (error) {
-      handleFeedback({ message: error.message, level: "error" });
+        logger.warn(error.message);
+      }
+    } else if (editedLocation.pathname === "/communityList") {
+      try {
+        createQuestion(
+          sessionStorage.token,
+          question,
+          suggestedAnswer,
+          timeLimit,
+          visibility,
+          (error) => {
+            if (error) {
+              handleFeedback({ message: error.message, level: "error" });
 
-      logger.warn(error.message);
+              logger.warn(error.message);
+
+              return;
+            }
+
+            handleNavigateTo(editedLocation.pathname);
+            // loadNotes();
+          }
+        );
+      } catch (error) {
+        handleFeedback({ message: error.message, level: "error" });
+
+        logger.warn(error.message);
+      }
     }
   };
 
@@ -173,9 +203,16 @@ function EditQuestionPanel({
             />
           </div>
 
-          <button href="" type="submit" className="footer-button">
-            Save
-          </button>
+          {editedLocation.pathname === "/questionsList" && (
+            <button href="" type="submit" className="footer-button">
+              Save
+            </button>
+          )}
+          {editedLocation.pathname === "/communityList" && (
+            <button href="" type="submit" className="footer-button">
+              Save copy
+            </button>
+          )}
         </form>
       </main>
 

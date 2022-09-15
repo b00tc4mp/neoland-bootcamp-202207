@@ -1,6 +1,7 @@
 :root {
   --color-teacher-primary: hsl(209, 58%, 39%);
   --color-teacher-secondary: hsl(209, 58%, 59%);
+  --color-teacher-secondary--light: hsl(209, 58%, 69%);
   --color-teacher-secondary-hover: #347fc4;
   --color-student-primary: #d30c7b;
   --color-student-secondary: hsl(327, 89%, 64%);
@@ -634,6 +635,17 @@ label {
   width: 100%;
 }
 
+.settings-elements {
+  width: 100%;
+  margin-top: 350px;
+}
+
+.settings-form-card {
+  background-color: var(--color-teacher-secondary--light);
+  width: 90%;
+  border-radius: 10px;
+}
+
 /* Input fields */
 
 input {
@@ -864,6 +876,11 @@ button {
   color: white;
 }
 
+.list__item-text-readonly {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
 .resetPassword-elements {
   width: 100%;
 }
@@ -943,7 +960,7 @@ button {
 
 .themeMenu {
   margin-right: 140px;
-  margin-top: 108px;
+  margin-top: 102px;
   border-radius: 0 0 1rem 1rem;
 }
 

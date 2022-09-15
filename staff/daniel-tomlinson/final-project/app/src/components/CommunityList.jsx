@@ -69,7 +69,7 @@ function CommunityList({
                     close
                   </button>
                 </div>
-                <textarea
+                {/* <textarea
                   ref={(ref) => (questionText[question.id] = ref)}
                   className="list__item-text"
                   onKeyUp={(event) => {
@@ -82,7 +82,13 @@ function CommunityList({
                     }, 500);
                   }}
                   defaultValue={question.question}
-                ></textarea>
+                ></textarea> */}
+                <p
+                  ref={(ref) => (questionText[question.id] = ref)}
+                  className="list__item-text list__item-text-readonly"
+                >
+                  {question.question}
+                </p>
               </li>
             ))}
         </ul>

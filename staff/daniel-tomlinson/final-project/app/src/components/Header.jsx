@@ -17,7 +17,7 @@ function Header({
   const logger = new Loggito("Header");
 
   const [view, setView] = useState(null); // [null, f () {}]
-  const [menuView, setMenuView] = useState("questions");
+  const [menuView, setMenuView] = useState("home");
 
   const handleMenuClick = () => {
     setView("menu");

@@ -27,12 +27,12 @@ function Teacher3CreateQuestion({
 
     const questionInput = form.question;
     const timeLimitInput = form.timeLimit;
-    const publicPrivateInput = form.public_private;
+    const visibilityInput = form.visibility;
     const suggestedAnswerInput = form.suggestedAnswer;
 
     const question = questionInput.value;
     const timeLimit = timeLimitInput.value;
-    const publicPrivate = publicPrivateInput.value;
+    const visibility = visibilityInput.value;
     let suggestedAnswer = suggestedAnswerInput.value;
 
     if (!suggestedAnswer) suggestedAnswer = "";
@@ -45,7 +45,7 @@ function Teacher3CreateQuestion({
         question,
         suggestedAnswer,
         timeLimit,
-        publicPrivate,
+        visibility,
         (error) => {
           if (error) {
             handleFeedback({ message: error.message, level: "error" });
@@ -70,7 +70,7 @@ function Teacher3CreateQuestion({
       timeLimit: { timeLimit },
       question: { question },
       host: { host },
-      publicPrivate: { publicPrivate },
+      visibility: { visibility },
       suggestedAnswer: { suggestedAnswer },
     });
 
@@ -103,7 +103,7 @@ function Teacher3CreateQuestion({
               <option value="70000">2 mins</option>
               <option value="80000">no limit</option>
             </select>
-            <select id="public_private">
+            <select id="visibility">
               <option value="public">Public</option>
               <option value="private">Private</option>
             </select>
