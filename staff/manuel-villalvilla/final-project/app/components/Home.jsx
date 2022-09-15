@@ -3,13 +3,17 @@ import { useRouter } from 'next/router'
 import PaginatedResults from './PaginatedResults'
 import React, { useState, useEffect, useRef } from 'react'
 
-function Home({ data, page, province, search, categories }) {  
+function Home({ data, page, province, search, categories, country }) {
   const [stateData, setStateData] = useState(data)
   const router = useRouter()
   let storageRef = useRef(true) // esto es para evitar q el useEffect se ejecute en el primer renderizado
+  let storageRef2 = useRef(true)
 
-  /* Component top scrolling when page changes */
-  useEffect(() => scroll.scrollToTop(), [page])
+  /* Component top scrolling when page changes. This useEffect is prevented from running on first render */
+  useEffect(() => {
+    if (!storageRef2.current) scroll.scrollToTop()
+    return () => { storageRef2.current = false }
+  }, [page])
 
   /* Re-render component with fresh data. This useEffect is prevented from running on first render */
   useEffect(() => {
@@ -27,7 +31,7 @@ function Home({ data, page, province, search, categories }) {
       if (search) this.search = search
     }
     router.push({
-      pathname: './home',
+      pathname: `/${country}`,
       query
     }, undefined, { scroll: false }) // no funciona bien su scroll incorporado, default = true
   }

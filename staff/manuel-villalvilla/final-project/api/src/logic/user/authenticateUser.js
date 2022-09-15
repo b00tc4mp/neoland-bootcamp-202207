@@ -20,7 +20,7 @@ module.exports = function (email, password) {
     validateEmail(email)
     validatePassword(password)
 
-    return User.findOne({ email }).lean()
+    return User.findOne({ email, verified: true }).lean()
         .catch(error => {
             throw new SystemError(error.message)
         })

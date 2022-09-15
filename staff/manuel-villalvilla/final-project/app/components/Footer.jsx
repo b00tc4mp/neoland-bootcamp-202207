@@ -1,4 +1,5 @@
 import Link from 'next/link'
+const URL = process.env.NEXT_PUBLIC_APP_URL
 
 export default function () {
   return (
@@ -10,9 +11,9 @@ export default function () {
 
       <Link href='../'><a>BuscoBarbie.com</a></Link>
       <div className='links'>
-        <Link href='../AR/home'><a className='home-link'>AR</a></Link>
-        <Link href='../MX/home'><a className='home-link'>MX</a></Link>
-        <Link href='../ES/home'><a className='home-link'>ES</a></Link>
+        <Link href={`${URL}/AR`}><a className='home-link'>AR</a></Link>
+        <Link href={`${URL}/MX`}><a className='home-link'>MX</a></Link>
+        <Link href={`${URL}/ES`}><a className='home-link'>ES</a></Link>
       </div>
 
     </footer>

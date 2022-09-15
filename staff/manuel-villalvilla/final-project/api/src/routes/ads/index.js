@@ -1,3 +1,4 @@
 module.exports = {
-    retrieveAdsHandler: require('./retrieveAdsHandler')
+    retrieveAdsHandler: require('./retrieveAdsHandler'),
+    retrieveAdWithIdHandler: require('./retrieveAdWithIdHandler')
 }

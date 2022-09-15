@@ -20,98 +20,11 @@ body {
 }
 
 .container {
+    width: 100%;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-}
-
-.header-filters {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.header {
-    display: flex;
-    padding: 3%;
-    height: auto;
-    justify-content: space-between;
-}
-
-.logo {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: center;
-}
-
-.logo-footer {
-    transform: rotate(-8deg);
-    position: relative;
-    bottom: 15px;
-    left: 0;
-}
-
-.session-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.session {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 5px;
-}
-
-.no-session {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-.login-link {
-    text-decoration: none;
-    color: black;
-    font-weight: 400;
-    font-size: 14px;
-    border-style: none;
-    background-color: transparent;
-    text-shadow: 1px 1px 8px rgb(233, 96, 155);
-    cursor: pointer;
-}
-
-.buttons {
-    display: flex;
-    gap: 5px;
-    align-items: center;
-    justify-content: center;
-}
-
-.buscar-button,
-.publicar-link,
-.mipanel-link,
-.logout-button,
-.login-button {
-    cursor: pointer;
-    display: flex;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    text-shadow: 1px 1px 8px rgb(233, 96, 155);
-    justify-content: center;
-    align-items: center;
-    background-color: transparent;
-    color: black;
-    text-decoration: none;
-    height: 50px;
-    width: 100px;
-    border-radius: 20px;
-    border-color: rgb(233, 96, 155);
-    border-width: 2px;
-    border-style: solid;
 }
 
 .filters-panel {
@@ -119,6 +32,7 @@ body {
 }
 
 .filters-form {
+    background-color: rgba(211,211,211,.3);
     padding: 3%;
     display: flex;
     flex-direction: column;
@@ -151,12 +65,16 @@ body {
 }
 
 .search-text-input {
-    border-radius: 20px;
+    border-radius: 10px;
     font-size: 16px;
-    border-color: navy;
-    border-width: 3px;
+    border-color: rgb(233, 96, 155);
+    border-width: 2px;
     height: 30px;
     text-align: center;
+}
+
+.search-text-input:focus {
+    outline: none;
 }
 
 .advanced-filters-button {
@@ -237,6 +155,8 @@ body {
 }
 
 .results-ad-container {
+    background-color: rgba(211,211,211,.3);
+    cursor: pointer;
     display: flex;
     max-width: 350px;
     flex-direction: column;
@@ -281,11 +201,14 @@ body {
     flex-direction: column;
 }
 
-.footer-price-province {
+.footer-price-date {
     display: flex;
 }
 
 .footer-price {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
     margin: 0;
     font-weight: bold;
     font-size: 30px;
@@ -293,15 +216,15 @@ body {
 }
 
 .footer-province {
-    margin: 0;
     display: flex;
     flex-grow: 1;
     align-items: center;
     justify-content: flex-end;
 }
 
-.results-ad-footer > p {
-    text-align: end;
+.footer-date {
+    display: flex;
+    align-items: center;
     margin: 0;
 }
 
@@ -312,11 +235,12 @@ body {
     background-color: transparent;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-weight: 400;
-    font-size: 14px;
+    font-size: 16px;
     text-shadow: 1px 1px 8px rgb(233, 96, 155);
 }
 
 .footer {
+    font-size: 16px;
     padding: 3%;
     display: flex;
     height: auto;
@@ -352,19 +276,39 @@ body {
     gap: 10px;
 }
 
+.login-email-label, .login-password-label {
+    font-weight: 400;
+    font-size: 18px;
+    text-shadow: 1px 1px 8px rgb(233, 96, 155);
+}
+
 #loginEmail, #loginPassword {
-    border-radius: 20px;
+    border-radius: 10px;
     font-size: 16px;
     border-color: navy;
-    border-width: 3px;
-    height: 30px;
+    border-width: 2px;
+    height: 50px;
     text-align: center;
 }
 
 .login-button {
+    cursor: pointer;
     display: flex;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    text-shadow: 1px 1px 8px rgb(233, 96, 155);
     justify-content: center;
-    width: 50%;
+    align-items: center;
+    background-color: transparent;
+    color: black;
+    text-decoration: none;
+    height: 50px;
+    width: 100px;
+    border-radius: 20px;
+    border-color: rgb(233, 96, 155);
+    border-width: 2px;
+    border-style: solid;
 }
 
 @media all and (min-width: 760px) {

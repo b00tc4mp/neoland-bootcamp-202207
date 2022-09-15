@@ -1,56 +1,55 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { useSession, signOut, signIn } from 'next-auth/react'
+import { useSession, signOut } from 'next-auth/react'
 import AnimateHeight from 'react-animate-height'
 import FiltersMenu from './FiltersMenu'
-import React, { useState } from 'react'
 import { useRouter } from 'next/router'
-import { getCookie } from 'cookies-next'
+import styles from './Header.module.css'
+import withContext from '../utils/withContext'
+const URL = process.env.NEXT_PUBLIC_APP_URL
 
-export default function () {
-  const country_code = getCookie('country')
-  const { data: session, status } = useSession()
-  const [filtersHeight, setFiltersHeight] = useState(0)
+export default withContext(function ({ context: { setSearchHeight, searchHeight }, country_code }) {
+  const { data: session, status } = useSession() // el token lo usare para las siguientes llamadas a api
   const router = useRouter()
   const { query: { province = null, search = null, categories = null } } = router
 
   const handleFiltersMenuClick = () => {
-    filtersHeight === 0 ? setFiltersHeight('auto') : setFiltersHeight(0)
+    searchHeight === 0 ? setSearchHeight('auto') : setSearchHeight(0)
   }
 
   return (
-    <div className="header-filters">
-      <header className='header'>
-        <div className='logo'>
-          <Image src='/logo2.png' layout='intrinsic' width={110} height={60}></Image>
-          <div className='logo-footer'><Image src='/com.png' layout='intrinsic' width={50} height={20}></Image></div>
+    <div className={styles.headerFilters}>
+      <header className={styles.header}>
+        <div className={styles.logo}>
+          <Link href={`${URL}/${country_code}`} passHref><a><Image src='/logo2.png' layout='intrinsic' width={110} height={60}></Image></a></Link>
+          <div className={styles.logoFooter}><Link href={`${URL}/${country_code}`} passHref><a><Image src='/com.png' layout='intrinsic' width={50} height={20}></Image></a></Link></div>
         </div>
 
-        <div className='session-buttons'>
-          <div className={session ? 'session' : 'no-session'}>
+        <div className={styles.sessionButtons}>
+          <div className={session ? styles.session : styles.noSession}>
             {session && <>
-              <Link href='../mipanel'><a className='mipanel-link'>Mi panel</a></Link>
-              <button className='logout-button' onClick={() => signOut()}>Desconexión</button>
+              <Link href={`${URL}/mipanel`}><a className={styles.mipanelLink}>Mi panel</a></Link>
+              <button className={styles.logoutButton} onClick={() => signOut({ callbackUrl: `${window.location.origin}` })}>Desconexión</button>
             </>
             }
-            {!session && <Link href='../login'><a className='login-link' onClick={() => setFiltersHeight(0)}>Iniciar sesión</a></Link>}
+            {!session && <Link href={`${URL}/login`}><a className={styles.loginLink} >Iniciar sesión</a></Link>}
           </div>
-          <div className='buttons'>
-            <Link href='./publicar'><a className='publicar-link'>Publicar</a></Link>
+          <div className={styles.buttons}>
+            <Link href={session ? `${URL}/mipanel/publicar` : `${URL}/${country_code}/publicar`}><a className={styles.publicarLink} >Publicar</a></Link>
             <button
-              className='buscar-button'
+              className={styles.buscarButton}
               onClick={handleFiltersMenuClick}
-              aria-expanded={filtersHeight !== 0}
+              aria-expanded={searchHeight !== 0}
               aria-controls='filters-panel'
             >
-              {filtersHeight !== 0 ? 'Cerrar buscador' : 'Buscador'}
+              {searchHeight !== 0 ? 'Cerrar buscador' : 'Buscar'}
             </button>
           </div>
         </div>
 
       </header>
 
-      <AnimateHeight id='filters-panel' duration={500} height={filtersHeight}>
+      <AnimateHeight id='filters-panel' duration={500} height={searchHeight}>
         <FiltersMenu province={province} search={search} categories={categories} country={country_code} />
       </AnimateHeight>
 
@@ -58,4 +57,5 @@ export default function () {
     </div>
 
   )
-}
+})
+

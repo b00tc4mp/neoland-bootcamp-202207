@@ -1,4 +1,6 @@
 import Image from 'next/image'
+import Link from 'next/link'
+// Link prefetch ocurrs in production
 
 export default function ResultsAds({ search, currentItems, count }) {
   const elapsedTime = (creationDate) => {
@@ -21,7 +23,7 @@ export default function ResultsAds({ search, currentItems, count }) {
     if (country === 'ES') return `${price}€`
   }
 
-  function textHighlight(body) {
+  const textHighlight = (body) => {
     if (!search)
       return <article className='results-ad-body-article'>{body}</article>
 
@@ -37,18 +39,20 @@ export default function ResultsAds({ search, currentItems, count }) {
     <ul className="results-list">
       {currentItems.map(ad => {
         return <li key={ad._id}>{
-          <div className="results-ad-container">
-            <div className="results-ad-image-container"><div className="results-ad-image"><Image src={ad.image[1]} layout='fill'></Image></div></div>
-            <div className="results-ad-title"><h3>{textHighlight(ad.title)}</h3></div>
-            <div className="results-ad-body">{textHighlight(ad.body)}</div>
-            <div className="results-ad-footer">
-              <div className="footer-price-province">
-                <p className='footer-price'>{countryCurrency(ad.location.country, ad.price)}</p>
+          <Link href={`${ad.location.country}/ads/${ad._id.toString()}`} >
+            <div className="results-ad-container">
+              <div className="results-ad-image-container"><div className="results-ad-image"><Image src={ad.image[0]} layout='fill' priority={true}></Image></div></div>
+              <div className="results-ad-title"><h3>{textHighlight(ad.title)}</h3></div>
+              <div className="results-ad-body">{textHighlight(ad.body)}</div>
+              <div className="results-ad-footer">
                 <p className='footer-province'>{ad.location.province}</p>
+                <div className="footer-price-date">
+                  <p className='footer-price'>{countryCurrency(ad.location.country, ad.price)}</p>
+                  <p className='footer-date'>{elapsedTime(ad.createdAt)}</p>
+                </div>
               </div>
-              <p>{elapsedTime(ad.createdAt)}</p>
             </div>
-          </div>
+          </Link>
         }</li>
       })}
     </ul>

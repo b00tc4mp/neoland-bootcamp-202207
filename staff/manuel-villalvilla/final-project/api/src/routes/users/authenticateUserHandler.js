@@ -1,6 +1,7 @@
 const { authenticateUser } = require('../../logic')
 const jwt = require('jsonwebtoken')
 const { logger, errorHandler } = require('../../utils')
+const { NotFoundError } = require('errors')
 
 module.exports = (req, res) => {
     try {
@@ -13,6 +14,7 @@ module.exports = (req, res) => {
                 logger.info(`user ${email} authenticated`)
             })
             .catch(error => {
+                if (error instanceof NotFoundError) error.message = 'unverified user'
                 errorHandler(error, res)
                 return
             })
