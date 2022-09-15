@@ -5,12 +5,15 @@ const {
   registerUserHandler,
   authenticateUserHandler,
   retrieveUserHandler,
+  updatePasswordHandler,
 } = require("./user");
 const {
   createQuestionHandler,
   retrieveQuestionsHandler,
+  retrieveQuestionsPublicHandler,
   retrieveQuestionForEditHandler,
   searchQuestionsHandler,
+  searchQuestionsPublicHandler,
   updateQuestionTextHandler,
   updateQuestionEditHandler,
   deleteQuestionHandler,
@@ -29,6 +32,8 @@ usersRouter.post("/users/auth", jsonBodyParser, authenticateUserHandler);
 
 usersRouter.get("/users", retrieveUserHandler);
 
+usersRouter.patch("/users/password", jsonBodyParser, updatePasswordHandler);
+
 // TODO usersRouter.patch('/users/email', jsonBodyParser, updateUserEmailHandler)
 // TODO usersRouter.patch('/users/password', jsonBodyParser, updateUserPasswordHandler)
 // TODO usersRouter.patch('/users/info', jsonBodyParser, updateUserInfoHandler)
@@ -38,6 +43,8 @@ const questionsRouter = Router();
 questionsRouter.post("/questions", jsonBodyParser, createQuestionHandler);
 
 questionsRouter.get("/questions", retrieveQuestionsHandler);
+
+questionsRouter.get("/questions/public", retrieveQuestionsPublicHandler);
 
 questionsRouter.patch(
   "/questions/:questionId/text",
@@ -52,6 +59,8 @@ questionsRouter.patch(
 );
 
 questionsRouter.get("/questions/search", searchQuestionsHandler);
+
+questionsRouter.get("/questions/public/search", searchQuestionsPublicHandler);
 
 questionsRouter.delete("/questions/:questionId", deleteQuestionHandler);
 
