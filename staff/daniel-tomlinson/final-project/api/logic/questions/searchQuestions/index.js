@@ -16,8 +16,8 @@ function searchQuestions(userId, query) {
       if (!user) throw new NotFoundError(`user with id ${userId} not found`);
 
       return Question.find(
-        { user: userId, text: { $regex: new RegExp(query) } },
-        "text visibility createdAt modifiedAt"
+        { user: userId, question: { $regex: new RegExp(query) } },
+        "question suggestedAnswer timeLimit visibility id"
       )
         .lean()
         .catch((error) => {
@@ -27,7 +27,6 @@ function searchQuestions(userId, query) {
     .then((questions) => {
       questions.forEach((question) => {
         // sanitize
-        debugger;
 
         question.id = question._id.toString();
         delete question._id;

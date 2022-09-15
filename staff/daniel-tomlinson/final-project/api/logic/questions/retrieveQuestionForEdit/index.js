@@ -1,12 +1,11 @@
-const { NotFoundError, AuthError } = require("errors");
-const { User, Question } = require("../../../models");
-const { verifyObjectIdString } = require("../../../utils");
+const { Question, User } = require("../../../models");
+const { DuplicityError, NotFoundError, SystemError } = require("errors");
 const { validateString } = require("validators");
+const { verifyObjectIdString } = require("../../../utils");
 
-function updateQuestionText(userId, questionId, text) {
+function retrieveQuestionForEdit(userId, questionId) {
   verifyObjectIdString(userId);
   verifyObjectIdString(questionId);
-  validateString(text);
 
   return User.findById(userId)
     .then((user) => {
@@ -23,12 +22,8 @@ function updateQuestionText(userId, questionId, text) {
           `question with id ${questionId} does not belong to user with id ${userId}`
         );
 
-      question.question = text;
-      question.modifiedAt = Date.now();
-
-      return question.save();
-    })
-    .then(() => {});
+      return question;
+    });
 }
 
-module.exports = updateQuestionText;
+module.exports = retrieveQuestionForEdit;

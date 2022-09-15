@@ -23,7 +23,7 @@ function createQuestion(
   question,
   suggestedAnswer,
   timeLimit,
-  publicPrivate
+  visibility
 ) {
   debugger;
   verifyObjectId(userId, "user id");
@@ -41,9 +41,9 @@ function createQuestion(
         question,
         suggestedAnswer,
         timeLimit,
-        publicPrivate,
+        visibility,
       }).catch((error) => {
-        throw new systemError(error.message);
+        throw new SystemError(error.message);
       });
     })
     .then((question) => {});

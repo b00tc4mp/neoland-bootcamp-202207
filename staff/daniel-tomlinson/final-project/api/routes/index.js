@@ -9,8 +9,10 @@ const {
 const {
   createQuestionHandler,
   retrieveQuestionsHandler,
+  retrieveQuestionForEditHandler,
   searchQuestionsHandler,
   updateQuestionTextHandler,
+  updateQuestionEditHandler,
   deleteQuestionHandler,
 } = require("./questions");
 const {
@@ -33,20 +35,27 @@ usersRouter.get("/users", retrieveUserHandler);
 
 const questionsRouter = Router();
 
-// questionsRouter.post("/questions", jsonBodyParser, createQuestionHandler);
 questionsRouter.post("/questions", jsonBodyParser, createQuestionHandler);
 
 questionsRouter.get("/questions", retrieveQuestionsHandler);
 
 questionsRouter.patch(
-  "/questions/:questionId",
+  "/questions/:questionId/text",
   jsonBodyParser,
   updateQuestionTextHandler
+);
+
+questionsRouter.patch(
+  "/questions/:questionId",
+  jsonBodyParser,
+  updateQuestionEditHandler
 );
 
 questionsRouter.get("/questions/search", searchQuestionsHandler);
 
 questionsRouter.delete("/questions/:questionId", deleteQuestionHandler);
+
+questionsRouter.get("/questions/:questionId", retrieveQuestionForEditHandler);
 
 const gameCodesRouter = Router();
 

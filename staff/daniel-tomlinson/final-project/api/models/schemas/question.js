@@ -32,7 +32,7 @@ const question = new Schema({
     default: "public",
   },
 
-  createAt: {
+  createdAt: {
     type: Date,
     default: Date.now,
   },

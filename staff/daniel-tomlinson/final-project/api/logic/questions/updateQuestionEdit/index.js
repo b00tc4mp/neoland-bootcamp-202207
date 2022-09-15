@@ -3,7 +3,14 @@ const { User, Question } = require("../../../models");
 const { verifyObjectIdString } = require("../../../utils");
 const { validateString } = require("validators");
 
-function updateQuestionText(userId, questionId, text) {
+function updateQuestionEdit(
+  userId,
+  questionId,
+  text,
+  suggestedAnswer,
+  timeLimit,
+  visibility
+) {
   verifyObjectIdString(userId);
   verifyObjectIdString(questionId);
   validateString(text);
@@ -24,6 +31,9 @@ function updateQuestionText(userId, questionId, text) {
         );
 
       question.question = text;
+      question.suggestedAnswer = suggestedAnswer;
+      question.timeLimit = timeLimit;
+      question.visibility = visibility;
       question.modifiedAt = Date.now();
 
       return question.save();
@@ -31,4 +41,4 @@ function updateQuestionText(userId, questionId, text) {
     .then(() => {});
 }
 
-module.exports = updateQuestionText;
+module.exports = updateQuestionEdit;

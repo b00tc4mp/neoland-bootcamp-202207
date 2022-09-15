@@ -11,18 +11,27 @@ function retrieveQuestions(userId) {
       throw new SystemError(error.message);
     })
     .then((user) => {
-      debugger;
       if (!user) throw new NotFoundError(`user with id ${userId} not found`);
 
-      return Question.find({ user: userId }).catch((error) => {
-        throw new NotFoundError(
-          `no questions found for user with id ${userId}`
-        );
-      });
+      return Question.find({ user: userId })
+        .lean()
+        .catch((error) => {
+          throw new NotFoundError(
+            `no questions found for user with id ${userId}`
+          );
+        });
     })
     .then((questions) => {
-      debugger;
-      // TODO sanitize
+      questions.forEach((question) => {
+        // sanitize
+
+        question.id = question._id.toString();
+
+        delete question._id;
+
+        delete question.__v;
+      });
+
       return questions;
     });
 }
