@@ -101,17 +101,17 @@ function UserRecipe({ onBackClick, recipe }) {
     const handleUpdateRecipe = (recipeId) => {
         try {
             const { title, persons } = recipeState
-            debugger
+             
             if (!persons) throw new Error("persons is empty or blank")
             else if (!title) throw new Error("title is empty or blank")
 
             const ingredientsItem = []
-            debugger
+             
             recipeState.ingredients.forEach(ingredient => {
                 const quantityString = ingredient.quantity
                 const unit = ingredient.unit
                 const ingredientName = ingredient.ingredient.name
-                debugger
+                 
                 let ingredientFound = ingredients.find(ingredients => ingredients.name === ingredientName)
                 if (!ingredientName) throw new Error('ingredient not found')
                 let id = ingredientFound.id
@@ -124,10 +124,10 @@ function UserRecipe({ onBackClick, recipe }) {
                 let quantity = parseInt(quantityString)
                 ingredientsItem.push({ quantity, unit, id })
             })
-            debugger
+             
             try {
                 updateRecipe(sessionStorage.token, recipeId, title, parseInt(persons), ingredientsItem, (error) => {
-                    debugger
+                     
                     if (error) {
 
                         logger.warn(error.message)
@@ -149,17 +149,17 @@ function UserRecipe({ onBackClick, recipe }) {
 
         try {
             const { title, persons } = recipeState
-            debugger
+             
             if (!persons) throw new Error("persons is empty or blank")
             else if (!title) throw new Error("title is empty or blank")
 
             const ingredientsItem = []
-            debugger
+             
             recipeState.ingredients.forEach(ingredient => {
                 const quantityString = ingredient.quantity
                 const unit = ingredient.unit
                 const ingredientName = ingredient.ingredient.name
-                debugger
+                 
                 let ingredientFound = ingredients.find(ingredients => ingredients.name === ingredientName)
                 if (!ingredientName) throw new Error('ingredient not found')
                 let id = ingredientFound.id
@@ -209,8 +209,6 @@ function UserRecipe({ onBackClick, recipe }) {
 
     const addIngredient = event => {
         event.preventDefault()
-
-        console.log(recipeState.ingredients)
 
         let newRow = { index: (recipeState.ingredients.length), ingredient: { quantity: 0, unit: "", ingredient: "" } }
 

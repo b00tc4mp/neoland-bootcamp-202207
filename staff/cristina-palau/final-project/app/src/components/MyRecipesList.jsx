@@ -1,13 +1,18 @@
-import './RecipesMenu.sass'
+import './recipesList.sass'
+import '../index.sass'
 
-function MyRecipesList({ recipes, onDeleteRecipe, onRecipeClick }) {
+function MyRecipesList({ userRecipes, onDeleteRecipe, onRecipeClick }) {
 
-    return <div className="recipes-container__myRecipes container-recipes">
-        {recipes && recipes.map((recipe, id) => <div className="userRecipe" key={id}>
-            <div className="recipeTitle"  onClick={() => onRecipeClick(recipe.id)}>{recipe.title}</div>
-            <button className="delete transparentButton" onClick={() => onDeleteRecipe(recipe.id)}>X</button>
-        </div>)}
-    </div>
+    return (userRecipes !== null)?
+        <div className="recipes-container__myRecipes container-recipes">
+            {userRecipes.map((recipe, id) => <div className="userRecipe" key={id}>
+                <div className="recipeTitle" onClick={() => onRecipeClick(recipe.id)}>{recipe.title}</div>
+                <button className="delete transparentButton" onClick={() => onDeleteRecipe(recipe.id)}><span className="material-symbols-outlined right">delete</span></button>
+            </div>)}
+        </div>
+        : <div className="recipes-container__myRecipes container-recipes"> <div className="userRecipe">Todavía no tienes recetas</div> </div>
+        
+
 }
 
 export default MyRecipesList

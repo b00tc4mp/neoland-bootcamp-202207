@@ -4,6 +4,7 @@ import './index.sass';
 import './App.sass';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import 'material-symbols'
 import { BrowserRouter as Router } from 'react-router-dom'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

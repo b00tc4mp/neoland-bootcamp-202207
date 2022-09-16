@@ -45,14 +45,19 @@ function App() {
     logger.debug('setFeedback', feedback)
   }
 
+  const reloadThePage = () => {
+    window.location.reload()
+} 
+
   const handleFeedback = feedback => {
     setFeedback(feedback)
 
     logger.debug('setFeedback', feedback)
   }
+
   logger.info('render')
 
-  return <Context.Provider value={{ handleFeedback }}>
+  return <Context.Provider value={{ handleFeedback, reloadThePage }}>
     <div className="App container container--full">
       <Routes>
         <Route path="login" element={sessionStorage.token ? <Navigate to="/" /> : <LoginPage onLinkClick={handleNavigationToRegister} onLogin={handleNavigationToHome} />} />

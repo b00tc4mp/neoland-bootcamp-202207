@@ -5,13 +5,13 @@ import { ClientError, ServerError } from 'errors'
 const API_URL = process.env.REACT_APP_API_URL
 
 function createRecipe(token, title, persons, ingredients, callback) {
-    debugger
+     
     validateText(token)
     validateString(title)
     validateNumber(persons)
     validateArray(ingredients)
     validateCallback(callback)
-    debugger
+     
     const xhr = new XMLHttpRequest
 
     // response

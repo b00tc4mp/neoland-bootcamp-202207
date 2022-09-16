@@ -2,10 +2,13 @@ import authenticateUser from '../logic/authenticateUser'
 import Loggito from '../utils/loggito'
 import withContext from '../utils/withContext'
 import logoAnimado from '../images/logoAnimado.gif'
+import { useState } from 'react'
 
 function LoginPage({ onLinkClick, onLogin, context: { handleFeedback } }) {
 
     const logger = new Loggito(LoginPage.name)
+
+    const [error, setError] = useState(null)
 
     logger.info('constructor')
 
@@ -29,8 +32,8 @@ function LoginPage({ onLinkClick, onLogin, context: { handleFeedback } }) {
             authenticateUser(email, password, (error, token) => {
                 if (error) {
 
-                    handleFeedback({ message: error.message, level: 'error' })
-
+                    setError(error)
+                   
                     logger.warn(error.message)
 
                     return
@@ -43,8 +46,9 @@ function LoginPage({ onLinkClick, onLogin, context: { handleFeedback } }) {
                 onLogin()
             })
         } catch (error) {
-            handleFeedback({ message: error.message, level: 'error' })
 
+            setError(error)
+           
             logger.warn(error.message)
         }
     }
@@ -58,6 +62,7 @@ function LoginPage({ onLinkClick, onLogin, context: { handleFeedback } }) {
             <input className="input" type="email" name="email" placeholder="e-mail" id="email" />
             <label className="formLabel" htmlFor="password">Contraseña</label>
             <input className="input" type="password" name="password" placeholder="contraseña" id="password" />
+            {error ? <p className="error">Email o contraseña incorrectos</p> : null}
             <button className="button" type="submit">Continuar</button>
         </form>
 

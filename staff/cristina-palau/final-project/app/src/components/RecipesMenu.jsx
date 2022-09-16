@@ -6,14 +6,17 @@ import MyRecipesList from './MyRecipesList'
 import PublicRecipesList from './PublicRecipesList'
 import PublicRecipe from './PublicRecipe'
 import UserRecipe from './UserRecipe'
-import { Routes, Route, useNavigate, useParams } from 'react-router-dom'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import retrieveUserRecipes from '../logic/retrieveUserRecipes'
 import retrieveUser from '../logic/retrieveUserRecipes'
 import retrievePublicRecipes from '../logic/retrievePublicRecipes'
 import retrieveRecipe from '../logic/retrieveRecipe'
 import deleteRecipe from '../logic/deleteRecipe'
+import withContext from '../utils/withContext'
+import Header from './Header'
 
-function RecipesMenu() {
+
+function RecipesMenu({ onBackClick, context: { reloadThePage } }) {
     const logger = new Loggito('Recipes')
 
     logger.info('render')
@@ -92,7 +95,7 @@ function RecipesMenu() {
     const handleClickUserRecipe = recipeId => {
         try {
             retrieveRecipe(sessionStorage.token, recipeId, (error, recipe) => {
-             
+
 
                 if (error) {
 
@@ -117,7 +120,7 @@ function RecipesMenu() {
     const handleClickPublicRecipe = recipeId => {
         try {
             retrieveRecipe(sessionStorage.token, recipeId, (error, recipe) => {
-         
+
                 if (error) {
 
                     logger.warn(error.message)
@@ -141,14 +144,9 @@ function RecipesMenu() {
             deleteRecipe(sessionStorage.token, recipeId, error => {
                 if (error) {
                     // handleFeedback({ message: error.message, level: 'error' })
-
                     logger.warn(error.message)
-
                     return
                 }
-
-                loadUserRecipes()
-
             })
         } catch (error) {
 
@@ -156,6 +154,8 @@ function RecipesMenu() {
 
             logger.warn(error.message)
         }
+
+        reloadThePage()
     }
 
     const handleReloadPublicRecipes = event => {
@@ -176,14 +176,18 @@ function RecipesMenu() {
 
         navigate('/recipes')
 
+        loadUserRecipes()
+
         logger.debug('navigate to recipes')
     }
 
 
     return <Routes>
         <Route path="/" element={<>
-
-            <MyRecipesList recipes={userRecipes} onRecipeClick={handleClickUserRecipe} onDeleteRecipe={handleDeleteRecipe} />
+            <Header text="Mis recetas" />
+            <div className="buttonContainer"><button className='transparentButton homeButton' onClick={onBackClick}>
+                <span className="material-symbols-outlined">keyboard_backspace</span></button></div>
+            <MyRecipesList userRecipes={userRecipes} onRecipeClick={handleClickUserRecipe} onDeleteRecipe={handleDeleteRecipe} />
 
             <div className="addRecipe">
                 <button className="addRecipe__button transparentButton" onClick={handleNavigationNewRecipe}>Añadir nueva receta +</button>
@@ -205,4 +209,4 @@ function RecipesMenu() {
 
     </Routes>
 }
-export default RecipesMenu
+export default withContext(RecipesMenu)

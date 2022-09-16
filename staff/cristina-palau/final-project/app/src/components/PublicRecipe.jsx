@@ -6,7 +6,6 @@ import createRecipe from '../logic/createRecipe'
 import retrieveRecipe from '../logic/retrieveRecipe'
 import retrieveIngredients from '../logic/retrieveIngredients'
 
-
 function PublicRecipe({ onBackClick, recipe }) {
 
     const { id } = useParams()
