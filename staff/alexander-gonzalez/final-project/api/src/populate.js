@@ -99,7 +99,7 @@ connect("mongodb://localhost:27017/wanderlust")
       description: " ",
       url: " TODO",
       likes: 0,
-      coodinate:[41.89020, 12.49223]
+      coords:[41.89020, 12.49223]
     });
 
     foroRomano = new Place({
@@ -231,7 +231,7 @@ connect("mongodb://localhost:27017/wanderlust")
         fontanaDiTrevi,
         castellSantAngelo,
       ],
-      coords:[41.8905, 12.4942]
+      coords:[ 41.89193, 12.51133]
     });
 
     return Promise.all([paris.save(), london.save(), roma.save()]);

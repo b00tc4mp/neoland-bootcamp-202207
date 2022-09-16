@@ -6,7 +6,8 @@ import Feedback from './components/Feedback'
 import Loggito from './utils/Loggito'
 import Context from './utils/Context'
 import './App.css'
-import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
+import { Routes, Route, useNavigate, Navigate, Router } from 'react-router-dom'
+import Search from './components/Search'
 
 
 
@@ -32,6 +33,12 @@ function App() {
         navigate('/')
 
         logger.debug('navigate to home')
+    }
+
+    const handleNavigationToSearch = () => {
+        navigate('search')
+    
+        logger.debug('navigate to search')
     }
 
     const handleLogoutClick = () => {
@@ -63,8 +70,11 @@ function App() {
             <Routes>
                 <Route path="login" element={sessionStorage.token ? <Navigate to="/" /> : <LoginPage onLinkClick={handleNavigationToRegister} onLogIn={handleNavigationToHome} />} />
                 <Route path="register" element={sessionStorage.token ? <Navigate to="/" /> : <RegisterPage onLinkClick={handleNavigationToLogin} />} />
-                <Route path="/*" element={sessionStorage.token ? <HomePage onLogoutClick={handleLogoutClick} /> : <Navigate to="login" />} />
+                 <Route path="/*" element={sessionStorage.token ? <HomePage onLogoutClick={handleLogoutClick} /> : <Navigate to="login"/>} />
+                 <Route path="search" element={sessionStorage.token? <Navigate to ="search" /> :<Search onLinkClick={handleNavigationToSearch}/>} />
+                
             </Routes>
+           
 
             {feedback.message && <Feedback level={feedback.level} message={feedback.message} onClick={handleAcceptFeedback} />}
         </div>

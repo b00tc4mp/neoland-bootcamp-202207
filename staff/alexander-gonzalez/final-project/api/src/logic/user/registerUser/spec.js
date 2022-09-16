@@ -1,3 +1,4 @@
+require('dotenv').config()
 const { connect, disconnect } = require('mongoose')
 const { expect } = require('chai')
 const { User } = require('../../../models')
@@ -8,6 +9,8 @@ const { MONGO_URL_TEST } = process.env
 
 describe('registerUser', () => {
     before(() => connect( MONGO_URL_TEST ))
+
+    // before(() => connect('mongodb://127.0.0.1:27017/wanderlust-test'))
 
     beforeEach(() => User.deleteMany())
 

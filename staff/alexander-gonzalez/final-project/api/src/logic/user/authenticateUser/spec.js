@@ -1,3 +1,4 @@
+require('dotenv').config()
 const { connect, disconnect } = require('mongoose')
 const { expect } = require('chai')
 const { User } = require('../../../models')

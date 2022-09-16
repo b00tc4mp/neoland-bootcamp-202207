@@ -12,6 +12,7 @@ function Search({ onQuery }) {
         onQuery(query)
     }
 
+
     logger.info('return')
 
     return <form className="container container--row" onSubmit={handleSubmit}>

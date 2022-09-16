@@ -1,205 +1,136 @@
-import { useState, useEffect } from 'react'
-import Loggito from '../utils/Loggito'
-import retrieveUser from '../logic/retrieveUser'
-import {searchCities} from '../logic'
-import Settings from '../components/Settings'
-import Header from '../components/Header'
-import withContext from '../utils/withContext'
-import { Routes, Route, useNavigate } from 'react-router-dom'
-import Search from '../components/Search'
-import CityView from '../components/CityView'
+import { useState, useEffect } from "react";
+import Loggito from "../utils/Loggito";
+import retrieveUser from "../logic/retrieveUser";
+import { searchCities } from "../logic";
+import Settings from "../components/Settings";
+import Header from "../components/Header";
+import withContext from "../utils/withContext";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import Search from "../components/Search";
+import CityView from "../components/CityView";
 
+function HomePage({ onLogoutClick, context: { handleFeedback } }) {
+  const logger = new Loggito("HomePage");
 
+  const [name, setName] = useState(null);
+  const [cities, setCities] = useState(null);
+  const navigate = useNavigate();
+  const [query, setQuery] = useState(null);
 
+  useEffect(() => {
+    logger.info('"componentDidMount"');
 
+    try {
+      retrieveUser(sessionStorage.token, (error, user) => {
+        if (error) {
+          handleFeedback({ message: error.message, level: "error" });
 
-function HomePage ({ onLogoutClick, context: {handleFeedback } }) {
-    const logger = new Loggito('HomePage')
+          logger.warn(error.message);
 
-    const [name, setName] = useState(null)
-    const [cities, setCities] = useState(null)
-    const navigate = useNavigate()
-    const [query, setQuery] = useState(null)
+          onLogoutClick();
 
-    useEffect(() => {
-        logger.info('"componentDidMount"')
-
-        try {
-            retrieveUser(sessionStorage.token, (error, user) => {
-                if (error) {
-                   handleFeedback({ message: error.message, level: 'error'})
-
-                   logger.warn(error.message)
-
-                   onLogoutClick()
-
-                   return 
-                }
-
-             setName(user.name)
-
-             logger.debug('setName', user.name)
-
-            })
-        } catch (error) {
-          handleFeedback({ message: error.message, level: 'error' })
-
-           logger.warn(error.message)
+          return;
         }
 
-      // loadNotes()
+        setName(user.name);
 
-    }, [])
+        logger.debug("setName", user.name);
+      });
+    } catch (error) {
+      handleFeedback({ message: error.message, level: "error" });
 
-    useEffect(() => {
-        logger.info('on query changed')
+      logger.warn(error.message);
+    }
+  }, []);
 
-        loadCities()
-    }, [query])
-    
-    const loadCities = () => {
-        try {
-            if (!query) return 
-            // retrieveCities(sessionStorage.token, query, (error, cities) => {
-            //     if(error) {
-            //        handleFeedback({ message: error.message, level: 'error'})
+  useEffect(() => {
+    logger.info("on query changed");
 
-            //         logger.warn(error.message)
+    try {
+      searchCities(sessionStorage.token, query, (error, cities) => {
+        if (error) {
+          handleFeedback({ message: error.message, level: "error" });
 
-            //         return (cities)
-            //     }
+          logger.warn(error.message);
 
-            //         setCities(cities)
-
-            //         logger.debug('setCities', cities)
-            // })
-            else 
-                searchCities(sessionStorage.token, query, (error, cities) => {
-                    if (error) {
-                        handleFeedback({ message: error.message, level: 'error' })
-
-                        logger.warn(error.message)
-
-                         return (cities)
-                }
-
-                setCities(cities)
-
-                logger.debug('setCities', cities)
-            })
-        } catch (error) {
-           handleFeedback({message: error.message, level: 'error'})
-
-           logger.warn(error.message)
+          return cities;
         }
+
+        setCities(cities);
+
+        logger.debug("setCities", cities);
+      });
+    } catch (error) {
+      handleFeedback({ message: error.message, level: "error" });
+
+      logger.warn(error.message);
     }
+  }, [query]);
 
-   /* const handleAddClick = () => {
-        try {
-            createNote(sessionStorage.token, error => {
-                if (error) {
-                handleFeedback({message: error.message, level: 'error'})
+  const handleSettingsClick = () => {
+    navigate("settings");
 
-                   logger.warn(error.message)
+    logger.debug("navigate to settings");
 
-                    return
-                }
+    // loadNotes()
+  };
 
-                loadNotes()
-            })
-        } catch (error) {
-         handleFeedback({message: error.message, level:'error' })
+  const handleSettingsCloseClick = () => {
+    navigate("/");
 
-          logger.warn(error.message)
-        }
-    }
+    logger.debug("navigate to search");
+  };
 
-    const handleUpdateNoteText = (noteId, text) => {
-        try {
-            updateNoteText(sessionStorage.token, noteId, text, error => {
-                if (error) {
-                    handleFeedback({message: error.message, level: 'error'})
 
-                   logger.warn(error.message)
-    
-                    return
-                }
-            })
-        } catch (error) {
-           handleFeedback({message: error.message, level: 'error'})
+  logger.info("return");
 
-           logger.warn(error.message)
-        }
-    }
+  const handleSearch = (query) => setQuery(query);
 
-    const handleDeleteNote = noteId => {
-        try {
-            deleteNote(sessionStorage.token, noteId, error => {
-                if (error) {
-                   handleFeedback({message: error.message, level: 'error'})
+  const handleCityClick = cityId => navigate(`cities/${cityId}`)
+ 
+  logger.info("return");
 
-                    logger.warn(error.message)
-    
-                    return
-                }
-    
-                    loadNotes()
-            })
-        } catch (error) {
-         handleFeedback({message: error.message, level: 'error'})
-
-           logger.warn(error.message)
-        }
-    }*/
-
-    const handleSettingsClick = () => {
-         navigate('settings')
-
-         logger.debug('navigate to settings')
-
-           // loadNotes()
-    }
-
-    const handleSettingsCloseClick = () => {
-        navigate('/')
-
-        logger.debug('navigate to search')
-    }
-
-    logger.info('return')
-
-    const handleSearch = query => setQuery(query)
-
-    logger.info('return')
-
-    return name ?
+  return name ? (
     <div className="home-page container container--full container--distributed">
-        <Header name={name} onLogoutClick={onLogoutClick} onSettingsClick={handleSettingsClick} />
+      <Header
+        name={name}
+        onLogoutClick={onLogoutClick}
+        onSettingsClick={handleSettingsClick}
+      />
 
-        <main className="main">
-            <Routes>
-                 <Route path="/" element={<Search cities={cities}  onQuery={handleSearch}/> } />
-                 <Route path="settings" element={<Settings onCloseClick={handleSettingsCloseClick} />} />
-            </Routes>
+      <main className="main">
+        <Routes>
+          <Route
+            path="/"
+            element={<Search cities={cities} onQuery={handleSearch} />}
+          />
+          
+          {/* <Route path="/"
+          element={<CitiesList cities={cities} onCityClick={hangleCityClick} />}
+          /> */}
 
-            <CityView cities={cities}/>
+          <Route
+            path="settings"
+            element={<Settings onCloseClick={handleSettingsCloseClick} />}
+          />
 
+            <Route path="cities/:cityId" element={<CityView />}/>
+        </Routes>
 
-         {cities && cities.map(city => {
-                return <li key={city._id}>
-                        <p>{city.name}</p>
-                        <p>{city.description}</p>
-                        </li>
-                })
-                }
-        </main>
+        {cities &&
+          cities.map((city) => {
+            return (
+              <li key={city.id} onClick={handleCityClick}>
+                <p>{city.name}</p>
+                <p>{city.description}</p>
+              </li>
+            );
+          })}
+      </main>
 
-        <footer className="footer">
-  
-        </footer>
+      <footer className="footer"></footer>
     </div>
-    :
-    null
+  ) : null;
 }
 
-export default withContext(HomePage)
+export default withContext(HomePage);

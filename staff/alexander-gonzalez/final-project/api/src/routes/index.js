@@ -12,7 +12,7 @@ usersRouter.post('/users/auth', jsonBodyParser, authenticateUserHandler)
 usersRouter.get('/users', retrieveUserHandler)
 
 const citiesRouter = Router()
-
+citiesRouter.patch('/cities/:citiesId', jsonBodyParser, searchCitiesHandler)
 citiesRouter.get('/cities/search', searchCitiesHandler)
 
 module.exports = {
