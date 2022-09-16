@@ -174,21 +174,6 @@ function EditQuestionPanel({
     suggestedAnswerElement.value = questionForEdit.suggestedAnswer;
   }, [questionForEdit]);
 
-  /* const questionText = {}; // dictionary */
-
-  const textAreaAdjust = (questionForEdit) => {
-    const questionText = document.getElementById("question");
-    questionText.style.height = "inherit";
-    questionText.style.height = `${25 + questionText.scrollHeight}px`;
-  };
-
-  useEffect(() => {
-    logger.info("useEffect questionlist");
-
-    textAreaAdjust(questionForEdit);
-    logger.info("question text area adjusted");
-  });
-
   return (
     <div className="game-screen">
       <span
@@ -221,7 +206,7 @@ function EditQuestionPanel({
             </select>
           </div>
 
-          {/* <div className="form-field">
+          <div className="form-field">
             <label htmlFor="question" className="input-label">
               Question:
             </label>
@@ -232,19 +217,6 @@ function EditQuestionPanel({
               id="question"
               className="input-field list__item-text"
             />
-          </div> */}
-          <div className="form-field">
-            <label htmlFor="question" className="input-label">
-              Question:
-            </label>
-            <textarea
-              className="list__item-text list-item__text--form"
-              defaultValue={questionForEdit.question}
-              type="text"
-              placeholder="Write your question..."
-              name="question"
-              id="question"
-            ></textarea>
           </div>
 
           <div className="form-field">

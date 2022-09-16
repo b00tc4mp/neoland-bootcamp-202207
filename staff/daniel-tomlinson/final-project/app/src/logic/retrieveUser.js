@@ -22,6 +22,7 @@ function retrieveUser(token, callback) {
       const user = {
         name: data.name,
         email: data.username,
+        favorites: data.favorites,
       };
 
       callback(null, user);

@@ -5,11 +5,12 @@ import Loggito from "../utils/Loggito";
 // import createQuestion from "../logic/createQuestion";
 // import createGameCode from "../logic/createGameCode";
 // import updateQuestionText from "../logic/updateQuestionText";
+// import updateFavorites from "../logic/updateFavorites";
 // import deleteQuestion from "../logic/deleteQuestion";
 import Settings from "../components/Settings";
 import QuestionsList from "../components/QuestionsList";
 import CommunityList from "../components/CommunityList";
-import FavouritesList from "../components/FavouritesList";
+import FavoritesList from "../components/FavoritesList";
 import CollectionsList from "../components/CollectionsList";
 import Header from "../components/Header";
 import LandingPanel from "../components/LandingPanel";
@@ -30,6 +31,7 @@ import {
   deleteQuestion,
 } from "../logic";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import updateFavorites from "../logic/updateFavorites";
 
 function HomePage({
   context: {
@@ -46,6 +48,7 @@ function HomePage({
   const [query, setQuery] = useState(null);
   const [questionBeingEditedId, setQuestionBeingEditedId] = useState(null);
   const [editedLocation, setEditedLocation] = useState(null);
+  // const [favorites, setFavorites] = useState(null);
   // const [view, setView] = useState("list");
   const navigate = useNavigate();
   const location = useLocation();
@@ -53,6 +56,8 @@ function HomePage({
   useEffect(() => {
     console.log(location);
   }, [location]);
+
+  useEffect(() => {});
 
   useEffect(() => {
     logger.info('"componentDidMount"');
@@ -70,6 +75,7 @@ function HomePage({
         }
 
         setName(user.name);
+        // setFavorites(user.favorites);
 
         logger.debug("setName", user.name);
       });
@@ -97,7 +103,7 @@ function HomePage({
   const loadQuestions = () => {
     try {
       if (!query)
-        retrieveQuestions(sessionStorage.token, (error, questions) => {
+        return retrieveQuestions(sessionStorage.token, (error, questions) => {
           if (error) {
             handleFeedback({ message: error.message, level: "error" });
 
@@ -134,7 +140,7 @@ function HomePage({
   const loadQuestionsPublic = () => {
     try {
       if (!query)
-        retrieveQuestionsPublic((error, questions) => {
+        retrieveQuestionsPublic(sessionStorage.token, (error, questions) => {
           if (error) {
             handleFeedback({ message: error.message, level: "error" });
 
@@ -148,18 +154,22 @@ function HomePage({
           logger.debug("setQuestionsPublic", questions);
         });
       else
-        searchQuestionsPublic(query, (error, questions) => {
-          if (error) {
-            handleFeedback({ message: error.message, level: "error" });
+        searchQuestionsPublic(
+          sessionStorage.token,
+          query,
+          (error, questions) => {
+            if (error) {
+              handleFeedback({ message: error.message, level: "error" });
 
-            logger.warn(error.message);
+              logger.warn(error.message);
 
-            return;
+              return;
+            }
+            setQuestionsPublic(questions);
+
+            logger.debug("setQuestions", questions);
           }
-          setQuestionsPublic(questions);
-
-          logger.debug("setQuestions", questions);
-        });
+        );
     } catch (error) {
       handleFeedback({ message: error.message, level: "error" });
 
@@ -193,11 +203,12 @@ function HomePage({
 
   const handleReturn = () => {
     navigate("./");
-    loadQuestions();
+    // loadQuestions();
   };
 
   const handleUpdateQuestion = (questionId, text) => {
     try {
+      debugger;
       updateQuestionText(sessionStorage.token, questionId, text, (error) => {
         if (error) {
           handleFeedback({ message: error.message, level: "error" });
@@ -226,6 +237,28 @@ function HomePage({
         }
 
         loadQuestions();
+      });
+    } catch (error) {
+      handleFeedback({ message: error.message, level: "error" });
+
+      logger.warn(error.message);
+    }
+  };
+
+  const handleUpdateFavorites = (questionId, action, location) => {
+    try {
+      updateFavorites(sessionStorage.token, questionId, action, (error) => {
+        if (error) {
+          handleFeedback({ message: error.message, level: "error" });
+
+          logger.warn(error.message);
+
+          return;
+        }
+
+        if (location.pathname === "/questionsList") loadQuestions();
+        else if (location.pathname === "/communityList") loadQuestionsPublic();
+        else if (location.pathname === "/favouritesList") loadQuestionsPublic();
       });
     } catch (error) {
       handleFeedback({ message: error.message, level: "error" });
@@ -283,9 +316,13 @@ function HomePage({
     navigate("editQuestion");
   };
 
+  const handleFavoritesClick = (questionId, action, location) => {
+    handleUpdateFavorites(questionId, action, location);
+  };
+
   const handleNavigateTo = (location) => {
     navigate(`/`);
-    navigate(`${location.pathname}`);
+    navigate(location);
   };
 
   /*   useEffect(() => {
@@ -352,7 +389,7 @@ function HomePage({
                 questions={questions}
                 onUpdateQuestion={handleUpdateQuestion}
                 onDeleteQuestion={handleDeleteQuestion}
-                onEditQuestion={handleEditQuestion}
+                handleEditQuestion={handleEditQuestion}
                 onFeedback={handleFeedback}
                 onReturn={handleReturn}
                 onSearch={handleSearch}
@@ -366,7 +403,8 @@ function HomePage({
                 questionsPublic={questionsPublic}
                 onUpdateQuestion={handleUpdateQuestion}
                 onDeleteQuestion={handleDeleteQuestion}
-                onEditQuestion={handleEditQuestion}
+                handleEditQuestion={handleEditQuestion}
+                handleFavoritesClick={handleFavoritesClick}
                 onFeedback={handleFeedback}
                 onReturn={handleReturn}
                 onSearchPublic={handleSearchPublic}
@@ -381,25 +419,30 @@ function HomePage({
                 questions={questions}
                 onUpdateQuestion={handleUpdateQuestion}
                 onDeleteQuestion={handleDeleteQuestion}
-                onEditQuestion={handleEditQuestion}
+                handleEditQuestion={handleEditQuestion}
                 onFeedback={handleFeedback}
                 onReturn={handleReturn}
                 editedLocation={editedLocation}
                 questionBeingEditedId={questionBeingEditedId}
                 handleNavigateTo={handleNavigateTo}
+                loadQuestions={loadQuestions}
+                loadQuestionsPublic={loadQuestionsPublic}
               />
             }
           />
           <Route
             path="favouritesList"
             element={
-              <FavouritesList
-                questions={questions}
+              <FavoritesList
+                questionsPublic={questionsPublic}
                 onUpdateQuestion={handleUpdateQuestion}
                 onDeleteQuestion={handleDeleteQuestion}
-                onEditQuestion={handleEditQuestion}
+                handleEditQuestion={handleEditQuestion}
+                handleFavoritesClick={handleFavoritesClick}
                 onFeedback={handleFeedback}
                 onReturn={handleReturn}
+                onSearchPublic={handleSearchPublic}
+                // favorites={favorites}
               />
             }
           />
@@ -410,7 +453,7 @@ function HomePage({
                 questions={questions}
                 onUpdateQuestion={handleUpdateQuestion}
                 onDeleteQuestion={handleDeleteQuestion}
-                onEditQuestion={handleEditQuestion}
+                handleEditQuestion={handleEditQuestion}
                 onFeedback={handleFeedback}
                 onReturn={handleReturn}
               />

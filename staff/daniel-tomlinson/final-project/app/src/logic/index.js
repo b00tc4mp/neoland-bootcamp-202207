@@ -4,8 +4,8 @@ import createGameCode from "./createGameCode";
 import createQuestion from "./createQuestion";
 import deleteQuestion from "./deleteQuestion";
 import registerUser from "./registerUser";
-import resetEmail from "./resetEmail";
 import updatePassword from "./updatePassword";
+import updateFavorites from "./updateFavorites";
 import retrieveGameCode from "./retrieveGameCode";
 import retrieveQuestions from "./retrieveQuestions";
 import retrieveQuestionsPublic from "./retrieveQuestionsPublic";
@@ -23,8 +23,8 @@ export {
   createQuestion,
   deleteQuestion,
   registerUser,
-  resetEmail,
   updatePassword,
+  updateFavorites,
   retrieveGameCode,
   retrieveQuestions,
   retrieveQuestionsPublic,
