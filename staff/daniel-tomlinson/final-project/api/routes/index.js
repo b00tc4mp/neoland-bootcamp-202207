@@ -6,6 +6,7 @@ const {
   authenticateUserHandler,
   retrieveUserHandler,
   updatePasswordHandler,
+  updateFavoritesHandler,
 } = require("./user");
 const {
   createQuestionHandler,
@@ -34,6 +35,8 @@ usersRouter.get("/users", retrieveUserHandler);
 
 // usersRouter.patch("/users/password", jsonBodyParser, updatePasswordHandler);
 usersRouter.patch("/users/details", jsonBodyParser, updatePasswordHandler);
+
+usersRouter.patch("/users/favorites", jsonBodyParser, updateFavoritesHandler);
 
 // TODO usersRouter.patch('/users/email', jsonBodyParser, updateUserEmailHandler)
 // TODO usersRouter.patch('/users/password', jsonBodyParser, updateUserPasswordHandler)

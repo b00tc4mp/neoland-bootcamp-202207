@@ -14,11 +14,11 @@ module.exports = (req, res) => {
       const userId = verifyToken(req);
 
       const {
-        body: { question },
+        body: { text },
         params: { questionId },
       } = req;
 
-      return updateQuestionText(userId, questionId, question).then(() =>
+      return updateQuestionText(userId, questionId, text).then(() =>
         res.status(204).send()
       );
     },

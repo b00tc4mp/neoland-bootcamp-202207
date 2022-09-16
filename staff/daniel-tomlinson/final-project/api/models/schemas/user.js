@@ -16,6 +16,11 @@ const user = new Schema({
     type: String,
     required: true,
   },
+
+  favorites: {
+    type: Array,
+    default: [],
+  },
 });
 
 module.exports = user;

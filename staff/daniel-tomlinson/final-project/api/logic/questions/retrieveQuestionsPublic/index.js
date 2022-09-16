@@ -2,29 +2,39 @@ const { Question, User } = require("../../../models");
 const { DuplicityError, NotFoundError, SystemError } = require("errors");
 const { validateString } = require("validators");
 
-function retrieveQuestionsPublic() {
-  // validateString
+function retrieveQuestionsPublic(userId) {
+  // TODO verifyObjectId
 
-  return Question.find(
-    { visibility: "public" },
-    "question suggestedAnswer timeLimit visibility id"
-  )
+  return User.findById(userId)
     .lean()
-    .catch((error) => {
-      throw new NotFoundError(`no public questions found`);
-    })
-    .then((questions) => {
-      questions.forEach((question) => {
-        // sanitize
+    .then((user) => {
+      // TODO if (!user) throw ... user not found
 
-        question.id = question._id.toString();
+      return Question.find(
+        { visibility: "public" },
+        "question suggestedAnswer timeLimit visibility id"
+      )
+        .lean()
+        .catch((error) => {
+          throw new NotFoundError(`no public questions found`);
+        })
+        .then((questions) => {
+          questions.forEach((question) => {
+            // sanitize
 
-        delete question._id;
+            question.id = question._id.toString();
 
-        delete question.__v;
-      });
+            question.isFav = user.favorites.some(
+              (questionId) => questionId.toString() === question.id
+            );
 
-      return questions;
+            delete question._id;
+
+            delete question.__v;
+          });
+
+          return questions;
+        });
     });
 }
 

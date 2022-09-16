@@ -3,4 +3,5 @@ module.exports = {
   registerUserHandler: require("./registerUserHandler"),
   retrieveUserHandler: require("./retrieveUserHandler"),
   updatePasswordHandler: require("./updatePasswordHandler"),
+  updateFavoritesHandler: require("./updateFavoritesHandler"),
 };

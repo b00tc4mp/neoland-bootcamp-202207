@@ -1,4 +1,8 @@
-const { runWithErrorHandling, createLogger } = require("../../utils");
+const {
+  runWithErrorHandling,
+  createLogger,
+  verifyToken,
+} = require("../../utils");
 const {
   questions: { retrieveQuestionsPublic },
 } = require("../../logic");
@@ -8,7 +12,9 @@ const logger = createLogger(module);
 module.exports = (req, res) => {
   runWithErrorHandling(
     () => {
-      retrieveQuestionsPublic()
+      const userId = verifyToken(req);
+
+      retrieveQuestionsPublic(userId)
         .then((questions) => {
           return res.json(questions);
         })
