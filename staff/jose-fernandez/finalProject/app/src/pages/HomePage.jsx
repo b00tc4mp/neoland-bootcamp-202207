@@ -10,6 +10,7 @@ import Header from '../components/Header'
 import ContMain from '../components/ContMain'
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import Search from '../components/Search'
+import ProductsList from '../components/ProductsList'
 import ProductsListMen from '../components/ProductsListMen'
 import ProductsListWomen from '../components/ProductsListWomen'
 import ProductsListKids from '../components/ProductsListKids'
@@ -99,8 +100,12 @@ function HomePage({ onLogoutClick, onLoginClick, context: { handleFeedback } }) 
     }
 
     const handleReturnMain = () => {
-        // loadProducts()
+        loadProducts()
         navigate('/')
+    }
+
+    const handleListProducts = () => {
+        navigate('listProducts')
     }
 
     const handleListProductsMen = () => {
@@ -120,14 +125,18 @@ function HomePage({ onLogoutClick, onLoginClick, context: { handleFeedback } }) 
 
 
     // return email?
+    // listProducts
+    const locationsHeader = ['/', 'listProducts']
+
     return <div className="container container--full container--width homePage">
-        {location.pathname === '/' && <Header products={products} onLoginClick={handleLoginClick} onListProductsMen={handleListProductsMen} onListProductsWomen={handleListProductsWomen} onListProductsKids={handleListProductsKids} onProfileClick={handleProfileClick} onSearchClick={handleSearchClick} onSearch={handleSearch} />}
+        {locationsHeader.includes(location.pathname) && <Header products={products} onLoginClick={handleLoginClick} onListProducts={handleListProducts} onListProductsMen={handleListProductsMen} onListProductsWomen={handleListProductsWomen} onListProductsKids={handleListProductsKids} onProfileClick={handleProfileClick} onSearchClick={handleSearchClick} onSearch={handleSearch} />}
 
         <main className="main-home">
             <Routes>
                 <Route path="/" element={<ContMain products={products} />} />
-                <Route path='search' element={<Search onCloseClick={handleReturnMain} />} />
+                <Route path='search' element={<Search onProductsSearch={handleListProducts} onCloseClick={handleReturnMain} onQuery={handleSearch}/>} />
                 {/* <Route path="menu" element={<Menu products={products} onCloseClick={handleReturnMain}/>} /> */}
+                <Route path='listProducts' element={<ProductsList products={products} onCloseClick={handleReturnMain} />} />
                 <Route path='listProductsMen' element={<ProductsListMen products={products} onCloseClick={handleReturnMain} />} />
                 <Route path='listProductsWomen' element={<ProductsListWomen products={products} onCloseClick={handleReturnMain} />} />
                 <Route path='listProductsKids' element={<ProductsListKids products={products} onCloseClick={handleReturnMain} />} />

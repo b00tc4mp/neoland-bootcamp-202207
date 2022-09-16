@@ -97,6 +97,16 @@ connect('mongodb://localhost:27017/finalProject')
             type:'clothing',
             categ:'kids'
         })
+        const product10 = new Product({
+            name:'Kylian Mbappe',
+            sku: 'nkh15y3',
+            price: 27.95,
+            discount: 0,
+            stock: 160,
+            img:'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/87b471b3-1357-4cb6-b81e-43c318e20e47/kylian-mbappe-older-dri-fit-football-shorts-N8XSnK.png',
+            type:'clothing',
+            categ:'kids'
+        })
         return Promise.all([
             product1.save(),
             product2.save(),
@@ -106,7 +116,8 @@ connect('mongodb://localhost:27017/finalProject')
             product6.save(),
             product7.save(),
             product8.save(),
-            product9.save()
+            product9.save(),
+            product10.save()
         ])
     })
     .then(([product1, product2, product3, product4]) => {

@@ -1,6 +1,6 @@
 require('dotenv').config()
 
-const { connect, disconnect, Types: { ObjectId }, } = require("mongoose");
+const { connect, disconnect, Types: { ObjectId },default:mongoose } = require("mongoose");
 const { Product, Item, Cart } = require("../../../models");
 const { NotFoundError } = require("errors");
 const searchProduct = require(".");
@@ -10,7 +10,8 @@ const { MONGO_URL_TEST } = process.env;
 describe("searchProduct", () => {
   beforeAll(() => connect(MONGO_URL_TEST));
 
-  beforeEach(() => Promise.all([Product.deleteMany()]));
+  // beforeEach(() => Promise.all([Product.deleteMany()]));
+  beforeEach(()=> mongoose.connection.db.dropDatabase())
 
   it("succeeds on existing Product", () => {
     // happy path

@@ -4,16 +4,16 @@ import './ProductsList.css'
 // import IconButton from './Buttons/IconButton'
 
 function ProductsList({ products,onCloseClick}) {
-    // const handleCloseClick = () => {
-    //     onCloseClick()
-    // }
-    return <section className="container-section products ">
+    const handleCloseClick = () => {
+        onCloseClick()
+    }
+    return <section className="container-section products">
     <div className="container-products">
         <div className="item--products one">
-            <h1>PRODUCTS</h1>
             {/* <IconButton addClass="close" text="close" onClick={handleCloseClick} /> */}
+            <h1>PRODUCTS</h1>
         </div>
-        {/* {products && products.filter(_product => _product.categ === "women").map() */}
+        
         {products && products.map(product => <div className="item--products" key={product.id}>
             <div className="featurette-icon">
                 <img className='featurette-icon--img products' src={product.img} alt="" />

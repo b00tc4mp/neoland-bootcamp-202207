@@ -8,6 +8,7 @@ function ProductsListKids({ products,onCloseClick }) {
     const handleCloseClick = () => {
         onCloseClick()
     }
+    const _products = products
     return <section className="container-section products cat ">
 
         <div className="container-products">
@@ -16,7 +17,7 @@ function ProductsListKids({ products,onCloseClick }) {
                 <h1>KIDS</h1>
             </div>
             {/* <ProductsListMen product={products}/> */}
-            {products && products.filter(_product => _product.categ === "kids"
+            {_products && _products.filter(_product => _product.categ === "kids"
             ).map(product => <div className="item--products" key={product.id}>
                 <div className="featurette-icon">
                     <img className='featurette-icon--img products' src={product.img} alt="" />

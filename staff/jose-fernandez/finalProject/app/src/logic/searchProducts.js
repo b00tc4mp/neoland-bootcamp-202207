@@ -27,7 +27,7 @@ function searchProducts(query, callback) {
                 callback(new ClientError(error))
                 break
             case (status === 200):
-                callback(null, notes.reverse())
+                callback(null, products.reverse())
                 break
             default:
                 callback(new UnknownError(`unexpected status ${status}`))
