@@ -126,10 +126,10 @@ function HomePage({ onLogoutClick, onLoginClick, context: { handleFeedback } }) 
 
     // return email?
     // listProducts
-    const locationsHeader = ['/', 'listProducts']
+    // const locationsHeader = ['/', 'listProducts']
 
     return <div className="container container--full container--width homePage">
-        {locationsHeader.includes(location.pathname) && <Header products={products} onLoginClick={handleLoginClick} onListProducts={handleListProducts} onListProductsMen={handleListProductsMen} onListProductsWomen={handleListProductsWomen} onListProductsKids={handleListProductsKids} onProfileClick={handleProfileClick} onSearchClick={handleSearchClick} onSearch={handleSearch} />}
+        {(location.pathname ==="/" || location.pathname === "listProducts") && <Header products={products} onLoginClick={handleLoginClick} onListProducts={handleListProducts} onListProductsMen={handleListProductsMen} onListProductsWomen={handleListProductsWomen} onListProductsKids={handleListProductsKids} onProfileClick={handleProfileClick} onSearchClick={handleSearchClick} onSearch={handleSearch} />}
 
         <main className="main-home">
             <Routes>
