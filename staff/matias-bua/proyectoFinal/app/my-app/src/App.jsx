@@ -27,7 +27,7 @@ function App() {
     }
 
     const handleNavigationToHome = () => {
-        navigate('home')
+        navigate('/')
 
         logger.debug('navigate to home')
     }

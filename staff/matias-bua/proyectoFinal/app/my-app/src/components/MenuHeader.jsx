@@ -13,7 +13,8 @@ function Menu({view, onLogoutClick,onSettingClick, context: { toggleTheme }}) {
 
     logger.info ('return')
 
-    return <ul className="Menu container container--row">
+    return <div className="SettingsMenuContainer">
+    <ul className="menuContainer">
             {view !== 'settings' && <li className="Menu__item">
             <IconButton text="settings" onClick={handleSettingClick} />
             </li>}
@@ -22,6 +23,7 @@ function Menu({view, onLogoutClick,onSettingClick, context: { toggleTheme }}) {
             <IconButton text="logout" onClick={handleLogoutClick} />
             </li>
         </ul>
+        </div>
 }
 
 export default withContext(Menu)

@@ -1,0 +1,17 @@
+/* .RenderAuctionsContainer{
+     list-style: none;
+      overflow: scroll; 
+     background-color:antiquewhite;
+     width: 50vh;
+     display: flex;
+     justify-content: center;
+     
+} 
+.AuctionList{
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     flex-direction: column;
+     gap: 10px;
+     
+}  */

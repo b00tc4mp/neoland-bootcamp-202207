@@ -48,8 +48,8 @@ function Footer({ onLogoutClick, onProfileClick, onHomeClick, onSavedClick, onNe
     <nav >
       <ul >
         <li >
-          <a href="#" class="active" onClick={handleHomeClick} >
-            <span class="material-symbols-outlined">
+          <a href="#" className="active" onClick={handleHomeClick} >
+            <span className="material-symbols-outlined">
               home
             </span>
           </a>
@@ -57,8 +57,8 @@ function Footer({ onLogoutClick, onProfileClick, onHomeClick, onSavedClick, onNe
       </ul>
       <ul>
         <li>
-          <a href="#" class="active" onClick={handleSavedClick} >
-            <span class="material-symbols-outlined">
+          <a href="#" className="active" onClick={handleSavedClick} >
+            <span className="material-symbols-outlined">
               bookmark
             </span>
           </a>
@@ -66,8 +66,8 @@ function Footer({ onLogoutClick, onProfileClick, onHomeClick, onSavedClick, onNe
       </ul>
       <ul>
         <li>
-          <a href="#" class="active" onClick={handleNewAuctionClick} >
-            <span class="material-symbols-outlined">
+          <a href="#" className="active" onClick={handleNewAuctionClick} >
+            <span className="material-symbols-outlined">
               add_circle
             </span>
           </a>
@@ -75,8 +75,8 @@ function Footer({ onLogoutClick, onProfileClick, onHomeClick, onSavedClick, onNe
       </ul>
       <ul>
         <li>
-          <a href="#" class="active" onClick={handleMailClick} >
-            <span class="material-symbols-outlined">
+          <a href="#" className="active" onClick={handleMailClick} >
+            <span className="material-symbols-outlined">
               inbox
             </span>
           </a>
@@ -84,16 +84,16 @@ function Footer({ onLogoutClick, onProfileClick, onHomeClick, onSavedClick, onNe
       </ul>
       <ul>
         <li>
-          <a href="#" class="active" onClick={handleProfileClick}>
-            <span class="material-symbols-outlined" >
+          <a href="#" className="active" onClick={handleProfileClick}>
+            <span className="material-symbols-outlined" >
               account_circle
             </span>
           </a>
         </li>
       </ul>
 
-      <div class="tubelight">
-        <div class="light-ray"></div>
+      <div className="tubelight">
+        <div className="light-ray"></div>
       </div>
     </nav>
   )

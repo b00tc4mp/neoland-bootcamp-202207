@@ -1,37 +1,54 @@
+/* .HeaderMenuContainer{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+.HeaderContainer{
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-around;
+} 
+
+SettingsMenuContainer {
+  display: flex;
+  flex-direction: row;
+}
+ */
+
+
+
+
 /* .Header {
   display: flex;
   height: 30%;
   justify-content: space-around;
-} */
+/* } 
 .css-hyum1k-MuiToolbar-root {
   background-color: aquamarine;
   flex-direction: row-reverse;
-}
+} 
 
-.headerContainer{
+/* .headerContainer{
   height: 80px;
   width: 100%;
   background-color: blueviolet;
   display: flex;
   justify-content: space-around;
   align-items: center;
-}
-.HeaderMenuContainer{
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-}
+} */
 
-.search{
+/* .search{
   height: 30px;
   width: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: blanchedalmond;
-}
+} */
 
-.menuBar{
+/* .menuBar{
   height: 30px;
   width: 30px;
   position: relative;
@@ -39,4 +56,4 @@
   align-items: center;
   justify-content: center;
   background-color: rgb(205, 228, 255);
-}
+} */

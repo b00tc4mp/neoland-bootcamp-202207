@@ -3,10 +3,23 @@ import registerUser from '../logics/registerUser'
 import withContext from '../utils/withContext'
 
 
-function RegisterPage({onLinkClick,onRegisterFormSubmit,context:{handleFeedback}}) {
+function RegisterPage({ onLinkClick, onRegisterFormSubmit, context: { handleFeedback } }) {
     const logger = new Loggito(RegisterPage.name)
 
     logger.info('constructor')
+
+    // let today = new Date();
+    // let dd = today.getDate();
+    // let mm = today.getMonth() + 1; //January is 0!
+    // let yyyy = today.getFullYear() + 18;
+    // if (dd < 10) {
+    //     dd = '0' + dd
+    // }
+    // if (mm < 10) {
+    //     mm = '0' + mm
+    // }
+
+    // today = yyyy + '-' + mm + '-' + dd;
 
     const handleLinkClick = event => {
         event.preventDefault()
@@ -18,37 +31,37 @@ function RegisterPage({onLinkClick,onRegisterFormSubmit,context:{handleFeedback}
         event.preventDefault()
 
         const {
-            target: form, 
-            target: { 
+            target: form,
+            target: {
                 name: { value: name },
                 lastname: { lastname },
                 email: { value: email },
                 password: { value: password },
                 birth: { value: birth },
-                phonenumber: {value: phonenumber}
+                phonenumber: { value: phonenumber }
             }
-        } = event 
-        
+        } = event
+
 
         try {
-            registerUser(name,lastname, email, password, birth, phonenumber, (error) => {
+            registerUser(name, lastname, email, password, birth, phonenumber, (error) => {
                 if (error) {
-                    handleFeedback({message: error.message, level: 'error'})// mensaje feedback de error si no logramos ingresar con exito!
-                    
+                    handleFeedback({ message: error.message, level: 'error' })// mensaje feedback de error si no logramos ingresar con exito!
+
                     logger.warn(error.message)
 
                     return
                 }
                 form.reset()
 
-              handleFeedback({message: 'Success Register', level:'success'})// supuestamente aqui hacemos el feedback para entrar con exito con happy path!
+                handleFeedback({ message: 'Success Register', level: 'success' })// supuestamente aqui hacemos el feedback para entrar con exito con happy path!
 
                 logger.debug('register reset')
-                
+
                 onRegisterFormSubmit()
             })
         } catch (error) {
-           handleFeedback({message: error.message, level: 'error'})
+            handleFeedback({ message: error.message, level: 'error' })
 
             logger.warn(error.message)
         }
@@ -72,15 +85,15 @@ function RegisterPage({onLinkClick,onRegisterFormSubmit,context:{handleFeedback}
                 <label htmlFor="email">E-mail</label>
                 <input className="input" type="email" name="email" placeholder="email" id="email" />
             </div>
-            
+
             <div className="form__field">
                 <label htmlFor="password">Password</label>
                 <input className="input" type="password" name="password" placeholder="password" id="password" />
             </div>
 
-             <div className="form__field">
+            <div className="form__field">
                 <label htmlFor="birth">birth</label>
-                <input className="input" type="birth" name="birth" placeholder="birth" id="birth" />
+                <input className="input" type="date" /*max={today}*/ name="birth" placeholder="birth" id="birth" />
             </div>
 
             <div className="form__field">
@@ -89,13 +102,13 @@ function RegisterPage({onLinkClick,onRegisterFormSubmit,context:{handleFeedback}
             </div>
 
 
-            <div className='buttons buttons-register'>
+            <div className="buttons-register">
                 <button className="button" type="submit">Register</button>
-                <a className="anchor" href="login" onClick={handleLinkClick}>Login</a>     
+                <a className="anchor" href="login" onClick={handleLinkClick}>Login</a>
             </div>
 
         </form>
     </main>
 }
 
-export default withContext (RegisterPage)
+export default withContext(RegisterPage)

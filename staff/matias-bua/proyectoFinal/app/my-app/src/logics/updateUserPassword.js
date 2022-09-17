@@ -20,6 +20,7 @@ function updateUserPassword(token, oldPassword, newPassword, newPasswordRepeat, 
 
   // response
 
+
   xhr.onload = function () {
       const status = xhr.status
 
@@ -31,14 +32,15 @@ function updateUserPassword(token, oldPassword, newPassword, newPasswordRepeat, 
           callback(null)
   }
 
-  // request
+  
 
-  xhr.open('PATCH', 'https://localhost:8080/api/v2/users')
+  xhr.open('PATCH', 'http://localhost:8080/api/users/password')
 
   xhr.setRequestHeader('Authorization', `Bearer ${token}`)
   xhr.setRequestHeader('Content-type', 'application/json')
 
-  const json = JSON.stringify({ oldPassword, password: newPassword })
+  const json = JSON.stringify({ oldPassword, newPassword, newPasswordRepeat })
+
 
   xhr.send(json)
 }

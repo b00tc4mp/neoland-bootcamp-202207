@@ -19,8 +19,6 @@ function registerUser(name,lastname, email, password, birth, phonenumber, callba
 
     const xhr = new XMLHttpRequest
 
-    // response
-debugger
     xhr.onload = function() {
         const status = xhr.status
 

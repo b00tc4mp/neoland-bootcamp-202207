@@ -1,37 +1,44 @@
-const API_URL = process.env.REACT_APP_API_URL
+const API_URL = process.env.REACT_APP_API_URL;
 
-function createAuction(token, callback) {
-    if (typeof token !== 'string') throw new TypeError('token is not a string')
-    if (token.trim().length === 0) throw new Error('token is empty or blank')
+function createAuction(
+  token,
+  title,
+  description,
+  value,
+  image,
+  finalDate,
+  // initialDate,
+  callback
+) {
+  if (typeof token !== "string") throw new TypeError("token is not a string");
+  if (token.trim().length === 0) throw new Error("token is empty or blank");
 
-    if (typeof callback !== 'function') throw new TypeError('callback is not a function')
+  if (typeof callback !== "function")
+    throw new TypeError("callback is not a function");
 
-    const xhr = new XMLHttpRequest
+  const xhr = new XMLHttpRequest();
 
-    // response
+  // response
 
-    xhr.onload = function () {
-        const status = xhr.status
+  xhr.onload = function () {
+    const status = xhr.status;
 
-        if (status >= 500)
-            callback(new Error(`server error (${status})`))
-        else if (status >= 400)
-            callback(new Error(`client error (${status})`))
-        else if (status === 201)
-            callback(null)
-    }
+    if (status >= 500) callback(new Error(`server error (${status})`));
+    else if (status >= 400) callback(new Error(`client error (${status})`));
+    else if (status === 201) callback(null);
+  };
 
-    // request
+  // request
 
-    xhr.open('POST', `${API_URL}/auction`)
+  xhr.open("POST", `${API_URL}/auction`);
 
-    xhr.setRequestHeader('Authorization', `Bearer ${token}`)
-    xhr.setRequestHeader('Content-type', 'application/json')
+  xhr.setRequestHeader("Authorization", `Bearer ${token}`);
+  xhr.setRequestHeader("Content-type", "application/json");
 
-    const json = JSON.stringify(json)
+  const auction = { title, description, value, image, finalDate /*initialDate*/ };
+  const json = JSON.stringify(auction)
 
-    xhr.send(json)
+  xhr.send(json);
 }
 
-
-export default createAuction
+export default createAuction;

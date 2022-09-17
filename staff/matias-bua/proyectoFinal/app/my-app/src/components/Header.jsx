@@ -3,7 +3,8 @@ import './Header.css'
 import IconButton from './IconButton'
 import Loggito from '../utils/Loggito'
 import MenuHeader from './MenuHeader'
-import Search from './Search'
+import SearchAuctions from '../components/SearchAuctions'
+
 // import Setting from './Setting'
 
 
@@ -39,7 +40,7 @@ function Header ({ onLogoutClick, onSettingClick, view: viewHome, onSearch}) {
 
     return <header className="HeaderContainer">
         <div className="HeaderMenuContainer">
-            {view !== 'menu' && <Search onQuery={onSearch}/>}
+            {view !== 'menu' && <SearchAuctions onQuery={onSearch}/>}
             { view === null && <IconButton text="menu" onClick={handleMenuClick} />}
             { view === 'menu' && <IconButton text="close" onClick={handleCloseClick} />}
         </div>

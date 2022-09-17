@@ -2,12 +2,12 @@ import Loggito from '../utils/Loggito'
 import withContext from '../utils/withContext'
 import authenticateUser from '../logics/authenticateUser'
 import updateUserPassword from '../logics/updateUserPassword'
-import { useReducer } from 'react'
+// import { useReducer } from 'react'
 
 
 function Profile({ onLinkClick, context: { handleFeedback }}) {
 
-    const logger = new Loggito('Settings')
+    const logger = new Loggito('Profile')
 
     const handleFormSubmit = event => {
         event.preventDefault()
@@ -48,12 +48,12 @@ function Profile({ onLinkClick, context: { handleFeedback }}) {
     <form className="update-password-form form" onSubmit={handleFormSubmit}>
         <div className="form__field">
           <h3 className="tittleProfile"> Your profile </h3>
-            <label htmlFor="changeProfile">Change Name</label>
-            <input className="input" type="text" name="changeProfile" placeholder="New Name" id="changeProfile" />
+            <label htmlFor="changeName">Change Name</label>
+            <input className="input" type="text" name="changeName" placeholder="New Name" id="changeName" />
         </div>
 
         <div className="form__field">
-            <label htmlFor="gender">Your Gender</label>
+            <label htmlFor="changeGender">Your Gender</label>
             <div className='GenderProfile'>
             <button>Male</button>
             <button>Female</button>
@@ -67,8 +67,8 @@ function Profile({ onLinkClick, context: { handleFeedback }}) {
         </div>
 
         <div className="form__field">
-            <label htmlFor="AboutYou">AboutYou</label>
-            <input className="input" type="text" name="AboutYou" placeholder="About you..." id="AboutYou" />
+            <label htmlFor="aboutYou">About you</label>
+            <input className="input" type="text" name="aboutYou" placeholder="About you..." id="aboutYou" />
         </div>
 
         <button className="button" type="submit">Change Profile</button>

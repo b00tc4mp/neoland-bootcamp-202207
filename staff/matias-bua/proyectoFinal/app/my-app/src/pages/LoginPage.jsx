@@ -1,14 +1,11 @@
 import Loggito from '../utils/Loggito'
 import authenticateUser from '../logics/authenticateUser'
 import withContext from '../utils/withContext'
-import Forms from '../components/Forms'
+
 
 
 function LoginPage({ onLinkClick, onLogIn, context: { handleFeedback } }) {
     const logger = new Loggito(LoginPage.name)
-
-    
-
     // const context = useContext(Context)
     // const handleFeedback = context.handleFeedback
 
@@ -60,7 +57,7 @@ function LoginPage({ onLinkClick, onLogIn, context: { handleFeedback } }) {
     <main className="login-page container container--full container--spaced">
         <form className="form" action="https://www.google.com/search" method="get" onSubmit={handleFormSubmit}>
             <div className="form__field">
-                <label htmlFor="email">E-mail</label>
+                <label htmlFor="email">Log in</label>
                 <input className="input" type="email" name="email" placeholder="email" id="email" />
             </div>
 

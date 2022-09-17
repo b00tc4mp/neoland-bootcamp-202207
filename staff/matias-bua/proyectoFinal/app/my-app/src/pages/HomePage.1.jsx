@@ -144,7 +144,7 @@ function HomePage({ onLogoutClick, context: { handleFeedback } }) {
 
             <main className="main">
                 <Routes>
-                    <Route path="/" element={/*<NoteList notes={notes} onUpdateNoteText={handleUpdateNoteText} onDeleteNote={handleDeleteNote}*/ />} />
+                    <Route path="/" element={/*<NoteList notes={notes} onUpdateNoteText={handleUpdateNoteText} onDeleteNote={handleDeleteNote}*/} />} />
                     <Route path="settings" element={/*<Settings onCloseClick={handleSettingsCloseClick}*/ />} />
                 </Routes>
             </main>

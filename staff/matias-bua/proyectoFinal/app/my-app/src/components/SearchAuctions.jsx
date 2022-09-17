@@ -1,7 +1,7 @@
 import IconButton from './IconButton'
 import Loggito from '../utils/Loggito'
 
-function Search({ onQuery }) {
+function SearchAuctions({ onQuery }) {
     const logger = new Loggito('Search')
 
     const handleSubmit = event => {
@@ -20,4 +20,4 @@ function Search({ onQuery }) {
     </form>
 }
 
-export default Search
+export default SearchAuctions
