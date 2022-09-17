@@ -1,5 +1,6 @@
 import Loggito from '../utils/loggito'
 import './NewRecipe.sass'
+import './PublicRecipe.sass'
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import createRecipe from '../logic/createRecipe'
@@ -54,24 +55,25 @@ function PublicRecipe({ onBackClick, recipe }) {
 
             recipeState.ingredients.forEach((ingredient) => {
                 const quantityString = ingredient.quantity
-                const unit = ingredient.unit 
+                const unit = ingredient.unit
                 const ingredientName = ingredient.ingredient.name
 
                 let ingredientFound = ingredients.find(ingredients => ingredients.name === ingredientName)
                 if (!ingredientName) throw new Error('ingredient not found')
                 let id = ingredientFound.id
-                
+
                 const quantity = parseInt(quantityString)
-                ingredientsItem.push({ quantity, unit, id })})
+                ingredientsItem.push({ quantity, unit, id })
+            })
 
-                createRecipe(sessionStorage.token, title, parseInt(persons), ingredientsItem, (error) => {
-                    if (error) {
+            createRecipe(sessionStorage.token, title, parseInt(persons), ingredientsItem, (error) => {
+                if (error) {
 
-                        logger.warn(error.message)
+                    logger.warn(error.message)
 
-                        return
-                    }
-                })
+                    return
+                }
+            })
 
         } catch (error) {
             logger.warn(error.message)
@@ -85,27 +87,32 @@ function PublicRecipe({ onBackClick, recipe }) {
     }
 
     return <>
-        <h3>Guardar receta</h3>
-        <div className="newRecipeForm">
+
+
+        <div className="buttonContainer"><button className='transparentButton homeButton' onClick={handleBackClick}>
+            <span className="material-symbols-outlined">keyboard_backspace</span></button></div>
+
+        <div className="publicRecipeContainer">
             <div className="recipeHeaderContainer">
-                <div className="recipeTitle" name="title" placeholder="Título" id="title">Title: {recipeState ? recipeState.title : ''}</div>
-                <div className="recipePersons" name="persons" placeholder="pax" id="persons">Persons: {recipeState ? recipeState.persons : ''}</div>
+                <h2 className="recipeTitle" name="title" placeholder="Título" id="title">{recipeState ? recipeState.title : ''}</h2>
+                <div className="recipePersons" name="persons" placeholder="pax" id="persons">para {recipeState ? recipeState.persons : ''}</div>
             </div>
-            <p>Ingredientes</p>
+            <h3>Ingredientes</h3>
+
             <div className="ingredientsContainer"> {recipeState && recipeState.ingredients && recipeState.ingredients.map((ingredient, index) => {
-                return <div className="ingredientsContainer" key={ingredient.id}>
-                    <div className="ingredient quantity" name={`quantityt${index}`}> quantity: {ingredient.quantity}</div>
-                    <div className="ingredient unit" name={`unit${index}`}>{ingredient.unit}</div>
-                    <div className="ingredient name" name={`ingredient${index}`}>ingredient: {ingredient.ingredient.name}</div>
+                if (ingredient.unit === "unit") { (ingredient.quantity === 1)? ingredient.unit = "unidad" : ingredient.unit = "unidades"}
+                return <div className="ingredientsRowContainer" key={ingredient.id}>
+                    <div className="ingredient quantity" name={`quantityt${index}`}> {ingredient.quantity} </div>
+                    <div className="ingredient unit" name={`unit${index}`}>{ingredient.unit} de </div>
+                    <div className="ingredient name" name={`ingredient${index}`}>{ingredient.ingredient.name}</div>
                 </div>
             })
             }
             </div>
             <div className="buttonsContainer">
-                <button className="createButton" onClick={handleSaveRecipe} >Guardar receta</button>
+                <button className="createButton transparentButton" onClick={handleSaveRecipe}><span className="material-symbols-outlined ">heart_plus</span></button>
             </div>
         </div>
-        <button className="backButton" onClick={handleBackClick}>Atrás</button>
     </>
 }
 

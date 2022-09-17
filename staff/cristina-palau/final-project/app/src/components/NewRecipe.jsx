@@ -144,16 +144,18 @@ function NewRecipe({ onBackClick, printIngredientsRow }) {
     }
 
     return <>
-        <h3>Nueva receta</h3>
-        <form className="newRecipeForm" onSubmit={handleCreateRecipe} >
+        <div className="buttonContainer"><button className='transparentButton homeButton' onClick={handleBackClick}>
+                <span className="material-symbols-outlined">keyboard_backspace</span></button></div>
+            <form className="newRecipeForm" onSubmit={handleCreateRecipe} >
             <div className="recipeHeaderContainer">
+            <label className="formLabel" htmlFor="title">Título</label>
                 <input type="text" className="input newRecipeInput titleInput" name="title" placeholder="Título" id="title" />
-                <input type="number" className="input newRecipeInput personsInput" name="persons" placeholder="pax" id="persons" />
+                <label className="formLabel" htmlFor="persons">para<input type="number" className="input newRecipeInput personsInput" name="persons" placeholder="pax" id="persons"/></label>
             </div>
             <p>Ingredientes</p>
-            <div className="ingredientsContainer"> {
+            <div className="ingredients"> {
                 rows.map(row =>
-                    <div className="ingredientsContainer" key={row.id}>
+                    <div className="ingredientsRecipeContainer" key={row.id}>
                         <input type="number" className="input newRecipeInput quantInput" name={`quantity${row.id}`} placeholder="cantidad" onChange={(event) => handleChangeQuantity(event, row.id)} />
                         <select className="select newRecipeInput unitSelect" defaultValue={"kg"} name={`unit${row.id}`} placeholder="unit" onChange={(event) => handleChangeUnit(event, row.id)}>
                             <option value="kg" >kg</option>
@@ -166,17 +168,16 @@ function NewRecipe({ onBackClick, printIngredientsRow }) {
                                 ingredients.map(({ name, id }) => <option key={id} value={name}>{name}</option>)
                             }
                         </datalist>
-                        <button className="deleteButton" onClick={() => handleDeleteRow(row.id)}>X</button>
+                        <button className="deleteButton transparentButton" onClick={() => handleDeleteRow(row.id)}><span className="material-symbols-outlined">remove</span></button>
                     </div>)
 
             }
-                <button className="addIngredient" onClick={addIngredient}>+</button>
+                <button className="addIngredient transparentButton" onClick={addIngredient}><span className="material-symbols-outlined">add_circle</span></button>
             </div>
             <div className="buttonsContainer">
-                <button className="createButton" type="submit">Crear receta</button>
+                <button className="createButton transparentButton" type="submit"><span className="material-symbols-outlined">save</span></button>
             </div>
         </form>
-        <button className="backButton" onClick={handleBackClick}>Atrás</button>
     </>
 }
 

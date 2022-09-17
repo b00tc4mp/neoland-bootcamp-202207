@@ -75,8 +75,8 @@ function HomePage({ onLogoutClick }) {
                     <>
                         <Header text={`Hey, ${name}!`} />
                         <main className="homeMenu">
-                            <div className='menuOption optionList'><button className='menuButton shopListButton'>Mis menus </button> </div>
                             <div className='menuOption optionRecipes'><button className='menuButton recipesButton' onClick={handleNavigationRecipes}> Mis recetas </button></div>
+                            <div className='menuOption optionList'><button className='menuButton shopListButton'>Mis listas </button> </div>
                             <div className='menuOption optionProfile'><button className='menuButton profileButton' onClick={handleNavigationSettings}>Perfil</button></div>
                         </main>
                     </>} />
@@ -95,7 +95,7 @@ function HomePage({ onLogoutClick }) {
                 </>} />
 
                 <Route path="recipes/*" element={<>
-                   
+                    <Header />
                     <div className="recipesPage">
                         <main className="recipesMenu">
                             <RecipesMenu onBackClick={handleNavigationHome} />

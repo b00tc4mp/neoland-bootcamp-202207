@@ -13,7 +13,6 @@ import retrievePublicRecipes from '../logic/retrievePublicRecipes'
 import retrieveRecipe from '../logic/retrieveRecipe'
 import deleteRecipe from '../logic/deleteRecipe'
 import withContext from '../utils/withContext'
-import Header from './Header'
 
 
 function RecipesMenu({ onBackClick, context: { reloadThePage } }) {
@@ -182,13 +181,13 @@ function RecipesMenu({ onBackClick, context: { reloadThePage } }) {
 
     return <Routes>
         <Route path="/" element={<>
-            <Header text="Mis recetas" />
+            
             <div className="buttonContainer"><button className='transparentButton homeButton' onClick={onBackClick}>
                 <span className="material-symbols-outlined">keyboard_backspace</span></button></div>
             <MyRecipesList userRecipes={userRecipes} onRecipeClick={handleClickUserRecipe} onDeleteRecipe={handleDeleteRecipe} />
 
             <div className="addRecipe">
-                <button className="addRecipe__button transparentButton" onClick={handleNavigationNewRecipe}>Añadir nueva receta +</button>
+                <button className="addRecipe__button transparentButton" onClick={handleNavigationNewRecipe}><span className="material-symbols-outlined">add_circle</span> </button>
             </div>
             <PublicRecipesList recipes={publicRecipes} onRecipeClick={handleClickPublicRecipe} reloadPublicRecipes={handleReloadPublicRecipes} />
 

@@ -220,6 +220,8 @@ function UserRecipe({ onBackClick, recipe }) {
     }
 
     return <>
+        <div className="buttonContainer"><button className='transparentButton homeButton' onClick={handleBackClick}>
+                <span className="material-symbols-outlined">keyboard_backspace</span></button></div>
         <h3>Guardar receta Usuario</h3>
         <form className="newRecipeForm">
             <div className="recipeHeaderContainer">
@@ -227,30 +229,30 @@ function UserRecipe({ onBackClick, recipe }) {
                 <input type="number" defaultValue={recipeState ? recipeState.persons : ''} className="input newRecipeInput personsInput" name="persons" placeholder="pax" id="persons" onChange={(event) => handleChangePersons(event)} />
             </div>
             <p>Ingredientes</p>
-            <div className="ingredientsContainer">
+            <div className="ingredients">
                 {recipeState && recipeState.ingredients && recipeState.ingredients.map((ingredient, index) =>
-                    <div className="ingredientsContainer" key={ingredient.id}>
+                    <div className="ingredientsRecipeContainer" key={ingredient.id}>
                         <input type="number" defaultValue={ingredient.quantity} className="input newRecipeInput quantInput" name={`quantity${index}`} placeholder="cantidad" onChange={(event) => handleChangeQuantity(event, ingredient.id)} />
                         <select className="select newRecipeInput unitSelect" defaultValue={ingredient.unit} name={`unit${index}`} placeholder="unit" onChange={(event) => handleChangeUnit(event, ingredient.id)}>
                             <option value="kg" >kg</option>
                             <option value="unit">unt</option>
                             <option value="l">l</option>
                         </select>
-                        <input className="ingredient" defaultValue={ingredient.ingredient.name} name={`ingredient${index}`} list="ingredientsList" onChange={(event) => handleChangeIngredient(event, ingredient.id)} />
+                        <input className="input newRecipeInput ingredientInput" defaultValue={ingredient.ingredient.name} name={`ingredient${index}`} list="ingredientsList" onChange={(event) => handleChangeIngredient(event, ingredient.id)} />
                         <datalist id="ingredientsList">
                             {
                                 ingredients.map(({ name, id }) => <option key={id} value={name}>{name}</option>)
                             }
                         </datalist>
-                        <button type="button" className="deleteButton" onClick={(event) => {
+                        <button type="button" className="deleteButton transparentButton" onClick={(event) => {
                             event.preventDefault()
 
                             handleDeleteIngredient(ingredient.id)
-                        }}>X</button>
+                        }}><span className="material-symbols-outlined">remove</span></button>
                     </div>
                 )}
 
-                <button className="addIngredient" onClick={addIngredient}>+</button>
+<button className="addIngredient transparentButton" onClick={addIngredient}><span className="material-symbols-outlined">add_circle</span></button>
             </div>
 
             <div className="buttonsContainer">
@@ -266,7 +268,6 @@ function UserRecipe({ onBackClick, recipe }) {
                 }}>Crear nueva receta</button>
             </div>
         </form>
-        <button className="backButton" onClick={handleBackClick}>Atrás</button>
     </>
 }
 
