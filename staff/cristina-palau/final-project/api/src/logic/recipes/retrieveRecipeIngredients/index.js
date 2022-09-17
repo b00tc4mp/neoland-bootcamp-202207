@@ -2,7 +2,7 @@ const { User, Recipe } = require('../../../models')
 const { NotFoundError, SystemError } = require('errors')
 const { verifyObjectIdString } = require('../../../utils')
 
-function retrieveRecipe(userId, recipeId) {
+function retrieveRecipeIngredients(userId, recipeId) {
     verifyObjectIdString(userId, 'user id')
     verifyObjectIdString(recipeId, 'recipe id')
   
@@ -13,7 +13,7 @@ function retrieveRecipe(userId, recipeId) {
         .then(user => {
             if (!user) throw new NotFoundError(`user with id ${userId} not found`)
 
-            return Recipe.findById(recipeId).populate({ path: 'ingredients.ingredient', select: 'name' }).lean()
+            return Recipe.findById(recipeId).populate({ path: 'ingredients.ingredient', select: 'name type' }).lean()
             
                 .catch(error => {
                     throw new SystemError(error.message)
@@ -26,7 +26,9 @@ function retrieveRecipe(userId, recipeId) {
             delete recipe._id
             delete recipe.__v
 
-            recipe.ingredients.forEach(ingredient => {
+            allIngredients = recipe.ingredients
+
+            allIngredients.forEach(ingredient => {
                 ingredient.id = ingredient._id.toString()
                 ingredient.ingredient.id = ingredient.ingredient._id.toString()
 
@@ -36,7 +38,7 @@ function retrieveRecipe(userId, recipeId) {
                 delete ingredient.ingredient._v
             })
 
-            return recipe
+            return allIngredients
         })
 }
-module.exports = retrieveRecipe
+module.exports = retrieveRecipeIngredients

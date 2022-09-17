@@ -2,7 +2,7 @@ import { validateCallback, validateText, validateString } from 'validators'
 import { ClientError, ServerError, AuthError, UnknownError } from 'errors'
 const API_URL = process.env.REACT_APP_API_URL
 
-function retrieveIngredients(token, callback) {
+function retrieveRecipeIngredients(token, recipeId, callback) {
     validateText(token)
     validateCallback(callback)
 
@@ -29,7 +29,7 @@ function retrieveIngredients(token, callback) {
                 callback(new ClientError(error))
                 break
             case (status === 200):
-                callback(null, ingredients) //[]
+                callback(null, ingredients) 
                 break
             default:
                 callback(new UnknownError(`unexpected status ${status}`))
@@ -38,13 +38,13 @@ function retrieveIngredients(token, callback) {
 
     // request
 
-    xhr.open('GET', `${API_URL}/ingredients/`)
+    xhr.open('GET', `${API_URL}/recipes/${recipeId}/ingredients/`)
 
     xhr.setRequestHeader('Authorization', `Bearer ${token}`)
 
     xhr.send()
 }
 
-export default retrieveIngredients
+export default retrieveRecipeIngredients
 
 

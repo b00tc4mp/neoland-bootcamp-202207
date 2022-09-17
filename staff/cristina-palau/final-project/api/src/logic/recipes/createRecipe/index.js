@@ -5,12 +5,12 @@ const { verifyIngredient } = require('../../ingredients')
 const { validateString, validateArray, validateNumber } = require('validators')
 
 function createRecipe(userId, title, persons, ingredients) {
-    debugger
+     
     verifyObjectIdString(userId, 'user id')
     validateString(title, 'title')
     validateNumber(persons)
     validateArray(ingredients)
-    debugger
+     
     ingredients.forEach(ingredient => verifyIngredient(ingredient))
 
     return User.findById(userId).lean()
@@ -22,16 +22,16 @@ function createRecipe(userId, title, persons, ingredients) {
 
             const ingredientItems = ingredients.map(ingredient => {
                 const { id, quantity, unit } = ingredient
-                debugger
+                 
                 const ingredientItem = new IngredientItem({
                     ingredient: id,
                     quantity: quantity,
                     unit
                 })
-                debugger
+                 
                 return ingredientItem
             })
-            debugger
+             
             return Recipe.create({ creator: user._id, title: title, persons: persons, ingredients: ingredientItems })
                 .catch(error => {
                     throw new SystemError(error.message)

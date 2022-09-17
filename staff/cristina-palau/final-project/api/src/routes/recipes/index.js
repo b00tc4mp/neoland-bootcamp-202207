@@ -5,5 +5,5 @@ module.exports = {
     deleteRecipeHandler: require('./deleteRecipeHandler'),
     updateRecipeHandler: require('./updateRecipeHandler'),
     retrievePublicRecipesHandler: require('./retrievePublicRecipesHandler'),
-
+    retrieveRecipeIngredientsHandler: require('./retrieveRecipeIngredientsHandler'),
 }

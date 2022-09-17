@@ -143,14 +143,12 @@ function RecipesMenu({ onBackClick, context: { reloadThePage } }) {
         try {
             deleteRecipe(sessionStorage.token, recipeId, error => {
                 if (error) {
-                    // handleFeedback({ message: error.message, level: 'error' })
+                 
                     logger.warn(error.message)
                     return
                 }
             })
         } catch (error) {
-
-            // handleFeedback({ message: error.message, level: 'error' })
 
             logger.warn(error.message)
         }
