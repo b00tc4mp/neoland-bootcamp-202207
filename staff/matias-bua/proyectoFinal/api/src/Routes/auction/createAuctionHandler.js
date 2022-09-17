@@ -7,9 +7,9 @@ module.exports = (req, res) => {
         const userId = verifyToken(req)
         
         
-        const { body: { title, dateForBit, value, createdAt, image } } = req
+        const { body: { title, description, value, image, finalDate, /*initialDate */} } = req
 
-        return createAuction({ author: userId, title, dateForBit: new Date(dateForBit), value, createdAt: new Date(createdAt), image })
+        return createAuction( userId, title, description, value, image, new Date(finalDate), /*new Date(initialDate)*/ )
             .then(() => res.status(201).send())
     }, res, logger)
 }

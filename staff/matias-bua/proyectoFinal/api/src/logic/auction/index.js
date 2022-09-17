@@ -1,5 +1,5 @@
 module.exports = {
     createAuction: require('./createauction'),
-    // retrieveauction: require('./retrieveauction'),
+    retrieveAuction: require('./retrieveauction'),
     // updateauctionText: require('./updateauctionText')
 }

@@ -5,28 +5,49 @@ const user = new Schema({
         type: String,
         required: true
     },
+
+    lastname:{
+        type: String,
+        required: true
+    },
+
     email: {
         type: String,
         required: true,
         unique: true
     },
-    lastname:{
-        type: String,
-        // required: true
-    },
+
     password: {
         type: String,
         required: true
     },
+
     birth:{
-        type: String,
+        type: Date,
+        required: true
     },
+
     phoneNumber: {
-        Type: Number
-    }
-    // Saved:{
-    //     type: ObjectId
-    // }
+        Type: Number,
+    },
+
+    gender: {
+        Type: String,
+        default: ''
+    },
+
+    city: {
+        Type: String,
+        default: ''
+    },
+
+    aboutYou: {
+        Type: String,
+        default: ''
+    },
+   
 })
 
 module.exports = user
+
+       

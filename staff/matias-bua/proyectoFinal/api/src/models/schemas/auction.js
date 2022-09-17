@@ -7,11 +7,6 @@ const auction = new Schema({
         required: true,
         ref: 'User'
     },
-    
-    productName: {  
-        type: String,
-        default: ''
-    },
 
     title: {
         type: String,
@@ -19,29 +14,14 @@ const auction = new Schema({
         default: ''
     },
 
-    // category: {
-    //     type: String,
-    //     default: ''
-    // },
-
-    // subCategory: {
-    //     type: String,
-    //     default: ''
-    // },
-
     description: {
         type: String,
-        default: ''
-    },
-
-    dateForBit: {
-        type: Date,
-        required: true
+        default: '',
+        requred: true,
     },
 
     value: {
         type: Number,
-        //type: String,
         required: true
     },
     
@@ -49,13 +29,22 @@ const auction = new Schema({
     ,
     image: {
         type: String,
+        required: true
     },
-    
-    createdAt: {
+
+    finalDate: {
         type: Date,
         default: Date.now,
         required: true
     },
+
+    initialDate: {
+        type: Date,
+        default: Date.now,
+        // required: true
+    },
+
+    
 })
 
 module.exports = auction

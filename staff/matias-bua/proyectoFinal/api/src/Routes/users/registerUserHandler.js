@@ -7,7 +7,7 @@ module.exports = (req, res) => {
     runWithErrorHandling(() => {
         const { body: { name,lastname, email, password, birth, phonenumber } } = req
         
-        return registerUser(name,lastname, email, password, birth, phonenumber)
+        return registerUser(name,lastname, email, password, new Date(birth), phonenumber)
             .then(() => res.status(201).send())
             .catch(error => {
                 if (error instanceof DuplicityError)

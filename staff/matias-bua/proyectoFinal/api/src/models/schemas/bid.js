@@ -9,7 +9,7 @@ const bid = new Schema({
         type: Number,
         required: true
     },
-    date: {
+    dateBid: {
         type: Date,
         default: Date.now
     },

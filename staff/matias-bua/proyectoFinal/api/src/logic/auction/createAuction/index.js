@@ -17,15 +17,13 @@ const { verifyObjectIdString } = require('../../../utils')
  * @throws {NotFoundError} If the user is not found.
  * @throws {SystemError} If an error happens in db.
  */
- function createAuction ({author, productName, title, description, dateForBit, value, image }) {
+ function createAuction(author, title, description, value, image, finalDate /*initialDate*/) {
     verifyObjectIdString(author, 'author')
-    if(productName) validateString(productName)
     validateText(title, 'title')
-
-    if(description) validateString(description)
-    if(value !== validateString)
-    validateDate(dateForBit, 'dateForBit')
+    if( description) validateString(description)
+    if (value !== validateString)
     validateString(image, 'image')
+    validateDate(finalDate, 'finalDate')
     
 
     return User.findById(author).lean()
@@ -35,7 +33,7 @@ const { verifyObjectIdString } = require('../../../utils')
         .then(user => {
             if (!user) throw new NotFoundError(`user with id ${author} not found`)
 
-            return Auction.create({ author,productName, title, description, dateForBit, value, image })
+            return Auction.create({ author, title, description, value, image, finalDate /*initialDate*/})
                 .catch(error => {
                     throw new SystemError(error.message)
                 })

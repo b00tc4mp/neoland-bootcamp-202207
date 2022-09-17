@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const { connect, disconnect } = require('mongoose')
 const { User } = require('../../../models')
 const { DuplicityError, FormatError } = require('errors')
@@ -6,18 +8,19 @@ const registerUser = require('.')
 const { MONGO_URL_TEST } = process.env
 
 describe('registerUser', () => {
-    beforeAll(() => connect('mongodb://localhost:27017/postits-test'))
+    beforeAll(() => connect(MONGO_URL_TEST))
 
     beforeEach(() => User.deleteMany())
 
     it('succeeds on new user', async () => {  // happy path
-        const name = 'Elartes ano'
-        const email = 'elartes@ano.com'
+        const name = 'Elarte'
+        const lastname = 'Sano'
+        const email = 'elarte@sano.com'
         const password = '123123123'
-        const phonenumber = '+34 5252 8080'
-        const birth = '23/09/1990'
+        const birth = '11-05-1990'
+        const phonenumber = '3452528080'
 
-        const res = await registerUser(name, email, password, birth, phonenumber)
+        const res = await registerUser(name, lastname, email, password, birth, phonenumber)
 
         expect(res).toBeUndefined()
 
@@ -28,21 +31,23 @@ describe('registerUser', () => {
         const [user] = users
 
         expect(user.name).toEqual(name)
+        expect(user.lastname).toEqual(lastname)
         expect(user.email).toEqual(email)
         expect(user.password).toEqual(password)
-        expect(user.birth).toEqual(birth)
+        expect(user.birth).instanceof(Date)
         expect(user.phonenumber).toEqual(phonenumber)
     })
 
     it('fails on existing user', async () => {  // unhappy path
-        const name = 'Elartes ano'
+        const name = 'Elarte'
+        const lastname = 'Sano'
         const email = 'elartes@ano.com'
         const password = '123123123'
-        const phonenumber = '+34 5252 8080'
-        const birth = '23/09/1990'
+        const birth = '12/09/1990'
+        const phoneNumber = '34 5252 8080'
 
 
-        await User.create({ name, email, password })
+        await User.create({ name, lastname, email, password, birth, phoneNumber })
         
         // try {
         //     await registerUser(name, email, password)

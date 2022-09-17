@@ -1,8 +1,8 @@
-const { User, Note } = require('../../../models')
+const { User, Auction } = require('../../../models')
 const { NotFoundError, SystemError } = require('errors')
 const { verifyObjectIdString } = require('../../../utils')
 
-function retrieveNotes(userId) {
+function retrieveAuction(userId) {
     verifyObjectIdString(userId, 'user id')
 
     return User.findById(userId).lean()
@@ -12,24 +12,24 @@ function retrieveNotes(userId) {
         .then(user => {
             if (!user) throw new NotFoundError(`user with id ${userId} not found`)
 
-            return Note.find({ user: userId }, 'text visibility createdAt modifiedAt').lean()
+            return Auction.find({ user: userId }, 'author title description value image finalDate').lean()
                 .catch(error => {
                     throw new SystemError(error.message)
                 })
         })
-        .then(notes => {
-            notes.forEach(note => {
+        .then(auctions => {
+            auctions.forEach(auction => {
                 // sanitize
                 debugger
 
-                note.id = note._id.toString()
-                delete note._id
+                auction.id = auction._id.toString()
+                delete auction._id
 
-                delete note.__v
+                delete auction.__v
             })
 
-            return notes
+            return auctions
         })
 }
 
-module.exports = retrieveNotes
+module.exports = retrieveAuction

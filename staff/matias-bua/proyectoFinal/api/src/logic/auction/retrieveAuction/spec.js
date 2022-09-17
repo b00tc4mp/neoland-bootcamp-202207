@@ -1,58 +1,90 @@
+require('dotenv').config()
+
 const { connect, disconnect, Types: { ObjectId } } = require('mongoose')
-const { User, Note } = require('../../../models')
+const { User, Auction } = require('../../../models')
 const { NotFoundError } = require('errors')
-const retrieveNotes = require('.')
+const  retrieveAuction = require('.')
 
-describe('retrieveNotes', () => {
-    beforeAll(() => connect('mongodb://localhost:27017/postits-test'))
+const { MONGO_URL_TEST } = process.env
 
-    beforeEach(() => Promise.all([User.deleteMany(), Note.deleteMany()]))
+describe('retrieveAuction', () => {
+    beforeAll(() => connect(MONGO_URL_TEST))
+    
+    beforeEach(() => Promise.all([User.deleteMany(), Auction.deleteMany()]))
+    
+    it('succeeds on existing user and auction', () => {  // happy path
+        
+        debugger
 
-    it('succeeds on existing user and notes', () => {  // happy path
-        const name = 'Pepito Grillo'
-        const email = 'pepito@grillo.com'
+        const name = 'arte'
+        const lastname = 'sano'
+        const email = 'ElArtes@ano.com'
         const password = '123123123'
+        const birth = '12-01-2020'
+        
+        const user = new User({ name, lastname, email, password, birth })
 
-        const text1 = 'hola mundo'
-        const text2 = 'hello world'
-        const text3 = 'pryvit svit'
+        
 
-        const user = new User({ name, email, password })
+        const auction1 = new Auction({
+            author: user.id,
+            productauthor: "epoxy resin",
+            // auctionNumber: Auction.id,
+            title: "breakfast table",
+            description: "breakfast tray, water and temperature resistant",
+            dateForBit: new Date("11/15/2022"),
+            value: 15,
+            //value: '130€',
+            image: "111",
+            // createdAt: Date
+          });
 
-        return Promise.all([
+          const auction2 = new Auction({
+            author: user.id,
+            productName: "Crafts",
+            // auctionNumber: Auction.id,
+            title: "artistic lighters",
+            description: "Hand-painted lighters, with drawings on request",
+            dateForBit: new Date("08/15/2022"),
+            value: 5,
+            //value: '130€',
+            image: "111",
+            // createdAt: Date
+          });
+          
+
+        return Promise.all([ 
             user.save(),
-            Note.create({ user: user.id, text: text1 }), // create() -> new, save()
-            Note.create({ user: user.id, text: text2 }),
-            Note.create({ user: user.id, text: text3 })
+            auction1.save(), // create() -> new, save()
+            auction2.save()
         ])
-            .then(([user, note1, note2, note3]) =>
-                retrieveNotes(user.id)
-                    .then(notes => {
-                        expect(notes).toHaveLength(3)
+        
 
-                        const _note1 = notes.find(note => note.id === note1.id)
-                        expect(_note1).toBeDefined()
-                        expect(_note1.user).toBeUndefined()
-                        expect(_note1.text).toEqual(note1.text)
-                        expect(_note1.visibility).toEqual(note1.visibility)
-                        expect(_note1.createdAt).toEqual(note1.createdAt)
-                        expect(_note1.modifiedAt).toBeUndefined()
+            .then(([user, auction1, auction2]) =>
+                retrieveAuction(user.id)
+                    .then(auctions => {
+                        expect(auctions).toHaveLength(2)
 
-                        const _note2 = notes.find(note => note.id === note2.id)
-                        expect(_note2).toBeDefined()
-                        expect(_note2.user).toBeUndefined()
-                        expect(_note2.text).toEqual(note2.text)
-                        expect(_note2.visibility).toEqual(note2.visibility)
-                        expect(_note2.createdAt).toEqual(note2.createdAt)
-                        expect(_note2.modifiedAt).toBeUndefined()
+                        const _auction1 = auctions.find(auction => auction._id === auction1.id)
+                        expect(_auction1).toBeDefined()
+                        expect(_auction1.user).toBeUndefined()
+                        expect(_auction1.productName).toEqual(auction1.productName)
+                        expect(_auction1.title).toEqual(auction1.title)
+                        expect(_auction1.description).toEqual(auction1.description)
+                        expect(_auction1.dateForBit).toEqual(auction1.dateForBit)
+                        expect(_auction1.value).toEqual(auction1.value)
+                        expect(_auction1.image).toEqual(auction1.image)
 
-                        const _note3 = notes.find(note => note.id === note3.id)
-                        expect(_note3).toBeDefined()
-                        expect(_note3.user).toBeUndefined()
-                        expect(_note3.text).toEqual(note3.text)
-                        expect(_note3.visibility).toEqual(note3.visibility)
-                        expect(_note3.createdAt).toEqual(note3.createdAt)
-                        expect(_note3.modifiedAt).toBeUndefined()
+                        const _auction2 = notes.find(auction => auction._id === auction2.id)
+                        expect(_auction2).toBeDefined()
+                        expect(_auction2.user).toBeUndefined()
+                        expect(_auction2.productName).toEqual(auction2.productName)
+                        expect(_auction2.title).toEqual(auction2.title)
+                        expect(_auction2.description).toEqual(auction2.description)
+                        expect(_auction2.dateForBit).toEqual(auction2.dateForBit)
+                        expect(_auction2.value).toEqual(auction2.value)
+                        expect(_auction2.image).toEqual(auction2.image)
+
                     })
             )
     })
@@ -60,7 +92,7 @@ describe('retrieveNotes', () => {
     it('fails on non-existing user', () => {  // unhappy path
         const userId = new ObjectId().toString()
 
-        return retrieveNotes(userId)
+        return retrieveAuction(userId)
             .catch(error => {
                 expect(error).toBeInstanceOf(NotFoundError)
                 expect(error.message).toEqual(`user with id ${userId} not found`)

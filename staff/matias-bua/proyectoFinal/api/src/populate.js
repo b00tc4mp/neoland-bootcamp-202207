@@ -18,7 +18,7 @@ connect(MONGO_URL)
       lastname: "Attack",
       email: "artt@atack.com",
       password: "123123123",
-      birth: "30/05/1980",
+      birth: "10/05/1980",
       phoneNumber: "34 2525 0808",
     });
 
@@ -27,7 +27,7 @@ connect(MONGO_URL)
       lastname: "Mendez",
       email: "sofia@mendez.com",
       password: "12312123",
-      birth: "15/07/1975",
+      birth: "12/07/1975",
       phoneNumber: "+34 2525 8080",
     });
 
@@ -36,7 +36,7 @@ connect(MONGO_URL)
       lastname: "Ano",
       email: "ElArtes@ano.com",
       password: "123123123",
-      birth: "23/09/1990",
+      birth: "03/09/1990",
       phoneNumber: "+34 5252 8080",
     });
 

@@ -1,3 +1,4 @@
 module.exports = {
-    createAuction: require ('./createAuctionHandler')
+    createAuctionHandler: require ('./createAuctionHandler'),
+    retrieveAuctionHandler: require ('./retrieveAuctionHandler')
 }
