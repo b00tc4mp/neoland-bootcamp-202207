@@ -1,0 +1,89 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    align-items: center;
+    gap: 10px;
+}
+
+.container > h4 {
+    margin-bottom: 0;
+}
+
+.container > h4 > span {
+    color: rgb(233, 96, 155);
+}
+
+.container > p {
+    margin: 0;
+}
+
+.link {
+    color: rgb(233, 96, 155);
+}
+
+.form {
+    border: 4px double rgb(233, 96, 155);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+    width: 100%;
+    padding: 3%;
+    background-color: rgba(233, 96, 155,.1);
+    gap: 20px;
+}
+
+.form > h3 {
+    margin-top: 0;
+    color: navy;
+}
+
+.form > h3 > span {
+    color: rgb(233, 96, 155);
+}
+
+.formText {
+    margin-left: 5px;
+    font-size: 14px;
+    color: grey;
+}
+
+.nameContainer,
+.emailContainer,
+.passwordContainer {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nameLabel, .emailLabel, .passwordLabel {
+    color:rgb(233, 96, 155);
+    margin-bottom: 2px;
+}
+
+.nameInput, .emailInput, .passwordInput {
+    padding: 5px;
+    width: 100%;
+    border-radius: 10px;
+    border: 2px solid navy;
+    height: 40px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 16px;
+    background-color: rgba(211,211,211,.3);
+}
+
+.randomPasswordButton {
+    margin-top: 10px;
+    background-color: #fff;
+    border: 2px solid rgb(233, 96, 155);
+    border-radius: 20px;
+    height: auto;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 16px;
+    color: navy;
+    text-shadow: 1px 1px 8px rgb(233, 96, 155);
+}

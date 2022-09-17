@@ -14,10 +14,12 @@ module.exports = (req, res) => {
                 })
             )
             .catch(error => {
+                logger.error(error)
                 errorHandler(error, res)
                 return
             })
     } catch (error) {
+        logger.error(error)
         if (error instanceof TypeError) error = new TokenError(error) // por si viene del substring, cambiarlo
         errorHandler(error, res)
         return

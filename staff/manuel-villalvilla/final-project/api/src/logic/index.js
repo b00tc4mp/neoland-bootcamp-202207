@@ -10,5 +10,6 @@ module.exports = {
     updateAdVisibility: require('./userAds/updateAdVisibility'),
     deleteAd: require('./userAds/deleteAd'),
     retrieveFilteredAds: require('./ads/retrieveFilteredAds'),
-    retrieveAdWithId: require('./ads/retrieveAdWithId')
+    retrieveAdWithId: require('./ads/retrieveAdWithId'),
+    contactUser: require('./user/contactUser')
 }

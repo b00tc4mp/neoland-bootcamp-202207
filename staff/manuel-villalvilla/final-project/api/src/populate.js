@@ -15,7 +15,7 @@ const { connect, disconnect } = require('mongoose');
     const name = 'manu'
     const password = '123123123'
 
-    const urls1 = [
+    const urls = [
         'https://serranillos.net/~papa/1.jpg',
         'https://serranillos.net/~papa/2.jpg',
         'https://serranillos.net/~papa/3.jpg',
@@ -72,9 +72,16 @@ const { connect, disconnect } = require('mongoose');
 
             const categories = testCategories[Math.floor(Math.random() * 2)]
 
-            const urls2 = [urls1[Math.floor(Math.random() * urls1.length)], urls1[Math.floor(Math.random() * urls1.length)], urls1[Math.floor(Math.random() * urls1.length)], urls1[Math.floor(Math.random() * urls1.length)]]
+            const randomNofImgs = Math.floor(Math.random() * 4)
 
-            await Ad.create({ user: user.id, title, body, location: { country, province, area }, image: urls2, verified: true, categories, price })
+            let urls3 = []
+
+            if (Math.floor(Math.random() * 2))
+                for (let h = 0; h < randomNofImgs; h++) {
+                    urls3[h] = urls[Math.floor(Math.random() * urls.length)]
+                }
+
+            await Ad.create({ user: user.id, title, body, location: { country, province, area }, image: urls3, verified: true, categories, price })
         }
     }
 

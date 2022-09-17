@@ -38,11 +38,20 @@ export default function ResultsAds({ search, currentItems, count }) {
     <p>Encontrado{count === 1 ? '' : 's'} {count} resultado{count === 1 ? '' : 's'}</p>
     <ul className="results-list">
       {currentItems.map(ad => {
-        return <li key={ad._id}>{
+        return <li className='results-list-item' key={ad._id}>{
           <Link href={`${ad.location.country}/ads/${ad._id.toString()}`} >
-            <div className="results-ad-container">
-              <div className="results-ad-image-container"><div className="results-ad-image"><Image src={ad.image[0]} layout='fill' priority={true}></Image></div></div>
-              <div className="results-ad-title"><h3>{textHighlight(ad.title)}</h3></div>
+            <div>
+              <div className="results-ad-image-container">
+                {ad.image.length > 0 &&
+                  <div className="results-ad-image">
+                    <Image className='ads-image' src={ad.image[0]} layout='fill' priority={true} sizes='33vw'></Image>
+                  </div>}
+                {ad.image.length === 0 && <div className='results-ad-noimage'><p>Sin imágenes</p></div>}
+              </div>
+              <div className="results-ad-title"><>
+                {ad.image.length > 0 && <span className='image-count'>{ad.image.length > 1 ? ad.image.length + ' imágenes' : '1 imagen'}</span>}
+                <h3>{textHighlight(ad.title)}</h3>
+              </></div>
               <div className="results-ad-body">{textHighlight(ad.body)}</div>
               <div className="results-ad-footer">
                 <p className='footer-province'>{ad.location.province}</p>
@@ -57,5 +66,5 @@ export default function ResultsAds({ search, currentItems, count }) {
       })}
     </ul>
 
-  </div>
+  </div >
 }

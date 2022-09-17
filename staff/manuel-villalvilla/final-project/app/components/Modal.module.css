@@ -1,0 +1,129 @@
+.modal {
+    padding: 3%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+.modalContent {
+    padding: 3%;
+    border: 4px solid navy;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: #fff;
+}
+
+.closeButtonContainer {
+    text-align: end;
+}
+
+.closeButton {
+    cursor: pointer;
+    border-style: none;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 400;
+    font-size: 30px;
+    color: rgb(233, 96, 155);
+    background-color: transparent;
+}
+
+.modalFooter {
+    padding: 10px;
+}
+
+.modalBody {
+    padding: 2%;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.nameContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.nameLabel, .emailLabel, .bodyLabel {
+    font-weight: 400;
+    font-size: 18px;
+    text-shadow: 1px 1px 8px rgb(233, 96, 155);
+}
+
+.emailContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.nameInput, .emailInput {
+    font-size: 14px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    padding: 5px;
+    width: 100%;
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.bodyContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.bodyInput {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 14px;
+    letter-spacing: 1px;
+    padding: 5px;
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.bodyContainer > p {
+    margin: 0;
+}
+
+.modalFooter {
+    display: flex;
+    justify-content: center;
+}
+
+.modalSendButton {
+    cursor: pointer;
+    display: flex;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    text-shadow: 1px 1px 8px rgb(233, 96, 155);
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    color: black;
+    text-decoration: none;
+    height: 50px;
+    width: 100px;
+    border-radius: 20px;
+    border-color: rgb(233, 96, 155);
+    border-width: 2px;
+    border-style: solid;
+}

@@ -1,14 +1,14 @@
-const { registerUser } = require('../../logic')
+const { contactUser } = require('../../logic')
 const { logger, errorHandler } = require('../../utils')
 
 module.exports = (req, res) => {
     try {
-        const { body: { name, email, password } } = req
+        const { body: { name, email, body, adUser } } = req
 
-        registerUser(name, email, password)
+        contactUser(name, email, body, adUser)
             .then(() => {
-                res.status(201).send()
-                logger.info(`user ${email} registered`)
+                res.status(200).send()
+                logger.info(`someone with email ${email} sent an email to ${adUser}`)
             })
             .catch(error => {
                 logger.error(error)

@@ -14,11 +14,13 @@ module.exports = (req, res) => {
                 logger.info(`user ${email} authenticated`)
             })
             .catch(error => {
+                logger.error(error)
                 if (error instanceof NotFoundError) error.message = 'unverified user'
                 errorHandler(error, res)
                 return
             })
     } catch (error) {
+        logger.error(error)
         errorHandler(error, res)
     }
 }

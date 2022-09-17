@@ -1,3 +1,5 @@
+import PublicPublish from "../../../components/PublicPublish"
+
 export default function () {
-    return <div>Hola</div>
+    return <PublicPublish />
 }

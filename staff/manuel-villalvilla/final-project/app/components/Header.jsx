@@ -35,7 +35,6 @@ export default withContext(function ({ context: { setSearchHeight, searchHeight 
             {!session && <Link href={`${URL}/login`}><a className={styles.loginLink} >Iniciar sesión</a></Link>}
           </div>
           <div className={styles.buttons}>
-            <Link href={session ? `${URL}/mipanel/publicar` : `${URL}/${country_code}/publicar`}><a className={styles.publicarLink} >Publicar</a></Link>
             <button
               className={styles.buscarButton}
               onClick={handleFiltersMenuClick}
@@ -44,6 +43,7 @@ export default withContext(function ({ context: { setSearchHeight, searchHeight 
             >
               {searchHeight !== 0 ? 'Cerrar buscador' : 'Buscar'}
             </button>
+            <Link href={session ? `${URL}/mipanel/publicar` : `${URL}/${country_code}/publicar`}><a className={styles.publicarLink} >Publicar</a></Link>
           </div>
         </div>
 

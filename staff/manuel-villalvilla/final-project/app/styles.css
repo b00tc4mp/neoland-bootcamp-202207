@@ -1,6 +1,7 @@
 * {
     box-sizing: border-box;
 }
+
 /* html {
     scroll-behavior: smooth;
 } */
@@ -32,7 +33,7 @@ body {
 }
 
 .filters-form {
-    background-color: rgba(211,211,211,.3);
+    background-color: rgba(211, 211, 211, .3);
     padding: 3%;
     display: flex;
     flex-direction: column;
@@ -140,27 +141,29 @@ body {
     align-items: center;
 }
 
-.results-container > p {
+.results-container>p {
     font-weight: 400;
 }
 
 .results-list {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
     margin: 0 0 15px 0;
     padding: 0px;
     gap: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    list-style-type: none;
-    justify-content: center;
 }
 
-.results-ad-container {
-    background-color: rgba(211,211,211,.3);
+.results-list-item {
+    background-color: rgba(211, 211, 211, .3);
     cursor: pointer;
     display: flex;
     max-width: 350px;
     flex-direction: column;
-    padding: 3%;
+    padding: 10px;
     gap: 5px;
     border: 4px double rgb(233, 96, 155);
     border-radius: 20px;
@@ -170,6 +173,18 @@ body {
     padding: 1.5%;
     border: 4px double navy;
     border-radius: 20px;
+    min-height: 200px;
+}
+
+.results-ad-noimage {
+    display: flex;
+    height: 200px;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    text-shadow: 1px 1px 8px rgb(233, 96, 155);
 }
 
 .results-ad-image {
@@ -177,11 +192,21 @@ body {
     height: 500px;
 }
 
+.ads-image {
+    height: auto;
+}
+
+.image-count {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 14px;
+}
+
 .results-ad-title {
     text-align: center;
 }
 
-.results-ad-title > h3 {
+.results-ad-title>h3 {
     margin: 10px 0 10px 0;
 }
 
@@ -269,20 +294,23 @@ body {
     align-items: center;
 }
 
-.login-email-container, .login-password-container {
+.login-email-container,
+.login-password-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
 }
 
-.login-email-label, .login-password-label {
+.login-email-label,
+.login-password-label {
     font-weight: 400;
     font-size: 18px;
     text-shadow: 1px 1px 8px rgb(233, 96, 155);
 }
 
-#loginEmail, #loginPassword {
+#loginEmail,
+#loginPassword {
     border-radius: 10px;
     font-size: 16px;
     border-color: navy;
@@ -311,9 +339,27 @@ body {
     border-style: solid;
 }
 
+.my-node-enter {
+    opacity: 0;
+}
+
+.my-node-enter-active {
+    opacity: 1;
+    transition: opacity 500ms;
+}
+
+.my-node-exit {
+    opacity: 1;
+}
+
+.my-node-exit-active {
+    opacity: 0;
+    transition: opacity 500ms;
+}
+
 @media all and (min-width: 760px) {
     .container {
-        max-width: 1024px;
+        max-width: 1200px;
     }
 
     .filters-form {
