@@ -1,0 +1,67 @@
+const mongoose = require('mongoose')
+const { Schema, model, Types: { ObjectId } } = mongoose
+
+module.exports = model('Ad', new Schema({
+    user: {
+        type: ObjectId,
+        required: true,
+        ref: 'User' // linked
+    },
+    title: {
+        type: String,
+        required: true
+    },
+    body: {
+        type: String,
+        required: true
+    },
+    location: {
+        type: Object,
+        country: {
+            type: String,
+            required: true
+        },
+        province: {
+            type: String,
+            default: ''
+        },
+        area: {
+            type: String,
+            default: ''
+        }
+    },
+    image: {
+        type: Array,
+        default: [],
+        validate: {
+            validator: function(v) {
+                return v.length <= 4 
+            },
+        }
+    },
+    categories: {
+        type: Array,
+        default: []
+    },
+    price: {
+        type: Number,
+        default: 0
+    },
+    visibility: {
+        type: String,
+        enum: ['private', 'public'], // le dice a mongo q solo acepte esos dos valores
+        default: 'public'
+    },
+    verified: {
+        type: Boolean,
+        default: false
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
+    modifiedAt: {
+        type: Date
+    }
+}))
+// .index({ title: 'text', body: 'text', 'location.area': 'text', 'location.province': 'text', 'categories': 'text' }))
