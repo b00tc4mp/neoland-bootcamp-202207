@@ -24,6 +24,33 @@ const question = new Schema({
   timeLimit: {
     type: Number,
     default: 30000,
+    required: true,
+  },
+
+  questionType: {
+    type: String,
+    enum: ["written", "MCQ"],
+    required: true,
+  },
+
+  answerA: {
+    type: Array,
+    default: ["", "incorrect"],
+  },
+
+  answerB: {
+    type: Array,
+    default: ["", "incorrect"],
+  },
+
+  answerC: {
+    type: Array,
+    default: ["", "incorrect"],
+  },
+
+  answerD: {
+    type: Array,
+    default: ["", "incorrect"],
   },
 
   visibility: {

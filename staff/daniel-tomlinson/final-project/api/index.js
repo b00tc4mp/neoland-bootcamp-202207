@@ -101,8 +101,8 @@ connect(MONGO_URL)
       socket.on("T3", (data) => {
         console.log("T3 server");
         console.log(data);
-
-        const host = data.host.host;
+        debugger;
+        const host = data.host;
         // socket.broadcast.emit("T3.5", data);
         console.log("Sent question to:");
         console.log(`${host}_room`);

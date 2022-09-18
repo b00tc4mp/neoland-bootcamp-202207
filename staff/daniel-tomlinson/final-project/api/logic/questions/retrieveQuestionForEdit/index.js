@@ -11,7 +11,6 @@ function retrieveQuestionForEdit(userId, questionId) {
   return User.findById(userId)
     .then((user) => {
       if (!user) throw new NotFoundError(`user with id ${userId} not found`);
-      debugger;
       return Question.findById(questionId);
     })
     .then((question) => {
@@ -22,6 +21,13 @@ function retrieveQuestionForEdit(userId, questionId) {
         throw new AuthError(
           `question with id ${questionId} does not belong to user with id ${userId}`
         ); */
+
+      // sanitise
+      question._doc.id = question._doc._id.toString();
+
+      delete question._doc._id;
+
+      delete question._doc.__v;
 
       return question;
     });

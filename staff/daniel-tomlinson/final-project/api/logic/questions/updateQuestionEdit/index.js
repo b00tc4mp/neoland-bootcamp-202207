@@ -6,10 +6,19 @@ const { validateString } = require("validators");
 function updateQuestionEdit(
   userId,
   questionId,
-  text,
+  /* text,
   suggestedAnswer,
   timeLimit,
-  visibility
+  visibility */
+  text,
+  timeLimit,
+  visibility,
+  questionType,
+  suggestedAnswer,
+  answerA,
+  answerB,
+  answerC,
+  answerD
 ) {
   verifyObjectIdString(userId);
   verifyObjectIdString(questionId);
@@ -29,12 +38,17 @@ function updateQuestionEdit(
         throw new AuthError(
           `question with id ${questionId} does not belong to user with id ${userId}`
         );
-
+      debugger;
       question.question = text;
-      question.suggestedAnswer = suggestedAnswer;
       question.timeLimit = timeLimit;
       question.visibility = visibility;
       question.modifiedAt = Date.now();
+      question.questionType = questionType;
+      question.suggestedAnswer = suggestedAnswer;
+      question.answerA = answerA;
+      question.answerB = answerB;
+      question.answerC = answerC;
+      question.answerD = answerD;
 
       return question.save();
     })

@@ -17,10 +17,33 @@ module.exports = (req, res) => {
       console.log(userId);
 
       const {
-        body: { question, suggestedAnswer, timeLimit, visibility },
+        // body: { question, suggestedAnswer, timeLimit, visibility },
+        body: {
+          question,
+          timeLimit,
+          visibility,
+          questionType,
+          suggestedAnswer,
+          answerA,
+          answerB,
+          answerC,
+          answerD,
+        },
       } = req;
 
-      createQuestion(userId, question, suggestedAnswer, timeLimit, visibility)
+      // createQuestion(userId, question, suggestedAnswer, timeLimit, visibility)
+      createQuestion(
+        userId,
+        question,
+        timeLimit,
+        visibility,
+        questionType,
+        suggestedAnswer,
+        answerA,
+        answerB,
+        answerC,
+        answerD
+      )
         .then(() => res.status(201).send())
         .catch((error) => {
           if (error instanceof NotFoundError)

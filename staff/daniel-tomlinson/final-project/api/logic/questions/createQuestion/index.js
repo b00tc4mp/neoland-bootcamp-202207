@@ -21,11 +21,21 @@ const { verifyObjectId } = require("../../../utils");
 function createQuestion(
   userId,
   question,
+  timeLimit,
+  visibility,
+  questionType,
+  suggestedAnswer,
+  answerA,
+  answerB,
+  answerC,
+  answerD
+  /* question,
   suggestedAnswer,
   timeLimit,
-  visibility
+  visibility */
 ) {
-  debugger;
+  //TODO: validate all
+
   verifyObjectId(userId, "user id");
   validateString(question, "question");
 
@@ -39,9 +49,18 @@ function createQuestion(
       return Question.create({
         user: user._id,
         question,
-        suggestedAnswer,
         timeLimit,
         visibility,
+        questionType,
+        suggestedAnswer,
+        answerA,
+        answerB,
+        answerC,
+        answerD,
+        /* question,
+        suggestedAnswer,
+        timeLimit,
+        visibility, */
       }).catch((error) => {
         throw new SystemError(error.message);
       });
