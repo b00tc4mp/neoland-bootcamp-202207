@@ -21,6 +21,13 @@ function QuizStudent({ socket, handleFeedback, handleLeaveClass }) {
   const [response, setResponse] = useState("");
   const [feedback, setFeedback] = useState("");
 
+  const [questionType, setQuestionType] = useState("MCQ");
+  //After cleaning the object sent, this "incorrect" value is no longer necessary
+  const [answerA, setAnswerA] = useState(["", "incorrect"]);
+  const [answerB, setAnswerB] = useState(["", "incorrect"]);
+  const [answerC, setAnswerC] = useState(["", "incorrect"]);
+  const [answerD, setAnswerD] = useState(["", "incorrect"]);
+
   const handleLeaveClick = () => {};
 
   const onLeaveClass = () => {
@@ -73,6 +80,11 @@ function QuizStudent({ socket, handleFeedback, handleLeaveClass }) {
       console.log(data);
       setTimeLimit(data.timeLimit);
       setQuestion(data.question);
+      setQuestionType(data.questionType);
+      setAnswerA(data.answerA);
+      setAnswerB(data.answerB);
+      setAnswerC(data.answerC);
+      setAnswerD(data.answerD);
       setGameScreen(data.gameScreen);
     });
 
@@ -164,6 +176,11 @@ function QuizStudent({ socket, handleFeedback, handleLeaveClass }) {
             handleScreenChangeS4={handleScreenChangeS4}
             socket={socket}
             host={host}
+            questionType={questionType}
+            answerA={answerA}
+            answerB={answerB}
+            answerC={answerC}
+            answerD={answerD}
           />
         )}
         {/* <Student5WaitingForFeedback /> */}

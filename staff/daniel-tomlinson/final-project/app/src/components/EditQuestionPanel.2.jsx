@@ -37,6 +37,7 @@ function EditQuestionPanel({
         sessionStorage.token,
         questionBeingEditedId,
         (error, question) => {
+          debugger;
           if (error) {
             handleFeedback({ message: error.message, level: "error" });
 
@@ -57,11 +58,11 @@ function EditQuestionPanel({
           }));
           setMCQResponses((MCQResponses) => ({
             ...MCQResponses,
-            ...{ C: question.answerC[1] },
+            ...{ B: question.answerB[1] },
           }));
           setMCQResponses((MCQResponses) => ({
             ...MCQResponses,
-            ...{ D: question.answerD[1] },
+            ...{ B: question.answerB[1] },
           }));
 
           logger.debug("setQuestionForEdit", question);
@@ -83,54 +84,30 @@ function EditQuestionPanel({
   const handleFormSubmit = (event) => {
     event.preventDefault();
 
-    const questionDetails = {
-      question: "",
-      timeLimit: 30000,
-      visibility: "",
-      questionType: "",
-      suggestedAnswer: "",
-      answerA: ["", "incorrect"],
-      answerB: ["", "incorrect"],
-      answerC: ["", "incorrect"],
-      answerD: ["", "incorrect"],
-    };
-
     const form = event.target;
 
-    questionDetails.question = form.question.value;
-    questionDetails.timeLimit = form.timeLimit.value;
-    questionDetails.visibility = form.visibility.value;
-    questionDetails.questionType = questionType;
+    const questionInput = form.question;
+    const timeLimitInput = form.timeLimit;
+    const visibilityInput = form.visibility;
+    const suggestedAnswerInput = form.suggestedAnswer;
 
-    if (questionDetails.questionType === "written") {
-      questionDetails.suggestedAnswer = form.suggestedAnswer.value;
-      if (!form.visibility.suggestedAnswer.value)
-        questionDetails.suggestedAnswer = "";
-    }
+    const question = questionInput.value;
+    const timeLimit = timeLimitInput.value;
+    const visibility = visibilityInput.value;
+    let suggestedAnswer = suggestedAnswerInput.value;
 
-    if (questionDetails.questionType === "MCQ") {
-      questionDetails.answerA[0] = form.MCQA.value;
-      questionDetails.answerA[1] = MCQResponses.A;
-      questionDetails.answerB[0] = form.MCQB.value;
-      questionDetails.answerB[1] = MCQResponses.B;
-      questionDetails.answerC[0] = form.MCQC.value;
-      questionDetails.answerC[1] = MCQResponses.C;
-      questionDetails.answerD[0] = form.MCQD.value;
-      questionDetails.answerD[1] = MCQResponses.D;
-    }
+    if (!suggestedAnswer) suggestedAnswer = "";
 
     form.reset();
-
     if (editedLocation.pathname === "/questionsList") {
       try {
         updateQuestionEdit(
           sessionStorage.token,
           questionBeingEditedId,
-          questionDetails,
-          /* question,
+          question,
           suggestedAnswer,
           timeLimit,
-          visibility, */
+          visibility,
           (error) => {
             if (error) {
               handleFeedback({ message: error.message, level: "error" });
@@ -155,11 +132,10 @@ function EditQuestionPanel({
       try {
         createQuestion(
           sessionStorage.token,
-          questionDetails,
-          /* question,
+          question,
           suggestedAnswer,
           timeLimit,
-          visibility, */
+          visibility,
           (error) => {
             if (error) {
               handleFeedback({ message: error.message, level: "error" });
@@ -389,6 +365,13 @@ function EditQuestionPanel({
                 <label htmlFor="suggestedAnswer" className="input-label">
                   Suggested answer:
                 </label>
+                {/* <input
+    type="text"
+    placeholder="Write a suggested answer..."
+    name="suggestedAnswer"
+    id="suggestedAnswer"
+    className="input-field"
+  /> */}
                 <textarea
                   className="list__item-text list-item__text--form"
                   defaultValue={questionForEdit.question}
@@ -432,6 +415,13 @@ function EditQuestionPanel({
                         </span>
                       )}
                     </div>
+                    {/* <input
+                    type="text"
+                    placeholder="Write answer A..."
+                    name="MCQA"
+                    id="MCQA"
+                    className="input-field"
+                  /> */}
                     <textarea
                       className="list__item-text list-item__text--form input-field"
                       type="text"
@@ -467,6 +457,13 @@ function EditQuestionPanel({
                         </span>
                       )}
                     </div>
+                    {/* <input
+                    type="text"
+                    placeholder="Write answer B..."
+                    name="MCQB"
+                    id="MCQB"
+                    className="input-field"
+                  /> */}
                     <textarea
                       className="list__item-text list-item__text--form input-field"
                       type="text"
@@ -504,6 +501,13 @@ function EditQuestionPanel({
                         </span>
                       )}
                     </div>
+                    {/* <input
+                    type="text"
+                    placeholder="Write answer C..."
+                    name="MCQC"
+                    id="MCQC"
+                    className="input-field"
+                  /> */}
                     <textarea
                       className="list__item-text list-item__text--form input-field"
                       type="text"
@@ -538,6 +542,13 @@ function EditQuestionPanel({
                         </span>
                       )}
                     </div>
+                    {/* <input
+                    type="text"
+                    placeholder="Write answer D..."
+                    name="MCQD"
+                    id="MCQD"
+                    className="input-field"
+                  /> */}
                     <textarea
                       className="list__item-text list-item__text--form input-field"
                       type="text"

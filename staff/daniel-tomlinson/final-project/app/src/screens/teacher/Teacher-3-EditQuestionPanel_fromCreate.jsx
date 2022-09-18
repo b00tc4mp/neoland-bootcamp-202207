@@ -1,13 +1,30 @@
-import Loggito from "../utils/Loggito";
-import createQuestion from "../logic/createQuestion";
+// delete?
+import "./timeSelect.scss";
 
-import withContext from "../utils/withContext";
-import { useState } from "react";
+import retrieveQuestionForEdit from "../../logic/retrieveQuestionForEdit";
 
-function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
+import Loggito from "../../utils/Loggito";
+import createQuestion from "../../logic/createQuestion";
+
+import withContext from "../../utils/withContext";
+import { useState, useEffect } from "react";
+
+function Teacher3EditQuestionPanel({
+  pin,
+  nameOfClass,
+  handleScreenChangeT3,
+  socket,
+  host,
+  selectQuestionForGame,
+  context: { handleFeedback },
+}) {
   const logger = new Loggito("Create Question");
 
   const [questionType, setQuestionType] = useState("MCQ");
+  const [questionForEdit, setQuestionForEdit] = useState(undefined);
+  // const [correctAnswers, setCorrectAnswers] = useState([]);
+
+  const correctAnswers = [];
 
   const [MCQResponses, setMCQResponses] = useState({
     A: "incorrect",
@@ -15,6 +32,56 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
     C: "incorrect",
     D: "incorrect",
   });
+
+  const loadQuestionForEdit = () => {
+    try {
+      retrieveQuestionForEdit(
+        sessionStorage.token,
+        // questionBeingEditedId,
+        selectQuestionForGame,
+        (error, question) => {
+          if (error) {
+            handleFeedback({ message: error.message, level: "error" });
+
+            logger.warn(error.message);
+
+            return;
+          }
+
+          setQuestionForEdit(question);
+          setQuestionType(question.questionType);
+          setMCQResponses((MCQResponses) => ({
+            ...MCQResponses,
+            ...{ A: question.answerA[1] },
+          }));
+          setMCQResponses((MCQResponses) => ({
+            ...MCQResponses,
+            ...{ B: question.answerB[1] },
+          }));
+          setMCQResponses((MCQResponses) => ({
+            ...MCQResponses,
+            ...{ C: question.answerC[1] },
+          }));
+          setMCQResponses((MCQResponses) => ({
+            ...MCQResponses,
+            ...{ D: question.answerD[1] },
+          }));
+
+          logger.debug("setQuestionForEdit", question);
+
+          return;
+        }
+      );
+    } catch (error) {
+      handleFeedback({ message: error.message, level: "error" });
+
+      logger.warn(error.message);
+    }
+  };
+
+  useEffect(() => {
+    loadQuestionForEdit();
+  }, []);
 
   const handleCorrectClick = (response) => {
     if (response === "A" && MCQResponses.A === "incorrect")
@@ -57,10 +124,6 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
         ...MCQResponses,
         ...{ D: "incorrect" },
       }));
-  };
-
-  const onReturn = () => {
-    handleReturn();
   };
 
   const handleFormSubmit = (event) => {
@@ -106,70 +169,83 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
       questionDetails.answerD[0] = form.MCQD.value;
       questionDetails.answerD[1] = MCQResponses.D;
 
-      const answersCombinedArray = [
-        form.MCQA.value.trim(),
-        form.MCQB.value.trim(),
-        form.MCQC.value.trim(),
-        form.MCQD.value.trim(),
-      ];
+      if (MCQResponses.A === "correct")
+        correctAnswers[correctAnswers.length] = "A";
+      if (MCQResponses.B === "correct")
+        correctAnswers[correctAnswers.length] = "B";
+      if (MCQResponses.C === "correct")
+        correctAnswers[correctAnswers.length] = "C";
+      if (MCQResponses.D === "correct")
+        correctAnswers[correctAnswers.length] = "D";
 
-      if (answersCombinedArray.toString() === ",,,") {
-        alert("At least one answer must be submitted");
-        throw new Error("At least one answer must be submitted");
-      }
-
-      if (
-        MCQResponses.A === "incorrect" &&
-        MCQResponses.B === "incorrect" &&
-        MCQResponses.C === "incorrect" &&
-        MCQResponses.D === "incorrect"
-      ) {
-        alert("At least one answer must be selected as correct");
-        throw new Error("At least one answer must be selected as correct");
+      if (correctAnswers.length === 0) {
+        alert("At least one correct answer must be selected.");
+        throw new Error("At least one correct answer must be selected.");
       }
     }
-
-    /* const questionInput = form.question;
-    const timeLimitInput = form.timeLimit;
-    const visibilityInput = form.visibility;
-
-    const suggestedAnswerInput = form.suggestedAnswer;
-
-    const question = questionInput.value;
-    const timeLimit = timeLimitInput.value;
-    const visibility = visibilityInput.value;
-
-    let suggestedAnswer = suggestedAnswerInput.value;
-    if (!suggestedAnswer) suggestedAnswer = ""; */
 
     form.reset();
 
     try {
-      createQuestion(
-        sessionStorage.token,
-        questionDetails,
-        /* question,
-        suggestedAnswer,
-        timeLimit,
-        visibility, */
-        (error) => {
-          if (error) {
-            handleFeedback({ message: error.message, level: "error" });
+      createQuestion(sessionStorage.token, questionDetails, (error) => {
+        if (error) {
+          handleFeedback({ message: error.message, level: "error" });
 
-            logger.warn(error.message);
+          logger.warn(error.message);
 
-            return;
-          }
-
-          // loadNotes();
-          handleReturn();
+          return;
         }
-      );
+
+        // loadNotes();
+      });
     } catch (error) {
       handleFeedback({ message: error.message, level: "error" });
 
       logger.warn(error.message);
     }
+
+    // const questionDetailsDuplicate = { ...questionDetails };
+    const questionDetailsDuplicate = JSON.parse(
+      JSON.stringify(questionDetails)
+    );
+
+    const answersCombined = [];
+
+    answersCombined[0] = questionDetails.answerA;
+    answersCombined[1] = questionDetails.answerB;
+    answersCombined[2] = questionDetails.answerC;
+    answersCombined[3] = questionDetails.answerD;
+
+    questionDetailsDuplicate.gameScreen = "Student3GetReady";
+    questionDetailsDuplicate.host = host;
+    questionDetailsDuplicate.answerA.length = 1;
+    questionDetailsDuplicate.answerB.length = 1;
+    questionDetailsDuplicate.answerC.length = 1;
+    questionDetailsDuplicate.answerD.length = 1;
+
+    // socket.to("1").emit("T3", {
+    socket.emit(
+      "T3",
+      questionDetailsDuplicate
+      /* {
+          gameScreen: "Student3GetReady",
+          timeLimit: { timeLimit },
+          question: { question },
+          host: { host },
+          visibility: { visibility },
+          suggestedAnswer: { suggestedAnswer },
+        } */
+    );
+
+    handleScreenChangeT3(
+      "Teacher3BGetReady",
+      // question, timeLimit
+      questionDetails.question,
+      questionDetails.timeLimit,
+      questionDetails.questionType,
+      correctAnswers,
+      answersCombined
+    );
   };
 
   const handleWrittenResponseClick = () => {
@@ -182,13 +258,13 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
 
   return (
     <div className="game-screen">
-      <span
-        className="material-symbols-outlined button-icon"
-        onClick={onReturn}
-      >
-        arrow_back_ios_new
-      </span>
       <main className="game-screen-main flex--spaced">
+        <div className="grouped-elements">
+          <p className="info--bold">
+            PIN: {pin} <br></br>
+            Class: {nameOfClass}
+          </p>
+        </div>
         <form
           action=""
           className="form form--spread"
@@ -216,13 +292,6 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
             <label htmlFor="question" className="input-label">
               Question:
             </label>
-            {/* <input
-              type="text"
-              placeholder="Write your question..."
-              name="question"
-              id="question"
-              className="input-field"
-            /> */}
             <textarea
               className="list__item-text list-item__text--form input-field"
               type="text"
@@ -256,13 +325,6 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
               <label htmlFor="suggestedAnswer" className="input-label">
                 Suggested answer:
               </label>
-              {/* <input
-                type="text"
-                placeholder="Write a suggested answer..."
-                name="suggestedAnswer"
-                id="suggestedAnswer"
-                className="input-field"
-              /> */}
               <textarea
                 className="list__item-text list-item__text--form input-field"
                 type="text"
@@ -275,7 +337,9 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
 
           {questionType === "MCQ" && (
             <div className="grouped-elements">
-              <p>Write the answers and select on or more as correct:</p>
+              <p className="paragraph--left">
+                Write the answers and select on or more as correct:
+              </p>
               <div className="grouped-elements flex-row">
                 <div className="form-field">
                   <div className="grouped-elements flex-row">
@@ -303,13 +367,6 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
                       </span>
                     )}
                   </div>
-                  {/* <input
-                    type="text"
-                    placeholder="Write answer A..."
-                    name="MCQA"
-                    id="MCQA"
-                    className="input-field"
-                  /> */}
                   <textarea
                     className="list__item-text list-item__text--form input-field"
                     type="text"
@@ -345,13 +402,6 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
                       </span>
                     )}
                   </div>
-                  {/* <input
-                    type="text"
-                    placeholder="Write answer B..."
-                    name="MCQB"
-                    id="MCQB"
-                    className="input-field"
-                  /> */}
                   <textarea
                     className="list__item-text list-item__text--form input-field"
                     type="text"
@@ -389,13 +439,6 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
                       </span>
                     )}
                   </div>
-                  {/* <input
-                    type="text"
-                    placeholder="Write answer C..."
-                    name="MCQC"
-                    id="MCQC"
-                    className="input-field"
-                  /> */}
                   <textarea
                     className="list__item-text list-item__text--form input-field"
                     type="text"
@@ -430,13 +473,6 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
                       </span>
                     )}
                   </div>
-                  {/* <input
-                    type="text"
-                    placeholder="Write answer D..."
-                    name="MCQD"
-                    id="MCQD"
-                    className="input-field"
-                  /> */}
                   <textarea
                     className="list__item-text list-item__text--form input-field"
                     type="text"
@@ -460,4 +496,4 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
   );
 }
 
-export default withContext(CreateQuestionPanel);
+export default withContext(Teacher3EditQuestionPanel);

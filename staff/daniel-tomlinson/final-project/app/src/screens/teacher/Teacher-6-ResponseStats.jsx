@@ -14,6 +14,7 @@ function Teacher6ResponseStats({
   handleScreenChangeT6,
   correct,
   incorrect,
+  questionType,
 }) {
   const onButtonClick = () => {
     handleScreenChangeT6("Teacher2PlayersConnected");
@@ -40,7 +41,7 @@ function Teacher6ResponseStats({
             className="correct stats-bar"
             style={{ height: `${correctPercent}%` }}
           >
-            {correct}
+            {/* {correct} */}
             <span className="material-symbols-outlined stats-icon">
               sentiment_satisfied
             </span>
@@ -49,7 +50,7 @@ function Teacher6ResponseStats({
             className="incorrect stats-bar"
             style={{ height: `${incorrectPercent}%` }}
           >
-            {incorrect}
+            {/* {incorrect} */}
             <span className="material-symbols-outlined stats-icon">
               sentiment_dissatisfied
             </span>

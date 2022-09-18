@@ -32,17 +32,24 @@ function Teacher2PlayersConnected({
         </div>
         <div className="grouped-elements">
           <p className="paragraph--bold">Players connected:</p>
-          <div className="info">
-            {/* <ul>{nicknameString}</ul> */}
-            {nickname.map((ncknme) => {
-              return (
-                <li className="" key="ncknme">
-                  {/* {ncknme.nickname} */}
-                  {ncknme}
-                </li>
-              );
-            })}
-          </div>
+          {nickname.length === 0 && (
+            <div className="info">
+              <p>Waiting for players to connect...</p>
+            </div>
+          )}
+          {nickname.length !== 0 && (
+            <ul className="info">
+              {/* <ul>{nicknameString}</ul> */}
+              {nickname.map((ncknme) => {
+                return (
+                  <li className="players-connected-list-item" key="ncknme">
+                    {/* {ncknme.nickname} */}
+                    {ncknme}
+                  </li>
+                );
+              })}
+            </ul>
+          )}
         </div>
         <button className="footer-button" onClick={onButtonClick}>
           start game

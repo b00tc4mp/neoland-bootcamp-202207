@@ -1,14 +1,19 @@
-// import "./ScreenTemplate.1.css";
-// import "./ScreenTemplate.1.scss";
-// import Spinner from "./Spinner";
-// import CountdownTimer from "./CountdownTimer";
+import Teacher3CreateQuestionPanel from "./Teacher-3-CreateQuestionPanel";
+import Teacher3EditQuestionPanel from "./Teacher-3-EditQuestionPanel";
+import Teacher3SelectFolderPanel from "./Teacher-3-SelectFolderPanel";
+import Teacher3MyQuestionsPanel from "./Teacher-3-MyQuestionsPanel";
+import Teacher3CommunityPanel from "./Teacher-3-CommunityPanel";
+import Teacher3FavoritesPanel from "./Teacher-3-FavoritesPanel";
+import QuestionsList from "../../components/QuestionsList";
+
+// delete?
 import "./timeSelect.scss";
 
 import Loggito from "../../utils/Loggito";
 import createQuestion from "../../logic/createQuestion";
 
 import withContext from "../../utils/withContext";
-// const handleLeaveClick = () => {};
+import { useState } from "react";
 
 function Teacher3CreateQuestion({
   pin,
@@ -16,129 +21,81 @@ function Teacher3CreateQuestion({
   handleScreenChangeT3,
   socket,
   host,
+  // selectQuestionForGame,
   context: { handleFeedback },
 }) {
-  const logger = new Loggito("Create Question");
+  const [quizQuestionPage, setQuizQuestionPage] = useState("createQuestion");
 
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
+  const [selectQuestionForGame, setSelectQuestionForGame] = useState(undefined);
 
-    const form = event.target;
+  const handleSelectFolderClick = () => {
+    setQuizQuestionPage("selectFolder");
+  };
 
-    const questionInput = form.question;
-    const timeLimitInput = form.timeLimit;
-    const visibilityInput = form.visibility;
-    const suggestedAnswerInput = form.suggestedAnswer;
+  const handleMyQuestionsClick = () => {
+    setQuizQuestionPage("myQuestions");
+  };
 
-    const question = questionInput.value;
-    const timeLimit = timeLimitInput.value;
-    const visibility = visibilityInput.value;
-    let suggestedAnswer = suggestedAnswerInput.value;
+  const handleCommunityClick = () => {
+    setQuizQuestionPage("community");
+  };
 
-    if (!suggestedAnswer) suggestedAnswer = "";
+  const handleFavoritesClick = () => {
+    setQuizQuestionPage("favorites");
+  };
 
-    form.reset();
+  const handleCollectionsClick = () => {
+    setQuizQuestionPage("collections");
+  };
 
-    try {
-      createQuestion(
-        sessionStorage.token,
-        question,
-        suggestedAnswer,
-        timeLimit,
-        visibility,
-        (error) => {
-          if (error) {
-            handleFeedback({ message: error.message, level: "error" });
-
-            logger.warn(error.message);
-
-            return;
-          }
-
-          // loadNotes();
-        }
-      );
-    } catch (error) {
-      handleFeedback({ message: error.message, level: "error" });
-
-      logger.warn(error.message);
-    }
-
-    // socket.to("1").emit("T3", {
-    socket.emit("T3", {
-      gameScreen: "Student3GetReady",
-      timeLimit: { timeLimit },
-      question: { question },
-      host: { host },
-      visibility: { visibility },
-      suggestedAnswer: { suggestedAnswer },
-    });
-
-    handleScreenChangeT3("Teacher3BGetReady", question, timeLimit);
+  const handleSelectQuestionForGame = (questionId) => {
+    setSelectQuestionForGame(questionId);
+    setQuizQuestionPage("editQuestion");
   };
 
   return (
     <div className="game-screen">
       <main className="game-screen-main flex--spaced">
-        <div className="grouped-elements">
-          <p className="info--bold">
-            PIN: {pin} <br></br>
-            Class: {nameOfClass}
-          </p>
-        </div>
-        <form
-          action=""
-          className="form form--spread"
-          onSubmit={handleFormSubmit}
-        >
-          <div className="grouped-elements flex-row">
-            <select id="timeLimit">
-              <option value="30000">Time limit...</option>
-              <option value="10000">10 seconds</option>
-              <option value="20000">20 seconds</option>
-              <option value="30000">30 seconds</option>
-              <option value="45000">45 seconds</option>
-              <option value="50000">1 minute</option>
-              <option value="60000">1 min 30 sec</option>
-              <option value="70000">2 mins</option>
-              <option value="80000">no limit</option>
-            </select>
-            <select id="visibility">
-              <option value="public">Public</option>
-              <option value="private">Private</option>
-            </select>
-          </div>
-          <div className="form-field">
-            <label htmlFor="question" className="input-label">
-              Question:
-            </label>
-            <input
-              type="text"
-              placeholder="Write your question..."
-              name="question"
-              id="question"
-              className="input-field"
-            />
-          </div>
-          <div className="form-field">
-            <label htmlFor="suggestedAnswer" className="input-label">
-              Suggested answer:
-            </label>
-            <input
-              type="text"
-              placeholder="Write a suggested answer..."
-              name="suggestedAnswer"
-              id="suggestedAnswer"
-              className="input-field"
-            />
-          </div>
-
-          <button href="" type="submit" className="footer-button">
-            Send
-          </button>
-        </form>
+        {quizQuestionPage === "createQuestion" && (
+          <Teacher3CreateQuestionPanel
+            handleScreenChangeT3={handleScreenChangeT3}
+            socket={socket}
+            pin={pin}
+            nameOfClass={nameOfClass}
+            host={host}
+            handleSelectFolderClick={handleSelectFolderClick}
+          />
+        )}
+        {/* {quizQuestionPage === "editQuestion" && ( */}
+        {selectQuestionForGame !== undefined && (
+          <Teacher3EditQuestionPanel
+            selectQuestionForGame={selectQuestionForGame}
+            handleScreenChangeT3={handleScreenChangeT3}
+            socket={socket}
+            pin={pin}
+            nameOfClass={nameOfClass}
+            host={host}
+            handleSelectFolderClick={handleSelectFolderClick}
+          />
+        )}
+        {quizQuestionPage === "selectFolder" && (
+          <Teacher3SelectFolderPanel
+            handleCollectionsClick={handleCollectionsClick}
+            handleCommunityClick={handleCommunityClick}
+            handleFavoritesClick={handleFavoritesClick}
+            handleMyQuestionsClick={handleMyQuestionsClick}
+          />
+        )}
+        {/* {quizQuestionPage === "myQuestions" && <Teacher3MyQuestionsPanel />} */}
+        {quizQuestionPage === "myQuestions" && (
+          <QuestionsList
+            gameBeingPlayed={true}
+            handleSelectQuestionForGame={handleSelectQuestionForGame}
+          />
+        )}
+        {quizQuestionPage === "community" && <Teacher3CommunityPanel />}
+        {quizQuestionPage === "favorites" && <Teacher3FavoritesPanel />}
       </main>
-
       <footer className="game-screen-footer">
         {/* <button className="footer-button">Start Game</button> */}
       </footer>

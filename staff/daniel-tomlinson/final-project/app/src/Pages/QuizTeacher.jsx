@@ -18,6 +18,8 @@ function QuizTeacher({
   socket,
   handleLeaveClass,
   context: { handleFeedback },
+  handleGameBeingPlayed,
+  selectQuestionForGame,
 }) {
   const logger = new Loggito("QuizTeacher");
 
@@ -33,6 +35,10 @@ function QuizTeacher({
   const [correct, setCorrect] = useState(0);
   const [incorrect, setIncorrect] = useState(0);
   const [socketsConnected, setSocketsConnected] = useState([]);
+
+  const [questionType, setQuestionType] = useState("MCQ");
+  const [correctAnswers, setCorrectAnswers] = useState([]);
+  const [answersCombined, setAnswersCombined] = useState([]);
 
   const handleLeaveClick = () => {};
 
@@ -64,6 +70,8 @@ function QuizTeacher({
 
       logger.warn(error.message);
     }
+
+    handleGameBeingPlayed();
     handleScreenChangeT1(gameScreen, nameOfClass, pin, host);
   };
 
@@ -97,9 +105,20 @@ function QuizTeacher({
     setGameScreen(gameScreen);
   };
 
-  const handleScreenChangeT3 = (gameScreen, question, timeLimit) => {
+  const handleScreenChangeT3 = (
+    gameScreen,
+    question,
+    timeLimit,
+    questionType,
+    correctAnswers,
+    answersCombined
+  ) => {
+    debugger;
     setQuestion(question);
     setTimeLimit(timeLimit);
+    setQuestionType(questionType);
+    setCorrectAnswers(correctAnswers);
+    setAnswersCombined(answersCombined);
     setGameScreen(gameScreen);
   };
 
@@ -154,14 +173,12 @@ function QuizTeacher({
 
       console.log("nickname:");
       console.log(nickname);
-      debugger;
       setSocketsConnected((socketsConnected) => [
         ...socketsConnected,
         data.socketId,
       ]);
       console.log("Sockets connected:");
       console.log(socketsConnected);
-      debugger;
       if (!socketsConnected.includes(data.socketId))
         setNickname((nickname) => [...nickname, data.nickname.nickname]);
       console.log("Nickname received:");
@@ -234,6 +251,7 @@ function QuizTeacher({
             socket={socket}
             handleScreenChangeT3={handleScreenChangeT3}
             host={host}
+            selectQuestionForGame={selectQuestionForGame}
           />
         )}
         {/* <Teacher3BGetReady /> */}
@@ -254,6 +272,8 @@ function QuizTeacher({
             responses={responses}
             handleScreenChangeT4={handleScreenChangeT4}
             host={host}
+            questionType={questionType}
+            answersCombined={answersCombined}
           />
         )}
         {/* <Teacher5MarkResponses /> */}
@@ -265,6 +285,8 @@ function QuizTeacher({
             responses={responses}
             handleScreenChangeT5={handleScreenChangeT5}
             host={host}
+            questionType={questionType}
+            correctAnswers={correctAnswers}
           />
         )}
         {/* <Teacher6ResponseStats /> */}
@@ -276,6 +298,7 @@ function QuizTeacher({
             nameOfClass={nameOfClass}
             correct={correct}
             incorrect={incorrect}
+            questionType={questionType}
           />
         )}
         {/* <Teacher7ClassClosed /> */}

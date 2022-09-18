@@ -219,6 +219,25 @@ function EditQuestionPanel({
             />
           </div>
 
+          <div className="grouped-elements flex-row">
+            <button
+              href=""
+              type="button"
+              className="footer-button"
+              onClick={handleWrittenResponseClick}
+            >
+              Written reponse
+            </button>
+            <button
+              href=""
+              type="button"
+              className="footer-button"
+              onClick={handleMCQClick}
+            >
+              Multiple choice
+            </button>
+          </div>
+
           <div className="form-field">
             <label htmlFor="suggestedAnswer" className="input-label">
               Suggested answer:

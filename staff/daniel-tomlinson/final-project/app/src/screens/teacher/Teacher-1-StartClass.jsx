@@ -25,6 +25,10 @@ function Teacher1StartClass({
 
     const host = socket.id;
 
+    if (nameOfClass.trim() === "") {
+      alert("Name of class cannot be left blank.");
+      throw new Error("Name of class cannot be left blank.");
+    }
     form.reset();
 
     // handleScreenChangeT1("Teacher2PlayersConnected", nameOfClass, pin, host);

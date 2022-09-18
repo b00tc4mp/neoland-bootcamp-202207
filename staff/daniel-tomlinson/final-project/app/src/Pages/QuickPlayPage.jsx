@@ -6,7 +6,12 @@ import QuizTeacher from "./QuizTeacher";
 import io from "socket.io-client";
 const socket = io.connect("http://localhost:8080", { autoconnect: false });
 
-function QuizTemplate({ handleFeedback, handleLeaveClass }) {
+function QuizTemplate({
+  handleFeedback,
+  handleLeaveClass,
+  handleGameBeingPlayed,
+  // selectQuestionForGame,
+}) {
   const [userType, setUserType] = useState("Home");
 
   const handleLeaveClick = () => {};
@@ -51,6 +56,8 @@ function QuizTemplate({ handleFeedback, handleLeaveClass }) {
           handleLeaveClick={handleLeaveClick}
           socket={socket}
           handleLeaveClass={onLeaveClass}
+          handleGameBeingPlayed={handleGameBeingPlayed}
+          // selectQuestionForGame={selectQuestionForGame}
         />
       )}
     </main>

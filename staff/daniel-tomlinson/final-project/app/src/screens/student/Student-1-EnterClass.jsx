@@ -30,6 +30,19 @@ function Student1EnterClass({
     // const nameOfClassString = nameOfClass.nameOfClass;
 
     // const loadNotes = () => {
+    if (pin.trim() === "") {
+      alert("Input fields cannot be left blank.");
+      throw new Error("Input fields cannot be left blank");
+    }
+    if (nameOfClass.trim() === "") {
+      alert("Input fields cannot be left blank.");
+      throw new Error("Input fields cannot be left blank");
+    }
+    if (nickname.trim() === "") {
+      alert("Input fields cannot be left blank.");
+      throw new Error("Input fields cannot be left blank");
+    }
+
     try {
       retrieveGameCode(pin, (error, gameCodes) => {
         if (error) {

@@ -89,7 +89,7 @@ code {
 
 .game-screen-main {
   /* width: 86%; */
-  width: 90%;
+  width: 97%;
   display: flex;
   flex-direction: column;
   background-color: var(--color-teacher-primary);
@@ -119,6 +119,20 @@ code {
   width: 40%;
   font-size: 1.4rem;
   color: inherit;
+}
+
+.non-footer-button {
+  border-radius: 3rem;
+  border-style: none;
+  padding: 1rem 1.5rem;
+  /* margin: 20px 15px; */
+  margin-bottom: 35px;
+  background-color: var(--color-teacher-secondary);
+  width: 40%;
+  font-size: 1.4rem;
+  color: inherit;
+
+  margin: 0 15px;
 }
 
 .footer-button:hover {
@@ -226,7 +240,7 @@ code {
 .input-field {
   background-color: var(--color-teacher-secondary);
   padding: 1.5rem 1.5rem;
-  border-radius: 2rem;
+  border-radius: 1.3rem;
   margin: 0;
   border-style: none;
   color: white;
@@ -267,6 +281,12 @@ input:focus {
   font-weight: 600;
   text-align: left;
   margin-top: 10px;
+  width: 100%;
+}
+
+.paragraph--left {
+  text-align: left;
+  margin: 10px 10px 5px 10px;
   width: 100%;
 }
 
@@ -613,7 +633,8 @@ a:hover {
 
 form {
   width: 90%;
-  padding: 1rem 2rem;
+  /* padding: 1rem 2rem; */
+  padding: 1rem 0;
   background-color: transparent;
   border-radius: 1rem;
 }
@@ -879,6 +900,10 @@ button {
 .list__item-text-readonly {
   font-size: 1.5rem;
   margin-bottom: 2rem;
+  word-wrap: break-word;
+  /* overflow-wrap: break-word; */
+  text-overflow: inherit;
+  /* width: 100%; */
 }
 
 .resetPassword-elements {
@@ -1016,17 +1041,23 @@ body {
   height: 100%;
   width: 100%;
   justify-content: space-around;
+  align-items: flex-end;
   margin-top: 30px;
 }
 
 .stats-icon {
   font-size: 60px;
   margin: 0;
+  margin-bottom: 15px;
   padding: 0;
 }
 
 .stats-bar {
   width: 25%;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 }
 
 .menu-icon-spaceholder {
@@ -1095,4 +1126,42 @@ body {
   background-color: var(--color-teacher-secondary);
   border-radius: 10px;
   padding: 1.5rem 2rem;
+}
+
+.check-circle {
+  background-color: var(--color-teacher-secondary--light);
+  padding: 00.3rem;
+  border-radius: 50%;
+}
+
+.check-circle--correct {
+  background-color: var(--color-feedback-correct);
+}
+
+.MCQResponse {
+  background-color: var(--color-teacher-secondary--light);
+  width: 50%;
+  min-height: 60px;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+  padding: 1rem;
+}
+
+.MCQResponse--correct {
+  background-color: var(--color-feedback-correct);
+}
+
+.select-question-button {
+  background-color: var(--color-teacher-primary);
+  width: 40%;
+}
+
+.select-question-button:hover {
+  background-color: var(--color-teacher-secondary);
+}
+
+.players-connected-list-item {
+  list-style: none;
 }

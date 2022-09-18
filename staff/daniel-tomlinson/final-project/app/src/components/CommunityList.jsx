@@ -13,6 +13,7 @@ function CommunityList({
   handleFavoritesClick,
   onReturn,
   onSearchPublic,
+  gameBeingPlayed,
 }) {
   const logger = new Loggito("List");
 

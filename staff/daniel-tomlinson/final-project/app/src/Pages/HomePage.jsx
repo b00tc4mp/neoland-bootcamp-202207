@@ -48,6 +48,8 @@ function HomePage({
   const [query, setQuery] = useState(null);
   const [questionBeingEditedId, setQuestionBeingEditedId] = useState(null);
   const [editedLocation, setEditedLocation] = useState(null);
+  const [gameBeingPlayed, setGameBeingPlayed] = useState(false);
+  // const [selectQuestionForGame, setSelectQuestionForGame] = useState(undefined);
   // const [favorites, setFavorites] = useState(null);
   // const [view, setView] = useState("list");
   const navigate = useNavigate();
@@ -274,6 +276,7 @@ function HomePage({
   };
 
   const handleHomeClick = () => {
+    // setSelectQuestionForGame(undefined);
     navigate("/");
 
     logger.debug("navigate to home");
@@ -284,6 +287,7 @@ function HomePage({
   };
 
   const handleLeaveClass = () => {
+    // setSelectQuestionForGame(undefined);
     navigate("/");
     // navigate("settings");
   };
@@ -329,6 +333,15 @@ function HomePage({
     navigate("editQuestion");
   }, [questionBeingEditedId]); */
 
+  const handleGameBeingPlayed = () => {
+    if (gameBeingPlayed === true) setGameBeingPlayed(false);
+    if (gameBeingPlayed === false) setGameBeingPlayed(true);
+  };
+
+  /* const handleSelectQuestionForGame = (questionId) => {
+    setSelectQuestionForGame(questionId);
+  }; */
+
   logger.info("render");
 
   return name ? (
@@ -358,6 +371,8 @@ function HomePage({
               <QuickPlayPage
                 handleFeedback={handleFeedback}
                 handleLeaveClass={handleLeaveClass}
+                handleGameBeingPlayed={handleGameBeingPlayed}
+                // selectQuestionForGame={selectQuestionForGame}
               />
             }
           />
@@ -393,6 +408,8 @@ function HomePage({
                 onFeedback={handleFeedback}
                 onReturn={handleReturn}
                 onSearch={handleSearch}
+                gameBeingPlayed={gameBeingPlayed} /* 
+                handleSelectQuestionForGame={handleSelectQuestionForGame} */
               />
             }
           />
@@ -408,6 +425,7 @@ function HomePage({
                 onFeedback={handleFeedback}
                 onReturn={handleReturn}
                 onSearchPublic={handleSearchPublic}
+                gameBeingPlayed={gameBeingPlayed}
               />
             }
           />
@@ -442,6 +460,7 @@ function HomePage({
                 onFeedback={handleFeedback}
                 onReturn={handleReturn}
                 onSearchPublic={handleSearchPublic}
+                gameBeingPlayed={gameBeingPlayed}
                 // favorites={favorites}
               />
             }
@@ -456,6 +475,7 @@ function HomePage({
                 handleEditQuestion={handleEditQuestion}
                 onFeedback={handleFeedback}
                 onReturn={handleReturn}
+                gameBeingPlayed={gameBeingPlayed}
               />
             }
           />
@@ -471,11 +491,11 @@ function HomePage({
         </Routes>
       </main>
       <footer className="footer flex-container">
-        {location.pathname === "questionsList" && (
-          <button className="transparent-button" onClick={handleAddClick}>
-            +
-          </button>
-        )}
+        {/* {Route.path === "questionsList" && ( */}
+        <button className="transparent-button" onClick={handleAddClick}>
+          +
+        </button>
+        {/* )} */}
       </footer>
     </div>
   ) : null;

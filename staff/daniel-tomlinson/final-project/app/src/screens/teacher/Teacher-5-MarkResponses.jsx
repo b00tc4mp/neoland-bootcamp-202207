@@ -5,7 +5,7 @@
 
 // const handleLeaveClick = () => {};
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const handleFormSubmit = () => {};
 
@@ -16,6 +16,9 @@ function Teacher5MarkResponses({
   responses,
   host,
   socket,
+  questionType,
+  correctAnswers,
+
   // question,
 }) {
   // const responseString = response.response;
@@ -24,34 +27,77 @@ function Teacher5MarkResponses({
   let incorrect = 0;
 
   const onButtonClick = () => {
-    debugger;
+    if (questionType === "written") {
+      responses.forEach((response) => {
+        let element = document.getElementById(response.socketId);
 
-    responses.forEach((response) => {
-      let element = document.getElementById(response.socketId);
-
-      if (element.className === "info response-list-item correct") {
-        socket.emit("T5", {
-          gameScreen: "Student6Correct",
-          socketId: response.socketId,
-          host: host,
-        });
-        console.log("Emitted 'correct' to:");
-        console.log(response.socketId);
-        correct += 1;
-      } else if (element.className === "info response-list-item incorrect") {
-        socket.emit("T5", {
-          gameScreen: "Student7Incorrect",
-          socketId: response.socketId,
-          host: host,
-        });
-        console.log("Emitted 'incorrect' to:");
-        console.log(response.socketId);
-        incorrect += 1;
-      }
-    });
-
+        if (element.className === "info response-list-item correct") {
+          socket.emit("T5", {
+            gameScreen: "Student6Correct",
+            socketId: response.socketId,
+            host: host,
+          });
+          console.log("Emitted 'correct' to:");
+          console.log(response.socketId);
+          correct += 1;
+        } else if (element.className === "info response-list-item incorrect") {
+          socket.emit("T5", {
+            gameScreen: "Student7Incorrect",
+            socketId: response.socketId,
+            host: host,
+          });
+          console.log("Emitted 'incorrect' to:");
+          console.log(response.socketId);
+          incorrect += 1;
+        }
+      });
+    } else if (questionType === "MCQ")
+      responses.forEach((response) => {
+        if (
+          response.responseDetails.answersSelected.toString() ===
+          correctAnswers.toString()
+        ) {
+          socket.emit("T5", {
+            gameScreen: "Student6Correct",
+            socketId: response.socketId,
+            host: host,
+          });
+          console.log("Emitted 'correct' to:");
+          console.log(response.socketId);
+          correct += 1;
+        } else if (
+          response.responseDetails.answersSelected.toString() !==
+          correctAnswers.toString()
+        ) {
+          socket.emit("T5", {
+            gameScreen: "Student7Incorrect",
+            socketId: response.socketId,
+            host: host,
+          });
+          console.log("Emitted 'incorrect' to:");
+          console.log(response.socketId);
+          incorrect += 1;
+        }
+      });
     handleScreenChangeT5("Teacher6ResponseStats", correct, incorrect);
   };
+
+  /* useEffect(() => {
+    if (questionType === "MCQ")
+      responses.forEach((response) => {
+        if (
+          response.responseDetails.correctAnswers.toString() ===
+          correctAnswers.toString()
+        ) {
+          correct += 1;
+        } else if (
+          response.responseDetails.correctAnswers.toString() !==
+          correctAnswers.toString()
+        ) {
+          correct -= 1;
+        }
+      });
+  }); */
 
   const [responsesMarked, setResponsesMarked] = useState([]);
 
@@ -65,6 +111,7 @@ function Teacher5MarkResponses({
     console.log(event.target);
 
     const markedResponse = {};
+
     if (event.target.className === "info response-list-item")
       event.target.className = "info response-list-item correct";
     else if (event.target.className === "info response-list-item correct")
@@ -85,24 +132,33 @@ function Teacher5MarkResponses({
             Class: {nameOfClass}
           </p>
         </div>
-        <div className="grouped-elements">
-          <p className="paragraph--bold">Click to mark correct or incorrect.</p>
+        {questionType === "written" && (
+          <div className="grouped-elements">
+            <p className="paragraph--bold">
+              Click to mark correct or incorrect.
+            </p>
 
-          {responses.map((responseData) => {
-            return (
-              <p
-                className="info response-list-item"
-                key={responseData.socketId}
-                onClick={handleMarkResponse}
-                data-Id={responseData.socketId}
-                id={responseData.socketId}
-                // data-clicks={0}
-              >
-                {responseData.response}
-              </p>
-            );
-          })}
-        </div>
+            {responses.map((responseData) => {
+              return (
+                <p
+                  className="info response-list-item"
+                  key={responseData.socketId}
+                  onClick={handleMarkResponse}
+                  data-Id={responseData.socketId}
+                  id={responseData.socketId}
+                  // data-clicks={0}
+                >
+                  {responseData.response}
+                </p>
+              );
+            })}
+          </div>
+        )}
+
+        {questionType === "MCQ" && (
+          <p className="info--bold">Responses ready to be sent</p>
+        )}
+
         <button className="footer-button" onClick={onButtonClick}>
           send
         </button>

@@ -6,6 +6,7 @@ function CollectionsList({
   onDeleteQuestion,
   onUpdateQuestion,
   onReturn,
+  gameBeingPlayed,
 }) {
   const logger = new Loggito("List");
 

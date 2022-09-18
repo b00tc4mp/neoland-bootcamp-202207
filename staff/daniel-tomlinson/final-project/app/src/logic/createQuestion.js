@@ -2,13 +2,28 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 function createQuestion(
   token,
-  question,
+  questionDetails,
+  /* question,
   suggestedAnswer,
   timeLimit,
-  visibility,
+  visibility, */
   callback
 ) {
   //TODO validate inputs
+
+  const {
+    question,
+    timeLimit,
+    visibility,
+    questionType,
+    suggestedAnswer,
+    answerA,
+    answerB,
+    answerC,
+    answerD,
+  } = questionDetails;
+
+  // TODO: validate inputs
 
   if (typeof token !== "string") throw new TypeError("token is not a string");
   if (token.trim().length === 0) throw new Error("token is empty or blank");
@@ -45,9 +60,18 @@ function createQuestion(
 
   const json = JSON.stringify({
     question,
-    suggestedAnswer,
     timeLimit,
     visibility,
+    questionType,
+    suggestedAnswer,
+    answerA,
+    answerB,
+    answerC,
+    answerD,
+    /* question,
+    suggestedAnswer,
+    timeLimit,
+    visibility, */
   });
   console.log(json);
   xhr.send(json);

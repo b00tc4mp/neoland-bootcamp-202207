@@ -3,12 +3,27 @@ const API_URL = process.env.REACT_APP_API_URL;
 function updateQuestionEdit(
   token,
   questionId,
-  question,
+  questionDetails,
+  /*  question,
   suggestedAnswer,
   timeLimit,
-  visibility,
+  visibility, */
   callback
 ) {
+  const {
+    question,
+    timeLimit,
+    visibility,
+    questionType,
+    suggestedAnswer,
+    answerA,
+    answerB,
+    answerC,
+    answerD,
+  } = questionDetails;
+
+  // TODO: validate inputs
+
   if (typeof token !== "string") throw new TypeError("token is not a string");
   if (token.trim().length === 0) throw new Error("token is empty or blank");
 
@@ -36,10 +51,19 @@ function updateQuestionEdit(
   xhr.setRequestHeader("Content-type", "application/json");
 
   const json = JSON.stringify({
-    question,
+    /* question,
     suggestedAnswer,
     timeLimit,
+    visibility, */
+    question,
+    timeLimit,
     visibility,
+    questionType,
+    suggestedAnswer,
+    answerA,
+    answerB,
+    answerC,
+    answerD,
   });
 
   xhr.send(json);
