@@ -1,4 +1,4 @@
-import { editCustomer } from '../logic'
+import { editCustomer } from '../../logic'
 import { toaster } from 'evergreen-ui'
 function EditCustomerPanel({ customer, onCloseClick, onEditCustomer }) {
 

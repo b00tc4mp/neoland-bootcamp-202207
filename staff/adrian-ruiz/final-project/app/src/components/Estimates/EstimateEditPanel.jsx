@@ -1,8 +1,8 @@
 import './EstimateCreatorPanel.css'
 import { useState, useRef, useEffect } from 'react'
 import { toaster } from 'evergreen-ui'
-import { createEstimate, retrieveStock } from '../logic'
-function EstimateEditPanel({ estimate, handleSetViewList, onCreateEstimate }) {
+import { updateEstimate, retrieveStock } from '../../logic'
+function EstimateEditPanel({ estimate, handleSetViewList, onSubmitEstimate }) {
 
     let initialTotal = 0
     estimate.products.forEach((product, index) => {
@@ -114,40 +114,47 @@ function EstimateEditPanel({ estimate, handleSetViewList, onCreateEstimate }) {
         }
     }
 
-    /* const handleNewEstimateSubmit = event => {
+    const handleEditEstimateSubmit = event => {
         event.preventDefault()
-
+        debugger
         try {
             const { target: form,
                 target: {
                     invoiceNumber: { value: estimateNumber },
                     customer: { value: customerName },
                     customerEmail: { value: customerEmail },
-                    billingAddress: { value: billingAddress },
-                    shippingAddress: { value: shippingAddress },
+                    billingAddressStreet: { value: billingAddressStreet },
+                    billingAddressTown: { value: billingAddressTown },
+                    billingAddressState: { value: billingAddressState },
+                    billingAddressPC: { value: billingAddressPC },
+                    billingAddressCountry: { value: billingAddressCountry },
+                    shippingAddressStreet: { value: shippingAddressStreet },
+                    shippingAddressTown: { value: shippingAddressTown },
+                    shippingAddressState: { value: shippingAddressState },
+                    shippingAddressPC: { value: shippingAddressPC },
+                    shippingAddressCountry: { value: shippingAddressCountry },
                     terms: { value: terms },
                     invoiceDate: { value: estimateDate }
                 } } = event
-        
+
             // TODO CREATE PRODUCT TAX ON DB MODEL (DO I NEED PRODUCT TOTAL??)
-
-            const customer = { refId, name: customerName, email: customerEmail, billingAddress, shippingAddress }
-
+            const billingAddress = { street: billingAddressStreet, town: billingAddressTown, state: billingAddressState, zipCode: billingAddressPC, country: billingAddressCountry }
+            const shippingAddress = { shippingStreet: shippingAddressStreet, shippingTown: shippingAddressTown, shippingState: shippingAddressState, shippingZipCode: shippingAddressPC, shippingCountry: shippingAddressCountry }
+            const customer = { name: customerName, email: customerEmail, billingAddress, shippingAddress }
+            console.log(customer)
             const products = []
-            rows.forEach(row => {
+            rows.products.forEach(row => {
                 const { target: form,
                     target: {
-                        [`productName${row.id}`]: { value: productName },
-                        [`productDescription${row.id}`]: { value: productDescription },
-                        [`productQty${row.id}`]: { value: productQty },
-                        [`productUnitPrice${row.id}`]: { value: productUnitPrice },
-                        [`productTax${row.id}`]: { value: productTax },
-                        [`productTotal${row.id}`]: { value: productTotal }
+                        [`productName${row.index}`]: { value: productName },
+                        [`productDescription${row.index}`]: { value: description },
+                        [`productQty${row.index}`]: { value: productQty },
+                        [`productUnitPrice${row.index}`]: { value: productUnitPrice },
+                        [`productTax${row.index}`]: { value: tax },
+                        [`productTotal${row.index}`]: { value: productTotal }
                     } } = event
 
-
-
-                if (productName || productDescription || productQty || productUnitPrice || productTax) {
+                if (productName || description || productQty > 0 || productUnitPrice > 0 || tax > 0) {
 
                     if (productName && productQty && productUnitPrice) {
                         let id
@@ -159,7 +166,7 @@ function EstimateEditPanel({ estimate, handleSetViewList, onCreateEstimate }) {
                         let price = parseInt(productUnitPrice)
                         let total = parseInt(productTotal)
 
-                        products.push({ id, productDescription, amount, price, productTax, total })
+                        products.push({ id, name: productName, description, amount, price, tax, total })
                     }
                     else throw new Error('All products need Name, QTY and Unit Price')
                 }
@@ -168,10 +175,10 @@ function EstimateEditPanel({ estimate, handleSetViewList, onCreateEstimate }) {
 
                 ; (async () => {
                     try {
-                        await createEstimate(sessionStorage.UserToken, estimateNumber, { customer, terms, estimateDate, products, totalAmount })
+                        await updateEstimate(sessionStorage.UserToken, rows.id, { customer, estimateNumber, terms, estimateDate, products, totalAmount })
 
-                        toaster.success(`Estimate ${estimateNumber} created successfully`)
-                        onCreateEstimate()
+                        toaster.success(`Estimate ${estimateNumber} updated successfully`)
+                        onSubmitEstimate()
                     } catch (error) {
                         toaster.warning(error.message, { duration: 3 })
                     }
@@ -181,11 +188,11 @@ function EstimateEditPanel({ estimate, handleSetViewList, onCreateEstimate }) {
         } catch (error) {
             toaster.warning(error.message, { duration: 3 })
         }
-    } */
+    }
 
     return (
         <div className="invoiceCreator__container">
-            <form className="invoiceCreator__form" /* onSubmit={handleNewEstimateSubmit} */ ref={formRef}>
+            <form className="invoiceCreator__form" onSubmit={handleEditEstimateSubmit} ref={formRef}>
                 <div className="invoiceCreator__customerAndEmail">
                     <div className='invoiceCreator__inputContainer w25'>
                         <label className="form__label" htmlFor="customer" >Customer</label>
@@ -204,12 +211,48 @@ function EstimateEditPanel({ estimate, handleSetViewList, onCreateEstimate }) {
                 </div>
                 <div className="invoiceCreator__section2">
                     <div className="invoiceCreator__address">
-                        <label className="form__label" htmlFor="billingAddress">Customer billing address</label>
-                        <textarea className='invoiceCreator__AddressInput' name='billingAddress' defaultValue={estimate.billingAddress === undefined ? '' : (`${estimate.billingAddress.street}\n${estimate.billingAddress.town}\n${estimate.billingAddress.state}\n${estimate.billingAddress.zipCode}\n${estimate.billingAddress.country}`)}></textarea>
+                        <label className="form__label" htmlFor="billingAddressStreet">Customer billing street</label>
+                        <textarea className='invoiceCreator__AddressInput' name='billingAddressStreet' defaultValue={estimate.customer.billingAddress.street}></textarea>
+                        <div className='invoiceCreator__AddressDetails'>
+                            <div className='AddressDetailsWraper'>
+                                <label className='form__label' htmlFor='billingAddressTown'>Town</label>
+                                <input className='invoiceCreator_AddressTownInput' name='billingAddressTown' defaultValue={estimate.customer.billingAddress.town}></input>
+                            </div>
+                            <div className='AddressDetailsWraper'>
+                                <label className='form__label' htmlFor='billingAddressState'>State</label>
+                                <input className='invoiceCreator_AddressStateInput' name='billingAddressState' defaultValue={estimate.customer.billingAddress.state}></input>
+                            </div>
+                            <div className='AddressDetailsWraper'>
+                                <label className='form__label' htmlFor='billingAddressPC'>PC</label>
+                                <input className='invoiceCreator_AddressPCInput' name='billingAddressPC' defaultValue={estimate.customer.billingAddress.zipCode}></input>
+                            </div>
+                            <div className='AddressDetailsWraper'>
+                                <label className='form__label' htmlFor='billingAddressCountry'>Country</label>
+                                <input className='invoiceCreator_AddressCountryInput' name='billingAddressCountry' defaultValue={estimate.customer.billingAddress.country}></input>
+                            </div>
+                        </div>
                     </div>
                     <div className="invoiceCreator__address">
-                        <label className="form__label" htmlFor="shippingAddress">Customer shipping address</label>
-                        <textarea className='invoiceCreator__AddressInput' name='shippingAddress' defaultValue={estimate.shippingAddress === undefined ? '' : `${estimate.shippingAddress.shippingStreet}\n${estimate.shippingAddress.shippingTown}\n${estimate.shippingAddress.shippingState}\n${estimate.shippingAddress.shippingZipCode}\n${estimate.shippingAddress.shippingCountry}`}></textarea>
+                        <label className="form__label" htmlFor="shippingAddressStreet">Customer shipping street</label>
+                        <textarea className='invoiceCreator__AddressInput' name='shippingAddressStreet' defaultValue={estimate.customer.shippingAddress.shippingStreet}></textarea>
+                        <div className='invoiceCreator__AddressDetails'>
+                            <div className='AddressDetailsWraper'>
+                                <label className='form__label' htmlFor='shippingAddressTown'>Town</label>
+                                <input className='invoiceCreator_AddressTownInput' name='shippingAddressTown' defaultValue={estimate.customer.shippingAddress.shippingTown}></input>
+                            </div>
+                            <div className='AddressDetailsWraper'>
+                                <label className='form__label' htmlFor='shippingAddressState'>State</label>
+                                <input className='invoiceCreator_AddressStateInput' name='shippingAddressState' defaultValue={estimate.customer.shippingAddress.shippingState}></input>
+                            </div>
+                            <div className='AddressDetailsWraper'>
+                                <label className='form__label' htmlFor='shippingAddressPC'>PC</label>
+                                <input className='invoiceCreator_AddressPCInput' name='shippingAddressPC' defaultValue={estimate.customer.shippingAddress.shippingZipCode}></input>
+                            </div>
+                            <div className='AddressDetailsWraper'>
+                                <label className='form__label' htmlFor='shippingAddressCountry'>Country</label>
+                                <input className='invoiceCreator_AddressCountryInput' name='shippingAddressCountry' defaultValue={estimate.customer.shippingAddress.shippingCountry}></input>
+                            </div>
+                        </div>
                     </div>
                     <div className="invoiceCreator__section2__row1">
                         <label className="form__label" htmlFor="terms" >Terms</label>
@@ -255,7 +298,7 @@ function EstimateEditPanel({ estimate, handleSetViewList, onCreateEstimate }) {
                 </div>
                 <div className='invoiceCreator__footer'>
                     <button type='button' className='invoiceCreator__cancelButton' onClick={handleSetViewList}>Cancel</button>
-                    <button type='submit' className='invoiceCreator__newInvoiceButton'>Create estimate</button>
+                    <button type='submit' className='invoiceCreator__newInvoiceButton'>Update</button>
 
 
                 </div>

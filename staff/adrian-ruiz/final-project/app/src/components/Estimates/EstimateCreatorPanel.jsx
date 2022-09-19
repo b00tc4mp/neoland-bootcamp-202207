@@ -1,14 +1,14 @@
 import './EstimateCreatorPanel.css'
 import { useState, useRef, useEffect } from 'react'
 import { toaster } from 'evergreen-ui'
-import { createEstimate, retrieveCustomers, retrieveStock } from '../logic'
-function EstimateCreatorPanel({ handleSetViewList, onCreateEstimate }) {
-
+import { createEstimate, retrieveCustomers, retrieveStock } from '../../logic'
+function EstimateCreatorPanel({ handleSetViewList, onSubmitEstimate }) {
+    
     const [rows, setRows] = useState([{ id: 0, value: 0, qty: 0, tax: 0 }, { id: 1, value: 0, qty: 0, tax: 0 }, { id: 2, value: 0, qty: 0, tax: 0 }])
     const [totalAmount, setTotalAmount] = useState(0)
     const formRef = useRef(null)
     const [customers, setCustomers] = useState([])
-    const [selectedCustomer, setSelectedCustomer] = useState({})
+    const [selectedCustomer, setSelectedCustomer] = useState(undefined)
     const [stock, setStock] = useState([])
 
     useEffect(() => {
@@ -100,14 +100,14 @@ function EstimateCreatorPanel({ handleSetViewList, onCreateEstimate }) {
         const { target: { value: customer } } = event
         let customerFound = customers.find(_customer => _customer.name === customer)
 
-        if(!customerFound){
+        if (!customerFound) {
             setSelectedCustomer({})
             return
         }
 
         setSelectedCustomer(customerFound)
         return
-        
+
     }
 
     const handleNewEstimateSubmit = event => {
@@ -119,19 +119,31 @@ function EstimateCreatorPanel({ handleSetViewList, onCreateEstimate }) {
                     invoiceNumber: { value: estimateNumber },
                     customer: { value: customerName },
                     customerEmail: { value: customerEmail },
-                    billingAddress: { value: billingAddress },
-                    shippingAddress: { value: shippingAddress },
+                    billingAddressStreet: { value: billingAddressStreet },
+                    billingAddressTown: { value: billingAddressTown },
+                    billingAddressState: { value: billingAddressState },
+                    billingAddressPC: { value: billingAddressPC },
+                    billingAddressCountry: { value: billingAddressCountry },
+                    shippingAddressStreet: { value: shippingAddressStreet },
+                    shippingAddressTown: { value: shippingAddressTown },
+                    shippingAddressState: { value: shippingAddressState },
+                    shippingAddressPC: { value: shippingAddressPC },
+                    shippingAddressCountry: { value: shippingAddressCountry },
                     terms: { value: terms },
                     invoiceDate: { value: estimateDate }
                 } } = event
             // TODO LINK CUSTOMER NAME TO REFID ON DB
             //TODO CREATE SHIPPING ADDRESS ON INVOICE DB
             // TODO CREATE PRODUCT TAX ON DB MODEL (DO I NEED PRODUCT TOTAL??)
+
             let customerFound = customers.find(_customer => _customer.name === customerName)
             if (!customerFound) throw new Error(`Customer ${customerName} is not an valid option`)
             let refId = customerFound.id
 
-            const customer = { refId, name: customerName, email: customerEmail, billingAddress, shippingAddress }
+            const billingAddress = { street: billingAddressStreet, town: billingAddressTown, state: billingAddressState, zipCode: billingAddressPC, country: billingAddressCountry }
+            const shippingAddress = { shippingStreet: shippingAddressStreet, shippingTown: shippingAddressTown, shippingState: shippingAddressState, shippingZipCode: shippingAddressPC, shippingCountry: shippingAddressCountry }
+
+            const customer = {refId, name: customerName, email: customerEmail, billingAddress, shippingAddress}
 
             const products = []
             rows.forEach(row => {
@@ -147,7 +159,7 @@ function EstimateCreatorPanel({ handleSetViewList, onCreateEstimate }) {
 
 
 
-                if (productName || description || productQty || productUnitPrice || tax) {
+                if (productName || description || productQty > 0 || productUnitPrice > 0 || tax > 0) {
 
                     if (productName && productQty && productUnitPrice) {
                         let id
@@ -171,7 +183,7 @@ function EstimateCreatorPanel({ handleSetViewList, onCreateEstimate }) {
                         await createEstimate(sessionStorage.UserToken, estimateNumber, { customer, terms, estimateDate, products, totalAmount })
 
                         toaster.success(`Estimate ${estimateNumber} created successfully`)
-                        onCreateEstimate()
+                        onSubmitEstimate()
                     } catch (error) {
                         toaster.warning(error.message, { duration: 3 })
                     }
@@ -196,7 +208,7 @@ function EstimateCreatorPanel({ handleSetViewList, onCreateEstimate }) {
                     </div>
                     <div className="invoiceCreator__inputContainer w25">
                         <label className="form__label" htmlFor="customerEmail">Customer email</label>
-                        <input type='email' className='invoiceCreator__inputCustomerEmail' name="customerEmail" defaultValue={selectedCustomer.email === undefined ? '' : selectedCustomer.email}></input>
+                        <input type='email' className='invoiceCreator__inputCustomerEmail' name="customerEmail" defaultValue={selectedCustomer && selectedCustomer.email}></input>
                     </div>
                     <div className='separator30'></div>
                     <div className='invoiceCreator__invoiceNumber'>
@@ -206,16 +218,52 @@ function EstimateCreatorPanel({ handleSetViewList, onCreateEstimate }) {
                 </div>
                 <div className="invoiceCreator__section2">
                     <div className="invoiceCreator__address">
-                        <label className="form__label" htmlFor="billingAddress">Customer billing address</label>
-                        <textarea className='invoiceCreator__AddressInput' name='billingAddress' defaultValue={selectedCustomer.billingAddress === undefined ? '' : (`${selectedCustomer.billingAddress.street}\n${selectedCustomer.billingAddress.town}\n${selectedCustomer.billingAddress.state}\n${selectedCustomer.billingAddress.zipCode}\n${selectedCustomer.billingAddress.country}`)}></textarea>
+                        <label className="form__label" htmlFor="billingAddressStreet">Billing address Street</label>
+                        <textarea className='invoiceCreator__AddressInput' name='billingAddressStreet' defaultValue={selectedCustomer && selectedCustomer.billingAddress.street}></textarea>
+                        <div className='invoiceCreator__AddressDetails'>
+                            <div className='AddressDetailsWraper'>
+                                <label className='form__label' htmlFor='billingAddressTown'>Town</label>
+                                <input className='invoiceCreator_AddressTownInput' name='billingAddressTown' defaultValue={selectedCustomer && selectedCustomer.billingAddress.town}></input>
+                            </div>
+                            <div className='AddressDetailsWraper'>
+                                <label className='form__label' htmlFor='billingAddressState'>State</label>
+                                <input className='invoiceCreator_AddressStateInput' name='billingAddressState' defaultValue={selectedCustomer && selectedCustomer.billingAddress.state}></input>
+                            </div>
+                            <div className='AddressDetailsWraper'>
+                                <label className='form__label' htmlFor='billingAddressPC'>PC</label>
+                                <input className='invoiceCreator_AddressPCInput' name='billingAddressPC' defaultValue={selectedCustomer && selectedCustomer.billingAddress.zipCode}></input>
+                            </div>
+                            <div className='AddressDetailsWraper'>
+                                <label className='form__label' htmlFor='billingAddressCountry'>Country</label>
+                                <input className='invoiceCreator_AddressCountryInput' name='billingAddressCountry' defaultValue={selectedCustomer && selectedCustomer.billingAddress.country}></input>
+                            </div>
+                        </div>
                     </div>
                     <div className="invoiceCreator__address">
-                        <label className="form__label" htmlFor="shippingAddress">Customer shipping address</label>
-                        <textarea className='invoiceCreator__AddressInput' name='shippingAddress' defaultValue={selectedCustomer.shippingAddress === undefined ? '' : `${selectedCustomer.shippingAddress.shippingStreet}\n${selectedCustomer.shippingAddress.shippingTown}\n${selectedCustomer.shippingAddress.shippingState}\n${selectedCustomer.shippingAddress.shippingZipCode}\n${selectedCustomer.shippingAddress.shippingCountry}`}></textarea>
+                        <label className="form__label" htmlFor="shippingAddressStreet">Shipping address street</label>
+                        <textarea className='invoiceCreator__AddressInput' name='shippingAddressStreet' defaultValue={selectedCustomer && selectedCustomer.shippingAddress.shippingStreet}></textarea>
+                        <div className='invoiceCreator__AddressDetails'>
+                            <div className='AddressDetailsWraper'>
+                                <label className='form__label' htmlFor='shippingAddressTown'>Town</label>
+                                <input className='invoiceCreator_AddressTownInput' name='shippingAddressTown' defaultValue={selectedCustomer && selectedCustomer.shippingAddress.shippingTown}></input>
+                            </div>
+                            <div className='AddressDetailsWraper'>
+                                <label className='form__label' htmlFor='shippingAddressState'>State</label>
+                                <input className='invoiceCreator_AddressStateInput' name='shippingAddressState' defaultValue={selectedCustomer && selectedCustomer.shippingAddress.shippingState}></input>
+                            </div>
+                            <div className='AddressDetailsWraper'>
+                                <label className='form__label' htmlFor='shippingAddressPC'>PC</label>
+                                <input className='invoiceCreator_AddressPCInput' name='shippingAddressPC' defaultValue={selectedCustomer && selectedCustomer.shippingAddress.shippingZipCode}></input>
+                            </div>
+                            <div className='AddressDetailsWraper'>
+                                <label className='form__label' htmlFor='shippingAddressCountry'>Country</label>
+                                <input className='invoiceCreator_AddressCountryInput' name='shippingAddressCountry' defaultValue={selectedCustomer && selectedCustomer.shippingAddress.shippingCountry}></input>
+                            </div>
+                        </div>
                     </div>
                     <div className="invoiceCreator__section2__row1">
                         <label className="form__label" htmlFor="terms">Terms</label>
-                        <input type='text' className="form__input" name='terms' defaultValue={selectedCustomer.payTerms}></input>
+                        <input type='text' className="form__input" name='terms' defaultValue={selectedCustomer && selectedCustomer.payTerms}></input>
                         <label className="form__label" htmlFor="invoiceDate">Estimate date</label>
                         <input type='date' className="form__input" name='invoiceDate'></input>
                     </div>
@@ -256,9 +304,9 @@ function EstimateCreatorPanel({ handleSetViewList, onCreateEstimate }) {
 
                 </div>
                 <div className='invoiceCreator__footer'>
-                <button type='button' className='invoiceCreator__cancelButton' onClick={handleSetViewList}>Cancel</button>
-                <button type='submit' className='invoiceCreator__newInvoiceButton'>Create estimate</button>
-                    
+                    <button type='button' className='invoiceCreator__cancelButton' onClick={handleSetViewList}>Cancel</button>
+                    <button type='submit' className='invoiceCreator__newInvoiceButton'>Create estimate</button>
+
 
                 </div>
             </form>

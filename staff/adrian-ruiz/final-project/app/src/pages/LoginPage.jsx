@@ -4,6 +4,8 @@ import { toaster } from 'evergreen-ui'
 import GoogleLogin from 'react-google-login'
 import { useEffect } from 'react'
 import { gapi } from 'gapi-script'
+import LoginCarousel from '../components/LoginCarousel'
+
 const REACT_APP_GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID
 function LoginPage({ onLogin, navigateRegister }) {
 
@@ -79,7 +81,9 @@ function LoginPage({ onLogin, navigateRegister }) {
                     />
                 </form>
             </div>
-            <div className="carrusel__container"></div>
+            <div className="carrusel__container">
+                <LoginCarousel />
+            </div>
         </div>
     )
 }

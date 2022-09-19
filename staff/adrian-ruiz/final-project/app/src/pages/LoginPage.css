@@ -108,9 +108,9 @@
 
 .carrusel__container {
     width: 100%;
-    max-width: 1100px;
+    max-width: 900px;
     min-width: 700px;
     height: 100%;
     grid-area: carrusel__container;
-    background-color: white;
+    background-color: #42538D;
 }

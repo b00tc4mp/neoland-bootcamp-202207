@@ -3,7 +3,6 @@ const API_URL = process.env.REACT_APP_API_URL
 
 function deleteInvoice(token, invoiceId) {
     //TODO INPUT VALIDATIONS
-
     return (async () => {
         try {
             await axios({ method: 'DELETE', url: `${API_URL}/invoices/${invoiceId}`, headers: { Authorization: `Bearer ${token}` } })

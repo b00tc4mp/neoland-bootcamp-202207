@@ -18,9 +18,9 @@ import Tooltip from '@mui/material/Tooltip';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { visuallyHidden } from '@mui/utils';
+import { deleteProduct } from '../../logic'
 import { toaster } from 'evergreen-ui'
-import DeleteDialog from './DeleteDialog'
-import { deleteInvoice } from '../logic'
+import DeleteDialog from '../DeleteDialog'
 
 function descendingComparator(a, b, orderBy) {
     if ((typeof a[orderBy] === 'string') && (typeof b[orderBy] === 'string')) {
@@ -44,6 +44,7 @@ function descendingComparator(a, b, orderBy) {
 }
 
 function getComparator(order, orderBy) {
+
     return order === 'desc'
         ? (a, b) => descendingComparator(a, b, orderBy)
         : (a, b) => -descendingComparator(a, b, orderBy);
@@ -52,6 +53,8 @@ function getComparator(order, orderBy) {
 // This method is created for cross-browser compatibility, if you don't
 // need to support IE11, you can use Array.prototype.sort() directly
 function stableSort(array, comparator) {
+
+
     const stabilizedThis = array.map((el, index) => [el, index]);
     stabilizedThis.sort((a, b) => {
         const order = comparator(a[0], b[0]);
@@ -60,45 +63,46 @@ function stableSort(array, comparator) {
         }
         return a[1] - b[1];
     });
+    console.log(stabilizedThis)
     return stabilizedThis.map((el) => el[0]);
 }
 
 const headCells = [
     {
-        id: 'date',
-        numeric: false,
-        disablePadding: false,
-        label: 'Date',
-    },
-    {
         id: 'name',
         numeric: false,
         disablePadding: false,
-        label: 'Customer name',
+        label: 'Product/Service',
     },
     {
-        id: 'invoiceNumber',
-        numeric: false,
-        disablePadding: false,
-        label: 'Invoice N#',
-    },
-    {
-        id: 'status',
-        numeric: false,
-        disablePadding: false,
-        label: 'Status',
-    },
-    {
-        id: 'balance',
+        id: 'sku',
         numeric: true,
         disablePadding: false,
-        label: 'Balance',
+        label: 'SKU',
     },
     {
-        id: 'amount',
+        id: 'category',
         numeric: true,
         disablePadding: false,
-        label: 'Amount',
+        label: 'Category',
+    },
+    {
+        id: 'cost',
+        numeric: true,
+        disablePadding: false,
+        label: 'Cost Price',
+    },
+    {
+        id: 'minStock',
+        numeric: true,
+        disablePadding: false,
+        label: 'Min Qty',
+    },
+    {
+        id: 'stock',
+        numeric: true,
+        disablePadding: false,
+        label: 'Stock',
     },
 ];
 
@@ -189,7 +193,7 @@ const EnhancedTableToolbar = (props) => {
                     id="tableTitle"
                     component="div"
                 >
-                    Invoices
+                    Stock
                 </Typography>
             )}
 
@@ -215,17 +219,17 @@ EnhancedTableToolbar.propTypes = {
     numSelected: PropTypes.number.isRequired,
 };
 
-export default function EnhancedTable({ data, onDeleteInvoice, onEditClick }) {
+export default function EnhancedTable({ stock, onDeleteProduct, onEditClick }) {
 
-    const rows = data
+    const rows = stock
 
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('stock');
     const [selected, setSelected] = React.useState(undefined);
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
+    const [rowsPerPage, setRowsPerPage] = React.useState(15);
     const [isShown, setIsShown] = React.useState(false);
-    const rowsPerPage = rows.length;
 
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
@@ -242,6 +246,8 @@ export default function EnhancedTable({ data, onDeleteInvoice, onEditClick }) {
         return
     };
 
+
+
     const handleClick = (event, name) => {
         let newSelected
         selected === name ? newSelected = null : newSelected = name
@@ -249,31 +255,29 @@ export default function EnhancedTable({ data, onDeleteInvoice, onEditClick }) {
     };
 
     const handleEditClick = () => {
-        const foundInvoice = rows.find(row => row.invoiceNumber === selected)
-        onEditClick(foundInvoice.id)
+        const foundItem = rows.find(row => row.name === selected)
+        onEditClick(foundItem.id)
     }
 
     const handleDeleteClick = () => {
         setIsShown(true)
-
     }
 
     const confirmDeleteClick = () => {
-
-        let invoiceFound = rows.find(row => {
-            if (row.invoiceNumber === selected) {
+        let productFound = rows.find(row => {
+            if (row.name === selected) {
                 return row
             }
         })
 
-        if (!invoiceFound) throw new Error('Invoice selected not found')
+        if (!productFound) throw new Error('Product selected not found')
 
             ; (async () => {
                 try {
-                    await deleteInvoice(sessionStorage.UserToken, invoiceFound.id)
-                    toaster.success(`Invoice ${invoiceFound.InvoiceNumber} deleted successfully`)
+                    await deleteProduct(sessionStorage.UserToken, productFound.id)
+                    toaster.success(`Product ${productFound.name} deleted successfully`)
 
-                    onDeleteInvoice()
+                    onDeleteProduct()
                     setIsShown(false)
                     setSelected(undefined)
                 } catch (error) {
@@ -285,7 +289,6 @@ export default function EnhancedTable({ data, onDeleteInvoice, onEditClick }) {
     const handleCancelClick = () => {
         setIsShown(false)
     }
-
     const isSelected = (name) => selected === name;
 
     // Avoid a layout jump when reaching the last page with empty rows.
@@ -294,13 +297,13 @@ export default function EnhancedTable({ data, onDeleteInvoice, onEditClick }) {
 
     return (
         <>
-            {selected && <DeleteDialog status={isShown} item={'invoice'} title={`Delete invoice Number ${selected}`} onConfirm={confirmDeleteClick} onCancelClick={handleCancelClick} />}
+            {selected && <DeleteDialog status={isShown} item={'product'} title={`Delete product ${selected}`} onConfirm={confirmDeleteClick} onCancelClick={handleCancelClick} />}
             <Box sx={{ width: '100%', height: '100%' }}>
                 <Paper sx={{ width: '100%', height: '100%', mb: 2, overflow: 'hidden' }}>
-                    <EnhancedTableToolbar numSelected={selected ? 1 : 0} handleDeleteClick={handleDeleteClick} handleEditClick={handleEditClick}/>
+                    <EnhancedTableToolbar numSelected={selected ? 1 : 0} handleDeleteClick={handleDeleteClick} handleEditClick={handleEditClick} />
                     <TableContainer
                         sx={{
-                            maxHeight: '90vh',
+                            height: '100%',
                             maxWidth: '90vw'
                         }}
                     >
@@ -323,7 +326,7 @@ export default function EnhancedTable({ data, onDeleteInvoice, onEditClick }) {
                                 {stableSort(rows, getComparator(order, orderBy))
                                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                     .map((row, index) => {
-                                        const isItemSelected = isSelected(row.invoiceNumber);
+                                        const isItemSelected = isSelected(row.name);
                                         const labelId = `enhanced-table-checkbox-${index}`;
 
                                         return (
@@ -337,11 +340,11 @@ export default function EnhancedTable({ data, onDeleteInvoice, onEditClick }) {
                                                     }
                                                 }}
                                                 hover
-                                                onClick={(event) => handleClick(event, row.invoiceNumber)}
+                                                onClick={(event) => handleClick(event, row.name)}
                                                 role="checkbox"
                                                 aria-checked={isItemSelected}
                                                 tabIndex={-1}
-                                                key={`${row.invoiceDate}${index}`}
+                                                key={row.name}
                                                 selected={isItemSelected}
                                             >
                                                 <TableCell
@@ -350,13 +353,13 @@ export default function EnhancedTable({ data, onDeleteInvoice, onEditClick }) {
                                                     scope="row"
                                                     padding="normal"
                                                 >
-                                                    {row.invoiceDate}
+                                                    {row.name}
                                                 </TableCell>
-                                                <TableCell align="left">{row.customer.name}</TableCell>
-                                                <TableCell align="left">{row.invoiceNumber}</TableCell>
-                                                <TableCell align="left">{row.status}</TableCell>
-                                                <TableCell align="right">{row.balance}</TableCell>
-                                                <TableCell align="right">{row.totalAmount}</TableCell>
+                                                <TableCell align="right">{row.sku}</TableCell>
+                                                <TableCell align="right">{row.category}</TableCell>
+                                                <TableCell align="right">{row.cost}</TableCell>
+                                                <TableCell align="right">{row.minStock}</TableCell>
+                                                <TableCell align="right">{row.stock}</TableCell>
                                                 <TableCell padding="checkbox">
                                                     <Checkbox
                                                         color="primary"
@@ -375,7 +378,7 @@ export default function EnhancedTable({ data, onDeleteInvoice, onEditClick }) {
                                             height: (dense ? 33 : 53) * emptyRows,
                                         }}
                                     >
-                                        <TableCell colSpan={4} />
+                                        <TableCell colSpan={7} />
                                     </TableRow>
                                 )}
                             </TableBody>

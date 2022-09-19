@@ -1,4 +1,4 @@
-import { createCustomer } from '../logic'
+import { createCustomer } from '../../logic'
 import { toaster } from 'evergreen-ui'
 function NewCustomerPanel({ onCloseClick, onCreateCustomer }) {
 

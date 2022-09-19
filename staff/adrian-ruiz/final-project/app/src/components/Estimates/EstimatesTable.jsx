@@ -18,9 +18,9 @@ import Tooltip from '@mui/material/Tooltip';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { visuallyHidden } from '@mui/utils';
+import { deleteEstimate } from '../../logic'
 import { toaster } from 'evergreen-ui'
-import DeleteDialog from './DeleteDialog'
-import { deleteCustomer } from '../logic'
+import DeleteDialog from '../DeleteDialog'
 
 function descendingComparator(a, b, orderBy) {
     if ((typeof a[orderBy] === 'string') && (typeof b[orderBy] === 'string')) {
@@ -65,23 +65,35 @@ function stableSort(array, comparator) {
 
 const headCells = [
     {
+        id: 'date',
+        numeric: false,
+        disablePadding: false,
+        label: 'Date',
+    },
+    {
         id: 'name',
         numeric: false,
         disablePadding: false,
         label: 'Customer name',
     },
     {
-        id: 'phone',
-        numeric: true,
+        id: 'estimateNumber',
+        numeric: false,
         disablePadding: false,
-        label: 'Phone',
+        label: 'Estimate N#',
     },
     {
-        id: 'balance',
+        id: 'status',
+        numeric: false,
+        disablePadding: false,
+        label: 'Status',
+    },
+    {
+        id: 'amount',
         numeric: true,
         disablePadding: false,
-        label: 'Balance',
-    }
+        label: 'Amount',
+    },
 ];
 
 function EnhancedTableHead(props) {
@@ -171,7 +183,7 @@ const EnhancedTableToolbar = (props) => {
                     id="tableTitle"
                     component="div"
                 >
-                    Customers
+                    Estimates
                 </Typography>
             )}
 
@@ -197,9 +209,12 @@ EnhancedTableToolbar.propTypes = {
     numSelected: PropTypes.number.isRequired,
 };
 
-export default function EnhancedTable({ data: rows, onDeleteCustomer, onEditClick }) {
+export default function EnhancedTable({ data, onDeleteEstimate, onEditClick }) {
+
+    const rows = data
+
     const [order, setOrder] = React.useState('asc');
-    const [orderBy, setOrderBy] = React.useState('customers');
+    const [orderBy, setOrderBy] = React.useState('stock');
     const [selected, setSelected] = React.useState(undefined);
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
@@ -228,8 +243,8 @@ export default function EnhancedTable({ data: rows, onDeleteCustomer, onEditClic
     };
 
     const handleEditClick = () => {
-        const foundCustomer = rows.find(row => row.name === selected)
-        onEditClick(foundCustomer.id)
+        const foundEstimate = rows.find(row => row.estimateNumber === selected)
+        onEditClick(foundEstimate.id)
     }
 
     const handleDeleteClick = () => {
@@ -238,21 +253,20 @@ export default function EnhancedTable({ data: rows, onDeleteCustomer, onEditClic
     }
 
     const confirmDeleteClick = () => {
-
-        let customerFound = rows.find(row => {
-            if (row.name === selected) {
+        let estimateFound = rows.find(row => {
+            if (row.estimateNumber === selected) {
                 return row
             }
         })
 
-        if (!customerFound) throw new Error('Customer selected not found')
+        if (!estimateFound) throw new Error('Estimate selected not found')
 
             ; (async () => {
                 try {
-                    await deleteCustomer(sessionStorage.UserToken, customerFound.id)
-                    toaster.success(`Customer ${customerFound.name} deleted successfully`)
+                    await deleteEstimate(sessionStorage.UserToken, estimateFound.id)
+                    toaster.success(`Estimate ${estimateFound.estimateNumber} deleted successfully`)
 
-                    onDeleteCustomer()
+                    onDeleteEstimate()
                     setIsShown(false)
                     setSelected(undefined)
                 } catch (error) {
@@ -273,14 +287,14 @@ export default function EnhancedTable({ data: rows, onDeleteCustomer, onEditClic
 
     return (
         <>
-            {selected && <DeleteDialog status={isShown} item={'customer'} title={`Delete customer ${selected}`} onConfirm={confirmDeleteClick} onCancelClick={handleCancelClick} />}
+            {selected && <DeleteDialog status={isShown} item={'estimate'} title={`Delete estimate Number ${selected}`} onConfirm={confirmDeleteClick} onCancelClick={handleCancelClick} />}
             <Box sx={{ width: '100%', height: '100%' }}>
                 <Paper sx={{ width: '100%', height: '100%', mb: 2, overflow: 'hidden' }}>
                     <EnhancedTableToolbar numSelected={selected ? 1 : 0} handleDeleteClick={handleDeleteClick} handleEditClick={handleEditClick} />
                     <TableContainer
                         sx={{
-                            height: '100%'
-
+                            height: '100%',
+                            maxWidth: '90vw'
                         }}
                     >
                         <Table stickyHeader
@@ -299,53 +313,53 @@ export default function EnhancedTable({ data: rows, onDeleteCustomer, onEditClic
                             <TableBody>
                                 {/* if you don't need to support IE11, you can replace the `stableSort` call with:
                  rows.slice().sort(getComparator(order, orderBy)) */}
-                                {
-                                    stableSort(rows, getComparator(order, orderBy))
-                                        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                        .map((row, index) => {
-                                            const isItemSelected = isSelected(row.name);
-                                            const labelId = `enhanced-table-checkbox-${index}`;
-
-                                            return (
-                                                <TableRow
-                                                    sx={{
-                                                        "& th": {
-                                                            fontSize: "1.4rem",
-                                                        },
-                                                        "& td": {
-                                                            fontSize: "1.4rem",
-                                                        }
-                                                    }}
-                                                    hover
-                                                    onClick={(event) => handleClick(event, row.name)}
-                                                    role="checkbox"
-                                                    aria-checked={isItemSelected}
-                                                    tabIndex={-1}
-                                                    key={row.name}
-                                                    selected={isItemSelected}
+                                {stableSort(rows, getComparator(order, orderBy))
+                                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                    .map((row, index) => {
+                                        const isItemSelected = isSelected(row.estimateNumber);
+                                        const labelId = `enhanced-table-checkbox-${index}`;
+                                        return (
+                                            <TableRow
+                                                sx={{
+                                                    "& th": {
+                                                        fontSize: "1.4rem",
+                                                    },
+                                                    "& td": {
+                                                        fontSize: "1.4rem",
+                                                    }
+                                                }}
+                                                hover
+                                                onClick={(event) => handleClick(event, row.estimateNumber)}
+                                                role="checkbox"
+                                                aria-checked={isItemSelected}
+                                                tabIndex={-1}
+                                                key={row.estimateNumber}
+                                                selected={isItemSelected}
+                                            >
+                                                <TableCell
+                                                    component="th"
+                                                    id={labelId}
+                                                    scope="row"
+                                                    padding="normal"
                                                 >
-                                                    <TableCell
-                                                        component="th"
-                                                        id={labelId}
-                                                        scope="row"
-                                                        padding="normal"
-                                                    >
-                                                        {row.name}
-                                                    </TableCell>
-                                                    <TableCell align="right">{row.phone}</TableCell>
-                                                    <TableCell align="right">{row.balance}</TableCell>
-                                                    <TableCell padding="checkbox">
-                                                        <Checkbox
-                                                            color="primary"
-                                                            checked={isItemSelected}
-                                                            inputProps={{
-                                                                'aria-labelledby': labelId,
-                                                            }}
-                                                        />
-                                                    </TableCell>
-                                                </TableRow>
-                                            );
-                                        })}
+                                                    {row.estimateDate}
+                                                </TableCell>
+                                                <TableCell align="left">{row.customer.name}</TableCell>
+                                                <TableCell align="left">{row.estimateNumber}</TableCell>
+                                                <TableCell align="left">{row.status}</TableCell>
+                                                <TableCell align="right">{row.totalAmount}</TableCell>
+                                                <TableCell padding="checkbox">
+                                                    <Checkbox
+                                                        color="primary"
+                                                        checked={isItemSelected}
+                                                        inputProps={{
+                                                            'aria-labelledby': labelId,
+                                                        }}
+                                                    />
+                                                </TableCell>
+                                            </TableRow>
+                                        );
+                                    })}
                                 {emptyRows > 0 && (
                                     <TableRow
                                         style={{

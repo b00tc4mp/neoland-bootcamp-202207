@@ -5,6 +5,7 @@ import retrieveAItem from './retrieveAItem'
 import retrieveCustomers from './retrieveCustomers'
 import retrieveACustomer from './retrieveACustomer'
 import retrieveInvoices from './retrieveInvoices'
+import retrieveAInvoice from './retrieveAInvoice'
 import createProduct from './createProduct'
 import createCustomer from './createCustomer'
 import authenticateUserGoogle from './authenticateUserGoogle'
@@ -19,6 +20,8 @@ import deleteProduct from './deleteProduct'
 import deleteCustomer from './deleteCustomer'
 import editCustomer from './editCustomer'
 import editItem from './editItem'
+import updateEstimate from './updateEstimate'
+import updateInvoice from './updateInvoice'
 
 export {
     authenticateUser,
@@ -41,5 +44,8 @@ export {
     deleteProduct,
     deleteCustomer,
     editCustomer,
-    editItem
+    editItem,
+    updateEstimate,
+    updateInvoice,
+    retrieveAInvoice
 }
