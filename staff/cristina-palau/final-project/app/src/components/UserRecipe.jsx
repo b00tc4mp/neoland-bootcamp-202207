@@ -87,12 +87,12 @@ function UserRecipe({ onBackClick, recipe }) {
 
         ingredientValue.length >= 3 && target.setAttribute('list', 'ingredientsList')
         ingredientValue.length < 3 && target.removeAttribute('list', 'ingredientsList')
-
+         
         let data = [...recipeState.ingredients]
-    
+         
         const ingredient = data.find(ingredient => ingredientId === ingredient.id)
         ingredient.ingredient.name = event.target.value
-
+         
         const newRecipe = { ...recipeState, ingredient }
 
         setRecipeState(newRecipe)
@@ -211,7 +211,7 @@ function UserRecipe({ onBackClick, recipe }) {
     const addIngredient = event => {
         event.preventDefault()
 
-        let newRow = { index: (recipeState.ingredients.length), ingredient: { quantity: 0, unit: "kg", ingredient: "" } }
+        let newRow = { id: (recipeState.ingredients.length), ingredient: { quantity: 0, unit: "", ingredient: ""} }
 
         const newIngredients = [...recipeState.ingredients, newRow]
 
@@ -237,11 +237,12 @@ function UserRecipe({ onBackClick, recipe }) {
                     <div className="ingredientsRecipeContainer" key={ingredient.id}>
                         <input type="number" defaultValue={ingredient.quantity} className="input newRecipeInput quantInput" name={`quantity${index}`} placeholder="cantidad" onChange={(event) => handleChangeQuantity(event, ingredient.id)} />
                         <select className="select newRecipeInput unitSelect" defaultValue={ingredient.unit} name={`unit${index}`} placeholder="unit" onChange={(event) => handleChangeUnit(event, ingredient.id)}>
+                        <option value="kg" ></option>
                             <option value="kg" >kg</option>
                             <option value="unit">unt</option>
                             <option value="l">l</option>
                         </select>
-                        <input className="input newRecipeInput ingredientInput" defaultValue={ingredient.ingredient.name} name={`ingredient${index}`} list="ingredientsList" onChange={(event) => handleChangeIngredient(event, ingredient.id)} />
+                        <input className="input newRecipeInput ingredientInput" name={`ingredient${index}`} list="ingredientsList" autoComplete="off" defaultValue={ingredient.ingredient.name} onChange={(event) => handleChangeIngredient(event, ingredient.id)} />
                         <datalist id="ingredientsList">
                             {
                                 ingredients.map(({ name, id }) => <option key={id} value={name}>{name}</option>)

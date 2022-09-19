@@ -67,7 +67,7 @@ function RecipesMenu({ onBackClick, context: { reloadThePage } }) {
             logger.warn(error.message)
         }
     }
-    
+
     const loadUserRecipes = () => {
         try {
             retrieveUserRecipes(sessionStorage.token, (error, userRecipes) => {
@@ -138,25 +138,25 @@ function RecipesMenu({ onBackClick, context: { reloadThePage } }) {
     const handleDeleteRecipe = recipeId => {
 
         try {
-           
+
             deleteRecipe(sessionStorage.token, recipeId, error => {
                 if (error) {
-                 
+
                     logger.warn(error.message)
                     return
                 }
-                
-            })
-            
-            loadUserRecipes()
 
-            // reloadThePage()
-            
+            })
+
+            console.log('reloadPage')
+
+            reloadThePage()
+
         } catch (error) {
-            
+
             logger.warn(error.message)
         }
-        
+
     }
 
     const handleReloadPublicRecipes = event => {
@@ -185,7 +185,7 @@ function RecipesMenu({ onBackClick, context: { reloadThePage } }) {
 
     return <Routes>
         <Route path="/" element={<>
-            
+
             <div className="buttonContainer"><button className='transparentButton homeButton' onClick={onBackClick}>
                 <span className="material-symbols-outlined">keyboard_backspace</span></button></div>
             <UserRecipesList userRecipes={userRecipes} onRecipeClick={handleClickUserRecipe} onDeleteRecipe={handleDeleteRecipe} />
