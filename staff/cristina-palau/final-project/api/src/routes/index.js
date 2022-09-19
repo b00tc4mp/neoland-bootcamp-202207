@@ -2,6 +2,7 @@ const express = require('express')
 const { Router, json } = express
 const jsonBodyParser = json()
 const { registerUserHandler, authenticateUserHandler, retrieveUserHandler, updateUserEmailHandler, updateUserPasswordHandler } = require('./users')
+const { createListHandler} = require('./lists')
 const { createIngredientHandler, searchIngredientHandler, retrieveIngredientsHandler} = require('./ingredients')
 const { createRecipeHandler, retrieveRecipeHandler, retrieveRecipeIngredientsHandler, retrieveUserRecipesHandler, updateRecipeHandler, deleteRecipeHandler, retrievePublicRecipesHandler } = require('./recipes')
 
@@ -41,7 +42,7 @@ recipesRouter.delete('/recipes/:recipeId', deleteRecipeHandler)
 
 recipesRouter.patch('/recipes/:recipeId', jsonBodyParser, updateRecipeHandler)
 
-
+const listsRouter = Router ()
 
 module.exports = {
     usersRouter,

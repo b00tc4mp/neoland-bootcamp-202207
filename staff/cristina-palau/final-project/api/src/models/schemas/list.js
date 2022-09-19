@@ -10,7 +10,7 @@ const list = new Schema({
 
     title: {
         type: String,
-        required: true,
+        required: false,
         default: "Nueva receta"
     },
 

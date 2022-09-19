@@ -5,9 +5,10 @@ const API_URL = process.env.REACT_APP_API_URL
 function retrieveRecipeIngredients(token, recipeId, callback) {
     validateText(token)
     validateCallback(callback)
-    debugger
+    
     const xhr = new XMLHttpRequest
 
+    
     // response
     xhr.onload = function () {
 
@@ -17,7 +18,9 @@ function retrieveRecipeIngredients(token, recipeId, callback) {
 
         const recipeIngredients = JSON.parse(json)
         const { error } = recipeIngredients
-        debugger
+        
+        
+
         switch (true) {
             case (status >= 500):
                 callback(new ServerError(error))
@@ -35,7 +38,7 @@ function retrieveRecipeIngredients(token, recipeId, callback) {
                 callback(new UnknownError(`unexpected status ${status}`))
         }
     }
-    debugger
+    
     // request
 
     xhr.open('GET', `${API_URL}/recipes/${recipeId}/ingredients/`)

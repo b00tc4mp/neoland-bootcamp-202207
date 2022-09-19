@@ -93,10 +93,8 @@ function HomePage({ onLogoutClick }) {
 
                 <Route path="settings" element={<>
                     <Header text="Mi perfil" />
-                    <div className="buttonContainer"><button className='transparentButton homeButton' onClick={handleNavigationHome}>
-                        <span className="material-symbols-outlined">keyboard_backspace</span></button></div>
                     <main className="settingsMenu">
-                        <Settings onLogoutClick={handleLinkClick} />
+                        <Settings onLogoutClick={handleLinkClick} onBackClick={handleNavigationHome}/>
                     </main>
                     <footer className="setingsFooter footer">
                         <a className="anchor" href="login-page.html" onClick={handleLinkClick}><span className="material-symbols-outlined">

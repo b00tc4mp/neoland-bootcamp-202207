@@ -20,11 +20,11 @@ function createList(userId, title, ingredients) {
             if (!user) throw new NotFoundError(`user with id ${userId} not found`)
 
             const ingredientItems = ingredients.map(ingredient => {
-                const { id, quantity, unit } = ingredient
+                const { id, quantity, unit, type } = ingredient
                  
                 const ingredientItem = new IngredientItem({
                     ingredient: id,
-                    quantity: quantity,
+                    quantity,
                     unit,
                     type
                 })
@@ -32,7 +32,7 @@ function createList(userId, title, ingredients) {
                 return ingredientItem
             })
              
-            return List.create({ creator: user._id, title: title, persons: persons, ingredients: ingredientItems })
+            return List.create({ creator: user._id, title: title, ingredients: ingredientItems })
                 .catch(error => {
                     throw new SystemError(error.message)
                 })
