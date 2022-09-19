@@ -1,11 +1,16 @@
+// ================== Imports ================== //
+
+import { useEffect, useState, useRef } from "react";
 import Loggito from "../utils/Loggito";
-import retrieveQuestionForEdit from "../logic/retrieveQuestionForEdit";
+
 import updateQuestionEdit from "../logic/updateQuestionEdit";
-import { useEffect, useState } from "react";
+import retrieveQuestionForEdit from "../logic/retrieveQuestionForEdit";
+
+import withContext from "../utils/withContext";
 
 import createQuestion from "../logic/createQuestion";
 
-import withContext from "../utils/withContext";
+// ================== Component ================== //
 
 function EditQuestionPanel({
   onReturn,
@@ -13,13 +18,16 @@ function EditQuestionPanel({
   editedLocation,
   handleNavigateTo,
   loadQuestions,
-  loadQuestionsPublic,
   context: { handleFeedback },
 }) {
+  // ================== Constants ================== //
+
   const logger = new Loggito("Edit Question");
+
+  const correctAnswers = [];
+
   const [questionForEdit, setQuestionForEdit] = useState("");
   const [questionType, setQuestionType] = useState(null);
-
   const [MCQResponses, setMCQResponses] = useState({
     A: "incorrect",
     B: "incorrect",
@@ -27,9 +35,52 @@ function EditQuestionPanel({
     D: "incorrect",
   });
 
-  const handleReturn = () => {
-    onReturn();
+  const timeLimitRef = useRef(null);
+  const visibilityRef = useRef(null);
+  const questionTextRef = useRef(null);
+  const suggestedAnswerRef = useRef(null);
+  const multipleChoiceARef = useRef(null);
+  const multipleChoiceBRef = useRef(null);
+  const multipleChoiceCRef = useRef(null);
+  const multipleChoiceDRef = useRef(null);
+
+  // ================== useEffects ================== //
+
+  useEffect(() => {
+    loadQuestionForEdit();
+  }, []);
+
+  useEffect(() => {
+    timeLimitRef.current.value = questionForEdit.timeLimit;
+    visibilityRef.current.value = questionForEdit.visibility;
+    questionTextRef.current.value = questionForEdit.question;
+
+    if (questionForEdit.questionType === "written")
+      suggestedAnswerRef.current.value = questionForEdit.suggestedAnswer;
+
+    if (questionForEdit.questionType === "MCQ") {
+      multipleChoiceARef.current.value = questionForEdit.answerA[0];
+      multipleChoiceBRef.current.value = questionForEdit.answerB[0];
+      multipleChoiceCRef.current.value = questionForEdit.answerC[0];
+      multipleChoiceDRef.current.value = questionForEdit.answerD[0];
+    }
+  }, [questionForEdit]);
+
+  useEffect(() => {
+    logger.info("useEffect questionlist");
+
+    textAreaAdjust(questionForEdit);
+    logger.info("question text area adjusted");
+  });
+
+  const textAreaAdjust = (questionForEdit) => {
+    questionTextRef.current.style.height = "inherit";
+    questionTextRef.current.style.height = `${
+      25 + questionTextRef.scrollHeight
+    }px`;
   };
+
+  // ================== Function: to retrieve question to edit ================== //
 
   const loadQuestionForEdit = () => {
     try {
@@ -76,9 +127,34 @@ function EditQuestionPanel({
     }
   };
 
-  useEffect(() => {
-    loadQuestionForEdit();
-  }, []);
+  // ================== Function: to update MCQResponses correct answers ================== //
+
+  const handleCorrectClick = (response) => {
+    const obj = {};
+
+    if (response === "A" && MCQResponses.A === "incorrect") obj.A = "correct";
+    else if (response === "A" && MCQResponses.A === "correct")
+      obj.A = "incorrect";
+    else if (response === "B" && MCQResponses.B === "incorrect")
+      obj.B = "correct";
+    else if (response === "B" && MCQResponses.B === "correct")
+      obj.B = "incorrect";
+    else if (response === "C" && MCQResponses.C === "incorrect")
+      obj.C = "correct";
+    else if (response === "C" && MCQResponses.C === "correct")
+      obj.C = "incorrect";
+    else if (response === "D" && MCQResponses.D === "incorrect")
+      obj.D = "correct";
+    else if (response === "D" && MCQResponses.D === "correct")
+      obj.D = "incorrect";
+
+    setMCQResponses((MCQResponses) => ({
+      ...MCQResponses,
+      ...obj,
+    }));
+  };
+
+  // ================== Function: to send form details to quiz player and pass details to QuizTeacher ================== //
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -104,8 +180,7 @@ function EditQuestionPanel({
 
     if (questionDetails.questionType === "written") {
       questionDetails.suggestedAnswer = form.suggestedAnswer.value;
-      if (!form.visibility.suggestedAnswer.value)
-        questionDetails.suggestedAnswer = "";
+      if (!form.suggestedAnswer.value) questionDetails.suggestedAnswer = "";
     }
 
     if (questionDetails.questionType === "MCQ") {
@@ -117,6 +192,20 @@ function EditQuestionPanel({
       questionDetails.answerC[1] = MCQResponses.C;
       questionDetails.answerD[0] = form.MCQD.value;
       questionDetails.answerD[1] = MCQResponses.D;
+
+      if (MCQResponses.A === "correct")
+        correctAnswers[correctAnswers.length] = "A";
+      if (MCQResponses.B === "correct")
+        correctAnswers[correctAnswers.length] = "B";
+      if (MCQResponses.C === "correct")
+        correctAnswers[correctAnswers.length] = "C";
+      if (MCQResponses.D === "correct")
+        correctAnswers[correctAnswers.length] = "D";
+
+      if (correctAnswers.length === 0) {
+        alert("At least one correct answer must be selected.");
+        throw new Error("At least one correct answer must be selected.");
+      }
     }
 
     form.reset();
@@ -127,10 +216,6 @@ function EditQuestionPanel({
           sessionStorage.token,
           questionBeingEditedId,
           questionDetails,
-          /* question,
-          suggestedAnswer,
-          timeLimit,
-          visibility, */
           (error) => {
             if (error) {
               handleFeedback({ message: error.message, level: "error" });
@@ -153,157 +238,42 @@ function EditQuestionPanel({
       "/favouritesList"
     ) {
       try {
-        createQuestion(
-          sessionStorage.token,
-          questionDetails,
-          /* question,
-          suggestedAnswer,
-          timeLimit,
-          visibility, */
-          (error) => {
-            if (error) {
-              handleFeedback({ message: error.message, level: "error" });
+        createQuestion(sessionStorage.token, questionDetails, (error) => {
+          if (error) {
+            handleFeedback({ message: error.message, level: "error" });
 
-              logger.warn(error.message);
+            logger.warn(error.message);
 
-              return;
-            }
-
-            handleNavigateTo(editedLocation.pathname);
+            return;
           }
-        );
+
+          handleNavigateTo(editedLocation.pathname);
+        });
       } catch (error) {
         handleFeedback({ message: error.message, level: "error" });
 
         logger.warn(error.message);
       }
-    } /* else if (editedLocation.pathname === "/favouritesList") {
-      try {
-        createQuestion(
-          sessionStorage.token,
-          question,
-          suggestedAnswer,
-          timeLimit,
-          visibility,
-          (error) => {
-            if (error) {
-              handleFeedback({ message: error.message, level: "error" });
-
-              logger.warn(error.message);
-
-              return;
-            }
-
-            handleNavigateTo(editedLocation.pathname);
-          }
-        );
-      } catch (error) {
-        handleFeedback({ message: error.message, level: "error" });
-
-        logger.warn(error.message);
-      }
-    } */
-  };
-
-  useEffect(() => {
-    const timeLimitElement = document.getElementById("timeLimit");
-    const visibilityElement = document.getElementById("visibility");
-    const questionElement = document.getElementById("question");
-
-    const suggestedAnswerElement = document.getElementById("suggestedAnswer");
-
-    const MCQAElement = document.getElementById("MCQA");
-    const MCQBElement = document.getElementById("MCQB");
-    const MCQCElement = document.getElementById("MCQC");
-    const MCQDElement = document.getElementById("MCQD");
-
-    console.log(`questionBeingEdited: ${questionForEdit}`);
-
-    console.log(`timeLimitElement: ${timeLimitElement}`);
-    console.log(`visibilityElement: ${visibilityElement}`);
-    console.log(`questionElement: ${questionElement}`);
-    console.log(`suggestedAnswerElement: ${suggestedAnswerElement}`);
-
-    timeLimitElement.value = questionForEdit.timeLimit;
-    visibilityElement.value = questionForEdit.visibility;
-    questionElement.value = questionForEdit.question;
-
-    if (questionForEdit.questionType === "written")
-      suggestedAnswerElement.value = questionForEdit.suggestedAnswer;
-
-    if (questionForEdit.questionType === "MCQ") {
-      MCQAElement.value = questionForEdit.answerA[0];
-      MCQBElement.value = questionForEdit.answerB[0];
-      MCQCElement.value = questionForEdit.answerC[0];
-      MCQDElement.value = questionForEdit.answerD[0];
     }
-  }, [questionForEdit]);
-
-  /* const questionText = {}; // dictionary */
-
-  const textAreaAdjust = (questionForEdit) => {
-    const questionText = document.getElementById("question");
-    questionText.style.height = "inherit";
-    questionText.style.height = `${25 + questionText.scrollHeight}px`;
   };
 
-  useEffect(() => {
-    logger.info("useEffect questionlist");
+  // ================== Functions ================== //
 
-    textAreaAdjust(questionForEdit);
-    logger.info("question text area adjusted");
-  });
+  // For the moment the funtion to change between question types is disabled
 
-  const handleWrittenResponseClick = () => {
+  /* const handleWrittenResponseClick = () => {
     setQuestionType("written");
   };
 
   const handleMCQClick = () => {
     setQuestionType("MCQ");
+  }; */
+
+  const handleReturn = () => {
+    onReturn();
   };
 
-  const handleCorrectClick = (response) => {
-    if (response === "A" && MCQResponses.A === "incorrect")
-      setMCQResponses((MCQResponses) => ({
-        ...MCQResponses,
-        ...{ A: "correct" },
-      }));
-    else if (response === "A" && MCQResponses.A === "correct")
-      setMCQResponses((MCQResponses) => ({
-        ...MCQResponses,
-        ...{ A: "incorrect" },
-      }));
-    else if (response === "B" && MCQResponses.B === "incorrect")
-      setMCQResponses((MCQResponses) => ({
-        ...MCQResponses,
-        ...{ B: "correct" },
-      }));
-    else if (response === "B" && MCQResponses.B === "correct")
-      setMCQResponses((MCQResponses) => ({
-        ...MCQResponses,
-        ...{ B: "incorrect" },
-      }));
-    else if (response === "C" && MCQResponses.C === "incorrect")
-      setMCQResponses((MCQResponses) => ({
-        ...MCQResponses,
-        ...{ C: "correct" },
-      }));
-    else if (response === "C" && MCQResponses.C === "correct")
-      setMCQResponses((MCQResponses) => ({
-        ...MCQResponses,
-        ...{ C: "incorrect" },
-      }));
-    else if (response === "D" && MCQResponses.D === "incorrect")
-      setMCQResponses((MCQResponses) => ({
-        ...MCQResponses,
-        ...{ D: "correct" },
-      }));
-    else if (response === "D" && MCQResponses.D === "correct")
-      setMCQResponses((MCQResponses) => ({
-        ...MCQResponses,
-        ...{ D: "incorrect" },
-      }));
-  };
+  // ================== jsx ================== //
 
   return (
     <div className="game-screen">
@@ -320,7 +290,7 @@ function EditQuestionPanel({
           onSubmit={handleFormSubmit}
         >
           <div className="grouped-elements flex-row">
-            <select id="timeLimit">
+            <select id="timeLimit" ref={timeLimitRef}>
               <option value="30000">Time limit...</option>
               <option value="10000">10 seconds</option>
               <option value="20000">20 seconds</option>
@@ -331,24 +301,11 @@ function EditQuestionPanel({
               <option value="70000">2 mins</option>
               <option value="80000">no limit</option>
             </select>
-            <select id="visibility">
+            <select id="visibility" ref={visibilityRef}>
               <option value="public">Public</option>
               <option value="private">Private</option>
             </select>
           </div>
-
-          {/* <div className="form-field">
-            <label htmlFor="question" className="input-label">
-              Question:
-            </label>
-            <input
-              type="text"
-              placeholder="Write your question..."
-              name="question"
-              id="question"
-              className="input-field list__item-text"
-            />
-          </div> */}
           <div className="form-field">
             <label htmlFor="question" className="input-label">
               Question:
@@ -360,6 +317,7 @@ function EditQuestionPanel({
               placeholder="Write your question..."
               name="question"
               id="question"
+              ref={questionTextRef}
             ></textarea>
           </div>
           {/* For the moment, the ability tp change questionType will be disabled */}
@@ -383,7 +341,6 @@ function EditQuestionPanel({
           </div> */}
 
           {questionType === null ||
-            // (questionForEdit.questionType === "written" && (
             (questionType === "written" && (
               <div className="form-field">
                 <label htmlFor="suggestedAnswer" className="input-label">
@@ -396,15 +353,15 @@ function EditQuestionPanel({
                   placeholder="Write a suggested answer..."
                   name="suggestedAnswer"
                   id="suggestedAnswer"
+                  ref={suggestedAnswerRef}
                 ></textarea>
               </div>
             ))}
 
-          {/* {questionForEdit.questionType === "MCQ" && ( */}
           {questionType === null ||
             (questionType === "MCQ" && (
               <div className="grouped-elements">
-                <p>Write the answers and select on or more as correct:</p>
+                <p>Write the answers and select one or more as correct:</p>
                 <div className="grouped-elements flex-row">
                   <div className="form-field">
                     <div className="grouped-elements flex-row">
@@ -438,6 +395,7 @@ function EditQuestionPanel({
                       placeholder="Write answer A..."
                       name="MCQA"
                       id="MCQA"
+                      ref={multipleChoiceARef}
                     ></textarea>
                   </div>
 
@@ -473,6 +431,7 @@ function EditQuestionPanel({
                       placeholder="Write answer B..."
                       name="MCQB"
                       id="MCQB"
+                      ref={multipleChoiceBRef}
                     ></textarea>
                   </div>
                 </div>
@@ -510,6 +469,7 @@ function EditQuestionPanel({
                       placeholder="Write answer C..."
                       name="MCQC"
                       id="MCQC"
+                      ref={multipleChoiceCRef}
                     ></textarea>
                   </div>
                   <div className="form-field">
@@ -544,6 +504,7 @@ function EditQuestionPanel({
                       placeholder="Write answer D..."
                       name="MCQD"
                       id="MCQD"
+                      ref={multipleChoiceDRef}
                     ></textarea>
                   </div>
                 </div>

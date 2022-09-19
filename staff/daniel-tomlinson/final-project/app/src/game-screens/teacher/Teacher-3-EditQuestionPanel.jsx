@@ -1,17 +1,36 @@
 // ================== Imports ================== //
+// delete?
+import "./timeSelect.scss";
 
-import Loggito from "../utils/Loggito";
-import createQuestion from "../logic/createQuestion";
+import retrieveQuestionForEdit from "../../logic/retrieveQuestionForEdit";
 
-import withContext from "../utils/withContext";
-import { useState } from "react";
+import Loggito from "../../utils/Loggito";
+import createQuestion from "../../logic/createQuestion";
+
+import withContext from "../../utils/withContext";
+import { useState, useEffect, useRef } from "react";
 
 // ================== Component ================== //
 
-function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
+function Teacher3EditQuestionPanel({
+  pin,
+  nameOfClass,
+  handleScreenChangeT3,
+  socket,
+  host,
+  selectQuestionForGame,
+  handleSelectFolderClick,
+  handleReturnInGame,
+  context: { handleFeedback },
+}) {
+  // ================== consts ================== //
+
   const logger = new Loggito("Create Question");
 
+  const correctAnswers = [];
+
   const [questionType, setQuestionType] = useState("MCQ");
+  const [questionForEdit, setQuestionForEdit] = useState("");
 
   const [MCQResponses, setMCQResponses] = useState({
     A: "incorrect",
@@ -20,7 +39,97 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
     D: "incorrect",
   });
 
-  // ================== Constants ================== //
+  const timeLimitRef = useRef(null);
+  const visibilityRef = useRef(null);
+  const questionTextRef = useRef(null);
+  const suggestedAnswerRef = useRef(null);
+  const multipleChoiceARef = useRef(null);
+  const multipleChoiceBRef = useRef(null);
+  const multipleChoiceCRef = useRef(null);
+  const multipleChoiceDRef = useRef(null);
+
+  // ================== useEffects ================== //
+
+  useEffect(() => {
+    loadQuestionForEdit();
+  }, []);
+
+  useEffect(() => {
+    timeLimitRef.current.value = questionForEdit.timeLimit;
+    visibilityRef.current.value = questionForEdit.visibility;
+    questionTextRef.current.value = questionForEdit.question;
+
+    if (questionForEdit.questionType === "written")
+      suggestedAnswerRef.current.value = questionForEdit.suggestedAnswer;
+
+    if (questionForEdit.questionType === "MCQ") {
+      multipleChoiceARef.current.value = questionForEdit.answerA[0];
+      multipleChoiceBRef.current.value = questionForEdit.answerB[0];
+      multipleChoiceCRef.current.value = questionForEdit.answerC[0];
+      multipleChoiceDRef.current.value = questionForEdit.answerD[0];
+    }
+  }, [questionForEdit]);
+
+  useEffect(() => {
+    logger.info("useEffect questionlist");
+
+    textAreaAdjust(questionForEdit);
+    logger.info("question text area adjusted");
+  });
+
+  const textAreaAdjust = (questionForEdit) => {
+    questionTextRef.current.style.height = "inherit";
+    questionTextRef.current.style.height = `${
+      25 + questionTextRef.scrollHeight
+    }px`;
+  };
+
+  // ================== Function: to retrieve question to edit ================== //
+
+  const loadQuestionForEdit = () => {
+    try {
+      retrieveQuestionForEdit(
+        sessionStorage.token,
+        selectQuestionForGame,
+        (error, question) => {
+          if (error) {
+            handleFeedback({ message: error.message, level: "error" });
+
+            logger.warn(error.message);
+
+            return;
+          }
+
+          setQuestionForEdit(question);
+          setQuestionType(question.questionType);
+          setMCQResponses((MCQResponses) => ({
+            ...MCQResponses,
+            ...{ A: question.answerA[1] },
+          }));
+          setMCQResponses((MCQResponses) => ({
+            ...MCQResponses,
+            ...{ B: question.answerB[1] },
+          }));
+          setMCQResponses((MCQResponses) => ({
+            ...MCQResponses,
+            ...{ C: question.answerC[1] },
+          }));
+          setMCQResponses((MCQResponses) => ({
+            ...MCQResponses,
+            ...{ D: question.answerD[1] },
+          }));
+
+          logger.debug("setQuestionForEdit", question);
+
+          return;
+        }
+      );
+    } catch (error) {
+      handleFeedback({ message: error.message, level: "error" });
+
+      logger.warn(error.message);
+    }
+  };
 
   // ================== Function: to update MCQResponses correct answers ================== //
 
@@ -93,32 +202,24 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
       questionDetails.answerD[0] = form.MCQD.value;
       questionDetails.answerD[1] = MCQResponses.D;
 
-      const answersCombinedArray = [
-        form.MCQA.value.trim(),
-        form.MCQB.value.trim(),
-        form.MCQC.value.trim(),
-        form.MCQD.value.trim(),
-      ];
+      if (MCQResponses.A === "correct")
+        correctAnswers[correctAnswers.length] = "A";
+      if (MCQResponses.B === "correct")
+        correctAnswers[correctAnswers.length] = "B";
+      if (MCQResponses.C === "correct")
+        correctAnswers[correctAnswers.length] = "C";
+      if (MCQResponses.D === "correct")
+        correctAnswers[correctAnswers.length] = "D";
 
-      if (answersCombinedArray.toString() === ",,,") {
-        alert("At least one answer must be submitted");
-        throw new Error("At least one answer must be submitted");
-      }
-
-      if (
-        MCQResponses.A === "incorrect" &&
-        MCQResponses.B === "incorrect" &&
-        MCQResponses.C === "incorrect" &&
-        MCQResponses.D === "incorrect"
-      ) {
-        alert("At least one answer must be selected as correct");
-        throw new Error("At least one answer must be selected as correct");
+      if (correctAnswers.length === 0) {
+        alert("At least one correct answer must be selected.");
+        throw new Error("At least one correct answer must be selected.");
       }
     }
 
     form.reset();
 
-    try {
+    /* try {
       createQuestion(sessionStorage.token, questionDetails, (error) => {
         if (error) {
           handleFeedback({ message: error.message, level: "error" });
@@ -128,20 +229,45 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
           return;
         }
 
-        handleReturn();
+        // loadNotes();
       });
     } catch (error) {
       handleFeedback({ message: error.message, level: "error" });
 
       logger.warn(error.message);
-    }
+    } */
+
+    const questionDetailsDuplicate = JSON.parse(
+      JSON.stringify(questionDetails)
+    );
+
+    const answersCombined = [];
+
+    answersCombined[0] = questionDetails.answerA;
+    answersCombined[1] = questionDetails.answerB;
+    answersCombined[2] = questionDetails.answerC;
+    answersCombined[3] = questionDetails.answerD;
+
+    questionDetailsDuplicate.gameScreen = "Student3GetReady";
+    questionDetailsDuplicate.host = host;
+    questionDetailsDuplicate.answerA.length = 1;
+    questionDetailsDuplicate.answerB.length = 1;
+    questionDetailsDuplicate.answerC.length = 1;
+    questionDetailsDuplicate.answerD.length = 1;
+
+    socket.emit("T3", questionDetailsDuplicate);
+
+    handleScreenChangeT3(
+      "Teacher3BGetReady",
+      questionDetails.question,
+      questionDetails.timeLimit,
+      questionDetails.questionType,
+      correctAnswers,
+      answersCombined
+    );
   };
 
   // ================== Functions ================== //
-
-  const onReturn = () => {
-    handleReturn();
-  };
 
   const handleWrittenResponseClick = () => {
     setQuestionType("written");
@@ -155,20 +281,36 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
 
   return (
     <div className="game-screen">
-      <span
-        className="material-symbols-outlined button-icon"
-        onClick={onReturn}
-      >
-        arrow_back_ios_new
-      </span>
       <main className="game-screen-main flex--spaced">
+        <div className="grouped-elements">
+          <p className="info--bold">
+            PIN: {pin} <br></br>
+            Class: {nameOfClass}
+          </p>
+        </div>
+        <div className="grouped-elements flex-row">
+          <button
+            type="button"
+            className="non-footer-button"
+            onClick={() => handleReturnInGame("createQuestion")}
+          >
+            Create New Question
+          </button>
+          <button
+            type="button"
+            className="non-footer-button"
+            onClick={handleSelectFolderClick}
+          >
+            Search questions
+          </button>
+        </div>
         <form
           action=""
           className="form form--spread"
           onSubmit={handleFormSubmit}
         >
           <div className="grouped-elements flex-row">
-            <select id="timeLimit">
+            <select id="timeLimit" ref={timeLimitRef}>
               <option value="30000">Time limit...</option>
               <option value="10000">10 seconds</option>
               <option value="20000">20 seconds</option>
@@ -179,7 +321,7 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
               <option value="70000">2 mins</option>
               <option value="80000">no limit</option>
             </select>
-            <select id="visibility">
+            <select id="visibility" ref={visibilityRef}>
               <option value="public">Public</option>
               <option value="private">Private</option>
             </select>
@@ -189,23 +331,17 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
             <label htmlFor="question" className="input-label">
               Question:
             </label>
-            {/* <input
-              type="text"
-              placeholder="Write your question..."
-              name="question"
-              id="question"
-              className="input-field"
-            /> */}
             <textarea
               className="list__item-text list-item__text--form input-field"
               type="text"
               placeholder="Write your question..."
               name="question"
               id="question"
+              ref={questionTextRef}
             ></textarea>
           </div>
-
-          <div className="grouped-elements flex-row">
+          {/* For the moment the change reponse type buttons will be disabled */}
+          {/* <div className="grouped-elements flex-row">
             <button
               href=""
               type="button"
@@ -222,33 +358,29 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
             >
               Multiple choice
             </button>
-          </div>
+          </div> */}
 
           {questionType === "written" && (
             <div className="form-field">
               <label htmlFor="suggestedAnswer" className="input-label">
                 Suggested answer:
               </label>
-              {/* <input
-                type="text"
-                placeholder="Write a suggested answer..."
-                name="suggestedAnswer"
-                id="suggestedAnswer"
-                className="input-field"
-              /> */}
               <textarea
                 className="list__item-text list-item__text--form input-field"
                 type="text"
                 placeholder="Write a suggested answer..."
                 name="suggestedAnswer"
                 id="suggestedAnswer"
+                ref={suggestedAnswerRef}
               ></textarea>
             </div>
           )}
 
           {questionType === "MCQ" && (
             <div className="grouped-elements">
-              <p>Write the answers and select on or more as correct:</p>
+              <p className="paragraph--left">
+                Write the answers and select on or more as correct:
+              </p>
               <div className="grouped-elements flex-row">
                 <div className="form-field">
                   <div className="grouped-elements flex-row">
@@ -276,19 +408,13 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
                       </span>
                     )}
                   </div>
-                  {/* <input
-                    type="text"
-                    placeholder="Write answer A..."
-                    name="MCQA"
-                    id="MCQA"
-                    className="input-field"
-                  /> */}
                   <textarea
                     className="list__item-text list-item__text--form input-field"
                     type="text"
                     placeholder="Write answer A..."
                     name="MCQA"
                     id="MCQA"
+                    ref={multipleChoiceARef}
                   ></textarea>
                 </div>
 
@@ -318,19 +444,13 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
                       </span>
                     )}
                   </div>
-                  {/* <input
-                    type="text"
-                    placeholder="Write answer B..."
-                    name="MCQB"
-                    id="MCQB"
-                    className="input-field"
-                  /> */}
                   <textarea
                     className="list__item-text list-item__text--form input-field"
                     type="text"
                     placeholder="Write answer B..."
                     name="MCQB"
                     id="MCQB"
+                    ref={multipleChoiceBRef}
                   ></textarea>
                 </div>
               </div>
@@ -362,19 +482,13 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
                       </span>
                     )}
                   </div>
-                  {/* <input
-                    type="text"
-                    placeholder="Write answer C..."
-                    name="MCQC"
-                    id="MCQC"
-                    className="input-field"
-                  /> */}
                   <textarea
                     className="list__item-text list-item__text--form input-field"
                     type="text"
                     placeholder="Write answer C..."
                     name="MCQC"
                     id="MCQC"
+                    ref={multipleChoiceCRef}
                   ></textarea>
                 </div>
                 <div className="form-field">
@@ -403,19 +517,13 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
                       </span>
                     )}
                   </div>
-                  {/* <input
-                    type="text"
-                    placeholder="Write answer D..."
-                    name="MCQD"
-                    id="MCQD"
-                    className="input-field"
-                  /> */}
                   <textarea
                     className="list__item-text list-item__text--form input-field"
                     type="text"
                     placeholder="Write answer D..."
                     name="MCQD"
                     id="MCQD"
+                    ref={multipleChoiceDRef}
                   ></textarea>
                 </div>
               </div>
@@ -433,4 +541,4 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
   );
 }
 
-export default withContext(CreateQuestionPanel);
+export default withContext(Teacher3EditQuestionPanel);

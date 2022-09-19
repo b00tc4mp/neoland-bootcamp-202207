@@ -15,7 +15,7 @@ import {
 
 import withContext from "../utils/withContext";
 
-function FavoritesList({
+function CommunityList({
   // questionsPublic,
   handleEditQuestion,
   // handleFavoritesClick,
@@ -33,8 +33,6 @@ function FavoritesList({
   const location = useLocation();
 
   const [questionsPublic, setQuestionsPublic] = useState();
-
-  const [favorites, setFavorites] = useState([]);
   const [query, setQuery] = useState();
 
   const handleSearch = (query) => setQuery(query);
@@ -61,13 +59,9 @@ function FavoritesList({
               return;
             }
 
-            const favoritesTemp = questions.filter(
-              (question) => question.isFav === true
-            );
+            setQuestionsPublic(questions);
 
-            setFavorites(favoritesTemp);
-
-            logger.debug("setFavorites", favorites);
+            logger.debug("setQuestions", questions);
           }
         );
       else
@@ -83,13 +77,9 @@ function FavoritesList({
               return;
             }
 
-            const favoritesTemp = questions.filter(
-              (question) => question.isFav === true
-            );
+            setQuestionsPublic(questions);
 
-            setFavorites(favoritesTemp);
-
-            logger.debug("setFavorites", favorites);
+            logger.debug("setQuestions", questions);
           }
         );
     } catch (error) {
@@ -102,8 +92,8 @@ function FavoritesList({
   useEffect(() => {
     logger.info("useEffect communitylist");
 
-    if (favorites) {
-      favorites.map((question) => textAreaAdjust(question.id));
+    if (questionsPublic) {
+      questionsPublic.map((question) => textAreaAdjust(question.id));
       logger.info("question text area adjusted");
     }
   });
@@ -174,8 +164,8 @@ function FavoritesList({
         <Search onQuery={handleSearch} />
         {gameBeingPlayed === false && (
           <ul className="list-panel list questions-list">
-            {favorites &&
-              favorites.map((question) => (
+            {questionsPublic &&
+              questionsPublic.map((question) => (
                 <li className="list__item" key={question.id}>
                   <div className="question-options-grouped">
                     <button
@@ -261,8 +251,8 @@ function FavoritesList({
         )}
         {gameBeingPlayed === true && (
           <ul className="list-panel list questions-list">
-            {favorites &&
-              favorites.map((question) => (
+            {questionsPublic &&
+              questionsPublic.map((question) => (
                 <li className="list__item" key={question.id}>
                   <div className="question-options-grouped">
                     <div className="grouped-elements flex-row">
@@ -319,4 +309,4 @@ function FavoritesList({
   );
 }
 
-export default withContext(FavoritesList);
+export default withContext(CommunityList);

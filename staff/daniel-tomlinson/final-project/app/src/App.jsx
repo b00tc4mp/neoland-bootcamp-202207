@@ -1,18 +1,20 @@
-// import logo from "./logo.svg";
+// ================== Imports ================== //
 
 import { useState } from "react";
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
-import QuickPlayPage from "./pages/QuickPlayPage";
-import HomePage from "./pages/HomePage";
+
+import { HomePage, LoginPage, RegisterPage } from "./pages";
+
+import { QuizMaster } from "./game-screens/main-screens";
+
 import Feedback from "./components/Feedback";
 import Loggito from "./utils/Loggito.js";
 import Context from "./utils/Context";
 
 import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
-import Hello from "./components/Hello";
 
 import "./App.css";
+
+// ================== App ================== //
 
 function App() {
   // this.state = { view: sessionStorage.token ? "home" : "login" };
@@ -114,17 +116,13 @@ function App() {
         />
         <Route
           path="quickPlay"
-          element={
-            sessionStorage.token ? <Navigate to="/" /> : <QuickPlayPage />
-          }
+          element={sessionStorage.token ? <Navigate to="/" /> : <QuizMaster />}
         />
-        <Route path="hello/:to" element={<Hello />} />
         <Route
           path="/*"
           element={
             sessionStorage.token ? <HomePage /> : <Navigate to="login" />
           }
-          // handleQuickPlayClick={handleQuickPlayClick}
         />
       </Routes>
 

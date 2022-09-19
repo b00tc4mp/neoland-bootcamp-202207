@@ -70,7 +70,6 @@ function updatePassword(
   };
   // XMLHttprequest
 
-  // xhr.open("PATCH", `${API_URL}/users/password`);
   xhr.open("PATCH", `${API_URL}/users/details`);
 
   xhr.setRequestHeader("Authorization", `Bearer ${token}`);

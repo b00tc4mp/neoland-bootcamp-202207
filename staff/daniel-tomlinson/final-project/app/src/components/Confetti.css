@@ -1,0 +1,38 @@
+/* html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100wh;
+  height: 100vh;
+  background: dodgerblue;
+  font-weight: 100;
+  font-family: sans-serif;
+}
+
+body {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+} */
+
+confetti-button {
+  position: relative;
+  bottom: 20%;
+  font-size: 24pt;
+  letter-spacing: 3px;
+  background: var(--color-teacher-secondary);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.4s;
+  padding: 10px 20px;
+}
+
+button:hover {
+  color: var(--color-home-secondary-hover);
+}
+
+button:focus {
+  outline: none;
+}

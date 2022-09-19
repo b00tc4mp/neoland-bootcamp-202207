@@ -68,10 +68,6 @@ function createQuestion(
     answerB,
     answerC,
     answerD,
-    /* question,
-    suggestedAnswer,
-    timeLimit,
-    visibility, */
   });
   console.log(json);
   xhr.send(json);

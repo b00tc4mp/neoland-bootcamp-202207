@@ -1,3 +1,5 @@
+// ================== Imports ================== //
+
 import Loggito from "../utils/Loggito";
 import registerUser from "../logic/registerUser";
 // import onFeedback from "../App";

@@ -7,15 +7,16 @@ import Loggito from "../utils/Loggito";
 
 import Search from "./Search";
 
-function CommunityList({
+function FavoritesList({
   questionsPublic,
   // onDeleteQuestion,
-  // onUpdateQuestion,
+  // onUpdateQuestion
   handleEditQuestion,
   handleFavoritesClick,
   onReturn,
   onSearchPublic,
   gameBeingPlayed,
+  handleReturnInGame,
 }) {
   const logger = new Loggito("List");
 
@@ -23,11 +24,20 @@ function CommunityList({
 
   const location = useLocation();
 
+  const [favorites, setFavorites] = useState([]);
+
+  useEffect(() => {
+    const favoritesTemp = questionsPublic.filter(
+      (question) => question.isFav === true
+    );
+    setFavorites(favoritesTemp);
+  }, [questionsPublic]);
+
   useEffect(() => {
     logger.info("useEffect communitylist");
 
     if (questionsPublic) {
-      questionsPublic.map((question) => textAreaAdjust(question.id));
+      favorites.map((question) => textAreaAdjust(question.id));
       logger.info("question text area adjusted");
     }
   });
@@ -67,8 +77,8 @@ function CommunityList({
       <div className="grouped-elements questions-list-panel">
         <Search onQuery={onSearchPublic} />
         <ul className="list-panel list questions-list">
-          {questionsPublic &&
-            questionsPublic.map((question) => (
+          {favorites &&
+            favorites.map((question) => (
               <li className="list__item" key={question.id}>
                 <div className="question-options-grouped">
                   <button
@@ -146,4 +156,4 @@ function CommunityList({
   );
 }
 
-export default CommunityList;
+export default FavoritesList;

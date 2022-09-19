@@ -1,4 +1,5 @@
-import IconButton from "./IconButton";
+// ================== Imports ================== //
+
 import Loggito from "../utils/Loggito";
 
 function Search({ onQuery }) {

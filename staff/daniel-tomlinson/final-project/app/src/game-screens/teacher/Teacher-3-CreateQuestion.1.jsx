@@ -1,15 +1,31 @@
 // ================== Imports ================== //
 
-import Loggito from "../utils/Loggito";
-import createQuestion from "../logic/createQuestion";
+// delete?
+import "./timeSelect.scss";
 
-import withContext from "../utils/withContext";
+import Loggito from "../../utils/Loggito";
+import createQuestion from "../../logic/createQuestion";
+
+import withContext from "../../utils/withContext";
 import { useState } from "react";
 
 // ================== Component ================== //
 
-function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
+function Teacher3CreateQuestion({
+  pin,
+  nameOfClass,
+  handleScreenChangeT3,
+  socket,
+  host,
+  context: { handleFeedback },
+}) {
+  // ================== consts ================== //
+
   const logger = new Loggito("Create Question");
+
+  const correctAnswers = [];
+
+  // ================== Hook consts ================== //
 
   const [questionType, setQuestionType] = useState("MCQ");
 
@@ -19,8 +35,6 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
     C: "incorrect",
     D: "incorrect",
   });
-
-  // ================== Constants ================== //
 
   // ================== Function: to update MCQResponses correct answers ================== //
 
@@ -49,7 +63,7 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
     }));
   };
 
-  // ================== Function: to send form details to quiz player and pass details to QuizTeacher ================== //
+  // ================== Function: to create Question document in db ================== //
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -93,26 +107,18 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
       questionDetails.answerD[0] = form.MCQD.value;
       questionDetails.answerD[1] = MCQResponses.D;
 
-      const answersCombinedArray = [
-        form.MCQA.value.trim(),
-        form.MCQB.value.trim(),
-        form.MCQC.value.trim(),
-        form.MCQD.value.trim(),
-      ];
+      if (MCQResponses.A === "correct")
+        correctAnswers[correctAnswers.length] = "A";
+      if (MCQResponses.B === "correct")
+        correctAnswers[correctAnswers.length] = "B";
+      if (MCQResponses.C === "correct")
+        correctAnswers[correctAnswers.length] = "C";
+      if (MCQResponses.D === "correct")
+        correctAnswers[correctAnswers.length] = "D";
 
-      if (answersCombinedArray.toString() === ",,,") {
-        alert("At least one answer must be submitted");
-        throw new Error("At least one answer must be submitted");
-      }
-
-      if (
-        MCQResponses.A === "incorrect" &&
-        MCQResponses.B === "incorrect" &&
-        MCQResponses.C === "incorrect" &&
-        MCQResponses.D === "incorrect"
-      ) {
-        alert("At least one answer must be selected as correct");
-        throw new Error("At least one answer must be selected as correct");
+      if (correctAnswers.length === 0) {
+        alert("At least one correct answer must be selected.");
+        throw new Error("At least one correct answer must be selected.");
       }
     }
 
@@ -128,20 +134,47 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
           return;
         }
 
-        handleReturn();
+        // loadNotes();
       });
     } catch (error) {
       handleFeedback({ message: error.message, level: "error" });
 
       logger.warn(error.message);
     }
+
+    // const questionDetailsDuplicate = { ...questionDetails };
+    const questionDetailsDuplicate = JSON.parse(
+      JSON.stringify(questionDetails)
+    );
+
+    const answersCombined = [];
+
+    answersCombined[0] = questionDetails.answerA;
+    answersCombined[1] = questionDetails.answerB;
+    answersCombined[2] = questionDetails.answerC;
+    answersCombined[3] = questionDetails.answerD;
+
+    questionDetailsDuplicate.gameScreen = "Student3GetReady";
+    questionDetailsDuplicate.host = host;
+    questionDetailsDuplicate.answerA.length = 1;
+    questionDetailsDuplicate.answerB.length = 1;
+    questionDetailsDuplicate.answerC.length = 1;
+    questionDetailsDuplicate.answerD.length = 1;
+
+    socket.emit("T3", questionDetailsDuplicate);
+
+    handleScreenChangeT3(
+      "Teacher3BGetReady",
+      // question, timeLimit
+      questionDetails.question,
+      questionDetails.timeLimit,
+      questionDetails.questionType,
+      correctAnswers,
+      answersCombined
+    );
   };
 
   // ================== Functions ================== //
-
-  const onReturn = () => {
-    handleReturn();
-  };
 
   const handleWrittenResponseClick = () => {
     setQuestionType("written");
@@ -155,13 +188,13 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
 
   return (
     <div className="game-screen">
-      <span
-        className="material-symbols-outlined button-icon"
-        onClick={onReturn}
-      >
-        arrow_back_ios_new
-      </span>
       <main className="game-screen-main flex--spaced">
+        <div className="grouped-elements">
+          <p className="info--bold">
+            PIN: {pin} <br></br>
+            Class: {nameOfClass}
+          </p>
+        </div>
         <form
           action=""
           className="form form--spread"
@@ -189,13 +222,6 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
             <label htmlFor="question" className="input-label">
               Question:
             </label>
-            {/* <input
-              type="text"
-              placeholder="Write your question..."
-              name="question"
-              id="question"
-              className="input-field"
-            /> */}
             <textarea
               className="list__item-text list-item__text--form input-field"
               type="text"
@@ -229,13 +255,6 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
               <label htmlFor="suggestedAnswer" className="input-label">
                 Suggested answer:
               </label>
-              {/* <input
-                type="text"
-                placeholder="Write a suggested answer..."
-                name="suggestedAnswer"
-                id="suggestedAnswer"
-                className="input-field"
-              /> */}
               <textarea
                 className="list__item-text list-item__text--form input-field"
                 type="text"
@@ -248,7 +267,9 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
 
           {questionType === "MCQ" && (
             <div className="grouped-elements">
-              <p>Write the answers and select on or more as correct:</p>
+              <p className="paragraph--left">
+                Write the answers and select on or more as correct:
+              </p>
               <div className="grouped-elements flex-row">
                 <div className="form-field">
                   <div className="grouped-elements flex-row">
@@ -276,13 +297,6 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
                       </span>
                     )}
                   </div>
-                  {/* <input
-                    type="text"
-                    placeholder="Write answer A..."
-                    name="MCQA"
-                    id="MCQA"
-                    className="input-field"
-                  /> */}
                   <textarea
                     className="list__item-text list-item__text--form input-field"
                     type="text"
@@ -318,13 +332,6 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
                       </span>
                     )}
                   </div>
-                  {/* <input
-                    type="text"
-                    placeholder="Write answer B..."
-                    name="MCQB"
-                    id="MCQB"
-                    className="input-field"
-                  /> */}
                   <textarea
                     className="list__item-text list-item__text--form input-field"
                     type="text"
@@ -362,13 +369,6 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
                       </span>
                     )}
                   </div>
-                  {/* <input
-                    type="text"
-                    placeholder="Write answer C..."
-                    name="MCQC"
-                    id="MCQC"
-                    className="input-field"
-                  /> */}
                   <textarea
                     className="list__item-text list-item__text--form input-field"
                     type="text"
@@ -403,13 +403,6 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
                       </span>
                     )}
                   </div>
-                  {/* <input
-                    type="text"
-                    placeholder="Write answer D..."
-                    name="MCQD"
-                    id="MCQD"
-                    className="input-field"
-                  /> */}
                   <textarea
                     className="list__item-text list-item__text--form input-field"
                     type="text"
@@ -433,4 +426,4 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
   );
 }
 
-export default withContext(CreateQuestionPanel);
+export default withContext(Teacher3CreateQuestion);

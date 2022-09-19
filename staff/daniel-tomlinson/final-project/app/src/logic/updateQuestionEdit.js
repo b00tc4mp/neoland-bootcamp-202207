@@ -51,10 +51,6 @@ function updateQuestionEdit(
   xhr.setRequestHeader("Content-type", "application/json");
 
   const json = JSON.stringify({
-    /* question,
-    suggestedAnswer,
-    timeLimit,
-    visibility, */
     question,
     timeLimit,
     visibility,

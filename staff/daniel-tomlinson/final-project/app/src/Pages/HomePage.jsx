@@ -1,23 +1,22 @@
+// ================== Imports ================== //
+
 import { useState, useEffect } from "react";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
+
 import Loggito from "../utils/Loggito";
-// import retrieveUser from "../logic/retrieveUser";
-// import retrieveQuestions from "../logic/retrieveQuestions";
-// import createQuestion from "../logic/createQuestion";
-// import createGameCode from "../logic/createGameCode";
-// import updateQuestionText from "../logic/updateQuestionText";
-// import updateFavorites from "../logic/updateFavorites";
-// import deleteQuestion from "../logic/deleteQuestion";
+import withContext from "../utils/withContext";
 import Settings from "../components/Settings";
+
 import QuestionsList from "../components/QuestionsList";
-import CommunityList from "../components/CommunityList";
+import CommunityList from "../components/CommunityList_adapted";
 import FavoritesList from "../components/FavoritesList";
 import CollectionsList from "../components/CollectionsList";
 import Header from "../components/Header";
 import LandingPanel from "../components/LandingPanel";
 import EditQuestionPanel from "../components/EditQuestionPanel";
-import QuickPlayPage from "./QuickPlayPage";
 import CreateQuestionPanel from "../components/CreateQuestionPanel";
-import withContext from "../utils/withContext";
+
+import { QuizMaster } from "../game-screens/main-screens";
 
 import {
   searchQuestions,
@@ -25,13 +24,12 @@ import {
   retrieveUser,
   retrieveQuestions,
   retrieveQuestionsPublic,
-  createQuestion,
-  createGameCode,
   updateQuestionText,
   deleteQuestion,
+  updateFavorites,
 } from "../logic";
-import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
-import updateFavorites from "../logic/updateFavorites";
+
+// ================== Page ================== //
 
 function HomePage({
   context: {
@@ -40,7 +38,11 @@ function HomePage({
     // handleQuickPlayClick
   },
 }) {
+  // ================== consts ================== //
+
   const logger = new Loggito("HomePage");
+
+  // ================== Hook consts ================== //
 
   const [name, setName] = useState(null);
   const [questions, setQuestions] = useState(null);
@@ -49,11 +51,10 @@ function HomePage({
   const [questionBeingEditedId, setQuestionBeingEditedId] = useState(null);
   const [editedLocation, setEditedLocation] = useState(null);
   const [gameBeingPlayed, setGameBeingPlayed] = useState(false);
-  // const [selectQuestionForGame, setSelectQuestionForGame] = useState(undefined);
-  // const [favorites, setFavorites] = useState(null);
-  // const [view, setView] = useState("list");
   const navigate = useNavigate();
   const location = useLocation();
+
+  // ================== useEffects ================== //
 
   useEffect(() => {
     console.log(location);
@@ -92,15 +93,13 @@ function HomePage({
     loadQuestionsPublic();
   }, []);
 
-  const onQuickPlayClick = () => {
-    navigate("quickPlayInHome");
-  };
-
   useEffect(() => {
     logger.info("on query changed");
     if (location.pathname === "/questionsList") loadQuestions();
     else if (location.pathname === "/communityList") loadQuestionsPublic();
   }, [query]);
+
+  // ================== Function to retrieve and render question lists belonging to the user ================== //
 
   const loadQuestions = () => {
     try {
@@ -138,6 +137,8 @@ function HomePage({
       logger.warn(error.message);
     }
   };
+
+  // ================== Function to retrieve and render public question lists ================== //
 
   const loadQuestionsPublic = () => {
     try {
@@ -179,6 +180,75 @@ function HomePage({
     }
   };
 
+  // ================== Function to save the updated question text ================== //
+
+  const handleUpdateQuestion = (questionId, text) => {
+    try {
+      debugger;
+      updateQuestionText(sessionStorage.token, questionId, text, (error) => {
+        if (error) {
+          handleFeedback({ message: error.message, level: "error" });
+
+          logger.warn(error.message);
+
+          return;
+        }
+      });
+    } catch (error) {
+      handleFeedback({ message: error.message, level: "error" });
+
+      logger.warn(error.message);
+    }
+  };
+
+  // ================== Function to delete a question belonging to the user ================== //
+
+  const handleDeleteQuestion = (questionId) => {
+    try {
+      deleteQuestion(sessionStorage.token, questionId, (error) => {
+        if (error) {
+          handleFeedback({ message: error.message, level: "error" });
+
+          logger.warn(error.message);
+
+          return;
+        }
+
+        loadQuestions();
+      });
+    } catch (error) {
+      handleFeedback({ message: error.message, level: "error" });
+
+      logger.warn(error.message);
+    }
+  };
+
+  // ================== Function to handle updating the user's favorites ================== //
+
+  const handleUpdateFavorites = (questionId, action, location) => {
+    try {
+      updateFavorites(sessionStorage.token, questionId, action, (error) => {
+        if (error) {
+          handleFeedback({ message: error.message, level: "error" });
+
+          logger.warn(error.message);
+
+          return;
+        }
+
+        if (location.pathname === "/questionsList") loadQuestions();
+        else if (location.pathname === "/communityList") loadQuestionsPublic();
+        else if (location.pathname === "/favouritesList") loadQuestionsPublic();
+      });
+    } catch (error) {
+      handleFeedback({ message: error.message, level: "error" });
+
+      logger.warn(error.message);
+    }
+  };
+
+  // ================== Functions ================== //
+
   /*   const handleAddClick = () => {
     try {
       createQuestion(sessionStorage.token, (error) => {
@@ -203,70 +273,15 @@ function HomePage({
     navigate("createQuestion");
   };
 
+  const handleFavoritesClick = (questionId, action, location) => {
+    handleUpdateFavorites(questionId, action, location);
+  };
+
+  // ================== Function to navigate between pages ================== //
+
   const handleReturn = () => {
     navigate("./");
     // loadQuestions();
-  };
-
-  const handleUpdateQuestion = (questionId, text) => {
-    try {
-      debugger;
-      updateQuestionText(sessionStorage.token, questionId, text, (error) => {
-        if (error) {
-          handleFeedback({ message: error.message, level: "error" });
-
-          logger.warn(error.message);
-
-          return;
-        }
-      });
-    } catch (error) {
-      handleFeedback({ message: error.message, level: "error" });
-
-      logger.warn(error.message);
-    }
-  };
-
-  const handleDeleteQuestion = (questionId) => {
-    try {
-      deleteQuestion(sessionStorage.token, questionId, (error) => {
-        if (error) {
-          handleFeedback({ message: error.message, level: "error" });
-
-          logger.warn(error.message);
-
-          return;
-        }
-
-        loadQuestions();
-      });
-    } catch (error) {
-      handleFeedback({ message: error.message, level: "error" });
-
-      logger.warn(error.message);
-    }
-  };
-
-  const handleUpdateFavorites = (questionId, action, location) => {
-    try {
-      updateFavorites(sessionStorage.token, questionId, action, (error) => {
-        if (error) {
-          handleFeedback({ message: error.message, level: "error" });
-
-          logger.warn(error.message);
-
-          return;
-        }
-
-        if (location.pathname === "/questionsList") loadQuestions();
-        else if (location.pathname === "/communityList") loadQuestionsPublic();
-        else if (location.pathname === "/favouritesList") loadQuestionsPublic();
-      });
-    } catch (error) {
-      handleFeedback({ message: error.message, level: "error" });
-
-      logger.warn(error.message);
-    }
   };
 
   const handleSettingsClick = () => {
@@ -282,19 +297,16 @@ function HomePage({
     logger.debug("navigate to home");
   };
 
-  const handleUpdatePassword = () => {
-    handleLogoutClick();
+  const handleNavigateTo = (location) => {
+    navigate(`/`);
+    navigate(location);
   };
 
-  const handleLeaveClass = () => {
-    // setSelectQuestionForGame(undefined);
-    navigate("/");
-    // navigate("settings");
+  const onQuickPlayClick = () => {
+    navigate("quickPlayInHome");
   };
 
-  const handleSearch = (query) => setQuery(query);
-
-  const handleSearchPublic = (query) => setQuery(query);
+  // ================== Functios to navigate to the main panels in HomePage ================== //
 
   const handleMyQuestionsClick = () => {
     // loadQuestions();
@@ -320,29 +332,34 @@ function HomePage({
     navigate("editQuestion");
   };
 
-  const handleFavoritesClick = (questionId, action, location) => {
-    handleUpdateFavorites(questionId, action, location);
+  // ================== Function to handle updating the user's password ================== //
+
+  const handleUpdatePassword = () => {
+    handleLogoutClick();
   };
 
-  const handleNavigateTo = (location) => {
-    navigate(`/`);
-    navigate(location);
+  const handleLeaveClass = () => {
+    // setSelectQuestionForGame(undefined);
+    navigate("/");
+    // navigate("settings");
   };
 
-  /*   useEffect(() => {
-    navigate("editQuestion");
-  }, [questionBeingEditedId]); */
+  // ================== Functions to handle queries for the question lists ================== //
+
+  const handleSearch = (query) => setQuery(query);
+
+  const handleSearchPublic = (query) => setQuery(query);
+
+  // ================== Functions to retrieve and render public question lists ================== //
 
   const handleGameBeingPlayed = () => {
     if (gameBeingPlayed === true) setGameBeingPlayed(false);
     if (gameBeingPlayed === false) setGameBeingPlayed(true);
   };
 
-  /* const handleSelectQuestionForGame = (questionId) => {
-    setSelectQuestionForGame(questionId);
-  }; */
-
   logger.info("render");
+
+  // ================== jsx ================== //
 
   return name ? (
     <div className="home-page page background flex-container--homepage">
@@ -368,11 +385,10 @@ function HomePage({
           <Route
             path="quickPlayInHome"
             element={
-              <QuickPlayPage
+              <QuizMaster
                 handleFeedback={handleFeedback}
                 handleLeaveClass={handleLeaveClass}
                 handleGameBeingPlayed={handleGameBeingPlayed}
-                // selectQuestionForGame={selectQuestionForGame}
               />
             }
           />
@@ -408,8 +424,7 @@ function HomePage({
                 onFeedback={handleFeedback}
                 onReturn={handleReturn}
                 onSearch={handleSearch}
-                gameBeingPlayed={gameBeingPlayed} /* 
-                handleSelectQuestionForGame={handleSelectQuestionForGame} */
+                gameBeingPlayed={gameBeingPlayed}
               />
             }
           />

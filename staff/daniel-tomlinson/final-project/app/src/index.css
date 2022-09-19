@@ -1074,9 +1074,13 @@ body {
 
 .home-page-button {
   font-size: 2.5rem;
-  font-weight: 600;
   padding: 2rem;
   width: 90%;
+  border-radius: 10px;
+}
+
+.home-page-button:hover {
+  background-color: var(--color-teacher-secondary-hover);
 }
 
 .home-page-start-button {
@@ -1084,6 +1088,13 @@ body {
   font-weight: 600;
   padding: 1.5rem;
   width: 60%;
+  margin-bottom: 40px;
+  margin-top: 30px;
+  background-color: var(--color-teacher-secondary);
+}
+
+.home-page-start-button:hover {
+  background-color: var(--color-teacher-secondary-hover);
 }
 
 .question-options-grouped {

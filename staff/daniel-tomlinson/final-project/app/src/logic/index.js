@@ -13,8 +13,8 @@ import retrieveQuestionForEdit from "./retrieveQuestionForEdit";
 import retrieveUser from "./retrieveUser";
 import searchQuestions from "./searchQuestions";
 import searchQuestionsPublic from "./searchQuestionsPublic";
-import updateQuestionText from "./updateQuestionText";
 import updateQuestionEdit from "./updateQuestionEdit";
+import updateQuestionText from "./updateQuestionText";
 
 export {
   authenticateUser,
@@ -32,6 +32,6 @@ export {
   retrieveUser,
   searchQuestions,
   searchQuestionsPublic,
-  updateQuestionText,
   updateQuestionEdit,
+  updateQuestionText,
 };
