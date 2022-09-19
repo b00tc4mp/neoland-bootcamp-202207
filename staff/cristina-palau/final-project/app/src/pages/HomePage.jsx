@@ -4,6 +4,7 @@ import '../index.sass'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import Settings from '../components/Settings'
 import RecipesMenu from '../components/RecipesMenu'
+import ListsMenu from '../components/ListsMenu'
 import Loggito from '../utils/loggito'
 import { useState, useEffect } from 'react'
 import retrieveUser from '../logic/retrieveUser'
@@ -38,6 +39,7 @@ function HomePage({ onLogoutClick }) {
 
     }, [])
 
+    
     const handleLinkClick = event => {
         event.preventDefault()
 
@@ -60,6 +62,14 @@ function HomePage({ onLogoutClick }) {
         logger.debug('navigate to recipes')
     }
 
+    const handleNavigationLists = event => {
+        event.preventDefault()
+
+        navigate('lists')
+
+        logger.debug('navigate to recipes')
+    }
+
     const handleNavigationHome = event => {
         event.preventDefault()
 
@@ -76,7 +86,7 @@ function HomePage({ onLogoutClick }) {
                         <Header text={`Hey, ${name}!`} />
                         <main className="homeMenu">
                             <div className='menuOption optionRecipes'><button className='menuButton recipesButton' onClick={handleNavigationRecipes}> Mis recetas </button></div>
-                            <div className='menuOption optionList'><button className='menuButton shopListButton'>Mis listas </button> </div>
+                            <div className='menuOption optionList'><button className='menuButton shopListButton' onClick={handleNavigationLists}>Mis listas </button> </div>
                             <div className='menuOption optionProfile'><button className='menuButton profileButton' onClick={handleNavigationSettings}>Perfil</button></div>
                         </main>
                     </>} />
@@ -100,15 +110,17 @@ function HomePage({ onLogoutClick }) {
                         <main className="recipesMenu">
                             <RecipesMenu onBackClick={handleNavigationHome} />
                         </main>
-                        {/* <footer className="footer">
-                            <button className='transparentButton homeButton' onClick={handleNavigationHome}><span className="material-symbols-outlined">
-                                check </span></button>
-                        </footer> */}
+                    </div></>} />
+
+                    <Route path="lists/*" element={<>
+                    <Header />
+                    <div className="recipesPage">
+                        <main className="recipesMenu">
+                            <ListsMenu onBackClick={handleNavigationHome} />
+                        </main>
                     </div></>} />
             </Routes>
-
         </div >
-
         : null
 }
 

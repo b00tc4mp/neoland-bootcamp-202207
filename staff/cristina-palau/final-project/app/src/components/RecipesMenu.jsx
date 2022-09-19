@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import Loggito from '../utils/loggito'
-import './RecipesMenu.sass'
 import NewRecipe from './NewRecipe'
 import MyRecipesList from './MyRecipesList'
 import PublicRecipesList from './PublicRecipesList'
@@ -14,7 +13,6 @@ import retrieveRecipe from '../logic/retrieveRecipe'
 import deleteRecipe from '../logic/deleteRecipe'
 import withContext from '../utils/withContext'
 
-
 function RecipesMenu({ onBackClick, context: { reloadThePage } }) {
     const logger = new Loggito('Recipes')
 
@@ -23,7 +21,6 @@ function RecipesMenu({ onBackClick, context: { reloadThePage } }) {
     const [userRecipes, setUserRecipes] = useState(null)
     const [publicRecipes, setPublicRecipes] = useState(null)
     const [recipe, setRecipe] = useState(null)
-
 
     const navigate = useNavigate()
 
@@ -50,26 +47,6 @@ function RecipesMenu({ onBackClick, context: { reloadThePage } }) {
 
     }, [])
 
-    const loadUserRecipes = () => {
-        try {
-            retrieveUserRecipes(sessionStorage.token, (error, userRecipes) => {
-                if (error) {
-
-
-                    logger.warn(error.message)
-
-                    return
-                }
-                setUserRecipes(userRecipes)
-
-                logger.debug('setUserRecipes', userRecipes)
-            })
-        } catch (error) {
-
-            logger.warn(error.message)
-        }
-    }
-
     const loadPublicRecipes = () => {
         try {
             retrievePublicRecipes(sessionStorage.token, (error, publicRecipes) => {
@@ -84,6 +61,26 @@ function RecipesMenu({ onBackClick, context: { reloadThePage } }) {
                 setPublicRecipes(publicRecipes)
 
                 logger.debug('setPublicRecipes', publicRecipes)
+            })
+        } catch (error) {
+
+            logger.warn(error.message)
+        }
+    }
+    
+    const loadUserRecipes = () => {
+        try {
+            retrieveUserRecipes(sessionStorage.token, (error, userRecipes) => {
+                if (error) {
+
+
+                    logger.warn(error.message)
+
+                    return
+                }
+                setUserRecipes(userRecipes)
+
+                logger.debug('setUserRecipes', userRecipes)
             })
         } catch (error) {
 

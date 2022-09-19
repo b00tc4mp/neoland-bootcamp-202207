@@ -101,17 +101,17 @@ function UserRecipe({ onBackClick, recipe }) {
     const handleUpdateRecipe = (recipeId) => {
         try {
             const { title, persons } = recipeState
-             
+
             if (!persons) throw new Error("persons is empty or blank")
             else if (!title) throw new Error("title is empty or blank")
 
             const ingredientsItem = []
-             
+
             recipeState.ingredients.forEach(ingredient => {
                 const quantityString = ingredient.quantity
                 const unit = ingredient.unit
                 const ingredientName = ingredient.ingredient.name
-                 
+
                 let ingredientFound = ingredients.find(ingredients => ingredients.name === ingredientName)
                 if (!ingredientName) throw new Error('ingredient not found')
                 let id = ingredientFound.id
@@ -124,10 +124,10 @@ function UserRecipe({ onBackClick, recipe }) {
                 let quantity = parseInt(quantityString)
                 ingredientsItem.push({ quantity, unit, id })
             })
-             
+
             try {
                 updateRecipe(sessionStorage.token, recipeId, title, parseInt(persons), ingredientsItem, (error) => {
-                     
+
                     if (error) {
 
                         logger.warn(error.message)
@@ -149,17 +149,17 @@ function UserRecipe({ onBackClick, recipe }) {
 
         try {
             const { title, persons } = recipeState
-             
+
             if (!persons) throw new Error("persons is empty or blank")
             else if (!title) throw new Error("title is empty or blank")
 
             const ingredientsItem = []
-             
+
             recipeState.ingredients.forEach(ingredient => {
                 const quantityString = ingredient.quantity
                 const unit = ingredient.unit
                 const ingredientName = ingredient.ingredient.name
-                 
+
                 let ingredientFound = ingredients.find(ingredients => ingredients.name === ingredientName)
                 if (!ingredientName) throw new Error('ingredient not found')
                 let id = ingredientFound.id
@@ -221,7 +221,7 @@ function UserRecipe({ onBackClick, recipe }) {
 
     return <>
         <div className="buttonContainer"><button className='transparentButton homeButton' onClick={handleBackClick}>
-                <span className="material-symbols-outlined">keyboard_backspace</span></button></div>
+            <span className="material-symbols-outlined">keyboard_backspace</span></button></div>
         <h3>Guardar receta Usuario</h3>
         <form className="newRecipeForm">
             <div className="recipeHeaderContainer">
@@ -252,11 +252,11 @@ function UserRecipe({ onBackClick, recipe }) {
                     </div>
                 )}
 
-<button className="addIngredient transparentButton" onClick={addIngredient}><span className="material-symbols-outlined">add_circle</span></button>
+                <button className="addIngredient transparentButton" onClick={addIngredient}><span className="material-symbols-outlined">add_circle</span></button>
             </div>
 
             <div className="buttonsContainer">
-                <button className="createButton" type="button"onClick={(event) => {
+                <button className="createButton" type="button" onClick={(event) => {
                     event.preventDefault()
 
                     handleUpdateRecipe(id)
