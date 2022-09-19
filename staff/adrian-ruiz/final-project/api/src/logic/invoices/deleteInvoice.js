@@ -8,7 +8,7 @@ function deleteInvoice(company, invoiceId){
     if (!(ObjectId.isValid(invoiceId))) throw new FormatError('Invoice ID is not valid')
 
     return (async() => {
-        
+        debugger
         const invoice = await Invoice.findOne({_id : invoiceId, company})
         if(!invoice) throw new NotFoundError(`Invoice with ID ${invoiceId} not found in Company with ID ${company}`)
 
@@ -17,7 +17,7 @@ function deleteInvoice(company, invoiceId){
         const itemsFound = await InventoryItem.find({_id : {$in : productsIds}})
 
         itemsFound.forEach(item => {
-            const product = invoice.products.find(product => product.id === item._id.toString())
+            const product = invoice.products.find(product => product.id.toString() === item._id.toString())
 
             item.stock = item.stock + product.amount
         })

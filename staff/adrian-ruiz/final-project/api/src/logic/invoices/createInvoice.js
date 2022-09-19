@@ -15,7 +15,7 @@ function createInvoice(company, {invoiceNumber, customer, terms, invoiceDate, du
 
         const customerFound = await Customer.findOne({company, _id : customer.refId})
         if (!customerFound) throw new NotFoundError(`Customer with ID ${customer.refId} not found`)
-
+  
         const productIds = products.map(({id}) => id)
 
         const itemsFound = await InventoryItem.find({ _id: {  $in: productIds}})

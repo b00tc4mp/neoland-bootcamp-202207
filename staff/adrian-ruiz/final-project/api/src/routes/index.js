@@ -6,8 +6,7 @@ const { registerCompanyHandler, updateCompanyDetailsHandler, deleteCompanyHandle
 const { createInventoryItemHandler, updateInventoryItemHandler, deleteInventoryItemHandler, retrieveStockHandler, retrieveAItemHandler } = require('./inventory')
 const { createEstimateHandler, deleteEstimateHandler, retrieveEstimatesHandler, updateEstimateHandler, retrieveAEstimateHandler } = require('./estimates')
 const { createCustomerHandler, updateCustomerHandler, deleteCustomerHandler, retrieveCustomersHandler, retrieveACustomerHandler } = require('./customers')
-const { createInvoiceHandler, deleteInvoiceHandler, retrieveInvoicesHandler, updateInvoiceHandler } = require('./invoices')
-const { inventory } = require('../logic')
+const { createInvoiceHandler, deleteInvoiceHandler, retrieveInvoicesHandler, updateInvoiceHandler, retrieveAInvoiceHandler, createInvoicePDFHandler } = require('./invoices')
 
 const companiesRouter = Router()
 
@@ -76,6 +75,10 @@ const invoicesRouter = Router()
 invoicesRouter.post('/invoices', jsonBodyParser, createInvoiceHandler)
 
 invoicesRouter.get('/invoices', retrieveInvoicesHandler)
+
+invoicesRouter.get('/invoices/:invoiceId', retrieveAInvoiceHandler)
+
+invoicesRouter.get('/invoices/pdf/:invoiceId', createInvoicePDFHandler)
 
 invoicesRouter.patch('/invoices/:invoiceId', jsonBodyParser, updateInvoiceHandler)
 

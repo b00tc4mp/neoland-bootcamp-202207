@@ -9,7 +9,6 @@ function registerCompany(name, lastName, email, password) {
    
 
     return (async () => {
-        debugger
         const found = await User.findOne({ email })
         const foundCompany = await Company.findOne({ companyEmail: email })
 
@@ -19,7 +18,7 @@ function registerCompany(name, lastName, email, password) {
         const newUser = await User.create({ name, lastName, email, password, company: newCompany.id, role : 'admin' })
         newCompany.admin = newUser.id
         newCompany.users.push(newUser.id)
-        newCompany.save()
+        await newCompany.save()
     })()
 }
 

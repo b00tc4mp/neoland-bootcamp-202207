@@ -24,12 +24,49 @@ const estimate = new Schema({
         },
 
         billingAddress: {
-            required: true,
-            type: String
+            street: {
+                type: String,
+                default: ''
+            },
+            town: {
+                type: String,
+                default: ''
+            },
+            state: {
+                type: String,
+                default: ''
+            },
+            zipCode: {
+                type: String,
+                default: ''
+            },
+            country: {
+                type: String,
+                default: ''
+            },
         },
 
         shippingAddress: {
-            type: String
+            shippingStreet: {
+                type: String,
+                default: ''
+            },
+            shippingTown: {
+                type: String,
+                default: ''
+            },
+            shippingState: {
+                type: String,
+                default: ''
+            },
+            shippingZipCode: {
+                type: String,
+                default: ''
+            },
+            shippingCountry: {
+                type: String,
+                default: ''
+            },
         },
 
         email: {
@@ -55,12 +92,12 @@ const estimate = new Schema({
             ref: 'InventoryItem',
             required: true
         },
-        name:{
+        name: {
             type: String,
             required: true,
         },
-        
-        description:{
+
+        description: {
             type: String
         },
 
@@ -72,7 +109,7 @@ const estimate = new Schema({
             type: Number,
             required: true
         },
-        tax:{
+        tax: {
             type: Number,
             required: true
         }

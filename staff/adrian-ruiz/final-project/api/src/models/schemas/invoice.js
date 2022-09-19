@@ -1,7 +1,7 @@
-const { Schema, Types : { ObjectId } } = require('mongoose')
+const { Schema, Types: { ObjectId } } = require('mongoose')
 
 const invoice = new Schema({
-    company:{
+    company: {
         type: ObjectId,
         required: true,
         ref: 'Company'
@@ -12,24 +12,61 @@ const invoice = new Schema({
         required: true
     },
 
-    customer:{  // PUEDO HACER UN REF A UN ID DE LA DB CUSTOMERS Y SACAR TODOS LOS DATOS DE AHI? -> NO TENDRIA SENTIDO PORQUE EN UNA FACTURA EL CLIENTE PODRIA TENER ALGUN DATO DIFERENTE A LO CORRESPONDIENTE EN SU DB
-        refId : {
+    customer: {  // PUEDO HACER UN REF A UN ID DE LA DB CUSTOMERS Y SACAR TODOS LOS DATOS DE AHI? -> NO TENDRIA SENTIDO PORQUE EN UNA FACTURA EL CLIENTE PODRIA TENER ALGUN DATO DIFERENTE A LO CORRESPONDIENTE EN SU DB
+        refId: {
             type: ObjectId,
             ref: 'Customer',
             required: true
         },
-        name : {
+        name: {
             required: true,
             type: String
         },
 
         billingAddress: {
-            required : true,
-            type: String
+            street: {
+                type: String,
+                default: ''
+            },
+            town: {
+                type: String,
+                default: ''
+            },
+            state: {
+                type: String,
+                default: ''
+            },
+            zipCode: {
+                type: String,
+                default: ''
+            },
+            country: {
+                type: String,
+                default: ''
+            },
         },
 
         shippingAddress: {
-            type: String
+            shippingStreet: {
+                type: String,
+                default: ''
+            },
+            shippingTown: {
+                type: String,
+                default: ''
+            },
+            shippingState: {
+                type: String,
+                default: ''
+            },
+            shippingZipCode: {
+                type: String,
+                default: ''
+            },
+            shippingCountry: {
+                type: String,
+                default: ''
+            },
         },
 
         email: {
@@ -40,7 +77,7 @@ const invoice = new Schema({
 
     terms: {
         type: String,
-        required : true
+        required: true
         // TODO, HOW TO REF ANOTHER COLLECTIONS ( TODO ) AND MAKE ONLY OPTIONS AVAILABLE FROM THAT
     },
 
@@ -54,9 +91,38 @@ const invoice = new Schema({
         required: true
     },
 
-    products: {
-        // TODO, HOW TO REF / SET RULES TO GET ARRAY OF PRODUCTS WITH ITS VALUES(QTY, PRICE, TAX...) ??
-    },
+    products: [{
+        id: {
+            type: ObjectId,
+            ref: 'InventoryItem',
+            required: true
+        },
+        name: {
+            type: String,
+            required: true,
+        },
+
+        description: {
+            type: String
+        },
+
+        amount: {
+            type: Number,
+            required: true
+        },
+        price: {
+            type: Number,
+            required: true
+        },
+        tax: {
+            type: Number,
+            required: true
+        },
+        total: {
+            type: Number,
+            required: true
+        }
+    }],
 
     balance: {
         type: Number,
@@ -68,10 +134,10 @@ const invoice = new Schema({
         required: true,
     },
 
-    status : {
+    status: {
         type: String,
         required: true,
-        enum: ['overdue', 'pending', 'paid'], 
+        enum: ['overdue', 'pending', 'paid'],
         default: 'pending'
     }
 })

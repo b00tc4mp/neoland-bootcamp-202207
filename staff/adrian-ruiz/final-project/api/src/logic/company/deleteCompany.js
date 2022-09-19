@@ -10,7 +10,6 @@ function deleteCompany(userId, companyId, password, confirmPassword){
     validatePassword(password)
     validatePassword(confirmPassword)
     if(password !== confirmPassword) throw new FormatError('Password and confirm password are not the same')
-    debugger
 
     return (async() => {
         const company = await Company.findById(companyId)
@@ -29,7 +28,7 @@ function deleteCompany(userId, companyId, password, confirmPassword){
             Invoice.deleteMany({ company: companyId }),
             Estimate.deleteMany({ company: companyId }),
             Customer.deleteMany({ company: companyId }),
-            company.delete()
+            await company.delete()
         ])
         
     })()
