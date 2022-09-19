@@ -4,7 +4,7 @@ import updatePassword from '../logic/updatePassword'
 import withContext from '../utils/withContext'
 import './Settings.sass'
 
-function Settings({ context: { handleFeedback } }) {
+function Settings({ onBackClick, context: { handleFeedback } }) {
     const logger = new Loggito('Settings')
 
     logger.info('render')
@@ -77,6 +77,8 @@ function Settings({ context: { handleFeedback } }) {
     }
 
     return <>
+        <div className="buttonContainer"><button className='transparentButton homeButton' onClick={onBackClick}>
+            <span className="material-symbols-outlined">keyboard_backspace</span></button></div>
         <form className="form settingsForm updatePasswordForm" onSubmit={onUpdatePassword}>
             <h3>Update password</h3>
             <label htmlFor="password">Old Password</label>
@@ -100,7 +102,7 @@ function Settings({ context: { handleFeedback } }) {
             <input className="input" type="email" name="newEmail" placeholder="new email" id="newemail" />
             <button className="button" type="submit">Guardar</button>
         </form>
-        
+
     </>
 
 }

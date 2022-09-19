@@ -4,11 +4,9 @@ const { verifyObjectIdString } = require('../../../utils')
 
 function retrieveRecipeIngredients(userId, recipeId) {
 
-    debugger
+    
     verifyObjectIdString(userId, 'user id')
     verifyObjectIdString(recipeId, 'recipe id')
-
-    debugger
 
     return User.findById(userId).lean()
         .catch(error => {
@@ -24,15 +22,15 @@ function retrieveRecipeIngredients(userId, recipeId) {
                 })
         })
         .then(recipe => {
-            debugger
+            
             if (!recipe) throw new NotFoundError(`recipe with id ${recipeId} not found`)
 
             recipe.id = recipe._id.toString()
             delete recipe._id
             delete recipe.__v
-            debugger
+            
             allIngredients = recipe.ingredients
-            debugger
+            
             allIngredients.forEach(ingredient => {
                 ingredient.id = ingredient._id.toString()
                 ingredient.ingredient.id = ingredient.ingredient._id.toString()

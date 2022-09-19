@@ -7,6 +7,7 @@ import createRecipe from '../logic/createRecipe'
 import retrieveRecipe from '../logic/retrieveRecipe'
 import retrieveIngredients from '../logic/retrieveIngredients'
 
+
 function PublicRecipe({ onBackClick, recipe }) {
 
     const { id } = useParams()
@@ -55,13 +56,16 @@ function PublicRecipe({ onBackClick, recipe }) {
 
             recipeState.ingredients.forEach((ingredient) => {
                 const quantityString = ingredient.quantity
-                const unit = ingredient.unit
+                let unit = ingredient.unit
                 const ingredientName = ingredient.ingredient.name
-
+                 
                 let ingredientFound = ingredients.find(ingredients => ingredients.name === ingredientName)
                 if (!ingredientName) throw new Error('ingredient not found')
                 let id = ingredientFound.id
+                 
 
+                if (unit === "unidad" || unit === "unidades") unit = "unit"
+                 
                 const quantity = parseInt(quantityString)
                 ingredientsItem.push({ quantity, unit, id })
             })
@@ -88,23 +92,22 @@ function PublicRecipe({ onBackClick, recipe }) {
 
     return <>
 
-
         <div className="buttonContainer"><button className='transparentButton homeButton' onClick={handleBackClick}>
             <span className="material-symbols-outlined">keyboard_backspace</span></button></div>
 
         <div className="publicRecipeContainer">
             <div className="recipeHeaderContainer">
-                <h2 className="recipeTitle" name="title" placeholder="Título" id="title">{recipeState ? recipeState.title : ''}</h2>
-                <div className="recipePersons" name="persons" placeholder="pax" id="persons">para {recipeState ? recipeState.persons : ''}</div>
+                <h2 className="publicRecipeTitle" name="title" placeholder="Título" id="title">{recipeState ? recipeState.title : ''}</h2>
+                <div className="publicRecipePersons" name="persons" placeholder="pax" id="persons">para {recipeState ? recipeState.persons : ''}</div>
             </div>
-            <h3>Ingredientes</h3>
+            <h3 className="publicIngredientsTitle">Ingredientes</h3>
 
             <div className="ingredientsContainer"> {recipeState && recipeState.ingredients && recipeState.ingredients.map((ingredient, index) => {
-                if (ingredient.unit === "unit") { (ingredient.quantity === 1)? ingredient.unit = "unidad" : ingredient.unit = "unidades"}
+                if (ingredient.unit === "unit") { (ingredient.quantity === 1) ? ingredient.unit = "unidad" : ingredient.unit = "unidades" }
                 return <div className="ingredientsRowContainer" key={ingredient.id}>
-                    <div className="ingredient quantity" name={`quantityt${index}`}> {ingredient.quantity} </div>
-                    <div className="ingredient unit" name={`unit${index}`}>{ingredient.unit} de </div>
-                    <div className="ingredient name" name={`ingredient${index}`}>{ingredient.ingredient.name}</div>
+                    <div className="publicIngredient quantity" name={`quantityt${index}`}> {ingredient.quantity} </div>
+                    <div className="publicIngredient unit" name={`unit${index}`}>{ingredient.unit} de </div>
+                    <div className="publicIngredient name" name={`ingredient${index}`}>{ingredient.ingredient.name}</div>
                 </div>
             })
             }

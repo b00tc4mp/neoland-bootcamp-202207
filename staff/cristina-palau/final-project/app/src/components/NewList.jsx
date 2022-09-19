@@ -4,17 +4,16 @@ import retrieveIngredients from '../logic/retrieveIngredients'
 import retrieveUser from '../logic/retrieveUser'
 import retrieveUserRecipes from '../logic/retrieveUserRecipes'
 import retrieveRecipeIngredients from '../logic/retrieveRecipeIngredients'
-import createRecipe from '../logic/createRecipe'
 import RecipesList from './RecipesList'
 
-function NewRecipe({ onBackClick, printIngredientsRow }) {
+function NewRecipe({ onBackClick }) {
     const logger = new Loggito('New Recipe')
 
     logger.info('render')
 
     const [ingredients, setIngredients] = useState([])
     const [userRecipes, setUserRecipes] = useState(null)
-    const [ingredientsState, setIngredientsState] = useState([{ id: 0, quantity: 0, unit: "", ingredient: "" }])
+    const [buyingListIngredients, setBuyingListIngredients] = useState([])
 
     useEffect(() => { // override
         logger.info('componentDidMount')
@@ -70,8 +69,6 @@ function NewRecipe({ onBackClick, printIngredientsRow }) {
 
     const handleAddIngredients = recipeId => {
 
-        console.log(recipeId)
- 
         try {
 
             retrieveRecipeIngredients(sessionStorage.token, recipeId, (error, recipeIngredients) => {
@@ -82,9 +79,9 @@ function NewRecipe({ onBackClick, printIngredientsRow }) {
 
                     return
                 }
-                debugger
 
-                setIngredientsState(recipeIngredients)
+                setBuyingListIngredients(buyingListIngredients.concat(recipeIngredients))
+
             })
 
         } catch (error) {
@@ -93,23 +90,23 @@ function NewRecipe({ onBackClick, printIngredientsRow }) {
         }
     }
     const handleChangeQuantity = (event, ingredientId) => {
-        let data = [...ingredientsState]
+        let data = [...buyingListIngredients]
 
         const row = data.find(ingredient => ingredientId === ingredient.id)
 
         row.quantity = event.target.value
 
-        setIngredientsState(data)
+        setBuyingListIngredients(data)
     }
 
     const handleChangeUnit = (event, ingredientId) => {
-        let data = [...ingredientsState]
+        let data = [...buyingListIngredients]
 
         const row = data.find(ingredient => ingredientId === ingredient.id)
 
         row.unit = event.target.value
 
-        setIngredientsState(data)
+        setBuyingListIngredients(data)
     }
 
     const handleChangeIngredient = (event, ingredientId) => {
@@ -118,36 +115,35 @@ function NewRecipe({ onBackClick, printIngredientsRow }) {
         ingredientValue.length >= 3 && target.setAttribute('list', 'ingredientsList')
         ingredientValue.length < 3 && target.removeAttribute('list', 'ingredientsList')
 
-        let data = [...ingredientsState]
+        let data = [...buyingListIngredients]
 
         const row = data.find(ingredient => ingredientId === ingredient.id)
 
         row.ingredient.name = event.target.value
 
-        setIngredientsState(data)
+        setBuyingListIngredients(data)
     }
 
 
     const handleDeleteIngredient = (ingredientId) => {
-        const deletingIndexIngredient = ingredientsState.findIndex(ingredient => ingredientId === ingredient.id)
+         
+        const deletingIndexIngredient = buyingListIngredients.findIndex(ingredient => ingredientId === ingredient.id)
 
-        const copyOfIngredients = [...ingredientsState]
+        const copyOfIngredients = [...buyingListIngredients]
         copyOfIngredients.splice(deletingIndexIngredient, 1)
+         
 
-        const newRecipe = { ...ingredientsState, ingredients: copyOfIngredients }
-
-        setIngredientsState(newRecipe)
+        setBuyingListIngredients(copyOfIngredients)
     }
 
     const addIngredient = event => {
         event.preventDefault()
 
-        let newRow = { index: (ingredientsState.length), ingredient: { quantity: 0, unit: "", ingredient: "" } }
+        let newRow = { index: (buyingListIngredients.length), ingredient: { quantity: 0, unit: "", ingredient: "" } }
 
-        const newIngredients = [...ingredientsState, newRow]
+        const newIngredients = [...buyingListIngredients, newRow]
 
-
-        setIngredientsState(newIngredients)
+        setBuyingListIngredients(newIngredients)
     }
 
 
@@ -167,7 +163,7 @@ function NewRecipe({ onBackClick, printIngredientsRow }) {
                 <input type="text" className="input newRecipeInput titleInput" name="title" placeholder="Título" id="title" defaultValue="nueva lista" />
             </div>
             <p>Ingredientes</p>
-            <div className="ingredients"> {ingredientsState && ingredientsState.map((ingredient, index) =>
+            <div className="ingredients"> {buyingListIngredients && buyingListIngredients.map((ingredient, index) =>
                 <div className="ingredientsRecipeContainer" key={ingredient.id}>
                     <input type="number" defaultValue={ingredient.quantity} className="input newRecipeInput quantInput" name={`quantity${index}`} placeholder="cantidad" onChange={(event) => handleChangeQuantity(event, ingredient.id)} />
                     <select className="select newRecipeInput unitSelect" defaultValue={ingredient.unit} name={`unit${index}`} placeholder="unit" onChange={(event) => handleChangeUnit(event, ingredient.id)}>

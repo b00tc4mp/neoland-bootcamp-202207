@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import Loggito from '../utils/loggito'
 import NewRecipe from './NewRecipe'
-import MyRecipesList from './MyRecipesList'
+import UserRecipesList from './UserRecipesList'
 import PublicRecipesList from './PublicRecipesList'
 import PublicRecipe from './PublicRecipe'
 import UserRecipe from './UserRecipe'
@@ -136,20 +136,27 @@ function RecipesMenu({ onBackClick, context: { reloadThePage } }) {
     }
 
     const handleDeleteRecipe = recipeId => {
+
         try {
+           
             deleteRecipe(sessionStorage.token, recipeId, error => {
                 if (error) {
                  
                     logger.warn(error.message)
                     return
                 }
+                
             })
-        } catch (error) {
+            
+            loadUserRecipes()
 
+            // reloadThePage()
+            
+        } catch (error) {
+            
             logger.warn(error.message)
         }
-
-        reloadThePage()
+        
     }
 
     const handleReloadPublicRecipes = event => {
@@ -181,7 +188,7 @@ function RecipesMenu({ onBackClick, context: { reloadThePage } }) {
             
             <div className="buttonContainer"><button className='transparentButton homeButton' onClick={onBackClick}>
                 <span className="material-symbols-outlined">keyboard_backspace</span></button></div>
-            <MyRecipesList userRecipes={userRecipes} onRecipeClick={handleClickUserRecipe} onDeleteRecipe={handleDeleteRecipe} />
+            <UserRecipesList userRecipes={userRecipes} onRecipeClick={handleClickUserRecipe} onDeleteRecipe={handleDeleteRecipe} />
 
             <div className="addRecipe">
                 <button className="addRecipe__button transparentButton" onClick={handleNavigationNewRecipe}><span className="material-symbols-outlined">add_circle</span> </button>

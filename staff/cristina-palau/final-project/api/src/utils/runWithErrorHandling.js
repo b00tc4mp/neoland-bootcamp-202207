@@ -5,7 +5,7 @@ function runWithErrorHandling(callback, res, logger) {
     try {
         callback()
             .catch(error => {
-                debugger
+                
                 if (error instanceof DuplicityError)
                     res.status(409).json({ error: error.message })
                 else if (error instanceof NotFoundError || error instanceof AuthError)
@@ -16,7 +16,7 @@ function runWithErrorHandling(callback, res, logger) {
                 logger.error(error)
             })
     } catch (error) {
-        debugger
+        
         if (error instanceof TypeError || error instanceof FormatError)
             res.status(400).json({ error: error.message })
         else if (error instanceof JsonWebTokenError || error instanceof TokenExpiredError || error instanceof NotBeforeError)

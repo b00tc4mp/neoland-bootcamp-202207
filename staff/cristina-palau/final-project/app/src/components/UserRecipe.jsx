@@ -89,16 +89,18 @@ function UserRecipe({ onBackClick, recipe }) {
         ingredientValue.length < 3 && target.removeAttribute('list', 'ingredientsList')
 
         let data = [...recipeState.ingredients]
-
+    
         const ingredient = data.find(ingredient => ingredientId === ingredient.id)
-        ingredient.ingredient = event.target.value
+        ingredient.ingredient.name = event.target.value
 
         const newRecipe = { ...recipeState, ingredient }
 
         setRecipeState(newRecipe)
+
     }
 
     const handleUpdateRecipe = (recipeId) => {
+        console.log('actualizo receta')
         try {
             const { title, persons } = recipeState
 
@@ -164,7 +166,6 @@ function UserRecipe({ onBackClick, recipe }) {
                 if (!ingredientName) throw new Error('ingredient not found')
                 let id = ingredientFound.id
 
-
                 if (!quantityString) throw new Error("quantity is empty or blank")
                 else if (!unit) throw new Error("unit is empty or blank")
                 else if (!unit) throw new Error("ingredient is empty or blank")
@@ -210,7 +211,7 @@ function UserRecipe({ onBackClick, recipe }) {
     const addIngredient = event => {
         event.preventDefault()
 
-        let newRow = { index: (recipeState.ingredients.length), ingredient: { quantity: 0, unit: "", ingredient: "" } }
+        let newRow = { index: (recipeState.ingredients.length), ingredient: { quantity: 0, unit: "kg", ingredient: "" } }
 
         const newIngredients = [...recipeState.ingredients, newRow]
 
@@ -222,10 +223,12 @@ function UserRecipe({ onBackClick, recipe }) {
     return <>
         <div className="buttonContainer"><button className='transparentButton homeButton' onClick={handleBackClick}>
             <span className="material-symbols-outlined">keyboard_backspace</span></button></div>
-        <h3>Guardar receta Usuario</h3>
+        <h3 className="userRecipeTitle">Guardar receta Usuario</h3>
         <form className="newRecipeForm">
             <div className="recipeHeaderContainer">
+                <label className="formLabel" htmlFor="title">Título</label>
                 <input type="text" defaultValue={recipeState ? recipeState.title : ''} className="input newRecipeInput titleInput" name="title" placeholder="Título" id="title" onChange={(event) => handleChangeTitle(event)} />
+                <label className="formLabel" htmlFor="persons">para</label>
                 <input type="number" defaultValue={recipeState ? recipeState.persons : ''} className="input newRecipeInput personsInput" name="persons" placeholder="pax" id="persons" onChange={(event) => handleChangePersons(event)} />
             </div>
             <p>Ingredientes</p>
@@ -256,12 +259,12 @@ function UserRecipe({ onBackClick, recipe }) {
             </div>
 
             <div className="buttonsContainer">
-                <button className="createButton" type="button" onClick={(event) => {
+                <button className="updateRecipeButton" type="button" onClick={(event) => {
                     event.preventDefault()
 
                     handleUpdateRecipe(id)
                 }}>Actualizar receta</button>
-                <button className="createButton" type="button" onClick={(event) => {
+                <button className="createRecipeButton" type="button" onClick={(event) => {
                     event.preventDefault()
 
                     handleCreateRecipe()
