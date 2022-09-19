@@ -326,7 +326,7 @@ div.item--products p {
 
 .featurette-icon--img.products {
     height: 200px;
-    width: inherit;
+    width: 100%;
 }
 
 .featurette-icon--img.products.slider {

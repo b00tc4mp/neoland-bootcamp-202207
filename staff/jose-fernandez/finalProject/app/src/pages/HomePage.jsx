@@ -14,6 +14,7 @@ import ProductsList from '../components/ProductsList'
 import ProductsListMen from '../components/ProductsListMen'
 import ProductsListWomen from '../components/ProductsListWomen'
 import ProductsListKids from '../components/ProductsListKids'
+import ProductExtend from '../components/ProductExtend'
 // import Menu from '../components/Menu'
 
 function HomePage({ onLogoutClick, onLoginClick, context: { handleFeedback } }) {
@@ -105,41 +106,52 @@ function HomePage({ onLogoutClick, onLoginClick, context: { handleFeedback } }) 
     }
 
     const handleListProducts = () => {
+        loadProducts()
         navigate('listProducts')
     }
 
     const handleListProductsMen = () => {
+        loadProducts()
         navigate('listProductsMen')
     }
     const handleListProductsWomen = () => {
+        loadProducts()
         navigate('listProductsWomen')
     }
     const handleListProductsKids = () => {
+        loadProducts()
         navigate('listProductsKids')
     }
+    
 
     // const handleUpdateName = (newName) => setName(newName)
     // const handleUpdateEmail = (newEmail) => setEmail(newEmail)
     const handleSearch = query => setQuery(query)
 
+    const handleProductClick = productId => navigate(`products/${productId}`)
 
 
     // return email?
     // listProducts
     // const locationsHeader = ['/', 'listProducts']
+    
+    //TODO location pathname no funciona en header
 
     return <div className="container container--full container--width homePage">
-        {(location.pathname ==="/" || location.pathname === "listProducts") && <Header products={products} onLoginClick={handleLoginClick} onListProducts={handleListProducts} onListProductsMen={handleListProductsMen} onListProductsWomen={handleListProductsWomen} onListProductsKids={handleListProductsKids} onProfileClick={handleProfileClick} onSearchClick={handleSearchClick} onSearch={handleSearch} />}
+        {(location.pathname === "/" || location.pathname === "listProducts") && <Header products={products} onLoginClick={handleLoginClick} onListProducts={handleListProducts} onListProductsMen={handleListProductsMen} onListProductsWomen={handleListProductsWomen} onListProductsKids={handleListProductsKids} onProfileClick={handleProfileClick} onSearchClick={handleSearchClick}/>}
 
         <main className="main-home">
             <Routes>
                 <Route path="/" element={<ContMain products={products} />} />
-                <Route path='search' element={<Search onProductsSearch={handleListProducts} onCloseClick={handleReturnMain} onQuery={handleSearch}/>} />
+                <Route path='search' element={<Search onProductsSearch={handleListProducts} onCloseClick={handleReturnMain} onQuery={handleSearch} />} />
                 {/* <Route path="menu" element={<Menu products={products} onCloseClick={handleReturnMain}/>} /> */}
-                <Route path='listProducts' element={<ProductsList products={products} onCloseClick={handleReturnMain} />} />
-                <Route path='listProductsMen' element={<ProductsListMen products={products} onCloseClick={handleReturnMain} />} />
-                <Route path='listProductsWomen' element={<ProductsListWomen products={products} onCloseClick={handleReturnMain} />} />
-                <Route path='listProductsKids' element={<ProductsListKids products={products} onCloseClick={handleReturnMain} />} />
+                <Route path='listProducts' element={<ProductsList products={products} onProductClick={handleProductClick} onCloseClick={handleReturnMain} />} />
+                <Route path='listProductsMen' element={<ProductsListMen products={products} onProductClick={handleProductClick} onCloseClick={handleReturnMain} />} />
+                <Route path='listProductsWomen' element={<ProductsListWomen products={products} onProductClick={handleProductClick} onCloseClick={handleReturnMain} />} />
+                <Route path='listProductsKids' element={<ProductsListKids products={products} onProductClick={handleProductClick} onCloseClick={handleReturnMain} />} />
+
+                <Route path='products/:productId' element={<ProductExtend  />} />
+
                 {/* <Route path="profile" element={<Profile onCloseClick={handleReturnMain} email={email} onUpdateEmail={handleUpdateEmail} onUpdateName={handleUpdateName} />} /> */}
                 {/* {email ?
                     <Route path="profile" element={<Profile onCloseClick={handleReturnMain} email={email} onUpdateEmail={handleUpdateEmail} onUpdateName={handleUpdateName} />} />

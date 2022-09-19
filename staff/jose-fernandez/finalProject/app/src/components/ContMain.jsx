@@ -86,7 +86,7 @@ function ContMain({ products }) {
             </div>
 
         </section>
-        <ProductsList products={products} />
+        {/* <ProductsList products={products} /> */}
 
 
     </div>
