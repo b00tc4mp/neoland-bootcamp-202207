@@ -29,10 +29,6 @@ function createQuestion(
   answerB,
   answerC,
   answerD
-  /* question,
-  suggestedAnswer,
-  timeLimit,
-  visibility */
 ) {
   //TODO: validate all
 
@@ -57,10 +53,6 @@ function createQuestion(
         answerB,
         answerC,
         answerD,
-        /* question,
-        suggestedAnswer,
-        timeLimit,
-        visibility, */
       }).catch((error) => {
         throw new SystemError(error.message);
       });
