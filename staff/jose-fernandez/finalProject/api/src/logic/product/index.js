@@ -1,4 +1,5 @@
 module.exports = {
     searchProduct: require('./searchProduct'),
-    retrieveProducts: require('./retrieveProducts')
+    retrieveProducts: require('./retrieveProducts'),
+    retrieveProductExtend: require('./retrieveProductExtend')
 }

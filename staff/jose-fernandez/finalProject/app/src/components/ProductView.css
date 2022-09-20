@@ -1,0 +1,39 @@
+.container-section--product{
+    flex: 1 1 auto;
+    display: flex;
+    overflow: visible;
+    width: 100%;
+    max-width: 100vw;
+    position: relative;
+    flex-direction: column;
+}
+
+.container-product{
+    width: 100%;
+    min-height: 100vh;
+    min-width: 0;
+    position: relative;
+}
+.container-title{
+    margin-bottom: 0;
+    background-color: #edeff0;
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    padding: 10px 20px;
+}
+.nameGener{
+    /* display: flex;
+    gap: 6px;
+    flex-direction: row;
+    width: 100%; */
+}
+.container-price{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+.product-price{
+    margin-top: 10px;
+}

@@ -310,10 +310,15 @@ div.item--products p {
 }
 
 .item--products.one {
-    width: 100%;
-    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 94%;
+    margin: 12px;
     background-color: transparent;
 }
+
 
 .featurette-icon {
     padding: 5px;

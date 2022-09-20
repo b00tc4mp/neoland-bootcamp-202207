@@ -2,7 +2,7 @@ const express = require('express')
 const {Router, json} = express
 const jsonBodyParser = json()
 const {registerUserHandler, authenticateUserHandler, retrieveUserHandler,registerAnonymousUserHandler} = require('./users')
-const { searchProductHandler,retrieveProductsHandler} = require('./products')
+const { searchProductHandler,retrieveProductsHandler, retrieveProductExtendHandler} = require('./products')
 
 const usersRouter = Router()
 
@@ -20,6 +20,7 @@ usersRouter.get('/users',retrieveUserHandler)
 const productRouter = Router()
 productRouter.get('/products/search',searchProductHandler)
 productRouter.get('/products',retrieveProductsHandler)
+productRouter.get('/products/:productId',retrieveProductExtendHandler)
 // notesRouter.post('/notes', jsonBodyParser,createNoteHandler)
 // notesRouter.get('/notes', retrieveNotesHandler)
 // notesRouter.patch('/notes/:noteId', jsonBodyParser,updateNoteTextHandler)

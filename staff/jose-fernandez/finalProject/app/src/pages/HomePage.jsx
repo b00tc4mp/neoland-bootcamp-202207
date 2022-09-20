@@ -14,7 +14,7 @@ import ProductsList from '../components/ProductsList'
 import ProductsListMen from '../components/ProductsListMen'
 import ProductsListWomen from '../components/ProductsListWomen'
 import ProductsListKids from '../components/ProductsListKids'
-import ProductExtend from '../components/ProductExtend'
+import ProductView from '../components/ProductView'
 // import Menu from '../components/Menu'
 
 function HomePage({ onLogoutClick, onLoginClick, context: { handleFeedback } }) {
@@ -142,7 +142,7 @@ function HomePage({ onLogoutClick, onLoginClick, context: { handleFeedback } }) 
 
         <main className="main-home">
             <Routes>
-                <Route path="/" element={<ContMain products={products} />} />
+                <Route path="/" element={<ContMain products={products} onProductClick={handleProductClick} />} />
                 <Route path='search' element={<Search onProductsSearch={handleListProducts} onCloseClick={handleReturnMain} onQuery={handleSearch} />} />
                 {/* <Route path="menu" element={<Menu products={products} onCloseClick={handleReturnMain}/>} /> */}
                 <Route path='listProducts' element={<ProductsList products={products} onProductClick={handleProductClick} onCloseClick={handleReturnMain} />} />
@@ -150,7 +150,7 @@ function HomePage({ onLogoutClick, onLoginClick, context: { handleFeedback } }) 
                 <Route path='listProductsWomen' element={<ProductsListWomen products={products} onProductClick={handleProductClick} onCloseClick={handleReturnMain} />} />
                 <Route path='listProductsKids' element={<ProductsListKids products={products} onProductClick={handleProductClick} onCloseClick={handleReturnMain} />} />
 
-                <Route path='products/:productId' element={<ProductExtend  />} />
+                <Route path='products/:productId' element={<ProductView />} />
 
                 {/* <Route path="profile" element={<Profile onCloseClick={handleReturnMain} email={email} onUpdateEmail={handleUpdateEmail} onUpdateName={handleUpdateName} />} /> */}
                 {/* {email ?

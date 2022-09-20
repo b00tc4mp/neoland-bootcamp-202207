@@ -34,7 +34,11 @@ const product = new Schema({
     type:String,
     // required:true
   },
-  gallery:[ String]
+  gallery:[
+      {
+        img:String
+      }
+    ]
   
 })
 

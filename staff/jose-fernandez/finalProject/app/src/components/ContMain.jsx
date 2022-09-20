@@ -5,7 +5,7 @@ import ProductsList from './ProductsList'
 // import ProductsList from './NN'
 // import IconButton from './Buttons/IconButton'
 
-function ContMain({ products }) {
+function ContMain({ products,onProductClick }) {
     const [view, setView] = useState('play')
     //use ref vid
     let vid = useRef(null)
@@ -19,6 +19,9 @@ function ContMain({ products }) {
         setView('stop')
         // let vid = document.getElementById("videoOne");
         vid.pause()
+    }
+    const handleProductClick=(product)=>{
+        onProductClick(product.id)
     }
 
 
@@ -76,7 +79,7 @@ function ContMain({ products }) {
                 <img src="https://brand.assets.adidas.com/image/upload/f_auto,q_auto,fl_lossy/esES/Images/football-fw22-federations-spain-catlp-psc-m_tcm190-920832.jpg" alt="" />
             </div>
             <div className="container-products slider">
-                {products && products.map(product => <div className="item--products slider" key={product.id}>
+                {products && products.map(product => <div className="item--products slider" key={product.id} onClick={()=>handleProductClick(product)}>
                     <div className="featurette-icon slider">
                         <img className='featurette-icon--img products slider' src={product.img} alt="" />
                     </div>

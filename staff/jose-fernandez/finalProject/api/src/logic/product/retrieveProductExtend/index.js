@@ -2,23 +2,21 @@ const { User, Product } = require('../../../models')
 const { NotFoundError, SystemError } = require('errors')
 // const { verifyObjectIdString } = require('../../../utils')
 
-function retrieveProducts() {
+function retrieveProductExtend(productId) {
     // verifyObjectIdString()
 
-    return Product.find({ }).lean()
+    return Product.findById(productId).lean()
         .catch(error => {
-            throw new SystemError(error.message)
+            throw new NotFoundError(error.message)
         })
-        .then(products => {
-            //sanitize
-            products.forEach(product => {
+        .then(product => {
+                //sanitize
                 product.id = product._id.toString()
                 delete product._id
                 delete product.__v
-                
+
+                return product
             })
-            return products
-        })
 }
 
-module.exports = retrieveProducts
+module.exports = retrieveProductExtend

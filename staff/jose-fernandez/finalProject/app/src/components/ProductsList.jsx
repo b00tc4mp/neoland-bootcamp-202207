@@ -7,8 +7,8 @@ function ProductsList({ products,onProductClick,onCloseClick}) {
     const handleCloseClick = () => {
         onCloseClick()
     }
-    const handleProductClick=()=>{
-        onProductClick()
+    const handleProductClick=(product)=>{
+        onProductClick(product.id)
     }
     
     return <section className="container-section products">
@@ -16,9 +16,10 @@ function ProductsList({ products,onProductClick,onCloseClick}) {
         <div className="item--products one">
             <IconButton addClass="close" text="close" onClick={handleCloseClick} />
             <h1>PRODUCTS</h1>
+
         </div>
         
-        {products && products.map(product => <div className="item--products" key={product.id} onClick={handleProductClick}>
+        {products && products.map(product => <div className="item--products" key={product.id} onClick={()=>handleProductClick(product)}>
             <div className="featurette-icon">
                 <img className='featurette-icon--img products' src={product.img} alt="" />
             </div>
