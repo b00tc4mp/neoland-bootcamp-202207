@@ -3,6 +3,7 @@ import Loggito from '../utils/loggito'
 import NewList from './NewList'
 import retrieveUserLists from '../logic/retrieveUserLists'
 import retrieveUser from '../logic/retrieveUser'
+import retrieveList from '../logic/retrieveList'
 import { useState, useEffect } from 'react'
 import UserLists from './UserLists'
 
@@ -11,6 +12,7 @@ function ListsMenu({ onBackClick }) {
     const logger = new Loggito('Recipes')
 
     const [userLists, setUserLists] = useState(null)
+    const [list, setList] = useState(null)
 
     const navigate = useNavigate()
 
@@ -33,6 +35,30 @@ function ListsMenu({ onBackClick }) {
             logger.warn(error.message)
         }
     }, [])
+
+    const handleClickList= listId => {
+        try {
+            retrieveList(sessionStorage.token, listId, (error, list) => {
+
+
+                if (error) {
+
+                    logger.warn(error.message)
+
+                    return
+                }
+
+                setList(list)
+
+
+                navigate(`mylists/${listId}`)
+            })
+
+        } catch (error) {
+
+            logger.warn(error.message)
+        }
+    }
 
     const handleNavigationLists = () => {
 
@@ -80,11 +106,15 @@ function ListsMenu({ onBackClick }) {
             <div className="addrecipe addRecipe">
                 <button className="addRecipe__button transparentButton" onClick={handleNavigationNewList}><span className="material-symbols-outlined">add_circle</span> </button>
             </div>
-            <UserLists userLists={userLists} onBackClick={handleNavigationLists} />
+            <UserLists userLists={userLists} onBackClick={handleNavigationLists} onListClick={handleClickList} />
 
         </>} />
         <Route path="newlist" element={<>
             <NewList onBackClick={handleNavigationLists} />
+        </>} />
+
+        <Route path="mylists/:id" element={<>
+            <List list={list} onBackClick={handleNavigationLists} />
         </>} />
 
 

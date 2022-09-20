@@ -1,10 +1,10 @@
 const { NotFoundError, AuthError, SystemError } = require("errors")
-const { User, Recipe } = require("../../../models")
+const { User, List } = require("../../../models")
 const { verifyObjectIdString } = require("../../../utils")
 
-module.exports = function deleteRecipe(userId, recipeId) {
+module.exports = function deleteList(userId, listId) {
     verifyObjectIdString(userId)
-    verifyObjectIdString(recipeId)
+    verifyObjectIdString(listId)
    
     return User.findById(userId)
         .catch(error => {
@@ -12,18 +12,18 @@ module.exports = function deleteRecipe(userId, recipeId) {
         })
         .then(user => {
             if (!user) throw new NotFoundError(`user with id ${userId} not found`)
-            return Recipe.findById(recipeId)
+            return List.findById(listId)
                 .catch(error => {
                     throw new SystemError(error.message)
                 })
         })
 
-        .then(recipe => {
-            if (!recipe) throw new NotFoundError(`recipe with id ${recipeId} not found`)
+        .then(list => {
+            if (!list) throw new NotFoundError(`list with id ${listId} not found`)
 
-            if (recipe.creator.toString() !== userId) throw new AuthError(`recipe with id ${recipeId} does not belong to user with id ${userId}`)
+            if (list.creator.toString() !== userId) throw new AuthError(`list with id ${listId} does not belong to user with id ${userId}`)
 
-            return Recipe.deleteOne({ _id: recipeId })
+            return List.deleteOne({ _id: listId })
         })
 
         .then(() => { })

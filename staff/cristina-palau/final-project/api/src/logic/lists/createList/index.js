@@ -37,7 +37,7 @@ function createList(userId, title, ingredients) {
                     throw new SystemError(error.message)
                 })
         })
-        .then(recipe => { })
+        .then(list => { })
 
 }
 

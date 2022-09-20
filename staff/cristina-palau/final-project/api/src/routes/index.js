@@ -2,7 +2,7 @@ const express = require('express')
 const { Router, json } = express
 const jsonBodyParser = json()
 const { registerUserHandler, authenticateUserHandler, retrieveUserHandler, updateUserEmailHandler, updateUserPasswordHandler } = require('./users')
-const { createListHandler, retrieveUserListsHandler } = require('./lists')
+const { createListHandler, retrieveUserListsHandler, retrieveListHandler, deleteListHandler, updateListHandler } = require('./lists')
 const { createIngredientHandler, searchIngredientHandler, retrieveIngredientsHandler } = require('./ingredients')
 const { createRecipeHandler, retrieveRecipeHandler, retrieveRecipeIngredientsHandler, retrieveUserRecipesHandler, updateRecipeHandler, deleteRecipeHandler, retrievePublicRecipesHandler } = require('./recipes')
 
@@ -47,6 +47,12 @@ const listsRouter = Router()
 listsRouter.post('/lists', jsonBodyParser, createListHandler)
 
 listsRouter.get('/lists', retrieveUserListsHandler)
+
+listsRouter.get('/lists/:listId', retrieveListHandler)
+
+listsRouter.delete('/lists/:listId', deleteListHandler)
+
+listsRouter.patch('/lists/:listId', jsonBodyParser, updateListHandler)
 
 module.exports = {
     usersRouter,
