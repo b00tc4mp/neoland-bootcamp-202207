@@ -1,19 +1,17 @@
 // ================== Imports ================== //
 
-// import "./ScreenTemplate.1.css";
-// import "./ScreenTemplate.1.scss";
-// import Spinner from "./Spinner";
-// import CountdownTimer from "./CountdownTimer";
-
-// const handleLeaveClick = () => {};
 import { useEffect } from "react";
 
-const handleFormSubmit = () => {};
+// ================== Component ================== //
 
 function Student9ClassClosed({ handleScreenChangeS9 }) {
+  // ================== useEffects ================== //
+
   useEffect(() => {
     setTimeout(() => handleScreenChangeS9("Student1EnterClass"), 7000);
   }, []);
+
+  // ================== jsx ================== //
 
   return (
     <div className="game-screen">
@@ -25,9 +23,7 @@ function Student9ClassClosed({ handleScreenChangeS9 }) {
         </p>
       </main>
 
-      <footer className="game-screen-footer">
-        {/* <button className="footer-button">Start Game</button> */}
-      </footer>
+      <footer className="game-screen-footer"></footer>
     </div>
   );
 }

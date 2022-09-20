@@ -1,11 +1,14 @@
 // ================== Imports ================== //
 
+// ================== Component ================== //
+
 function LandingPanel({
   handleMyQuestionsClick,
   handleCommunityClick,
   handleFavouritesClick,
   handleCollectionsClick,
 }) {
+  // ================== jsx ================== //
   return (
     <div className="grouped-elements">
       <button

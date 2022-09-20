@@ -1,15 +1,6 @@
 // ================== Imports ================== //
 
-// import "./ScreenTemplate.1.css";
-// import "./ScreenTemplate.1.scss";
-// import Spinner from "./Spinner";
-// import CountdownTimer from "./CountdownTimer";
-
-// const handleLeaveClick = () => {};
-
-import { useState, useEffect, useRef } from "react";
-
-const handleFormSubmit = () => {};
+import { useState, useEffect } from "react";
 
 // ================== Component ================== //
 
@@ -23,37 +14,27 @@ function Teacher5MarkResponses({
   questionType,
   correctAnswers,
 }) {
-  // ================== Hook consts ================== //
-
-  const [responsesMarked, setResponsesMarked] = useState([]);
+  debugger;
 
   let correct = 0;
   let incorrect = 0;
+  // ================== Hook consts ================== //
 
-  // ===== new ===== //
-  // let responseRef = useRef(null);
+  const [responsesToSend, setResponsesToSend] = useState(responses);
+
+  // ================== useEffects ================== //
+
+  useEffect(() => {
+    responsesToSend.forEach((response) => {});
+  });
 
   // ================== Function: emits feedback to quiz members and sends count to the next screen ================== //
 
   const onButtonClick = () => {
+    debugger;
     if (questionType === "written") {
-      // ===== new ===== //
-      // refDictionary =
-
-      responses.forEach((response) => {
-        debugger;
-        // ================== !!!! Replace with Ref ================== //
-
-        let element = document.getElementById(response.socketId);
-
-        // ===== new ===== // - "! can't have string as ref"
-        // responseRef = response.socketId;
-
-        debugger;
-
-        // ================== !!!! Replace with Ref ================== //
-
-        if (element.className === "info response-list-item correct") {
+      responsesToSend.forEach((response) => {
+        if (response.correct === true) {
           socket.emit("T5", {
             gameScreen: "Student6Correct",
             socketId: response.socketId,
@@ -62,7 +43,7 @@ function Teacher5MarkResponses({
           console.log("Emitted 'correct' to:");
           console.log(response.socketId);
           correct += 1;
-        } else if (element.className === "info response-list-item incorrect") {
+        } else if (response.correct === false) {
           socket.emit("T5", {
             gameScreen: "Student7Incorrect",
             socketId: response.socketId,
@@ -106,27 +87,37 @@ function Teacher5MarkResponses({
 
   // ================== Function: Changes the colour of the response to mark correct/incorrect ================== //
 
-  const handleMarkResponse = (event) => {
-    console.log("handleMarkResponse clicked");
-    console.log(event.target.innerHTML);
-    // console.log(event.target.key);
-    console.log(event.target.className);
-    console.log(event.target.dataset.id);
-    // console.log(event.target.dataset.clicks);
-    console.log(event.target);
-
-    const markedResponse = {};
-
+  const handleMarkResponse = (event, socketId) => {
     if (event.target.className === "info response-list-item")
       event.target.className = "info response-list-item correct";
     else if (event.target.className === "info response-list-item correct")
       event.target.className = "info response-list-item incorrect";
     else if (event.target.className === "info response-list-item incorrect")
       event.target.className = "info response-list-item correct";
+
+    const currentResponseIndex = responsesToSend.findIndex(
+      (resp) => resp.socketId === socketId
+    );
+
+    if (!responsesToSend[currentResponseIndex].correct) {
+      const copyRes = [...responsesToSend];
+
+      copyRes[currentResponseIndex].correct = true;
+
+      setResponsesToSend(copyRes);
+    } else if (responsesToSend[currentResponseIndex].correct === true) {
+      const copyRes = [...responsesToSend];
+
+      copyRes[currentResponseIndex].correct = false;
+
+      setResponsesToSend(copyRes);
+    }
   };
 
   console.log("Responses received at T5 Mark Responses");
   console.log(responses);
+
+  // ================== jsx ================== //
 
   return (
     <div className="game-screen">
@@ -148,16 +139,15 @@ function Teacher5MarkResponses({
                 <p
                   className="info response-list-item"
                   key={responseData.socketId}
-                  onClick={handleMarkResponse}
+                  onClick={(event) =>
+                    handleMarkResponse(event, responseData.socketId)
+                  }
                   // React complaine here that it does not recognise the capital I in ID as a prop on a DOM element.
                   // Warning only fires when an answer is returned without being corrected
                   data-Id={responseData.socketId}
                   id={responseData.socketId}
-                  // ===== new ===== //
-                  // ref={Math}
-                  // data-clicks={0}
                 >
-                  {responseData.response}
+                  {responseData.responseDetails.writtenResponse}
                 </p>
               );
             })}

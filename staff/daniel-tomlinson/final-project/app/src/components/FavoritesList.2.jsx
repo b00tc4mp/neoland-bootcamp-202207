@@ -7,6 +7,8 @@ import Loggito from "../utils/Loggito";
 
 import Search from "./Search";
 
+// ================== Component ================== //
+
 function FavoritesList({
   questionsPublic,
   // onDeleteQuestion,
@@ -18,13 +20,19 @@ function FavoritesList({
   gameBeingPlayed,
   handleReturnInGame,
 }) {
+  // ================== consts ================== //
+
   const logger = new Loggito("List");
 
   const questionText = {}; // dictionary
 
+  // ================== Hook consts ================== //
+
   const location = useLocation();
 
   const [favorites, setFavorites] = useState([]);
+
+  // ================== useEffects ================== //
 
   useEffect(() => {
     const favoritesTemp = questionsPublic.filter(
@@ -42,13 +50,16 @@ function FavoritesList({
     }
   });
 
-  //changed to arrow function
+  // ================== Function: adjusts height of text area ================== //
+
   const textAreaAdjust = (questionId) => {
     questionText[questionId].style.height = "inherit";
     questionText[questionId].style.height = `${
       25 + questionText[questionId].scrollHeight
     }px`;
   };
+
+  // ================== Functions ================== //
 
   const onEditQuestion = (questionId) => {
     handleEditQuestion(questionId, location);
@@ -61,9 +72,7 @@ function FavoritesList({
     handleFavoritesClick(questionId, action, location);
   };
 
-  /* const checkFavorites = (questionId) => {
-    favorites.find(questionId);
-  }; */
+  // ================== jsx ================== //
 
   return (
     <div className="grouped-elements questions-list-panel">

@@ -1,36 +1,27 @@
-/* html,
-body {
-  margin: 0;
-  padding: 0;
-  width: 100wh;
-  height: 100vh;
-  background: dodgerblue;
-  font-weight: 100;
-  font-family: sans-serif;
-}
-
-body {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-} */
-
-confetti-button {
-  position: relative;
+.confetti-button {
   bottom: 20%;
-  font-size: 24pt;
+  font-size: 1.6rem;
   letter-spacing: 3px;
-  background: var(--color-teacher-secondary);
   border: none;
-  border-radius: 5px;
+  border-radius: 20px;
   color: white;
   cursor: pointer;
   transition: all 0.4s;
-  padding: 10px 20px;
+  padding: 20px 30px;
+  width: 70%;
+  margin-top: 100px;
 }
 
-button:hover {
-  color: var(--color-home-secondary-hover);
+.confetti-button--correct {
+  background-color: hsl(151, 67%, 33%);
+}
+
+.confetti-button--incorrect {
+  background-color: rgb(225, 7, 7);
+}
+
+.confetti-button:hover {
+  color: aquamarine;
 }
 
 button:focus {

@@ -5,16 +5,18 @@ import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 
 import Loggito from "../utils/Loggito";
 import withContext from "../utils/withContext";
-import Settings from "../components/Settings";
 
-import QuestionsList from "../components/QuestionsList";
-import CommunityList from "../components/CommunityList_adapted";
-import FavoritesList from "../components/FavoritesList";
-import CollectionsList from "../components/CollectionsList";
-import Header from "../components/Header";
-import LandingPanel from "../components/LandingPanel";
-import EditQuestionPanel from "../components/EditQuestionPanel";
-import CreateQuestionPanel from "../components/CreateQuestionPanel";
+import {
+  Settings,
+  QuestionsList,
+  CommunityList,
+  FavoritesList,
+  CollectionsList,
+  Header,
+  LandingPanel,
+  EditQuestionPanel,
+  CreateQuestionPanel,
+} from "../components";
 
 import { QuizMaster } from "../game-screens/main-screens";
 

@@ -1,12 +1,9 @@
 // ================== Imports ================== //
 
-// import { useEffect } from "react";
 import "./Menu.css";
-// import IconButton from "./IconButton";
 import Loggito from "../utils/Loggito";
 import withContext from "../utils/withContext";
 import { useState } from "react";
-// import { useLocation } from "react-router-dom";
 
 function Menu({
   menuView,
@@ -16,13 +13,17 @@ function Menu({
   onCloseClick,
   context: { handleThemeChange },
 }) {
-  const [themeMenu, setThemeMenu] = useState(null);
+  // ================== Consts ================== //
 
   const logger = new Loggito("Menu");
 
-  // const location = useLocation();
+  // ================== Hook consts ================== //
+
+  const [themeMenu, setThemeMenu] = useState(null);
 
   logger.info("render");
+
+  // ================== Functions: change pages within home ================== //
 
   const handleLogoutClick = () => onLogoutClick();
 
@@ -33,6 +34,8 @@ function Menu({
   const handleHomeClick = () => {
     onHomeClick();
   };
+
+  // ================== Functions: change themes ================== //
 
   const onThemeMenuClick = () => {
     if (!themeMenu) setThemeMenu("showThemeMenu");
@@ -60,18 +63,7 @@ function Menu({
     onCloseClick();
   };
 
-  /*  const elementsMenu =
-    menuView === "notes"
-      ? [
-          { text: "Settings", action: handleSettingsClick, key: 1 },
-          { text: "Theme", action: onThemeMenuClick, key: 3 },
-          { text: "Logout", action: handleLogoutClick, key: 4 },
-        ]
-      : [
-          { text: "Notes", action: handleNotesClick, key: 2 },
-          { text: "Theme", action: onThemeMenuClick, key: 3 },
-          { text: "Logout", action: handleLogoutClick, key: 4 },
-        ]; */
+  // ================== Values to map the menu ================== //
 
   const elementsMenu =
     menuView === "home"
@@ -85,6 +77,8 @@ function Menu({
           { text: "Theme", action: onThemeMenuClick, key: 3 },
           { text: "Logout", action: handleLogoutClick, key: 4 },
         ];
+
+  // ================== jsx ================== //
 
   return (
     <>
@@ -113,7 +107,6 @@ function Menu({
             onClick={onThemeClick1}
           >
             <button className="dropdown__link">
-              {/* <i className="fa-solid fa-poo nav-icon poo-list-style"></i> */}
               <span className="material-symbols-outlined">arrow_right</span>
               Classic
             </button>

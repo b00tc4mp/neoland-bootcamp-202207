@@ -1,6 +1,6 @@
 // ================== Imports ================== //
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 // ================== Component ================== //
 
@@ -25,6 +25,8 @@ function Teacher4IncomingResponses({
   const [timeoutId, setTimeoutId] = useState(null);
   const [intervalId, setIntervalId] = useState(null);
 
+  const counterRef = useRef(null);
+
   useEffect(() => {
     const id = setTimeout(timeLimit);
 
@@ -32,12 +34,12 @@ function Teacher4IncomingResponses({
 
     let contador = timeLimit / 1000;
 
-    document.querySelector(".num").innerHTML = contador;
+    counterRef.current.innerHTML = contador;
 
     const interval = setInterval(() => {
       contador--;
 
-      document.querySelector(".num").innerHTML = contador;
+      counterRef.current.innerHTML = contador;
 
       if (contador <= 0) {
         clearInterval(interval);
@@ -60,7 +62,6 @@ function Teacher4IncomingResponses({
     clearInterval(intervalId);
 
     handleScreenChangeT4("Teacher5MarkResponses");
-    debugger;
     socket.emit("T4", { host });
   };
 
@@ -74,7 +75,6 @@ function Teacher4IncomingResponses({
             PIN: {pin} <br></br>
             Class: {nameOfClass}
           </p>
-          {/* <div clasName="grouped-elements"> */}
 
           <div className="grouped-elements flex-row">
             <div className="progress-bar">
@@ -83,12 +83,10 @@ function Teacher4IncomingResponses({
                 style={{ animation: `fill ${timeLimit / 1000}s linear` }}
               ></div>
             </div>
-            <div className="num"></div>
+            <div className="num" ref={counterRef}></div>
           </div>
-
-          {/* </div> */}
-          {/* <CountdownTimer timeLimit={timeLimit} /> */}
         </div>
+
         <div className="grouped-elements">
           <p className="paragraph--bold">Question:</p>
           <p className="list__item-text list__item-text-readonly info">
@@ -182,9 +180,7 @@ function Teacher4IncomingResponses({
         </button>
       </main>
 
-      <footer className="game-screen-footer">
-        {/* <button className="footer-button">Start Game</button> */}
-      </footer>
+      <footer className="game-screen-footer"></footer>
     </div>
   );
 }

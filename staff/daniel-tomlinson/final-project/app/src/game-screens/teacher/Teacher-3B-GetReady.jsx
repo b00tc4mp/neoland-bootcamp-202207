@@ -2,8 +2,6 @@
 
 import { useEffect } from "react";
 
-import "../ScreenTemplate.1.scss";
-
 // ================== Component ================== //
 
 function Teacher3BGetReady({ handleScreenChangeT3B }) {

@@ -2,23 +2,16 @@
 
 import { useEffect } from "react";
 
-// import "./ScreenTemplate.1.css";
-import "../ScreenTemplate.1.scss";
-// import Spinner from "./Spinner";
-// import CountdownTimer from "./CountdownTimer";
-
-// const handleLeaveClick = () => {};
-
-// const handleFormSubmit = () => {};
+// ================== Component ================== //
 
 function Student3GetReady({ handleScreenChangeS3 }) {
-  useEffect(() => {
-    /* const countdownStart = Date.now();
+  // ================== useEffects ================== //
 
-    if (Date.now() > countdownStart + 4000)
-      handleScreenChangeS3("Student4GetReady"); */
+  useEffect(() => {
     setTimeout(() => handleScreenChangeS3("Student4ResponseInput"), 4650);
   }, []);
+
+  // ================== jsx ================== //
 
   return (
     <div className="game-screen">
@@ -71,9 +64,7 @@ function Student3GetReady({ handleScreenChangeS3 }) {
         </div>
       </main>
 
-      <footer className="game-screen-footer">
-        {/* <button className="footer-button">Start Game</button> */}
-      </footer>
+      <footer className="game-screen-footer"></footer>
     </div>
   );
 }

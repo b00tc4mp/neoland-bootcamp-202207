@@ -1,7 +1,7 @@
 // ================== Imports ================== //
 
 import CollectionsList from "./CollectionsList";
-import CommunityList from "./CommunityList_adapted";
+import CommunityList from "./CommunityList";
 import Confetti from "./Confetti";
 import CreateQuestionPanel from "./CreateQuestionPanel";
 import EditQuestionPanel from "./EditQuestionPanel";
@@ -10,9 +10,10 @@ import Feedback from "./Feedback";
 import Header from "./Header";
 import LandingPanel from "./LandingPanel";
 import Menu from "./Menu";
-import QuestionList from "./QuestionsList";
-import Search from "./search";
+import QuestionsList from "./QuestionsList";
+import Search from "./Search";
 import Settings from "./Settings";
+import Spinner from "./Spinner";
 
 // ================== Exports ================== //
 
@@ -27,7 +28,8 @@ export {
   Header,
   LandingPanel,
   Menu,
-  QuestionList,
+  QuestionsList,
   Search,
   Settings,
+  Spinner,
 };

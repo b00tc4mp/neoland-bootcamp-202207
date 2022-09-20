@@ -1,32 +1,24 @@
 // ================== Imports ================== //
 
-// import "./ScreenTemplate.1.css";
-// import "./ScreenTemplate.1.scss";
-// import Spinner from "./Spinner";
-// import CountdownTimer from "./CountdownTimer";
-
-// const handleLeaveClick = () => {};
-
-const handleFormSubmit = () => {};
+// ================== Component ================== //
 
 function Teacher6ResponseStats({
   pin,
   nameOfClass,
-  stats,
   handleScreenChangeT6,
   correct,
   incorrect,
-  questionType,
 }) {
   const onButtonClick = () => {
     handleScreenChangeT6("Teacher2PlayersConnected");
   };
 
+  // ================== consts ================== //
+
   const correctPercent = (correct / (correct + incorrect)) * 100;
   const incorrectPercent = (incorrect / (correct + incorrect)) * 100;
 
-  // const correctStats = document.getElementById("correct-stats");
-  // correctStats.style = { height: "80%" };
+  // ================== jsx ================== //
 
   return (
     <div className="game-screen">
@@ -43,7 +35,6 @@ function Teacher6ResponseStats({
             className="correct stats-bar"
             style={{ height: `${correctPercent}%` }}
           >
-            {/* {correct} */}
             <span className="material-symbols-outlined stats-icon">
               sentiment_satisfied
             </span>
@@ -52,7 +43,6 @@ function Teacher6ResponseStats({
             className="incorrect stats-bar"
             style={{ height: `${incorrectPercent}%` }}
           >
-            {/* {incorrect} */}
             <span className="material-symbols-outlined stats-icon">
               sentiment_dissatisfied
             </span>

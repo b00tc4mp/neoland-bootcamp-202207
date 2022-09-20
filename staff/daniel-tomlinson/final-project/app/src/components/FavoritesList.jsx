@@ -15,29 +15,31 @@ import {
 
 import withContext from "../utils/withContext";
 
+// ================== Component ================== //
+
 function FavoritesList({
-  // questionsPublic,
   handleEditQuestion,
-  // handleFavoritesClick,
   onReturn,
-  // onSearchPublic,
   gameBeingPlayed,
   handleSelectQuestionForGame,
-  handleReturnInGame,
   context: { handleFeedback },
 }) {
+  // ================== Consts ================== //
+
   const logger = new Loggito("List");
 
   const questionText = {}; // dictionary
 
-  const location = useLocation();
+  const handleSearch = (query) => setQuery(query);
 
-  const [questionsPublic, setQuestionsPublic] = useState();
+  // ================== Hook consts ================== //
+
+  const location = useLocation();
 
   const [favorites, setFavorites] = useState([]);
   const [query, setQuery] = useState();
 
-  const handleSearch = (query) => setQuery(query);
+  // ================== useEffects ================== //
 
   useEffect(() => {
     loadQuestionsPublic();
@@ -46,6 +48,26 @@ function FavoritesList({
   useEffect(() => {
     loadQuestionsPublic();
   }, [query]);
+
+  useEffect(() => {
+    logger.info("useEffect communitylist");
+
+    if (favorites) {
+      favorites.map((question) => textAreaAdjust(question.id));
+      logger.info("question text area adjusted");
+    }
+  });
+
+  // ================== function: adjusts textarea height ================== //
+
+  const textAreaAdjust = (questionId) => {
+    questionText[questionId].style.height = "inherit";
+    questionText[questionId].style.height = `${
+      25 + questionText[questionId].scrollHeight
+    }px`;
+  };
+
+  // ================== Function: retrieves public questions and renders favorites lis ================== //
 
   const loadQuestionsPublic = () => {
     try {
@@ -99,25 +121,14 @@ function FavoritesList({
     }
   };
 
-  useEffect(() => {
-    logger.info("useEffect communitylist");
-
-    if (favorites) {
-      favorites.map((question) => textAreaAdjust(question.id));
-      logger.info("question text area adjusted");
-    }
-  });
-
-  //changed to arrow function
-  const textAreaAdjust = (questionId) => {
-    questionText[questionId].style.height = "inherit";
-    questionText[questionId].style.height = `${
-      25 + questionText[questionId].scrollHeight
-    }px`;
-  };
+  // ================== Functions ================== //
 
   const onEditQuestion = (questionId) => {
     handleEditQuestion(questionId, location);
+  };
+
+  const onSelectQuestionForGame = (questionId) => {
+    handleSelectQuestionForGame(questionId);
   };
 
   const handleUpdateFavorites = (questionId, action, location) => {
@@ -153,13 +164,7 @@ function FavoritesList({
     loadQuestionsPublic();
   };
 
-  /* const checkFavorites = (questionId) => {
-    favorites.find(questionId);
-  }; */
-
-  const onSelectQuestionForGame = (questionId) => {
-    handleSelectQuestionForGame(questionId);
-  };
+  // ================== jsx ================== //
 
   return (
     <div className="grouped-elements questions-list-panel">
@@ -187,13 +192,8 @@ function FavoritesList({
                     {question.isFav && (
                       <span
                         className="material-symbols-rounded question-option-button question-option-button-stars--true"
-                        onClick={
-                          () => onFavoritesClick(question.id, question.isFav)
-                          /* handleUpdateFavorites(
-                            question.id,
-                            question.isFav,
-                            location.pathname
-                          ) */
+                        onClick={() =>
+                          onFavoritesClick(question.id, question.isFav)
                         }
                       >
                         stars
@@ -202,13 +202,8 @@ function FavoritesList({
                     {!question.isFav && (
                       <span
                         className="material-symbols-rounded question-option-button question-option-button-stars--false"
-                        onClick={
-                          () => onFavoritesClick(question.id, question.isFav)
-                          /* handleUpdateFavorites(
-                            question.id,
-                            question.isFav,
-                            location.pathname
-                          ) */
+                        onClick={() =>
+                          onFavoritesClick(question.id, question.isFav)
                         }
                       >
                         stars
@@ -227,28 +222,7 @@ function FavoritesList({
                       </span>
                       <p className="question-option-button">3</p>
                     </div>
-
-                    {/* <button
-                    className="material-symbols-outlined question-option-button"
-                    onClick={() => onDeleteQuestion(question.id)}
-                  >
-                    close
-                  </button> */}
                   </div>
-                  {/* <textarea
-                  ref={(ref) => (questionText[question.id] = ref)}
-                  className="list__item-text"
-                  onKeyUp={(event) => {
-                    textAreaAdjust(question.id);
-                    if (window.updateQuestionTimeoutId)
-                      clearTimeout(window.updateQuestionTimeoutId);
-                    window.updateQuestionTimeoutId = setTimeout(() => {
-                      const question = event.target.value;
-                      onUpdateQuestion(question.id, question);
-                    }, 500);
-                  }}
-                  defaultValue={question.question}
-                ></textarea> */}
                   <p
                     ref={(ref) => (questionText[question.id] = ref)}
                     className="list__item-text list__item-text-readonly"
@@ -272,22 +246,12 @@ function FavoritesList({
                       <p className="question-option-button">2</p>
                     </div>
                     {question.isFav && (
-                      <span
-                        className="material-symbols-rounded question-option-button question-option-button-stars--true"
-                        /* onClick={() =>
-                          onFavoritesClick(question.id, question.isFav, )
-                        } */
-                      >
+                      <span className="material-symbols-rounded question-option-button question-option-button-stars--true">
                         stars
                       </span>
                     )}
                     {!question.isFav && (
-                      <span
-                        className="material-symbols-rounded question-option-button question-option-button-stars--false"
-                        /* onClick={() =>
-                          onFavoritesClick(question.id, question.isFav)
-                        } */
-                      >
+                      <span className="material-symbols-rounded question-option-button question-option-button-stars--false">
                         stars
                       </span>
                     )}

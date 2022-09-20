@@ -3,13 +3,12 @@
 import Teacher3CreateQuestionPanel from "./Teacher-3-CreateQuestionPanel";
 import Teacher3EditQuestionPanel from "./Teacher-3-EditQuestionPanel";
 import Teacher3SelectFolderPanel from "./Teacher-3-SelectFolderPanel";
-import QuestionsList from "../../components/QuestionsList";
-import CommunityList from "../../components/CommunityList_adapted";
-import FavoritesList from "../../components/FavoritesList.jsx";
-import CollectionsList from "../../components/CollectionsList";
-
-// delete?
-import "./timeSelect.scss";
+import {
+  QuestionsList,
+  CommunityList,
+  FavoritesList,
+  CollectionsList,
+} from "../../components";
 
 import Loggito from "../../utils/Loggito";
 

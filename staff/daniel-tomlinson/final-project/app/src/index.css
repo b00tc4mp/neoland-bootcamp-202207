@@ -10,7 +10,7 @@
   --color-home-secondary: hsl(42, 100%, 70%);
   --color-home-secondary-hover: hsl(42, 100%, 60%);
   --color-feedback-correct: #21a179;
-  --color-feedback-incorrect: #af4d98;
+  --color-feedback-incorrect: hsl(0, 73%, 55%);
 }
 
 :root {
@@ -340,7 +340,9 @@ input:focus {
 
 .correct-screen {
   background-color: var(--color-feedback-correct);
-  position: absolute;
+  position: fixed;
+  top: 0;
+  left: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -352,11 +354,10 @@ input:focus {
 .incorrect {
   background-color: var(--color-feedback-incorrect);
   height: 100%;
-  /* width: 25%; */
 }
 
 .incorrect-screen {
-  background-color: var(--color-feedback-correct);
+  background-color: var(--color-feedback-incorrect);
 }
 
 .class-closed {

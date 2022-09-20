@@ -2,11 +2,7 @@
 
 // ================== Component ================== //
 
-function Teacher1StartClass({
-  handleScreenChangeT1,
-  socket,
-  handleStartClass,
-}) {
+function Teacher1StartClass({ socket, handleStartClass }) {
   // ================== Function ================== //
 
   const handleFormSubmit = (event) => {
@@ -18,8 +14,7 @@ function Teacher1StartClass({
 
     const nameOfClass = nameOfClassInput.value;
 
-    // const pin = Math.round(Math.random() * 100000000);
-    const pin = Math.round(Math.random() * 100);
+    const pin = Math.round(Math.random() * 10000);
 
     const host = socket.id;
 
@@ -29,7 +24,6 @@ function Teacher1StartClass({
     }
     form.reset();
 
-    // handleScreenChangeT1("Teacher2PlayersConnected", nameOfClass, pin, host);
     handleStartClass("Teacher2PlayersConnected", nameOfClass, pin, host);
 
     socket.emit("T1", {

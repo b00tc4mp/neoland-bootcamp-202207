@@ -1,4 +1,8 @@
+// ================== Imports ================== //
+
 import "./Spinner.css";
+
+// ================== Component ================== //
 
 function Spinner() {
   return (

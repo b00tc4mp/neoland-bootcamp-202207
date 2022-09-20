@@ -1,8 +1,12 @@
 // ================== Imports ================== //
 
 import confetti from "https://cdn.skypack.dev/canvas-confetti";
+import "./Confetti.css";
 
-function Confetti() {
+// ================== Component ================== //
+
+function Confetti({ text, text2, correct }) {
+  // ================== Functions ================== //
   const doItNow = (evt, hard) => {
     const direction = Math.sign(lastX - evt.clientX);
     lastX = evt.clientX;
@@ -26,24 +30,40 @@ function Confetti() {
   };
 
   let lastX = 0;
-  debugger;
-  //   const butt = document.getElementById("confetti-button");
-  //   butt.addEventListener("mousemove", doIt);
-  //   butt.addEventListener("click", doItHard);
 
   function r(mi, ma) {
     return parseInt(Math.random() * (ma - mi) + mi);
   }
 
+  // ================== jsx ================== //
+
   return (
-    <button
-      className="confetti-button non-footer-button"
-      id="confetti-button"
-      onClick={doItHard}
-      onMouseOver={doIt}
-    >
-      Well Done!
-    </button>
+    <div className="grouped-elements">
+      {correct === true && (
+        <button
+          className="non-footer-button confetti-button confetti-button--correct"
+          id="confetti-button"
+          onClick={doItHard}
+          onMouseOver={doIt}
+        >
+          {text}
+          <br></br>
+          {text2}
+        </button>
+      )}
+      {correct === false && (
+        <button
+          className="non-footer-button confetti-button confetti-button--incorrect"
+          id="confetti-button"
+          onClick={doItHard}
+          onMouseOver={doIt}
+        >
+          {text}
+          <br></br>
+          {text2}
+        </button>
+      )}
+    </div>
   );
 }
 

@@ -1,7 +1,6 @@
 // ================== Imports ================== //
 
-// delete?
-import "./timeSelect.scss";
+import "../../components/timeSelect.scss";
 
 import Loggito from "../../utils/Loggito";
 import createQuestion from "../../logic/createQuestion";

@@ -7,9 +7,6 @@ import {
   Teacher2PlayersConnected,
   Teacher3BGetReady,
   Teacher3CreateQuestion,
-  Teacher3CreateQuestionPanel,
-  Teacher3EditQuestionPanel,
-  Teacher3SelectFolderPanel,
   Teacher4IncomingResponses,
   Teacher5MarkResponses,
   Teacher6ResponseStats,
@@ -21,6 +18,8 @@ import withContext from "../../utils/withContext";
 
 import createGameCode from "../../logic/createGameCode";
 
+// ================== Component ================== //
+
 function QuizTeacherMaster({
   socket,
   handleLeaveClass,
@@ -28,7 +27,11 @@ function QuizTeacherMaster({
   selectQuestionForGame,
   context: { handleFeedback },
 }) {
+  // ================== consts ================== //
+
   const logger = new Loggito("QuizTeacher");
+
+  // ================== Hook consts ================== //
 
   const [gameScreen, setGameScreen] = useState("Teacher1StartClass");
   const [nameOfClass, setNameOfClass] = useState("");
@@ -47,9 +50,38 @@ function QuizTeacherMaster({
   const [correctAnswers, setCorrectAnswers] = useState([]);
   const [answersCombined, setAnswersCombined] = useState([]);
 
-  const onLeaveClass = () => {
-    handleLeaveClass();
-  };
+  // ================== useEffect: opens socket listeners on component mount ================== //
+
+  useEffect(() => {
+    socket.on("S1.5", (data) => {
+      console.log("S1 data received by client:");
+      console.log(data);
+
+      console.log("nickname:");
+      console.log(nickname);
+      setSocketsConnected((socketsConnected) => [
+        ...socketsConnected,
+        data.socketId,
+      ]);
+      console.log("Sockets connected:");
+      console.log(socketsConnected);
+      if (!socketsConnected.includes(data.socketId))
+        setNickname((nickname) => [...nickname, data.nickname.nickname]);
+      console.log("Nickname received:");
+      console.log(data.nickname.nickname);
+    });
+
+    socket.on("S4.5", (data) => {
+      console.log("S4 data received by client:");
+      console.log(data);
+      setResponses((responses) => [...responses, data]);
+      console.log("responses state in QuizTeacher");
+      console.log(responses);
+      // }
+    });
+  }, []);
+
+  // ================== Functions: start and end quiz ================== //
 
   const handleStartClass = (gameScreen, nameOfClass, pin, host) => {
     try {
@@ -94,12 +126,15 @@ function QuizTeacherMaster({
     setResponses([]);
     setCorrect(0);
     setIncorrect(0);
+  };
 
-    // handleCloseGame();
+  // ================== Functions: handle changes of game screen ================== //
+
+  const onLeaveClass = () => {
+    handleLeaveClass();
   };
 
   const handleScreenChangeT1 = (gameScreen, nameOfClass, pin, host) => {
-    // handleStartClass(nameOfClass, pin, host);
     setGameScreen(gameScreen);
     setNameOfClass(nameOfClass);
     setPin(pin);
@@ -149,34 +184,7 @@ function QuizTeacherMaster({
     setGameScreen(gameScreen);
   };
 
-  useEffect(() => {
-    socket.on("S1.5", (data) => {
-      console.log("S1 data received by client:");
-      console.log(data);
-
-      console.log("nickname:");
-      console.log(nickname);
-      setSocketsConnected((socketsConnected) => [
-        ...socketsConnected,
-        data.socketId,
-      ]);
-      console.log("Sockets connected:");
-      console.log(socketsConnected);
-      if (!socketsConnected.includes(data.socketId))
-        setNickname((nickname) => [...nickname, data.nickname.nickname]);
-      console.log("Nickname received:");
-      console.log(data.nickname.nickname);
-    });
-
-    socket.on("S4.5", (data) => {
-      console.log("S4 data received by client:");
-      console.log(data);
-      setResponses((responses) => [...responses, data]);
-      console.log("responses state in QuizTeacher");
-      console.log(responses);
-      // }
-    });
-  }, []);
+  // ================== jsx ================== //
 
   return (
     <div className="game-screen">
@@ -202,15 +210,12 @@ function QuizTeacherMaster({
         </button>
       </header>
       <main className="game-screen-main">
-        {/* <Teacher1StartClass /> */}
         {gameScreen === "Teacher1StartClass" && (
           <Teacher1StartClass
-            // handleScreenChangeT1={handleScreenChangeT1}
             handleStartClass={handleStartClass}
             socket={socket}
           />
         )}
-        {/* <Teacher2PlayersConnected /> */}
         {gameScreen === "Teacher2PlayersConnected" && (
           <Teacher2PlayersConnected
             nameOfClass={nameOfClass}
@@ -221,7 +226,6 @@ function QuizTeacherMaster({
             // host={host}
           />
         )}
-        {/* <Teacher3CreateQuestion /> */}
         {gameScreen === "Teacher3CreateQuestion" && (
           <Teacher3CreateQuestion
             pin={pin}
@@ -232,14 +236,12 @@ function QuizTeacherMaster({
             selectQuestionForGame={selectQuestionForGame}
           />
         )}
-        {/* <Teacher3BGetReady /> */}
         {gameScreen === "Teacher3BGetReady" && (
           <Teacher3BGetReady
             handleScreenChangeT3B={handleScreenChangeT3B}
             // host={host}
           />
         )}
-        {/* <Teacher4Incomingresponses /> */}
         {gameScreen === "Teacher4IncomingResponses" && (
           <Teacher4IncomingResponses
             pin={pin}
@@ -254,7 +256,6 @@ function QuizTeacherMaster({
             answersCombined={answersCombined}
           />
         )}
-        {/* <Teacher5MarkResponses /> */}
         {gameScreen === "Teacher5MarkResponses" && (
           <Teacher5MarkResponses
             pin={pin}
@@ -267,7 +268,6 @@ function QuizTeacherMaster({
             correctAnswers={correctAnswers}
           />
         )}
-        {/* <Teacher6ResponseStats /> */}
         {gameScreen === "Teacher6ResponseStats" && (
           <Teacher6ResponseStats
             handleScreenChangeT6={handleScreenChangeT6}
@@ -279,7 +279,6 @@ function QuizTeacherMaster({
             questionType={questionType}
           />
         )}
-        {/* <Teacher7ClassClosed /> */}
         {gameScreen === "Teacher7ClassClosed" && (
           <Teacher7ClassClosed
             handleScreenChangeT7={handleScreenChangeT7}
@@ -287,8 +286,6 @@ function QuizTeacherMaster({
           />
         )}
       </main>
-      {/* {gamePhase === "gamePhaseKey" && <ScreenTemplate1 />} */}
-
       <footer className="game-screen-footer"></footer>
     </div>
   );

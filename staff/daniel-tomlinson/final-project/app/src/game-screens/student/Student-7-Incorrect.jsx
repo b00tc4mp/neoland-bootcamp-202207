@@ -1,32 +1,33 @@
 // ================== Imports ================== //
 
-// import "./ScreenTemplate.1.css";
-// import "./ScreenTemplate.1.scss";
-// import Spinner from "./Spinner";
-// import CountdownTimer from "./CountdownTimer";
-
-// const handleLeaveClick = () => {};
+import { Confetti } from "../../components";
 
 import { useEffect } from "react";
 
-const handleFormSubmit = () => {};
-
 function Student7Incorrect({ handleScreenChangeS7 }) {
+  // ================== useEffects ================== //
   useEffect(() => {
-    setTimeout(() => handleScreenChangeS7("Student8WaitingForQuestion"), 15000);
+    setTimeout(() => {
+      handleScreenChangeS7("Student8WaitingForQuestion");
+    }, 15000);
   }, []);
+
+  // ================== jsx ================== //
+
   return (
-    <div className="game-screen incorrect">
-      <main className="game-screen-main flex--space-around incorrect">
+    <div className="game-screen correct-screen incorrect-screen">
+      <main className="game-screen-main correct-screen incorrect-screen flex--space-between">
         <span class="material-symbols-outlined feedback-icon">
           sentiment_dissatisfied
         </span>
-        <p className="info">Better luck next time!</p>
+        <Confetti
+          text="Better luck next time!"
+          text2={"Click me!!"}
+          correct={false}
+        />
       </main>
 
-      <footer className="game-screen-footer">
-        {/* <button className="footer-button">Start Game</button> */}
-      </footer>
+      <footer className="game-screen-footer"></footer>
     </div>
   );
 }

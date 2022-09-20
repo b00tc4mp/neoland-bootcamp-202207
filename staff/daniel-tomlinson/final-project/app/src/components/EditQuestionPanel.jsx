@@ -1,5 +1,7 @@
 // ================== Imports ================== //
 
+import "./timeSelect.scss";
+
 import { useEffect, useState, useRef } from "react";
 import Loggito from "../utils/Loggito";
 

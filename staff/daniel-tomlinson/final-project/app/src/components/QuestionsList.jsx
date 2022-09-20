@@ -11,6 +11,8 @@ import { retrieveQuestions, searchQuestions, deleteQuestion } from "../logic";
 
 import withContext from "../utils/withContext";
 
+// ================== Component ================== //
+
 function QuestionsList({
   onDeleteQuestion,
   onUpdateQuestion,
@@ -21,16 +23,22 @@ function QuestionsList({
   handleReturnInGame,
   context: { handleFeedback },
 }) {
+  // ================== Consts ================== //
+
   const logger = new Loggito("List");
 
   const questionText = {}; // dictionary
+
+  const handleSearch = (query) => setQuery(query);
+
+  // ================== Hook consts ================== //
 
   const location = useLocation();
 
   const [questions, setQuestions] = useState();
   const [query, setQuery] = useState();
 
-  const handleSearch = (query) => setQuery(query);
+  // ================== useEffects ================== //
 
   useEffect(() => {
     loadQuestions();
@@ -39,6 +47,26 @@ function QuestionsList({
   useEffect(() => {
     loadQuestions();
   }, [query]);
+
+  useEffect(() => {
+    logger.info("useEffect questionlist");
+
+    if (questions) {
+      questions.map((question) => textAreaAdjust(question.id));
+      logger.info("question text area adjusted");
+    }
+  });
+
+  // ================== Function: adjusts height of textarea ================== //
+
+  const textAreaAdjust = (questionId) => {
+    questionText[questionId].style.height = "inherit";
+    questionText[questionId].style.height = `${
+      25 + questionText[questionId].scrollHeight
+    }px`;
+  };
+
+  // ================== Function: retrieves users questions and renders list ================== //
 
   const loadQuestions = () => {
     try {
@@ -77,6 +105,8 @@ function QuestionsList({
     }
   };
 
+  // ================== Functions ================== //
+
   const handleDeleteQuestion = (questionId) => {
     try {
       deleteQuestion(sessionStorage.token, questionId, (error) => {
@@ -97,26 +127,6 @@ function QuestionsList({
     }
   };
 
-  // This is to play with text area
-  useEffect(() => {
-    logger.info("useEffect questionlist");
-
-    if (questions) {
-      questions.map((question) => textAreaAdjust(question.id));
-      logger.info("question text area adjusted");
-    }
-  });
-
-  //changed to arrow function
-  const textAreaAdjust = (questionId) => {
-    questionText[questionId].style.height = "inherit";
-    questionText[questionId].style.height = `${
-      25 + questionText[questionId].scrollHeight
-    }px`;
-  };
-
-  // =========================== //
-
   const onEditQuestion = (questionId) => {
     handleEditQuestion(questionId, location);
   };
@@ -124,6 +134,8 @@ function QuestionsList({
   const onSelectQuestionForGame = (questionId) => {
     handleSelectQuestionForGame(questionId);
   };
+
+  // ================== jsx ================== //
 
   return (
     <div className="grouped-elements questions-list-panel">

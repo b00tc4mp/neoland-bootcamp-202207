@@ -14,7 +14,11 @@ import {
   Student9ClassClosed,
 } from "../student";
 
+// ================== Component ================== //
+
 function QuizStudentMaster({ socket, handleFeedback, handleLeaveClass }) {
+  // ================== Hook consts ================== //
+
   const [gameScreen, setGameScreen] = useState("Student1EnterClass");
   const [nameOfClass, setNameOfClass] = useState("");
   const [nickname, setNickname] = useState("");
@@ -32,47 +36,9 @@ function QuizStudentMaster({ socket, handleFeedback, handleLeaveClass }) {
   const [answerC, setAnswerC] = useState(["", "incorrect"]);
   const [answerD, setAnswerD] = useState(["", "incorrect"]);
 
-  const handleLeaveClick = () => {};
-
-  const onLeaveClass = () => {
-    handleLeaveClass();
-  };
-
-  const handleScreenChangeS1 = (gameScreen, nickname, host) => {
-    setGameScreen(gameScreen);
-    setNickname(nickname);
-    setHost(host);
-  };
-
-  const handleScreenChangeS3 = (gameScreen) => {
-    setGameScreen(gameScreen);
-  };
-
-  const handleScreenChangeS4 = (gameScreen) => {
-    setGameScreen(gameScreen);
-  };
-
-  const handleScreenChangeS6 = (gameScreen) => {
-    setGameScreen(gameScreen);
-  };
-
-  const handleScreenChangeS7 = (gameScreen) => {
-    setGameScreen(gameScreen);
-  };
-
-  const handleScreenChangeS9 = (gameScreen) => {
-    setGameScreen(gameScreen);
-  };
+  // ================== useEffect: to open socket listeners on page load ================== //
 
   useEffect(() => {
-    /* socket.on("T1.5", (data) => {
-      console.log("T1 data received by client:");
-      console.log(data);
-      console.log(socket);
-      setNameOfClass(data.nameOfClass);
-      setPin(data.pin);
-    }); */
-
     socket.on("T2.5", (data) => {
       console.log("T2 data received by client:");
       console.log(data);
@@ -127,6 +93,42 @@ function QuizStudentMaster({ socket, handleFeedback, handleLeaveClass }) {
     });
   }, []);
 
+  // ================== Functions ================== //
+
+  const handleLeaveClick = () => {};
+
+  const onLeaveClass = () => {
+    handleLeaveClass();
+  };
+
+  const handleScreenChangeS1 = (gameScreen, nickname, host) => {
+    setGameScreen(gameScreen);
+    setNickname(nickname);
+    setHost(host);
+  };
+
+  const handleScreenChangeS3 = (gameScreen) => {
+    setGameScreen(gameScreen);
+  };
+
+  const handleScreenChangeS4 = (gameScreen) => {
+    setGameScreen(gameScreen);
+  };
+
+  const handleScreenChangeS6 = (gameScreen) => {
+    setGameScreen(gameScreen);
+  };
+
+  const handleScreenChangeS7 = (gameScreen) => {
+    setGameScreen(gameScreen);
+  };
+
+  const handleScreenChangeS9 = (gameScreen) => {
+    setGameScreen(gameScreen);
+  };
+
+  // ================== jsx ================== //
+
   return (
     <div className="game-screen">
       <header className="game-screen-header">
@@ -151,7 +153,6 @@ function QuizStudentMaster({ socket, handleFeedback, handleLeaveClass }) {
         </button>
       </header>
       <main className="game-screen-main">
-        {/* <Student1EnterClass /> */}
         {gameScreen === "Student1EnterClass" && (
           <Student1EnterClass
             nameOfClass={nameOfClass}
@@ -161,18 +162,15 @@ function QuizStudentMaster({ socket, handleFeedback, handleLeaveClass }) {
             handleFeedback={handleFeedback}
           />
         )}
-        {/* <Student2Connected /> */}
         {gameScreen === "Student2Connected" && (
           <Student2Connected nickname={nickname} host={host} />
         )}
-        {/* <Student3GetReady /> */}
         {gameScreen === "Student3GetReady" && (
           <Student3GetReady
             handleScreenChangeS3={handleScreenChangeS3}
             host={host}
           />
         )}
-        {/* <Student4ResponseInput /> */}
         {gameScreen === "Student4ResponseInput" && (
           <Student4ResponseInput
             question={question}
@@ -187,40 +185,22 @@ function QuizStudentMaster({ socket, handleFeedback, handleLeaveClass }) {
             answerD={answerD}
           />
         )}
-        {/* <Student5WaitingForFeedback /> */}
         {gameScreen === "Student5WaitingForFeedback" && (
-          <Student5WaitingForFeedback
-          // host={host}
-          />
+          <Student5WaitingForFeedback />
         )}
         {gameScreen === "Student6Correct" && (
-          <Student6Correct
-            handleScreenChangeS6={handleScreenChangeS6}
-            // host={host}
-          />
+          <Student6Correct handleScreenChangeS6={handleScreenChangeS6} />
         )}
-        {/* <Student7Incorrect /> */}
         {gameScreen === "Student7Incorrect" && (
-          <Student7Incorrect
-            handleScreenChangeS7={handleScreenChangeS7}
-            // host={host}
-          />
+          <Student7Incorrect handleScreenChangeS7={handleScreenChangeS7} />
         )}
-        {/* <Student8WaitingForQuestion /> */}
         {gameScreen === "Student8WaitingForQuestion" && (
-          <Student8WaitingForQuestion
-          // host={host}
-          />
+          <Student8WaitingForQuestion />
         )}
-        {/* <Student9ClassClosed /> */}
         {gameScreen === "Student9ClassClosed" && (
-          <Student9ClassClosed
-            handleScreenChangeS9={handleScreenChangeS9}
-            // host={host}
-          />
+          <Student9ClassClosed handleScreenChangeS9={handleScreenChangeS9} />
         )}
       </main>
-      {/* {gamePhase === "gamePhaseKey" && <ScreenTemplate1 />} */}
 
       <footer className="game-screen-footer"></footer>
     </div>

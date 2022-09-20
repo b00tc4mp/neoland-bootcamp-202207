@@ -1,20 +1,12 @@
 // ================== Imports ================== //
 
-// import { SOCKET } from "../SOCKET";
-// import "./ScreenTemplate.1.css";
-// import "./ScreenTemplate.1.scss";
-// import Spinner from "./Spinner";
-// import CountdownTimer from "./CountdownTimer";
-
 import retrieveGameCode from "../../logic/retrieveGameCode";
 
-function Student1EnterClass({
-  pin,
-  nameOfClass,
-  handleScreenChangeS1,
-  socket,
-  handleFeedback,
-}) {
+// ================== Component ================== //
+
+function Student1EnterClass({ handleScreenChangeS1, socket, handleFeedback }) {
+  // ================== Imports ================== //
+
   const handleFormSubmit = (event) => {
     event.preventDefault();
 
@@ -28,10 +20,6 @@ function Student1EnterClass({
     const nameOfClass = nameOfClassInput.value;
     const nickname = nicknameInput.value;
 
-    // const pinString = String(pin.pin);
-    // const nameOfClassString = nameOfClass.nameOfClass;
-
-    // const loadNotes = () => {
     if (pin.trim() === "") {
       alert("Input fields cannot be left blank.");
       throw new Error("Input fields cannot be left blank");
@@ -54,17 +42,12 @@ function Student1EnterClass({
 
           return;
         }
-        // setNotes(notes);
         let gameCodeFiltered = gameCodes.filter(
           (gameCode) =>
             gameCode.nameOfClass === nameOfClass && gameCode.pin === pin
         );
 
-        if (
-          (gameCodeFiltered.length = 1)
-          // pinString === gameCode.pin &&
-          // nameOfClassString === gameCode.nameOfClass
-        ) {
+        if ((gameCodeFiltered.length = 1)) {
           const host = gameCodeFiltered[0].host;
           socket.emit("S1", {
             nickname: { nickname },
@@ -86,6 +69,9 @@ function Student1EnterClass({
     }
     // };
   };
+
+  // ================== jsx ================== //
+
   return (
     <div className="game-screen">
       <main className="game-screen-main flex--spaced">

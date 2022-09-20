@@ -1,14 +1,8 @@
 // ================== Imports ================== //
 
-// import "./ScreenTemplate.1.css";
-// import "./ScreenTemplate.1.scss";
-// import Spinner from "./Spinner";
-// import CountdownTimer from "./CountdownTimer";
-
-// const handleLeaveClick = () => {};
 import { useEffect } from "react";
 
-const handleFormSubmit = () => {};
+// ================== Component ================== //
 
 function Teacher7ClassClosed({ handleScreenChangeT7 }) {
   useEffect(() => {
@@ -17,6 +11,9 @@ function Teacher7ClassClosed({ handleScreenChangeT7 }) {
   const onHomeClick = () => {
     handleScreenChangeT7("Teacher1StartClass");
   };
+
+  // ================== jsx ================== //
+
   return (
     <div className="game-screen">
       <main className="game-screen-main">
@@ -36,9 +33,7 @@ function Teacher7ClassClosed({ handleScreenChangeT7 }) {
         </div>
       </main>
 
-      <footer className="game-screen-footer">
-        {/* <button className="footer-button">Start Game</button> */}
-      </footer>
+      <footer className="game-screen-footer"></footer>
     </div>
   );
 }

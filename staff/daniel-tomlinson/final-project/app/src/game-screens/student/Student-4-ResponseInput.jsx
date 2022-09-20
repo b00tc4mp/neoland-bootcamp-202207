@@ -1,12 +1,8 @@
 // ================== Imports ================== //
 
-// import "./ScreenTemplate.1.css";
-// import "./ScreenTemplate.1.scss";
-// import Spinner from "./Spinner";
-import CountdownTimer from "../CountdownTimer";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
-// const handleLeaveClick = () => {};
+// ================== Component ================== //
 
 function Student4ResponseInput({
   question,
@@ -20,9 +16,7 @@ function Student4ResponseInput({
   answerC,
   answerD,
 }) {
-  const questionString = question;
-  const timeLimitSeconds = Math.floor(timeLimit);
-  const timeLimitNumber = timeLimit;
+  // ================== Hook consts ================== //
 
   const [MCQResponses, setMCQResponses] = useState({
     A: "incorrect",
@@ -33,20 +27,23 @@ function Student4ResponseInput({
 
   const [timeoutId, setTimeoutId] = useState(null);
   const [intervalId, setIntervalId] = useState(null);
+  const counterRef = useRef();
+
+  // ================== useEffects ================== //
 
   useEffect(() => {
-    const id = setTimeout(handleFormSubmit2, timeLimitNumber);
+    const id = setTimeout(handleFormSubmit2, timeLimit);
 
     setTimeoutId(id);
 
     let contador = timeLimit / 1000;
 
-    document.querySelector(".num").innerHTML = contador;
+    counterRef.current.innerHTML = contador;
 
     const interval = setInterval(() => {
       contador--;
 
-      document.querySelector(".num").innerHTML = contador;
+      counterRef.current.innerHTML = contador;
 
       if (contador <= 0) {
         clearInterval(interval);
@@ -56,7 +53,7 @@ function Student4ResponseInput({
     setIntervalId(interval);
   }, []);
 
-  // const [answersSelected, setAnswersSelected] = useState([]);
+  // ================== Function: sends response to teacher on button click - autosends when time limit runs out ================== //
 
   const handleFormSubmit = (event) => {
     debugger;
@@ -96,19 +93,10 @@ function Student4ResponseInput({
       responseDetails.answersSelected = answersSelected;
     }
 
-    // setAnswersSelected(answersSelectedArray);
-
-    // const responseInput = form.response;
-
-    // const response = responseInput.value;
-
-    // const response = String(responseValue.rersponse);
-
     const socketId = socket.id;
 
     socket.emit("S4", {
       responseDetails,
-      // response,
       socketId,
       host,
     });
@@ -116,33 +104,22 @@ function Student4ResponseInput({
     handleScreenChangeS4("Student5WaitingForFeedback");
   };
 
+  // ================== Function: forces button click to auto send results when time runs out ================== //
+
   const handleFormSubmit2 = () => {
     const button = document.getElementsByClassName("response-submit-button");
 
     button[0].click();
   };
 
-  /* const handleFormSubmit2 = () => {
-
-    const form = document.getElementsByClassName("form");
-
-    const responseInput = form[0].response;
-
-    const response = responseInput.value;
-
-    const socketId = socket.id;
-
-    socket.emit("S4", { response, socketId, host });
-
-    handleScreenChangeS4("Student5WaitingForFeedback");
-  }; */
+  // ================== socket.on: forces button click to auto send results on close round from teacher ================== //
 
   socket.on("T4", () => {
     console.log("T4 received by client");
     handleFormSubmit2();
   });
 
-  // useEffect(() => {
+  // ================== Function: to select response as correct ================== //
 
   const handleCorrectClick = (response) => {
     if (response === "A" && MCQResponses.A === "incorrect")
@@ -187,22 +164,12 @@ function Student4ResponseInput({
       }));
   };
 
-  /*   setTimeout(() => {
-    handleFormSubmit2();
-  }, timeLimitNumber); */
-
-  // }, [])
-
-  useEffect(() => {
-    //}, 500);
-  });
+  // ================== jsx ================== //
 
   return (
     <div className="game-screen">
       <main className="game-screen-main">
         <div className="grouped-elements">
-          {/* <CountdownTimer timeLimit={timeLimitSeconds} /> */}
-
           <div className="grouped-elements flex-row">
             <div className="progress-bar">
               <div
@@ -210,12 +177,12 @@ function Student4ResponseInput({
                 style={{ animation: `fill ${timeLimit / 1000}s linear` }}
               ></div>
             </div>
-            <div className="num"></div>
+            <div className="num" ref={counterRef}></div>
           </div>
 
           <p className="paragraph--bold">Question: </p>
           <p className="list__item-text list__item-text-readonly info">
-            {questionString}
+            {question}
           </p>
         </div>
 
@@ -229,13 +196,6 @@ function Student4ResponseInput({
               <label htmlFor="answer" className="input-label input-label--bold">
                 Write your answer:
               </label>
-              {/* <input
-                type="text"
-                placeholder="Write your answer here..."
-                name="response"
-                id="response"
-                className="input-field"
-              /> */}
               <textarea
                 className="list__item-text list-item__text--form input-field"
                 type="text"

@@ -1,6 +1,6 @@
 // ================== Imports ================== //
-// delete?
-import "./timeSelect.scss";
+
+import "../../components/timeSelect.scss";
 
 import retrieveQuestionForEdit from "../../logic/retrieveQuestionForEdit";
 

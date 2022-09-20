@@ -1,31 +1,24 @@
 // ================== Imports ================== //
 
-// import IconButton from './IconButton'
 import Loggito from "../utils/Loggito";
 import updatePassword from "../logic/updatePassword";
 
-// onCloseClick isn't in my code
-// But!! info needs to be passed to Home to change on submit
-// On successful form submit should go to login
-function Settings({ onCloseClick, onFeedback, onLinkClick, onUpdatePassword }) {
+// ================== Component ================== //
+
+function Settings({ onFeedback, onUpdatePassword }) {
+  // ================== Consts ================== //
+
   const logger = new Loggito("Settings");
 
   logger.info("constructor");
 
-  // I think this can be deleted, have no idea what it does
-  // also, there in not¡ onLinkclick in the parent??
-  const handleClick = (event) => {
-    event.preventDefault();
-
-    onLinkClick();
-  };
-
   logger.info("render");
+
+  // ================== Function: updates details in db depending on form id ================== //
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
 
-    // const form = event.target;
     const { target: form } = event;
 
     const formValues = {
@@ -39,16 +32,6 @@ function Settings({ onCloseClick, onFeedback, onLinkClick, onUpdatePassword }) {
     };
 
     formValues.formId = form.id;
-
-    /* if (form.id === "passwordForm") {
-      const oldPasswordInput = form.oldPassword;
-      const newPasswordInput = form.newPassword;
-      const confirmPasswordInput = form.confirmPassword;
-
-      const oldPassword = oldPasswordInput.value;
-      const newPassword = newPasswordInput.value;
-      const confirmPassword = confirmPasswordInput.value;
-    } */
 
     if (form.id === "nameForm") {
       const updatedNameInput = form.updatedName;
@@ -80,9 +63,7 @@ function Settings({ onCloseClick, onFeedback, onLinkClick, onUpdatePassword }) {
       updatePassword(
         sessionStorage.token,
         formValues,
-        /* oldPassword,
-        newPassword,
-        confirmPassword, */
+
         function (error) {
           if (error) {
             onFeedback({ message: error.message, level: "warning" });
@@ -102,8 +83,9 @@ function Settings({ onCloseClick, onFeedback, onLinkClick, onUpdatePassword }) {
 
       logger.warn(error.message);
     }
-    //   props.onResetPassword()
   };
+
+  // ================== jsx ================== //
 
   return (
     <main className="register-page page background flex-container">

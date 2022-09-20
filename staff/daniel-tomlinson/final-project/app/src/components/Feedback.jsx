@@ -1,10 +1,12 @@
 // ================== Imports ================== //
 
 import "./Feedback.css";
-// import Loggito from "../utils/Loggito";
 import withContext from "../utils/withContext";
 
+// ================== Component ================== //
+
 function Feedback({ context: { level, message, handleAcceptFeedback } }) {
+  // ================== jsx ================== //
   return (
     <div
       className={`Feedback flex-container Feedback--${level ? level : "info"}`}

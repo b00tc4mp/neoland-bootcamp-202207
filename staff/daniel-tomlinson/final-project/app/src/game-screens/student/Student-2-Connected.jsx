@@ -1,17 +1,11 @@
 // ================== Imports ================== //
 
-// import { SOCKET } from "../SOCKET";
-// import "./ScreenTemplate.1.css";
-// import "./ScreenTemplate.1.scss";
-import Spinner from "../Spinner";
-// import CountdownTimer from "./CountdownTimer";
+import { Spinner } from "../../components";
 
-// const handleLeaveClick = () => {};
+// ================== Component ================== //
 
 function Student2Connected({ nickname }) {
-  // let className =
-
-  // const handleFormSubmit = (event) => {};
+  // ================== jsx ================== //
 
   return (
     <div className="game-screen">

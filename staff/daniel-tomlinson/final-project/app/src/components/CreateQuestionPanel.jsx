@@ -1,5 +1,7 @@
 // ================== Imports ================== //
 
+import "./timeSelect.scss";
+
 import Loggito from "../utils/Loggito";
 import createQuestion from "../logic/createQuestion";
 
@@ -189,13 +191,6 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
             <label htmlFor="question" className="input-label">
               Question:
             </label>
-            {/* <input
-              type="text"
-              placeholder="Write your question..."
-              name="question"
-              id="question"
-              className="input-field"
-            /> */}
             <textarea
               className="list__item-text list-item__text--form input-field"
               type="text"
@@ -229,13 +224,6 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
               <label htmlFor="suggestedAnswer" className="input-label">
                 Suggested answer:
               </label>
-              {/* <input
-                type="text"
-                placeholder="Write a suggested answer..."
-                name="suggestedAnswer"
-                id="suggestedAnswer"
-                className="input-field"
-              /> */}
               <textarea
                 className="list__item-text list-item__text--form input-field"
                 type="text"
@@ -276,13 +264,6 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
                       </span>
                     )}
                   </div>
-                  {/* <input
-                    type="text"
-                    placeholder="Write answer A..."
-                    name="MCQA"
-                    id="MCQA"
-                    className="input-field"
-                  /> */}
                   <textarea
                     className="list__item-text list-item__text--form input-field"
                     type="text"
@@ -318,13 +299,6 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
                       </span>
                     )}
                   </div>
-                  {/* <input
-                    type="text"
-                    placeholder="Write answer B..."
-                    name="MCQB"
-                    id="MCQB"
-                    className="input-field"
-                  /> */}
                   <textarea
                     className="list__item-text list-item__text--form input-field"
                     type="text"
@@ -362,13 +336,6 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
                       </span>
                     )}
                   </div>
-                  {/* <input
-                    type="text"
-                    placeholder="Write answer C..."
-                    name="MCQC"
-                    id="MCQC"
-                    className="input-field"
-                  /> */}
                   <textarea
                     className="list__item-text list-item__text--form input-field"
                     type="text"
@@ -403,13 +370,6 @@ function CreateQuestionPanel({ handleReturn, context: { handleFeedback } }) {
                       </span>
                     )}
                   </div>
-                  {/* <input
-                    type="text"
-                    placeholder="Write answer D..."
-                    name="MCQD"
-                    id="MCQD"
-                    className="input-field"
-                  /> */}
                   <textarea
                     className="list__item-text list-item__text--form input-field"
                     type="text"
