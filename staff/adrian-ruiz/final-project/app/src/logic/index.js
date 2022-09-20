@@ -22,6 +22,8 @@ import editCustomer from './editCustomer'
 import editItem from './editItem'
 import updateEstimate from './updateEstimate'
 import updateInvoice from './updateInvoice'
+import createInvoicePDF from './createInvoicePDF'
+import sendInvoiceMail from './sendInvoiceMail'
 
 export {
     authenticateUser,
@@ -47,5 +49,7 @@ export {
     editItem,
     updateEstimate,
     updateInvoice,
-    retrieveAInvoice
+    retrieveAInvoice,
+    createInvoicePDF,
+    sendInvoiceMail
 }

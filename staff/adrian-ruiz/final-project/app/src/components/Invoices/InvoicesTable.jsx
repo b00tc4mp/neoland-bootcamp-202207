@@ -17,10 +17,12 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import DownloadIcon from '@mui/icons-material/Download';
+import AttachEmailIcon from '@mui/icons-material/AttachEmail';
 import { visuallyHidden } from '@mui/utils';
 import { toaster } from 'evergreen-ui'
 import DeleteDialog from '../DeleteDialog'
-import { deleteInvoice } from '../../logic'
+import { deleteInvoice, createInvoicePDF, sendInvoiceMail } from '../../logic'
 
 function descendingComparator(a, b, orderBy) {
     if ((typeof a[orderBy] === 'string') && (typeof b[orderBy] === 'string')) {
@@ -157,7 +159,7 @@ EnhancedTableHead.propTypes = {
 };
 
 const EnhancedTableToolbar = (props) => {
-    const { numSelected, handleDeleteClick, handleEditClick } = props;
+    const { numSelected, handleDeleteClick, handleEditClick, handleDownloadClick, handleSendClick } = props;
 
     return (
         <Toolbar
@@ -203,6 +205,16 @@ const EnhancedTableToolbar = (props) => {
                     <Tooltip title="Delete">
                         <IconButton onClick={handleDeleteClick}>
                             <DeleteIcon />
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Send Invoice">
+                        <IconButton onClick={handleSendClick}>
+                            <AttachEmailIcon />
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Download">
+                        <IconButton onClick={handleDownloadClick}>
+                            <DownloadIcon />
                         </IconButton>
                     </Tooltip>
                 </>
@@ -286,6 +298,42 @@ export default function EnhancedTable({ data, onDeleteInvoice, onEditClick }) {
         setIsShown(false)
     }
 
+    const handleDownloadClick = () => {
+        let invoiceFound = rows.find(row => {
+            if (row.invoiceNumber === selected) {
+                return row
+            }
+        })
+
+        ; (async () => {
+            try {
+                await createInvoicePDF(sessionStorage.UserToken, invoiceFound.id)
+                toaster.success(`Invoice ${invoiceFound.invoiceNumber} downloaded successfully`)
+
+            } catch (error) {
+                toaster.warning('Something went wrong', { duration: 2.5, description: error.message })
+            }
+        })()
+    }
+
+    const handleSendClick = () => {
+        let invoiceFound = rows.find(row => {
+            if (row.invoiceNumber === selected) {
+                return row
+            }
+        })
+
+        ; (async () => {
+            try {
+                await sendInvoiceMail(sessionStorage.UserToken, invoiceFound.id, invoiceFound.customer.email)
+                toaster.success(`Invoice ${invoiceFound.invoiceNumber} sent to customer successfully`)
+
+            } catch (error) {
+                toaster.warning('Something went wrong', { duration: 2.5, description: error.message })
+            }
+        })()
+    }
+
     const isSelected = (name) => selected === name;
 
     // Avoid a layout jump when reaching the last page with empty rows.
@@ -297,7 +345,7 @@ export default function EnhancedTable({ data, onDeleteInvoice, onEditClick }) {
             {selected && <DeleteDialog status={isShown} item={'invoice'} title={`Delete invoice Number ${selected}`} onConfirm={confirmDeleteClick} onCancelClick={handleCancelClick} />}
             <Box sx={{ width: '100%', height: '100%' }}>
                 <Paper sx={{ width: '100%', height: '100%', mb: 2, overflow: 'hidden' }}>
-                    <EnhancedTableToolbar numSelected={selected ? 1 : 0} handleDeleteClick={handleDeleteClick} handleEditClick={handleEditClick}/>
+                    <EnhancedTableToolbar numSelected={selected ? 1 : 0} handleDeleteClick={handleDeleteClick} handleEditClick={handleEditClick} handleDownloadClick={handleDownloadClick} handleSendClick={handleSendClick}/>
                     <TableContainer
                         sx={{
                             maxHeight: '90vh',
