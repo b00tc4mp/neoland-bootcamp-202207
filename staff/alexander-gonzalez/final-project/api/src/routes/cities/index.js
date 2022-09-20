@@ -1,3 +1,4 @@
 module.exports ={
-   searchCitiesHandler : require('./searchCitiesHandler')
+   searchCitiesHandler : require('./searchCitiesHandler'),
+  retrieveCityHandler : require('./retrieveCityHandler')
 }

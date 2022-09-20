@@ -6,7 +6,7 @@ import Loggito from '../utils/Loggito'
 
 
 
-function Header ({ name, onLogoutClick, onSettingsClick, view: viewHome }) {
+function Header ({ name, onLogoutClick, onSettingsClick,  view: viewHome }) {
     const logger = new Loggito('Header') 
 
     const [view, setView] = useState(null)
@@ -17,12 +17,14 @@ function Header ({ name, onLogoutClick, onSettingsClick, view: viewHome }) {
         logger.debug('setView', 'menu')
     }
 
+
     const handleCloseClick = () => {
         setView(null)
 
         logger.debug('setView', null)
 
     }
+
 
     const handleSettingsClick = () => {
        setView(null)
@@ -40,8 +42,10 @@ function Header ({ name, onLogoutClick, onSettingsClick, view: viewHome }) {
                 
                 {view === null && <IconButton text="menu" onClick={handleMenuClick} />}
                 {view === 'menu' && <IconButton text="close" onClick={handleCloseClick} />}
+            
+
             </div>
-          
+
             { view === 'menu' && <Menu onLogoutClick={onLogoutClick} onSettingsClick={handleSettingsClick} view={viewHome} />}
         </header>
     }

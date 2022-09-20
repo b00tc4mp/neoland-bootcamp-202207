@@ -1,31 +1,48 @@
 import React from "react";
-
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import retrieveCity from "../logic/retrieveCity";
+import Loggito from "../utils/Loggito";
+import withContext from "../utils/withContext";
 
 import "./CityView.css";
 
-const CityView = () => {
+const CityView = ({ context: { handleFeedback } }) => {
+  const logger = new Loggito("CityView");
   const params = useParams();
   const [city, setCity] = useState();
+  // const [place, setPlace] = useState();
+  const cityId = params.cityId;
 
   useEffect(() => {
+    logger.info('"componentDidMount"');
+
     try {
-      retrieveCity(token, cityId)
-        .then((city) => setCity(city))
-        .cath((error) => {
-          // TODO error hanlding
-        });
+      return retrieveCity(sessionStorage.token, cityId, (error, city) => {
+        if (error) {
+          handleFeedback({ message: error.message, level: "error" });
+
+          logger.warn(error.message);
+        }
+
+        setCity(city);
+
+        logger.debug("setCity", city);
+      });
     } catch (error) {
-      // TODO error handling
+      handleFeedback({ message: error.message, level: "error" });
+
+      logger.warn(error.message);
     }
   }, []);
 
+  const handlePlaceClick = (placeId) => setPlace(placeId);
+
   return (
     <>
-      {
-        city && <>
+      {city && (
+        <>
           <MapContainer
             key={city.id}
             center={{ lat: city.coords[0], lng: city.coords[1] }}
@@ -37,22 +54,22 @@ const CityView = () => {
               attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             />
             {city.places.map((place) => {
-              // const popupItem  = popup().setLatLng( city.coords[0], city.coords[1])
-
               return (
                 <Marker
                   key={place._id}
                   position={{ lat: place.coords[0], lng: place.coords[1] }}
+                  eventHandlers={{ click: () => handlePlaceClick(place) }}
                 />
               );
             })}
-            {/* <PlacesMarker data ={TODO}/>   */}
           </MapContainer>
-          <h1>TODO show city description, photo, places...</h1>
+
+          <h1></h1>
         </>
-      }
+      )}
+      {/* {place && <PlaceModal place={place} />} */}
     </>
   );
 };
 
-export default CityView;
+export default withContext(CityView);

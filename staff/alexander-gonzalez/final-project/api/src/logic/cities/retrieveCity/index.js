@@ -15,13 +15,15 @@ function retrieveCity(userId, cityId) {
     .then((user) => {
       if (!user) throw new NotFoundError(`user with id ${userId} not found`);
 
-      return City.findById({ name: { $regex: re, $options: "i" } })
+      return City.findById(cityId)
         .lean()
         .catch((error) => {
           throw new SystemError(error.message);
         });
     })
     .then((city) => {
+      if (!city) throw new NotFoundError(`city with id ${cityId} not found`);
+
       // sanitize
 
       city.id = city._id.toString();

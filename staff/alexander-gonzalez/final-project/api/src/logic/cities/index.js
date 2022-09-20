@@ -1,3 +1,4 @@
 module.exports = {
-    searchCities : require('./searchCities')
+    searchCities : require('./searchCities'),
+    retrieveCity : require('./retrieveCity')
 }

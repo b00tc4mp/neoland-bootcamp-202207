@@ -9,7 +9,8 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import Search from "../components/Search";
 import CityView from "../components/CityView";
 
-function HomePage({ onLogoutClick, context: { handleFeedback } }) {
+
+function HomePage({ onLogoutClick, onSearchClick, context: { handleFeedback } }) {
   const logger = new Loggito("HomePage");
 
   const [name, setName] = useState(null);
@@ -19,6 +20,7 @@ function HomePage({ onLogoutClick, context: { handleFeedback } }) {
 
   useEffect(() => {
     logger.info('"componentDidMount"');
+
 
     try {
       retrieveUser(sessionStorage.token, (error, user) => {
@@ -96,6 +98,7 @@ function HomePage({ onLogoutClick, context: { handleFeedback } }) {
         name={name}
         onLogoutClick={onLogoutClick}
         onSettingsClick={handleSettingsClick}
+        // onSearchClick = {onSearchClick}
       />
 
       <main className="main">
@@ -114,13 +117,15 @@ function HomePage({ onLogoutClick, context: { handleFeedback } }) {
             element={<Settings onCloseClick={handleSettingsCloseClick} />}
           />
 
-            <Route path="cities/:cityId" element={<CityView />}/>
+            <Route path="cities/:cityId" element={<CityView />} onSearchClick = {onSearchClick}/>
         </Routes>
 
         {cities &&
           cities.map((city) => {
             return (
-              <li key={city.id} onClick={handleCityClick}>
+              <li key={city.id} onClick={() => {
+                handleCityClick(city.id)
+              }}>
                 <p>{city.name}</p>
                 <p>{city.description}</p>
               </li>

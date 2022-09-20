@@ -1,15 +1,14 @@
 const { runWithErrorHandling, createLogger, verifyToken } = require('../../utils')
-const { cities :{ searchCities} } = require('../../logic')
+const { cities :{ retrieveCity} } = require('../../logic')
 const logger = createLogger(module) 
 
 module.exports = (req, res ) => {
     runWithErrorHandling(() => {
-        debugger
         const userId = verifyToken(req)
 
-        const { query: { q: query}} = req
+        const { params: { cityId } } = req
 
-        return searchCities(userId, query)
+        return retrieveCity(userId, cityId)
             .then(cities => res.status(200).json(cities))
     }, res, logger)
 }
