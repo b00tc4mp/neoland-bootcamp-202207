@@ -1,13 +1,10 @@
-import Slider from 'infinite-react-carousel'
 import { useParams } from "react-router-dom"
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect ,useRef} from "react"
 import retrieveProductExtend from "../logic/retrieveProductExtend";
 import withContext from '../utils/withContext'
 import './ProductView.css'
-import './Carousel.css'
 // import './ProductsList.css'
 import IconButton from './Buttons/IconButton'
-
 
 //TODO mejorar
 
@@ -37,10 +34,10 @@ function ProductView({ context: { handleFeedback } }) {
         window.history.go(-1)
     }
 
+  
 
 
-
-    return <>{productToDisplay && <div className="container-section--product" >
+    return <>{productToDisplay && <section className="container-section--product" >
         <div className="container-product ">
             <div className="item--products one">
                 <IconButton addClass="close" text="close" onClick={handleReturnClick} />
@@ -57,40 +54,19 @@ function ProductView({ context: { handleFeedback } }) {
                     </div>
                 </div>
             </div>
-            <div className="slider">
-                <Slider className="slider-content">
-                    {productToDisplay.gallery && productToDisplay.gallery.map((image, index) => <div className="slider-content--item" key={index}  >
-                        <img className='featurette-img--products' src={image} alt="" />
-                    </div>)}
-                </Slider>
+            {productToDisplay.gallery && productToDisplay.gallery.map((image, index) => <div className="item--products" key={index}  >
+                <div className="featurette-icon">
+                    <img className='featurette-icon--img products' src={image} alt="" />
+                </div>
+
+            </div>)}
+            <div className="gallerySection">
+
             </div>
-            <section>
-                <div className="container-pay">
-                    <p>Paga en 3 plazos sin intereses de 20,00€.
-                        <span class="logo">Klarna</span>
-                        .
-                        <button class="link">Más información</button>
-                    </p>
-                </div>
-                <div className="container-size">
-                    <div className="name-size">
-                        <h3>Tallas</h3>
-                    </div>
-                    <div className="container-size--grid">
-                        <button className="grid-item">3XS</button>
-                        <button className="grid-item">2XS</button>
-                        <button className="grid-item">XS</button>
-                        <button className="grid-item">S</button>
-                        <button className="grid-item">M</button>
-                        <button className="grid-item">L</button>
-                        <button className="grid-item">XL</button>
-                        <button className="grid-item">2XL</button>
-                    </div>
-                </div>
-            </section>
+           
 
         </div>
-    </div>}
+    </section>}
     </>
 }
 

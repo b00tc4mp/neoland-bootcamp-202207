@@ -22,12 +22,7 @@
     flex-wrap: wrap;
     padding: 10px 20px;
 }
-.nameGener{
-    /* display: flex;
-    gap: 6px;
-    flex-direction: row;
-    width: 100%; */
-}
+
 .container-price{
     width: 100%;
     display: flex;
@@ -36,4 +31,69 @@
 }
 .product-price{
     margin-top: 10px;
+}
+
+/* ===============ContPay=================== */
+.container-pay{
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    font-size: 14px;
+    font-weight: 400;
+}
+.container-pay p{
+    margin: 0;
+}
+.logo {
+    font-weight: bold;
+    letter-spacing: -0.5px;
+    font-size: 14px;
+}
+.link{
+    color: #17120f;
+    font-size: 14px;
+    font-weight: 400;
+    text-decoration: underline;
+    white-space: nowrap;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+/* ===============Size=================== */
+.container-size{
+    padding: 10px 20px;
+}
+
+.name-size{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    position: relative;
+}
+.name-size h3{
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 10px;
+}
+.container-size--grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    border-left: 1px solid #eceff1;
+    display: flex;
+    flex-wrap: wrap;
+}
+.grid-item{
+    height: 40px;
+    width: 79.75px;
+    border: 1px solid white;
+    border-left: none;
+    margin-bottom: -1px;
+    /* font-feature-settings: "frac"; */
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    line-height: 1em;
+    font-size: 14px;
 }

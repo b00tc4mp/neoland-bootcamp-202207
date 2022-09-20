@@ -1,0 +1,23 @@
+.slider{
+    width: 100%;
+    height: 368px;
+    overflow: hidden;
+    position: relative; 
+}
+.slider-content,.slider-content--item{
+    width: 100%;
+    height: 100%;
+    position: relative; 
+}
+
+.featurette-img--products{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* .slider-content--item img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+} */

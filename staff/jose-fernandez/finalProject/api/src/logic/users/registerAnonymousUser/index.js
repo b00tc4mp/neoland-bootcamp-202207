@@ -14,6 +14,7 @@ const {SystemError, BadRequestError} = require('errors')
 const {validateCart}= require('validators')
 
 function registerAnonymousUser(cart){
+    debugger
     //validateCart => si !carrito o product.length <0  throw new BadREquestError('cart is empty')
     validateCart(cart)
 

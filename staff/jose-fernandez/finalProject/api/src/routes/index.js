@@ -7,7 +7,7 @@ const { searchProductHandler,retrieveProductsHandler, retrieveProductExtendHandl
 const usersRouter = Router()
 
 usersRouter.post('/users', jsonBodyParser, registerUserHandler)
-usersRouter.post('/usersAnonymous', jsonBodyParser, registerAnonymousUserHandler)
+usersRouter.post('/users-anonymous', jsonBodyParser, registerAnonymousUserHandler)
 
 usersRouter.post('/users/auth',jsonBodyParser,authenticateUserHandler)
 
