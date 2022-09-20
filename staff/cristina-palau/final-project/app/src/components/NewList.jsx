@@ -4,6 +4,7 @@ import retrieveIngredients from '../logic/retrieveIngredients'
 import retrieveUser from '../logic/retrieveUser'
 import retrieveUserRecipes from '../logic/retrieveUserRecipes'
 import retrieveRecipeIngredients from '../logic/retrieveRecipeIngredients'
+import createList from '../logic/createList'
 import RecipesList from './RecipesList'
 
 function NewRecipe({ onBackClick }) {
@@ -67,6 +68,60 @@ function NewRecipe({ onBackClick }) {
         }
     }
 
+    const handleCreateNewList = event => {
+        event.preventDefault()
+        debugger
+
+        try {
+            const { target: form,
+                target: {
+                    title: { value: title },
+                } } = event
+
+            debugger
+
+            if (!title) throw new Error("title is empty or blank")
+
+            const ingredientsItem = []
+
+            buyingListIngredients.forEach(ingredient => {
+                const quantityString = ingredient.quantity
+                const unit = ingredient.unit
+                const ingredientName = ingredient.ingredient.name
+
+                let ingredientFound = ingredients.find(ingredients => ingredients.name === ingredientName)
+                if (!ingredientName) throw new Error('ingredient not found')
+                let id = ingredientFound.id
+
+                if (!quantityString) throw new Error("quantity is empty or blank")
+                else if (!unit) throw new Error("unit is empty or blank")
+                else if (!unit) throw new Error("ingredient is empty or blank")
+
+                let quantity = parseInt(quantityString)
+                ingredientsItem.push({ quantity, unit, id })
+            })
+
+            debugger
+            try {
+                createList(sessionStorage.token, title, ingredientsItem, (error) => {
+                    debugger
+                    if (error) {
+
+                        logger.warn(error.message)
+
+                        return
+                    }
+                })
+            } catch (error) {
+                logger.warn(error.message)
+            }
+
+        } catch (error) {
+            logger.warn(error.message)
+        }
+    }
+
+
     const handleAddIngredients = recipeId => {
 
         try {
@@ -126,12 +181,12 @@ function NewRecipe({ onBackClick }) {
 
 
     const handleDeleteIngredient = (ingredientId) => {
-         
+
         const deletingIndexIngredient = buyingListIngredients.findIndex(ingredient => ingredientId === ingredient.id)
 
         const copyOfIngredients = [...buyingListIngredients]
         copyOfIngredients.splice(deletingIndexIngredient, 1)
-         
+
 
         setBuyingListIngredients(copyOfIngredients)
     }
@@ -156,7 +211,7 @@ function NewRecipe({ onBackClick }) {
     return <>
         <div className="buttonContainer"><button className='transparentButton homeButton' onClick={handleBackClick}>
             <span className="material-symbols-outlined">keyboard_backspace</span></button></div>
-        <form className="newRecipeForm" >
+        <form className="newRecipeForm" onSubmit={handleCreateNewList}>
             <RecipesList userRecipes={userRecipes} onAddClick={handleAddIngredients} />
             <div className="ListHeaderContainer">
                 <label className="formLabel" htmlFor="title">Lista: </label>

@@ -1,18 +1,44 @@
 import { Routes, Route, useNavigate } from 'react-router-dom'
-import withContext from '../utils/withContext'
 import Loggito from '../utils/loggito'
 import NewList from './NewList'
+import retrieveUserLists from '../logic/retrieveUserLists'
+import retrieveUser from '../logic/retrieveUser'
+import { useState, useEffect } from 'react'
+import UserLists from './UserLists'
 
+function ListsMenu({ onBackClick }) {
 
-function ListsMenu({ onBackClick, context: { reloadThePage } }) {
     const logger = new Loggito('Recipes')
+
+    const [userLists, setUserLists] = useState(null)
+
     const navigate = useNavigate()
 
-    const handleNavigationLists= () => {
+    useEffect(() => { // override
+        logger.info('componentDidMount')
+
+        try {
+            retrieveUser(sessionStorage.token, (error, user) => {
+                if (error) {
+
+                    logger.warn(error.message)
+
+                    return
+                }
+
+                loadUserLists(user)
+            })
+        } catch (error) {
+
+            logger.warn(error.message)
+        }
+    }, [])
+
+    const handleNavigationLists = () => {
 
         navigate('/lists')
 
-        logger.debug('navigate to recipes')
+        logger.debug('navigate to lists')
     }
 
     const handleNavigationNewList = event => {
@@ -20,9 +46,31 @@ function ListsMenu({ onBackClick, context: { reloadThePage } }) {
 
         navigate('newlist')
 
-        logger.debug('navigate to new recipe')
+        logger.debug('navigate to new list')
     }
 
+
+    const loadUserLists = () => {
+        try {
+            retrieveUserLists(sessionStorage.token, (error, userLists) => {
+                debugger
+                if (error) {
+
+
+                    logger.warn(error.message)
+
+                    return
+                }
+                debugger
+                setUserLists(userLists)
+                debugger
+                logger.debug('setUserLists', userLists)
+            })
+        } catch (error) {
+
+            logger.warn(error.message)
+        }
+    }
     return <Routes>
         <Route path="/" element={<>
 
@@ -32,13 +80,16 @@ function ListsMenu({ onBackClick, context: { reloadThePage } }) {
             <div className="addrecipe addRecipe">
                 <button className="addRecipe__button transparentButton" onClick={handleNavigationNewList}><span className="material-symbols-outlined">add_circle</span> </button>
             </div>
+            <UserLists userLists={userLists} onBackClick={handleNavigationLists} />
 
         </>} />
         <Route path="newlist" element={<>
             <NewList onBackClick={handleNavigationLists} />
         </>} />
 
+
+
     </Routes>
 }
 
-export default withContext(ListsMenu)
+export default ListsMenu
