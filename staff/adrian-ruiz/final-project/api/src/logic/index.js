@@ -5,5 +5,6 @@ module.exports = {
     estimates : require('./estimates'),
     customers : require('./customers'),
     invoices : require('./invoices'),
-    createPDF : require('./createPDF')
+    createPDF : require('./createPDF'),
+    sendInvoiceEmail : require('./sendInvoiceEmail')
 }

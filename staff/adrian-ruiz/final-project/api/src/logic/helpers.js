@@ -58,9 +58,9 @@ function writeProductsOnCells(doc, products, positionsX, positionY){
         printCell(doc, name, positionsX[0], _positionY )
         printCell(doc, description, positionsX[1], _positionY )
         printCell(doc, amount, positionsX[2], _positionY )
-        printCell(doc, price, positionsX[3], _positionY )
-        printCell(doc, tax, positionsX[4], _positionY )
-        printCell(doc, total, positionsX[5], _positionY )
+        printCell(doc, `${price} €`, positionsX[3], _positionY )
+        printCell(doc, `${tax} %`, positionsX[4], _positionY )
+        printCell(doc, `${total} €`, positionsX[5], _positionY )
     })
     
 }
@@ -88,7 +88,7 @@ function writeInvoiceResume(doc, products, positionX, initY){
         total += product.total
         positionY += 20
     })
-    doc.text(`Subtotal: ${roundTo(subtotal, 2)}\nTaxable: ${roundTo(taxable, 2)}\nTotal: ${roundTo(total, 2)}`, positionX, positionY+30)
+    doc.text(`Subtotal: ${roundTo(subtotal, 2)} €\nTaxable: ${roundTo(taxable, 2)} €\nTotal: ${roundTo(total, 2)} €`, positionX, positionY+30)
     return doc
 }
 
@@ -102,9 +102,21 @@ function roundTo(n, digits) {
     return Math.round(n) / multiplicator;
 }
 
+function sanitizeDate(date) {
+    let month = date.getMonth() + 1
+    if (month < 10) month = '0' + month
+
+    let day = date.getDay()
+    if (day < 10) day = '0' + day
+    let year = date.getFullYear()
+
+    return year + '-' + month + '-' + day
+}
+
 module.exports = {
     printRows,
     writeProductsOnCells,
     writeTitlesOnHeaders,
-    writeInvoiceResume
+    writeInvoiceResume,
+    sanitizeDate
 }

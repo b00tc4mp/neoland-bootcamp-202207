@@ -4,5 +4,6 @@ module.exports = {
     retrieveInvoicesHandler : require('./retrieveIncoicesHandler'),
     retrieveAInvoiceHandler : require('./retrieveAInvoiceHandler'),
     updateInvoiceHandler : require('./updateInvoiceHandler'),
-    createInvoicePDFHandler: require('./createInvoicePDFHandler')
+    createInvoicePDFHandler: require('./createInvoicePDFHandler'),
+    sendInvoiceEmailHandler: require('./sendInvoiceEmailHandler')
 }

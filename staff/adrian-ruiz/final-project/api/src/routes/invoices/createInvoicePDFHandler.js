@@ -10,19 +10,11 @@ function createPDFHandler(req, res){
         
         const invoiceId = req.params.invoiceId
 
-        const file = await createPDF(userId, companyId, invoiceId)
-
-        /* const tempFile ='3131_1663608751878.pdf' */
-
-        res.download(file)
-
-        /* fs.readFile(tempFile, (error, data) => {
-            if(error) throw new Error('Error reading file')
-            res.contentType("application/pdf")
-            res.status(201).send(data)
-        }) */
+        const { pdfOutputStream, pdfFileName } = await createPDF(userId, companyId, invoiceId)
+       
+        res.contentType("application/pdf")
+        pdfOutputStream.pipe(res)
         
-    
     }, res, logger)
 }
 
