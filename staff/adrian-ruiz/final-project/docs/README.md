@@ -2,25 +2,99 @@
 
 ![](https://i.giphy.com/media/SEWEmCymjv8XDbsb8I/giphy.webp)
 
+## Introduction
+
 This app will make your finances much easier. Forget about headaches when creating invoices, managing inventory...
 
-Use an All-in-One app to create Estimates, Invoices, Manage Stock, (future versions will also allow you to integrar all the accounting of your company)
+Use an All-in-One app to create Estimates, Invoices, Manage Stock, (future versions will also allow you to integrate all the accounting of your company)
 
 And all of that available anywhere, anytime thanks to its compatibility with all web devices. Forgot installing heavy programs on your computer.
 
 ## Functional Description
 
-- Use Cases
-- Flows
+- On creating a new account, a new company will be registered with new User details
+    - That new User will be the admin of that company
+
+- New companies can also be registered with Google Account
+
+- (TODO) Admin can register new accounts for employees and accountants (With diferent permissions) on settings panel.
+
+- On APP, users can manage Customers, Inventory, Estimates and Invoices.
+
+- Manage customers
+    - Create customer (Name, email, phone, legalId, billing address, shipping address, pay terms, website)
+        - Only name is required to create a customer
+        - Customer Name is unique per company
+    - Edit customer info
+    - Delete customer
+        - Accountant users does not have permission to delete customers
+        - To delete a customer, companies can't have any estimate or invoice linked with that customer
+    - Customers table will display Customer name, phone and (TODO) Balance and can be sorted with any of these fields
+
+- Manage Inventory
+    - Create product/service (Name, SKU, category, product description, purchase cost, initial stock, safety stock quantity)
+        - Name and SKU are required
+        - Name and SKU are unique per company
+    - Edit product/service
+        - TODO: Adjust stock quantity manually
+    - Delete product/service
+        - Accountant users does not have permission to delete products/services
+    - Inventory table will display Product/Service name, SKU, category, cost price, min Qty and stock and can be sorted with any of these fields
+
+- Manage Estimates
+    - Create estimate
+        - On clicking new estimate a new form will appear to enter select customer and introduce the estimate Data.
+        - On selecting a customer, all customer inputs will fill with default information from customer panel.
+        - The next fields are required:
+            - Customer
+            - Estimate N#
+            - Estimate date
+            - Products (At least 1 product should be correctly filled)
+                - Product name / QTY / Unit price / TAX are required if at least one of the mentioned fields are filled
+                - Total amount will be calculated automatically
+        - Estimates will no modify stock from inventory, since the order it's not confirmed yet
+    - Edit estimate
+        - On clicking edit estimate, same form as new estimate will open, but filled automatically with estimate details
+        - On this form, you can't change customer.
+    - Delete estimate
+        - On clicking delete estimate, a confirm dialog will appear. If you confirm, estimate will be deleted and there is no way to revert that
+    - Estimate table will display Date, Customer name, Estimate N#, Status and amount and can be sorted with any of these fields
+    - TODO: Convert estimate to Invoice automatically
+    - TODO: Download estimate PDF and send to customer by email
+
+- Manage Invoices
+    - Create invoice
+        - Same form as new estimate, but with few minor changes
+        - Invoices will modify stock automatically
+    - Edit invoice
+        - Same as edit estimate
+    - Delete invoice
+        - Same as delete estimate
+        - Deleting an invoice will adjust stock automatically
+    - Invoice table will display same info than estimate Panel
+    - Invoice toolbar has 2 additional buttons: Send Invoice and Print PDF
+        - Send invoice will send to customer email address saved on the invoice. Will send an predefined message with the invoice PDF.
+    
+- FUTURE FUNCTIONS 
+    - Add button on header to create faster all elements: Customers, Products, Estimates, Invoices
+    - Searchbar on header to find all elements and enter on them to edit/send...
+    - Complete settings panel
+    - Dynamic reports on dashboard page (Invoice summary, Profit and Loss Summary, Stock summary...)
+    - Integrate accounting functions
+    - ...
+
+
 - UI design (wireframes)
 
 ## Technical Description
 
-- Blocks
-- Sequence
-- Components
-- Code Coverage (Testing)
-- Technologies
+- TODO: Sequence
+- TODO: Components
+- TODO: Code Coverage
+
+### Blocks
+
+![](images/block.png)
 
 ### Data Model
 
@@ -130,40 +204,67 @@ Invoice
 - totalAmount: Number - req
 - status: String - req (enum ['overdue', 'pending', 'paid'])
 
+### Flow
+
+![](images/flow.jpg)
+
+### Technologies
+
+- API
+    - NodeJS
+    - Express
+    - MongoDB 
+    - Libraries:
+        - Mongoose
+        - Mocha
+        - Chai
+        - Jsonwebtoken
+        - Nodemailer
+        - Pdfkit
+        - Winston
+
+- APP
+    - React JS
+    - Libraries:
+        - Axios
+        - react-google-login && gapi-script (Google login & register)
+        - MUI (Tables)
+        - Evergreen-ui (Dialog and Toaster)
 
 ## Roadmap
 
-Sprint 0
+Sprint 0 (05/09/2022 - 11/09/2022)
 
 - DONE figma
 - DONE data model
-- INPROGRESS figma to react
+- DONE figma to react
 - DONE data model to mongoose
 - DONE populate data into db(populate.js)
 - DONE implement users logic
 - DONE implement users api routes
 - DONE implement env file
-- TODO API specs
-- TODO use cases diagram
-- TODO INPUT validations API
-- TODO INPUT validations APP
+- INPROGRESS API specs
+- DONE use cases diagram
+- INPROGRESS INPUT validations API
+- INPROGRESS INPUT validations APP
 
-Sprint 1
+Sprint 1 (12/09/2022 - 18/09/2022)
 
-- TODO update Invoices/Inventory/Estimates/Customers from APP
-- TODO delete Invoices/Inventory/Estimates/Customers from APP
+- DONE update Invoices/Inventory/Estimates/Customers from APP
+- DONE delete Invoices/Inventory/Estimates/Customers from APP
 - TODO search Invoices/Inventory/Estimates/Customers from APP
 - TODO settings panel
 - TODO make PLUS button on header interactive to create Invoices/Inventory/Estimates/Customers
-- TODO define "item" schema and embeed on invoices // Fix app logic
 
-Sprint 2
+Sprint 2 (19/09/2022 - 25/09/2022)
 
-- TODO logo design and use in Header & favicon
-- TODO search bar in header to find everything on APP
-- TODO login image slider with features
-- TODO design animations : Hover, submits, open menus, spinners...
+- DONE login image slider with features
+- INPROGRESS design animations : Hover, submits, open menus, spinners...
+- DONE Invoice PDF creator
+- DONE Send invoice to customers by email
 
 Sprint 3
 
-- TODO ...
+- TODO search bar in header to find everything on APP
+- TODO logo design and use in Header & favicon
+- ...
