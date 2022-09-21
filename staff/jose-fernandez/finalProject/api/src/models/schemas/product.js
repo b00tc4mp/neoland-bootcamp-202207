@@ -34,7 +34,10 @@ const product = new Schema({
     type:String,
     // required:true
   },
-  gallery:[ String]
+  gallery:[ String],
+  nivel:{
+    type:Number
+  }
   
 })
 

@@ -15,6 +15,7 @@ import ProductsListMen from '../components/ProductsListMen'
 import ProductsListWomen from '../components/ProductsListWomen'
 import ProductsListKids from '../components/ProductsListKids'
 import ProductView from '../components/ProductView'
+import Cart from '../components/Cart'
 // import Menu from '../components/Menu'
 
 function HomePage({ onLogoutClick, onLoginClick, context: { handleFeedback } }) {
@@ -122,7 +123,9 @@ function HomePage({ onLogoutClick, onLoginClick, context: { handleFeedback } }) 
         loadProducts()
         navigate('listProductsKids')
     }
-    
+    const handleCart=()=>{
+        navigate('cart')
+    }
 
     // const handleUpdateName = (newName) => setName(newName)
     // const handleUpdateEmail = (newEmail) => setEmail(newEmail)
@@ -134,11 +137,11 @@ function HomePage({ onLogoutClick, onLoginClick, context: { handleFeedback } }) 
     // return email?
     // listProducts
     // const locationsHeader = ['/', 'listProducts']
-    
+
     //TODO location pathname no funciona en header
 
     return <div className="container container--full container--width homePage">
-        {(location.pathname === "/" || location.pathname === "listProducts") && <Header products={products} onLoginClick={handleLoginClick} onListProducts={handleListProducts} onListProductsMen={handleListProductsMen} onListProductsWomen={handleListProductsWomen} onListProductsKids={handleListProductsKids} onProfileClick={handleProfileClick} onSearchClick={handleSearchClick}/>}
+        {(location.pathname === "/" || location.pathname === "listProducts") && <Header products={products} onLoginClick={handleLoginClick} onListProducts={handleListProducts} onListProductsMen={handleListProductsMen} onListProductsWomen={handleListProductsWomen} onListProductsKids={handleListProductsKids} onProfileClick={handleProfileClick} onSearchClick={handleSearchClick} />}
 
         <main className="main-home">
             <Routes>
@@ -150,7 +153,8 @@ function HomePage({ onLogoutClick, onLoginClick, context: { handleFeedback } }) 
                 <Route path='listProductsWomen' element={<ProductsListWomen products={products} onProductClick={handleProductClick} onCloseClick={handleReturnMain} />} />
                 <Route path='listProductsKids' element={<ProductsListKids products={products} onProductClick={handleProductClick} onCloseClick={handleReturnMain} />} />
 
-                <Route path='products/:productId' element={<ProductView />} />
+                <Route path='products/:productId' element={<ProductView onCart={handleCart}/>} />
+                <Route path='cart' element={<Cart />} />
 
                 {/* <Route path="profile" element={<Profile onCloseClick={handleReturnMain} email={email} onUpdateEmail={handleUpdateEmail} onUpdateName={handleUpdateName} />} /> */}
                 {/* {email ?

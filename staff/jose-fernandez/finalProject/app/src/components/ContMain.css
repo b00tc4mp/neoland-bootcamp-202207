@@ -278,9 +278,31 @@ section.products div.container-products.slider {
     overflow-x: auto;
     overscroll-behavior-inline: contain;
 }
-/* section.products div.container-products.slider div.slider:first-child{
-    margin-left: 10px;
-} */
+
+.carTittle{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 100%;
+}
+
+.carTittle h2{
+    background-color: #fff;
+    font-weight: 700;
+}
+
+.favTittle{
+    position: absolute;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 100%;
+}
+
+.favTittle h2{
+    background-color: #fff;
+    font-weight: 700;
+}
 
 .item--products {
     text-align: center;

@@ -5,7 +5,7 @@ import ProductsList from './ProductsList'
 // import ProductsList from './NN'
 // import IconButton from './Buttons/IconButton'
 
-function ContMain({ products,onProductClick }) {
+function ContMain({ products, onProductClick }) {
     const [view, setView] = useState('play')
     //use ref vid
     let vid = useRef(null)
@@ -20,10 +20,10 @@ function ContMain({ products,onProductClick }) {
         // let vid = document.getElementById("videoOne");
         vid.pause()
     }
-    const handleProductClick=(product)=>{
+    const handleProductClick = (product) => {
         onProductClick(product.id)
     }
-
+    const _products = products
 
     return <div className="container ContMain">
         <section className="container-section promotionOne container">
@@ -62,7 +62,7 @@ function ContMain({ products,onProductClick }) {
             <div className="container-portrait">
                 <div className="portrait-title">
                     <h3>EQUIPACIONES ESPAÑA COPA MUNDIAL DE LA FIFA 2022™</h3>
-                    
+
                     <div className='btn--portrait-title'>
                         <a href="https://www.javascript.com/" >
                             <span>COMPRAR</span>
@@ -76,10 +76,17 @@ function ContMain({ products,onProductClick }) {
 
         <section className="container-section products slider ">
             <div className='backgroundSlider'>
+                <div className='favTittle'>
+                    <h2 >FAVORITOS</h2>
+                </div>
+
                 <img src="https://brand.assets.adidas.com/image/upload/f_auto,q_auto,fl_lossy/esES/Images/football-fw22-federations-spain-catlp-psc-m_tcm190-920832.jpg" alt="" />
+
             </div>
+
             <div className="container-products slider">
-                {products && products.map(product => <div className="item--products slider" key={product.id} onClick={()=>handleProductClick(product)}>
+                {_products && _products.filter(_product => _product.nivel === 5
+                ).map(product => <div className="item--products slider" key={product.id} onClick={() => handleProductClick(product)}>
                     <div className="featurette-icon slider">
                         <img className='featurette-icon--img products slider' src={product.img} alt="" />
                     </div>

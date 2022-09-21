@@ -18,11 +18,10 @@ connect('mongodb://localhost:27017/finalProject')
             gallery: [
                 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/b5eba256-ef26-45d1-852f-c1992be17a3e/air-max-90-zapatillas-PTBWZ5.png'
                 ,
+                'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/h5jqhhyekxesgqfxwgpj/offcourt-mens-slides-Xkb8kb.png'
 
-
-                'https://images.unsplash.com/photo-1501446529957-6226bd447c46?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1489&q=80'
-
-            ]
+            ],
+            nivel:5
         })
         const product2 = new Product({
             name: 'Nike Air Max 270',
@@ -36,11 +35,10 @@ connect('mongodb://localhost:27017/finalProject')
             gallery: [
                 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/1eeaacc0-e07c-4024-a5f7-57f2fd23e8a2/air-max-270-g-zapatillas-de-golf-3GkJ0N.png'
                 ,
-                'https://images.unsplash.com/photo-1475189778702-5ec9941484ae?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1351&q=80'
-                ,
-                'https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80'
+                'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/h5jqhhyekxesgqfxwgpj/offcourt-mens-slides-Xkb8kb.png'
 
-            ]
+            ],
+            nivel:5
         })
         const product3 = new Product({
             name: 'Nike Air Jordan',
@@ -54,9 +52,10 @@ connect('mongodb://localhost:27017/finalProject')
             gallery: [
                  'https://static.nike.com/a/videos/t_PDP_864_v1/f_auto,b_rgb:f5f5f5,so_1.55/adc356bd-8925-41e5-a297-e3b8f1db0973/air-jordan-1-mid-zapatillas-D8Q2S1.jpg'
             ,
-              'https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80'
+            'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/h5jqhhyekxesgqfxwgpj/offcourt-mens-slides-Xkb8kb.png'
                 
-            ]
+            ],
+            nivel:5
         })
         const product4 = new Product({
             name: 'Nike Tech Fleece',
@@ -71,9 +70,10 @@ connect('mongodb://localhost:27017/finalProject')
                 'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/8bd58820-be5a-4d0b-898c-e7b63c146226/paris-saint-germain-tech-fleece-jogger-wflZmc.png'
                 ,
                 
-                'https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/b0731274fc704707ae1dad550034a3ae_9366/Sudadera_con_capucha_Skateboarding_4.0_Logo_(Genero_neutro)_Negro_GR8739_23_hover_model.jpg'
+                'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/h5jqhhyekxesgqfxwgpj/offcourt-mens-slides-Xkb8kb.png'
                 
-            ]
+            ],
+            nivel:5
         })
         const product5 = new Product({
             name: 'Nike Off Court',
@@ -85,9 +85,11 @@ connect('mongodb://localhost:27017/finalProject')
             type: 'shoes',
             categ: 'men',
             gallery: [
+                 'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/h5jqhhyekxesgqfxwgpj/offcourt-mens-slides-Xkb8kb.png',
                  'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/h5jqhhyekxesgqfxwgpj/offcourt-mens-slides-Xkb8kb.png'
                 
-            ]
+            ],
+            nivel:1
 
         })
         const product6 = new Product({
@@ -101,12 +103,13 @@ connect('mongodb://localhost:27017/finalProject')
             categ: 'men',
             gallery: [
 
-                'https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/3712badf561e4fc98410ad55003a9767_9366/Sudadera_con_capucha_Skateboarding_4.0_Logo_(Genero_neutro)_Negro_GR8739_21_model.jpg'
+                'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/350e7f3a-979a-402b-9396-a8a998dd76ab/air-force-1-07-mens-shoes-xDpsTk.png',
                 ,
 
-                'https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/b0731274fc704707ae1dad550034a3ae_9366/Sudadera_con_capucha_Skateboarding_4.0_Logo_(Genero_neutro)_Negro_GR8739_23_hover_model.jpg'
+                'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/h5jqhhyekxesgqfxwgpj/offcourt-mens-slides-Xkb8kb.png'
 
-            ]
+            ],
+            nivel:2
         })
         const product7 = new Product({
             name: 'Nike Phoenix Fleece',
@@ -119,13 +122,13 @@ connect('mongodb://localhost:27017/finalProject')
             categ: 'women',
             gallery: [
 
-                'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/d811ae57-d99e-4713-84aa-850b532041bb/sportswear-phoenix-fleece-womens-high-waisted-joggers-ftkzwQ.png'
+                'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/d811ae57-d99e-4713-84aa-850b532041bb/sportswear-phoenix-fleece-womens-high-waisted-joggers-ftkzwQ.png',
                 ,
+              
+                'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/h5jqhhyekxesgqfxwgpj/offcourt-mens-slides-Xkb8kb.png'
 
-               
-                'https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/b0731274fc704707ae1dad550034a3ae_9366/Sudadera_con_capucha_Skateboarding_4.0_Logo_(Genero_neutro)_Negro_GR8739_23_hover_model.jpg'
-
-            ]
+            ],
+            nivel:3
         })
         const product8 = new Product({
             name: 'FC Barcelona Collection Essentials',
@@ -140,11 +143,11 @@ connect('mongodb://localhost:27017/finalProject')
 
                  'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/225efc6f-24a5-4724-b503-88e20aba6dbe/fc-barcelona-collection-essentials-camiseta-de-manga-corta-oversize-Sm8Xcr.png'
                 ,
+               
+                'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/h5jqhhyekxesgqfxwgpj/offcourt-mens-slides-Xkb8kb.png'
 
-                
-                'https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/b0731274fc704707ae1dad550034a3ae_9366/Sudadera_con_capucha_Skateboarding_4.0_Logo_(Genero_neutro)_Negro_GR8739_23_hover_model.jpg'
-
-            ]
+            ],
+            nivel:2
         })
         const product9 = new Product({
             name: 'Nike Sportswear',
@@ -156,14 +159,12 @@ connect('mongodb://localhost:27017/finalProject')
             type: 'clothing',
             categ: 'kids',
             gallery: [
-
                'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/e01eb1ed-8f4c-45ef-9745-4e48c847a4a1/sportswear-pantalon-corto-XGQk60.png'
                 ,
+                'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/h5jqhhyekxesgqfxwgpj/offcourt-mens-slides-Xkb8kb.png'
 
-                
-                'https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/b0731274fc704707ae1dad550034a3ae_9366/Sudadera_con_capucha_Skateboarding_4.0_Logo_(Genero_neutro)_Negro_GR8739_23_hover_model.jpg'
-
-            ]
+            ],
+            nivel:2
         })
         const product10 = new Product({
             name: 'Kylian Mbappe',
@@ -177,10 +178,10 @@ connect('mongodb://localhost:27017/finalProject')
             gallery: [
                 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/87b471b3-1357-4cb6-b81e-43c318e20e47/kylian-mbappe-older-dri-fit-football-shorts-N8XSnK.png'
                 ,
+                'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/h5jqhhyekxesgqfxwgpj/offcourt-mens-slides-Xkb8kb.png'
                 
-                        'https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/b0731274fc704707ae1dad550034a3ae_9366/Sudadera_con_capucha_Skateboarding_4.0_Logo_(Genero_neutro)_Negro_GR8739_23_hover_model.jpg'
-                
-            ]
+            ],
+            nivel:3
         })
         return Promise.all([
             product1.save(),

@@ -1,4 +1,4 @@
-import Slider from 'infinite-react-carousel'
+
 import { useParams } from "react-router-dom"
 import { useState, useEffect, useRef } from "react"
 import retrieveProductExtend from "../logic/retrieveProductExtend";
@@ -7,9 +7,10 @@ import './ProductView.css'
 import './Carousel.css'
 // import './ProductsList.css'
 import IconButton from './Buttons/IconButton'
-
+import Slider from 'infinite-react-carousel'
+ 
 //TODO mejorar
-function ProductView({ context: { handleFeedback } }) {
+function ProductView({onCart, context: { handleFeedback } }) {
     const params = useParams()
     const [productToDisplay, setProduct] = useState()
     const productId = params.productId
@@ -31,6 +32,9 @@ function ProductView({ context: { handleFeedback } }) {
         }
     }, [])
 
+    const handleCart=()=>{
+        onCart()
+    }
     const handleReturnClick = () => {
         window.history.go(-1)
     }
@@ -54,7 +58,7 @@ function ProductView({ context: { handleFeedback } }) {
             </div>
             <div className="slider-product">
                 <Slider className="slider-content">
-                    {productToDisplay.gallery && productToDisplay.gallery.map((image, index) => <div className="slider-content--item" key={index}  >
+                    {productToDisplay.gallery.map((image, index) => <div className="slider-content--item" key={index}  >
                         <img className='featurette-img--products' src={image} alt="" />
                     </div>)}
                 </Slider>
@@ -82,13 +86,18 @@ function ProductView({ context: { handleFeedback } }) {
                         <button className="grid-item">2XL</button>
                     </div>
                 </div>
+                {/* <div className="container-qty">
+                    <h3>Cantidad</h3>
+                    <input type="number" value="1" />
+                    
+                </div> */}
                 <div className="btn-cart">
-                    <a href="https://www.javascript.com/" >
-                        <span>AÑADIR AL CARRITO</span>
+                    <a onClick={handleCart} >
+                        <span >AÑADIR AL CARRITO</span>
                         <img className='featurette-icon--img' src="https://i.postimg.cc/KYqFk224/right-arrow.png" alt="" />
                     </a>
                 </div>
-
+      
             </section>
 
         </div>
