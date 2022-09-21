@@ -11,7 +11,7 @@ function ProductsList({ products,onProductClick,onCloseClick}) {
         onProductClick(product.id)
     }
     
-    return <section className="container-section products">
+    return <section className="container-section products cat">
     <div className="container-products">
         <div className="item--products one">
             <IconButton addClass="close" text="close" onClick={handleCloseClick} />

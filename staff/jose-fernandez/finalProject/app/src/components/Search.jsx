@@ -33,8 +33,6 @@ function Search({ onQuery, onCloseClick, onProductsSearch }) {
             </form>
             <IconButton addClass="closeFormSearch" text="cleaning_services"  />
         </div>
-
-
     </div>
 }
 

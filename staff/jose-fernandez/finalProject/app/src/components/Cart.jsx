@@ -52,12 +52,11 @@ function ProductView({ context: { handleFeedback } }) {
                     </div>
                 </div>
             </div>
-            <div className="slider-product">
-                <Slider className="slider-content">
-                    {productToDisplay.gallery && productToDisplay.gallery.map((image, index) => <div className="slider-content--item" key={index}  >
-                        <img className='featurette-img--products' src={image} alt="" />
-                    </div>)}
-                </Slider>
+            <div className="item-product">
+                <div className="content--item" key={index}  >
+                    <img className='featurette-img--products' src={image} alt="" />
+                </div>
+
             </div>
             <section>
                 <div className="container-pay">
@@ -67,21 +66,7 @@ function ProductView({ context: { handleFeedback } }) {
                         <button className="link">Más información</button>
                     </p>
                 </div>
-                <div className="container-size">
-                    <div className="name-size">
-                        <h3>Tallas</h3>
-                    </div>
-                    <div className="container-size--grid">
-                        <button className="grid-item">3XS</button>
-                        <button className="grid-item">2XS</button>
-                        <button className="grid-item">XS</button>
-                        <button className="grid-item">S</button>
-                        <button className="grid-item">M</button>
-                        <button className="grid-item">L</button>
-                        <button className="grid-item">XL</button>
-                        <button className="grid-item">2XL</button>
-                    </div>
-                </div>
+
                 <div className="btn-cart">
                     <a href="https://www.javascript.com/" >
                         <span>AÑADIR AL CARRITO</span>

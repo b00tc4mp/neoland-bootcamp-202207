@@ -97,3 +97,32 @@
     line-height: 1em;
     font-size: 14px;
 }
+.grid-item:hover{
+    background-color: rgb(158, 158, 120);
+}
+.cat2{
+    margin-top: -54px;
+}
+.btn-cart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.btn-cart a {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px;
+    background-color: aqua;
+    padding: 0 10px;
+    margin-bottom: 5px;
+    font-size: 14px;
+    width: 185px;
+    height: 45px;
+    text-decoration: none;
+    text-align: center;
+}
