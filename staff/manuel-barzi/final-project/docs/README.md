@@ -20,8 +20,24 @@ blah blah blah...
 
 ## Roadmap
 
-Sprint 0
+Version 0
+- manage users
+- crud notes
+- ...
 
+Version 1
+- support public / private notes
+- public notes feed
+- ...
+
+Version 2
+- ...
+- ...
+- ...
+
+## Tasks
+
+Sprint 0
 - DONE figma
 - TODO data model
 - TODO figma to react
@@ -31,13 +47,10 @@ Sprint 0
 - TODO ...
 
 Sprint 1
-
 - TODO ...
 
 Sprint 2
-
 - TODO ...
 
 Sprint 3
-
 - TODO ...
