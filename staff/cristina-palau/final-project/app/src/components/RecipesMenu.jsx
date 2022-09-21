@@ -4,6 +4,8 @@ import NewRecipe from './NewRecipe'
 import UserRecipesList from './UserRecipesList'
 import PublicRecipesList from './PublicRecipesList'
 import PublicRecipe from './PublicRecipe'
+import ViewUserRecipe from './ViewUserRecipe'
+import ViewPDF from './ViewPDF'
 import UserRecipe from './UserRecipe'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import retrieveUserRecipes from '../logic/retrieveUserRecipes'
@@ -135,6 +137,51 @@ function RecipesMenu({ onBackClick, context: { reloadThePage } }) {
         }
     }
 
+    const handleViewRecipe = recipeId => {
+        try {
+            retrieveRecipe(sessionStorage.token, recipeId, (error, recipe) => {
+
+                if (error) {
+
+                    logger.warn(error.message)
+
+                    return
+                }
+
+                setRecipe(recipe)
+
+                navigate(`viewRecipe/${recipeId}`)
+            })
+
+        } catch (error) {
+
+            logger.warn(error.message)
+        }
+    }
+
+    const handleViewPDF = recipeId => {
+         
+        try {
+            retrieveRecipe(sessionStorage.token, recipeId, (error, recipe) => {
+
+                if (error) {
+
+                    logger.warn(error.message)
+
+                    return
+                }
+
+                setRecipe(recipe)
+
+                navigate(`viewPDF/${recipeId}`)
+            })
+
+        } catch (error) {
+
+            logger.warn(error.message)
+        }
+    }
+
     const handleDeleteRecipe = recipeId => {
 
         try {
@@ -182,13 +229,12 @@ function RecipesMenu({ onBackClick, context: { reloadThePage } }) {
         logger.debug('navigate to recipes')
     }
 
-
     return <Routes>
         <Route path="/" element={<>
 
             <div className="buttonContainer"><button className='transparentButton homeButton' onClick={onBackClick}>
                 <span className="material-symbols-outlined">keyboard_backspace</span></button></div>
-            <UserRecipesList userRecipes={userRecipes} onRecipeClick={handleClickUserRecipe} onDeleteRecipe={handleDeleteRecipe} />
+            <UserRecipesList userRecipes={userRecipes} onRecipeClick={handleClickUserRecipe} onDeleteRecipe={handleDeleteRecipe} onViewClick={handleViewRecipe}/>
 
             <div className="addRecipe">
                 <button className="addRecipe__button transparentButton" onClick={handleNavigationNewRecipe}><span className="material-symbols-outlined">add_circle</span> </button>
@@ -202,6 +248,14 @@ function RecipesMenu({ onBackClick, context: { reloadThePage } }) {
 
         <Route path="myrecipes/:id" element={<>
             <UserRecipe recipe={recipe} onBackClick={handleNavigationRecipes} />
+        </>} />
+
+        <Route path="viewrecipe/:id" element={<>
+            <ViewUserRecipe recipe={recipe} onBackClick={handleNavigationRecipes} onViewPDF={handleViewPDF} />
+        </>} />
+
+        <Route path="viewPDF/:id" element={<>
+            <ViewPDF recipe={recipe} onBackClick={handleNavigationRecipes} onViewRecipe={handleViewRecipe}/>
         </>} />
 
         <Route path="public/:id" element={<>

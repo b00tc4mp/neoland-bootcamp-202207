@@ -4,11 +4,13 @@ import withContext from '../utils/withContext'
 import logoAnimado from '../images/logoAnimado.gif'
 import { useState } from 'react'
 
+
 function LoginPage({ onLinkClick, onLogin, context: { handleFeedback } }) {
 
     const logger = new Loggito(LoginPage.name)
 
     const [error, setError] = useState(null)
+    const [emptyError, setEmptyError] = useState(null)
 
     logger.info('constructor')
 
@@ -63,6 +65,7 @@ function LoginPage({ onLinkClick, onLogin, context: { handleFeedback } }) {
             <label className="formLabel" htmlFor="password">Contraseña</label>
             <input className="input" type="password" name="password" placeholder="contraseña" id="password" />
             {error ? <p className="error">Email o contraseña incorrectos</p> : null}
+            {emptyError? <p className="error">Por favor, rellena todos los campos</p> : null}
             <button className="button" type="submit">Continuar</button>
         </form>
 

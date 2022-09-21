@@ -5,7 +5,7 @@ const { verifyIngredient } = require('../../ingredients')
 const { validateString, validateArray } = require("validators")
 
 function updateList(userId, listId, title, ingredients) {
-    debugger
+     
     verifyObjectIdString(userId, 'user id')
     verifyObjectIdString(listId, 'list id')
     validateString(title, 'title')

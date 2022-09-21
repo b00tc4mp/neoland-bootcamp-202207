@@ -1,13 +1,16 @@
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import Loggito from '../utils/loggito'
 import NewList from './NewList'
+import List from './List'
 import retrieveUserLists from '../logic/retrieveUserLists'
 import retrieveUser from '../logic/retrieveUser'
 import retrieveList from '../logic/retrieveList'
+import deleteList from '../logic/deleteList'
 import { useState, useEffect } from 'react'
 import UserLists from './UserLists'
+import withContext from '../utils/withContext'
 
-function ListsMenu({ onBackClick }) {
+function ListsMenu({ onBackClick, context: { reloadThePage } }) {
 
     const logger = new Loggito('Recipes')
 
@@ -60,6 +63,29 @@ function ListsMenu({ onBackClick }) {
         }
     }
 
+    const handleDeleteList = listId => {
+
+        try {
+            deleteList(sessionStorage.token, listId, error => {
+                if (error) {
+
+                    logger.warn(error.message)
+                    return
+                }
+
+            })
+
+            console.log('reloadPage')
+
+            reloadThePage()
+
+        } catch (error) {
+
+            logger.warn(error.message)
+        }
+
+    }
+
     const handleNavigationLists = () => {
 
         navigate('/lists')
@@ -79,7 +105,7 @@ function ListsMenu({ onBackClick }) {
     const loadUserLists = () => {
         try {
             retrieveUserLists(sessionStorage.token, (error, userLists) => {
-                debugger
+                 
                 if (error) {
 
 
@@ -87,9 +113,9 @@ function ListsMenu({ onBackClick }) {
 
                     return
                 }
-                debugger
+                 
                 setUserLists(userLists)
-                debugger
+                 
                 logger.debug('setUserLists', userLists)
             })
         } catch (error) {
@@ -103,10 +129,10 @@ function ListsMenu({ onBackClick }) {
             <div className="buttonContainer"><button className='transparentButton homeButton' onClick={onBackClick}>
                 <span className="material-symbols-outlined">keyboard_backspace</span></button></div>
 
-            <div className="addrecipe addRecipe">
+            <div className="addrecipe addList">
                 <button className="addRecipe__button transparentButton" onClick={handleNavigationNewList}><span className="material-symbols-outlined">add_circle</span> </button>
             </div>
-            <UserLists userLists={userLists} onBackClick={handleNavigationLists} onListClick={handleClickList} />
+            <UserLists userLists={userLists} onBackClick={handleNavigationLists} onListClick={handleClickList} onDeleteList={handleDeleteList}  />
 
         </>} />
         <Route path="newlist" element={<>
@@ -122,4 +148,4 @@ function ListsMenu({ onBackClick }) {
     </Routes>
 }
 
-export default ListsMenu
+export default withContext(ListsMenu)

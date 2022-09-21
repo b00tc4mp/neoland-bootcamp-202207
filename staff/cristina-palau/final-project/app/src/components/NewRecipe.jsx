@@ -1,5 +1,5 @@
 import Loggito from '../utils/loggito'
-import './NewRecipe.sass'
+import './RecipesNewRecipeForm.sass'
 import { useState, useEffect } from 'react'
 import retrieveIngredients from '../logic/retrieveIngredients'
 import createRecipe from '../logic/createRecipe'

@@ -1,5 +1,5 @@
 import Loggito from '../utils/loggito'
-import './NewRecipe.sass'
+// import './NewRecipe.sass'
 import { useState, useEffect, } from 'react'
 import { useParams } from 'react-router-dom'
 import retrieveIngredients from '../logic/retrieveIngredients'
@@ -118,7 +118,7 @@ function List({ onBackClick, list }) {
             })
 
             try {
-                updateRecipe(sessionStorage.token, listId, title, parseInt(persons), ingredientsItem, (error) => {
+                updateList(sessionStorage.token, listId, title, ingredientsItem, (error) => {
 
                     if (error) {
 
@@ -136,14 +136,13 @@ function List({ onBackClick, list }) {
         }
     }
 
-    const handleCreateRecipe = () => {
+    const handleCreateList = () => {
         console.log('createRecipe')
 
         try {
-            const { title, persons } = listState
+            const { title } = listState
 
-            if (!persons) throw new Error("persons is empty or blank")
-            else if (!title) throw new Error("title is empty or blank")
+           if (!title) throw new Error("title is empty or blank")
 
             const ingredientsItem = []
 
@@ -164,7 +163,7 @@ function List({ onBackClick, list }) {
                 ingredientsItem.push({ quantity, unit, id })
             })
             try {
-                createRecipe(sessionStorage.token, title, parseInt(persons), ingredientsItem, (error) => {
+                createList(sessionStorage.token, title, ingredientsItem, (error) => {
                     if (error) {
 
                         logger.warn(error.message)
@@ -218,8 +217,6 @@ function List({ onBackClick, list }) {
             <div className="recipeHeaderContainer">
                 <label className="formLabel" htmlFor="title">Título</label>
                 <input type="text" defaultValue={listState ? listState.title : ''} className="input newRecipeInput titleInput" name="title" placeholder="Título" id="title" onChange={(event) => handleChangeTitle(event)} />
-                <label className="formLabel" htmlFor="persons">para</label>
-                <input type="number" defaultValue={listState ? listState.persons : ''} className="input newRecipeInput personsInput" name="persons" placeholder="pax" id="persons" onChange={(event) => handleChangePersons(event)} />
             </div>
             <p>Ingredientes</p>
             <div className="ingredients">
@@ -253,16 +250,16 @@ function List({ onBackClick, list }) {
                 <button className="updateRecipeButton" type="button" onClick={(event) => {
                     event.preventDefault()
 
-                    handleUpdateRecipe(id)
-                }}>Actualizar receta</button>
+                    handleUpdateList(id)
+                }}>Actualizar lista</button>
                 <button className="createRecipeButton" type="button" onClick={(event) => {
                     event.preventDefault()
 
-                    handleCreateRecipe()
-                }}>Crear nueva receta</button>
+                    handleCreateList()
+                }}>Crear nueva lista</button>
             </div>
         </form>
     </>
 }
 
-export default UserRecipe
+export default List

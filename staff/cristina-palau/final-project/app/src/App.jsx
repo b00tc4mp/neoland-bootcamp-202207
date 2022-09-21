@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage'
 import Feedback from './components/Feedback'
 import Context from './utils/Context'
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
+import React from 'react';
 
 function App() {
 

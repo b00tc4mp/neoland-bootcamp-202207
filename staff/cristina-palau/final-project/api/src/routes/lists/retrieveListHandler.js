@@ -8,7 +8,7 @@ module.exports = (req, res) => {
         const userId = verifyToken(req)
 
         const { params: { listId } } = req
-
+ 
         return retrieveList(userId, listId)
             .then(list => res.json(list))
 

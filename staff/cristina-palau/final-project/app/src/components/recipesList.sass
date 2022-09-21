@@ -12,17 +12,16 @@
 .recipes-container__listRecipes
     display: flex
     dlex-direction: rows
-    overflow: scroll
+    overflow-x: scroll
     gap: 10px
-    justify-content: space-around
 
 .listRecipe
     border: solid 3px white
     display: flex
     flex-direction: column
     justify-content: space-between
-    width: 80px
-    height: 80px
+    min-width: 120px
+    min-height: 80px
     font-size: small
 
 .recipes-container__myRecipes
@@ -69,16 +68,24 @@
     border-radius: 5px
 
 .addRecipe
-    height: 80px
+    min-height: 80px
     width: 90%
     background-image: url('../images/add_new_recipe.jpg')
     background-size: 100%
     display: flex
     justify-content: flex-start
-   
     background-position: center
     border-radius: 5px
-   
+
+.addList
+    min-height: 80px
+    width: 90%
+    background-image: url('../images/add_new_list.png')
+    background-size: 120%
+    display: flex
+    justify-content: flex-start
+    background-position: right
+    border-radius: 5px
 
 .addRecipe__button
     color: white

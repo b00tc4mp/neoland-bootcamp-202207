@@ -7,7 +7,7 @@ import retrieveRecipeIngredients from '../logic/retrieveRecipeIngredients'
 import createList from '../logic/createList'
 import RecipesList from './RecipesList'
 
-function NewRecipe({ onBackClick }) {
+function NewList({ onBackClick }) {
     const logger = new Loggito('New Recipe')
 
     logger.info('render')
@@ -70,7 +70,7 @@ function NewRecipe({ onBackClick }) {
 
     const handleCreateNewList = event => {
         event.preventDefault()
-        debugger
+
 
         try {
             const { target: form,
@@ -78,11 +78,10 @@ function NewRecipe({ onBackClick }) {
                     title: { value: title },
                 } } = event
 
-            debugger
 
             if (!title) throw new Error("title is empty or blank")
 
-            const ingredientsItem = []
+            let ingredientsItem = []
 
             buyingListIngredients.forEach(ingredient => {
                 const quantityString = ingredient.quantity
@@ -92,34 +91,39 @@ function NewRecipe({ onBackClick }) {
                 let ingredientFound = ingredients.find(ingredients => ingredients.name === ingredientName)
                 if (!ingredientName) throw new Error('ingredient not found')
                 let id = ingredientFound.id
-
+                 
                 if (!quantityString) throw new Error("quantity is empty or blank")
                 else if (!unit) throw new Error("unit is empty or blank")
                 else if (!unit) throw new Error("ingredient is empty or blank")
-
                 let quantity = parseInt(quantityString)
-                ingredientsItem.push({ quantity, unit, id })
+                 
+                if (ingredientsItem.find(({ ingredient }) => ingredientFound.id === ingredient.ingredient.id) === true) {
+                     
+                    const index = ingredientsItem.indexOf(({ ingredient }) => ingredientFound.id === ingredient.ingredient.id)
+                    ingredientsItem[index].quantity += quantity
+                }
+                else ingredientsItem.push({ quantity, unit, id })
+                 
+
+                try {
+                    createList(sessionStorage.token, title, ingredientsItem, (error) => {
+
+                        if (error) {
+
+                            logger.warn(error.message)
+
+                            return
+                        }
+                    })
+                } catch (error) {
+                    logger.warn(error.message)
+                }
             })
-
-            debugger
-            try {
-                createList(sessionStorage.token, title, ingredientsItem, (error) => {
-                    debugger
-                    if (error) {
-
-                        logger.warn(error.message)
-
-                        return
-                    }
-                })
-            } catch (error) {
-                logger.warn(error.message)
-            }
-
         } catch (error) {
             logger.warn(error.message)
         }
     }
+
 
 
     const handleAddIngredients = recipeId => {
@@ -127,6 +131,7 @@ function NewRecipe({ onBackClick }) {
         try {
 
             retrieveRecipeIngredients(sessionStorage.token, recipeId, (error, recipeIngredients) => {
+
 
                 if (error) {
 
@@ -136,14 +141,15 @@ function NewRecipe({ onBackClick }) {
                 }
 
                 setBuyingListIngredients(buyingListIngredients.concat(recipeIngredients))
-
             })
-
         } catch (error) {
 
             logger.warn(error.message)
         }
     }
+
+
+
     const handleChangeQuantity = (event, ingredientId) => {
         let data = [...buyingListIngredients]
 
@@ -251,4 +257,4 @@ function NewRecipe({ onBackClick }) {
     </>
 }
 
-export default NewRecipe
+export default NewList

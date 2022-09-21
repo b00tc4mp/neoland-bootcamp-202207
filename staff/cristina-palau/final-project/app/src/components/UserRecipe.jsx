@@ -1,5 +1,5 @@
 import Loggito from '../utils/loggito'
-import './NewRecipe.sass'
+import './RecipesNewRecipeForm.sass'
 import { useState, useEffect, } from 'react'
 import { useParams } from 'react-router-dom'
 import retrieveIngredients from '../logic/retrieveIngredients'
