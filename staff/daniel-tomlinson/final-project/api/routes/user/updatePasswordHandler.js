@@ -9,15 +9,7 @@ function updatePasswordHandler(req, res) {
     async () => {
       const userId = await verifyToken(req);
 
-      /* const {
-        body: { oldPassword, password },
-      } = req; */
-
-      await updatePassword(
-        userId,
-        req.body
-        // oldPassword, password
-      );
+      await updatePassword(userId, req.body);
 
       res.status(204).send();
 

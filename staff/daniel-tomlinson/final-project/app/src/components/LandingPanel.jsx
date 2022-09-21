@@ -7,7 +7,12 @@ function LandingPanel({
   handleCommunityClick,
   handleFavouritesClick,
   handleCollectionsClick,
+  handleNavigateTo,
 }) {
+  const onAddClick = () => {
+    handleNavigateTo("createQuestion");
+  };
+
   // ================== jsx ================== //
   return (
     <div className="grouped-elements">
@@ -34,6 +39,9 @@ function LandingPanel({
         onClick={handleCollectionsClick}
       >
         collections
+      </button>
+      <button className="button--primary home-page-button" onClick={onAddClick}>
+        +
       </button>
     </div>
   );

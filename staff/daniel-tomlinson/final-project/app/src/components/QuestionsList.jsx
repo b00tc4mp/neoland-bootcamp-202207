@@ -21,6 +21,8 @@ function QuestionsList({
   gameBeingPlayed,
   handleSelectQuestionForGame,
   handleReturnInGame,
+  handleNavigateTo,
+
   context: { handleFeedback },
 }) {
   // ================== Consts ================== //
@@ -135,6 +137,10 @@ function QuestionsList({
     handleSelectQuestionForGame(questionId);
   };
 
+  const onAddClick = () => {
+    handleNavigateTo("createQuestion");
+  };
+
   // ================== jsx ================== //
 
   return (
@@ -242,6 +248,14 @@ function QuestionsList({
             </ul>
           </div>
         )}
+        <div className="footer flex-container">
+          <button
+            className="transparent-button footer-button"
+            onClick={onAddClick}
+          >
+            +
+          </button>
+        </div>
       </div>
     </div>
   );

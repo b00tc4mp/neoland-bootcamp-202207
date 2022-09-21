@@ -98,25 +98,25 @@ function Teacher4IncomingResponses({
               <div className="grouped-elements flex-row">
                 {answersCombined[0][1] === "correct" && (
                   <span className="list__item-text list__item-text-readonly MCQResponse MCQResponse--correct">
-                    {answersCombined[0][0]}
+                    <p>A:</p> {answersCombined[0][0]}
                   </span>
                 )}
 
                 {answersCombined[0][1] === "incorrect" && (
                   <span className="list__item-text list__item-text-readonly MCQResponse">
-                    {answersCombined[0][0]}
+                    <p>A:</p> {answersCombined[0][0]}
                   </span>
                 )}
 
                 {answersCombined[1][1] === "correct" && (
                   <span className="list__item-text list__item-text-readonly MCQResponse MCQResponse--correct">
-                    {answersCombined[1][0]}
+                    <p>B:</p> {answersCombined[1][0]}
                   </span>
                 )}
 
                 {answersCombined[1][1] === "incorrect" && (
                   <span className="list__item-text list__item-text-readonly MCQResponse">
-                    {answersCombined[1][0]}
+                    <p>B:</p> {answersCombined[1][0]}
                   </span>
                 )}
               </div>
@@ -124,25 +124,25 @@ function Teacher4IncomingResponses({
               <div className="grouped-elements flex-row">
                 {answersCombined[2][1] === "correct" && (
                   <span className="list__item-text list__item-text-readonly MCQResponse MCQResponse--correct">
-                    {answersCombined[2][0]}
+                    <p>C:</p> {answersCombined[2][0]}
                   </span>
                 )}
 
                 {answersCombined[2][1] === "incorrect" && (
                   <span className="list__item-text list__item-text-readonly MCQResponse">
-                    {answersCombined[2][0]}
+                    <p>C:</p> {answersCombined[2][0]}
                   </span>
                 )}
 
                 {answersCombined[3][1] === "correct" && (
                   <span className="list__item-text list__item-text-readonly MCQResponse MCQResponse--correct">
-                    {answersCombined[3][0]}
+                    <p>D:</p> {answersCombined[3][0]}
                   </span>
                 )}
 
                 {answersCombined[3][1] === "incorrect" && (
                   <span className="list__item-text list__item-text-readonly MCQResponse">
-                    {answersCombined[3][0]}
+                    <p>D:</p> {answersCombined[3][0]}
                   </span>
                 )}
               </div>

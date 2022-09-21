@@ -12,17 +12,9 @@ module.exports = (req, res) => {
         body: { name, email, password },
       } = req;
 
-      registerUser(name, email, password)
-        .then(() => res.status(201).send())
-        .catch((error) => {
-          if (error instanceof DuplicityError)
-            res.status(409).json({ error: error.message });
-          else res.status(500).json({ error: "system error" });
-
-          logger.error(error);
-
-          return;
-        });
+      return registerUser(name, email, password).then(() =>
+        res.status(201).send()
+      );
     },
     res,
     logger

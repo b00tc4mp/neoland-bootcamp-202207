@@ -13,27 +13,15 @@ module.exports = (req, res) => {
         body: { email, password },
       } = req;
 
-      authenticateUser(email, password)
-        .then((userId) => {
-          const token = sign(
-            { sub: userId },
-            "Dan: copié el código de Mónica!",
-            {
-              expiresIn: "1h",
-            }
-          );
+      return authenticateUser(email, password).then((userId) => {
+        debugger;
 
-          res.json({ token });
-        })
-        .catch((error) => {
-          if (error instanceof NotFoundError || error instanceof AuthError)
-            res.status(401).json({ error: "wrong credentials" });
-          else res.status(500).json({ error: "system error" });
-
-          logger.error(error);
-
-          return;
+        const token = sign({ sub: userId }, "Dan: copié el código de Mónica!", {
+          expiresIn: "1h",
         });
+
+        res.json({ token });
+      });
     },
     res,
     logger

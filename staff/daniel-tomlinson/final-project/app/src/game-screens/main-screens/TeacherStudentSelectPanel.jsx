@@ -54,9 +54,11 @@ function TeacherStudentSelectPanel({
         <button className="footer-button" onClick={onStartStudent}>
           Student
         </button>
-        <button className="footer-button" onClick={onStartTeacher}>
-          Teacher
-        </button>
+        {sessionStorage.token !== undefined && (
+          <button className="footer-button" onClick={onStartTeacher}>
+            Teacher
+          </button>
+        )}
       </main>
 
       <footer className="game-screen-footer"></footer>

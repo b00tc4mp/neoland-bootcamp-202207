@@ -3,6 +3,7 @@ const { DuplicityError, NotFoundError, SystemError } = require("errors");
 const { validateString } = require("validators");
 
 function retrieveGameCode(pin) {
+  debugger;
   // validateString
 
   /* return User.findById(userId)

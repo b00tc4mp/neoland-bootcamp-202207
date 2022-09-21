@@ -28,10 +28,12 @@ function Student4ResponseInput({
   const [timeoutId, setTimeoutId] = useState(null);
   const [intervalId, setIntervalId] = useState(null);
   const counterRef = useRef();
+  const buttonRef = useRef();
 
   // ================== useEffects ================== //
 
   useEffect(() => {
+    debugger;
     const id = setTimeout(handleFormSubmit2, timeLimit);
 
     setTimeoutId(id);
@@ -107,9 +109,7 @@ function Student4ResponseInput({
   // ================== Function: forces button click to auto send results when time runs out ================== //
 
   const handleFormSubmit2 = () => {
-    const button = document.getElementsByClassName("response-submit-button");
-
-    button[0].click();
+    buttonRef.current.click();
   };
 
   // ================== socket.on: forces button click to auto send results on close round from teacher ================== //
@@ -306,15 +306,14 @@ function Student4ResponseInput({
             href=""
             type="submit"
             className="footer-button response-submit-button"
+            ref={buttonRef}
           >
             Submit
           </button>
         </form>
       </main>
 
-      <footer className="game-screen-footer">
-        {/* <button className="footer-button">Start Game</button> */}
-      </footer>
+      <footer className="game-screen-footer"></footer>
     </div>
   );
 }

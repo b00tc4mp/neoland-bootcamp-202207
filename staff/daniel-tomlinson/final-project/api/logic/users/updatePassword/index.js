@@ -8,15 +8,8 @@ const { validatePassword } = require("validators");
 function updatePassword(userId, req) {
   if (!ObjectId.isValid(userId)) throw new FormatError("User is not valid");
 
-  const {
-    formId,
-    updatedName,
-    password,
-    newEmail,
-    oldPassword,
-    newPassword,
-    confirmNewPassword,
-  } = req;
+  const { formId, updatedName, password, newEmail, oldPassword, newPassword } =
+    req;
 
   // TODO: validate all inputs
 
@@ -24,11 +17,6 @@ function updatePassword(userId, req) {
     validatePassword(oldPassword);
     validatePassword(newPassword);
   }
-  //   validatePassword(confirmNewPassword);
-  //   if (newPassword !== confirmNewPassword)
-  //     throw new AuthError(
-  //       "New password and confirm new password are not the same"
-  //     );
 
   return (async () => {
     const foundUser = await User.findById(userId);
@@ -39,12 +27,6 @@ function updatePassword(userId, req) {
           `User ${userId} does not exist or credentials are wrong`
         );
     }
-    /* if (formId === "nameForm" || "emailForm") {
-      if (!foundUser || foundUser.password !== password)
-        throw new AuthError(
-          `User ${userId} does not exist or credentials are wrong`
-        );
-    } */
 
     if (formId === "nameForm") {
       if (!foundUser || foundUser.password !== password)

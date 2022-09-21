@@ -342,6 +342,7 @@ function HomePage({
 
   const handleLeaveClass = () => {
     // setSelectQuestionForGame(undefined);
+    handleGameBeingPlayed();
     navigate("/");
     // navigate("settings");
   };
@@ -402,6 +403,7 @@ function HomePage({
                 handleCommunityClick={handleCommunityClick}
                 handleFavouritesClick={handleFavouritesClick}
                 handleCollectionsClick={handleCollectionsClick}
+                handleNavigateTo={handleNavigateTo}
               />
             }
           />
@@ -427,6 +429,7 @@ function HomePage({
                 onReturn={handleReturn}
                 onSearch={handleSearch}
                 gameBeingPlayed={gameBeingPlayed}
+                handleNavigateTo={handleNavigateTo}
               />
             }
           />
@@ -507,13 +510,7 @@ function HomePage({
           />
         </Routes>
       </main>
-      <footer className="footer flex-container">
-        {/* {Route.path === "questionsList" && ( */}
-        <button className="transparent-button" onClick={handleAddClick}>
-          +
-        </button>
-        {/* )} */}
-      </footer>
+      <footer className="footer flex-container"></footer>
     </div>
   ) : null;
 }

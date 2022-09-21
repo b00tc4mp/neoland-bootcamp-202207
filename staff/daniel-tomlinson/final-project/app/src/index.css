@@ -1089,8 +1089,18 @@ body {
   font-weight: 600;
   padding: 1.5rem;
   width: 60%;
-  margin-bottom: 40px;
-  margin-top: 30px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  background-color: var(--color-teacher-secondary);
+}
+
+.home-page-add-button {
+  font-size: 2.5rem;
+  font-weight: 600;
+  padding: 1.5rem;
+  width: 60%;
+  margin-bottom: 20px;
+  margin-top: 20px;
   background-color: var(--color-teacher-secondary);
 }
 
@@ -1127,6 +1137,7 @@ body {
 
 .questions-list-panel {
   height: 100%;
+  overflow: hidden;
 }
 
 .questions-list {

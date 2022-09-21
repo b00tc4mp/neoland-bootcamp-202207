@@ -2,6 +2,8 @@
 
 import { useEffect } from "react";
 
+import "../../components/ScreenTemplate.1.scss";
+
 // ================== Component ================== //
 
 function Student3GetReady({ handleScreenChangeS3 }) {

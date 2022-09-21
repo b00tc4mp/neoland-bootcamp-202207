@@ -100,7 +100,7 @@ function LoginPage({
             Login
           </button>
         </form>
-        <a href="forgot.password.html">Forgot password</a>
+        {/* <a href="forgot.password.html">Forgot password</a> */}
         <a href="register.html" className="anchor" onClick={handleLinkClick}>
           Register
         </a>

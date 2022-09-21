@@ -14,17 +14,7 @@ module.exports = (req, res) => {
     () => {
       const userId = verifyToken(req);
 
-      retrieveUser(userId)
-        .then((user) => res.json(user))
-        .catch((error) => {
-          if (error instanceof NotFoundError || error instanceof AuthError)
-            res.status(401).json({ error: "wrong credentials" });
-          else res.status(500).json({ error: "system error" });
-
-          logger.error(error);
-
-          return;
-        });
+      return retrieveUser(userId).then((user) => res.json(user));
     },
     res,
     logger

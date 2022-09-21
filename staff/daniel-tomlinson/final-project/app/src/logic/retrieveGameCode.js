@@ -22,8 +22,13 @@ function retrieveGameCode(pin, callback) {
   xhr.open("GET", `${API_URL}/gameCodes`);
 
   xhr.setRequestHeader("Content-type", "application/json");
+  debugger;
+  // xhr.send(`{ "pin": "${pin}"}`);
 
-  xhr.send(`{ "pin": "${pin}"}`);
+  const json = JSON.stringify({ pin: pin });
+
+  // xhr.send(JSON.stringify({ pin: pin }));
+  xhr.send(json);
 }
 
 export default retrieveGameCode;

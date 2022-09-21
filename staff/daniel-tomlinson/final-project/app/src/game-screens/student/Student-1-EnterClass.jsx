@@ -5,7 +5,7 @@ import retrieveGameCode from "../../logic/retrieveGameCode";
 // ================== Component ================== //
 
 function Student1EnterClass({ handleScreenChangeS1, socket, handleFeedback }) {
-  // ================== Imports ================== //
+  // ================== Function: to retrieve gameCode, verify details and join the class room on socket ================== //
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -35,6 +35,7 @@ function Student1EnterClass({ handleScreenChangeS1, socket, handleFeedback }) {
 
     try {
       retrieveGameCode(pin, (error, gameCodes) => {
+        debugger;
         if (error) {
           handleFeedback({ message: error.message, level: "error" });
 
@@ -46,8 +47,7 @@ function Student1EnterClass({ handleScreenChangeS1, socket, handleFeedback }) {
           (gameCode) =>
             gameCode.nameOfClass === nameOfClass && gameCode.pin === pin
         );
-
-        if ((gameCodeFiltered.length = 1)) {
+        if (gameCodeFiltered.length === 1) {
           const host = gameCodeFiltered[0].host;
           socket.emit("S1", {
             nickname: { nickname },

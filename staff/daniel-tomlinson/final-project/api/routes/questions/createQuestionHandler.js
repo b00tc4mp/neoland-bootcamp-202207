@@ -17,7 +17,6 @@ module.exports = (req, res) => {
       console.log(userId);
 
       const {
-        // body: { question, suggestedAnswer, timeLimit, visibility },
         body: {
           question,
           timeLimit,
@@ -31,8 +30,7 @@ module.exports = (req, res) => {
         },
       } = req;
 
-      // createQuestion(userId, question, suggestedAnswer, timeLimit, visibility)
-      createQuestion(
+      return createQuestion(
         userId,
         question,
         timeLimit,
@@ -43,17 +41,7 @@ module.exports = (req, res) => {
         answerB,
         answerC,
         answerD
-      )
-        .then(() => res.status(201).send())
-        .catch((error) => {
-          if (error instanceof NotFoundError)
-            res.status(404).json({ error: error.message });
-          else res.status(500).json({ error: "system error" });
-
-          logger.error(error);
-
-          return;
-        });
+      ).then(() => res.status(201).send());
     },
     res,
     logger

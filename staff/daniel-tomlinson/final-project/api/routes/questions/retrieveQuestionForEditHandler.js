@@ -19,18 +19,9 @@ module.exports = (req, res) => {
         params: { questionId },
       } = req;
 
-      return retrieveQuestionForEdit(userId, questionId)
-        .then((question) => res.status(200).json(question))
-        .catch((error) => {
-          if (error instanceof NotFoundError || error instanceof AuthError)
-            //TODO update this error handling
-            res.status(401).json({ error: "wrong credentials" });
-          else res.status(500).json({ error: "system error" });
-
-          logger.error(error);
-
-          return;
-        });
+      return retrieveQuestionForEdit(userId, questionId).then((question) =>
+        res.status(200).json(question)
+      );
     },
     res,
     logger

@@ -16,7 +16,6 @@ module.exports = (req, res) => {
       const userId = verifyToken(req);
 
       const {
-        // body: { question, suggestedAnswer, timeLimit, visibility },
         body: {
           question,
           timeLimit,
@@ -34,10 +33,6 @@ module.exports = (req, res) => {
       return updateQuestionEdit(
         userId,
         questionId,
-        /* question,
-        suggestedAnswer,
-        timeLimit,
-        visibility */
         question,
         timeLimit,
         visibility,
