@@ -5,7 +5,6 @@ import UserRecipesList from './UserRecipesList'
 import PublicRecipesList from './PublicRecipesList'
 import PublicRecipe from './PublicRecipe'
 import ViewUserRecipe from './ViewUserRecipe'
-import ViewPDF from './ViewPDF'
 import UserRecipe from './UserRecipe'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import retrieveUserRecipes from '../logic/retrieveUserRecipes'
@@ -159,29 +158,6 @@ function RecipesMenu({ onBackClick, context: { reloadThePage } }) {
         }
     }
 
-    const handleViewPDF = recipeId => {
-         
-        try {
-            retrieveRecipe(sessionStorage.token, recipeId, (error, recipe) => {
-
-                if (error) {
-
-                    logger.warn(error.message)
-
-                    return
-                }
-
-                setRecipe(recipe)
-
-                navigate(`viewPDF/${recipeId}`)
-            })
-
-        } catch (error) {
-
-            logger.warn(error.message)
-        }
-    }
-
     const handleDeleteRecipe = recipeId => {
 
         try {
@@ -251,11 +227,7 @@ function RecipesMenu({ onBackClick, context: { reloadThePage } }) {
         </>} />
 
         <Route path="viewrecipe/:id" element={<>
-            <ViewUserRecipe recipe={recipe} onBackClick={handleNavigationRecipes} onViewPDF={handleViewPDF} />
-        </>} />
-
-        <Route path="viewPDF/:id" element={<>
-            <ViewPDF recipe={recipe} onBackClick={handleNavigationRecipes} onViewRecipe={handleViewRecipe}/>
+            <ViewUserRecipe recipe={recipe} onBackClick={handleNavigationRecipes} />
         </>} />
 
         <Route path="public/:id" element={<>

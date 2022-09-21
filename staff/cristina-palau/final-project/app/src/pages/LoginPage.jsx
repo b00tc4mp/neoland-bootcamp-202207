@@ -69,7 +69,7 @@ function LoginPage({ onLinkClick, onLogin, context: { handleFeedback } }) {
             <button className="button" type="submit">Continuar</button>
         </form>
 
-        <a className="anchor" href="register-page.html" onClick={handleLinkClick}>Registro</a>
+        <div className="center">¿Aún no tienes cuenta?  <a className="anchor" href="register-page.html" onClick={handleLinkClick}>¡Regístrate!</a></div>
     </main >
 
 }

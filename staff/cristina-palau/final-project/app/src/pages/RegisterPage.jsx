@@ -4,6 +4,7 @@ import withContext from '../utils/withContext'
 import logoAnimado from '../images/logoAnimado.gif'
 import './pages.sass'
 
+
 function RegisterPage({ onRegister, onLinkClick, context: { handleFeedback } }) {
 
     const logger = new Loggito(RegisterPage.name)
@@ -30,14 +31,16 @@ function RegisterPage({ onRegister, onLinkClick, context: { handleFeedback } }) 
                     return
                 }
 
-                handleFeedback({ message: 'your user has been registered', level: 'success' })
-                event.target.reset()
+                handleFeedback({ message: "el usuario se ha registrado", level: 'success' })
                 
+                event.target.reset()
+
                 onRegister()
             })
         } catch (error) {
 
             handleFeedback({ message: error.message, level: 'error' })
+
 
             logger.warn(error.message)
         }
@@ -52,8 +55,8 @@ function RegisterPage({ onRegister, onLinkClick, context: { handleFeedback } }) 
     logger.info('render')
 
     return <main className="page registerPage">
-        <img className="logo form-logo"  alt="logo" src={logoAnimado}/>
-        <form className="form loginForm" method="get" onSubmit={handleFormSubmit}>
+        <img className="logo form-logo" alt="logo" src={logoAnimado} />
+        <form className="form registerForm" method="get" onSubmit={handleFormSubmit}>
             <label className="formLabel" htmlFor="name">Nombre</label>
             <input className="input" type="name" name="name" placeholder="nombre" id="name" />
             <label className="formLabel" htmlFor="email">Email</label>
@@ -62,7 +65,7 @@ function RegisterPage({ onRegister, onLinkClick, context: { handleFeedback } }) 
             <input className="input" type="password" name="password" placeholder="contraseña" id="password" />
             <button className="button" type="submit">Continuar</button>
         </form>
-        <a className="anchor" href="login-page.html" onClick={handleLinkClick}>Iniciar Sesión</a>
+        <div className="center">¿Ya tienes cuenta? <a className="anchor" href="login-page.html" onClick={handleLinkClick}>Iniciar Sesión</a></div>
     </main >
 
 }

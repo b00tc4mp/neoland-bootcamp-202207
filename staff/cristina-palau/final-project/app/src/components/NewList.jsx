@@ -1,10 +1,6 @@
 import Loggito from '../utils/loggito'
 import { useState, useEffect } from 'react'
-import retrieveIngredients from '../logic/retrieveIngredients'
-import retrieveUser from '../logic/retrieveUser'
-import retrieveUserRecipes from '../logic/retrieveUserRecipes'
-import retrieveRecipeIngredients from '../logic/retrieveRecipeIngredients'
-import createList from '../logic/createList'
+import {retrieveIngredients, retrieveUser, retrieveUserRecipes, retrieveRecipeIngredients, createList}  from '../logic'
 import RecipesList from './RecipesList'
 
 function NewList({ onBackClick }) {

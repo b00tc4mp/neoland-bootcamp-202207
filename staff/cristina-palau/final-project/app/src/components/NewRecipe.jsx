@@ -1,8 +1,7 @@
 import Loggito from '../utils/loggito'
 import './RecipesNewRecipeForm.sass'
 import { useState, useEffect } from 'react'
-import retrieveIngredients from '../logic/retrieveIngredients'
-import createRecipe from '../logic/createRecipe'
+import {retrieveIngredients, createRecipe} from '../logic'
 
 function NewRecipe({ onBackClick, printIngredientsRow }) {
     const logger = new Loggito('New Recipe')

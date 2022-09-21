@@ -1,12 +1,9 @@
 import Loggito from '../utils/loggito'
 import './RecipesNewRecipeForm.sass'
-import './RecipesPublicRecipesView.sass'
+import './RecipesView.sass'
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import createRecipe from '../logic/createRecipe'
-import retrieveRecipe from '../logic/retrieveRecipe'
-import retrieveIngredients from '../logic/retrieveIngredients'
-
+import {createRecipe, retrieveRecipe, retrieveIngredients} from '../logic'
 
 function PublicRecipe({ onBackClick, recipe }) {
 

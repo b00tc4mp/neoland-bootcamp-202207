@@ -1,6 +1,6 @@
 # MENUGER
 
-![](link)
+![](https://media.giphy.com/media/VTXzh4qtahZS/giphy.gif)
 
 
 ## Functional Description

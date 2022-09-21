@@ -5,9 +5,11 @@ function RecipesList({ userRecipes, onAddClick }) {
     return <div className="recipes-container__listRecipes container-recipes">
         {userRecipes && userRecipes.map((recipe, id) => <div className="listRecipe" key={id}>
             <div className="recipeTitle">{recipe.title}</div>
+            <div className="buttonContainer">
             <button className="add transparentButton" onClick={(event) => {
                 event.preventDefault()
                 onAddClick(recipe.id)}}><span className="material-symbols-outlined right white">add</span></button>
+            </div>
         </div>)}
     </div>
 }

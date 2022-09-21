@@ -1,5 +1,6 @@
-import { validateCallback, validateText, validateString, validateCallback } from 'validators'
-import { ClientError, ServerError } from 'errors'
+import { validateCallback, validateText, validateString} from 'validators'
+import { AuthError, ClientError, ServerError, UnknownError } from 'errors'
+
 const API_URL = process.env.REACT_APP_API_URL
 
 function searchIngredient(token, query, callback) {
@@ -30,7 +31,7 @@ function searchIngredient(token, query, callback) {
                 callback(new ClientError(error))
                 break
             case (status === 200):
-                callback(null, notes.reverse())
+                callback(null, ingredients.reverse())
                 break
             default:
                 callback(new UnknownError(`unexpected status ${status}`))

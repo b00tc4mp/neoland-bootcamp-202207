@@ -2,11 +2,7 @@ import Loggito from '../utils/loggito'
 // import './NewRecipe.sass'
 import { useState, useEffect, } from 'react'
 import { useParams } from 'react-router-dom'
-import retrieveIngredients from '../logic/retrieveIngredients'
-import retrieveList from '../logic/retrieveList'
-import createList from '../logic/createList'
-import updateList from '../logic/updateList'
-
+import { retrieveIngredients, retrieveList, createList, updateList}  from '../logic'
 
 function List({ onBackClick, list }) {
     const logger = new Loggito('User List')
