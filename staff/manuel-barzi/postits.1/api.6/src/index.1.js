@@ -1,0 +1,46 @@
+const { connect, disconnect } = require('mongoose')
+const { createLogger } = require('./utils')
+const logger = createLogger(module)
+
+connect('mongodb://localhost:27017/postits')
+    .then(() => {
+        logger.info('db connected')
+
+        const express = require('express')
+        
+        const api = express()
+        
+        const { usersRouter, notesRouter } = require('./routes')   
+        
+        api.use('*', (req, res, next) => {
+            res.setHeader('Access-Control-Allow-Origin', '*')
+            res.setHeader('Access-Control-Allow-Headers', '*')
+            res.setHeader('Access-Control-Allow-Methods', '*')
+
+            next()
+        })
+        
+        api.get('/', (req, res) => res.send('PostIts API v1.0 ;)'))
+
+        api.use('/api', usersRouter, notesRouter)
+
+        api.listen(8080, () => logger.info('api started'))
+
+        process.on('SIGINT', () => {
+            if (!process.stopped) {
+                process.stopped = true
+
+                logger.info('\napi stopped')
+
+                disconnect()
+                    .then(() => {
+                        logger.info('db disconnected')
+
+                        process.exit(0)
+                    })
+            }
+        })
+    })
+    .catch(error => {
+        logger.error(error)
+    })

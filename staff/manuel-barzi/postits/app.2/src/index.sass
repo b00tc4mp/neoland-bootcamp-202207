@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap')
+
+/* root */
+
+:root
+    --color: white
+    --back-color: dodgerblue
+
+:root.light
+    --color: black
+    --back-color: skyblue
+
+/* resets */
+
+*
+    font-family: Lato
+
+html, body
+    height: 100%
+
+body
+    margin: 0
+
+h1, label
+    color: var(--color)
+
+/* general */
+
+.container
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+
+    &--full
+        height: 100%
+
+    &--row
+        flex-direction: row
+
+    &--spaced
+        gap: 10px
+
+    &--padded
+        padding: 10px
+
+    &--distributed
+        justify-content: space-between
+
+.form
+    display: flex
+    flex-direction: column
+    gap: 10px
+
+    &__field
+        display: flex
+        flex-direction: column
+        gap: 5px
+
+.input
+    background-color: transparent
+    border-top: 0
+    border-left: 0
+    border-right: 0
+    border-bottom: 1px solid var(--color)
+    // border-bottom-width: 1px
+    // border-bottom-style: solid
+    // border-color: var(--color) 
+    color: var(--color)
+    font-size: 1rem
+    caret-color: var(--color)
+
+    &:-webkit-autofill
+        -webkit-background-clip: text
+        -webkit-text-fill-color: var(--color)
+
+    &::selection
+        background-color: var(--color)
+        -webkit-background-clip: text
+        -webkit-text-fill-color: var(--color)
+
+    &::placeholder
+        color: transparent
+
+    &:focus
+        outline: none
+
+.button
+    background-color: transparent
+    /* border: 1px solid white */
+    border-width: 1px
+    border-style: solid
+    border-color: var(--color)
+    padding: 5px
+    color: var(--color)
+    font-size: 1rem
+    cursor: pointer
+
+.anchor
+    color: var(--color)
+
+    &:visited
+        color: var(--color)
+
+.main
+    overflow: scroll
+    scrollbar-width: none
+    -ms-overflow-style: none
+
+    &::-webkit-scrollbar
+        display: none
+
+.footer
+    display: flex
+    justify-content: center
+    align-items: center
+
+.transparent-button
+    background-color: transparent
+    border: none
+    color: var(--color)
+    font-size: 3rem
+    cursor: pointer
