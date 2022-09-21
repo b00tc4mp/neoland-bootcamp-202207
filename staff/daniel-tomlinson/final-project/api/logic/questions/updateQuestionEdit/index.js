@@ -6,10 +6,6 @@ const { validateString } = require("validators");
 function updateQuestionEdit(
   userId,
   questionId,
-  /* text,
-  suggestedAnswer,
-  timeLimit,
-  visibility */
   text,
   timeLimit,
   visibility,
@@ -38,7 +34,6 @@ function updateQuestionEdit(
         throw new AuthError(
           `question with id ${questionId} does not belong to user with id ${userId}`
         );
-      debugger;
       question.question = text;
       question.timeLimit = timeLimit;
       question.visibility = visibility;

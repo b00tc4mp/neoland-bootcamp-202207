@@ -4,12 +4,13 @@
   "main": "index.js",
   "scripts": {
     "test": "npx jest --runInBand logic",
-    "test-inspect": "node --inspect-brk ./node_modules/.bin/jest --runInBand --testTimeout=60000 --clearCache logic",
-    "test-inspect-cli": "node inspect ./node_modules/.bin/jest --runInBand --testTimeout=60000 --clearCache logic",
-    "test-coverage": "npx jest --runInBand --collectCoverage --clearCache src/logic/*.spec.js",
-    "populate": "node src/populate.js",
-    "populate-inspect": "node --inspect-brk src/populate.js",
-    "populate-inspect-cli": "node inspect src/populate.js"
+    "test-clear-cache": "npx jest --runInBand --clear-cache logic",
+    "test-inspect": "node --inspect-brk ./node_modules/.bin/jest --runInBand --testTimeout=60000 logic",
+    "test-inspect-cli": "node inspect ./node_modules/.bin/jest --runInBand --testTimeout=60000 logic",
+    "test-coverage": "npx jest --runInBand --collectCoverage logic/**.spec.js",
+    "populate": "node populate.js",
+    "populate-inspect": "node --inspect-brk populate.js",
+    "populate-inspect-cli": "node inspect populate.js"
   },
   "keywords": [],
   "author": "",

@@ -3,14 +3,14 @@ const {
   disconnect,
   Types: { ObjectId },
 } = require("mongoose");
-const { User, Note } = require("../../../models");
+const { User, GameCode } = require("../../../models");
 const { NotFoundError } = require("errors");
-const createNote = require(".");
+const createGameCode = require(".");
 
-describe("createNote", () => {
-  beforeAll(() => connect("mongodb://127.0.0.1:27017/postits-test"));
+describe("createGamecode", () => {
+  beforeAll(() => connect("mongodb://127.0.0.1:27017/final-project"));
 
-  beforeEach(() => Promise.all([User.deleteMany(), Note.deleteMany()]));
+  beforeEach(() => Promise.all([User.deleteMany(), GameCode.deleteMany()]));
 
   it("succeeds on correct data", () => {
     //happy path
@@ -18,42 +18,47 @@ describe("createNote", () => {
     const email = "pepito@grillo.com";
     const password = "123123123";
 
-    const text = "hello world";
+    const pin = "1234";
+    const nameOfClass = "Neoland";
 
     return User.create({ name, email, password }).then((user) =>
-      createNote(user.id, text)
+      createGameCode(user.id, nameOfClass, pin, user.id)
         .then((res) => {
           expect(res).toBeUndefined();
 
-          return Note.find();
+          return GameCode.find();
         })
-        .then((notes) => {
-          expect(notes).toHaveLength(1);
+        .then((gameCodes) => {
+          expect(gameCodes).toHaveLength(1);
 
-          const [note] = notes;
+          const [gameCode] = gameCodes;
 
-          expect(note.user.toString()).toEqual(user.id);
-          expect(note.text).toEqual(text);
-          expect(note.visibility).toEqual("private");
-          expect(note.createAt).toBeInstanceOf(Date);
-          expect(note.modifiedAt).toBeUndefined();
+          // expect(gameCode.host.toString()).toEqual(user.id);
+          expect(gameCode.pin).toEqual(pin);
+          expect(gameCode.nameOfClass).toEqual("Neoland");
+          expect(typeof gameCode.pin).toBe("string");
+          expect(typeof gameCode.host).toBe("string");
+          expect(gameCode.createdAt).toBeInstanceOf(Date);
+          expect(gameCode.modifiedAt).toBeUndefined();
         })
     );
   });
 
   it("fails on non-existing user", () => {
-    // unhappy path
-
     const userId = new ObjectId().toString();
 
-    /* return createNote(userId).catch((error) => {
-        expect(error).toBeInstanceOf(NotFoundError);
-        expect(error.message).toEqual(`user with id ${userId} not found`);
-      }); */
-    return expect(createNote(userId)).rejects.toThrowError(
+    const pin = "1234";
+    const nameOfClass = "Neoland";
+    const host = userId;
+
+    return createGameCode(userId, nameOfClass, pin, host).catch((error) => {
+      expect(error).toBeInstanceOf(NotFoundError);
+      expect(error.message).toEqual(`user with id ${userId} not found`);
+    });
+    /* .then expect(createGameCode(userId)).rejects.toThrowError(
       NotFoundError,
       `user with id ${userId} not found`
-    );
+    ); */
   });
 
   afterAll(() => disconnect());

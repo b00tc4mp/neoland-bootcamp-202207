@@ -12,10 +12,10 @@ const logger = createLogger(module);
 module.exports = (req, res) => {
   runWithErrorHandling(
     () => {
-      debugger;
       const {
         body: { pin },
       } = req;
+      // const userId = verifyToken(req);
 
       return retrieveGameCode(pin).then((gameCode) => res.json(gameCode));
     },

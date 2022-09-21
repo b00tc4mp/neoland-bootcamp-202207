@@ -22,7 +22,7 @@ const gameCode = new Schema({
     required: true,
   },
 
-  createAt: {
+  createdAt: {
     type: Date,
     default: Date.now,
   },

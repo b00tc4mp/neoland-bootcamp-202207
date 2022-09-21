@@ -5,7 +5,7 @@ const {
 } = require("mongoose");
 const { User, Question } = require("../../../models");
 const { NotFoundError } = require("errors");
-const updateQuestionText = require(".");
+const { updateQuestionEdit } = require(".");
 
 describe("updateFavorites", () => {
   beforeAll(() => connect("mongodb://127.0.0.1:27017/final-project"));
@@ -19,9 +19,19 @@ describe("updateFavorites", () => {
     const email = "pepito@grillofquestiontext.com";
     const password = "123123123";
 
+    const text = "What's your name?";
+    const suggestedAnswer = "";
+    const timeLimit = 30000;
+    const questionType = "MCQ";
+    const answerA = ["Dave", "incorrect"];
+    const answerB = ["Dani", "correct"];
+    const answerC = ["Dylan", "incorrect"];
+    const answerD = ["Dennis", "incorrect"];
+    const visibility = "public";
+
     return User.create({ name, email, password }).then((user) => {
       Question.create({
-        user: user.id,
+        user: user._id,
         question: "Is Java a type of OS 4?",
         suggestedAnswer: "No",
         timeLimit: 30000,
@@ -32,13 +42,29 @@ describe("updateFavorites", () => {
         answerD: ["", "incorrect"],
         visibility: "public",
       }).then((question) => {
-        debugger;
-        updateQuestionText(user.id, question.id, "New text").then(
-          (questionUpdated) => {
-            debugger;
-            expect(questionUpdated.question).toEqual("New text");
-          }
-        );
+        updateQuestionEdit(
+          user._id,
+          question.id,
+          text,
+          timeLimit,
+          visibility,
+          questionType,
+          suggestedAnswer,
+          answerA,
+          answerB,
+          answerC,
+          answerD
+        ).then((questionUpdated) => {
+          expect(questionUpdated.question).toEqual("What's your name?");
+          expect(questionUpdated.timeLimit).toEqual(timeLimit);
+          expect(questionUpdated.visibility).toEqual(visibility);
+          expect(questionUpdated.questionType).toEqual(questionType);
+          expect(questionUpdated.suggestedAnswer).toEqual(suggestedAnswer);
+          expect(questionUpdated.answerA).toEqual(answerA);
+          expect(questionUpdated.answerB).toEqual(answerB);
+          expect(questionUpdated.answerC).toEqual(answerC);
+          expect(questionUpdated.answerD).toEqual(answerD);
+        });
       });
     });
   });

@@ -19,7 +19,6 @@ const { verifyObjectId } = require("../../../utils");
  */
 
 function createGameCode(userId, nameOfClass, pin, host) {
-  debugger;
   verifyObjectId(userId, "user id");
   validateString(nameOfClass, "nameOfClass");
   validateString(pin, "pin");

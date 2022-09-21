@@ -1,18 +1,16 @@
 const { connect, disconnect } = require("mongoose");
 const { User } = require("../../../models");
 const registerUser = require(".");
-const { DuplicityError } = require("../../../errors");
+const { DuplicityError } = require("errors");
 
 describe("registerUser", () => {
-  beforeAll(() => connect("mongodb://127.0.0.1:27017/postits-test"));
+  beforeAll(() => connect("mongodb://127.0.0.1:27017/final-project"));
 
   beforeEach(() => {
-    debugger;
     return User.deleteMany();
   });
 
   it("succeeds on new user", () => {
-    debugger;
     // happy path
     const name = "Pepito Grillo";
     const email = "pepito@grillo.com";
@@ -36,7 +34,6 @@ describe("registerUser", () => {
   });
 
   it("it fails on existing user", () => {
-    debugger;
     // unhappy path
     const name = "Pepito Grillo";
     const email = "pepito@grillo.com";
@@ -49,14 +46,12 @@ describe("registerUser", () => {
       })
       .catch((error) => {
         console.log(error.message);
-        debugger;
         expect(error).toBeInstanceOf(DuplicityError);
         expect(error.message).toEqual("user already exists");
       });
   });
 
   afterAll(() => {
-    debugger;
     return disconnect();
   });
 });
