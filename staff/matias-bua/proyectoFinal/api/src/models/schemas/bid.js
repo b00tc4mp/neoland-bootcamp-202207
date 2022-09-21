@@ -4,12 +4,13 @@ const bid = new Schema({
     user: {
         type: ObjectId,
         required: true,
+        ref: 'User'
     },
     price: {
         type: Number,
         required: true
     },
-    dateBid: {
+    date: {
         type: Date,
         default: Date.now
     },

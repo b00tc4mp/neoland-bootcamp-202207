@@ -24,6 +24,11 @@ const auction = new Schema({
         type: Number,
         required: true
     },
+
+    currentValue: {
+        type: Number,
+        required: true,
+    },
     
     bids: [bid]
     ,
@@ -44,7 +49,7 @@ const auction = new Schema({
         // required: true
     },
 
-    
+
 })
 
 module.exports = auction

@@ -9,7 +9,7 @@
     "test": "npx jest --runInBand --setTimeout=60000 src/logic",
     "test-inspect-brk": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --setTimeout=60000 src/logic",
     "start-inspect": "node --inspect-brk src",
-    "test-coverage": "npx nyc --reporter=text"
+    "test-coverage": "npx jest --runInBand --setTimeout=60000 --collectCoverage src/logic/"
   },
   "keywords": [],
   "author": "",

@@ -7,9 +7,9 @@ module.exports = (req, res) => {
 
         const userId = verifyToken(req)
 
-        const { body: { gender, city, aboutYou} } = req
+        const { body: { gender, city, aboutYou } } = req
 
-        return updateUserProfile(userId, gender, city, aboutYou)
+        return updateUserProfile( userId, gender, city, aboutYou )
             .then(()=> res.status(204).send())
     }, res, logger)
 }

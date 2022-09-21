@@ -1,4 +1,4 @@
-const { Schema} = require('mongoose')
+const { Schema, Types: { ObjectId } } = require('mongoose')
 
 const user = new Schema({
     name:{
@@ -28,23 +28,28 @@ const user = new Schema({
     },
 
     phoneNumber: {
-        Type: Number,
+        type: Number,
     },
 
     gender: {
-        Type: String,
+        type: String,
         default: ''
     },
 
     city: {
-        Type: String,
+        type: String,
         default: ''
     },
 
     aboutYou: {
-        Type: String,
+        type: String,
         default: ''
     },
+
+    // BuyAuction: {
+    //     type: ObjectId,
+    //     ref: 'auction'
+    // }
    
 })
 

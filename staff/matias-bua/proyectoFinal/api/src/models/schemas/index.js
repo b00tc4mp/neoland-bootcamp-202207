@@ -1,5 +1,6 @@
 module.exports = {
     user: require('./user'),
     auction: require('./auction'),
-    bid: require('./bid')
+    bid: require('./bid'),
+    message: require('./message')
 }

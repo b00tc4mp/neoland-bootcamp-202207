@@ -1,11 +1,11 @@
 const { JsonWebTokenError, TokenExpiredError, NotBeforeError } = require('jsonwebtoken')
-const { FormatError, NotFoundError, AuthError, DuplicityError } = require('errors')
+const { FormatError, NotFoundError, AuthError, DuplicityError, ConflictError } = require('errors')
 
 function runWithErrorHandling(callback, res, logger) {
     try {
         callback()
             .catch(error => {
-                if (error instanceof DuplicityError)
+                if (error instanceof DuplicityError || error instanceof ConflictError)
                     res.status(409).json({ error: error.message })
                 else if (error instanceof NotFoundError || error instanceof AuthError)
                     res.status(401).json({ error: 'wrong credentials' })

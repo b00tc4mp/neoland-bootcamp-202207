@@ -9,7 +9,7 @@ module.exports = (req, res) => {
 
         const { body: { oldPassword, newPassword, newPasswordRepeat} } = req
         
-        return updateUserPassword(userId, oldPassword, newPassword, newPasswordRepeat )
+        return updateUserPassword( userId, oldPassword, newPassword, newPasswordRepeat )
             .then(()=> res.status(204).send())
     }, res, logger)
 }

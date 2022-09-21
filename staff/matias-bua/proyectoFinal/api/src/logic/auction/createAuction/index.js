@@ -33,7 +33,13 @@ const { verifyObjectIdString } = require('../../../utils')
         .then(user => {
             if (!user) throw new NotFoundError(`user with id ${author} not found`)
 
-            return Auction.create({ author, title, description, value, image, finalDate /*initialDate*/})
+            // const year = date.getFullYear()
+            // const month = date.getMonth()
+            // const day = finalDate.getDate()
+
+            // const sanitizedDate = new Date(year,month,day)
+
+            return Auction.create({ author, title, description, value, image, finalDate, currentValue: value})
                 .catch(error => {
                     throw new SystemError(error.message)
                 })

@@ -14,12 +14,12 @@ describe("createAuction", () => {
     const email = "art@attack.com";
     const password = "123123123";
 
-    return User.create({ name, email, password })
+    return User.create( { name, email, password } )
     .then((user) => {
       const auction = {
         author: user._id.toString(),
         title: "Barra de resina epoxica",
-        description: "Mesa de resina epoxica , con acabado de marmol",
+        description: "Mesa de resina epoxica, con acabado de marmol",
         value: 450,
         image: "https://mesasepoxi.com/wp-content/uploads/2021/10/mesaepoxi.com-mesas-de-resina-epoxy-madera-nogal-olivo.jpg",
         initialDate: new Date("05/10/2022"),
@@ -52,12 +52,12 @@ describe("createAuction", () => {
     // unhappy path
     const userId = new ObjectId().toString();
 
-    // return createAuction(userId)
-    //     .then(() => { throw new Error('should not reach this point') })
-    //     .catch(error => {
-    //         expect(error).toBeInstanceOf(NotFoundError)
-    //         expect(error.message).toEqual(`user with id ${userId} not found`)
-    //     })
+    return createAuction(userId)
+        .then(() => { throw new Error('should not reach this point') })
+        .catch(error => {
+            expect(error).toBeInstanceOf(NotFoundError)
+            expect(error.message).toEqual(`user with id ${userId} not found`)
+        })
 
     // return expect(createAuction(userId)).rejects.toThrowError(NotFoundError,`user with id ${userId} not found`);
   });

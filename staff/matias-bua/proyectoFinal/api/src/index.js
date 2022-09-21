@@ -5,7 +5,6 @@ const { createLogger } = require('./utils')
 const logger = createLogger(module)
 const cors = require('cors')
 const { name, version } = require('../package.json')
-
 const { env: {MONGO_URL, PORT }} = process
 
 
@@ -17,7 +16,7 @@ connect(MONGO_URL)
         
         const api = express()
         
-        const { usersRouter, auctionRouter } = require('./routes')     
+        const { usersRouter, auctionRouter} = require('./routes')     
         
         api.use(cors())
 
