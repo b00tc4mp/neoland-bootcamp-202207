@@ -8,7 +8,7 @@ function updateInvoice(invoiceId, companyId, { invoiceNumber, customer, terms, i
     if (!(ObjectId.isValid(invoiceId))) throw new FormatError('Customer ID is not valid')
 
     return (async () => {
-        debugger
+        
         const invoice = await Invoice.findOne({ _id: invoiceId, company: companyId }).lean()
         if (!invoice) throw new NotFoundError(`invoice with ID ${invoiceId} not found or not belong to company with ID ${companyId}`)
 
@@ -17,7 +17,7 @@ function updateInvoice(invoiceId, companyId, { invoiceNumber, customer, terms, i
         const oldProductsIds = invoice.products.map(({ id }) => id)
 
         const oldItemsFound = await InventoryItem.find({ _id: { $in: oldProductsIds } })
-        debugger
+        
         oldItemsFound.forEach(item => {
             const oldProduct = invoice.products.find(product => product.id.toString() === item._id.toString())
             const newProduct = products.find(_newProduct => _newProduct.id.toString() === item._id.toString())

@@ -47,7 +47,7 @@ const company = new Schema({
             type: String
         },
         zipCode: {
-            type: Number
+            type: String
         },
         country : {
             type : String
@@ -65,7 +65,7 @@ const company = new Schema({
             type: String
         },
         zipCode: {
-            type: Number
+            type: String
         },
         country : {
             type : String

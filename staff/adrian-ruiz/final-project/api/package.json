@@ -5,7 +5,6 @@
     "express": "^4.18.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.5.4",
-    "node-mailjet": "^5.1.1",
     "nodemailer": "^6.7.8",
     "pdfkit": "^0.13.0",
     "validators": "file:../validators",
@@ -18,7 +17,8 @@
     "start": "node ./src/index.js",
     "test": "npx mocha src/logic/*/*.spec.js",
     "test-inspect": "npx mocha --inspect-brk src/logic/*/*.spec.js",
-    "inspect": "node --inspect-brk ./src/index.js"
+    "inspect": "node --inspect-brk ./src/index.js",
+    "populate": "node ./src/populate.js"
   },
   "keywords": [],
   "author": "",

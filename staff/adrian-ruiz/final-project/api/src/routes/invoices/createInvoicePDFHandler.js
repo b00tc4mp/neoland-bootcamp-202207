@@ -1,6 +1,5 @@
 const { runWithErrorHandling, validateToken } = require('../../utils')
 const { createPDF } = require('../../logic')
-const fs = require('fs')
 const logger = require('../../logger')(module)
 
 function createPDFHandler(req, res){

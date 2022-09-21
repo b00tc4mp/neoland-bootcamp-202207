@@ -3,7 +3,7 @@ const { sendInvoiceEmail } = require('../../logic')
 const logger = require('../../logger')(module)
 
 function sendInvoiceEmailHandler(req, res){
-    debugger
+    
     runWithErrorHandling(async () => {
         const { companyId, userId } = await validateToken(req)
         

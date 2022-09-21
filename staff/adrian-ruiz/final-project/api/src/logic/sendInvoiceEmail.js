@@ -2,8 +2,9 @@ const nodemailer = require('nodemailer')
 const createPDF = require('./createPDF')
 const { Company } = require('../models')
 
+const { env: { NODEMAILER_USER, NODEMAILER_PASS } } = process
+
 async function sendInvoiceEmail(userId, companyId, invoiceId, receiver) {
-    console.log('hi')
     const { pdfOutputStream, pdfFileName } = await createPDF(userId, companyId, invoiceId)
 
     const company = await Company.findById(companyId)
@@ -13,8 +14,8 @@ async function sendInvoiceEmail(userId, companyId, invoiceId, receiver) {
         port: 465,
         secure: true, // true for 465, false for other ports
         auth: {
-            user: 'erp.adrianruiz@zohomail.eu',
-            pass: '2ej81aE6QvfP',
+            user: NODEMAILER_USER,
+            pass: NODEMAILER_PASS,
         }
     });
 

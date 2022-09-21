@@ -8,7 +8,7 @@ function deleteInvoice(company, invoiceId){
     if (!(ObjectId.isValid(invoiceId))) throw new FormatError('Invoice ID is not valid')
 
     return (async() => {
-        debugger
+        
         const invoice = await Invoice.findOne({_id : invoiceId, company})
         if(!invoice) throw new NotFoundError(`Invoice with ID ${invoiceId} not found in Company with ID ${company}`)
 

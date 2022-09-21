@@ -4,7 +4,7 @@ const { Types: { ObjectId } } = require('mongoose')
 
 function updateCustomer(customerId, companyId, { name, contactName, email, phone, website, legalId, billingAddress, shippingAddress, payTerms }) {
     //TODO VALIDATE INPUTS
-    debugger
+  
     if (!(ObjectId.isValid(companyId))) throw new FormatError('Company ID is not valid')
     if (!(ObjectId.isValid(customerId))) throw new FormatError('Customer ID is not valid')
 
