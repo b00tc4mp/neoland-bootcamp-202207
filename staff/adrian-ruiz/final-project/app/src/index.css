@@ -45,8 +45,12 @@ code {
   background-color: #677CC7;
   color: white;
   border: none;
- /*  margin-top: -20px;
-  margin-bottom: -20px; */
+  transition: 300ms;
+}
+
+.newButton:hover{
+  background-color: #42538D;
+  transform: scale(1.05);
 }
 
 .noButton{

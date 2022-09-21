@@ -1,7 +1,7 @@
 import './InvoiceCreatorPanel.css'
 import { useState, useRef, useEffect } from 'react'
 import { toaster } from 'evergreen-ui'
-import { createInvoice, retrieveCustomers, retrieveStock } from '../../logic'
+import { createInvoice, retrieveCustomers, retrieveStock, roundTo } from '../../logic'
 function InvoiceCreatorPanel({ handleSetViewList, onCreateInvoice }) {
 
     const [rows, setRows] = useState([{ id: 0, value: 0, qty: 0, tax: 0 }, { id: 1, value: 0, qty: 0, tax: 0 }, { id: 2, value: 0, qty: 0, tax: 0 }])
@@ -37,7 +37,7 @@ function InvoiceCreatorPanel({ handleSetViewList, onCreateInvoice }) {
                 <input type='number' className="form__invoiceProductQty" name={`productQty${row.id}`} onChange={(event) => handleChangeQty(event, row.id)}></input>
                 <input type='number' className="form__invoiceProductUnitPrice" name={`productUnitPrice${row.id}`} onChange={(event) => handleChangeUnitPrice(event, row.id)}></input>
                 <input type='text' className="form__invoiceProductTax" name={`productTax${row.id}`} onChange={(event) => handleChangeTax(event, row.id)}></input>
-                <input type='number' className="form__invoiceProductTotal" name={`productTotal${row.id}`} value={(row.value * row.qty) * (row.tax / 100 + 1)} readOnly></input>
+                <input type='number' className="form__invoiceProductTotal" name={`productTotal${row.id}`} value={roundTo((row.value * row.qty) * (row.tax / 100 + 1),2)} readOnly></input>
                 <span className="material-symbols-outlined deleteRow" onClick={() => handleDeleteRow(row.id)}>delete_forever</span>
             </div>
         )
@@ -71,7 +71,7 @@ function InvoiceCreatorPanel({ handleSetViewList, onCreateInvoice }) {
         let amount = 0
         rows.forEach(row => amount += (row.value * row.qty) * (row.tax / 100 + 1))
 
-        setTotalAmount(amount)
+        setTotalAmount(roundTo(amount, 2))
     }
 
     const handleChangeName = (event, rowId) => {

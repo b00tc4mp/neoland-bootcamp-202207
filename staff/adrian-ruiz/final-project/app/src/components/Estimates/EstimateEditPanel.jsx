@@ -100,7 +100,7 @@ function EstimateEditPanel({ estimate, handleSetViewList, onSubmitEstimate }) {
     }
 
     const handleDeleteRow = index => {
-        debugger
+        
         if (rows.products.length > 1) {
             const updatedEstimate = { ...rows }
             const updatedProducts = []
@@ -116,7 +116,7 @@ function EstimateEditPanel({ estimate, handleSetViewList, onSubmitEstimate }) {
 
     const handleEditEstimateSubmit = event => {
         event.preventDefault()
-        debugger
+        
         try {
             const { target: form,
                 target: {

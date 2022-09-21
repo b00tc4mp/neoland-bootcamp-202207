@@ -3,6 +3,7 @@ import './Header.css'
 import { useState } from 'react'
 import withContext from '../utils/withContext'
 import SettingsDropdown from './SettingsDropdown'
+import { CSSTransition } from 'react-transition-group';
 
 function Header() {
 
@@ -23,7 +24,15 @@ function Header() {
                 <h2 className='header__settings' onClick={handleSettingsClick}>Settings</h2>
 
             </div>
-            {settingsView && <SettingsDropdown />}
+            <CSSTransition
+                in={settingsView}
+                timeout={350}
+                classNames='fadeOut'
+                unmountOnExit
+            >
+                <SettingsDropdown />
+            </CSSTransition>
+            {/* {settingsView && <SettingsDropdown />} */}
         </>
     )
 }

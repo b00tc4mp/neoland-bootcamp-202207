@@ -63,7 +63,6 @@ function stableSort(array, comparator) {
         }
         return a[1] - b[1];
     });
-    console.log(stabilizedThis)
     return stabilizedThis.map((el) => el[0]);
 }
 
@@ -224,7 +223,7 @@ export default function EnhancedTable({ stock, onDeleteProduct, onEditClick }) {
     const rows = stock
 
     const [order, setOrder] = React.useState('asc');
-    const [orderBy, setOrderBy] = React.useState('stock');
+    const [orderBy, setOrderBy] = React.useState('name');
     const [selected, setSelected] = React.useState(undefined);
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);

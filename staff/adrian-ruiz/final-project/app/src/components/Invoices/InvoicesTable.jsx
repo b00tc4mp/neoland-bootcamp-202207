@@ -22,7 +22,7 @@ import AttachEmailIcon from '@mui/icons-material/AttachEmail';
 import { visuallyHidden } from '@mui/utils';
 import { toaster } from 'evergreen-ui'
 import DeleteDialog from '../DeleteDialog'
-import { deleteInvoice, createInvoicePDF, sendInvoiceMail } from '../../logic'
+import { deleteInvoice, createInvoicePDF, sendInvoiceMail, roundTo } from '../../logic'
 
 function descendingComparator(a, b, orderBy) {
     if ((typeof a[orderBy] === 'string') && (typeof b[orderBy] === 'string')) {
@@ -403,8 +403,8 @@ export default function EnhancedTable({ data, onDeleteInvoice, onEditClick }) {
                                                 <TableCell align="left">{row.customer.name}</TableCell>
                                                 <TableCell align="left">{row.invoiceNumber}</TableCell>
                                                 <TableCell align="left">{row.status}</TableCell>
-                                                <TableCell align="right">{row.balance}</TableCell>
-                                                <TableCell align="right">{row.totalAmount}</TableCell>
+                                                <TableCell align="right">{roundTo(row.balance, 2)} €</TableCell>
+                                                <TableCell align="right">{roundTo(row.totalAmount, 2)} €</TableCell>
                                                 <TableCell padding="checkbox">
                                                     <Checkbox
                                                         color="primary"

@@ -18,7 +18,7 @@ import Tooltip from '@mui/material/Tooltip';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { visuallyHidden } from '@mui/utils';
-import { deleteEstimate } from '../../logic'
+import { deleteEstimate, roundTo } from '../../logic'
 import { toaster } from 'evergreen-ui'
 import DeleteDialog from '../DeleteDialog'
 
@@ -347,7 +347,7 @@ export default function EnhancedTable({ data, onDeleteEstimate, onEditClick }) {
                                                 <TableCell align="left">{row.customer.name}</TableCell>
                                                 <TableCell align="left">{row.estimateNumber}</TableCell>
                                                 <TableCell align="left">{row.status}</TableCell>
-                                                <TableCell align="right">{row.totalAmount}</TableCell>
+                                                <TableCell align="right">{roundTo(row.totalAmount, 2)} €</TableCell>
                                                 <TableCell padding="checkbox">
                                                     <Checkbox
                                                         color="primary"

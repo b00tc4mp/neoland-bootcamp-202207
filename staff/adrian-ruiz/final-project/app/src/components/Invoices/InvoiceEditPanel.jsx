@@ -1,8 +1,9 @@
 import './InvoiceCreatorPanel.css'
 import { useState, useRef, useEffect } from 'react'
 import { toaster } from 'evergreen-ui'
-import { updateInvoice, retrieveStock } from '../../logic'
+import { updateInvoice, retrieveStock, roundTo } from '../../logic'
 function InvoiceEditPanel({ invoice, handleSetViewList, onSubmitEstimate }) {
+    
     let initialTotal = 0
     invoice.products.forEach((product, index) => {
         product.index = index
@@ -10,7 +11,7 @@ function InvoiceEditPanel({ invoice, handleSetViewList, onSubmitEstimate }) {
     })
 
     const [rows, setRows] = useState(invoice)
-    const [totalAmount, setTotalAmount] = useState(initialTotal)
+    const [totalAmount, setTotalAmount] = useState(roundTo(initialTotal, 2))
     const formRef = useRef(null)
     const [stock, setStock] = useState([])
 
@@ -27,7 +28,6 @@ function InvoiceEditPanel({ invoice, handleSetViewList, onSubmitEstimate }) {
     }, [])
 
     function printRows() {
-        console.log(rows)
         return rows.products.map(row =>
             <div className="invoiceCreator__productRow" key={row.index}>
                 <input type='text' className="form__invoiceProductName" name={`productName${row.index}`} placeholder='Select product' list='productsList' defaultValue={row.name}></input>
@@ -38,7 +38,7 @@ function InvoiceEditPanel({ invoice, handleSetViewList, onSubmitEstimate }) {
                 <input type='number' className="form__invoiceProductQty" name={`productQty${row.index}`} onChange={(event) => handleChangeQty(event, row.index)} defaultValue={row.amount}></input>
                 <input type='number' className="form__invoiceProductUnitPrice" name={`productUnitPrice${row.index}`} onChange={(event) => handleChangeUnitPrice(event, row.index)} defaultValue={row.price}></input>
                 <input type='text' className="form__invoiceProductTax" name={`productTax${row.index}`} onChange={(event) => handleChangeTax(event, row.index)} defaultValue={row.tax}></input>
-                <input type='number' className="form__invoiceProductTotal" name={`productTotal${row.index}`} value={(row.price * row.amount) * (row.tax / 100 + 1)} readOnly></input>
+                <input type='number' className="form__invoiceProductTotal" name={`productTotal${row.index}`} value={roundTo((row.price * row.amount) * (row.tax / 100 + 1), 2)} readOnly></input>
                 <span className="material-symbols-outlined deleteRow" onClick={() => handleDeleteRow(row.index)}>delete_forever</span>
             </div>
         )
@@ -72,7 +72,7 @@ function InvoiceEditPanel({ invoice, handleSetViewList, onSubmitEstimate }) {
         let amount = 0
         rows.products.forEach(row => amount += (row.price * row.amount) * (row.tax / 100 + 1))
 
-        setTotalAmount(amount)
+        setTotalAmount(roundTo(amount, 2))
     }
 
 
@@ -93,9 +93,7 @@ function InvoiceEditPanel({ invoice, handleSetViewList, onSubmitEstimate }) {
         }
 
         updatedInvoice.products.push(newRow)
-        console.log(updatedInvoice)
         setRows(updatedInvoice)
-        console.log(rows)
     }
 
     const handleDeleteRow = index => {
@@ -259,7 +257,7 @@ function InvoiceEditPanel({ invoice, handleSetViewList, onSubmitEstimate }) {
                         <label className="form__label" htmlFor="invoiceDate">Invoice date</label>
                         <input type='date' className="form__input" name='invoiceDate' defaultValue={invoice.invoiceDate} ></input>
                         <label className="form__label" htmlFor="dueDate">Due date</label>
-                        <input type='date' className="form__input" name='dueDate'></input>
+                        <input type='date' className="form__input" name='dueDate' defaultValue={invoice.dueDate}></input>
                     </div>
                     <div className='invoiceCreator__totalAmount'>
                         <h2 className='totalAmount__title'>Total <br></br>Amount</h2>

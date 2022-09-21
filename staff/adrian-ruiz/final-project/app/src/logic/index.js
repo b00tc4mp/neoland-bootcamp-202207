@@ -24,6 +24,7 @@ import updateEstimate from './updateEstimate'
 import updateInvoice from './updateInvoice'
 import createInvoicePDF from './createInvoicePDF'
 import sendInvoiceMail from './sendInvoiceMail'
+import { roundTo } from './helpers'
 
 export {
     authenticateUser,
@@ -51,5 +52,6 @@ export {
     updateInvoice,
     retrieveAInvoice,
     createInvoicePDF,
-    sendInvoiceMail
+    sendInvoiceMail,
+    roundTo
 }

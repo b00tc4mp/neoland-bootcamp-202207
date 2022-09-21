@@ -4094,11 +4094,6 @@
   "resolved" "https://registry.npmjs.org/dotenv/-/dotenv-10.0.0.tgz"
   "version" "10.0.0"
 
-"downloadjs@^1.4.7":
-  "integrity" "sha512-LN1gO7+u9xjU5oEScGFKvXhYf7Y/empUIIEAGBs1LzUq/rg5duiDrkuH5A2lQGd5jfMOb9X9usDa2oVXwJ0U/Q=="
-  "resolved" "https://registry.npmjs.org/downloadjs/-/downloadjs-1.4.7.tgz"
-  "version" "1.4.7"
-
 "downshift@^5.2.0":
   "integrity" "sha512-xaH0RNqwJ5pAsyk9qBmR9XJWmg1OOWMfrhzYv0NH2NjJxn77S3zBcfClw341UfhGyKg5v+qVqg/CQzvAgBNCXQ=="
   "resolved" "https://registry.npmjs.org/downshift/-/downshift-5.4.7.tgz"
