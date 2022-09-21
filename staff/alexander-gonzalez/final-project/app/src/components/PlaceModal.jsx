@@ -1,33 +1,19 @@
-import { useEffect } from "react"; 
-import { useParams } from "react-router-dom";
+import './PlaceModal.css'
+import IconButton from './IconButton'
 
-
-function PlaceModal({context: { handleFeedback}}) {
-  const logger = new Loggito("PlaceView");
-  const params = useParams();
-  const [place, setPlace] = useState();
-  const placeId = params.placeId
-
-  useEffect(() => {
-    try {
-      return retrieveCity(sessionStorage.token, placeId, (error, placeId) => {
-        if (error) {
-          handleFeedback({ message: error.message, level: "error" });
-
-          logger.warn(error.message);
-        }
-
-        setPlace(placeId);
-
-        logger.debug("setPlace", placeId);
-      });
-    } catch (error) {
-      handleFeedback({ message: error.message, level: "error" });
-
-      logger.warn(error.message);
-    }
-  }, []);
-  }
-
+function PlaceModal({ place }) {
+  
+  return <>
+    <div className='PlaceModal PlaceModal__boxing'> <button>x</button>
+    {/* {place._id} */}
+    <p className='description description'>{place.description}</p> <img className="img img"src={place.photo} />
+    
+    <p className='url url'>{place.url}</p>
+    <p className='likes likes'>{place.likes}</p>
+    
+    </div>
+   
+  </> 
+}
 
 export default PlaceModal

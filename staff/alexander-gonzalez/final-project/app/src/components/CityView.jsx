@@ -1,10 +1,11 @@
 import React from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import retrieveCity from "../logic/retrieveCity";
 import Loggito from "../utils/Loggito";
 import withContext from "../utils/withContext";
+import PlaceModal from "./PlaceModal"
 
 import "./CityView.css";
 
@@ -12,7 +13,7 @@ const CityView = ({ context: { handleFeedback } }) => {
   const logger = new Loggito("CityView");
   const params = useParams();
   const [city, setCity] = useState();
-  // const [place, setPlace] = useState();
+  const [place, setPlace] = useState();
   const cityId = params.cityId;
 
   useEffect(() => {
@@ -37,12 +38,12 @@ const CityView = ({ context: { handleFeedback } }) => {
     }
   }, []);
 
-  const handlePlaceClick = (placeId) => setPlace(placeId);
+  const handlePlaceClick = (place) => setPlace(place);
 
   return (
     <>
       {city && (
-        <>
+        <div style={{'z-index': "1"}}>
           <MapContainer
             key={city.id}
             center={{ lat: city.coords[0], lng: city.coords[1] }}
@@ -65,9 +66,9 @@ const CityView = ({ context: { handleFeedback } }) => {
           </MapContainer>
 
           <h1></h1>
-        </>
+        </div>
       )}
-      {/* {place && <PlaceModal place={place} />} */}
+      {place && <PlaceModal place={place} />}
     </>
   );
 };

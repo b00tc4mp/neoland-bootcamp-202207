@@ -1,6 +1,7 @@
 const { connect, disconnect } = require("mongoose");
 const { User, City, Place } = require("./models");
 
+
 let eiffelTower, arcDeTriomf, versallesPalace,louvreMuseum, notreDame, londonTower, towerBridge, bigBen, britishMuseum, buckinghamPalace, coliseo, fontanaDiTrevi, foroRomano, vaticano, castellSantAngelo ;
 
 connect("mongodb://localhost:27017/wanderlust")
@@ -45,7 +46,7 @@ connect("mongodb://localhost:27017/wanderlust")
       // id:"ObjectId",
       photo: "TODO",
       name: "London Tower",
-      description: " ",
+      description: " El Puente de la Torre es un puente basculante y colgante de Londres, construido entre 1886 y 1894, que cruza el río Támesis cerca de la Torre de Londres y se ha convertido en uno de los símbolos de la ciudad.",
       url: " TODO",
       likes: 0,
       coords:[51.50833, -0.07590]
@@ -54,9 +55,9 @@ connect("mongodb://localhost:27017/wanderlust")
 
     towerBridge = new Place({
       // id:"ObjectId",
-      photo: "TODO",
+      photo: "https://www.eliberico.com/wp-content/uploads/2021/09/torre-londres-640x375.jpg ",
       name: "Tower Bridge",
-      description: " ",
+      description: " El Puente de la Torre es un puente basculante y colgante de Londres, construido entre 1886 y 1894, que cruza el río Támesis cerca de la Torre de Londres y se ha convertido en uno de los símbolos de la ciudad.",
       url: " TODO",
       likes: 0,
       coords:[51.50556, -0.07540]
@@ -64,9 +65,9 @@ connect("mongodb://localhost:27017/wanderlust")
 
     bigBen = new Place({
       //id:"ObjectId",
-      photo: "TODO",
+      photo: "https://media.traveler.es/photos/61377992652b2e41f8dcf719/master/w_1600,c_limit/97336.jpg ",
       name: "Big Ben",
-      description: " ",
+      description: "Big Ben es el nombre con el que se conoce a la gran campana del reloj situado en el lado noroeste del Palacio de Westminster, la sede del Parlamento del Reino Unido, en Londres.​ Popularmente, por extensión, se utiliza también este nombre para el reloj de la torre.  ",
       url: " TODO",
       likes: 0,
       coords:[51.50095, -0.12463]
@@ -74,9 +75,9 @@ connect("mongodb://localhost:27017/wanderlust")
 
     britishMuseum = new Place({
       //id:"ObjectId",
-      photo: "TODO",
+      photo: " https://totenart.com/noticias/wp-content/uploads/2020/01/totenart-Museo-Britanico-Londres.jpg",
       name: "British Museum",
-      description: " ",
+      description: " El Museo Británico es un museo de la ciudad de Londres, Reino Unido, uno de los museos más importantes y visitados del mundo. Sus colecciones abarcan campos diversos del saber humano, como la historia, la arqueología, la etnografía y el arte.",
       url: " TODO",
       likes: 0,
       coords :[51.51954, -0.12672]
@@ -84,9 +85,9 @@ connect("mongodb://localhost:27017/wanderlust")
 
     buckinghamPalace = new Place({
       // id:"ObjectId",
-      photo: "TODO",
+      photo: " https://loving-london.com/es/wp-content/uploads/2017/01/buckingham-palace-170120142034002-1920x960.jpg",
       name: "Buckingham Palace",
-      description: " ",
+      description: "El palacio de Buckingham es la residencia oficial del monarca británico en Londres.​ También se utiliza para ceremonias oficiales, visitas de Estado y visitas turísticas. Es famoso por albergar una parte sustancial de la Royal Collection, extraordinario conjunto de obras artísticas fruto del coleccionismo real.",
       url: " TODO",
       likes: 0,
       coords:[51.50158, -0.14188]
@@ -94,9 +95,9 @@ connect("mongodb://localhost:27017/wanderlust")
 
     coliseo = new Place({
       // id:"ObjectId",
-      photo: "TODO",
+      photo: "https://www.enroma.com/wp-content/uploads/2021/07/Vista-a%C3%A9rea-del-Coliseo-scaled.jpg ",
       name: "Coliseo",
-      description: " ",
+      description: "El Coliseo o Anfiteatro Flavio ​ es un anfiteatro de la época del Imperio romano, construido en el siglo I. Está ubicado en el este del Foro Romano, y fue el más grande de los que se construyeron en el Imperio romano.  ",
       url: " TODO",
       likes: 0,
       coords:[41.89020, 12.49223]
@@ -104,9 +105,9 @@ connect("mongodb://localhost:27017/wanderlust")
 
     foroRomano = new Place({
       //id:"ObjectId",
-      photo: "TODO",
+      photo: " https://viajes.nationalgeographic.com.es/medio/2013/05/21/dsc_4218_1000x669.jpg",
       name: "Foro Romano",
-      description: " ",
+      description: "El Foro Romano era el foro de la ciudad de Roma, es decir, la zona central semejante a las plazas centrales en las ciudades actuales donde se encuentran las instituciones de gobierno, de mercado y religiosas. ",
       url: " TODO",
       likes: 0,
       coords:[41.89254,12.48532]
@@ -114,9 +115,9 @@ connect("mongodb://localhost:27017/wanderlust")
 
     vaticano = new Place({
       // id:"ObjectId",
-      photo: "TODO",
+      photo: "https://www.publico.es/viajes/wp-content/uploads/2021/09/vaticano-1024x682.jpg ",
       name: "Vaticano",
-      description: " ",
+      description: "La Ciudad del Vaticano, una ciudad estado ubicada dentro de Roma, Italia, es la sede central de la Iglesia Católica Romana. Es el hogar del Papa y es un tesoro de la arquitectura y el arte icónicos. Sus Museos del Vaticano contienen antiguas esculturas romanas, como la famosa “Laocoonte y sus hijos”, junto con frescos renacentistas en las Salas de Rafael y en la Capilla Sixtina, famosa por el techo pintado por Miguel Ángel. ",
       url: " TODO",
       likes: 0,
       coords:[41.90236, 12.45389]
@@ -124,9 +125,9 @@ connect("mongodb://localhost:27017/wanderlust")
 
     fontanaDiTrevi = new Place({
       // id:"ObjectId",
-      photo: "TODO",
+      photo: "https://s1.eestatic.com/2019/01/13/mundo/roma-virginia_raggi-monumentos_368223867_112155221_1706x960.jpg ",
       name: "Fontana di Trevi",
-      description: " ",
+      description: "La Fontana di Trevi, con cerca de 40 metros de frente, es una de las mayores fuentes monumentales del Barroco en Roma. Según la actual división administrativa del centro de Roma, está situada en el rione de Trevi. ",
       url: " TODO",
       likes: 0,
       coords:[41.90110, 12.48328]
@@ -134,9 +135,9 @@ connect("mongodb://localhost:27017/wanderlust")
 
     castellSantAngelo = new Place({
       //id:"ObjectId",
-      photo: "TODO",
+      photo: " https://cdn-us0.puzzlegarage.com/img/puzzle/7/5767_preview.v2.jpg",
       name: "Castell sant Angelo",
-      description: " ",
+      description: " El Castillo de Sant'Angelo es un monumento de Roma, situado en la orilla derecha del Tíber, frente al Pons Aelius, a poca distancia del Vaticano, entre el rione de Borgo y el de Prati. Está unido a la Ciudad del Vaticano a través del pasillo fortificado denominado Passetto.",
       url: " TODO",
       likes: 0,
       coords:[41.90329, 12.46626]
@@ -146,7 +147,7 @@ connect("mongodb://localhost:27017/wanderlust")
   .then(() => {
     eiffelTower = new Place({
       //id:"ObjectId",
-      photo: "TODO",
+      photo: " https://cdn.pariscityvision.com/library/image/5144.jpg",
       name: "Eiffel Tower",
       description:
         "Construida en 1889 para la Exposicion Universal, la Torre Eiffel se convirtio en el principal simbolo de Paris y es el monumento mas visitado del mundo. Cuenta con una estructura de hierro de 300 metros de alto y tardando solo 2 años 2 meses y 5 dias, desde 1887 a 1889.",
@@ -157,7 +158,7 @@ connect("mongodb://localhost:27017/wanderlust")
 
     arcDeTriomf = new Place({
       // id:"ObjectId",
-      photo: "TODO",
+      photo: "https://lonelyplanetes.cdnstatics2.com/sites/default/files/barrios_images/francia_paris_arcodetriunfoshutterstock_662979433_catarinabelova_shutterstock.jpg ",
       name: "Arc de Triomf",
       description:
         " Monumento emblematico de la capital francesa, construido entre 1806 - 1836 por orden de Napoleon Bonaparte para conmemorar la victoria en la batalla de Austerlitz",
@@ -189,7 +190,7 @@ connect("mongodb://localhost:27017/wanderlust")
     const paris = new City({
       //_id:"1",
       name: "Paris",
-      photo: "picture here", // ----> descargar foto aqui
+      photo: "https://es.parisinfo.com/var/otcp/sites/images/node_43/node_51/node_233/vue-sur-les-toits-de-la-tour-saint-jacques-%7C-740x380-%7C-%C2%A9-elodie-gutbrod-cr%C3%A9atividie/21581411-1-fre-FR/Vue-sur-les-toits-de-la-tour-Saint-Jacques-%7C-740x380-%7C-%C2%A9-Elodie-Gutbrod-Cr%C3%A9atividie.jpg ", // ----> descargar foto aqui
       description:
         " Capital de Francia y de la región que ocupa, la Isla de Francia, París tiene una población de casi doce millones de habitantes, la más grande de Europa, y una superficie de 14.518 kilómetros cuadrados en zona urbana. Está situada al norte de Francia, concretamente al norte de la gran curva del río Sena.",
       places: [
@@ -205,7 +206,7 @@ connect("mongodb://localhost:27017/wanderlust")
     const london = new City({
       //_id:"2",
       name: "London",
-      photo: " TODO ",
+      photo: " https://holrmagazine.com/wp-content/uploads/2019/04/london-1.jpg",
       description:
         "Londres, la capital de Inglaterra y del Reino Unido, es una ciudad del siglo XXI con una historia que se remonta a la época romana. En su centro se alzan el imponente Palacio del Parlamento, la torre del icónico reloj Big Ben y la Abadía de Westminster, lugar de las coronaciones monárquicas británicas. Al otro lado del río Támesis, la rueda de observación London Eye ofrece vistas panorámicas del complejo cultural South Bank y de toda la ciudad.",
       places: [
@@ -221,7 +222,7 @@ connect("mongodb://localhost:27017/wanderlust")
     const roma = new City({
       // _id:"3",
       name: "roma",
-      photo: " TODO ",
+      photo: " https://h8f7z4t2.stackpathcdn.com/wp-content/uploads/2015/09/vista-cidade-de-Roma.jpg",
       description:
         "Roma, la capital de Italia, es una extensa ciudad cosmopolita que tiene a la vista casi 3,000 años de arte, arquitectura y cultura de influencia mundial. Las ruinas antiguas como las del Foro y el Coliseo evocan el poder del antiguo Imperio Romano. La ciudad del Vaticano, sede central de la Iglesia católica romana, cuenta con la Basílica de San Pedro y los Museos del Vaticano, que albergan obras maestras como los frescos de la Capilla Sixtina de Miguel Ángel.",
       places: [
