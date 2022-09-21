@@ -1,7 +1,7 @@
 import Loggito from '../utils/Loggito'
 import registerUser from '../logics/registerUser'
 import withContext from '../utils/withContext'
-
+import './RegisterPage.css'
 
 function RegisterPage({ onLinkClick, onRegisterFormSubmit, context: { handleFeedback } }) {
     const logger = new Loggito(RegisterPage.name)
@@ -69,36 +69,36 @@ function RegisterPage({ onLinkClick, onRegisterFormSubmit, context: { handleFeed
 
     logger.info('return')
 
-    return <main className="register-page container container--full container--spaced">
+    return <main className="register-page">
         <form className="form" onSubmit={handleRegisterFormSubmit}>
             <div className="form__field">
-                <label htmlFor="name">Name</label>
-                <input className="input" type="text" name="name" placeholder="name" id="name" />
+                <label htmlFor="name">Register</label>
+                <input className="input" type="text" name="name" placeholder="Name" id="name" />
             </div>
 
             <div className="form__field">
-                <label htmlFor="lastname">lastname</label>
-                <input className="input" type="text" name="lastname" placeholder="lastname" id="lastname" />
+                <label htmlFor="lastname"></label>
+                <input className="input" type="text" name="lastname" placeholder="Lastname" id="lastname" />
             </div>
 
             <div className="form__field">
-                <label htmlFor="email">E-mail</label>
-                <input className="input" type="email" name="email" placeholder="email" id="email" />
+                <label htmlFor="email"></label>
+                <input className="input" type="email" name="email" placeholder="Email" id="email" />
             </div>
 
             <div className="form__field">
-                <label htmlFor="password">Password</label>
-                <input className="input" type="password" name="password" placeholder="password" id="password" />
+                <label htmlFor="password"></label>
+                <input className="input" type="password" name="password" placeholder="Password" id="password" />
             </div>
 
             <div className="form__field">
-                <label htmlFor="birth">birth</label>
-                <input className="input" type="date" /*max={today}*/ name="birth" placeholder="birth" id="birth" />
+                <label htmlFor="birth"></label>
+                <input className="input" type="date" /*max={today}*/ name="birth" placeholder="Birth" id="birth" />
             </div>
 
             <div className="form__field">
-                <label htmlFor="phonenumber">phonenumber</label>
-                <input className="input" type="phonenumber" name="phonenumber" placeholder="phonenumber" id="phonenumber" />
+                <label htmlFor="phonenumber"></label>
+                <input className="input" type="phonenumber" name="phonenumber" placeholder="Phonenumber" id="phonenumber" />
             </div>
 
 

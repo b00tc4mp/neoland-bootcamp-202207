@@ -10,10 +10,9 @@ function Saved({ onLinkClick, context: { handleFeedback }}) {
 
 
 
-    return   <div className="form__field">
-            <h3 className="tittleProfile"> Your saveds </h3>
-    <label htmlFor="category">Choose your category</label>
-    <input className="input" type="text" name="category" placeholder="category" id="category" />
+    return <div className="containerSavedAuction">
+           <h3> Saved </h3>
+    
 </div>
 }
 

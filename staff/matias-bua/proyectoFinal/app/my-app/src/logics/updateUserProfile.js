@@ -1,23 +1,23 @@
 const API_URL = process.env.REACT_APP_API_URL
 
-function updateNoteText(token, noteId, text, callback) {
+function updateUserProfile(token, gender, city, aboutYou, callback) {
     if (typeof token !== 'string') throw new TypeError('token is not a string')
     if (token.trim().length === 0) throw new Error('token is empty or blank')
-
-    if (typeof noteId !== 'string') throw new TypeError('note id is not a string')
-    if (noteId.trim().length === 0) throw new Error('note id is empty or blank')
-
-    if (typeof text !== 'string') throw new TypeError('text is not a string')
+    
+    if(gender !== 'string') throw new TypeError('Gender is not a string')
+    if(city !== 'string') throw new TypeError('City is not a string')
+    if(aboutYou !== 'string') throw new TypeError('Your informations is not a string')
 
     if (typeof callback !== 'function') throw new TypeError('callback is not a function')
-
-    const xhr = new XMLHttpRequest
-
+  
+    const xhr = new XMLHttpRequest()
+  
     // response
-
+  
+  
     xhr.onload = function () {
         const status = xhr.status
-
+  
         if (status >= 500)
             callback(new Error(`server error (${status})`))
         else if (status >= 400)
@@ -25,17 +25,18 @@ function updateNoteText(token, noteId, text, callback) {
         else if (status === 204)
             callback(null)
     }
-
-    // request
-
-    xhr.open('PATCH', `${API_URL}/notes/${noteId}`)
-
+  
+    
+  
+    xhr.open('PATCH', `${API_URL}/users`)
+  
     xhr.setRequestHeader('Authorization', `Bearer ${token}`)
     xhr.setRequestHeader('Content-type', 'application/json')
-
-    const json = JSON.stringify({ text })
-
+  
+    const json = JSON.stringify({ gender, city, aboutYou })
+  
+  
     xhr.send(json)
-}
-
-export default updateNoteText
+  }
+  
+  export default updateUserProfile

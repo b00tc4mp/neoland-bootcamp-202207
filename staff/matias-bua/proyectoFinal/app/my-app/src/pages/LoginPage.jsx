@@ -1,7 +1,7 @@
 import Loggito from '../utils/Loggito'
 import authenticateUser from '../logics/authenticateUser'
 import withContext from '../utils/withContext'
-
+import './LoginPage.css'
 
 
 function LoginPage({ onLinkClick, onLogIn, context: { handleFeedback } }) {
@@ -53,26 +53,26 @@ function LoginPage({ onLinkClick, onLogIn, context: { handleFeedback } }) {
         }
     }
 
-    return (
-    <main className="login-page container container--full container--spaced">
+    return <div className="loginPageContainer">
+    <main className="login-page">
         <form className="form" action="https://www.google.com/search" method="get" onSubmit={handleFormSubmit}>
             <div className="form__field">
                 <label htmlFor="email">Log in</label>
-                <input className="input" type="email" name="email" placeholder="email" id="email" />
+                <input className="input" type="email" name="email" placeholder="Email" id="email" />
             </div>
 
             <div className="form__field">
-                <label htmlFor="password">Password</label>
-                <input className="input" type="password" name="password" placeholder="password" id="password" />
+                <label htmlFor="password"></label>
+                <input className="input" type="password" name="password" placeholder="Password" id="password" />
             </div>
-            <div className='buttons buttons-login'>
+            <div className='buttons-login'>
                 <button className="button" type="submit">Login</button>
                 <a className="anchor" href="register" onClick={handleLinkClick}>Register</a>
             </div>
         </form>
 
     </main>
-    )
+    </div>
 }
 
 export default withContext(LoginPage)

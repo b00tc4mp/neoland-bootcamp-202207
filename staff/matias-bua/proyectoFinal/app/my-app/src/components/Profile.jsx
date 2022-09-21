@@ -1,7 +1,7 @@
 import Loggito from '../utils/Loggito'
 import withContext from '../utils/withContext'
-import authenticateUser from '../logics/authenticateUser'
-import updateUserPassword from '../logics/updateUserPassword'
+import './Profile.css'
+import updateUserProfile from '../logics/updateUserProfile'
 // import { useReducer } from 'react'
 
 
@@ -13,14 +13,14 @@ function Profile({ onLinkClick, context: { handleFeedback }}) {
         event.preventDefault()
 
         const { target: form } = event
-        const {oldPassword:{value:oldPassword}, newPassword:{value:newPassword}, newPasswordRepeat:{value:newPasswordRepeat}} = form
+        const {changeGender: {value: changeGender}, city:{value: city}, aboutYou:{value:aboutYou} } = form
 
     try {
-        updateUserPassword(
+        updateUserProfile(
           sessionStorage.token,
-          oldPassword,
-          newPassword,
-          newPasswordRepeat,
+          changeGender,
+          city,
+          aboutYou,
           error => {
             if (error) {
               handleFeedback({ message: error.message, level: 'warning'})
@@ -31,7 +31,7 @@ function Profile({ onLinkClick, context: { handleFeedback }}) {
             }
             // alert("Password updated");
             
-            handleFeedback({ message: 'Password Updated', level: 'success'})
+            handleFeedback({ message: '¡Profile Updated!', level: 'success'})
             // onCloseClick ()
             // form.reset() //para limpiar el formulario luego del cambio de contraseña.//
           });
@@ -43,22 +43,18 @@ function Profile({ onLinkClick, context: { handleFeedback }}) {
     }
     
     
-    return <div className="update-profile container">
+    return <div className="updateProfileCcontainer">
       
     <form className="update-password-form form" onSubmit={handleFormSubmit}>
         <div className="form__field">
-          <h3 className="tittleProfile"> Your profile </h3>
-            <label htmlFor="changeName">Change Name</label>
-            <input className="input" type="text" name="changeName" placeholder="New Name" id="changeName" />
+        <h3 className="tittleProfile"> Your profile </h3>
         </div>
 
         <div className="form__field">
-            <label htmlFor="changeGender">Your Gender</label>
-            <div className='GenderProfile'>
-            <button>Male</button>
-            <button>Female</button>
-            <button>No Binary</button>
-            </div>
+            <label htmlFor="changeGender">Male / Female</label>
+            <input className="input" type="text" name="changeGender" placeholder="" id="changeGender" />
+
+            
         </div>
 
         <div className="form__field">

@@ -1,11 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
 
  :root {
-    /* --color: rgb(68, 182, 202); */
+    --color: rgb(255, 255, 255);
     background: rgb(2,0,36);
     background: linear-gradient(347deg, rgba(2,0,36,1) 0%, rgba(5,12,70,1) 10%, rgba(5,12,71,1) 16%, rgba(9,30,121,1) 48%, rgba(0,212,255,1) 100%);
-    /* --back-color-note: rgb(255, 230, 167); */
-    /* --color-imput: rgb(73, 195, 179); */
+    --color-imput: rgb(73, 195, 179);
 } 
 
 :root.light {
@@ -13,27 +12,87 @@
   --back-color: background: rgb(83,95,169);
   background: linear-gradient(180deg, rgba(83,95,169,1) 0%, rgba(121,141,222,1) 23%, rgba(86,177,200,1) 51%, rgba(93,221,200,1) 81%);
   --back-color-note: rgb(55, 211, 177);
-  --color-imput: black;
+  --color-imput: rgb(204, 64, 64);
 }
  
-/* * {
+* {
   font-family: Lato;
-}*/
+  box-sizing: border-box;
+}
 
-html,
-body {
-  height: 100%; 
-   width: 100%;
-} 
+html {
+  height: 100%;
+  width: 100%;
+
+}
+
+
+label{
+  font-size: 24px;
+  color: var(--color)
+}
+
+input{
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid rgb(255, 255, 255);
+  border-radius: 8px;
+  -webkit-text-fill-color: rgba(213, 211, 211, 0.797);
+  padding: 8px
+}
+
+.button{
+  background-color: #f87060;
+  border: none;
+  padding: 8px;
+  border-radius: 30px;
+  width: 100px;
+  color: white;
+}
+
+.buttonLogin:hover{background-color: #bfd7ea;
+transition: 500ms;
+color:#1f2b35;
+}
+
+/* .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+} */
+
+.anchor{
+  text-decoration: none;
+  color: white;
+}
+
+.form{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+.form__field{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+
+
+
+
+
+
 /*
 body {
   /* width: 90%;
   height: 100%;
   margin: 0px;
 }
-h1,label{
-  color: var(--color)
-}
+
 
 .container--full{
   display: flex;
@@ -42,10 +101,10 @@ h1,label{
   flex-direction: column;  
 }
 
- .form { 
+.form { 
   display: flex;
   align-items: center;
-justify-content: space-around;
+  justify-content: space-around;
   flex-direction: column;
   padding: 50px;
   gap: 50px;
@@ -59,45 +118,15 @@ justify-content: space-around;
   background-color: transparent;
   gap: 5px;
 }
-.buttons-register{
-display: flex;
-align-items: center;
-justify-content: space-between;
 
-}
-input{
-  background-color: transparent;
-  border: none;
-  border: 1px solid rgb(255, 255, 255);
-  border-radius: 8px;
-  -webkit-text-fill-color: rgba(213, 211, 211, 0.797);
-  padding: 10px
-}
-label{
-  color: white;
-}
 
 .buttons-login{
   display: flex;
   justify-content: space-around;  
   align-items: center;
 }
-.button{
-  background-color: #f87060;
-  border: none;
-  padding: 8px;
-  border-radius: 30px;
-  width: 100px;
-  color: white;
-}
-.button:hover{background-color: #bfd7ea;
-transition: 500ms;
-color:#1f2b35;
-}
-.anchor{
-  text-decoration: none;
-  color: white;
-} */
+
+
 /* .homepage {
   background-color: rgb(38, 10, 10);
   height: 100vh;

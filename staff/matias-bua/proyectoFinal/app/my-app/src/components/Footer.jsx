@@ -3,9 +3,8 @@ import './Footer.css'
 import { useState } from 'react'
 import Loggito from '../utils/Loggito';
 
-function Footer({ onLogoutClick, onProfileClick, onHomeClick, onSavedClick, onNewAuctionClick, onMailClick }) {
+function Footer({ onProfileClick, onHomeClick, onSavedClick, onNewAuctionClick, onMailClick }) {
 
-  const handleLogoutClick = () => onLogoutClick()
   const handleProfileClick = () => onProfileClick()
   const handleHomeClick = () => onHomeClick()
   const handleSavedClick = () => onSavedClick()
