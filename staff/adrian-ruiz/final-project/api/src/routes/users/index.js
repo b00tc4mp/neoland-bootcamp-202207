@@ -5,5 +5,6 @@ module.exports = {
     updateUserEmailHandler : require('./updateUserEmailHandler'),
     updateUserPasswordHandler : require('./updateUserPasswordHandler'),
     deleteUserHandler : require('./deleteUserHandler'),
-    authenticateGoogleHandler : require('./authenticateGoogleHandler')
+    authenticateGoogleHandler : require('./authenticateGoogleHandler'),
+    linkGoogleAccountHandler : require('./linkGoogleAccountHandler')
 }

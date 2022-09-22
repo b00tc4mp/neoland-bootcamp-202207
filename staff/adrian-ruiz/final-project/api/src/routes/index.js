@@ -1,7 +1,7 @@
 const express = require('express')
 const { Router, json } = express
 const jsonBodyParser = json()
-const { registerUserHandler, authenticateUserHandler, retrieveUserHandler, updateUserEmailHandler, updateUserPasswordHandler, deleteUserHandler, authenticateGoogleHandler } = require('./users')
+const { registerUserHandler, authenticateUserHandler, retrieveUserHandler, updateUserEmailHandler, updateUserPasswordHandler, deleteUserHandler, authenticateGoogleHandler, linkGoogleAccountHandler } = require('./users')
 const { registerCompanyHandler, updateCompanyDetailsHandler, deleteCompanyHandler, registerCompanyGoogleHandler } = require('./companies')
 const { createInventoryItemHandler, updateInventoryItemHandler, deleteInventoryItemHandler, retrieveStockHandler, retrieveAItemHandler } = require('./inventory')
 const { createEstimateHandler, deleteEstimateHandler, retrieveEstimatesHandler, updateEstimateHandler, retrieveAEstimateHandler } = require('./estimates')
@@ -21,6 +21,8 @@ companiesRouter.delete('/companies', jsonBodyParser, deleteCompanyHandler)
 const usersRouter = Router()
 
 usersRouter.post('/users', jsonBodyParser, registerUserHandler)
+
+usersRouter.post('/users/google', jsonBodyParser, linkGoogleAccountHandler)
 
 usersRouter.post('/users/auth', jsonBodyParser, authenticateUserHandler)
 

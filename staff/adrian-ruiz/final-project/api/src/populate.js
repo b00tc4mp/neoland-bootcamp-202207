@@ -22,7 +22,7 @@ const { env: { MONGO_URL } } = process
                 town: 'Populated Town',
                 state: 'Populated state',
                 zipCode: 'Populated zipCode',
-                contry: 'Populated country'
+                country: 'Populated country'
             },
             physicalAddress: {
                 street: 'Populated Physical company Street',
@@ -242,7 +242,7 @@ const { env: { MONGO_URL } } = process
                 id: _items[0].id,
                 name: _items[0].name,
                 description: _items[0].description,
-                price: 35,
+                price: 6,
                 amount: 10,
                 tax: 21
             },
@@ -254,7 +254,7 @@ const { env: { MONGO_URL } } = process
                 amount: 5,
                 tax: 21
             }],
-            totalAmount: 484
+            totalAmount: 133.1
         },
         {
             company: company.id,
@@ -272,7 +272,7 @@ const { env: { MONGO_URL } } = process
                 id: _items[0].id,
                 name: _items[0].name,
                 description: _items[0].description,
-                price: 35,
+                price: 6,
                 amount: 10,
                 tax: 21
             },
@@ -284,7 +284,7 @@ const { env: { MONGO_URL } } = process
                 amount: 5,
                 tax: 21
             }],
-            totalAmount: 484
+            totalAmount: 133.1
         },
         {
             company: company.id,
@@ -302,7 +302,7 @@ const { env: { MONGO_URL } } = process
                 id: _items[0].id,
                 name: _items[0].name,
                 description: _items[0].description,
-                price: 35,
+                price: 6,
                 amount: 10,
                 tax: 21
             },
@@ -314,7 +314,7 @@ const { env: { MONGO_URL } } = process
                 amount: 5,
                 tax: 21
             }],
-            totalAmount: 484
+            totalAmount: 133.1
         },
         {
             company: company.id,
@@ -332,7 +332,7 @@ const { env: { MONGO_URL } } = process
                 id: _items[0].id,
                 name: _items[0].name,
                 description: _items[0].description,
-                price: 35,
+                price: 6,
                 amount: 10,
                 tax: 21
             },
@@ -344,7 +344,7 @@ const { env: { MONGO_URL } } = process
                 amount: 5,
                 tax: 21
             }],
-            totalAmount: 484
+            totalAmount: 133.1
         }]
 
         await Estimate.create(estimates)
@@ -365,10 +365,10 @@ const { env: { MONGO_URL } } = process
                 id: _items[0].id,
                 name: _items[0].name,
                 description: _items[0].description,
-                price: 35,
+                price: 6,
                 amount: 10,
                 tax: 21,
-                total: 423.50
+                total: 72.6
             },
             {
                 id: _items[1].id,
@@ -379,7 +379,7 @@ const { env: { MONGO_URL } } = process
                 tax: 21,
                 total: 60.5
             }],
-            totalAmount: 484
+            totalAmount: 133.1
         }
 
         const invoiceData2 = {
@@ -398,10 +398,10 @@ const { env: { MONGO_URL } } = process
                 id: _items[0].id,
                 name: _items[0].name,
                 description: _items[0].description,
-                price: 35,
+                price: 6,
                 amount: 10,
                 tax: 21,
-                total: 423.50
+                total: 72.6
             },
             {
                 id: _items[1].id,
@@ -412,7 +412,7 @@ const { env: { MONGO_URL } } = process
                 tax: 21,
                 total: 60.5
             }],
-            totalAmount: 484
+            totalAmount: 133.1
         }
         await createInvoice(company.id, invoiceData1)
         await createInvoice(company.id, invoiceData2)
