@@ -4,7 +4,7 @@ const { verifyObjectIdString } = require('../../../utils')
 
 // TODO FALTA
 
-function removeFromCart(userId, productId, price, qty) {
+function addItemToCart(userId, productId, price, qty) {
     verifyObjectIdString(userId, 'user id')
 
     return Promise.all([
@@ -60,4 +60,4 @@ function removeFromCart(userId, productId, price, qty) {
     // .then(item => { })
 }
 
-module.exports = removeFromCart
+module.exports = addItemToCart

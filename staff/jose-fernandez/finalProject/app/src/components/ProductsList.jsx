@@ -19,13 +19,15 @@ function ProductsList({ products,onProductClick,onCloseClick}) {
 
         </div>
         
-        {products && products.map(product => <div className="item--products" key={product.id} onClick={()=>handleProductClick(product)}>
+        {products && products.map(product => {
+            debugger
+        return <div className="item--products" key={product.id} onClick={()=>handleProductClick(product)}>
             <div className="featurette-icon">
                 <img className='featurette-icon--img products' src={product.img} alt="" />
             </div>
             <p>${product.price}</p>
             <h3>{product.name}</h3>
-        </div>)}
+        </div>})}
     </div>
 
 </section>

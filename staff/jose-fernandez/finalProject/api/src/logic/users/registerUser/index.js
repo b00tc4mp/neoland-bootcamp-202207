@@ -8,6 +8,7 @@ function registerUser(name,email,password){
     validatePassword(password)
 
     return User.create({name,email,password})
+    // role:"client"
     .then(user=>{})
     .catch(error =>{
         if(error.code===11000)

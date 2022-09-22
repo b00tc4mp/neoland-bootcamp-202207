@@ -85,13 +85,23 @@ function HomePage({ onLogoutClick, onLoginClick, context: { handleFeedback } }) 
         }
     }
 
-    const handleLoginClick = () => {
-        onLoginClick()
+    const handleUserClick = () => {
+        if (!sessionStorage.token) 
+        {onLoginClick()
+            console.log(name) }
+        
+
+        else {
+            navigate('profile')
+            console.log(name) }
+            
+        // onLoginClick()
+
     }
 
     const handleProfileClick = () => {
 
-        navigate('profile')
+        // navigate('profile')
 
         // loadProducts()
     }
@@ -126,6 +136,9 @@ function HomePage({ onLogoutClick, onLoginClick, context: { handleFeedback } }) 
     const handleCart = () => {
         navigate('cart')
     }
+    const handleLogoutClick=()=>{
+        onLogoutClick()
+    }
 
     // const handleUpdateName = (newName) => setName(newName)
     // const handleUpdateEmail = (newEmail) => setEmail(newEmail)
@@ -140,8 +153,8 @@ function HomePage({ onLogoutClick, onLoginClick, context: { handleFeedback } }) 
 
     //TODO location pathname no funciona en header
 
-    return <div className="container container--full container--width homePage">
-        {(location.pathname === "/" || location.pathname === "listProducts") && <Header products={products} onLoginClick={handleLoginClick} onListProducts={handleListProducts} onListProductsMen={handleListProductsMen} onListProductsWomen={handleListProductsWomen} onListProductsKids={handleListProductsKids} onProfileClick={handleProfileClick} onSearchClick={handleSearchClick} />}
+    return <div className="container container--full c  ontainer--width homePage">
+        {(location.pathname === "/" || location.pathname === "listProducts") && <Header products={products} onUserClick={handleUserClick} onListProducts={handleListProducts} onListProductsMen={handleListProductsMen} onListProductsWomen={handleListProductsWomen} onListProductsKids={handleListProductsKids} onProfileClick={handleProfileClick} onSearchClick={handleSearchClick} onCartClick={handleCart} />}
 
         <main className="main-home">
             <Routes>
@@ -156,7 +169,8 @@ function HomePage({ onLogoutClick, onLoginClick, context: { handleFeedback } }) 
                 <Route path='products/:productId' element={<ProductView onCart={handleCart} />} />
                 <Route path='cart' element={<Cart />} />
 
-                {/* <Route path="profile" element={<Profile onCloseClick={handleReturnMain} email={email} onUpdateEmail={handleUpdateEmail} onUpdateName={handleUpdateName} />} /> */}
+                <Route path="profile" element={<Profile onCloseClick={handleReturnMain} onLogoutClick={handleLogoutClick} />} />
+
                 {/* {email ?
                     <Route path="profile" element={<Profile onCloseClick={handleReturnMain} email={email} onUpdateEmail={handleUpdateEmail} onUpdateName={handleUpdateName} />} />
                     :

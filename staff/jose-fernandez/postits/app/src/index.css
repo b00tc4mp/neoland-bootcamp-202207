@@ -476,7 +476,6 @@ input::placeholder {
     padding: 0;
     color: var(--color-orig);
     background-color: var(--btn-backColor-orig);
-
 }
 
 .add {

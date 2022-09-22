@@ -4,10 +4,10 @@ import IconButton from './Buttons/IconButton'
 import withContext from '../utils/withContext'
 import Menu from './Menu'
 
-function Header({products,onLoginClick,onListProducts, onListProductsMen,onListProductsWomen,onListProductsKids,onSearchClick}) {
+function Header({products,onUserClick,onListProducts,onCartClick, onListProductsMen,onListProductsWomen,onListProductsKids,onSearchClick}) {
     const [view, setView] = useState(null)
-    const handleLoginClick= () =>{
-        onLoginClick()
+    const handleUserClick= () =>{
+        onUserClick()
     }
     const handleSearchClick=()=>{
         onSearchClick()
@@ -16,7 +16,9 @@ function Header({products,onLoginClick,onListProducts, onListProductsMen,onListP
         setView(null)
         // onCloseClick()
     }
-
+    const handleCart=()=>{
+        onCartClick()
+    }
 
     const handleMenuClick=()=>{
         setView('menu')
@@ -32,9 +34,9 @@ function Header({products,onLoginClick,onListProducts, onListProductsMen,onListP
 
             <a className="logo" href='#' ><img className='img-logo' src="https://i.postimg.cc/ZY1nHGSz/logo-Luanna.png" alt="" /></a>
             <div className='header-buttons--right'>
-            {<IconButton addClass="btn-header" text="person" onClick={handleLoginClick}/>}
+            {<IconButton addClass="btn-header" text="person" onClick={handleUserClick}/>}
             {<IconButton addClass="btn-header" text="search" onClick={handleSearchClick}/>}
-            {<IconButton addClass="btn-header shopping_bag" text="shopping_bag" />}
+            {<IconButton addClass="btn-header shopping_bag" text="shopping_bag" onClick={handleCart} />}
             </div>
 
         </div>

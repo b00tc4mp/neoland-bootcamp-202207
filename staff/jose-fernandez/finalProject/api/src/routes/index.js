@@ -3,6 +3,7 @@ const {Router, json} = express
 const jsonBodyParser = json()
 const {registerUserHandler, authenticateUserHandler, retrieveUserHandler,registerAnonymousUserHandler} = require('./users')
 const { searchProductHandler,retrieveProductsHandler, retrieveProductExtendHandler} = require('./products')
+const { addItemToCartHandler } = require('./cart')
 
 const usersRouter = Router()
 
@@ -12,6 +13,8 @@ usersRouter.post('/users-anonymous', jsonBodyParser, registerAnonymousUserHandle
 usersRouter.post('/users/auth',jsonBodyParser,authenticateUserHandler)
 
 usersRouter.get('/users',retrieveUserHandler)
+usersRouter.patch('/users/product/:productId', jsonBodyParser, addItemToCartHandler)
+
 // TODO usersRouter.patch('/users/email',jsonBodyParser,updateUserEmailHandler)
 // TODO usersRouter.patch('/users/password',jsonBodyParser,updateUserPasswordHandler)
 // TODO usersRouter.patch('/users/name',jsonBodyParser,updateUserNameHandler)

@@ -26,7 +26,8 @@ function App() {
 
     const handleLogoutClick = () => {
         delete sessionStorage.token
-
+        
+        
         handleNavigationToHome()
     }
 

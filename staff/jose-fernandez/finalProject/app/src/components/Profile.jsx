@@ -1,5 +1,6 @@
 // const {useRef} = React
 import {useRef} from 'react'
+import './Profile.css'
 import IconButton from './Buttons/IconButton'
 import IconButtonBackStyle from './Buttons/IconButtonBackStyle'
 import updateUserPassword from '../logic/updateUserPassword'
@@ -7,11 +8,15 @@ import updateUserEmail from '../logic/updateUserEmail'
 import updateUserName from '../logic/updateUserName'
 import withContext from '../utils/withContext'
 
-function Profile({ onCloseClick, email, onUpdateEmail, onUpdateName,context: {handleFeedback} }) {
+function Profile({ onLogoutClick,onCloseClick, email, onUpdateEmail, onUpdateName,context: {handleFeedback} }) {
 
     //ref
     // const settDoc = useRef(null)
     let settDoc = useRef(null)
+    const handleLogoutClick =()=>{
+        
+        onLogoutClick()
+    }
 
     const handleFormSubmitPassword = event => {
         event.preventDefault()
@@ -139,6 +144,9 @@ function Profile({ onCloseClick, email, onUpdateEmail, onUpdateName,context: {ha
 
                 <button className="btn-update" type="submit">Update Username</button>
             </form>
+        </div>
+        <div className="contLogout">
+        <button className='btn-logout' onClick={handleLogoutClick}>LOGOUT</button>
         </div>
         <button className="btn-scrollTop"><IconButton addClass='expand_less' text='expand_less' onClick={onScrollTop}/></button>
     </>
