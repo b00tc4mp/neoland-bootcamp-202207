@@ -14,9 +14,11 @@ function ProductView({onCart, context: { handleFeedback } }) {
     const params = useParams()
     const [productToDisplay, setProduct] = useState()
     const productId = params.productId
+    let size = useRef(null)
 
-    // const [current, setCurrent] = useState(0);
-    // const length = productToDisplay.gallery.length;
+    // size.children.forEach(button=>{
+    //     //TODO BOTONES 
+    // })
 
     useEffect(() => {
         try {
@@ -75,15 +77,15 @@ function ProductView({onCart, context: { handleFeedback } }) {
                     <div className="name-size">
                         <h3>Tallas</h3>
                     </div>
-                    <div className="container-size--grid">
-                        <button className="grid-item">3XS</button>
-                        <button className="grid-item">2XS</button>
-                        <button className="grid-item">XS</button>
-                        <button className="grid-item">S</button>
-                        <button className="grid-item">M</button>
-                        <button className="grid-item">L</button>
-                        <button className="grid-item">XL</button>
-                        <button className="grid-item">2XL</button>
+                    <div className="container-size--grid" ref={node => size = node}>
+                        <button  className="grid-item">3XS</button>
+                        <button  className="grid-item">2XS</button>
+                        <button  className="grid-item">XS</button>
+                        <button  className="grid-item">S</button>
+                        <button  className="grid-item">M</button>
+                        <button  className="grid-item">L</button>
+                        <button  className="grid-item">XL</button>
+                        <button  className="grid-item">2XL</button>
                     </div>
                 </div>
                 {/* <div className="container-qty">

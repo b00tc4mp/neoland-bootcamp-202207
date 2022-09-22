@@ -1,20 +1,22 @@
 # E-commerce App
-![](https://media.giphy.com/media/LrA3M1Sor45lWPa3QB/giphy.gif)
+![](https://media.giphy.com/media/VGoAzphxf599Gz8a5F/giphy.gif)
 
-blah blah blah blah
+Esta aplicación es una tienda virtual (E-commerce)
 
 ## Functional Description
-
+Puedes encontrar productos por categoría y los más comprados, también te proporciona un buscador, y para poder comprar un producto, primero debes agregar el producto al carrito.
+<!-- 
+You can find products by category and the most purchased, it also provides you with a search engine, and in order to buy a product, you must first add the product to the cart. -->
 ###  Use Cases
 
 Anonymous (unregistered user)
-- view most popular products
+- view most popular products        -DONE
 - search products                   -DONE
 - view product                      -DONE
 - add to / remove from / update cart ...
 - checkout (order)
 
-Client (registered user)
+<!-- Client (registered user)
 - idem Anonymous
 - add to / view wishlist
 - update profile info (personal, addresss, payment methods, ...)
@@ -24,14 +26,20 @@ Client (registered user)
 Admin
 - update stock (products)
 - manage orders (status, ...)
-- manage users (delete, update, ...)
+- manage users (delete, update, ...) -->
 
 Admin (super user)
 
+### Use Case Diagram
+![](https://i.postimg.cc/PJWkknNy/Captura-de-pantalla-2022-09-22-112330.png)
+
 ### Flows
+    
 ### UI Design
 
 ## Technical Description
+
+
 
 ### Blocks
 
@@ -89,7 +97,7 @@ Sprint 0
 - DONE figma
 - DONE data model
 - DONE data model to mongoose
-- TODO populate data
+- DONE populate data
 - TODO implement users logic
 - TODO implement users api routes
 - TODO figma to react

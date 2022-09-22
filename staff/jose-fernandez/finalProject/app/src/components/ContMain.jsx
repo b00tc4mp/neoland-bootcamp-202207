@@ -77,7 +77,7 @@ function ContMain({ products, onProductClick }) {
         <section className="container-section products slider ">
             <div className='backgroundSlider'>
                 <div className='favTittle'>
-                    <h2 >FAVORITOS</h2>
+                    <h2 >LOS MÁS COMPRADOS</h2>
                 </div>
 
                 <img src="https://brand.assets.adidas.com/image/upload/f_auto,q_auto,fl_lossy/esES/Images/football-fw22-federations-spain-catlp-psc-m_tcm190-920832.jpg" alt="" />

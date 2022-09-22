@@ -26,7 +26,11 @@ const user = new Schema({
         // required:true,
         default:'anonymous'
     },
-    cart
+    cart: {
+        type: ObjectId,
+        required: true,
+        ref: 'Cart'
+    }
 })
 
 module.exports = user
