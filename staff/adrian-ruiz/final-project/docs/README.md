@@ -266,5 +266,21 @@ Sprint 2 (19/09/2022 - 25/09/2022)
 Sprint 3
 
 - TODO search bar in header to find everything on APP
+- TODO Finish pending tasks
+- TODO Create new users linked to company(Only admins)
+
+Sprint 4
+
+- TODO Allow companies to change prefered currency and change all UI/Invoices/PDFs...
+- TODO Show modal/form to write email body and change receivers on Invoice sending
+- TODO Customize company logo and include in PDFs/Emails
 - TODO logo design and use in Header & favicon
-- ...
+- TODO Use modal on logout instead of alert
+
+Sprint 5
+
+- TODO Design accounting API data models
+- TODO Create accounting API data models to mongoose
+- TODO Create accounting logics: (Profit & Loss / Balance)
+
+....
