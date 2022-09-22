@@ -342,7 +342,7 @@ function HomePage({
 
   const handleLeaveClass = () => {
     // setSelectQuestionForGame(undefined);
-    handleGameBeingPlayed();
+    handleGameBeingPlayed("leave");
     navigate("/");
     // navigate("settings");
   };
@@ -355,9 +355,9 @@ function HomePage({
 
   // ================== Functions to retrieve and render public question lists ================== //
 
-  const handleGameBeingPlayed = () => {
-    if (gameBeingPlayed === true) setGameBeingPlayed(false);
-    if (gameBeingPlayed === false) setGameBeingPlayed(true);
+  const handleGameBeingPlayed = (action) => {
+    if (action === "leave") setGameBeingPlayed(false);
+    if (action === "join") setGameBeingPlayed(true);
   };
 
   logger.info("render");
@@ -392,6 +392,7 @@ function HomePage({
                 handleFeedback={handleFeedback}
                 handleLeaveClass={handleLeaveClass}
                 handleGameBeingPlayed={handleGameBeingPlayed}
+                gameBeingPlayed={gameBeingPlayed}
               />
             }
           />
@@ -446,6 +447,7 @@ function HomePage({
                 onReturn={handleReturn}
                 onSearchPublic={handleSearchPublic}
                 gameBeingPlayed={gameBeingPlayed}
+                handleNavigateTo={handleNavigateTo}
               />
             }
           />
@@ -481,6 +483,7 @@ function HomePage({
                 onReturn={handleReturn}
                 onSearchPublic={handleSearchPublic}
                 gameBeingPlayed={gameBeingPlayed}
+                handleNavigateTo={handleNavigateTo}
                 // favorites={favorites}
               />
             }

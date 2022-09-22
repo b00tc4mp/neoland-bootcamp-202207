@@ -25,6 +25,7 @@ function QuizTeacherMaster({
   handleLeaveClass,
   handleGameBeingPlayed,
   selectQuestionForGame,
+  gameBeingPlayed,
   context: { handleFeedback },
 }) {
   // ================== consts ================== //
@@ -102,14 +103,14 @@ function QuizTeacherMaster({
           }
         }
       );
+      handleScreenChangeT1(gameScreen, nameOfClass, pin, host);
+      debugger;
+      handleGameBeingPlayed("join");
     } catch (error) {
       handleFeedback({ message: error.message, level: "error" });
 
       logger.warn(error.message);
     }
-
-    handleGameBeingPlayed();
-    handleScreenChangeT1(gameScreen, nameOfClass, pin, host);
   };
 
   const handleCloseGameTeacher = () => {
@@ -182,6 +183,7 @@ function QuizTeacherMaster({
 
   const handleScreenChangeT7 = (gameScreen) => {
     setGameScreen(gameScreen);
+    handleGameBeingPlayed("leave");
   };
 
   // ================== jsx ================== //
@@ -200,14 +202,19 @@ function QuizTeacherMaster({
         {gameScreen !== "Teacher1StartClass" && (
           <span className="menu-icon-spaceholder"></span>
         )}
-        <h1 className="app-title">App Name</h1>
-        <button
-          type="menu"
-          className="material-symbols-outlined  button-icon"
-          onClick={handleCloseGameTeacher}
-        >
-          exit_to_app
-        </button>
+        <h1 className="app-title">Quizz Buzz</h1>
+        {gameBeingPlayed && (
+          <button
+            type="menu"
+            className="material-symbols-outlined  button-icon"
+            onClick={handleCloseGameTeacher}
+          >
+            exit_to_app
+          </button>
+        )}
+        {!gameBeingPlayed && (
+          <div className="material-symbols-outlined  button-icon"></div>
+        )}
       </header>
       <main className="game-screen-main">
         {gameScreen === "Teacher1StartClass" && (

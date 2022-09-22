@@ -62,7 +62,7 @@ function Teacher4IncomingResponses({
     clearInterval(intervalId);
 
     handleScreenChangeT4("Teacher5MarkResponses");
-    socket.emit("T4", { host });
+    socket.emit("T4", { gameScreen: "Student5WaitingForFeedback", host });
   };
 
   // ================== jsx ================== //

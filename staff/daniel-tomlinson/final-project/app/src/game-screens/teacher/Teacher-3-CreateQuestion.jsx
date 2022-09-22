@@ -21,7 +21,6 @@ function Teacher3CreateQuestion({
   handleScreenChangeT3,
   socket,
   host,
-  // selectQuestionForGame,
   context: { handleFeedback },
 }) {
   const [quizQuestionPage, setQuizQuestionPage] = useState("createQuestion");
@@ -70,7 +69,6 @@ function Teacher3CreateQuestion({
             handleSelectFolderClick={handleSelectFolderClick}
           />
         )}
-        {/* {selectQuestionForGame !== undefined && ( */}
         {quizQuestionPage === "editQuestion" && (
           <Teacher3EditQuestionPanel
             selectQuestionForGame={selectQuestionForGame}
@@ -92,7 +90,6 @@ function Teacher3CreateQuestion({
             handleReturnInGame={handleReturnInGame}
           />
         )}
-        {/* {quizQuestionPage === "myQuestions" && <Teacher3MyQuestionsPanel />} */}
         {quizQuestionPage === "myQuestions" && (
           <QuestionsList
             gameBeingPlayed={true}
@@ -116,9 +113,7 @@ function Teacher3CreateQuestion({
         )}
         {quizQuestionPage === "favorites" && <CollectionsList />}
       </main>
-      <footer className="game-screen-footer">
-        {/* <button className="footer-button">Start Game</button> */}
-      </footer>
+      <footer className="game-screen-footer"></footer>
     </div>
   );
 }

@@ -16,7 +16,12 @@ import {
 
 // ================== Component ================== //
 
-function QuizStudentMaster({ socket, handleFeedback, handleLeaveClass }) {
+function QuizStudentMaster({
+  socket,
+  handleFeedback,
+  handleLeaveClass,
+  gameBeingPlayed,
+}) {
   // ================== Hook consts ================== //
 
   const [gameScreen, setGameScreen] = useState("Student1EnterClass");
@@ -143,14 +148,19 @@ function QuizStudentMaster({ socket, handleFeedback, handleLeaveClass }) {
         {gameScreen !== "Student1EnterClass" && (
           <span className="menu-icon-spaceholder"></span>
         )}
-        <h1 className="app-title">App Name</h1>
-        <button
-          type="menu"
-          className="material-symbols-outlined  button-icon"
-          onClick={handleLeaveClick}
-        >
-          exit_to_app
-        </button>
+        <h1 className="app-title">Quizz Buzz</h1>
+        {gameBeingPlayed && (
+          <button
+            type="menu"
+            className="material-symbols-outlined  button-icon"
+            onClick={handleLeaveClick}
+          >
+            exit_to_app
+          </button>
+        )}
+        {!gameBeingPlayed && (
+          <div className="material-symbols-outlined  button-icon"></div>
+        )}
       </header>
       <main className="game-screen-main">
         {gameScreen === "Student1EnterClass" && (

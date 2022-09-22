@@ -7,6 +7,7 @@ function TeacherStudentSelectPanel({
   handleStartTeacher,
   handleLeaveClick,
   handleLeaveClass,
+  gameBeingPlayed,
 }) {
   // ================== useEffects ================== //
 
@@ -41,14 +42,19 @@ function TeacherStudentSelectPanel({
         >
           arrow_back_ios_new
         </span>
-        <h1 className="app-title">App Name</h1>
-        <button
-          type="menu"
-          className="material-symbols-outlined  button-icon"
-          onClick={onLeaveClick}
-        >
-          exit_to_app
-        </button>
+        <h1 className="app-title">Quizz Buzz</h1>
+        {gameBeingPlayed && (
+          <button
+            type="menu"
+            className="material-symbols-outlined  button-icon"
+            onClick={onLeaveClick}
+          >
+            exit_to_app
+          </button>
+        )}
+        {!gameBeingPlayed && (
+          <span className="material-symbols-outlined button-icon"></span>
+        )}
       </header>
       <main className="game-screen-main">
         <button className="footer-button" onClick={onStartStudent}>

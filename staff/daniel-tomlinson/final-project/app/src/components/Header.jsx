@@ -86,7 +86,7 @@ function Header({
             </button>
           )}
         </div>
-        <h1 className="app-title">Final-project</h1>
+        <h1 className="app-title">Quizz Buzz</h1>
         {view === "menu" && (
           <Menu
             onLogoutClick={handleLogoutClick}

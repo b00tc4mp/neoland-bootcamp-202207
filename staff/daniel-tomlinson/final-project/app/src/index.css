@@ -2,7 +2,7 @@
   --color-teacher-primary: hsl(209, 58%, 39%);
   --color-teacher-secondary: hsl(209, 58%, 59%);
   --color-teacher-secondary--light: hsl(209, 58%, 69%);
-  --color-teacher-secondary-hover: #347fc4;
+  --color-teacher-secondary-hover: hsl(209, 58%, 54%);
   --color-student-primary: #d30c7b;
   --color-student-secondary: hsl(327, 89%, 64%);
   --color-student-secondary-hover: hsl(327, 89%, 54%);
@@ -15,7 +15,7 @@
 
 :root {
   --color-primary: hsl(209, 58%, 59%);
-  --color-primary-hover: #347fc4;
+  --color-primary-hover: hsl(209, 58%, 56%);
   --color-secondary: #307dc4;
   --color-headings: hsl(209, 58%, 39%);
   --color-headings-hover: hsl(209, 58%, 29%);
@@ -392,7 +392,7 @@ input:focus {
   --color-headings-hover: #9b4386;
   /* --color-body: #918ca4; */
   /* --color-body-darker: #5c5577; */
-  --color-border: #f4e4ba;
+  --color-border: #e5cb89;
 }
 
 :root.green {
@@ -400,13 +400,13 @@ input:focus {
   /* #40798c; */
   --color-primary-hover: hsl(172, 25%, 30%);
   --color-secondary: #70a9a1;
-  --color-accent: #a4eae9;
+  --color-accent: #5edad8;
   /* #9ec1a3; */
   --color-headings: #1f363d;
   --color-headings-hover: hsl(194, 33%, 10%);
   --color-body: #;
   --color-body-darker: #;
-  --color-border: #cfe0c3;
+  --color-border: #7ab5a7;
   --border-radius: 30px;
 }
 
@@ -431,7 +431,7 @@ input:focus {
   --color-headings-hover: hsl(310, 62%, 19%);
   /* --color-body: #918ca4; */
   /* --color-body-darker: #5c5577; */
-  --color-border: #fff5e1;
+  --color-border: #49b0b4;
 }
 
 :root.pink {
@@ -443,7 +443,7 @@ input:focus {
   --color-headings-hover: hsl(335, 92%, 37%);
   /* --color-body: #918ca4; */
   /* --color-body-darker: #5c5577; */
-  --color-border: #fbe5e5;
+  --color-border: #f576b4;
 }
 
 .root {
@@ -596,12 +596,12 @@ a {
   font-size: 1.6rem;
   text-decoration: none;
   margin-top: 2rem;
-  color: var(--color-headings);
+  color: white;
 }
 
 a:hover {
   font-size: 1.7rem;
-  color: var(--color-headings-hover);
+  color: hsl(0, 0%, 90%);
 }
 
 /* Navigation Bar */
@@ -617,17 +617,6 @@ a:hover {
 .nav-icon {
   margin: 1rem;
   /* justify-self: flex-end; */
-}
-
-.fa-poo {
-  /* align-self: flex-end; */
-  color: var(--color-headings);
-  font-size: 2.5rem;
-  cursor: pointer;
-}
-
-.fa-poo:hover {
-  color: var(--color-headings-hover);
 }
 
 /* Forms */
@@ -734,11 +723,6 @@ button {
   width: 40%;
   font-size: 1.4rem;
 }
-
-/* button:hover {
-  border-style: none;
-  border-top: 1px solid #af4d98;
-} */
 
 .list__item-delete-button {
   align-self: flex-end;
@@ -920,7 +904,7 @@ button {
   align-self: flex-end;
   border-radius: 0 0 0 1rem;
   position: fixed;
-  margin-top: 102px;
+  margin-top: 100px;
 }
 
 .dropdown-menu {
@@ -945,18 +929,6 @@ button {
 .dropdown__link:hover {
   border: none;
   font-size: 1.6rem;
-  color: var(--color-secondary);
-}
-
-.poo-list-style {
-  color: var(--color-border);
-  font-size: 1.8rem;
-  margin-left: 0 0.5rem 0 0;
-  padding: 0;
-  height: 0;
-}
-
-.poo-list-style:hover {
   color: var(--color-secondary);
 }
 
@@ -986,7 +958,7 @@ button {
 
 .themeMenu {
   margin-right: 140px;
-  margin-top: 102px;
+  margin-top: 100px;
   border-radius: 0 0 1rem 1rem;
 }
 
@@ -1091,7 +1063,7 @@ body {
   width: 60%;
   margin-bottom: 20px;
   margin-top: 20px;
-  background-color: var(--color-teacher-secondary);
+  background-color: var(--color-primary);
 }
 
 .home-page-add-button {
@@ -1101,7 +1073,7 @@ body {
   width: 60%;
   margin-bottom: 20px;
   margin-top: 20px;
-  background-color: var(--color-teacher-secondary);
+  background-color: var(--color-primary);
 }
 
 .home-page-start-button:hover {

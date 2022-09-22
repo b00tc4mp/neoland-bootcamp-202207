@@ -22,6 +22,8 @@ function CommunityList({
   onReturn,
   gameBeingPlayed,
   handleSelectQuestionForGame,
+  handleReturnInGame,
+  handleNavigateTo,
   context: { handleFeedback },
 }) {
   // ================== consts ================== //
@@ -156,13 +158,19 @@ function CommunityList({
     loadQuestionsPublic();
   };
 
+  const onReturnClick = () => {
+    // if (gameBeingPlayed) onReturn("selectFolder");
+    if (gameBeingPlayed) handleReturnInGame("selectFolder");
+    if (!gameBeingPlayed) handleNavigateTo();
+  };
+
   // ================== jsx ================== //
 
   return (
     <div className="grouped-elements questions-list-panel">
       <span
         className="material-symbols-outlined button-icon"
-        onClick={onReturn}
+        onClick={onReturnClick}
       >
         arrow_back_ios_new
       </span>

@@ -19,6 +19,7 @@ function QuizMasterPage({
   handleFeedback,
   handleLeaveClass,
   handleGameBeingPlayed,
+  gameBeingPlayed,
 }) {
   // ================== Hook constants ================== //
 
@@ -56,6 +57,7 @@ function QuizMasterPage({
           handleStartStudent={handleStartStudent}
           handleStartTeacher={handleStartTeacher}
           handleLeaveClass={onLeaveClass}
+          gameBeingPlayed={gameBeingPlayed}
         />
       )}
       {userType === "Student" && (
@@ -64,6 +66,7 @@ function QuizMasterPage({
           socket={socket}
           handleFeedback={handleFeedback}
           handleLeaveClass={onLeaveClass}
+          gameBeingPlayed={gameBeingPlayed}
         />
       )}
       {userType === "Teacher" && (
@@ -72,6 +75,7 @@ function QuizMasterPage({
           socket={socket}
           handleLeaveClass={onLeaveClass}
           handleGameBeingPlayed={handleGameBeingPlayed}
+          gameBeingPlayed={gameBeingPlayed}
         />
       )}
     </main>

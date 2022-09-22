@@ -141,6 +141,12 @@ function QuestionsList({
     handleNavigateTo("createQuestion");
   };
 
+  const onReturnClick = () => {
+    // if (gameBeingPlayed) onReturn("selectFolder");
+    if (gameBeingPlayed) handleReturnInGame("selectFolder");
+    if (!gameBeingPlayed) handleNavigateTo();
+  };
+
   // ================== jsx ================== //
 
   return (
@@ -150,7 +156,7 @@ function QuestionsList({
           <div className="grouped-elements">
             <span
               className="material-symbols-outlined button-icon"
-              onClick={onReturn}
+              onClick={onReturnClick}
             >
               arrow_back_ios_new
             </span>
