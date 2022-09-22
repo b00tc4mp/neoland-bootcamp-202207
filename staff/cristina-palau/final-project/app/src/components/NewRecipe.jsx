@@ -1,7 +1,8 @@
 import Loggito from '../utils/loggito'
-import './RecipesNewRecipeForm.sass'
+import './NewForm.sass'
 import { useState, useEffect } from 'react'
-import {retrieveIngredients, createRecipe} from '../logic'
+import { retrieveIngredients, createRecipe } from '../logic'
+import { toast } from 'react-toastify'
 
 function NewRecipe({ onBackClick, printIngredientsRow }) {
     const logger = new Loggito('New Recipe')
@@ -17,12 +18,18 @@ function NewRecipe({ onBackClick, printIngredientsRow }) {
             retrieveIngredients(sessionStorage.token, (error, ingredients) => {
                 if (error) {
 
+                    toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
+
                     logger.warn(error.message)
                     return
                 }
+                
                 setIngredients(ingredients)
             })
         } catch (error) {
+            
+            toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
+
             logger.warn(error.message)
         }
     }, [])
@@ -86,35 +93,40 @@ function NewRecipe({ onBackClick, printIngredientsRow }) {
                         [`ingredient${row.id}`]: { value: ingredientName },
                     } } = event
 
+                    if (!quantityString) throw new Error("quantity is empty or blank")
+                    else if (!unit) throw new Error("unit is empty or blank")
+                    else if (!ingredientName) throw new Error("ingredient is empty or blank")
 
                 let ingredientFound = ingredients.find(ingredient => ingredient.name === ingredientName)
                 if (!ingredientName) throw new Error('ingredient not found')
                 let id = ingredientFound.id
 
-
-                if (!quantityString) throw new Error("quantity is empty or blank")
-                else if (!unit) throw new Error("unit is empty or blank")
-                else if (!unit) throw new Error("ingredient is empty or blank")
-
                 let quantity = parseInt(quantityString)
                 ingredientsItem.push({ quantity, unit, id })
-
             })
 
             try {
                 createRecipe(sessionStorage.token, title, parseInt(persons), ingredientsItem, (error) => {
                     if (error) {
+                        
+                        toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
 
                         logger.warn(error.message)
 
                         return
                     }
                 })
+                toast.success('a new recipe has been created', {position: toast.POSITION.TOP_CENTER, theme: "colored"})
+
             } catch (error) {
+                toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
+                
                 logger.warn(error.message)
             }
 
         } catch (error) {
+            toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
+
             logger.warn(error.message)
         }
     }
@@ -144,12 +156,12 @@ function NewRecipe({ onBackClick, printIngredientsRow }) {
 
     return <>
         <div className="buttonContainer"><button className='transparentButton homeButton' onClick={handleBackClick}>
-                <span className="material-symbols-outlined">keyboard_backspace</span></button></div>
-            <form className="newRecipeForm" onSubmit={handleCreateRecipe} >
+            <span className="material-symbols-outlined">keyboard_backspace</span></button></div>
+        <form className="newForm newRecipeForm" onSubmit={handleCreateRecipe} >
             <div className="recipeHeaderContainer">
-            <label className="formLabel" htmlFor="title">Título</label>
+                <label className="formLabel" htmlFor="title">Título</label>
                 <input type="text" className="input newRecipeInput titleInput" name="title" placeholder="Título" id="title" />
-                <label className="formLabel" htmlFor="persons">para<input type="number" className="input newRecipeInput personsInput" name="persons" placeholder="pax" id="persons"/></label>
+                <label className="formLabel" htmlFor="persons">para<input type="number" className="input newRecipeInput personsInput" name="persons" placeholder="pax" id="persons" /></label>
             </div>
             <p>Ingredientes</p>
             <div className="ingredients"> {

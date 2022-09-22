@@ -1,8 +1,9 @@
 import Loggito from '../utils/loggito'
-// import './NewRecipe.sass'
+import './NewForm.sass'
 import { useState, useEffect, } from 'react'
 import { useParams } from 'react-router-dom'
-import { retrieveIngredients, retrieveList, createList, updateList}  from '../logic'
+import { retrieveIngredients, retrieveList, createList, updateList } from '../logic'
+import { toast } from 'react-toastify'
 
 function List({ onBackClick, list }) {
     const logger = new Loggito('User List')
@@ -17,6 +18,7 @@ function List({ onBackClick, list }) {
         if (!listState) {
             retrieveList(sessionStorage.token, id, (error, listFromLogic) => {
                 if (error) {
+                    toast.error(error.message, { position: toast.POSITION.TOP_CENTER, theme: "colored" })
 
                     logger.warn(error.message)
 
@@ -30,12 +32,16 @@ function List({ onBackClick, list }) {
             retrieveIngredients(sessionStorage.token, (error, ingredients) => {
                 if (error) {
 
+                    toast.error(error.message, { position: toast.POSITION.TOP_CENTER, theme: "colored" })
+
                     logger.warn(error.message)
                     return
                 }
                 setIngredients(ingredients)
             })
         } catch (error) {
+            toast.error(error.message, { position: toast.POSITION.TOP_CENTER, theme: "colored" })
+
             logger.warn(error.message)
         }
     }, [])
@@ -88,7 +94,59 @@ function List({ onBackClick, list }) {
     }
 
     const handleUpdateList = (listId) => {
-        console.log('actualizo receta')
+
+        try {
+            const { title } = listState
+
+            if (!title) throw new Error("title is empty or blank")
+
+            const ingredientsItem = []
+
+            listState.ingredients.forEach(ingredient => {
+                const quantityString = ingredient.quantity
+                const unit = ingredient.unit
+                const ingredientName = ingredient.ingredient.name
+
+                if (!quantityString) throw new Error("quantity is empty or blank")
+                else if (!unit) throw new Error("unit is empty or blank")
+                else if (!ingredientName) throw new Error("ingredient is empty or blank")
+
+                let ingredientFound = ingredients.find(ingredients => ingredients.name === ingredientName)
+                if (!ingredientName) throw new Error('ingredient not found')
+                let id = ingredientFound.id
+
+
+                let quantity = parseInt(quantityString)
+                ingredientsItem.push({ quantity, unit, id })
+            })
+
+            try {
+                updateList(sessionStorage.token, listId, title, ingredientsItem, (error) => {
+
+                    if (error) {
+
+                        toast.error(error.message, { position: toast.POSITION.TOP_CENTER, theme: "colored" })
+
+                        logger.warn(error.message)
+
+                        return
+                    }
+                })
+            } catch (error) {
+                toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
+
+                logger.warn(error.message)
+            }
+
+        } catch (error) {
+            toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
+
+            logger.warn(error.message)
+        }
+    }
+
+    const handleCreateList = () => {
+
         try {
             const { title } = listState
 
@@ -112,55 +170,10 @@ function List({ onBackClick, list }) {
                 let quantity = parseInt(quantityString)
                 ingredientsItem.push({ quantity, unit, id })
             })
-
-            try {
-                updateList(sessionStorage.token, listId, title, ingredientsItem, (error) => {
-
-                    if (error) {
-
-                        logger.warn(error.message)
-
-                        return
-                    }
-                })
-            } catch (error) {
-                logger.warn(error.message)
-            }
-
-        } catch (error) {
-            logger.warn(error.message)
-        }
-    }
-
-    const handleCreateList = () => {
-        console.log('createRecipe')
-
-        try {
-            const { title } = listState
-
-           if (!title) throw new Error("title is empty or blank")
-
-            const ingredientsItem = []
-
-            listState.ingredients.forEach(ingredient => {
-                const quantityString = ingredient.quantity
-                const unit = ingredient.unit
-                const ingredientName = ingredient.ingredient.name
-
-                let ingredientFound = ingredients.find(ingredients => ingredients.name === ingredientName)
-                if (!ingredientName) throw new Error('ingredient not found')
-                let id = ingredientFound.id
-
-                if (!quantityString) throw new Error("quantity is empty or blank")
-                else if (!unit) throw new Error("unit is empty or blank")
-                else if (!unit) throw new Error("ingredient is empty or blank")
-
-                let quantity = parseInt(quantityString)
-                ingredientsItem.push({ quantity, unit, id })
-            })
             try {
                 createList(sessionStorage.token, title, ingredientsItem, (error) => {
                     if (error) {
+                        toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
 
                         logger.warn(error.message)
 
@@ -168,10 +181,14 @@ function List({ onBackClick, list }) {
                     }
                 })
             } catch (error) {
+                toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
+
                 logger.warn(error.message)
             }
 
         } catch (error) {
+            toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
+
             logger.warn(error.message)
         }
     }
@@ -208,10 +225,10 @@ function List({ onBackClick, list }) {
     return <>
         <div className="buttonContainer"><button className='transparentButton homeButton' onClick={handleBackClick}>
             <span className="material-symbols-outlined">keyboard_backspace</span></button></div>
-        <h3 className="userRecipeTitle">Guardar receta Usuario</h3>
-        <form className="newRecipeForm">
+        <h3 className="userRecipeTitle">Editar Lista</h3>
+        <form className="newForm">
             <div className="recipeHeaderContainer">
-                <label className="formLabel" htmlFor="title">Título</label>
+                <label className="formLabel titleLabel" htmlFor="title">Título</label>
                 <input type="text" defaultValue={listState ? listState.title : ''} className="input newRecipeInput titleInput" name="title" placeholder="Título" id="title" onChange={(event) => handleChangeTitle(event)} />
             </div>
             <p>Ingredientes</p>
@@ -220,10 +237,10 @@ function List({ onBackClick, list }) {
                     <div className="ingredientsRecipeContainer" key={ingredient.id}>
                         <input type="number" defaultValue={ingredient.quantity} className="input newRecipeInput quantInput" name={`quantity${index}`} placeholder="cantidad" onChange={(event) => handleChangeQuantity(event, ingredient.id)} />
                         <select className="select newRecipeInput unitSelect" defaultValue={ingredient.unit} name={`unit${index}`} placeholder="unit" onChange={(event) => handleChangeUnit(event, ingredient.id)}>
-                            <option value="kg" ></option>
-                            <option value="kg" >kg</option>
-                            <option value="unit">unt</option>
-                            <option value="l">l</option>
+                            <option className="option" value="kg" ></option>
+                            <option className="option" value="kg" >kg</option>
+                            <option className="option" value="unit">unt</option>
+                            <option className="option" value="l">l</option>
                         </select>
                         <input className="input newRecipeInput ingredientInput" name={`ingredient${index}`} list="ingredientsList" autoComplete="off" defaultValue={ingredient.ingredient.name} onChange={(event) => handleChangeIngredient(event, ingredient.id)} />
                         <datalist id="ingredientsList">
@@ -235,20 +252,20 @@ function List({ onBackClick, list }) {
                             event.preventDefault()
 
                             handleDeleteIngredient(ingredient.id)
-                        }}><span className="material-symbols-outlined">remove</span></button>
+                        }}><span className="material-symbols-outlined">close</span></button>
                     </div>
                 )}
 
                 <button className="addIngredient transparentButton" onClick={addIngredient}><span className="material-symbols-outlined">add_circle</span></button>
             </div>
 
-            <div className="buttonsContainer">
-                <button className="updateRecipeButton" type="button" onClick={(event) => {
+            <div className="buttonContainer">
+                <button className="updateButton transparentButton" type="button" onClick={(event) => {
                     event.preventDefault()
 
                     handleUpdateList(id)
                 }}>Actualizar lista</button>
-                <button className="createRecipeButton" type="button" onClick={(event) => {
+                <button className="createButton transparentButton" type="button" onClick={(event) => {
                     event.preventDefault()
 
                     handleCreateList()

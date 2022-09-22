@@ -1,9 +1,10 @@
 import Loggito from '../utils/loggito'
-import './RecipesNewRecipeForm.sass'
+import './NewForm.sass'
 import './RecipesView.sass'
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import {createRecipe, retrieveRecipe, retrieveIngredients} from '../logic'
+import { createRecipe, retrieveRecipe, retrieveIngredients } from '../logic'
+import { toast } from 'react-toastify'
 
 function PublicRecipe({ onBackClick, recipe }) {
 
@@ -12,12 +13,18 @@ function PublicRecipe({ onBackClick, recipe }) {
     const [ingredients, setIngredients] = useState([])
     const [recipeState, setRecipeState] = useState(recipe)
 
+    const logger = new Loggito('Public Recipe')
+
+    logger.info('render')
+
     useEffect(() => {
         if (!recipeState) {
             retrieveRecipe(sessionStorage.token, id, (error, recipeFromLogic) => {
                 if (error) {
-                    console.log(error)
-                    //TODO
+
+                    toast.error(error.message, { position: toast.POSITION.TOP_CENTER, theme: "colored" })
+
+                    logger.warn(error.message)
 
                     return
                 }
@@ -27,6 +34,8 @@ function PublicRecipe({ onBackClick, recipe }) {
         try {
             retrieveIngredients(sessionStorage.token, (error, ingredients) => {
                 if (error) {
+                    
+                    toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
 
                     logger.warn(error.message)
                     return
@@ -34,18 +43,17 @@ function PublicRecipe({ onBackClick, recipe }) {
                 setIngredients(ingredients)
             })
         } catch (error) {
+            toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
+
             logger.warn(error.message)
         }
     }, [])
 
-    const logger = new Loggito('Public Recipe')
-
-    logger.info('render')
 
 
     const handleSaveRecipe = event => {
         event.preventDefault()
-        console.log('inicio el save')
+
         try {
             const { title, persons } = recipeState
 
@@ -55,28 +63,36 @@ function PublicRecipe({ onBackClick, recipe }) {
                 const quantityString = ingredient.quantity
                 let unit = ingredient.unit
                 const ingredientName = ingredient.ingredient.name
-                 
+
                 let ingredientFound = ingredients.find(ingredients => ingredients.name === ingredientName)
                 if (!ingredientName) throw new Error('ingredient not found')
                 let id = ingredientFound.id
-                 
+
 
                 if (unit === "unidad" || unit === "unidades") unit = "unit"
-                 
+
                 const quantity = parseInt(quantityString)
                 ingredientsItem.push({ quantity, unit, id })
             })
 
             createRecipe(sessionStorage.token, title, parseInt(persons), ingredientsItem, (error) => {
                 if (error) {
+                    
+                    toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
 
                     logger.warn(error.message)
 
                     return
                 }
+                
+                toast.success('a new recipe has been created', {position: toast.POSITION.TOP_CENTER, theme: "colored"})
+
             })
 
         } catch (error) {
+
+            toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
+
             logger.warn(error.message)
         }
     }
@@ -109,8 +125,8 @@ function PublicRecipe({ onBackClick, recipe }) {
             })
             }
             </div>
-            <div className="buttonsContainer">
-                <button className="createButton transparentButton" onClick={handleSaveRecipe}><span className="material-symbols-outlined ">heart_plus</span></button>
+            <div className="buttonContainer">
+                <button className="addButton transparentButton" onClick={handleSaveRecipe}><span className="material-symbols-outlined ">heart_plus</span></button>
             </div>
         </div>
     </>

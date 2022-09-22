@@ -1,11 +1,11 @@
 import registerUser from '../logic/registerUser'
 import Loggito from '../utils/loggito'
-import withContext from '../utils/withContext'
 import logoAnimado from '../images/logoAnimado.gif'
 import './pages.sass'
+import { toast } from 'react-toastify'
 
 
-function RegisterPage({ onRegister, onLinkClick, context: { handleFeedback } }) {
+function RegisterPage({ onRegister, onLinkClick }) {
 
     const logger = new Loggito(RegisterPage.name)
 
@@ -24,14 +24,14 @@ function RegisterPage({ onRegister, onLinkClick, context: { handleFeedback } }) 
             registerUser(name, email, password, function (error) {
                 if (error) {
 
-                    handleFeedback({ message: error.message, level: 'error' })
+                    toast.warning(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
 
                     logger.warn(error.message)
 
                     return
                 }
 
-                handleFeedback({ message: "el usuario se ha registrado", level: 'success' })
+                toast.success("user has been registered!", {position: toast.POSITION.TOP_CENTER, theme: "colored"})
                 
                 event.target.reset()
 
@@ -39,7 +39,7 @@ function RegisterPage({ onRegister, onLinkClick, context: { handleFeedback } }) 
             })
         } catch (error) {
 
-            handleFeedback({ message: error.message, level: 'error' })
+            toast.warning(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
 
 
             logger.warn(error.message)
@@ -70,7 +70,7 @@ function RegisterPage({ onRegister, onLinkClick, context: { handleFeedback } }) 
 
 }
 
-export default withContext(RegisterPage)
+export default RegisterPage
 
 
 

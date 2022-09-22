@@ -1,16 +1,16 @@
 import authenticateUser from '../logic/authenticateUser'
 import Loggito from '../utils/loggito'
+import "../index.sass"
 import withContext from '../utils/withContext'
 import logoAnimado from '../images/logoAnimado.gif'
 import { useState } from 'react'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 
 function LoginPage({ onLinkClick, onLogin, context: { handleFeedback } }) {
 
     const logger = new Loggito(LoginPage.name)
-
-    const [error, setError] = useState(null)
-    const [emptyError, setEmptyError] = useState(null)
 
     logger.info('constructor')
 
@@ -34,8 +34,9 @@ function LoginPage({ onLinkClick, onLogin, context: { handleFeedback } }) {
             authenticateUser(email, password, (error, token) => {
                 if (error) {
 
-                    setError(error)
-                   
+                    toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
+
+
                     logger.warn(error.message)
 
                     return
@@ -49,9 +50,9 @@ function LoginPage({ onLinkClick, onLogin, context: { handleFeedback } }) {
             })
         } catch (error) {
 
-            setError(error)
-           
-            logger.warn(error.message)
+            toast.error(error.message, {position: toast.POSITION.TOP_RIGHT, theme: "colored"})
+            
+                    logger.warn(error.message)
         }
     }
 
@@ -64,8 +65,6 @@ function LoginPage({ onLinkClick, onLogin, context: { handleFeedback } }) {
             <input className="input" type="email" name="email" placeholder="e-mail" id="email" />
             <label className="formLabel" htmlFor="password">Contraseña</label>
             <input className="input" type="password" name="password" placeholder="contraseña" id="password" />
-            {error ? <p className="error">Email o contraseña incorrectos</p> : null}
-            {emptyError? <p className="error">Por favor, rellena todos los campos</p> : null}
             <button className="button" type="submit">Continuar</button>
         </form>
 

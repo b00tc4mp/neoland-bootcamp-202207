@@ -3,7 +3,7 @@ import '../index.sass'
 
 function UserRecipesList({ userRecipes, onDeleteRecipe, onRecipeClick, onViewClick }) {
     return userRecipes === null || (userRecipes.length) === 0 ? <div className="recipes-container__myRecipes container-recipes"> <div className="userRecipe">Todavía no tienes recetas</div> </div>
-        : <div className="recipes-container__myRecipes container-recipes">
+        : <div className="container__myRecipes container-recipes">
             {userRecipes.map((recipe, id) => <div className="userRecipe" key={id}>
                 <div className="recipeTitle" >{recipe.title} para {recipe.persons} </div>
                 <div className="buttonContainer">

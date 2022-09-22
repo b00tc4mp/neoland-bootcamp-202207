@@ -7,12 +7,10 @@ import PublicRecipe from './PublicRecipe'
 import ViewUserRecipe from './ViewUserRecipe'
 import UserRecipe from './UserRecipe'
 import { Routes, Route, useNavigate } from 'react-router-dom'
-import retrieveUserRecipes from '../logic/retrieveUserRecipes'
-import retrieveUser from '../logic/retrieveUserRecipes'
-import retrievePublicRecipes from '../logic/retrievePublicRecipes'
-import retrieveRecipe from '../logic/retrieveRecipe'
-import deleteRecipe from '../logic/deleteRecipe'
+import { retrieveUserRecipes, retrieveUser, retrievePublicRecipes, retrieveRecipe, deleteRecipe } from '../logic'
 import withContext from '../utils/withContext'
+import Header from './Header'
+import { toast } from 'react-toastify'
 
 function RecipesMenu({ onBackClick, context: { reloadThePage } }) {
     const logger = new Loggito('Recipes')
@@ -31,6 +29,8 @@ function RecipesMenu({ onBackClick, context: { reloadThePage } }) {
         try {
             retrieveUser(sessionStorage.token, (error, user) => {
                 if (error) {
+                    
+                    toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
 
                     logger.warn(error.message)
 
@@ -41,6 +41,8 @@ function RecipesMenu({ onBackClick, context: { reloadThePage } }) {
                 loadPublicRecipes(user)
             })
         } catch (error) {
+            
+            toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
 
             logger.warn(error.message)
         }
@@ -54,6 +56,8 @@ function RecipesMenu({ onBackClick, context: { reloadThePage } }) {
 
                 if (error) {
 
+                    toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
+
                     logger.warn(error.message)
 
                     return
@@ -65,6 +69,8 @@ function RecipesMenu({ onBackClick, context: { reloadThePage } }) {
             })
         } catch (error) {
 
+            toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
+
             logger.warn(error.message)
         }
     }
@@ -73,7 +79,7 @@ function RecipesMenu({ onBackClick, context: { reloadThePage } }) {
         try {
             retrieveUserRecipes(sessionStorage.token, (error, userRecipes) => {
                 if (error) {
-
+                    toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
 
                     logger.warn(error.message)
 
@@ -84,6 +90,7 @@ function RecipesMenu({ onBackClick, context: { reloadThePage } }) {
                 logger.debug('setUserRecipes', userRecipes)
             })
         } catch (error) {
+            toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
 
             logger.warn(error.message)
         }
@@ -93,8 +100,8 @@ function RecipesMenu({ onBackClick, context: { reloadThePage } }) {
         try {
             retrieveRecipe(sessionStorage.token, recipeId, (error, recipe) => {
 
-
                 if (error) {
+                    toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
 
                     logger.warn(error.message)
 
@@ -103,12 +110,11 @@ function RecipesMenu({ onBackClick, context: { reloadThePage } }) {
 
                 setRecipe(recipe)
 
-                console.log(recipe)
-
                 navigate(`myrecipes/${recipeId}`)
             })
 
         } catch (error) {
+            toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
 
             logger.warn(error.message)
         }
@@ -119,6 +125,7 @@ function RecipesMenu({ onBackClick, context: { reloadThePage } }) {
             retrieveRecipe(sessionStorage.token, recipeId, (error, recipe) => {
 
                 if (error) {
+                    toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
 
                     logger.warn(error.message)
 
@@ -131,6 +138,7 @@ function RecipesMenu({ onBackClick, context: { reloadThePage } }) {
             })
 
         } catch (error) {
+            toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
 
             logger.warn(error.message)
         }
@@ -141,6 +149,7 @@ function RecipesMenu({ onBackClick, context: { reloadThePage } }) {
             retrieveRecipe(sessionStorage.token, recipeId, (error, recipe) => {
 
                 if (error) {
+                    toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
 
                     logger.warn(error.message)
 
@@ -153,6 +162,7 @@ function RecipesMenu({ onBackClick, context: { reloadThePage } }) {
             })
 
         } catch (error) {
+            toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
 
             logger.warn(error.message)
         }
@@ -164,18 +174,26 @@ function RecipesMenu({ onBackClick, context: { reloadThePage } }) {
 
             deleteRecipe(sessionStorage.token, recipeId, error => {
                 if (error) {
+                    toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
 
                     logger.warn(error.message)
                     return
                 }
-
+                
+                
             })
 
-            console.log('reloadPage')
+            toast.success('your recipe has been deleted', {position: toast.POSITION.TOP_CENTER, theme: "colored", autoClose: 2000})
+            
+            setTimeout(retardedReload, 2000) 
 
-            reloadThePage()
+            function retardedReload() {
+                reloadThePage()
+            }
 
         } catch (error) {
+            
+            toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
 
             logger.warn(error.message)
         }
@@ -207,15 +225,17 @@ function RecipesMenu({ onBackClick, context: { reloadThePage } }) {
 
     return <Routes>
         <Route path="/" element={<>
+            <Header text="Recetas" />
 
-            <div className="buttonContainer"><button className='transparentButton homeButton' onClick={onBackClick}>
+            <div className="buttonContainer buttonTopContainer"><button className='transparentButton homeButton' onClick={onBackClick}>
                 <span className="material-symbols-outlined">keyboard_backspace</span></button></div>
-            <UserRecipesList userRecipes={userRecipes} onRecipeClick={handleClickUserRecipe} onDeleteRecipe={handleDeleteRecipe} onViewClick={handleViewRecipe}/>
-
-            <div className="addRecipe">
-                <button className="addRecipe__button transparentButton" onClick={handleNavigationNewRecipe}><span className="material-symbols-outlined">add_circle</span> </button>
-            </div>
+            <h2 className='recipesTitle'>Mis recetas</h2>
+            <UserRecipesList userRecipes={userRecipes} onRecipeClick={handleClickUserRecipe} onDeleteRecipe={handleDeleteRecipe} onViewClick={handleViewRecipe} />
+            <h2 className='recipesTitle'>Inspírate</h2>
             <PublicRecipesList recipes={publicRecipes} onRecipeClick={handleClickPublicRecipe} reloadPublicRecipes={handleReloadPublicRecipes} />
+            <div className="addRecipe">
+                <button className="addButton transparentButton" onClick={handleNavigationNewRecipe}><span className="material-symbols-outlined">add_circle</span> </button>
+            </div>
 
         </>} />
         <Route path="newrecipe" element={<>

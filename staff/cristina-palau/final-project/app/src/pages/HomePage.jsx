@@ -9,6 +9,7 @@ import Loggito from '../utils/loggito'
 import { useState, useEffect } from 'react'
 import retrieveUser from '../logic/retrieveUser'
 import Header from '../components/Header'
+import {toast} from 'react-toastify'
 
 function HomePage({ onLogoutClick }) {
 
@@ -25,6 +26,8 @@ function HomePage({ onLogoutClick }) {
             retrieveUser(sessionStorage.token, (error, user) => {
                 if (error) {
 
+                    toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
+
                     logger.warn(error.message)
 
                     return
@@ -33,6 +36,8 @@ function HomePage({ onLogoutClick }) {
                 setName(user.name)
             })
         } catch (error) {
+
+            toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
 
             logger.warn(error.message)
         }

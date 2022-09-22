@@ -28,12 +28,12 @@ function retrieveList(userId, listId) {
 
             list.ingredients.forEach(ingredient => {
                 ingredient.id = ingredient._id.toString()
-                // ingredient.ingredient.id = ingredient.ingredient._id.toString()
+                ingredient.ingredient.id = ingredient.ingredient._id.toString()
                  
                 delete ingredient._id
-                // delete ingredient.ingredient._id
+                delete ingredient.ingredient._id
                 delete ingredient.__v
-                // delete ingredient.ingredient._v
+                delete ingredient.ingredient._v
             })
 
             return list

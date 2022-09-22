@@ -1,12 +1,9 @@
 import Loggito from '../utils/loggito'
-import './RecipesNewRecipeForm.sass'
+import './NewForm.sass'
 import { useState, useEffect, } from 'react'
 import { useParams } from 'react-router-dom'
-import retrieveIngredients from '../logic/retrieveIngredients'
-import retrieveRecipe from '../logic/retrieveRecipe'
-import createRecipe from '../logic/createRecipe'
-import updateRecipe from '../logic/updateRecipe'
-
+import {retrieveIngredients, retrieveRecipe, createRecipe, updateRecipe} from '../logic'
+import { toast } from 'react-toastify'
 
 function UserRecipe({ onBackClick, recipe }) {
     const logger = new Loggito('User Recipe')
@@ -22,6 +19,8 @@ function UserRecipe({ onBackClick, recipe }) {
             retrieveRecipe(sessionStorage.token, id, (error, recipeFromLogic) => {
                 if (error) {
 
+                    toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
+                              
                     logger.warn(error.message)
 
                     return
@@ -34,12 +33,18 @@ function UserRecipe({ onBackClick, recipe }) {
             retrieveIngredients(sessionStorage.token, (error, ingredients) => {
                 if (error) {
 
+                    toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
+            
                     logger.warn(error.message)
+                    
                     return
                 }
                 setIngredients(ingredients)
             })
         } catch (error) {
+            
+            toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
+
             logger.warn(error.message)
         }
     }, [])
@@ -100,12 +105,11 @@ function UserRecipe({ onBackClick, recipe }) {
     }
 
     const handleUpdateRecipe = (recipeId) => {
-        console.log('actualizo receta')
         try {
             const { title, persons } = recipeState
 
-            if (!persons) throw new Error("persons is empty or blank")
-            else if (!title) throw new Error("title is empty or blank")
+            if (!persons) throw new Error("el campo personas está vacío")
+            else if (!title) throw new Error("el Título está vacío")
 
             const ingredientsItem = []
 
@@ -118,10 +122,9 @@ function UserRecipe({ onBackClick, recipe }) {
                 if (!ingredientName) throw new Error('ingredient not found')
                 let id = ingredientFound.id
 
-
-                if (!quantityString) throw new Error("quantity is empty or blank")
-                else if (!unit) throw new Error("unit is empty or blank")
-                else if (!unit) throw new Error("ingredient is empty or blank")
+                if (!quantityString) throw new Error("la cantidad está vacía")
+                else if (!unit) throw new Error("la unidad está vacía")
+                else if (!ingredientName) throw new Error("el ingrediente está vacío")
 
                 let quantity = parseInt(quantityString)
                 ingredientsItem.push({ quantity, unit, id })
@@ -132,28 +135,37 @@ function UserRecipe({ onBackClick, recipe }) {
 
                     if (error) {
 
+                        toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
+                        
                         logger.warn(error.message)
 
                         return
                     }
                 })
+                
+                toast.success('your recipe has been updated', {position: toast.POSITION.TOP_CENTER, theme: "colored"})
+
             } catch (error) {
+
+                toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
+
                 logger.warn(error.message)
             }
 
         } catch (error) {
+
+            toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
+
             logger.warn(error.message)
         }
     }
 
     const handleCreateRecipe = () => {
-        console.log('createRecipe')
-
         try {
             const { title, persons } = recipeState
 
-            if (!persons) throw new Error("persons is empty or blank")
-            else if (!title) throw new Error("title is empty or blank")
+            if (!persons) throw new Error("el campo personas está vacío")
+            else if (!title) throw new Error("el Título está vacío")
 
             const ingredientsItem = []
 
@@ -166,9 +178,9 @@ function UserRecipe({ onBackClick, recipe }) {
                 if (!ingredientName) throw new Error('ingredient not found')
                 let id = ingredientFound.id
 
-                if (!quantityString) throw new Error("quantity is empty or blank")
-                else if (!unit) throw new Error("unit is empty or blank")
-                else if (!unit) throw new Error("ingredient is empty or blank")
+                if (!quantityString) throw new Error("la cantidad está vacía")
+                else if (!unit) throw new Error("la unidad está vacía")
+                else if (!ingredient) throw new Error("el ingrediente está vacío")
 
                 let quantity = parseInt(quantityString)
                 ingredientsItem.push({ quantity, unit, id })
@@ -177,16 +189,26 @@ function UserRecipe({ onBackClick, recipe }) {
                 createRecipe(sessionStorage.token, title, parseInt(persons), ingredientsItem, (error) => {
                     if (error) {
 
+                        toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
+
                         logger.warn(error.message)
 
                         return
                     }
+                
+                    toast.success('a new recipe has been created', {position: toast.POSITION.TOP_CENTER, theme: "colored"})
+
                 })
             } catch (error) {
+
+                toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
+
                 logger.warn(error.message)
             }
 
         } catch (error) {
+            toast.error(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})
+
             logger.warn(error.message)
         }
     }
@@ -223,8 +245,8 @@ function UserRecipe({ onBackClick, recipe }) {
     return <>
         <div className="buttonContainer"><button className='transparentButton homeButton' onClick={handleBackClick}>
             <span className="material-symbols-outlined">keyboard_backspace</span></button></div>
-        <h3 className="userRecipeTitle">Guardar receta Usuario</h3>
-        <form className="newRecipeForm">
+        <h3 className="userRecipeTitle">Editar Receta</h3>
+        <form className="newForm">
             <div className="recipeHeaderContainer">
                 <label className="formLabel" htmlFor="title">Título</label>
                 <input type="text" defaultValue={recipeState ? recipeState.title : ''} className="input newRecipeInput titleInput" name="title" placeholder="Título" id="title" onChange={(event) => handleChangeTitle(event)} />
@@ -238,9 +260,9 @@ function UserRecipe({ onBackClick, recipe }) {
                         <input type="number" defaultValue={ingredient.quantity} className="input newRecipeInput quantInput" name={`quantity${index}`} placeholder="cantidad" onChange={(event) => handleChangeQuantity(event, ingredient.id)} />
                         <select className="select newRecipeInput unitSelect" defaultValue={ingredient.unit} name={`unit${index}`} placeholder="unit" onChange={(event) => handleChangeUnit(event, ingredient.id)}>
                         <option value="kg" ></option>
-                            <option value="kg" >kg</option>
-                            <option value="unit">unt</option>
-                            <option value="l">l</option>
+                            <option className="option" value="kg" >kg</option>
+                            <option className="option" value="unit">unt</option>
+                            <option className="option" value="l">l</option>
                         </select>
                         <input className="input newRecipeInput ingredientInput" name={`ingredient${index}`} list="ingredientsList" autoComplete="off" defaultValue={ingredient.ingredient.name} onChange={(event) => handleChangeIngredient(event, ingredient.id)} />
                         <datalist id="ingredientsList">
@@ -252,20 +274,20 @@ function UserRecipe({ onBackClick, recipe }) {
                             event.preventDefault()
 
                             handleDeleteIngredient(ingredient.id)
-                        }}><span className="material-symbols-outlined">remove</span></button>
+                        }}><span className="material-symbols-outlined">close</span></button>
                     </div>
                 )}
 
                 <button className="addIngredient transparentButton" onClick={addIngredient}><span className="material-symbols-outlined">add_circle</span></button>
             </div>
 
-            <div className="buttonsContainer">
-                <button className="updateRecipeButton" type="button" onClick={(event) => {
+            <div className="buttonContainer">
+                <button className="updateButton transparentButton" type="button" onClick={(event) => {
                     event.preventDefault()
 
                     handleUpdateRecipe(id)
                 }}>Actualizar receta</button>
-                <button className="createRecipeButton" type="button" onClick={(event) => {
+                <button className="createButton transparentButton" type="button" onClick={(event) => {
                     event.preventDefault()
 
                     handleCreateRecipe()

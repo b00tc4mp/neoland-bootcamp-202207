@@ -7,6 +7,7 @@ import Feedback from './components/Feedback'
 import Context from './utils/Context'
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 import React from 'react';
+import {ToastContainer} from 'react-toastify'
 
 function App() {
 
@@ -68,6 +69,7 @@ function App() {
 
       {feedback.message && <Feedback level={feedback.level} message={feedback.message} onClick={handleAcceptFeedback} />}
     </div>
+    <ToastContainer />
   </Context.Provider >
 
 }
