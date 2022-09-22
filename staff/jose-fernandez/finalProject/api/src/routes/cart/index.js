@@ -1,3 +1,4 @@
 module.exports = {
-    addItemToCartHandler: require('./addItemToCartHandler')
+    addItemToCartHandler: require('./addItemToCartHandler'),
+    removeItemFromCartHandler: require('./removeItemFromCartHandler')
 }

@@ -4,7 +4,7 @@ const { verifyObjectIdString } = require('../../../utils')
 
 // TODO FALTA
 
-function removeFromCart(userId, productId, price, qty) {
+function removeItemFromCart(userId, productId) {
     verifyObjectIdString(userId, 'user id')
 
     return Promise.all([
@@ -14,35 +14,16 @@ function removeFromCart(userId, productId, price, qty) {
         .catch(error => {
             throw new SystemError(error.message)
         })
+        //TODO arreglar 
         .then(([user, product]) => {
             if (!user) throw new NotFoundError(`user with id ${userId} not found`)
 
             if (!product) throw new NotFoundError(`product with id ${productId} not found`)
-
-            const newItem = new Item({ product: productId, price, qty })
-
-            if(user.cart) {
-                const productIndex = user.cart.items.findIndex(item => item.product.toString() === productId)
-                
-                if(productIndex === -1) {
-                    user.cart.items.push(newItem)
-                } else {
-                    user.cart.items[productIndex].qty = qty
-                    user.cart.items[productIndex].price = price
-
-                    // // user.cart.items[productIndex].qty = user.cart.items[productIndex].qty + qty
-
-                    // user.cart.items[productIndex].qty += qty
-                }
-
-            } else {
-                user.cart = {items: [newItem]}
-            }
-
-            debugger
+            //TODO arreglar/
             
-
-            return user.save()
+            return product.deleteOne({ productId })
+            debugger
+           
         })
         .then(user => { })
     // .then(([user, cart]) => {
@@ -60,4 +41,4 @@ function removeFromCart(userId, productId, price, qty) {
     // .then(item => { })
 }
 
-module.exports = removeFromCart
+module.exports = removeItemFromCart

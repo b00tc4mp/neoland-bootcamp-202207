@@ -1,6 +1,5 @@
 module.exports = {
     addItemToCart: require('./addItemToCart'),
-    retrieveCart: require('./retrieveCart'),
-    removeFromCart: require('./removeFromCart'),
+    removeItemFromCart: require('./removeItemFromCart'),
     updateCart: require('./updateCart')
 }

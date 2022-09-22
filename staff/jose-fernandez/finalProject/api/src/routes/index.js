@@ -1,19 +1,20 @@
 const express = require('express')
-const {Router, json} = express
+const { Router, json } = express
 const jsonBodyParser = json()
-const {registerUserHandler, authenticateUserHandler, retrieveUserHandler,registerAnonymousUserHandler} = require('./users')
-const { searchProductHandler,retrieveProductsHandler, retrieveProductExtendHandler} = require('./products')
-const { addItemToCartHandler } = require('./cart')
+const { registerUserHandler, authenticateUserHandler, retrieveUserHandler, registerAnonymousUserHandler } = require('./users')
+const { searchProductHandler, retrieveProductsHandler, retrieveProductExtendHandler } = require('./products')
+const { addItemToCartHandler, removeItemFromCartHandler } = require('./cart')
 
 const usersRouter = Router()
 
 usersRouter.post('/users', jsonBodyParser, registerUserHandler)
 usersRouter.post('/users-anonymous', jsonBodyParser, registerAnonymousUserHandler)
 
-usersRouter.post('/users/auth',jsonBodyParser,authenticateUserHandler)
+usersRouter.post('/users/auth', jsonBodyParser, authenticateUserHandler)
 
-usersRouter.get('/users',retrieveUserHandler)
+usersRouter.get('/users', retrieveUserHandler)
 usersRouter.patch('/users/product/:productId', jsonBodyParser, addItemToCartHandler)
+usersRouter.delete('/users/product/:productId', removeItemFromCartHandler)
 
 // TODO usersRouter.patch('/users/email',jsonBodyParser,updateUserEmailHandler)
 // TODO usersRouter.patch('/users/password',jsonBodyParser,updateUserPasswordHandler)
@@ -21,14 +22,14 @@ usersRouter.patch('/users/product/:productId', jsonBodyParser, addItemToCartHand
 
 
 const productRouter = Router()
-productRouter.get('/products/search',searchProductHandler)
-productRouter.get('/products',retrieveProductsHandler)
-productRouter.get('/products/:productId',retrieveProductExtendHandler)
+productRouter.get('/products/search', searchProductHandler)
+productRouter.get('/products', retrieveProductsHandler)
+productRouter.get('/products/:productId', retrieveProductExtendHandler)
 // notesRouter.post('/notes', jsonBodyParser,createNoteHandler)
 // notesRouter.get('/notes', retrieveNotesHandler)
 // notesRouter.patch('/notes/:noteId', jsonBodyParser,updateNoteTextHandler)
 
-module.exports={
+module.exports = {
     usersRouter,
     productRouter
     // ,

@@ -39,9 +39,6 @@ function addItemToCart(userId, productId, price, qty) {
                 user.cart = {items: [newItem]}
             }
 
-            debugger
-            
-
             return user.save()
         })
         .then(user => { })
