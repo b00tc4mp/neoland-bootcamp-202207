@@ -1,0 +1,38 @@
+.changeNoteColorContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    height:34px;
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.changeNoteBlue, .changeNoteRed, .changeNoteGreen, .changeNoteOrange, .changeNotePurple, .changeNoteGrey{
+    height: 100%;
+    width: 14%;
+    border: 1px solid black;
+    box-shadow: 0px 0px 2px rgb(0, 0, 0);
+
+}
+
+.changeNoteBlue{
+    background-color: blue;
+}
+
+.changeNoteRed{
+    background-color: red;
+}
+
+.changeNoteGreen{
+    background-color: green;
+}
+.changeNoteOrange{
+    background-color: orange;
+}
+.changeNotePurple{
+    background-color: #7d19c4;
+}
+.changeNoteGrey{
+    background-color: grey;
+}

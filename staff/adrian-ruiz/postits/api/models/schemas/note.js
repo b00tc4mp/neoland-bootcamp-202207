@@ -1,0 +1,41 @@
+const { Schema, Types: { ObjectId } } = require('mongoose')
+
+const note = new Schema({
+    user: {
+        type: ObjectId,
+        required: true,
+        ref: 'User'
+    },
+    
+    title: {
+        type: String,
+        required: true,
+    },
+
+    text: {
+        type: String,
+        default: ''
+    },
+
+    color: {
+        type: String,
+        default: '#7d19c4'
+    },
+
+    visibility:{
+        type: String,
+        enum: ['private', 'public'],
+        default: 'private'
+    },
+
+    createAt: {
+        type: Date,
+        default: Date.now
+    },
+
+    modifiedAt:{
+        type: Date
+    }
+})
+
+module.exports = note

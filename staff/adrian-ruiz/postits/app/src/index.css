@@ -1,0 +1,262 @@
+@import url('https://fonts.googleapis.com/css2?family=Nuosu+SIL&family=Open+Sans:wght@300&family=Oswald:wght@200;300;400;600&display=swap');
+
+*{
+    box-sizing: border-box;
+    font-family: 'Oswald', sans-serif;
+}
+
+:root{
+    --purpleDark: #531a7c;
+    --purpleInput: #592380;
+    --purpleCaretLight:#9203ff;
+    /* --purpleWebKitAutoFill: #934dc5; */
+    --purpleBorder: #3d0b60;
+    --lightSubmitShadow: lightblue;
+
+    /* DARK THEME PALLETE*/
+    --darkInput: rgb(40, 40, 173);
+    --darkInputText: #f5f1ea;
+    --darkSubmitButton: #a76002;
+    --darkBg: #2d2a47;
+    --darkMenu: #242243;
+    --darkInputBorder:#a76002;
+    --darkSubmitShadow: rgb(243, 190, 92);
+    --red: red;
+}
+
+.lightTheme{
+    --bgColor: white;
+    --bottomMenu: var(--purpleDark);
+    --headerBg: var(--purpleDark);
+    --inputText: var(--purpleInput);
+    --inputBorder: var(--purpleInput);
+    --submitButton: var(--purpleDark);
+    --submitShadow: var(--lightSubmitShadow);
+    --caretColor: var(--purpleCaretLight);
+    --anchorColor: var(--purpleDark);
+    --dropdownBg: var(--purpleDark);
+    --inputSelectionColor: white;
+    --newNoteBg: whitesmoke;
+    --newNoteTextColor: var(--purpleDark);
+    --ToasterSuccess: green;
+    --ToasterWarning: orange;
+    --ToasterText: white;
+}
+
+.darkTheme{
+    --bgColor: var(--darkBg);
+    --bottomMenu: var(--darkMenu);
+    --headerBg: var(--darkMenu);
+    --inputText: var(--darkInputText);
+    --inputBorder: var(--darkInputBorder);
+    --submitButton: var(--darkSubmitButton);
+    --submitShadow: none;   
+    --caretColor: var(--darkInputText);
+    --anchorColor: var(--darkInputText);
+    --dropdownBg: var(--darkMenu);
+    --inputSelectionColor: var(--darkBg);
+    --newNoteBg: var(--darkBg);
+    --newNoteTextColor: var(--darkInputText);
+    --ToasterSuccess: #28774b;
+    --ToasterWarning: #ed872d;
+    --ToasterText: white;
+}
+
+body, html, .page{
+    margin: 0px;
+    height: 100%;
+    width: 100vw;
+    font-size: 62.5%;   /* Formateo el size para que 1 rem = 10 px*/
+    overflow: hidden; /* Para eliminar scroll*/
+}
+.page{
+    display: flex;
+    flex-direction: column;
+}
+body{
+    width: 100%;
+}
+.mainBackground{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-image: url('assets/main-background.jpg');
+    background-size: cover;
+    background-attachment:fixed;
+}
+
+.topSectionContainer{
+    display: flex;
+    align-items: center;
+    height: 40%;
+}
+
+.topSection{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.topSectionImage{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+#companyLogo{
+    width: 200px;
+    height: auto;
+}
+
+.formContainer{
+    height: auto;
+    min-height: 65%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    background-color: var(--bgColor) ;
+    border-radius: 35px 35px 0px 0px;
+}
+
+
+.formDiv{
+    height: 100%;
+    width: 80%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+form {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+input{
+    width: 100%;
+    height: 10%;
+    min-height: 20px;
+    margin-bottom: 20px;
+    font-size: 2.2rem;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 1px solid var(--inputBorder);
+    caret-color: var(--caretColor); 
+    color: var(--inputText);
+    background-color: transparent;
+}
+
+
+input::selection{
+   background-color: var(--inputText);
+   color: var(--inputSelectionColor);
+}
+
+input:focus{
+    outline: none;
+}
+
+ input:-webkit-autofill {
+    background-clip: text;
+    -webkit-background-clip:text;
+    -webkit-text-fill-color: var(--inputText);
+}
+
+
+.labelForm{
+    width: 100%;
+    font-size: 2rem;
+    margin:0;
+    color: var(--inputText);
+    font-weight: bold;
+}
+button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    margin-top: 30px;
+    height: 30px;
+    height: 10%;
+    min-height: 30px;
+    font-size: 18px;
+}
+
+.submitButton{
+    border-radius: 35px;
+    background-color: var(--submitButton);
+    box-shadow: 0px 8px 30px var(--submitShadow);
+    border: 1px solid var(--submitButton);
+}
+
+.buttonText{
+    color: white;
+    font-size: 2rem;
+}
+
+a:visited{
+    color:black;
+}
+
+ .anchorContainer{
+    margin-top: 20px;
+} 
+
+.anchor{
+    text-decoration: none;
+    margin-top: 20px;
+    font-size: 2rem;
+    color: var(--anchorColor)
+}
+
+
+
+/* HOME */
+
+.homeMainContainer{
+    background-color: var(--bgColor);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 84%;
+}
+
+
+.bottomMenu{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* position: absolute; */
+    /* bottom: 0px; */
+    height: 6%;
+    min-height: 60px;
+    width: 100%;
+    background-color: var(--bottomMenu);
+}
+
+.newNoteButton{
+    font-size: 2.6rem;
+    padding: 0px;
+    margin: 0px;
+    height: 40px;
+    width: 40px;
+    border: none;
+    background-color: transparent;
+    border-radius: 100px;
+}
+
+.off{
+    display: none;
+}

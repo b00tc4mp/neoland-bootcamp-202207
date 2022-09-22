@@ -1,0 +1,55 @@
+.Toaster{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 45vw;
+    height: fit-content;
+    position: absolute;
+    align-self: flex-end;
+    margin: 10px 10px 0px 0px;
+    color: var(--ToasterText);
+    z-index: 2;
+}
+
+.Toaster--success{
+    background-color: var(--ToasterSuccess);
+}
+
+.Toaster--warning{
+    background-color: var(--ToasterWarning);
+}
+
+.Toaster p{
+    font-size: 1.4rem;
+    margin: 0px 0 5px 0px;
+    height: auto;
+    padding: 10px 21px 0px 5px;
+}
+
+.Toaster__closeButton{
+    position: absolute;
+    color: var(--ToasterText);
+    margin: 0px;
+    justify-self: flex-start;
+    align-self: flex-end;
+    background-color: transparent;
+    border: none;
+    width: auto;
+    height: auto;
+}
+
+.ToasterTimer{
+    width: 100%;
+    height: 4px;
+    align-self: flex-start;
+    background-color: yellow;
+    animation-name: ToasterTimer;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes ToasterTimer{
+    from {width: 100%}
+    to {width: 0%}
+}
