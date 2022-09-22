@@ -88,8 +88,9 @@ Below is the initial Figma flow that inspired the project. This flow shows the q
 ### Technologies
 
 - Javascript, JSX, CSS, SASS, HTML
-- React with Hooks
-- Express
+- React
+- Node.js
+- Express.js
 - Mongoose from MongoDB
 - Jest
 - Winston
