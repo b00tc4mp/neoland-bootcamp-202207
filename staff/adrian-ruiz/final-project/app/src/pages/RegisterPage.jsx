@@ -60,7 +60,7 @@ function RegisterPage({ navigateLogin }) {
     }
 
     const SignupGoogleFailHandler = res => {
-        toaster.warning('Login with google error')
+        toaster.warning('Register with google error')
         console.log(res)
     }
     return (
