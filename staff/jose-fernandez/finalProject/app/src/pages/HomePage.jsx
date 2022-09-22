@@ -123,7 +123,7 @@ function HomePage({ onLogoutClick, onLoginClick, context: { handleFeedback } }) 
         loadProducts()
         navigate('listProductsKids')
     }
-    const handleCart=()=>{
+    const handleCart = () => {
         navigate('cart')
     }
 
@@ -153,7 +153,7 @@ function HomePage({ onLogoutClick, onLoginClick, context: { handleFeedback } }) 
                 <Route path='listProductsWomen' element={<ProductsListWomen products={products} onProductClick={handleProductClick} onCloseClick={handleReturnMain} />} />
                 <Route path='listProductsKids' element={<ProductsListKids products={products} onProductClick={handleProductClick} onCloseClick={handleReturnMain} />} />
 
-                <Route path='products/:productId' element={<ProductView onCart={handleCart}/>} />
+                <Route path='products/:productId' element={<ProductView onCart={handleCart} />} />
                 <Route path='cart' element={<Cart />} />
 
                 {/* <Route path="profile" element={<Profile onCloseClick={handleReturnMain} email={email} onUpdateEmail={handleUpdateEmail} onUpdateName={handleUpdateName} />} /> */}
