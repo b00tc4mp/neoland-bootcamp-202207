@@ -230,6 +230,7 @@ Invoice
         - react-google-login && gapi-script (Google login & register)
         - MUI (Tables)
         - Evergreen-ui (Dialog and Toaster)
+        - react-transition-group (React render animations)
 
 ## Roadmap
 

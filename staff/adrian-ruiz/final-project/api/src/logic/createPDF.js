@@ -25,10 +25,6 @@ function createPDF(userId, companyId, invoiceId) {
         let pdfDoc = new PDFDocument({ size: 'A4' });
         const pdfFileName = `${invoiceNumber}_${Date.now()}.pdf`
 
-        //const ws = fs.createWriteStream(`${pdfFileName}`)
-
-        //pdfDoc.pipe(ws);
-
         pdfDoc.fontSize(32)
             .fillColor('#42538D')
             .font('Helvetica-Bold')
