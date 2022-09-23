@@ -2,17 +2,50 @@ import Loggito from "../utils/Loggito";
 import "./AuctionList.css";
 import createBid from "../logics/createBid";
 import withContext from "../utils/withContext";
+import { useEffect, useState, } from "react";
+import retrieveAuctions from '../logics/retrieveAuctions';
 
-function AuctionList({ auctions /*context:{ handleFeedBack }*/ }) {
+function AuctionList( { onNewBid, timestamp} ) {
   const logger = new Loggito("List Auctions");
 
-  // const [ activeButton, setactiveButton ] = useState(false)
+  const [auctions, setAuctions] = useState(null); 
 
-  // if(auctions.currentValue < price){
-  //   setactiveButton(true)
-  // }else{
-  //   setactiveButton(false)
-  // }
+  useEffect(() => {
+    try {
+      // if (!query)
+      retrieveAuctions(sessionStorage.token, (error, auctions) => {
+        if (error) {
+          // handleFeedback({ message: error.message, level: "error" });
+
+          logger.warn(error.message);
+
+          return;
+        }
+        logger.debug("set auctions", auctions);
+        
+        setAuctions(auctions);
+      });
+      // else
+      // SearchAuctions(sessionStorage.token, /*query,*/ (error, auctions) => {
+      //   if (error) {
+      //     handleFeedback({ message: error.message, level: 'error' })
+
+      //     logger.warn(error.message)
+
+      //     return
+      //   }
+
+        // setAuctions(auctions)
+
+      //   logger.debug('setauctions', auctions)
+      // })
+    } catch (error) {
+      // handleFeedback({ message: error.message, level: "error" });
+      logger.warn(error.message);
+      // refreshList()
+
+    }
+  },[timestamp]);
 
   const handleBidSubmit = (event) => {
     event.preventDefault();
@@ -25,29 +58,34 @@ function AuctionList({ auctions /*context:{ handleFeedBack }*/ }) {
     } = form;
 
     try {
-      createBid(sessionStorage.token, auctionId, newBid,/*date,*/(error) => {
-        if (error) {
-          // handleFeedBack({ message: error.message, level: 'warning'})
+      createBid(
+        sessionStorage.token,
+        auctionId,
+        newBid,
+        (error) => {
+          if (error) {
+            // handleFeedBack({ message: error.message, level: 'warning'})
 
-          logger.warn(error.message);
+            logger.warn(error.message);
 
-          return;
+            return;
+          }
+          // handleFeedBack({ message: '!New bid Created¡', level:'success'}
+          // refreshList();
+
+          onNewBid()
         }
-
-        // handleFeedBack({ message: '!New bid Created¡', level:'success'})
-
-        form.reset();
-      });
+      );
     } catch (error) {
       // handleFeedBack({ message: error.message, level: 'warning' })
-
       logger.warn(error.message);
+
     }
   };
 
   return (
     <ul className="AuctionList">
-      {auctions.map((auction) => (
+      {auctions && auctions.map((auction) => (
         <li className="RenderAuctionsContainer" key={auction.id}>
           <div className="homePost">
             <h3 className="titleAuction">{auction.title}</h3>
@@ -72,11 +110,15 @@ function AuctionList({ auctions /*context:{ handleFeedBack }*/ }) {
                 Bid
               </button>
               <p>€ {auction.currentValue}</p>
-            </form>
+            </form> 
 
             <div className="endDate">
-              <p className="DateP">{auction.finalDate}</p>
-              End date
+                end of auction:
+              <p className="DateP">
+                {new Date(auction.finalDate).toISOString().substring(0, 10)}
+              </p>
+              
+              {/* <p>remaining time: {auction.remainingTime}</p> */}
             </div>
           </div>
         </li>

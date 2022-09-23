@@ -2,7 +2,7 @@
     import withContext from '../utils/withContext'
     import createAuction from '../logics/createAuction'
 
-    function NewAuction({ onCloseClick, context: { handleFeedback } }) {
+    function NewAuction({ onNewAuction, context: { handleFeedback } }) {
         const logger = new Loggito('newAuction')
 
         const handleFormSubmit = event => {
@@ -45,6 +45,8 @@
                         handleFeedback({ message: '¡New Auction!', level: 'success' })
                         // onCloseClick()
                         form.reset() //para limpiar el formulario
+
+                        onNewAuction()
                     });
 
             } catch (error) {

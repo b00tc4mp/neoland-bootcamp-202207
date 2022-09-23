@@ -4,9 +4,9 @@ function updateUserProfile(token, gender, city, aboutYou, callback) {
     if (typeof token !== 'string') throw new TypeError('token is not a string')
     if (token.trim().length === 0) throw new Error('token is empty or blank')
     
-    if(gender !== 'string') throw new TypeError('la ptua ue te pario')
-    if(city !== 'string') throw new TypeError('City is not a string')
-    if(aboutYou !== 'string') throw new TypeError('Your informations is not a string')
+    if( typeof gender !== 'string') throw new TypeError('gender is not a string')
+    if( typeof city !== 'string') throw new TypeError('City is not a string')
+    if( typeof aboutYou !== 'string') throw new TypeError('Your informations is not a string')
 
     if (typeof callback !== 'function') throw new TypeError('callback is not a function')
     

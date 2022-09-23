@@ -9,7 +9,6 @@ function Profile({ onCloseClick, context: { handleFeedback }}) {
 
     const logger = new Loggito('Profile')
 
-    debugger
 
     const handleProfileFormSubmit = event => {
         event.preventDefault()
@@ -17,7 +16,7 @@ function Profile({ onCloseClick, context: { handleFeedback }}) {
         const { target: form } = event
         const { gender: {value: gender}, city:{value: city}, aboutYou:{value:aboutYou} } = form
 
-    debugger
+
     
     try {
         updateUserProfile(

@@ -54,8 +54,8 @@ function RetrieveUserAuctions({ /*auctions, context: { handleFeedback }*/ }) {
           </form> */}
 
           <div className="endDate">
-            <p className="DateP">{auction.finalDate}</p>
-            End date
+            <p className="DateP">{new Date( auction.finalDate).toISOString().substring(0,10)}</p>
+            end of auction:
           </div>
         </div>
       </li>

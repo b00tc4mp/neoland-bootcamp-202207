@@ -3,29 +3,24 @@ import withContext from '../utils/withContext'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import retrieveUser from '../logics/retrieveUser'
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import Loggito from '../utils/Loggito'
 import Profile from '../components/Profile'
 import UserAuctions from '../components/UserAuctions'
 import NewAuction from '../components/NewAuction'
 import Mail from '../components/Mail'
 import Setting from '../components/Setting'
-import retrieveAuctions from '../logics/retrieveAuctions'
 import AuctionList from '../components/AuctionList'
-// import SearchAuctions from '../components/SearchAuctions'
 
 function HomePage({ onLogoutClick, context: { handleFeedback } }) {
 
   const logger = new Loggito('HomePage')
 
-  const [ auctions, setAuctions ] = useState(null)
   const navigate = useNavigate()
-  const location = useLocation()
-
+  const [timestamp, setTimestamp] = useState()
 
   useEffect(() => {
     logger.info('"componentDidMount"')
-
 
     try {
       retrieveUser(sessionStorage.token, (error, user) => {
@@ -46,45 +41,7 @@ function HomePage({ onLogoutClick, context: { handleFeedback } }) {
 
       logger.warn(error.message)
     }
-
-    loadAuctions()
   }, [])
-
-  const loadAuctions = () => {
-    try {
-      // if (!query)
-          retrieveAuctions(sessionStorage.token, (error, auctions) => {
-          if (error) {
-            handleFeedback({ message: error.message, level: 'error' })
-
-            logger.warn(error.message)
-
-            return
-          }
-          setAuctions(auctions)
-
-          logger.debug('setauctions', auctions)
-        })
-      // else
-        // SearchAuctions(sessionStorage.token, /*query,*/ (error, auctions) => {
-        //   if (error) {
-        //     handleFeedback({ message: error.message, level: 'error' })
-
-        //     logger.warn(error.message)
-
-        //     return
-        //   }
-
-        //   setAuctions(auctions)
-
-        //   logger.debug('setauctions', auctions)
-        // })
-    } catch (error) {
-      handleFeedback({ message: error.message, level: 'error' })
-
-      logger.warn(error.message)
-    }
-  }
 
   const handleProfileClick = () => {
     navigate('profile')
@@ -130,18 +87,19 @@ function HomePage({ onLogoutClick, context: { handleFeedback } }) {
     logger.info('return')
   }
 
+  const refreshList = () => setTimestamp(Date.now())
 
   return <div className="Home">
     <div className="headerBanner">
-    <Header onLogoutClick={onLogoutClick} onSettingClick={handleSettingClick} />
+      <Header onLogoutClick={onLogoutClick} onSettingClick={handleSettingClick} />
     </div>
 
     <Routes>
-      {auctions && <Route path="/" element={<AuctionList auctions={ auctions } />} />}
+      {<Route path="/" element={<AuctionList timestamp={timestamp} onNewBid={refreshList} />} />}
       <Route path="profile" element={<Profile />} />
       {/* <Route path="home" element={<Home />} /> */}
       <Route path="UserAuctions" element={<UserAuctions />} />
-      <Route path="newauction" element={<NewAuction />} />
+      <Route path="newauction" element={<NewAuction onNewAuction={refreshList}/>} />
       <Route path="mail" element={<Mail />} />
       <Route path="setting" element={<Setting />} />
     </Routes>
