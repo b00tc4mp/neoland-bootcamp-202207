@@ -1,9 +1,8 @@
 # Name aplication:
-
   Inventary App
 
+![](https://media.giphy.com/media/Vg55Pm9miY1E30OfHM/giphy.gif)
 
-![](https://giphy.com/gifs/911onFOX-season-3-episºode-8-foxtv-Vg55Pm9miY1E30OfHM)
 
 ## Description App
 
@@ -111,7 +110,8 @@ Sprint 5
 
 - Cosas Realizadas
 
--Cosas pendientes...
+
+-Check Out
 - Siempre revisar el Doc. y asegurarte de que actualizastes los avances
 - Constantemente hacer pruebas de las logicas en insomnia.
 - Ir trabajando poco a poco las Logicas en la API
