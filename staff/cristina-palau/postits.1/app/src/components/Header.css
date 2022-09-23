@@ -1,0 +1,44 @@
+.header {
+    height: 60px;
+    top: 0px;
+    border: 1px;
+    border-style: solid;
+    border-color: var(--inp-color);
+    display: flex;
+    width: 100%;
+    display: flex;
+    background-color: var(--back-color);
+    position: fixed;
+    margin: 0px;
+}
+
+.greeting {
+    width: 90%;
+    grid-column: 1;
+    grid-row: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: x-large;
+    margin-right: 20px;
+}
+
+.burger {
+    width: 10%;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    margin-right: 10px;
+    background-color: transparent;
+    border: transparent;
+    cursor: pointer;
+}
+
+.burgerline {
+    height: 5px;
+    width: 30px;
+    background-color: var(--inp-color);
+    align-self: center;
+}

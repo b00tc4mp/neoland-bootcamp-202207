@@ -1,0 +1,56 @@
+.notes-page {
+    padding: 20px;
+    height: auto;
+}
+
+.list {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-self: flex-end;
+    gap: 30px;
+    margin-top: 60px;
+    padding: 0px;
+}
+
+.list__item {
+    display: flex;
+    flex-direction: column;
+    text-align: justify;
+    background-color: var(--back-color);
+    color: black;
+    width: 300px;
+    min-height: 150px;
+    font-size: 1.5rem;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    padding: 20px;
+}
+
+.list__item-text {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    resize: none;
+    font-size: large;
+    font-family: 'Schoolbell', cursive;
+}
+
+.delete {
+    cursor: pointer;
+    font-size: small;
+    align-self: flex-end;
+    border: transparent;
+    color: var(--inp-color);
+    background-color: transparent;
+}
+
+.addnote {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s;
+    cursor: pointer;
+    border: transparent;
+    color: var(--inp-color);
+    background-color: transparent;
+}
