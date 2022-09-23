@@ -1,19 +1,20 @@
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 import Loggito from "../utils/Loggito";
 import withContext from "../utils/withContext";
 import Menu from "../components/Menu";
 import CreateProduct from "../components/CreateProduct";
 import MyProducts from "../components/MyProducts";
-import ProductInput from "../components/ProductInput";
-import ProductOutput from "../components/ProductOutput";
+import MovementInputs from "../components/MovementInputs";
+import MovementOutputs from "../components/MovementOutputs";
+import RemoveProducts from "../components/RemoveProducts"
 import Reports from "../components/Reports"
-import Settings from "../components/settings"
+import Settings from "../components/Settings"
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import back from "../assets/back.jpg"
 
 
 
-function HomePage({ onLogoutClick, context: { handleFeedback } }) {
+function HomePage() {
   const logger = new Loggito("HomePage");
   const navigate = useNavigate();
   const location = useLocation();
@@ -33,6 +34,10 @@ function HomePage({ onLogoutClick, context: { handleFeedback } }) {
    const handleNavigateOutput = () => {
      navigate("/outputs")
    };
+
+   const handleNavigateRemove = () => {
+    navigate("/remove")
+  };
 
    const handleNavigateReport = () => {
      navigate("/reports")
@@ -60,6 +65,8 @@ function HomePage({ onLogoutClick, context: { handleFeedback } }) {
 
   if(location.pathname === '/outputs') title = 'Product Output'
 
+  if(location.pathname === '/remove') title = 'remove'
+
   if(location.pathname === '/reports') title = ' Reports'
 
   if(location.pathname === '/settings') title = 'Settings'
@@ -75,11 +82,13 @@ function HomePage({ onLogoutClick, context: { handleFeedback } }) {
       <button className="button-back" onClick={handleNavigateToHome}><img src={back} alt="logo de back" className="logo-back"/></button>
       </div>
       <Routes>
-        <Route path="/*" element={<Menu onHomeClick={handleNavigateToHome} onArticleClick={handleNavigateToProduct} onProductsClick={handleNavigateMyProducts} onInputsClick={handleNavigateInput} onOutputsClick={handleNavigateOutput} onReportsClick={handleNavigateReport} onSettingsClick={handleNavigateSetting} onLogoutClick={handleNavigateLogout} />} />
+        <Route path="/*" element={<Menu onHomeClick={handleNavigateToHome} onArticleClick={handleNavigateToProduct} onProductsClick={handleNavigateMyProducts} onInputsClick={handleNavigateInput} onOutputsClick={handleNavigateOutput} onReportsClick={handleNavigateReport} onRemoveClick={handleNavigateRemove} onSettingsClick=
+        {handleNavigateSetting} onLogoutClick={handleNavigateLogout} />} />
         <Route path="/product" element={<CreateProduct/>} />
         <Route path="/products" element={<MyProducts/>} />
-        <Route path="/inputs" element={<ProductInput/>} />
-        <Route path="/outputs" element={<ProductOutput/>} />
+        <Route path="/inputs" element={<MovementInputs/>} />
+        <Route path="/outputs" element={<MovementOutputs/>} />
+        <Route path="/remove" element={<RemoveProducts/>} />
         <Route path="/reports" element={<Reports/>} />
         <Route path="/settings" element={<Settings/>} />
       

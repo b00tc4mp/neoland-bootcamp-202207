@@ -2,12 +2,14 @@ import plus from '../assets/plus.jpg'
 import products from '../assets/products.jpg'
 import input from '../assets/input.jpg'
 import output from '../assets/output.jpg'
+import remove from '../assets/remove.jpg'
 import report from '../assets/reports.jpg'
 import settings from '../assets/settings.jpg'
 import logout from '../assets/logout.jpg'
+import './Menu.css'
 
 
-function Menu({onArticleClick, onProductsClick, onInputsClick, onOutputsClick, onReportsClick, onSettingsClick, onLogoutClick}){
+function Menu({onArticleClick, onProductsClick, onInputsClick, onOutputsClick, onRemoveClick, onReportsClick, onSettingsClick, onLogoutClick}){
 
   const handleArticleClick = () => {
     //console.log('pepito')
@@ -27,6 +29,11 @@ function Menu({onArticleClick, onProductsClick, onInputsClick, onOutputsClick, o
   const handleOutputsClick = () => {
 
     onOutputsClick()
+  }
+
+  const handleRemoveClick = () => {
+
+    onRemoveClick()
   }
 
   const handleReportsClick = () => {
@@ -76,9 +83,9 @@ function Menu({onArticleClick, onProductsClick, onInputsClick, onOutputsClick, o
           </button>
         </div>
         <div className="grid-item">
-          <button className="button-menu">
-            <img src={plus} alt="logo de add" className="logo-plus"/>
-            <p>---</p>
+          <button className="button-menu" onClick={handleRemoveClick}>
+            <img src={remove} alt="logo de remove" className="logo-remove"/>
+            <p>Remove Product</p>
           </button>
         </div>
         <div className="grid-item">

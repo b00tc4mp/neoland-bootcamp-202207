@@ -1,14 +1,14 @@
-
+import './Settings.css'
 
 function Settings(){
   return ( 
    
     <>
-    <div className="grid-create">
-      <div className="item-create">
+    <div className="grid-settings">
+      <div className="item-settings">
         <div className="container-form-4">  
   
-        <form className="form-create">
+        <form className="form-settings">
 
         <div className="form__field">
           <label htmlFor="name">Dark mode :</label>

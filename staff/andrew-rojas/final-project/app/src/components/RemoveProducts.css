@@ -1,4 +1,4 @@
-.grid-create {
+.grid-remove {
   position: absolute;
   display: grid;
   top: 23%;
@@ -6,7 +6,7 @@
   height: 60%;
 }
 
-.item-create{
+.item-remove {
   background-color: rgb(85, 166, 48);
   border: 1px solid rgba(0, 0, 0, 0.8);
   text-align: center;
@@ -16,7 +16,7 @@
   border: black 3px solid;
 }
 
-.container-form-2 {
+.container-form-5 {
   position: absolute;
   top: 18%;
   left: 20%;
@@ -24,7 +24,7 @@
   font-size: 18px;
 }
 
-.form-create {
+.form-remove {
   display: flex;
   flex-direction: column;
   gap: 35px;
@@ -37,7 +37,18 @@
   gap: 5px;
 }
 
-.button-create {
+.input {
+  background-color: transparent;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 1px solid black;
+  color: black;
+  font-size: 1rem;
+  caret-color: black;
+}
+
+.button-update {
   position: absolute;
   background-color: rgb(85, 166, 48);
   border-radius: 20px;
@@ -45,5 +56,5 @@
   font-size: 18px;
   left: 25%;
   width: 50%;
-  height: 13%;
+  height: 50%;
 }

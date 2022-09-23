@@ -7,7 +7,7 @@ import Loggito from './utils/Loggito.js'
 import Context from './utils/Context'
 import './App.css'
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
-import Hello from './components/Hello'
+
 
 
   function App() {
@@ -63,7 +63,6 @@ import Hello from './components/Hello'
     <Routes>     
       <Route path="login" element={sessionStorage.token ? <Navigate to="/" /> : <LoginPage onLinkClick={handleNavigationToRegister} onLogIn={handleNavigationToHome} />} />
       <Route path="register" element={sessionStorage.token ? <Navigate to="/" /> : <RegisterPage onLinkClick={handleNavigationToLogin} onRegister={handleNavigationToLogin} />} />
-      <Route path="hello/:to" element={<Hello />} />
       <Route path="/*" element={sessionStorage.token ? <HomePage onLogoutClick={handleLogoutClick} /> : <Navigate to="login" />} />
     </Routes>
 

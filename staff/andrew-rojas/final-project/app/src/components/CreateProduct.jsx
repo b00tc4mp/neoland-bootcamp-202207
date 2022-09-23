@@ -1,10 +1,10 @@
 import Loggito from '../utils/Loggito'
 import withContext from '../utils/withContext'
-import { ServerError } from 'errors'
+import './CreateProduct.css'
 import createProduct from '../logic/createProduct'
 
 
-function CreateProduct({ onCreate, context:{handleFeedback} }) {
+function CreateProduct({ context:{handleFeedback} }) {
   const  logger = new Loggito(CreateProduct.name)
 
   logger.info('constructor')
@@ -12,6 +12,7 @@ function CreateProduct({ onCreate, context:{handleFeedback} }) {
   logger.info('return')
 
   const handleFormSubmit = event => {
+       
     event.preventDefault()
 
     const form = event.target
@@ -28,18 +29,18 @@ function CreateProduct({ onCreate, context:{handleFeedback} }) {
 
       try {
         createProduct(sessionStorage.token, name, category, parseInt(quantity), description, (error) => {
+             
           if(error) {
-            if (error instanceof ServerError) { 
-            handleFeedback({ message: error.message, level: 'error' })
+          handleFeedback({ message: error.message, level: 'error' })
 
-            logger.warn(error.message)
-          }
+          logger.warn(error.message)
           return
         }
+            
+        handleFeedback({ message: 'Your product has been registered', 
+        level: 'success' })
+            event.target.reset()
 
-        logger.debug('create product')
-
-        onCreate()
       })
     }catch (error) {
       handleFeedback({ message: error.message, level: 'error' })
@@ -48,9 +49,9 @@ function CreateProduct({ onCreate, context:{handleFeedback} }) {
     }
   }
 
+  logger.info('return')
 
   return ( 
-  
   <>
   <div className="grid-create">
     <div className="item-create">

@@ -1,14 +1,15 @@
 import Loggito from '../utils/Loggito'
 
+
 function Search({ onQuery }) {
     const logger = new Loggito('Search')
 
     const handleSubmit = event => {
         event.preventDefault()
 
-        // const query = event.target.query.value
+        const query = event.target.query.value
 
-        // onQuery(query)
+        onQuery(query)
     }
 
     logger.info('return')

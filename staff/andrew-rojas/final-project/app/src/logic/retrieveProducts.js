@@ -1,12 +1,11 @@
-import { validateCallback, validateString } from "validators"
+import { validateCallback } from "validators"
 import { ClientError, ServerError, AuthError, UnknownError } from "errors"
 
 const API_URL = process.env.REACT_APP_API_URL
 
-function searchProducts(token, query, callback) {
+function retrieveProducts(token, callback) {
 
   validateCallback(callback);
-  validateString(query, 'query')
 
   const xhr = new XMLHttpRequest();
 
@@ -16,8 +15,9 @@ function searchProducts(token, query, callback) {
 
     const json = xhr.responseText;
 
-    const { error, products } = JSON.parse(json);
-
+    const products = JSON.parse(json);
+    const { error } = products;
+     
     switch (true) {
       case status >= 500:
         callback(new ServerError(error));
@@ -38,11 +38,11 @@ function searchProducts(token, query, callback) {
 
   // request
 
-  xhr.open("GET", `${API_URL}/products/search?q=${query}`);
+  xhr.open("GET", `${API_URL}/products/`);
 
   xhr.setRequestHeader("Authorization", `Bearer ${token}`);
 
   xhr.send();
 }
 
-export default searchProducts
+export default retrieveProducts

@@ -18,7 +18,6 @@ function authenticateUser(email, password, callback) {
   validateCallback(callback)
 
   const xhr = new XMLHttpRequest()
-
     // response
 
     xhr.onload = function() {
