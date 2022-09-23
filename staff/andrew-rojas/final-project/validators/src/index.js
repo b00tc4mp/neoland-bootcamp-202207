@@ -4,5 +4,5 @@ module.exports = {
   validateCallback: require('./validateCallback'),
   validateText: require('./validateText'),
   validateString: require('./validateString'),
-  validateNumber: require('./validateNumber')
+  validateQuantity: require('./validateQuantity')
 } 
