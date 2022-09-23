@@ -29,7 +29,7 @@ const auction = new Schema({
         type: Number,
         required: true,
     },
-    
+
     bids: [bid]
     ,
     image: {

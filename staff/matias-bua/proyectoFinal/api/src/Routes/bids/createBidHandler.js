@@ -6,10 +6,11 @@ module.exports = (req, res) => {
     runWithErrorHandling(() => {
         const userId = verifyToken(req)
         
-        const { body: { price/*, date*/ } , params: { auctionId } } = req
-// body: { auctionId, price, dateBid }
+        const { body: { price } , params: { auctionId } } = req
+
+        // body: { auctionId, price, dateBid }
         // body: { userId, price, newDate(dateBid) } , params: { auctionId }
-        return createBid( userId, auctionId, price/*, new Date(date)*/)
+        return createBid( userId, auctionId, price )
             .then(() => res.status(201).send())
     }, res, logger)
 }

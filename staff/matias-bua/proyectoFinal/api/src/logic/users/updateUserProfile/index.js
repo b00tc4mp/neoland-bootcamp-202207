@@ -7,8 +7,8 @@ const { NotFoundError, SystemError } = require('errors')
 module.exports = function updateUserProfile( userId, gender, city, aboutYou ) {
     verifyObjectIdString(userId)
     if (gender) validateText(gender)
-    if(city) validateText(city)
-    if(aboutYou) validateText(aboutYou)
+    if (city) validateText(city)
+    if (aboutYou) validateText(aboutYou)
    
     
     return User.findById(userId)

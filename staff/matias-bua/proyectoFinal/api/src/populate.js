@@ -19,7 +19,7 @@ connect(MONGO_URL)
       email: "artt@atack.com",
       password: "123123123",
       birth: "10/05/1980",
-      phoneNumber: "34 2525 0808",
+      phoneNumber: "3425250808",
     });
 
     const sofia = new User({
@@ -28,7 +28,7 @@ connect(MONGO_URL)
       email: "sofia@mendez.com",
       password: "12312123",
       birth: "12/07/1975",
-      phoneNumber: "+34 2525 8080",
+      phoneNumber: "3425258080",
     });
 
     const artesano = new User({
@@ -37,7 +37,7 @@ connect(MONGO_URL)
       email: "ElArtes@ano.com",
       password: "123123123",
       birth: "03/09/1990",
-      phoneNumber: "+34 5252 8080",
+      phoneNumber: "3452528080",
     });
 
     const elsahlame = new User({
@@ -46,7 +46,7 @@ connect(MONGO_URL)
       email: "elsah@lame.com",
       password: "123123123",
       birth: "09/03/2000",
-      phoneNumber: "+34 8800 2255",
+      phoneNumber: "3488002255",
     });
 
     return Promise.all([
@@ -74,54 +74,45 @@ connect(MONGO_URL)
 
     const auction1 = new Auction({
       author: arttatack.id,
-      productName: "epoxy resin",
-      // auctionNumber: Auction.id,
       title: "Barra de resina epoxica",
       description: "Mesa de resina epoxica , con acabado de marmol",
-      dateForBit: new Date("05/10/2022"),
       value: 450,
-      //value: '130€',
+      currentValue: 450,
+      bids: [bid2],
       image:
         "https://mesasepoxi.com/wp-content/uploads/2021/10/mesaepoxi.com-mesas-de-resina-epoxy-madera-nogal-olivo.jpg",
-        bids: [bid2],
+      finalDate: new Date("10/15/2022"),
     });
 
     const auction2 = new Auction({
       author: sofia.id,
-      productName: "epoxy resin",
-      // auctionNumber: Auction.id,
       title: "Porta Sahumerio",
       description: "Mesa de resina epoxica , con acabado de marmol",
-      dateForBit: new Date("09/15/2022"),
       value: 10,
-      image: "111",
+      currentValue: 10,
       bids: [bid1],
+      image: "111",
+      finalDate: new Date("10/15/2022"),
     });
 
     const auction3 = new Auction({
       author: artesano.id,
-      productName: "epoxy resin",
-      // auctionNumber: Auction.id,
       title: "breakfast table",
       description: "breakfast tray, water and temperature resistant",
-      dateForBit: new Date("11/15/2022"),
       value: 15,
-      //value: '130€',
-      image: "111",
-      // createdAt: Date
+      currentValue: 15,
+      image: "https://cdn.shopify.com/s/files/1/0832/0097/products/RECT_MARBLE_PRINT_TRAY-_BLACK_4.JPG?v=1661514651",
+      finalDate: new Date("10/15/2022"),
     });
 
     const auction4 = new Auction({
       author: elsahlame.id,
-      productName: "Crafts",
-      // auctionNumber: Auction.id,
       title: "artistic lighters",
       description: "Hand-painted lighters, with drawings on request",
-      dateForBit: new Date("08/15/2022"),
       value: 5,
-      //value: '130€',
-      image: "111",
-      // createdAt: Date
+      currentValue: 5,
+      image: "https://i.etsystatic.com/19554838/r/il/b1c92e/3645299122/il_570xN.3645299122_6kty.jpg",
+      finalDate: new Date("10/15/2022"),
     });
 
     return Promise.all([

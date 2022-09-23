@@ -33,7 +33,7 @@ const user = new Schema({
 
     gender: {
         type: String,
-        default: ''
+        
     },
 
     city: {
