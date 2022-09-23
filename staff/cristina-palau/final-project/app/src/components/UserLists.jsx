@@ -4,7 +4,7 @@ import moment from 'moment'
 
 function UserLists({ userLists, onListClick, onDeleteList, onViewClick }) {
 
-    return userLists === null || (userLists.length) === 0 ? <div className="recipes-container__myRecipes container-recipes"> <div className="userRecipe">Todavía no tienes recetas</div> </div>
+    return userLists === null || (userLists.length) === 0 ? <div className="recipes-container__myRecipes container-recipes"> <div className="userRecipe">Todavía no tienes listas creadas</div> </div>
         : <div className="container__myRecipes container-recipes">
             {userLists.map((list, id) => <div className="userRecipe" key={id}>
                 <div className="recipeTitle">{list.title} ({moment(list.createAt).format('ll')})</div>

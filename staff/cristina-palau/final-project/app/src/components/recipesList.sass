@@ -11,9 +11,11 @@
 
 .recipes-container__listRecipes
     display: flex
+    width: 90%
     dlex-direction: rows
-    overflow-x: scroll
+    overflow: scroll
     gap: 10px
+
 
 .listRecipe
     border: solid 3px white
@@ -27,11 +29,9 @@
 .container__myRecipes
     display: flex
     flex-direction: column
-    flex-grow: 1
     width: 100%
     align-items: center
     justify-content: flex-start
-    min-heigth: 200px
     text-align: center
     gap: 5px
     overflow: scroll
@@ -39,7 +39,6 @@
 .container__myLists
     display: flex
     flex-direction: column
-    flex-grow: 1
     width: 100%
     align-items: center
     justify-content: flex-start

@@ -5,7 +5,7 @@ import RecipesList from './RecipesList'
 import { toast } from 'react-toastify'
 
 function NewList({ onBackClick }) {
-    const logger = new Loggito('New Recipe')
+    const logger = new Loggito('New List')
 
     logger.info('render')
 
@@ -99,7 +99,7 @@ function NewList({ onBackClick }) {
 
     const handleCreateNewList = event => {
         event.preventDefault()
-        debugger
+ 
         try {
             const { target: form,
                 target: {
@@ -115,7 +115,7 @@ function NewList({ onBackClick }) {
                 const quantityString = ingredient.quantity
                 const unit = ingredient.unit
                 const ingredientName = ingredient.ingredient.name
-
+ 
                 if (!quantityString) throw new Error("quantity is empty or blank")
                 else if (!unit) throw new Error("unit is empty or blank")
                 else if (!ingredientName) throw new Error("ingredient is empty or blank")
@@ -157,7 +157,6 @@ function NewList({ onBackClick }) {
         }
     }
 
-
     const handleAddIngredients = recipeId => {
 
         try {
@@ -179,7 +178,6 @@ function NewList({ onBackClick }) {
             logger.warn(error.message)
         }
     }
-
 
 
     const handleChangeQuantity = (event, ingredientId) => {
@@ -249,7 +247,6 @@ function NewList({ onBackClick }) {
     return <>
         <div className="buttonContainer"><button className='transparentButton homeButton' onClick={handleBackClick}>
             <span className="material-symbols-outlined">keyboard_backspace</span></button>
-            <button className="createButton transparentButton" type="submit"><span className="material-symbols-outlined">save</span></button>
         </div>
 
         <form className="newForm newListForm" onSubmit={handleCreateNewList}>
@@ -285,6 +282,7 @@ function NewList({ onBackClick }) {
                 < button className="addIngredient transparentButton" onClick={addIngredient} > <span className="material-symbols-outlined">add_circle</span></button>
 
             </div>
+            <button className="createButton transparentButton" type="submit"><span className="material-symbols-outlined">save</span></button>
 
 
         </form>

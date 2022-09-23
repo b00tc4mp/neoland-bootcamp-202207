@@ -21,7 +21,7 @@ function RegisterPage({ onRegister, onLinkClick }) {
         } = form
 
         try {
-            registerUser(name, email, password, function (error) {
+            registerUser(name, email, password, (error) => {
                 if (error) {
 
                     toast.warning(error.message, {position: toast.POSITION.TOP_CENTER, theme: "colored"})

@@ -287,7 +287,7 @@ function UserRecipe({ onBackClick, recipe }) {
 
                     handleUpdateRecipe(id)
                 }}>Actualizar receta</button>
-                <button className="createButton transparentButton" type="button" onClick={(event) => {
+                <button className="updateButton transparentButton" type="button" onClick={(event) => {
                     event.preventDefault()
 
                     handleCreateRecipe()

@@ -265,7 +265,7 @@ function List({ onBackClick, list }) {
 
                     handleUpdateList(id)
                 }}>Actualizar lista</button>
-                <button className="createButton transparentButton" type="button" onClick={(event) => {
+                <button className="updateButton transparentButton" type="button" onClick={(event) => {
                     event.preventDefault()
 
                     handleCreateList()

@@ -102,6 +102,8 @@ function ListsMenu({ onBackClick, context: { reloadThePage } }) {
 
         navigate('/lists')
 
+        reloadThePage()
+
         logger.debug('navigate to lists')
     }
 
