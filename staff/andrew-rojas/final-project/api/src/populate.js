@@ -56,7 +56,7 @@ connect(MONGO_URL)
       user: george.id,
       name: 'Fanta naranja',
       category: 'drink',
-      quantity: 90,
+      quantity: 60,
       description: ''
     })
 
@@ -77,22 +77,22 @@ connect(MONGO_URL)
         const movement1 = new Movement ({
           product: product1.id,
           category: 'drink',
-          quantity: 40,
-          movement: 'entrada'
+          quantity: 10,
+          movement: 'inputs'
         })
 
         const movement2 = new Movement ({
           product: product2.id,
           category: 'drink',
-          quantity: 20,
-          movement: 'entrada'
+          quantity: 15,
+          movement: 'outputs'
         })
 
         const movement3 = new Movement ({
           product: product3.id,
           category: 'drink',
-          quantity: -30,
-          movement: 'salida'
+          quantity: 20,
+          movement: 'inputs'
         })
 
         return Promise.all([

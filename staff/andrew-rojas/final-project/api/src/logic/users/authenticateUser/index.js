@@ -6,6 +6,7 @@ function authenticateUser(email, password) {
   validateEmail(email)
   validatePassword(password)
 
+  // retrieve only the user (email) that is logged in
   return User.findOne({ email })
     .catch(error => {
       throw new SystemError(error.message)

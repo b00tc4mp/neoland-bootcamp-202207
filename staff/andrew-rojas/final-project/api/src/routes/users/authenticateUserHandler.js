@@ -13,6 +13,7 @@ module.exports = (req,res) => {
         const token = sign({ sub: userId }, JWT_SECRET, { expiresIn: JWT_EXP })
 
         res.json({ token })
+
       })
   }, res, logger)
 }

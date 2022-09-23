@@ -1,3 +1,4 @@
 module.exports = {
-  movementHandler: require('./movementHandle')
+  movementInputHandler: require('./movementInputHandler'),
+  movementOutputHandler: require('./movementOutputHandler')
 }

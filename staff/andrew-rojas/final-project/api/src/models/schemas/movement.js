@@ -8,9 +8,11 @@ const movement = new Schema ({
     ref: "User"
   },
 
+  /* Debería borrarse */
   category: {
     type: String,
-    required: true
+    /* required: true */
+    // enum: ['drinks', 'food']
   },
 
   quantity: {
@@ -18,9 +20,11 @@ const movement = new Schema ({
     required: true
   },
 
+  /* it should be type */
   movement: {
     type: String,
-    required: true
+    required: true,
+    // enum: ['input', 'output']
   },
 
   createAt: {

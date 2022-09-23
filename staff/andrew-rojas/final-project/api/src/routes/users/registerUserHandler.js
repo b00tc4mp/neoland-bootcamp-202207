@@ -8,5 +8,6 @@ module.exports = (req, res) => {
 
     return registerUser(adminEmail, adminPassword, name, email, password)
       .then(() => res.status(201).send())
+
     }, res, logger)
 }

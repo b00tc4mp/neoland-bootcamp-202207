@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node src",
     "test": "npx jest --runInBand src/logic/*.spec.js",
-    "test-inspect": "node --inspect ./node_modules/.bin/jest --runInBand src/logic/*.spec.js",
+    "test-inspect": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --setTimeout=60000 src/logic",
     "test-inspect-brk": "node --inspect-brk ./node_modules/.bin/jest --runInBand src/logic/*.spec.js",
     "test-inspect-cli": "node inspect ./node_modules/.bin/jest --runInBand src/logic/*.spec.js",
     "test-coverage": "npx jest --runInBand --collectCoverage src/logic/*.spec.js",

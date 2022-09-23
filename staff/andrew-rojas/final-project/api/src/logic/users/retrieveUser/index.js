@@ -5,6 +5,7 @@ const { verifyObjectIdString } = require("../../../utils")
 function retrieveUser(userId) {
   verifyObjectIdString(userId, 'user Id')
 
+  //check and retrieve users by ID
   return User.findById(userId, 'name email').lean()
     .catch(error => {
       throw new SystemError(error.message)

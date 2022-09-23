@@ -18,13 +18,13 @@ connect(MONGO_URL)
 
     const api = express()
 
-    const { usersRouter, productRouter } = require('./routes')
+    const { usersRouter, productRouter, movementRouter } = require('./routes')
 
     api.use(cors())
 
     api.get('/', (req, res) => res.send (`${name} v${version} ;)`))
 
-    api.use('/api', usersRouter, productRouter)
+    api.use('/api', usersRouter, productRouter, movementRouter)
       
     api.listen(PORT, () => logger.info(`${name} v${version} started and listening in port ${PORT}`))
 

@@ -1,12 +1,12 @@
 const { connect, disconnect, Types: { ObjectId } } = require('mongoose')
 const { User, Product } = require('../../../models')
-const { NotFoundError } = require('errors')
+
 const createProduct = require('.')
 
 describe('createProduct', () => {
   beforeAll(() => connect('mongodb://localhost:27017/product-test'))
 
-  beforeEach(() => Promise.all([User.deleteMany(), Product.deleteMany()]))
+  beforeEach(() => Promise.all([User.deleteMany({}), Product.deleteMany({})]))
 
   it('succeeds on correct data', () => { // happy path
 
@@ -15,15 +15,14 @@ describe('createProduct', () => {
     const password = '123123123'
 
     const productName = 'Fanta limon'
-    const category = 'bebida'
+    const category = 'drink'
     const quantity = 30
     const description = ''
 
     return User.create({ name, email, password})
-      .then(user => 
-        createProduct(user.id, productName, category, quantity, description)
+      .then(user => createProduct(user.id, productName, category, quantity, description)
           .then( res =>  {
-            expect(res).toBeUndefined()
+            expect(res).toBeDefined()
 
             return Product.find()
           })
@@ -43,7 +42,7 @@ describe('createProduct', () => {
       )
   })
 
-  
+  afterEach(() => Promise.all([User.deleteMany({}), Product.deleteMany({})]))
 
   afterAll(() => disconnect())
 

@@ -6,12 +6,14 @@ function registerUser(adminEmail, adminPassword, name, email, password, role = '
   validateText(name, "name")
   validateEmail(email, "email")
   validatePassword(password, "password")
-  //TODO validate role
   
+  
+  // check user credentials (admin)
   return User.findOne({email: adminEmail, password: adminPassword, role : 'admin'})
     .then(user => {
       if(!user) throw new AuthError(`Admin authentification wrong`)
 
+      // verify that the data is correct and create the new user
       return User.create({ name, email, password, role })
       .then(user => {})
     })

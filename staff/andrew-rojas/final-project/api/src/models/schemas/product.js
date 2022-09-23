@@ -1,7 +1,4 @@
-const {
-  Schema,
-  Types: { ObjectId },
-} = require("mongoose");
+const { Schema, Types: { ObjectId } } = require("mongoose");
 
 const product = new Schema({
   user: {

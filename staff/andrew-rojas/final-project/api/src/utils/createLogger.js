@@ -1,5 +1,5 @@
 const { createLogger, format, transports } = require("winston")
-const { combine, timestamp, simple, splat, colorize, printf, align, label } = format 
+const { combine, timestamp, printf, label } = format 
 
 function createLabelForModule(callingModule) {
   const parts = callingModule.filename.split('/')

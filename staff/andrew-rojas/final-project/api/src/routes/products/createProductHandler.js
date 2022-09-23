@@ -3,7 +3,6 @@ const { products: { createProduct } } = require("../../logic")
 const logger = createLogger(module)
 
 module.exports = (req, res) => {
-  
   runWithErrorHandling(() => {
     const userId = verifyToken(req)
     

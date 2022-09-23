@@ -1,6 +1,6 @@
 module.exports = {
   createProduct: require('./createProduct'),
   retrieveProducts: require('./retrieveProducts'),
-  deleteProduct: require('./deleteProduct'),
+  removeProducts: require('./removeProducts'),
   searchProducts: require('./searchProducts')
 }

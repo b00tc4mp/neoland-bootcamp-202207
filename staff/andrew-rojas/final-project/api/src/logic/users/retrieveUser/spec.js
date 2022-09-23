@@ -7,11 +7,11 @@ describe("retrieveUser", () => {
   // jest.setTimeout(30000);
   beforeAll(() => connect('mongodb://localhost:2707/product-test'))
 
-  beforeEach(() => User.deleteMany())
+  beforeEach(() => User.deleteMany({}))
 
   it("succeeds on existing user", () => { // happy path
-    const name = "Michael Jordan"
-    const email = "michael@jordan.com"
+    const name = "Mongo Bajito"
+    const email = "mongo@bajito.com"
     const password = "123123123"
 
     return User.create({ name, email, password })

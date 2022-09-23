@@ -1,31 +1,32 @@
-const { User, Product } = require ("../../../models")
-const { NotFoundError, SystemError} = require("errors")
-const { validateString, validateQuantity } = require ("validators")
-const { verifyObjectIdString } = require("../../../utils")
+const { User, Product } = require("../../../models");
+const { NotFoundError, SystemError } = require("errors");
+const { validateString, validateQuantity } = require("validators");
+const { verifyObjectIdString } = require("../../../utils");
 
-// TODO rename to createProduct
-function createProduct(userId, name, category, quantity, description = '') {
-  verifyObjectIdString(userId, "user id")
-  validateString(name, "name")
-  validateString(category, "category")
-  validateString(description, "description")
-  validateQuantity(quantity, "number")
-  // if(typeof quantity !== "number") throw new TypeError(`${quantity} is not a number`)
+function createProduct(userId, name, category, quantity, description = "") {
+  verifyObjectIdString(userId, "user id");
+  validateString(name, "name");
+  validateString(category, "category");
+  validateString(description, "description");
+  validateQuantity(quantity, "number");
 
-    return User.findById(userId).lean()
-      .catch(error => {
-        throw new SystemError(error.message)
+  //check and retrieve users by ID
+  return User.findById(userId)
+    .lean()
+    .catch((error) => {
+      throw new SystemError(error.message);
+    })
+    .then((user) => {
+      if (!user) throw new NotFoundError(`user with id ${userId} not found`);
+
+      //creates the product with the requested parameters
+      return Product.create({ user: user._id, name, category, quantity, description,
       })
-      .then(user => {
-        if(!user) throw new NotFoundError(`user with id ${userId} not found`)
-
-        return Product.create({ user: user._id, name, category, quantity, description })
-          .catch(error => {
-            throw new SystemError(error.message)
-          })
-      })   
-      .then( product => { })
-
+      .catch((error) => { throw new SystemError(error.message) });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 }
 
-module.exports = createProduct
+module.exports = createProduct;

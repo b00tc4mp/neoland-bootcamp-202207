@@ -4,9 +4,10 @@ const logger = createLogger(module)
 
 module.exports = (req, res) => {
   runWithErrorHandling(() => {
-      const userId = verifyToken(req)
+    const userId = verifyToken(req)
 
-     return retrieveUser(userId)
-        .then((user) => res.json(user))
-    }, res, logger)
+    return retrieveUser(userId)
+      .then((user) => res.json(user))
+      
+  }, res, logger)
 }

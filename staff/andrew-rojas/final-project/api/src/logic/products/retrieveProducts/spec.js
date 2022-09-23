@@ -1,8 +1,4 @@
-const {
-  connect,
-  disconnect,
-  Types: { ObjectId },
-} = require("mongoose");
+const { connect, disconnect, Types: { ObjectId }, } = require("mongoose");
 const { User, Product } = require("../../../models");
 const { NotFoundError } = require("errors");
 const retrieveProducts = require(".");
@@ -10,7 +6,7 @@ const retrieveProducts = require(".");
 describe("retrieveProducts", () => {
   beforeAll(() => connect("mongodb://localhost:27017/product-test"));
 
-  beforeEach(() => Promise.all([User.deleteMany(), Product.deleteMany()]));
+  beforeEach(() => Promise.all([User.deleteMany({}), Product.deleteMany({})]));
 
   it("succeeds on existing user and product", () => {
     // happy path
@@ -19,29 +15,29 @@ describe("retrieveProducts", () => {
     // const email = "michael@jordan.com";
     // const password = "123123123";
 
-    const productName = "Drink";
+    const productName = "Fanta";
     const category = "drink";
     const quantity = 30;
     const description = "";
 
     const user1 = new User({ 
-      name: "Michael Jordan",
-      email: "michael@jordan.com",
-      password: "123123123", });
+      name : "Mango Perdido",
+      email : "mango@perdido.com",
+      password : "123123123" });
 
     const product1 = new Product({
       user: user1.id,
       name: productName + 1,
-      category,
+      category: category + 1,
       quantity: quantity + 1,
-      description,
+      description: description 
     });
     const product2 = new Product({
       user: user1.id,
       name: productName + 2,
-      category,
+      category: category + 2,
       quantity: quantity + 2,
-      description,
+      description: description 
     });
 
     const user2 = new User({ 
@@ -52,16 +48,16 @@ describe("retrieveProducts", () => {
     const product3 = new Product({
       user: user2.id,
       name: productName + 3,
-      category,
+      category: category + 3,
       quantity: quantity + 3,
-      description,
+      description: description
     });
     const product4 = new Product({
       user: user2.id,
       name: productName + 4,
-      category,
-      quantity: quantity + 3,
-      description,
+      category: category + 4,
+      quantity: quantity + 4,
+      description: description
     });
 
     return Promise.all([
@@ -73,38 +69,51 @@ describe("retrieveProducts", () => {
       product4.save(),
     ])
     .then(([user1, product1, product2, user2, product3, product4]) => {
-      return retrieveProducts(user.id).then((products) => {
-        expect(product).toHaveLength(4);
 
+      return retrieveProducts(user1.id).then((products) => {
+        expect(products).toHaveLength(4);
+  
         const _product1 = products.find(
           (product) => product.id === product1.id
         );
-        expect(_product.user.toString()).toEqual(user1.id)
-        expect(_product1).toBeUndefined();
+    
+        expect(_product1).toBeDefined();
         expect(_product1.name).toEqual(product1.name);
+        expect(_product1.category).toEqual(product1.category);
+        expect(_product1.quantity).toEqual(product1.quantity);
+        expect(_product1.description).toBeUndefined();
 
         const _product2 = products.find(
           (product) => product.id === product2.id
         );
-        expect(_product.user.toString()).toEqual(user1.id)
-        expect(_product2).toBeUndefined();
+      
+        expect(_product2).toBeDefined();
         expect(_product2.name).toEqual(product2.name);
+        expect(_product2.category).toEqual(product2.category);
+        expect(_product2.quantity).toEqual(product2.quantity);
+        expect(_product2.description).toBeUndefined();
 
         const _product3 = products.find(
           (product) => product.id === product3.id
         );
-        expect(_product.user.toString()).toEqual(user2.id)
-        expect(_product3).toBeUndefined();
+      
+        expect(_product3).toBeDefined();
         expect(_product3.name).toEqual(product3.name);
+        expect(_product3.category).toEqual(product3.category);
+        expect(_product3.quantity).toEqual(product3.quantity);
+        expect(_product3.description).toBeUndefined();
 
         const _product4 = products.find(
           (product) => product.id === product4.id
         );
-        expect(_product.user.toString()).toEqual(user2.id)
-        expect(_product4).toBeUndefined();
+        // expect(_product.user.toString()).toEqual(user2.id)
+        expect(_product4).toBeDefined();
         expect(_product4.name).toEqual(product4.name);
+        expect(_product4.category).toEqual(product4.category);
+        expect(_product4.quantity).toEqual(product4.quantity);
+        expect(_product4.description).toBeUndefined();
 
-        // expect(_product1.user.toString()).toEqual(user.id)
+
       });
     });
   });
@@ -118,6 +127,8 @@ describe("retrieveProducts", () => {
   //             expect(error.message).toEqual(`user with id ${userId} not found`)
   //         })
   // })
+
+  afterEach(() => Promise.all([User.deleteMany({}), Product.deleteMany({})]))
 
   afterAll(() => disconnect());
 });

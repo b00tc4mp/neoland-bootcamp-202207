@@ -8,21 +8,27 @@ describe("registerUser", () => {
 
   //TODO revisar spec y probar
 
-  beforeEach(() => User.deleteMany())
+  beforeEach(() => User.deleteMany({}))
 
   it("succeeds on new user",() => { // happy path
+    
     const adminEmail = "michael@jordan.com"
     const adminPassword = "123123123"
+    
 
-    const name = "Lewis Hamilton"
-    const email = "lewis@hamilton.com"
-    const password = "321321321"
+    const name = "Mango Grande"
+    const email = "mango@grande.com"
+    const password = "123123123"
+    
 
-    return registerUser({ adminEmail, adminPassword,name, email, password})
+    return registerUser( adminEmail, adminPassword, name, email, password)
       .then(res => {
         expect(res).toBeUndefined()
 
-        return User.find({ email })
+        // return User.findOne( {email: adminEmail, password: adminPassword, role : 'admin'})
+        
+
+        return User.create ( name, email, password, role )
 
       })
 
@@ -38,25 +44,21 @@ describe("registerUser", () => {
         expect(user.password).toEqual(password)
 
       })
-
-    
   })
 
-  it("fails -------", () => { // unhappy path
+  // it("fails -------", () => { // unhappy path
 
-    const adminEmail = "andrew@rojas.com"
-    const adminPassword = "321321321"
+  
+  //   const name = "Lewis Hamilton"
+  //   const email = "lewis@hamilton.com"
+  //   const password = "12312123"
 
-    const name = "Lewis Hamilton"
-    const email = "lewis@hamilton.com"
-    const password = "12312123"
-
-    return User.create({ adminEmail, adminPassword, name, email, password })
-    .then(() => registerUser(name, email, password))
-    .catch(error => {
-        expect(error).toBeInstanceOf(DuplicityError)
-        expect(error.message).toEqual('user ------')
-    })
+  //   return User.create({ name, email, password })
+  //   .then(() => registerUser(name, email, password))
+  //   .catch(error => {
+  //       // expect(error).toBeInstanceOf(DuplicityError)
+  //       expect(error.message).toEqual('user ------')
+  //   })
 
 
       // try { 
@@ -91,7 +93,7 @@ describe("registerUser", () => {
   //   const password = '123123123'
 
   //   expect(() => registerUser(name, email, password)).toThrowError(FormatError, 'email is not valid')
-  })
+  //})
 
   afterAll(() => disconnect())
 })
