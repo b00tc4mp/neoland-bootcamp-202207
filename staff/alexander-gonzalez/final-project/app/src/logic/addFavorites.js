@@ -1,43 +1,43 @@
-const API_URL = process.env.REACT_APP_API_URL
+const API_URL = process.env.REACT_APP_API_URL;
 
-function retrieveUser(token, callback) {
-  // esta logica se trata de recuperar el usuario y su informacion completa!
+function AddFavorites(token, placeId, callback) {
+  //====== validation ======//
   if (typeof token !== "string") throw new TypeError("token is not a string");
   if (token.trim().length === 0) throw new Error("token is empty or blank");
+
+  // TODO: validation
 
   if (typeof callback !== "function")
     throw new TypeError("callback is not a function");
 
+  //======== validation ========//
+
   const xhr = new XMLHttpRequest();
-  // response
+
+  //response
+
   xhr.onload = function () {
     const status = xhr.status;
 
+    console.log(status);
+
     if (status >= 500) callback(new Error(`server error(${status})`));
-    
     else if (status >= 400) callback(new Error(`client error(${status})`));
-    
-    else if (status === 200) {
-      const json = xhr.responseText;
-
-      const data = JSON.parse(json);
-
-      const user = {
-        name: data.name,
-        email: data.username
-        
+    else if (status === 204) {
+      xhr.onerror = function () {
+        console.log("API CALL ERROR");
       };
-
-      callback(null, user);
+      callback(null);
     }
   };
-  // request
+  // XMLHttprequest
 
-  xhr.open("GET", `${API_URL}/users`);
+  xhr.open("PATCH", `${API_URL}/users`);
 
   xhr.setRequestHeader("Authorization", `Bearer ${token}`);
+  xhr.setRequestHeader("Content-type", "application/json");
 
-  xhr.send();
+  xhr.send(JSON.stringify({ placeId: placeId }));
 }
 
-export default retrieveUser
+export default AddFavorites;

@@ -33,6 +33,7 @@
 
 html,
 body {
+  background-image: url(./img/travelCabo.jpg) ;
 
 
  /* background: rgb(32,30,33);*/
@@ -42,7 +43,7 @@ body {
   box-sizing:border-box;
   height: 100%;
   /*display: flex;*/ /* ---> recordar cambiar luego aqui, simplemente por si se modifica algo luego */
-  background: var(--back-color);
+  /* background: var(--back-color); */
 
 
 }
@@ -98,6 +99,11 @@ width: 90%;
 
 }
 
+
+.login-page{
+  padding-bottom: 300px;
+  background-image: url(./img/loginWP.jpg);
+}
 main {
   margin-top: 0%;
   display: flex;
@@ -185,7 +191,7 @@ a{
 }
 .button:hover{
   background: rgb(223, 224, 226);
-background: radial-gradient(circle, rgba(255, 255, 255, 0.929) %, rgba(24,28,37,0.9094231442577031) 66%);
+background: radial-gradient(circle, rgba(255, 255, 255, 0.929) , rgba(24,28,37,0.9094231442577031) 66%);
 }
 
 .Register{

@@ -7,7 +7,7 @@ const {validateString } = require('validators')
 function searchCities(userId, query) {
     verifyObjectIdString(userId, 'user id')
     validateString(query)
-    debugger
+  
 
 
 

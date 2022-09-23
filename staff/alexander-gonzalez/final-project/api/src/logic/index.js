@@ -1,5 +1,5 @@
 module.exports = {
     users: require('./user'),
-    cities: require('./cities')
-   
+    cities: require('./cities'),
+    favorites: require('./favorites'),
 }

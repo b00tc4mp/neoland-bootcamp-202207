@@ -49,19 +49,21 @@ function HomePage({ onLogoutClick, onSearchClick, context: { handleFeedback } })
     logger.info("on query changed");
 
     try {
-      searchCities(sessionStorage.token, query, (error, cities) => {
-        if (error) {
-          handleFeedback({ message: error.message, level: "error" });
-
-          logger.warn(error.message);
-
-          return cities;
-        }
-
-        setCities(cities);
-
-        logger.debug("setCities", cities);
-      });
+      if(query !== null) {
+        searchCities(sessionStorage.token, query, (error, cities) => {
+          if (error) {
+            handleFeedback({ message: error.message, level: "error" });
+  
+            logger.warn(error.message);
+  
+            return cities;
+          }
+  
+          setCities(cities);
+  
+          logger.debug("setCities", cities);
+        });
+      }
     } catch (error) {
       handleFeedback({ message: error.message, level: "error" });
 

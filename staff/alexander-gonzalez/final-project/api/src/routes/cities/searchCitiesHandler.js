@@ -4,7 +4,7 @@ const logger = createLogger(module)
 
 module.exports = (req, res ) => {
     runWithErrorHandling(() => {
-        debugger
+     
         const userId = verifyToken(req)
 
         const { query: { q: query}} = req

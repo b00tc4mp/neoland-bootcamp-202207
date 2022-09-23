@@ -3,6 +3,7 @@ import authenticateUser from '../logic/authenticateUser'
 import withContext from '../utils/withContext'
 import  {AuthError, ClientError, ServerError} from 'errors'
 
+
 function LoginPage({ onLinkClick, onLogIn, context: { handleFeedback } }) {
     const logger = new Loggito(LoginPage.name)
 

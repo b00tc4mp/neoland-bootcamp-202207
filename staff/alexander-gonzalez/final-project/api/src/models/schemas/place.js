@@ -24,9 +24,9 @@ const place = new Schema({
     },
 
 
-    likes:{
+    favorites:{
         type:[ObjectId],
-        ref: 'Place'
+        ref: 'User'
     },
 
     coords:{

@@ -21,21 +21,21 @@ describe("searchCities", () => {
   
    const city1 = new City({
     name:'paris',
-    photo:'picture',
+    photo:'https://es.parisinfo.com/var/otcp/sites/images/node_43/node_51/node_233/vue-sur-les-toits-de-la-tour-saint-jacques-%7C-740x380-%7C-%C2%A9-elodie-gutbrod-cr%C3%A9atividie/21581411-1-fre-FR/Vue-sur-les-toits-de-la-tour-Saint-Jacques-%7C-740x380-%7C-%C2%A9-Elodie-Gutbrod-Cr%C3%A9atividie.jpg  ',
     description:"Capital de Francia y de la región que ocupa, la Isla de Francia, París tiene una población de casi doce millones de habitantes, la más grande de Europa, y una superficie de 14.518 kilómetros cuadrados en zona urbana. Está situada al norte de Francia, concretamente al norte de la gran curva del río Sena.",
     coords:[48.856944444444, 2.3513888888889]
    })
 
    const city2 = new City({
     name:'roma',
-    photo:'picture',
+    photo:'https://h8f7z4t2.stackpathcdn.com/wp-content/uploads/2015/09/vista-cidade-de-Roma.jpg ',
     description:"Roma, la capital de Italia, es una extensa ciudad cosmopolita que tiene a la vista casi 3,000 años de arte, arquitectura y cultura de influencia mundial. Las ruinas antiguas como las del Foro y el Coliseo evocan el poder del antiguo Imperio Romano. La ciudad del Vaticano, sede central de la Iglesia católica romana, cuenta con la Basílica de San Pedro y los Museos del Vaticano, que albergan obras maestras como los frescos de la Capilla Sixtina de Miguel Ángel.",
     coords: [ 41.89193, 12.51133]
    })
 
    const city3 = new City({
     name:'london',
-    photo:'picture',
+    photo:'https://holrmagazine.com/wp-content/uploads/2019/04/london-1.jpg ',
     description:'Londres, la capital de Inglaterra y del Reino Unido, es una ciudad del siglo XXI con una historia que se remonta a la época romana. En su centro se alzan el imponente Palacio del Parlamento, la torre del icónico reloj Big Ben y la Abadía de Westminster, lugar de las coronaciones monárquicas británicas. Al otro lado del río Támesis, la rueda de observación London Eye ofrece vistas panorámicas del complejo cultural South Bank y de toda la ciudad.',
     coords:[51.50853, -0.12574]
    })
@@ -49,7 +49,7 @@ describe("searchCities", () => {
        .then((city) => {
           expect(city).to.exist
           expect(city[0].name).to.equal('paris')
-          expect(city[0].photo).to.equal('picture')
+          expect(city[0].photo).to.equal(' https://es.parisinfo.com/var/otcp/sites/images/node_43/node_51/node_233/vue-sur-les-toits-de-la-tour-saint-jacques-%7C-740x380-%7C-%C2%A9-elodie-gutbrod-cr%C3%A9atividie/21581411-1-fre-FR/Vue-sur-les-toits-de-la-tour-Saint-Jacques-%7C-740x380-%7C-%C2%A9-Elodie-Gutbrod-Cr%C3%A9atividie.jpg ')
           expect(city[0].description).to.equal('Capital de Francia y de la región que ocupa, la Isla de Francia, París tiene una población de casi doce millones de habitantes, la más grande de Europa, y una superficie de 14.518 kilómetros cuadrados en zona urbana. Está situada al norte de Francia, concretamente al norte de la gran curva del río Sena.')
           expect(city[0].coords).to.deep.equal([48.856944444444, 2.3513888888889])
         })
@@ -64,21 +64,21 @@ describe("searchCities", () => {
     
    const city1 = new City({
     name:'paris',
-    photo:'picture',
+    photo:'https://es.parisinfo.com/var/otcp/sites/images/node_43/node_51/node_233/vue-sur-les-toits-de-la-tour-saint-jacques-%7C-740x380-%7C-%C2%A9-elodie-gutbrod-cr%C3%A9atividie/21581411-1-fre-FR/Vue-sur-les-toits-de-la-tour-Saint-Jacques-%7C-740x380-%7C-%C2%A9-Elodie-Gutbrod-Cr%C3%A9atividie.jpg  ',
     description:"Capital de Francia y de la región que ocupa, la Isla de Francia, París tiene una población de casi doce millones de habitantes, la más grande de Europa, y una superficie de 14.518 kilómetros cuadrados en zona urbana. Está situada al norte de Francia, concretamente al norte de la gran curva del río Sena.",
     coords:[48.856944444444, 2.3513888888889]
    })
 
    const city2 = new City({
     name:'roma',
-    photo:'picture',
+    photo:' https://h8f7z4t2.stackpathcdn.com/wp-content/uploads/2015/09/vista-cidade-de-Roma.jpg',
     description:"Roma, la capital de Italia, es una extensa ciudad cosmopolita que tiene a la vista casi 3,000 años de arte, arquitectura y cultura de influencia mundial. Las ruinas antiguas como las del Foro y el Coliseo evocan el poder del antiguo Imperio Romano. La ciudad del Vaticano, sede central de la Iglesia católica romana, cuenta con la Basílica de San Pedro y los Museos del Vaticano, que albergan obras maestras como los frescos de la Capilla Sixtina de Miguel Ángel.",
     coords: [ 41.89193, 12.51133]
    })
 
    const city3 = new City({
     name:'london',
-    photo:'picture',
+    photo:' https://holrmagazine.com/wp-content/uploads/2019/04/london-1.jpg',
     description:'Londres, la capital de Inglaterra y del Reino Unido, es una ciudad del siglo XXI con una historia que se remonta a la época romana. En su centro se alzan el imponente Palacio del Parlamento, la torre del icónico reloj Big Ben y la Abadía de Westminster, lugar de las coronaciones monárquicas británicas. Al otro lado del río Támesis, la rueda de observación London Eye ofrece vistas panorámicas del complejo cultural South Bank y de toda la ciudad.', 
     coords:[51.50853, -0.12574]
    })
@@ -91,7 +91,7 @@ describe("searchCities", () => {
         .then((city) => {
           expect(city).to.have.length(1);
           expect(city[0].name).to.equal('roma')
-          expect(city[0].photo).to.equal('picture')
+          expect(city[0].photo).to.equal(' https://h8f7z4t2.stackpathcdn.com/wp-content/uploads/2015/09/vista-cidade-de-Roma.jpg')
           expect(city[0].description).to.equal("Roma, la capital de Italia, es una extensa ciudad cosmopolita que tiene a la vista casi 3,000 años de arte, arquitectura y cultura de influencia mundial. Las ruinas antiguas como las del Foro y el Coliseo evocan el poder del antiguo Imperio Romano. La ciudad del Vaticano, sede central de la Iglesia católica romana, cuenta con la Basílica de San Pedro y los Museos del Vaticano, que albergan obras maestras como los frescos de la Capilla Sixtina de Miguel Ángel." )
           expect(city[0].coords).to.deep.equal([ 41.89193, 12.51133] )
 

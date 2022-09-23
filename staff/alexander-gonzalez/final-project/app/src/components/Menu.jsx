@@ -15,7 +15,7 @@ function Menu({onLogoutClick, onSettingsClick, onSearchClick, context: { toggleT
 
   const handleSettingsClick = () => onSettingsClick();
 
-  const handleSearchClick = () => onSearchClick();
+//   const handleSearchClick = () => onSearchClick();
 
   logger.info("return");
 
