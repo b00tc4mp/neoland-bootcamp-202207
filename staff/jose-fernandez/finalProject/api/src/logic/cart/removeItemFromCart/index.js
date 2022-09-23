@@ -4,24 +4,29 @@ const { verifyObjectIdString } = require('../../../utils')
 
 // TODO FALTA
 
-function removeItemFromCart(userId, productId) {
+function removeItemFromCart(userId, itemId) {
     verifyObjectIdString(userId, 'user id')
 
     return Promise.all([
         User.findById(userId).populate('cart'),
-        Product.findById(productId)
     ])
         .catch(error => {
             throw new SystemError(error.message)
         })
         //TODO arreglar 
-        .then(([user, product]) => {
+        .then(([user/* , item */]) => {
             if (!user) throw new NotFoundError(`user with id ${userId} not found`)
 
-            if (!product) throw new NotFoundError(`product with id ${productId} not found`)
+            const items = user.cart.items
+            const itemFound = items.find(_item => _item._id.toString() === itemId)
+            if (!itemFound) throw new NotFoundError(`item with id ${itemId} not found`)
             //TODO arreglar/
-            
-            return product.deleteOne({ productId })
+
+            const updatedItems = items.filter(_item => _item.id.toString() !== itemId)
+
+            user.cart.items = updatedItems
+
+            return user.save()
             debugger
            
         })

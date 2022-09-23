@@ -14,7 +14,7 @@ usersRouter.post('/users/auth', jsonBodyParser, authenticateUserHandler)
 
 usersRouter.get('/users', retrieveUserHandler)
 usersRouter.patch('/users/product/:productId', jsonBodyParser, addItemToCartHandler)
-usersRouter.delete('/users/product/:productId', removeItemFromCartHandler)
+usersRouter.delete('/users/item/:itemId', removeItemFromCartHandler)
 
 // TODO usersRouter.patch('/users/email',jsonBodyParser,updateUserEmailHandler)
 // TODO usersRouter.patch('/users/password',jsonBodyParser,updateUserPasswordHandler)

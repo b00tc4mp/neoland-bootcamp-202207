@@ -51,7 +51,7 @@ function retrieveUser(userId){
 
     //================================================
 
-    return User.findById(userId,'name email').lean()
+    return User.findById(userId,'name email cart').lean()
     .catch(error =>{
         throw new SystemError(error.message)
     })
