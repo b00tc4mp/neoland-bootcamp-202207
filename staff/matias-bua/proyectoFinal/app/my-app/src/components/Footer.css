@@ -1,15 +1,14 @@
-
 * {
   margin: 0;
   /* padding: 0; */
-  box-sizing: border-box; 
+  box-sizing: border-box;
   /* bottom: 0px; */
 }
 
-
-
-nav {
-  position: absolute;
+.footerContainer {
+  z-index:5;
+  position: fixed;
+  bottom: 0;
   width: 100%;
   /* height: 75px; */
   display: flex;
@@ -17,28 +16,27 @@ nav {
   align-items: center;
   background: hsl(261, 91%, 21%);
   overflow: hidden;
-  box-shadow: 0 6.7px 5.3px rgba(0, 0, 0, 0.12), 0 22.3px 17.9px rgba(0, 0, 0, 0.08), 0 100px 80px rgba(0, 0, 0, 0.04);
-} 
+  box-shadow: 0 6.7px 5.3px rgba(0, 0, 0, 0.12),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.08), 0 100px 80px rgba(0, 0, 0, 0.04);
+}
 
 nav ul {
   display: flex;
   align-items: center;
   padding: 20px;
-} 
+}
 
 nav ul li {
   list-style: none;
   width: var(--icon-size);
   height: var(--icon-size);
-} 
+}
 nav ul li a {
-  
   width: 100%;
   height: 100%;
   cursor: pointer;
 }
 nav ul li a material-symbols-outlined {
-  
   fill: #fff;
   width: 100%;
   height: 100%;
@@ -46,7 +44,6 @@ nav ul li a material-symbols-outlined {
   transition: opacity 100s ease;
   pointer-events: none;
 }
-
 
 nav ul li a.active material-symbols-outlined {
   opacity: 1;
@@ -71,7 +68,11 @@ nav .tubelight .light-ray {
   width: 160%;
   height: 80px;
   clip-path: polygon(5% 100%, 25% 0px, 75% 0px, 95% 100%);
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3) -50%, rgba(255, 255, 255, 0) 90%);
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.3) -50%,
+    rgba(255, 255, 255, 0) 90%
+  );
   pointer-events: none;
 }
 

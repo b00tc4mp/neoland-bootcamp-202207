@@ -2,23 +2,27 @@ import Loggito from '../utils/Loggito'
 import withContext from '../utils/withContext'
 import './Profile.css'
 import updateUserProfile from '../logics/updateUserProfile'
-// import { useReducer } from 'react'
 
 
-function Profile({ onLinkClick, context: { handleFeedback }}) {
+
+function Profile({ onCloseClick, context: { handleFeedback }}) {
 
     const logger = new Loggito('Profile')
 
-    const handleFormSubmit = event => {
+    debugger
+
+    const handleProfileFormSubmit = event => {
         event.preventDefault()
 
         const { target: form } = event
-        const {changeGender: {value: changeGender}, city:{value: city}, aboutYou:{value:aboutYou} } = form
+        const { gender: {value: gender}, city:{value: city}, aboutYou:{value:aboutYou} } = form
 
+    debugger
+    
     try {
         updateUserProfile(
           sessionStorage.token,
-          changeGender,
+          gender,
           city,
           aboutYou,
           error => {
@@ -45,14 +49,16 @@ function Profile({ onLinkClick, context: { handleFeedback }}) {
     
     return <div className="updateProfileCcontainer">
       
-    <form className="update-password-form form" onSubmit={handleFormSubmit}>
+    <form className="update-password-form form" onSubmit={handleProfileFormSubmit}>
         <div className="form__field">
         <h3 className="tittleProfile"> Your profile </h3>
+        
         </div>
 
+
         <div className="form__field">
-            <label htmlFor="changeGender">Male / Female</label>
-            <input className="input" type="text" name="changeGender" placeholder="" id="changeGender" />
+            <label htmlFor="gender">Male / Female</label>
+            <input className="input" type="text" name="gender" placeholder="gender" id="gender" />
 
             
         </div>

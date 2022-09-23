@@ -34,7 +34,7 @@ function RegisterPage({ onLinkClick, onRegisterFormSubmit, context: { handleFeed
             target: form,
             target: {
                 name: { value: name },
-                lastname: { lastname },
+                lastname: { value: lastname },
                 email: { value: email },
                 password: { value: password },
                 birth: { value: birth },
@@ -42,6 +42,7 @@ function RegisterPage({ onLinkClick, onRegisterFormSubmit, context: { handleFeed
             }
         } = event
 
+        debugger
 
         try {
             registerUser(name, lastname, email, password, birth, phonenumber, (error) => {

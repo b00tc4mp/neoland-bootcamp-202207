@@ -6,7 +6,7 @@ import retrieveUser from '../logics/retrieveUser'
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import Loggito from '../utils/Loggito'
 import Profile from '../components/Profile'
-import Saved from '../components/Saved'
+import UserAuctions from '../components/UserAuctions'
 import NewAuction from '../components/NewAuction'
 import Mail from '../components/Mail'
 import Setting from '../components/Setting'
@@ -14,7 +14,7 @@ import retrieveAuctions from '../logics/retrieveAuctions'
 import AuctionList from '../components/AuctionList'
 // import SearchAuctions from '../components/SearchAuctions'
 
-function HomePage({ onLogoutClick, onSettingClick, context: { handleFeedback } }) {
+function HomePage({ onLogoutClick, context: { handleFeedback } }) {
 
   const logger = new Loggito('HomePage')
 
@@ -101,10 +101,10 @@ function HomePage({ onLogoutClick, onSettingClick, context: { handleFeedback } }
     logger.info('return')
   }
 
-  const handleSavedClick = () => {
-    navigate('saved')
+  const handleUserAuctionsClick = () => {
+    navigate('userAuctions')
 
-    logger.debug('navigate to Saved`s')
+    logger.debug('navigate to My Auctions')
 
     logger.info('return')
   }
@@ -132,20 +132,22 @@ function HomePage({ onLogoutClick, onSettingClick, context: { handleFeedback } }
 
 
   return <div className="Home">
+    <div className="headerBanner">
     <Header onLogoutClick={onLogoutClick} onSettingClick={handleSettingClick} />
+    </div>
 
     <Routes>
       {auctions && <Route path="/" element={<AuctionList auctions={ auctions } />} />}
       <Route path="profile" element={<Profile />} />
       {/* <Route path="home" element={<Home />} /> */}
-      <Route path="saved" element={<Saved />} />
+      <Route path="UserAuctions" element={<UserAuctions />} />
       <Route path="newauction" element={<NewAuction />} />
       <Route path="mail" element={<Mail />} />
       <Route path="setting" element={<Setting />} />
     </Routes>
 
     <div className="footer">
-      <Footer onProfileClick={handleProfileClick} onHomeClick={handleHomeClick} onSavedClick={handleSavedClick} onNewAuctionClick={handleNewAuctionClick} onMailClick={handleMailClick} />
+      <Footer onProfileClick={handleProfileClick} onHomeClick={handleHomeClick} onUserAuctionsClick={handleUserAuctionsClick} onNewAuctionClick={handleNewAuctionClick} onMailClick={handleMailClick} />
     </div>
 
   </div>
