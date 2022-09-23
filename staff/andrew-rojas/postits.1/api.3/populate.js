@@ -59,6 +59,6 @@ connect("mongodb://localhost:27017/postits")
     ]);
   })
   .catch(error => {
-    debugger;
+     ;
   })
   .then(() => disconnect());

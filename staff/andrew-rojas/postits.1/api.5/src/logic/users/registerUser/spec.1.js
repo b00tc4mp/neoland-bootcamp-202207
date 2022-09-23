@@ -24,7 +24,7 @@ describe("registerUser", () => {
 
         const [user] = users
 
-        //debugger
+        // 
 
         expect(user.name).toEqual(name)
         expect(user.email).toEqual(email)

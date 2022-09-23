@@ -36,7 +36,7 @@ describe("registerUser", () => {
     const email = "pepito@grillo.com";
     const password = "123123123";
 
-    debugger;
+     ;
 
     registerUser(name, email, password, (error) => {
       expect(error).toBeNull();

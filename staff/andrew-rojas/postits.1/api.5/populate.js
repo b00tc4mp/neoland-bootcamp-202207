@@ -59,10 +59,10 @@ connect("mongodb://localhost:27017/postits")
     ])
       .then(() => User.findById(pepito.id, 'name email').lean())
       .then(user => {
-        debugger
+         
       })
   })
   .catch(error => {
-    debugger;
+     ;
   })
   .then(() => disconnect())
