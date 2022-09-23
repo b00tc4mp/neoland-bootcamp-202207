@@ -6,6 +6,9 @@
 }
 
 .Feedback__box {
+  align-items: center;
+  align-content: center;
+  top: 50%;
   width: 50vw;
   height: 25vh;
   color: var(--color)
