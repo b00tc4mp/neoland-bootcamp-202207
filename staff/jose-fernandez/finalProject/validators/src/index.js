@@ -4,6 +4,7 @@ module.exports = {
     validateCallback: require('./validateCallback'),
     validateText: require('./validateText'),
     validateString: require('./validateString'),
+    validateNumber: require('./validateNumber'),
     validateProduct: require('./validateProduct'),
     validateCart: require('./validateCart')
 }

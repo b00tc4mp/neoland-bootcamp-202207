@@ -4,7 +4,7 @@ import IconButton from './Buttons/IconButton'
 import withContext from '../utils/withContext'
 import Menu from './Menu'
 
-function Header({products,onUserClick,onListProducts,onCartClick, onListProductsMen,onListProductsWomen,onListProductsKids,onSearchClick}) {
+function Header({products,onUserClick,onListProducts,onCartClick, onListProductsMen,onListProductsWomen,onListProductsKids,onSearchClick,onFavouritesProducts}) {
     const [view, setView] = useState(null)
     const handleUserClick= () =>{
         onUserClick()
@@ -32,7 +32,7 @@ function Header({products,onUserClick,onListProducts,onCartClick, onListProducts
                 { view === 'menu' &&<IconButton addClass="btn-menu" text="close" onClick={handleCloseClick}  />}
             </div>
 
-            <a className="logo" href='#' ><img className='img-logo' src="https://i.postimg.cc/ZY1nHGSz/logo-Luanna.png" alt="" /></a>
+            <a className="logo" href='' ><img className='img-logo' src="https://i.postimg.cc/ZY1nHGSz/logo-Luanna.png" alt="" /></a>
             <div className='header-buttons--right'>
             {<IconButton addClass="btn-header" text="person" onClick={handleUserClick}/>}
             {<IconButton addClass="btn-header" text="search" onClick={handleSearchClick}/>}
@@ -40,7 +40,7 @@ function Header({products,onUserClick,onListProducts,onCartClick, onListProducts
             </div>
 
         </div>
-        {view === "menu" &&<Menu onListProducts={onListProducts} onListProductsMen={onListProductsMen} onListProductsWomen={onListProductsWomen} onListProductsKids={onListProductsKids} products={products} />}
+        {view === "menu" &&<Menu onFavouritesProducts={onFavouritesProducts} onListProducts={onListProducts} onListProductsMen={onListProductsMen} onListProductsWomen={onListProductsWomen} onListProductsKids={onListProductsKids} products={products} />}
     </header>
 }
 export default withContext(Header)

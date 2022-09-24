@@ -15,6 +15,7 @@ import ProductsListMen from '../components/ProductsListMen'
 import ProductsListWomen from '../components/ProductsListWomen'
 import ProductsListKids from '../components/ProductsListKids'
 import ProductView from '../components/ProductView'
+import ProductsFavourites from '../components/ProductsFavourites'
 import Cart from '../components/Cart'
 // import Menu from '../components/Menu'
 
@@ -23,6 +24,7 @@ function HomePage({ onLogoutClick, onLoginClick, context: { handleFeedback } }) 
     const [name, setName] = useState(null)
     const [email, setEmail] = useState(null)
     const [products, setProducts] = useState(null)
+    const [productsSearch, setProductsSearch] = useState(null)
     const [query, setQuery] = useState(null)
 
 
@@ -77,7 +79,7 @@ function HomePage({ onLogoutClick, onLoginClick, context: { handleFeedback } }) 
                         return
                     }
 
-                    setProducts(products)
+                    setProductsSearch(products)
                 })
 
         } catch (error) {
@@ -88,27 +90,26 @@ function HomePage({ onLogoutClick, onLoginClick, context: { handleFeedback } }) 
     const handleUserClick = () => {
         if (!sessionStorage.token) 
         {onLoginClick()
-            console.log(name) }
-        
-
+            // console.log(name)
+         }
         else {
             navigate('profile')
-            console.log(name) }
+            // console.log(name) 
+        }
             
         // onLoginClick()
 
     }
 
     const handleProfileClick = () => {
-
         // navigate('profile')
 
         // loadProducts()
     }
 
     const handleSearchClick = () => {
+        loadProducts()
         navigate('search')
-
     }
 
     const handleReturnMain = () => {
@@ -117,24 +118,31 @@ function HomePage({ onLogoutClick, onLoginClick, context: { handleFeedback } }) 
     }
 
     const handleListProducts = () => {
-        loadProducts()
+        
         navigate('listProducts')
+    }
+    const handleListProductsSearch = () => {
+        
+        navigate('listProductsSearch')
     }
 
     const handleListProductsMen = () => {
-        loadProducts()
+        
         navigate('listProductsMen')
     }
     const handleListProductsWomen = () => {
-        loadProducts()
+        
         navigate('listProductsWomen')
     }
     const handleListProductsKids = () => {
-        loadProducts()
+        
         navigate('listProductsKids')
     }
     const handleCart = () => {
         navigate('cart')
+    }
+    const handleFavouritesProducts=()=>{
+        navigate('favourite')
     }
     const handleLogoutClick=()=>{
         onLogoutClick()
@@ -154,18 +162,20 @@ function HomePage({ onLogoutClick, onLoginClick, context: { handleFeedback } }) 
     //TODO location pathname no funciona en header
 
     return <div className="container container--full c  ontainer--width homePage">
-        {(location.pathname === "/" || location.pathname === "listProducts") && <Header products={products} onUserClick={handleUserClick} onListProducts={handleListProducts} onListProductsMen={handleListProductsMen} onListProductsWomen={handleListProductsWomen} onListProductsKids={handleListProductsKids} onProfileClick={handleProfileClick} onSearchClick={handleSearchClick} onCartClick={handleCart} />}
+        {(location.pathname === "/" || location.pathname === "listProducts") && <Header products={products} onUserClick={handleUserClick} onListProducts={handleListProducts} onListProductsMen={handleListProductsMen} onListProductsWomen={handleListProductsWomen} onListProductsKids={handleListProductsKids} onProfileClick={handleProfileClick} onSearchClick={handleSearchClick} onCartClick={handleCart} onFavouritesProducts={handleFavouritesProducts}/>}
 
         <main className="main-home">
             <Routes>
                 <Route path="/" element={<ContMain products={products} onProductClick={handleProductClick} />} />
-                <Route path='search' element={<Search onProductsSearch={handleListProducts} onCloseClick={handleReturnMain} onQuery={handleSearch} />} />
+                <Route path='search' element={<Search onProductsSearch={handleListProductsSearch} onCloseClick={handleReturnMain} onQuery={handleSearch} />} />
                 {/* <Route path="menu" element={<Menu products={products} onCloseClick={handleReturnMain}/>} /> */}
+                <Route path='favourite' element={<ProductsFavourites products={products} onProductClick={handleProductClick} onCloseClick={handleReturnMain} />} />
+                <Route path='listProductsSearch' element={<ProductsList products={productsSearch} onProductClick={handleProductClick} onCloseClick={handleReturnMain} />} />
                 <Route path='listProducts' element={<ProductsList products={products} onProductClick={handleProductClick} onCloseClick={handleReturnMain} />} />
                 <Route path='listProductsMen' element={<ProductsListMen products={products} onProductClick={handleProductClick} onCloseClick={handleReturnMain} />} />
                 <Route path='listProductsWomen' element={<ProductsListWomen products={products} onProductClick={handleProductClick} onCloseClick={handleReturnMain} />} />
                 <Route path='listProductsKids' element={<ProductsListKids products={products} onProductClick={handleProductClick} onCloseClick={handleReturnMain} />} />
-
+                
                 <Route path='products/:productId' element={<ProductView onCart={handleCart} />} />
                 <Route path='cart' element={<Cart />} />
 

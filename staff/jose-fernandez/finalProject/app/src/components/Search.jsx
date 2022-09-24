@@ -2,14 +2,15 @@ import IconButton from './Buttons/IconButton'
 import './Search.css'
 
 function Search({ onQuery, onCloseClick, onProductsSearch }) {
-    const handleSubmit = event => {
+    const handleSubmit = (event) => {
         event.preventDefault()
 
         const query = event.target.query.value
 
         onQuery(query)
+        //TODO buggg despues de buscar y no puedo ver el producto
         onProductsSearch()
-        event.target.reset()
+        // event.target.reset()
     }
     const handleCloseClick = () => {
         onCloseClick()
@@ -26,10 +27,10 @@ function Search({ onQuery, onCloseClick, onProductsSearch }) {
         <IconButton addClass="chevron_left" text="chevron_left" onClick={handleCloseClick} />
         <div className='containerFormSearch'>
             <form className="container container--row" onSubmit={handleSubmit}>
-                <div className="container--search">
+                
                     <input className="input" type="text" name="query" />
                     <IconButton text="search" />
-                </div>
+                
             </form>
             <IconButton addClass="closeFormSearch" text="cleaning_services"  />
         </div>

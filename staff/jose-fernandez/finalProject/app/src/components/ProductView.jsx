@@ -8,10 +8,11 @@ import './Carousel.css'
 // import './ProductsList.css'
 import IconButton from './Buttons/IconButton'
 import Slider from 'infinite-react-carousel'
- 
+
 //TODO mejorar
-function ProductView({onCart, context: { handleFeedback } }) {
+function ProductView({ onCart, context: { handleFeedback } }) {
     const params = useParams()
+    console.log(params)
     const [productToDisplay, setProduct] = useState()
     const productId = params.productId
     let size = useRef(null)
@@ -23,7 +24,7 @@ function ProductView({onCart, context: { handleFeedback } }) {
     useEffect(() => {
         try {
             retrieveProductExtend(productId, (error, product) => {
-                console.log(product, 'Product desde el callback')
+                // console.log(product, 'Product desde el callback')
                 if (error) handleFeedback({ message: error.message, level: 'error' })
 
                 setProduct(product)
@@ -34,7 +35,7 @@ function ProductView({onCart, context: { handleFeedback } }) {
         }
     }, [])
 
-    const handleCart=()=>{
+    const handleCart = () => {
         onCart()
     }
     const handleReturnClick = () => {
@@ -78,14 +79,14 @@ function ProductView({onCart, context: { handleFeedback } }) {
                         <h3>Tallas</h3>
                     </div>
                     <div className="container-size--grid" ref={node => size = node}>
-                        <button  className="grid-item">3XS</button>
-                        <button  className="grid-item">2XS</button>
-                        <button  className="grid-item">XS</button>
-                        <button  className="grid-item">S</button>
-                        <button  className="grid-item">M</button>
-                        <button  className="grid-item">L</button>
-                        <button  className="grid-item">XL</button>
-                        <button  className="grid-item">2XL</button>
+                        <button className="grid-item">3XS</button>
+                        <button className="grid-item">2XS</button>
+                        <button className="grid-item">XS</button>
+                        <button className="grid-item">S</button>
+                        <button className="grid-item">M</button>
+                        <button className="grid-item">L</button>
+                        <button className="grid-item">XL</button>
+                        <button className="grid-item">2XL</button>
                     </div>
                 </div>
                 {/* <div className="container-qty">
@@ -94,12 +95,13 @@ function ProductView({onCart, context: { handleFeedback } }) {
                     
                 </div> */}
                 <div className="btn-cart">
-                    <a onClick={handleCart} >
+                    {/* <a onClick={handleCart} productToDisplay={productToDisplay} > */}
+                    <a onClick={handleCart}  >
                         <span >AÑADIR AL CARRITO</span>
                         <img className='featurette-icon--img' src="https://i.postimg.cc/KYqFk224/right-arrow.png" alt="" />
                     </a>
                 </div>
-      
+
             </section>
 
         </div>

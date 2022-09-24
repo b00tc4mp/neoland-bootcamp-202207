@@ -20,7 +20,8 @@ function ProductsListKids({ products,onProductClick,onCloseClick }) {
                 <IconButton addClass="close" text="close" onClick={handleCloseClick} />
                 <h1>KIDS</h1>
             </div>
-            {/* <ProductsListMen product={products}/> */}
+            
+            <div className="container-productsList">
             {_products && _products.filter(_product => _product.categ === "kids"
             ).map(product => <div className="item--products" key={product.id} onClick={()=>handleProductClick(product)}>
                 <div className="featurette-icon">
@@ -29,6 +30,7 @@ function ProductsListKids({ products,onProductClick,onCloseClick }) {
                 <p>${product.price}</p>
                 <h3>{product.name}</h3>
             </div>)}
+            </div>
         </div>
 
     </section>

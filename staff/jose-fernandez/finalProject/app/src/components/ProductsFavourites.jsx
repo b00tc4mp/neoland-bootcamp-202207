@@ -3,8 +3,8 @@ import './ContMain.css'
 import './ProductsList.css'
 import IconButton from './Buttons/IconButton'
 
-function ProductsList({ products,onProductClick,onCloseClick}) {
-
+//TODO FALTA CAMBIAR CODIGO
+function ProductsFavourites({ products,onProductClick,onCloseClick}) {
     const handleCloseClick = () => {
         onCloseClick()
     }
@@ -19,8 +19,7 @@ function ProductsList({ products,onProductClick,onCloseClick}) {
             <h1>PRODUCTS</h1>
 
         </div>
-        <div className="container-productsList">
-            
+        
         {products && products.map(product => {
             //TODO debugger
         return <div className="item--products" key={product.id} onClick={()=>handleProductClick(product)}>
@@ -30,10 +29,9 @@ function ProductsList({ products,onProductClick,onCloseClick}) {
             <p>${product.price}</p>
             <h3>{product.name}</h3>
         </div>})}
-        </div>
     </div>
 
 </section>
 }
 
-export default ProductsList
+export default ProductsFavourites

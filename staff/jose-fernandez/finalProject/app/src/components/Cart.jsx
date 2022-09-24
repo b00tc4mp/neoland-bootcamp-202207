@@ -10,12 +10,10 @@ import './Cart.css'
 import IconButton from './Buttons/IconButton'
 
 //TODO mejorar
-function ProductView({ context: { handleFeedback } }) {
+function Cart({ context: { handleFeedback } }) {
     const params = useParams()
     const [productToDisplay, setProduct] = useState()
     const productId = params.productId
-
-
 
     // useEffect(() => {
     //     try {
@@ -61,11 +59,9 @@ function ProductView({ context: { handleFeedback } }) {
                 </div>
             </div> */}
             <section>
-
-
                 <div className="container-qty">
                     <h3>Cantidad</h3>
-                    <input type="number" value="1" />
+                    <input type="number" defaultValue="1" />
                 </div>
                 <div className="container-carPrice">
                 <h3>Precio</h3>
@@ -90,4 +86,4 @@ function ProductView({ context: { handleFeedback } }) {
     </>
 }
 
-export default withContext(ProductView)
+export default withContext(Cart)

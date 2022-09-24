@@ -1,3 +1,9 @@
 section.products.cat{
     margin-top: -15%;
 }
+.container-productsList{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+}

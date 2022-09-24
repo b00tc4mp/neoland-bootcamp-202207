@@ -145,7 +145,7 @@ body {
 }
 
 .input:-webkit-autofill {
-  -webkit-background-clip: text;
+  -webkit-background-clip: inherit;
   -webkit-text-fill-color: var(--color);
 }
 
