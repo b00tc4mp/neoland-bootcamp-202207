@@ -38,17 +38,7 @@ function retrieveProductExtend(productId,callback){
             default:
                 callback(new UnknownError(`unexpected status ${status}`))
         }
-        // if(status>=500)
-        // callback(new Error(`Server error (${status})`))
-        // else if(status >=400)
-        // callback(new Error(`Client error retrieveProducts (${status})`))
-        // else if(status === 200){
-        //     const json = xhr.responseText
-
-        //     const product =JSON.parse(json)
-
-        //     callback(null,product)
-        // }
+        
     }
 
     //request
