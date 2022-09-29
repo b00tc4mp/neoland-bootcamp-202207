@@ -176,7 +176,7 @@ function HomePage({ onLogoutClick, onLoginClick, context: { handleFeedback } }) 
                 <Route path='listProductsWomen' element={<ProductsListWomen products={products} onProductClick={handleProductClick} onCloseClick={handleReturnMain} />} />
                 <Route path='listProductsKids' element={<ProductsListKids products={products} onProductClick={handleProductClick} onCloseClick={handleReturnMain} />} />
                 
-                <Route path='products/:productId' element={<ProductView onCart={handleCart} />} />
+                <Route path='products/:productId' element={<ProductView onCart={handleCart} on />} />
                 <Route path='cart' element={<Cart />} />
 
                 <Route path="profile" element={<Profile onCloseClick={handleReturnMain} onLogoutClick={handleLogoutClick} />} />

@@ -13,6 +13,7 @@ import IconButton from './Buttons/IconButton'
 function Cart({ context: { handleFeedback } }) {
     const params = useParams()
     const [productToDisplay, setProduct] = useState()
+    const [modalCart, setModalCart] = useState()
     const productId = params.productId
 
     // useEffect(() => {
@@ -71,8 +72,8 @@ function Cart({ context: { handleFeedback } }) {
                     <h3>Total</h3>
                     <p>$ precio++</p>
                 </div>
-
             </section>
+            
             <div className="container-pay">
                 <p>Paga en 3 plazos sin intereses de 20,00€.
                     <span className="logo">Klarna</span>

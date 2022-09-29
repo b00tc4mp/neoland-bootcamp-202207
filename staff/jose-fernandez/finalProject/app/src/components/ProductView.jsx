@@ -8,12 +8,14 @@ import './Carousel.css'
 // import './ProductsList.css'
 import IconButton from './Buttons/IconButton'
 import Slider from 'infinite-react-carousel'
+import ModalCart from "./ModalCart";
 
 //TODO mejorar
 function ProductView({ onCart, context: { handleFeedback } }) {
     const params = useParams()
     console.log(params)
     const [productToDisplay, setProduct] = useState()
+    const [modal, setModal] = useState(null)
     const productId = params.productId
     let size = useRef(null)
 
@@ -36,9 +38,24 @@ function ProductView({ onCart, context: { handleFeedback } }) {
     }, [])
 
     const handleCart = () => {
-        handleFeedback({ message: "Product add to Cart", level: 'info' })
-      
+        onCart()
     }
+
+
+    // =========================
+    const handleAcceptModal = () => {
+        const feedback = { message: null, level: null }
+
+        setModal(feedback)
+
+    }
+
+    const handleModal = modal => {
+        setModal(modal)
+
+    }
+
+    // =========================
     const handleReturnClick = () => {
         window.history.go(-1)
     }
@@ -76,7 +93,7 @@ function ProductView({ onCart, context: { handleFeedback } }) {
                     </p>
                 </div>
                 {/* //TODO container size */}
-                <div className="container-size">
+                 <div className="container-size">
                     {/* <div className="name-size">
                         <h3>Tallas</h3>
                     </div>
@@ -98,17 +115,17 @@ function ProductView({ onCart, context: { handleFeedback } }) {
                 </div> */}
                 <div className="btn-cart">
                     {/* <a onClick={handleCart} productToDisplay={productToDisplay} > */}
-                    <a onClick={handleCart}  >
+                    <a onClick={handleModal}  >
                         <span >AÑADIR AL CARRITO</span>
                         <img className='featurette-icon--img' src="https://i.postimg.cc/KYqFk224/right-arrow.png" alt="" />
                     </a>
                 </div>
 
-                {/* TODO feedback modal añadido al carrito correctamente */}
-
             </section>
 
         </div>
+        {/* TODO feedback modal añadido al carrito correctamente */}
+        <ModalCart onCart={onCart} onReturnBuy={handleReturnClick}/>
     </div>}
     </>
 }

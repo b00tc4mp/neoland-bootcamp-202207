@@ -1,4 +1,4 @@
-.Feedback {
+.Modal {
     background-color: rgba(0, 0, 0, .7);
     width: 100%;
     height: 100%;
@@ -7,13 +7,13 @@
     
 }
 
-.Feedback__box {
+.Modal__box {
     width: 50vw;
     height: 25vh;
     border-radius: 15px;
 }
 
-.textFeedback{
+.textModal{
     text-align: center;
     padding: 15px,10px,10px,10px;
 }
@@ -31,22 +31,6 @@
     color: var(--color);
 }
 
-.Feedback--error > .Feedback__box {
-    background-color: red;
-}
-
-.Feedback--warning > .Feedback__box {
-    background-color: orange;
-}
-
-.Feedback--success > .Feedback__box {
-    background-color: green;
-}
-
-.Feedback--info > .Feedback__box {
-    background-color: dodgerblue;
-}
-
-.Feedback--infoCart > .Feedback__box {
+.Modal--infoCart > .Modal__box {
     background-color: rgba(255, 254, 254,0.5);
 }
