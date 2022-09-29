@@ -36,7 +36,8 @@ function ProductView({ onCart, context: { handleFeedback } }) {
     }, [])
 
     const handleCart = () => {
-        onCart()
+        handleFeedback({ message: "Product add to Cart", level: 'info' })
+      
     }
     const handleReturnClick = () => {
         window.history.go(-1)
@@ -74,8 +75,9 @@ function ProductView({ onCart, context: { handleFeedback } }) {
                         <button className="link">Más información</button>
                     </p>
                 </div>
+                {/* //TODO container size */}
                 <div className="container-size">
-                    <div className="name-size">
+                    {/* <div className="name-size">
                         <h3>Tallas</h3>
                     </div>
                     <div className="container-size--grid" ref={node => size = node}>
@@ -87,7 +89,7 @@ function ProductView({ onCart, context: { handleFeedback } }) {
                         <button className="grid-item">L</button>
                         <button className="grid-item">XL</button>
                         <button className="grid-item">2XL</button>
-                    </div>
+                    </div> */}
                 </div>
                 {/* <div className="container-qty">
                     <h3>Cantidad</h3>
@@ -101,6 +103,8 @@ function ProductView({ onCart, context: { handleFeedback } }) {
                         <img className='featurette-icon--img' src="https://i.postimg.cc/KYqFk224/right-arrow.png" alt="" />
                     </a>
                 </div>
+
+                {/* TODO feedback modal añadido al carrito correctamente */}
 
             </section>
 
