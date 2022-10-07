@@ -4,6 +4,7 @@ const {
   connect,
   disconnect,
   Types: { ObjectId },
+  default: mongoose,
 } = require("mongoose");
 const { User, Product } = require("../../../models");
 const { NotFoundError } = require("errors");
@@ -14,7 +15,9 @@ const { MONGO_URL_TEST } = process.env;
 describe("searchProducts", () => {
   beforeAll(() => connect(MONGO_URL_TEST));
 
-  beforeEach(() => Promise.all([User.deleteMany({}), Product.deleteMany({})]));
+  // beforeEach(() => Promise.all([User.deleteMany({}), Product.deleteMany({})]));
+
+  beforeEach(() => mongoose.connection.db.dropDatabase())
 
   it("succeeds on existing user and products", () => {
     // happy path
@@ -74,19 +77,9 @@ describe("searchProducts", () => {
     })
 });
 
-  // it("fails on non-existing user", () => {
-  //   // unhappy path
-  //   const userId = new ObjectId().toString();
 
-  //   const query = "ar";
-
-  //   return searchProducts(userId, query).catch((error) => {
-  //     expect(error).toBeInstanceOf(NotFoundError);
-  //     expect(error.message).toEqual(`user with id ${userId} not found`);
-  //   });
-  // });
-
-  afterEach(() => Promise.all([User.deleteMany({}), Product.deleteMany({})]))
+  // afterEach(() => Promise.all([User.deleteMany({}), Product.deleteMany({})]))
+  afterEach(() => mongoose.connection.db.dropDatabase())
 
   afterAll(() => disconnect());
 });

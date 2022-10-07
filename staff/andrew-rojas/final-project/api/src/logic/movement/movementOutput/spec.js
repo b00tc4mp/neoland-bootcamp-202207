@@ -1,15 +1,22 @@
+require('dotenv').config()
+
 const {
   connect,
   disconnect,
   Types: { ObjectId },
+  default: mongoose,
 } = require("mongoose");
 const { User, Product, Movement } = require("../../../models");
 const createMovementOutput = require(".");
 
-describe("createMovementOutputs", () => {
-  beforeAll(() => connect("mongodb://localhost:27017/product-test"));
+const { MONGO_URL_TEST } = process.env
 
-  beforeEach(() => Promise.all([User.deleteMany(), Product.deleteMany(), Movement.deleteMany()]));
+describe("createMovementOutputs", () => {
+  beforeAll(() => connect(MONGO_URL_TEST));
+
+  //beforeEach(() => Promise.all([User.deleteMany(), Product.deleteMany(), Movement.deleteMany()]));
+
+  beforeEach(() => mongoose.connection.db.dropDatabase())
 
   it("succeeds on correct data (user, product and movement", () => {
     // happy path
@@ -41,7 +48,7 @@ describe("createMovementOutputs", () => {
             expect(productModified.name).toEqual(product2.name);
             expect(productModified.category).toEqual(product2.category);
             expect(productModified.quantity).toEqual(30);
-          
+
             return Movement.find({}).then((movements) => {
               expect(movements).toHaveLength(1);
 
@@ -59,7 +66,8 @@ describe("createMovementOutputs", () => {
     });
   });
 
-  AfterEach(() => Promise.all([User.deleteMany(), Product.deleteMany(), Movement.deleteMany()]));
+  //afterEach(() => Promise.all([User.deleteMany(), Product.deleteMany(), Movement.deleteMany()]));
+  afterEach(() => mongoose.connection.db.dropDatabase())
 
   afterAll(() => disconnect());
 });

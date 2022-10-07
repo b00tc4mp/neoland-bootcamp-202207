@@ -1,12 +1,18 @@
-const { connect, disconnect, Types: { ObjectId } } = require('mongoose')
-const { User, Product } = require('../../../models')
+require("dotenv").config();
 
+
+const { connect, disconnect, Types: { ObjectId }, default: mongoose} = require('mongoose')
+const { User, Product } = require('../../../models')
 const createProduct = require('.')
 
-describe('createProduct', () => {
-  beforeAll(() => connect('mongodb://localhost:27017/product-test'))
+const { MONGO_URL_TEST } = process.env
 
-  beforeEach(() => Promise.all([User.deleteMany({}), Product.deleteMany({})]))
+describe('createProduct', () => {
+  beforeAll(() => connect(MONGO_URL_TEST))
+
+  // beforeEach(() => Promise.all([User.deleteMany({}), Product.deleteMany({})]))
+
+  beforeEach(() => mongoose.connection.db.dropDatabase())
 
   it('succeeds on correct data', () => { // happy path
 
@@ -42,7 +48,8 @@ describe('createProduct', () => {
       )
   })
 
-  afterEach(() => Promise.all([User.deleteMany({}), Product.deleteMany({})]))
+  // afterEach(() => Promise.all([User.deleteMany({}), Product.deleteMany({})]))
+  afterEach(() => mongoose.connection.db.dropDatabase())
 
   afterAll(() => disconnect())
 

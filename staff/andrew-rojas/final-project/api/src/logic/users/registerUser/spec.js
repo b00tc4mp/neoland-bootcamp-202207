@@ -1,14 +1,18 @@
-const { connect, disconnect } = require("mongoose")
+require('dotenv').config()
+
+const { connect, disconnect, Types: { ObjectId }, default: mongoose,} = require("mongoose")
 const { User } = require("../../../models")
 const { DuplicityError, FormatError } = require("errors")
 const registerUser = require(".")
 
+const { MONGO_URL_TEST } = process.env
+
 describe("registerUser", () => {
-  beforeAll(() => connect("mongodb://localhost:27017/product-test"))
+  beforeAll(() => connect(MONGO_URL_TEST))
 
   //TODO revisar spec y probar
 
-  beforeEach(() => User.deleteMany({}))
+  beforeEach(() => mongoose.connection.db.dropDatabase())
 
   it("succeeds on new user",() => { // happy path
     
@@ -46,54 +50,7 @@ describe("registerUser", () => {
       })
   })
 
-  // it("fails -------", () => { // unhappy path
-
-  
-  //   const name = "Lewis Hamilton"
-  //   const email = "lewis@hamilton.com"
-  //   const password = "12312123"
-
-  //   return User.create({ name, email, password })
-  //   .then(() => registerUser(name, email, password))
-  //   .catch(error => {
-  //       // expect(error).toBeInstanceOf(DuplicityError)
-  //       expect(error.message).toEqual('user ------')
-  //   })
-
-
-      // try { 
-      //   await registerUser(name,email,password)
-      // } catch (error) { 
-      //     expect(error).toBeInstanceOf(DuplicityError) 
-      //     expect(error.message).toEqual('user already exists')
-      // }
-
-  //     await expect(registerUser(name,email,password)).rejects.toThrowError(DuplicityError, 'user already exists')
-  // })
-
-  // it('fails on non.string name', () => { //unhappy path
-  //   const name = 1234
-  //   const email = 'lewis@hamilton.com'
-  //   const password = '123123123'
-
-  //   expect(() => registerUser(name, email, password)).toThrowError(TypeError, 'name is not a string')
-  // })
-
-  // it('fails on empty name', () => { //unhappy path
-  //   const name = ''
-  //   const email = 'lewis@hamilton.com'
-  //   const password = '123123123'
-
-  //   expect(() => registerUser(name, email, password)).toThrowError(FormatError, 'name is empty or blank')
-  // })
-
-  // it('fails on invalid email', () => { //unhappy path
-  //   const name = 'Lewis Hamilton'
-  //   const email = 'lewis_hamilton.com'
-  //   const password = '123123123'
-
-  //   expect(() => registerUser(name, email, password)).toThrowError(FormatError, 'email is not valid')
-  //})
+  afterEach(() => mongoose.connection.db.dropDatabase())
 
   afterAll(() => disconnect())
 })

@@ -59,7 +59,7 @@ function RemoveProducts({ context: { handleFeedback } }) {
         return
       }
   
-      let productId = productFound.id;
+      const productId = productFound.id;
   
       try {
         removeProducts( sessionStorage.token, productId, (error) => {

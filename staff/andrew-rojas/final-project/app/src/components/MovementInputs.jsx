@@ -50,7 +50,7 @@ function MovementInputs({ context: { handleFeedback } }) {
     const name = nameInput.value;
     const quantity = quantityInput.value;
 
-    let productFound = products.find((product) => product.name === name);
+    const productFound = products.find((product) => product.name === name);
     //      
     if (!productFound) {
       handleFeedback({ message: 'Product not found', level: 'error' })
@@ -59,7 +59,7 @@ function MovementInputs({ context: { handleFeedback } }) {
       return
     }
 
-    let productId = productFound.id;
+    const productId = productFound.id;
        
     try {
       movementInputs(sessionStorage.token, productId, parseInt(quantity), (error) => {

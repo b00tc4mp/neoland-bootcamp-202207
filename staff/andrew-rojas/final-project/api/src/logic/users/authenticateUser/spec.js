@@ -1,12 +1,17 @@
-const { connect, disconnect } = require("mongoose")
+require("dotenv").config();
+
+
+const { connect, disconnect, Types: { ObjectId }, default: mongoose } = require("mongoose")
 const { User } = require("../../../models")
 const { NotFoundError, AuthError } = require("errors")
 const authenticateUser = require(".")
 
-describe("authenticateUser", () => {
-  beforeAll(() => connect("mongodb://localhost:27017/product-test"))
+const { MONGO_URL_TEST } = process.env
 
-  beforeEach(() => User.deleteMany({}))
+describe("authenticateUser", () => {
+  beforeAll(() => connect(MONGO_URL_TEST))
+
+  beforeEach(() => mongoose.connection.db.dropDatabase())
 
   it("succeeds on existing user", () => { // happy path
     const name = "Mango Pequeño"
@@ -22,31 +27,7 @@ describe("authenticateUser", () => {
     )
   })
 
-  // it("fails on non-existing user", () => { // unhappy path
-  //   const email = "mang@bajito.com"
-  //   const password = "123123123"
-
-  //   return authenticateUser(email, password)
-  //     .catch(error => {
-  //       expect(error).toBeInstanceOf(NotFoundError)
-  //       expect(error.message).toEqual(`user with email ${email} not found`)
-  //     })
-  // })
-
-  // it("fails on existing user but wrong password", () => { // unhappy path
-  //   const name = "Mango Bajito";
-  //   const email = "mango@bajito.com";
-  //   const password = "12312123";
-
-  //   return User.create({ name, email, password })
-  //     .then(user =>
-  //       authenticateUser(email, password + "-wrong")
-  //         .catch((error) => {
-  //           expect(error).toBeInstanceOf(AuthError)
-  //           expect(error.message).toEqual("wrong password")
-  //         })
-  //     )
-  // })
+  afterEach(() => mongoose.connection.db.dropDatabase())
 
   afterAll(() => disconnect())
 })

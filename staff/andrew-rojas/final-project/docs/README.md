@@ -62,9 +62,8 @@ Product Input and Output
 - Jest
 
 
-## Roadmap
+## Roadmap 0 
 
-Sprint 0
 
 - DONE figma 
 - DONE data model

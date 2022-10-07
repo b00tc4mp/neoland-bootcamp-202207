@@ -1,13 +1,19 @@
-const { connect, disconnect, Types: { ObjectId } } = require("mongoose")
+require('dotenv').config()
+
+const { connect, disconnect, Types: { ObjectId }, default: mongoose, } = require("mongoose")
 const { User } = require("../../../models")
 const { NotFoundError } = require("errors")
 const retrieveUser = require(".")
 
+const { MONGO_URL_TEST } = process.env
+
 describe("retrieveUser", () => {
   // jest.setTimeout(30000);
-  beforeAll(() => connect('mongodb://localhost:2707/product-test'))
+  beforeAll(() => connect(MONGO_URL_TEST))
 
-  beforeEach(() => User.deleteMany({}))
+  // beforeEach(() => User.deleteMany({}))
+
+  beforeEach(() => mongoose.connection.db.dropDatabase())
 
   it("succeeds on existing user", () => { // happy path
     const name = "Mongo Bajito"
@@ -36,6 +42,8 @@ describe("retrieveUser", () => {
         expect(error.message).toEqual(`user with id ${userId} not found`)
       })
   })
+
+  afterEach(() => mongoose.connection.db.dropDatabase())
 
   afterAll(() => disconnect())
 })
