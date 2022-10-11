@@ -4,24 +4,26 @@ import './ContMain.css'
 import './ProductsList.css'
 import IconButton from './Buttons/IconButton'
 
-function ProductsListWomen({ products,onProductClick,onCloseClick }) {
+function ProductsListWomen({ products, onProductClick, onCloseClick }) {
     const handleCloseClick = () => {
         onCloseClick()
     }
-    const handleProductClick=(product)=>{
+    const handleProductClick = (product) => {
         onProductClick(product.id)
     }
-    
+
     return <section className="container-section products cat ">
 
         <div className="container-products">
-            <div className="item--products one">
+            <div className="contClose">
                 <IconButton addClass="close" text="close" onClick={handleCloseClick} />
+            </div>
+            <div className="item--products one">
                 <h1>WOMEN</h1>
             </div>
             {/* <ProductsListMen product={products}/> */}
             {products && products.filter(_product => _product.categ === "women"
-            ).map(product => <div className="item--products" key={product.id} onClick={()=>handleProductClick(product)}>
+            ).map(product => <div className="item--products" key={product.id} onClick={() => handleProductClick(product)}>
                 <div className="featurette-icon">
                     <img className='featurette-icon--img products' src={product.img} alt="" />
                 </div>

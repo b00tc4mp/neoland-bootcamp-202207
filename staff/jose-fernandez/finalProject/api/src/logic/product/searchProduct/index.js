@@ -10,7 +10,7 @@ function searchProduct(query) {
     // return Product.find({name:{$regex: new RegExp(query)}}).lean()
 
     
-    return Product.find({name:{$regex: new RegExp(`(?:^|\\s)(${query}\\w*)`), $options: 'i'}})
+    return Product.find({name:{$regex: new RegExp(`(?:^|\\s)(${query}\\w*)`), $options: 'i'}}).lean()
         .catch(error => {
             throw new SystemError(error.message)
         })

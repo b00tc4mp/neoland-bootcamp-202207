@@ -4,7 +4,6 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'material-symbols'
-import 'infinite-react-carousel'
 import { BrowserRouter as Router } from 'react-router-dom'
 
 

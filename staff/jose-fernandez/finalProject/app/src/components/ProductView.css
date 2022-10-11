@@ -20,7 +20,7 @@
     display: flex;
     flex-flow: row;
     flex-wrap: wrap;
-    padding: 10px 20px;
+    padding: 25px 20px 10px 20px;
 }
 
 .container-price{
@@ -37,8 +37,8 @@
 .container-pay{
     padding-left: 20px;
     padding-right: 20px;
-    padding-top: 20px;
-    font-size: 14px;
+    padding-top: 8px;
+    font-size: 16px;
     font-weight: 400;
 }
 .container-pay p{
@@ -47,11 +47,11 @@
 .logo {
     font-weight: bold;
     letter-spacing: -0.5px;
-    font-size: 14px;
+    font-size: 16px;
 }
 .link{
     color: #17120f;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 400;
     text-decoration: underline;
     white-space: nowrap;

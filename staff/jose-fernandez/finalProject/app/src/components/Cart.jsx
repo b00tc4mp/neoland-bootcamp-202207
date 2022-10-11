@@ -1,4 +1,3 @@
-import Slider from 'infinite-react-carousel'
 import { useParams } from "react-router-dom"
 import { useState, useEffect, useRef } from "react"
 import retrieveProductExtend from "../logic/retrieveProductExtend";

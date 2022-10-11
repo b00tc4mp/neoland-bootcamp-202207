@@ -14,10 +14,9 @@ function ProductsFavourites({ products,onProductClick,onCloseClick}) {
     
     return <section className="container-section products cat">
     <div className="container-products">
+    <IconButton addClass="close" text="close" onClick={handleCloseClick} />
         <div className="item--products one">
-            <IconButton addClass="close" text="close" onClick={handleCloseClick} />
             <h1>PRODUCTS</h1>
-
         </div>
         
         {products && products.map(product => {

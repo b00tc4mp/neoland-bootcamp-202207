@@ -14,7 +14,7 @@ function retrieveProductExtend(productId) {
                 product.id = product._id.toString()
                 delete product._id
                 delete product.__v
-
+                
                 return product
             })
 }

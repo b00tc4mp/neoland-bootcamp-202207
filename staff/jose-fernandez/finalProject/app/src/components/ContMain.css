@@ -337,7 +337,7 @@ div.item--products p {
     align-items: center;
     flex-direction: column;
     width: 94%;
-    margin: 12px;
+    margin: 30px 12px 12px 12px;
     background-color: transparent;
 }
 

@@ -21,16 +21,14 @@ function Search({ onQuery, onCloseClick, onProductsSearch }) {
         // cleanText=""
         // onQuery(cleanText)  
     }
-
+ 
 
     return <div className='container search' >
         <IconButton addClass="chevron_left" text="chevron_left" onClick={handleCloseClick} />
         <div className='containerFormSearch'>
             <form className="container container--row" onSubmit={handleSubmit}>
-                
                     <input className="input" type="text" name="query" />
                     <IconButton text="search" />
-                
             </form>
             <IconButton addClass="closeFormSearch" text="cleaning_services"  />
         </div>

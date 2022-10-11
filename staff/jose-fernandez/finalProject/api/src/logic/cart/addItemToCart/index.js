@@ -42,19 +42,7 @@ function addItemToCart(userId, productId, price, qty) {
             return user.save()
         })
         .then(user => { })
-    // .then(([user, cart]) => {
-    //     if (!user) throw new NotFoundError(`user with id ${userId} not found`)
-
-    //     if (!cart) throw new NotFoundError(`cart with id ${cartId} not found`)
-
-    //     // COMPROBAR QUE EL CART PERTENECE AL USUARIO
-
-    //     return Item.create({ user: user._id })
-    //         .catch(error => {
-    //             throw new SystemError(error.message)
-    //         })
-    // })
-    // .then(item => { })
+   
 }
 
 module.exports = addItemToCart

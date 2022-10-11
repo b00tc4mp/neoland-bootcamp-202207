@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src",
+    "inspect":"node --inspect-brk .",
     "test": "jest ./src/* --runInBand --setTimeout=60000 src/logic",
     "test-inspect": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --setTimeout=60000 src/logic",
     "test-inspect-cli": "node inspect ./node_modules/jest/bin/jest.js --runInBand --setTimeout=60000 src/logic",

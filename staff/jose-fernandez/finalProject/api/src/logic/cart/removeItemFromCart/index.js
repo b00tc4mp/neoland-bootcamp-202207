@@ -19,11 +19,13 @@ function removeItemFromCart(userId, itemId) {
 
             const items = user.cart.items
             const itemFound = items.find(_item => _item._id.toString() === itemId)
+            console.log(itemId)
             if (!itemFound) throw new NotFoundError(`item with id ${itemId} not found`)
-
+            
             const updatedItems = items.filter(_item => _item.id.toString() !== itemId)
 
             user.cart.items = updatedItems
+            
             
             return user.save()
             debugger
