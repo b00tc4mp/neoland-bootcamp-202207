@@ -2,6 +2,20 @@ const { User } = require("../../../models");
 const { NotFoundError, SystemError } = require("errors");
 const { verifyObjectId } = require("../../../utils");
 
+/**
+ * Retrieves a user.
+ *
+ * @param {string} userId The used id.
+ *
+ * @returns {Promise}
+ *
+ * @throws {TypeError} If any of the arguments do not match the expected type.
+ * @throws {FormatError} If any of the arguments do not match the expected format.
+ *
+ * @throws {NotFoundError} If the user is not found.
+ * @throws {SystemError} If an error happens in db.
+ */
+
 function retrieveUser(userId) {
   verifyObjectId(userId, "user id");
 

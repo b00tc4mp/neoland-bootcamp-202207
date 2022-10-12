@@ -1,7 +1,7 @@
 module.exports = {
-  registerUser: require("./registerUser"),
   authenticateUser: require("./authenticateUser"),
+  registerUser: require("./registerUser"),
   retrieveUser: require("./retrieveUser"),
-  updatePassword: require("./updatePassword"),
   updateFavorites: require("./updateFavorites"),
+  updatePassword: require("./updatePassword"),
 };

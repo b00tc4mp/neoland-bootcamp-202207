@@ -5,6 +5,22 @@ const {
 const { FormatError, AuthError } = require("errors");
 const { validatePassword } = require("validators");
 
+/**
+ * Updates the favorites array for a user.
+ *
+ * @param {string} userId The used id.
+ * @param {string} userId The question id.
+ * @param {string} action The action required: "add" or "remove".
+ *
+ * @returns {Promise}
+ *
+ * @throws {TypeError} If any of the arguments do not match the expected type.
+ * @throws {FormatError} If any of the arguments do not match the expected format.
+ *
+ * @throws {NotFoundError} If the user is not found.
+ * @throws {SystemError} If an error happens in db.
+ */
+
 function updateFavorites(userId, questionId, action) {
   debugger;
   if (!ObjectId.isValid(userId)) throw new FormatError("User is not valid");

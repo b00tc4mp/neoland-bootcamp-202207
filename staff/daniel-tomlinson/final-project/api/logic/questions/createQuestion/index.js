@@ -4,10 +4,18 @@ const { validateString } = require("validators");
 const { verifyObjectId } = require("../../../utils");
 
 /**
- * Creates a note for a user.
+ * Updates an exisiting question for a user.
  *
  * @param {string} userId The user id.
- * @param {string} text The note text.
+ * @param {string} question The question text.
+ * @param {number} timeLimit The time limit in ms.
+ * @param {string} visibility The visibility of the question: "public" or "private".
+ * @param {string} questionType The question type: "MCQ" ur "written".
+ * @param {string} suggestedAnswer The suggested answer.
+ * @param {array} answerA The written answer and "correct" or "incorrect".
+ * @param {array} answerB The written answer and "correct" or "incorrect".
+ * @param {array} answerC The written answer and "correct" or "incorrect".
+ * @param {array} answerD The written answer and "correct" or "incorrect".
  *
  * @returns {Promise}
  *

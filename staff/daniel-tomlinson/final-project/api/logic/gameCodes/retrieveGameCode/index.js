@@ -1,9 +1,24 @@
-const { User, GameCode } = require("../../../models");
-const { DuplicityError, NotFoundError, SystemError } = require("errors");
+const { GameCode } = require("../../../models");
+const { NotFoundError, SystemError } = require("errors");
 const { validateString } = require("validators");
 
+/**
+ * Retrieves a gameCodes that match the pin.
+ *
+ * @param {string} userId The user id.
+ * @param {string} pin The game pin.
+ *
+ * @returns {Promise}
+ *
+ * @throws {TypeError} If any of the arguments do not match the expected type.
+ * @throws {FormatError} If any of the arguments do not match the expected format.
+ *
+ * @throws {NotFoundError} If the user is not found.
+ * @throws {SystemError} If an error happens in db.
+ */
+
 function retrieveGameCode(pin) {
-  // validateString
+  validateString(pin, "pin");
 
   /* return User.findById(userId)
     .lean()

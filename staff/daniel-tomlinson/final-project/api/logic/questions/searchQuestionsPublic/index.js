@@ -3,6 +3,21 @@ const { NotFoundError, SystemError } = require("errors");
 const { verifyObjectIdString } = require("../../../utils");
 const { validateString } = require("validators");
 
+/**
+ * Retrieves all questions that match the query and have visibility "public".
+ *
+ * @param {string} userId The user id.
+ * @param {string} query The query.
+ *
+ * @returns {Promise}
+ *
+ * @throws {TypeError} If any of the arguments does not match the expected type.
+ * @throws {FormatError} If any of the arguments does not match the expected format.
+ *
+ * @throws {NotFoundError} If the user is not found.
+ * @throws {SystemError} If an error happens in db.
+ */
+
 function searchQuestionsPublic(query) {
   validateString(query);
 

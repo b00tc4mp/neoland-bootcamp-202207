@@ -5,6 +5,21 @@ const {
 const { FormatError, AuthError } = require("errors");
 const { validatePassword } = require("validators");
 
+/**
+ * Updates the name, email or password of a user.
+ *
+ * @param {string} userId The used id.
+ * @param {string} req The request sent.
+ *
+ * @returns {Promise}
+ *
+ * @throws {TypeError} If any of the arguments do not match the expected type.
+ * @throws {FormatError} If any of the arguments do not match the expected format.
+ *
+ * @throws {NotFoundError} If the user is not found.
+ * @throws {SystemError} If an error happens in db.
+ */
+
 function updatePassword(userId, req) {
   if (!ObjectId.isValid(userId)) throw new FormatError("User is not valid");
 

@@ -1,13 +1,12 @@
 const { User, Question } = require("../../../models");
 const { NotFoundError, SystemError } = require("errors");
-const { validateString } = require("validators");
 const { verifyObjectId } = require("../../../utils");
 
 /**
- * Creates a question for a user.
+ * Deletes a question for a user.
  *
  * @param {string} userId The user id.
- * @param {string} text The question text.
+ * @param {string} questionId The question id.
  *
  * @returns {Promise}
  *

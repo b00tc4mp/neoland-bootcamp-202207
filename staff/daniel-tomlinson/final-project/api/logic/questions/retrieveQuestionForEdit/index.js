@@ -4,6 +4,21 @@ const { validateString } = require("validators");
 const { AuthError } = require("errors");
 const { verifyObjectIdString } = require("../../../utils");
 
+/**
+ * Retrieves a single question for a user.
+ *
+ * @param {string} userId The user id.
+ * @param {string} questionId The question id.
+ *
+ * @returns {Promise}
+ *
+ * @throws {TypeError} If any of the arguments does not match the expected type.
+ * @throws {FormatError} If any of the arguments does not match the expected format.
+ *
+ * @throws {NotFoundError} If the user is not found.
+ * @throws {SystemError} If an error happens in db.
+ */
+
 function retrieveQuestionForEdit(userId, questionId) {
   verifyObjectIdString(userId);
   verifyObjectIdString(questionId);

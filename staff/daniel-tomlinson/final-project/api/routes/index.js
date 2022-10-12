@@ -2,14 +2,15 @@ const express = require("express");
 const { Router, json } = express;
 const jsonBodyParser = json();
 const {
-  registerUserHandler,
   authenticateUserHandler,
+  registerUserHandler,
   retrieveUserHandler,
-  updatePasswordHandler,
   updateFavoritesHandler,
+  updatePasswordHandler,
 } = require("./user");
 const {
   createQuestionHandler,
+  deleteQuestionHandler,
   retrieveQuestionsHandler,
   retrieveQuestionsPublicHandler,
   retrieveQuestionForEditHandler,
@@ -17,13 +18,11 @@ const {
   searchQuestionsPublicHandler,
   updateQuestionTextHandler,
   updateQuestionEditHandler,
-  deleteQuestionHandler,
 } = require("./questions");
 const {
   createGameCodeHandler,
   retrieveGameCodeHandler,
 } = require("./gameCode");
-// const { createQuestionHandler } = require("./questions");
 
 const usersRouter = Router();
 
@@ -33,14 +32,9 @@ usersRouter.post("/users/auth", jsonBodyParser, authenticateUserHandler);
 
 usersRouter.get("/users", retrieveUserHandler);
 
-// usersRouter.patch("/users/password", jsonBodyParser, updatePasswordHandler);
 usersRouter.patch("/users/details", jsonBodyParser, updatePasswordHandler);
 
 usersRouter.patch("/users/favorites", jsonBodyParser, updateFavoritesHandler);
-
-// TODO usersRouter.patch('/users/email', jsonBodyParser, updateUserEmailHandler)
-// TODO usersRouter.patch('/users/password', jsonBodyParser, updateUserPasswordHandler)
-// TODO usersRouter.patch('/users/info', jsonBodyParser, updateUserInfoHandler)
 
 const questionsRouter = Router();
 
@@ -75,8 +69,6 @@ const gameCodesRouter = Router();
 gameCodesRouter.post("/gameCodes", jsonBodyParser, createGameCodeHandler);
 
 gameCodesRouter.get("/gameCodes", jsonBodyParser, retrieveGameCodeHandler);
-
-// const questionsRouter = Router();
 
 module.exports = {
   usersRouter,
