@@ -8,7 +8,7 @@ import MovementInputs from "../components/MovementInputs";
 import MovementOutputs from "../components/MovementOutputs";
 import RemoveProducts from "../components/RemoveProducts"
 import Reports from "../components/Reports"
-import Settings from "../components/Settings"
+import Settings from "../components/settings"
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import back from "../assets/back.jpg"
 
