@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App</title>
+
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <main class="login-page page">
+        <form class="form" action="https://www.google.com/search" method="get">
+            <div class="form__field">
+                <label for="email">email</label>
+                <input class="input" type="email" name="email" placeholder="email" id="email">
+            </div>
+    
+            <div class="form__field">
+                <label for="password">password</label>
+                <input class="input" type="password" name="password" placeholder="password" id="password">
+            </div>
+
+            <button class="button" type="submit">Login</button>
+        </form>
+
+        <a class="anchor" href="register.html">Register</a>
+    </main>
+
+    <main class="register-page page off">
+        <form class="form">
+            <div class="form__field">
+                <label for="name">name</label>
+                <input class="input" type="text" name="name" placeholder="name" id="name">
+            </div>
+
+            <div class="form__field">
+                <label for="email">email</label>
+                <input class="input" type="email" name="email" placeholder="email" id="email">
+            </div>
+    
+            <div class="form__field">
+                <label for="password">password</label>
+                <input class="input" type="password" name="password" placeholder="password" id="password">
+            </div>
+
+            <button class="button" type="submit">Register</button>
+        </form>
+
+        <a class="anchor" href="login.html">Login</a>
+    </main>
+
+    <main class="home-page page off">
+        <h1 class="title">Hello, Mundo!</h1>
+    </main>
+
+    <!-- commons / utils -->
+    <script src="constants.js"></script>
+    
+    <!-- data layer -->
+    <script src="data/users.js"></script>
+
+    <!--business layer -->
+    <script src="logic/authenticateUser.js"></script>
+    <script src="logic/retrieveUser.js"></script>
+    <script src="logic/registerUser.js"></script>
+
+    <!-- presentation layer -->
+    <script src="index.js"></script>
+</body>
+</html>

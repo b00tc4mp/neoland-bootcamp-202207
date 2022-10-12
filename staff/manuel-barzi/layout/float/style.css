@@ -1,0 +1,48 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.header, .footer {
+    height: 20%;
+}
+
+.header, .footer, .main {
+    background-color: orange;
+}
+
+.main {
+    height: 60%;
+}
+
+.aside, .body {
+    height: 100%;
+}
+
+.aside {
+    width: 20%;
+    background-color: skyblue;
+}
+
+.body {
+    width: 60%;
+    background-color: gold;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+div {
+    /* border: 1px solid white; */
+}

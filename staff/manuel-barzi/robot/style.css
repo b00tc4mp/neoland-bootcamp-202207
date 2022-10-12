@@ -1,0 +1,51 @@
+.head {
+    background-color: red;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+}
+
+.eye-1 {
+    background-color: white;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.eye-2 {
+    background-color: white;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 20px;
+    left: 60px;
+}
+
+.pupil {
+    background-color: black;
+    width: 5px;
+    height: 5px;
+    position: absolute;
+    top: 7.5px;
+    left: 7.5px;
+}
+
+.nose {
+    background-color: black;
+    width: 10px;
+    height: 20px;
+    position: absolute;
+    top: 50px;
+    left: 45px;
+}
+
+.mouth {
+    background-color: white;
+    width: 50px;
+    height: 10px;
+    position: absolute;
+    top: 80px;
+    left: 25px;
+}
