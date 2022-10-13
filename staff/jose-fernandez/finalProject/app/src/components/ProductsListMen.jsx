@@ -20,15 +20,17 @@ function ProductsListMen({ products, onProductClick, onCloseClick }) {
             <div className="item--products one">
                 <h1>MEN</h1>
             </div>
-            {/* <ProductsListMen product={products}/> */}
-            {products && products.filter(_product => _product.categ === "men"
-            ).map(product => <div className="item--products" key={product.id} onClick={() => handleProductClick(product)}>
-                <div className="featurette-icon">
-                    <img className='featurette-icon--img products' src={product.img} alt="" />
-                </div>
-                <p>${product.price}</p>
-                <h3>{product.name}</h3>
-            </div>)}
+            <div className="container-productsList">
+                {products && products.filter(_product => _product.categ === "men"
+                ).map(product => <div className="item--products" key={product.id} onClick={() => handleProductClick(product)}>
+                    <div className="featurette-icon">
+                        <img className='featurette-icon--img products' src={product.img} alt="" />
+                    </div>
+                    <p>${product.price}</p>
+                    <h3>{product.name}</h3>
+                </div>)}
+            </div>
+
         </div>
 
     </section>

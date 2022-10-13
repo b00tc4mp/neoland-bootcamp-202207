@@ -18,6 +18,9 @@ function addItemToCart(token, productId, price, qty,callback){
 
     xhr.onload = function(){
         const status = xhr.status
+        const json = xhr.responseText
+
+        const { error, token } = JSON.parse(json)
         
         switch(true) {
             case (status >= 500):

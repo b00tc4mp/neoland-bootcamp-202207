@@ -17,6 +17,7 @@ function Header({products,onUserClick,onListProducts,onCartClick, onListProducts
         // onCloseClick()
     }
     const handleCart=()=>{
+        
         onCartClick()
     }
 

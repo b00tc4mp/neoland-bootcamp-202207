@@ -1,10 +1,10 @@
-import { validateEmail, validatePassword, validateCallback } from 'validators'
+import { validateCart, validateCallback } from 'validators'
 const API_URL = process.env.REACT_APP_API_URL
 
-function registerUser(name, email, password, callback) {
+function registerUser(cart, callback) {
     // TODO validate inputs
-    validateEmail(email)
-    validatePassword(password)
+    validateCart(cart)
+
     validateCallback(callback)
 
     //XMLHttpRequest nos permite hacer peticiones a un servidor web y obtener las respuestas que este envia
@@ -15,7 +15,10 @@ function registerUser(name, email, password, callback) {
     //el metodo onload se lanza cuando una transacción XMLHttpRequest se completa con éxito
     xhr.onload = function () {
         const status = xhr.status
+        const json = xhr.responseText
 
+        const { error, token } = JSON.parse(json)
+        
         if (status >= 500)
             callback(new Error(`server error(${status})`))
         else if (status >= 400)
@@ -37,7 +40,7 @@ function registerUser(name, email, password, callback) {
     xhr.setRequestHeader('Content-type', 'application/json')
 
     //el metodo send es para el envio de la solicitud al servidor
-    xhr.send(`{"name": "${name}","email": "${email}","password": "${password}"}`)
+    xhr.send(`{"cart": "${cart}"}`)
 }
 
 // registerUser("jose fer", "jose@fer.com", "123123123", console.log)

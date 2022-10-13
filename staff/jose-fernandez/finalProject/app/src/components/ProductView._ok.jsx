@@ -2,8 +2,6 @@
 import { useParams } from "react-router-dom"
 import { useState, useEffect, useRef } from "react"
 import retrieveProductExtend from "../logic/retrieveProductExtend";
-import registerUserAnonymous from "../logic/registerUserAnonymous";
-
 import withContext from '../utils/withContext'
 import './ProductView.css'
 import './Carousel.css'
@@ -12,7 +10,7 @@ import IconButton from './Buttons/IconButton'
 import ModalCart from "./ModalCart";
 
 //TODO mejorar
-function ProductView({ onAddItemToCart, onCart, context: { handleFeedback } }) {
+function ProductView({ onAddItemToCart,onCart, context: { handleFeedback } }) {
     const params = useParams()
     const [imgCurrent, setImgCurrent] = useState(0)
     const [productToDisplay, setProduct] = useState()
@@ -63,37 +61,17 @@ function ProductView({ onAddItemToCart, onCart, context: { handleFeedback } }) {
 
         // })
     }
-    // TODO arreglar onAddItemToCart recibe 3 parametros y solo tengo 1
+
     const handleFormSubmitCart = (event, productToDisplayId) => {
         event.preventDefault()
-        try {
-            if (sessionStorage.token) {
-                onAddItemToCart(productToDisplayId)
-                
-                setModalState(productToDisplayId)
-                
-            }
-            // else{
-            //     registerUserAnonymous(cart,function(error,token){
-            //         if (error) {
-            //             handleFeedback({ message: error.message, level: 'error' })
-
-            //             return
-            //         }
-            //         handleFeedback({ message: error.message, level: 'error' })
-
-            //         localStorage.token=token
-            //     })
-            // }
-        } catch (error) {
-            handleFeedback({ message: error.message, level: 'error' })
-        }
-
-
+        onAddItemToCart(productToDisplayId)
+        setModalState()
+        
     }
-    debugger
     // =========================
     const handleCloseModal = () => setModalState(null)
+
+
 
     // =========================
     const handleReturnClick = () => {
@@ -190,7 +168,7 @@ function ProductView({ onAddItemToCart, onCart, context: { handleFeedback } }) {
 
         </div>
         {/* TODO feedback modal añadido al carrito correctamente */}
-        {modalState && <ModalCart onCart={onCart} onReturnBuy={handleCloseModal} onClose={handleCloseModal} />}
+        {modalState && <ModalCart product={modalState}onCart={onCart} onReturnBuy={handleCloseModal} onClose={handleCloseModal} />}
     </div>}
 
     </>

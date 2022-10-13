@@ -42,6 +42,7 @@
     font-weight: 400;
 }
 .container-pay p{
+    padding: 0px 20px;
     margin: 0;
 }
 .logo {
@@ -63,6 +64,9 @@
 /* ===============Size=================== */
 .container-size{
     padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .name-size{
@@ -70,6 +74,7 @@
     justify-content: space-between;
     align-items: baseline;
     position: relative;
+    padding: 0px 20px;
 }
 .name-size h3{
     font-size: 16px;
@@ -79,9 +84,11 @@
 .container-size--grid{
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-    border-left: 1px solid #eceff1;
+    /* border-left: 1px solid #eceff1; */
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    /* padding: 0px 10px ; */
 }
 .grid-item{
     height: 40px;
@@ -111,7 +118,7 @@
     margin: 0px 20% 15px 20%;
 }
 
-.btn-cart a {
+.btn-cart button {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -119,7 +126,7 @@
     /* background-color: aqua; */
     background-color: rgb(158, 158, 120);
     padding: 0 10px;
-    margin-bottom: 5px;
+    margin: 10px 0px 10px 0px;
     font-size: 14px;
     width: 185px;
     height: 45px;

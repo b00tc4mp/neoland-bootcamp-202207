@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import retrieveUser from '../logic/retrieveUser'
 import retrieveProducts from '../logic/retrieveProducts'
 import searchProducts from '../logic/searchProducts'
-import addItemToCart from '../logic/addItemToCart'
 
 import withContext from '../utils/withContext'
 import Profile from '../components/Profile'
@@ -18,14 +17,13 @@ import ProductsListKids from '../components/ProductsListKids'
 import ProductView from '../components/ProductView'
 import ProductsFavourites from '../components/ProductsFavourites'
 import Cart from '../components/Cart'
-
+import Context from '../utils/Context'
 // import Menu from '../components/Menu'
 
 function HomePage({ onLogoutClick, onLoginClick, context: { handleFeedback } }) {
 
     const [name, setName] = useState(null)
     const [email, setEmail] = useState(null)
-    const [cartItems,setCartItems]= useState([])
     const [products, setProducts] = useState(null)
     const [productsSearch, setProductsSearch] = useState(null)
     const [query, setQuery] = useState(null)
@@ -157,23 +155,7 @@ function HomePage({ onLogoutClick, onLoginClick, context: { handleFeedback } }) 
 
     const handleProductClick = productId => navigate(`products/${productId}`)
 
-    const onAddItemToCart = (productId, price,qty) => {
-        try {
-            addItemToCart((sessionStorage.token || localStorage), productId,price,qty, error => {
-                if (error) {
-                    handleFeedback({ message: error.message, level: 'error' })
-                    return
-                }
-                //agregado abajo en handleSettingsClick
-                // loadNotes()
-            })
-        } catch (error) {
-            handleFeedback({ message: error.message, level: 'error' })
 
-        }
-    }
-
-    
 
     // return email?
     // listProducts
@@ -196,8 +178,11 @@ function HomePage({ onLogoutClick, onLoginClick, context: { handleFeedback } }) 
                 <Route path='listProductsWomen' element={<ProductsListWomen products={products} onProductClick={handleProductClick} onCloseClick={handleReturnMain} />} />
                 <Route path='listProductsKids' element={<ProductsListKids products={products} onProductClick={handleProductClick} onCloseClick={handleReturnMain} />} />
 
-                <Route path='products/:productId' element={<ProductView onCart={handleCart} onAddItemToCart={onAddItemToCart}  />} />
-                <Route path='cart' element={<Cart />} />
+                {/* TODO test context.provider for pass productId from ProductView to Cart  */}
+                <Context.Provider value={"productID"}>
+                    <Route path='products/:productId' element={<ProductView onCart={handleCart} />} />
+                    <Route path='cart' element={<Cart />} />
+                </Context.Provider>
 
                 <Route path="profile" element={<Profile onCloseClick={handleReturnMain} onLogoutClick={handleLogoutClick} />} />
 

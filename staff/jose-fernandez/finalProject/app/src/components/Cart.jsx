@@ -9,11 +9,11 @@ import './Cart.css'
 import IconButton from './Buttons/IconButton'
 
 //TODO mejorar
-function Cart({ context: { handleFeedback } }) {
-    const params = useParams()
-    const [productToDisplay, setProduct] = useState()
-    const [modalCart, setModalCart] = useState()
-    const productId = params.productId
+function Cart({productId ,context: { handleFeedback } }) {
+    
+    
+    console.log(productId)
+    debugger
 
     // useEffect(() => {
     //     try {

@@ -27,6 +27,7 @@
     padding-left: 15px;
 }
 .menu-button{
+    cursor: pointer;
     padding-left: 10px;
 }
 .header-buttons--right{
@@ -37,8 +38,10 @@
 }
 .btn-header{
     padding: 10px;
+    cursor: pointer;
 }
 .btn-header.shopping_bag{
+    cursor: pointer;
     /* padding-right: 10px; */
 }
 .img-logo{
