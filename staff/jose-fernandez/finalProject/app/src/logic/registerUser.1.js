@@ -1,10 +1,8 @@
 import { validateEmail, validatePassword, validateCallback } from 'validators'
-import validateText from 'validators/src/validateText'
 const API_URL = process.env.REACT_APP_API_URL
 
-function registerUser(name, email, password,role, callback) {
+function registerUser(name, email, password, callback) {
     // TODO validate inputs
-    validateText(role)
     validateEmail(email)
     validatePassword(password)
     validateCallback(callback)
@@ -39,7 +37,7 @@ function registerUser(name, email, password,role, callback) {
     xhr.setRequestHeader('Content-type', 'application/json')
 
     //el metodo send es para el envio de la solicitud al servidor
-    xhr.send(`{"name": "${name}","email": "${email}","password": "${password}","role": "${role}"}`)
+    xhr.send(`{"name": "${name}","email": "${email}","password": "${password}"}`)
 }
 
 // registerUser("jose fer", "jose@fer.com", "123123123", console.log)

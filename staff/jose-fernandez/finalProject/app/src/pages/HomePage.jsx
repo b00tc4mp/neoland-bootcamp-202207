@@ -157,21 +157,21 @@ function HomePage({ onLogoutClick, onLoginClick, context: { handleFeedback } }) 
 
     const handleProductClick = productId => navigate(`products/${productId}`)
 
-    const onAddItemToCart = (productId, price,qty) => {
-        try {
-            addItemToCart((sessionStorage.token || localStorage), productId,price,qty, error => {
-                if (error) {
-                    handleFeedback({ message: error.message, level: 'error' })
-                    return
-                }
-                //agregado abajo en handleSettingsClick
-                // loadNotes()
-            })
-        } catch (error) {
-            handleFeedback({ message: error.message, level: 'error' })
+    // const onAddItemToCart = (productId, price,qty) => {
+    //     try {
+    //         addItemToCart((sessionStorage.token || localStorage), productId,price,qty, error => {
+    //             if (error) {
+    //                 handleFeedback({ message: error.message, level: 'error' })
+    //                 return
+    //             }
+    //             //agregado abajo en handleSettingsClick
+    //             // loadNotes()
+    //         })
+    //     } catch (error) {
+    //         handleFeedback({ message: error.message, level: 'error' })
 
-        }
-    }
+    //     }
+    // }
 
     
 
@@ -196,7 +196,7 @@ function HomePage({ onLogoutClick, onLoginClick, context: { handleFeedback } }) 
                 <Route path='listProductsWomen' element={<ProductsListWomen products={products} onProductClick={handleProductClick} onCloseClick={handleReturnMain} />} />
                 <Route path='listProductsKids' element={<ProductsListKids products={products} onProductClick={handleProductClick} onCloseClick={handleReturnMain} />} />
 
-                <Route path='products/:productId' element={<ProductView onCart={handleCart} onAddItemToCart={onAddItemToCart}  />} />
+                <Route path='products/:productId' element={<ProductView onCart={handleCart}   />} />
                 <Route path='cart' element={<Cart />} />
 
                 <Route path="profile" element={<Profile onCloseClick={handleReturnMain} onLogoutClick={handleLogoutClick} />} />

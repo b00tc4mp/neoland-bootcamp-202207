@@ -15,8 +15,8 @@ function RegisterPage({ onCloseClick, onLinkClick, onSingUp, context: { handleFe
     const handleFormSubmit = event => {
         event.preventDefault()
 
+        const role='client'
         const { target: form } = event
-
         const {
             name: { value: name },
             email: { value: email },
@@ -24,14 +24,13 @@ function RegisterPage({ onCloseClick, onLinkClick, onSingUp, context: { handleFe
         } = form
 
         try {
-            registerUser(name, email, password, function (error) {
+            registerUser(name, email, password,role, function (error) {
                 if (error) {
                     handleFeedback({ message: error.message, level: 'error' })
 
-
                     return
                 }
-                handleFeedback({ message: error.message, level: 'error' })
+                handleFeedback({ message: "Usuario Creado Exitosamente", level: 'info' })
 
 
                 event.target.reset()

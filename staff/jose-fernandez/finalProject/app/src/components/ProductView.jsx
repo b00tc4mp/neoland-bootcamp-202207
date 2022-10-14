@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom"
 import { useState, useEffect, useRef } from "react"
 import retrieveProductExtend from "../logic/retrieveProductExtend";
 import registerUserAnonymous from "../logic/registerUserAnonymous";
+import addItemToCart from '../logic/addItemToCart'
 
 import withContext from '../utils/withContext'
 import './ProductView.css'
@@ -24,13 +25,8 @@ function ProductView({ onAddItemToCart, onCart, context: { handleFeedback } }) {
 
     useEffect(() => {
         try {
-            // console.log(productId, "productID")
             retrieveProductExtend(productId, (error, product) => {
-                // console.log(product, 'Product desde el callback')
                 if (error) handleFeedback({ message: error.message, level: 'error' })
-                // if (product !== undefined || product !== null) {
-                //     setProduct(product)
-                // }
 
                 setProduct(product)
                 setImagesToDisplay(product.gallery.length)
@@ -43,10 +39,7 @@ function ProductView({ onAddItemToCart, onCart, context: { handleFeedback } }) {
         }
     }, [])
 
-    // debugger
-    // console.log(imagesToDisplay)
-    // console.log(qtyImg)
-    // console.log(productToDisplay, "afuera")
+
     // ======================= SLIDER =======================
     const nextImg = () => {
         setImgCurrent(imgCurrent === qtyImg - 1 ? 0 : imgCurrent + 1)
@@ -64,17 +57,15 @@ function ProductView({ onAddItemToCart, onCart, context: { handleFeedback } }) {
         // })
     }
     // TODO arreglar onAddItemToCart recibe 3 parametros y solo tengo 1
-    const handleFormSubmitCart = (event, productToDisplayId) => {
+
+
+
+    const handleFormSubmitCart = (event, productToDisplayId,productToDisplayPrice) => {
         event.preventDefault()
         try {
-            if (sessionStorage.token) {
-                onAddItemToCart(productToDisplayId)
-                
-                setModalState(productToDisplayId)
-                
-            }
-            // else{
-            //     registerUserAnonymous(cart,function(error,token){
+            // if (!sessionStorage.token) {
+            //     //TODO  create register anonymous
+            //registerUserAnonymous(cart,function(error,token){
             //         if (error) {
             //             handleFeedback({ message: error.message, level: 'error' })
 
@@ -85,13 +76,26 @@ function ProductView({ onAddItemToCart, onCart, context: { handleFeedback } }) {
             //         localStorage.token=token
             //     })
             // }
+            const productToDisplayQty= 1
+            // console.log(productToDisplayPrice)
+            // console.log(productToDisplayQty)
+            addItemToCart((sessionStorage.token || localStorage), productToDisplayId, productToDisplayPrice, productToDisplayQty, error => {
+                if (error) {
+                    handleFeedback({ message: error.message, level: 'error' })
+                    console.log("error adentro")
+                    return
+                }
+                setModalState(productToDisplayId)
+                //agregado abajo en handleSettingsClick
+                // loadNotes()
+            })
         } catch (error) {
             handleFeedback({ message: error.message, level: 'error' })
+            console.log("error afuera")
         }
 
-
     }
-    debugger
+
     // =========================
     const handleCloseModal = () => setModalState(null)
 
@@ -171,7 +175,7 @@ function ProductView({ onAddItemToCart, onCart, context: { handleFeedback } }) {
 
 
             <form onSubmit={(event) => {
-                handleFormSubmitCart(event, productToDisplay.id)
+                handleFormSubmitCart(event, productToDisplay.id,productToDisplay.price,productToDisplay.qty)
             }}>
 
                 {/* <div className="container-qty">
@@ -194,7 +198,7 @@ function ProductView({ onAddItemToCart, onCart, context: { handleFeedback } }) {
     </div>}
 
     </>
-    debugger
+
 }
 
 export default withContext(ProductView)
