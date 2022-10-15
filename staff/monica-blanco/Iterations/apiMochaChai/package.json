@@ -1,0 +1,29 @@
+{
+  "name": "apimongo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src",
+    "test": "npx mocha src/logic/*.spec.js",
+    "test-inspect": "npx mocha --inspect src/logic/*.spec.js",
+    "test-inspect-brk": "npx mocha --inspect-brk src/logic/*.spec.js",
+    "test-inspect-cli": "npx mocha inspect src/logic/*.spec.js",
+    "test-coverage": "npx nyc --reporter=text --reporter=html mocha src/logic/*.spec.js",
+    "populate": "node src/populate.js",
+    "populate-inspect": "node --inspect-brk src/populate.js",
+    "populate-inspect-cli": "node inspect src/populate.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1",
+    "mongoose": "^6.5.3"
+  },
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "mocha": "^10.0.0",
+    "nyc": "^15.1.0"
+  }
+}
