@@ -1,0 +1,42 @@
+*, html, body {
+    margin: 0;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+div {
+border: 1px solid black;
+}
+
+.header, .footer{
+    height: 20%;
+    width: 100%;
+    background-color: coral;
+}
+.main{
+    width: 100%;
+    height: 60%;
+}
+.body {
+    width: 60%;
+    height: 100%;
+    background-color: red;
+    float: left;
+    text-align: center;
+    line-height: 400px;
+}
+
+.aside {
+    width: 20%;
+    height: 100%;
+    float:left;
+    text-align: center;
+}
+.aside--left {
+    background-color: yellow;
+}
+
+.aside--right {
+    background-color: bisque;
+}
+

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+</head>
+
+<body>
+    <main class="login-page container container--spaced">
+
+        <form class="form">
+            <img class="img"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3Ne6f06tRXhNZQl2jp5YjNepB8j5_hojl4LcOcyO-1s7TLzUHGuSIwblFSZ_ihI0BAlU&usqp=CAU">
+            <div class:"form__field">
+                <div class="email">
+                    <label for="email">Email</label>
+                    <input class='input' type="email" placeholder="Email" id="email">
+                </div>
+                <div class="form__field">
+                    <label for="password">Password</label>
+                    <input class='input' type="password" placeholder="Password" id="password">
+                </div>
+            </div>
+            <button class="button" type="submit">Login</button>
+        </form>
+        <a class="anchor" href="#"> Register </a>
+    </main>
+
+    <main class="register-page container container--spaced off">
+        <form class="form">
+            <img class="imgRegister"
+                src="https://wpbody.com/wp-content/uploads/2021/09/Registrar-o-An%CC%83adir-Nuevo-Usuario-en-WordPress-1.jpg">
+            <div class="form__field">
+                <label for="name">Name</label>
+                <input class='input' type="text" name="name" placeholder="name" id="name">
+            </div>
+            <div class="form__field">
+                <label for="email">Email</label>
+                <input class="input" type="email" name="email" placeholder="email" id="email">
+            </div>
+            <div class="form__field">
+                <label for="password">Password</label>
+                <input class='input' type="password" name="password" placeholder="password" id="password">
+            </div>
+            <button class="button" type="submit">Register</button>
+        </form>
+        <a class="anchor" href="#"> Login </a>
+    </main>
+
+    <div class="home-page page off">
+        <div class="header">
+            <img class="imgHome" src="https://www.educativa.com/wp-content/uploads/2020/09/idea.png">
+            <h1 class="title"> Hello, Pepito!! </h1>
+
+            <div class="oppenWindow">
+                <button class="burguer-button transparent-button"> ≈≈≈≈ </button>
+                <button class="logout-button transparent-button off"><span class="material-symbols-outlined">logout</span></button>
+                <button class="profile-button transparent-button off"> Profile </button>
+                <button class="return-button transparent-button off"> Return </button>
+            </div>
+
+
+            <!-- <div class="burguer">
+                <div class="burguer1"> </div>
+                <div class="burguer2"> </div>
+                <div class="burguer3"> </div>
+            </div> -->
+        </div>
+        <main class="main">
+            <ul class="list">
+                <li class="list__item"><button class="list__item-delete-button">x</button>
+                    <p contenteditable="true" class="list__item-text">Lorem electus distinctio?</p>
+                </li>
+                <li class="list__item"><button class="list__item-delete-button">x</button>
+                    <p contenteditable="true" class="list__item-text">Hello, Note!</p>
+                </li>
+                <li class="list__item"><button class="list__item-delete-button">x</button>
+                    <p contenteditable="true" class="list__item-text">Lorem imilique ipsam deserunt eius soluta adipisci
+                        blanditiis nobis fugiat aut nesciunt rerum porro delectus distinctio?</p>
+                </li>
+                <li class="list__item"><button class="list__item-delete-button">x</button>
+                    <p contenteditable="true" class="list__item-text">Lorem delectus distinctio?</p>
+                </li>
+                <li class="list__item"><button class="list__item-delete-button">x</button>
+                    <p contenteditable="true" class="list__item-text">Lorem  delectus distinctio?</p>
+                </li>
+                <li class="list__item"><button class="list__item-delete-button">x</button>
+                    <p contenteditable="true" class="list__item-text">Lorem rerum porro delectus distinctio?</p>
+                </li>
+                <li class="list__item"><button class="list__item-delete-button">x</button>
+                    <p contenteditable="true" class="list__item-text">Lorem ipsuectustio?</p>
+                </li>
+            </ul>
+        </main>
+        <footer class="footer">
+            <button class="add-button transparent-button"> + </button>
+        </footer>
+    </div>
+</body>
+
+<!-- commons / utils -->
+<script src="./logic/constants.js"></script>
+
+
+<!-- data layer -->
+<script src="./data/notes.js"></script>
+<script src="./data/users.js"></script>
+
+<!--business layer -->
+<script src="./logic/authenticateUser.js"></script>
+<script src="./logic/retrieveNotes.js"></script>
+<script src="./logic/registerUser.js"></script>
+<script src="./logic/retrieveUser.js"></script>
+<script src="./logic/createNote.js"></script>
+<script src="./logic/updateNote.js"></script>
+<script src="./logic/deleteNote.js"></script>
+
+
+<!-- presentation layer  -->
+<script src="index.js"></script>
+
+</html>

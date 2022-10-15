@@ -1,0 +1,268 @@
+*{
+    margin: 0px;
+}
+h1{
+    font-size: 40px;
+    color: black;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-align: center;
+    background: radial-gradient(circle, #fff,orange );
+}
+.myImagen{
+    position:absolute;
+    top: 595px;
+    left: 210px;
+}
+.scene{
+    width: 100%;
+    height: 500px;
+    /*display: flex;
+    align-items: flex-start;
+    justify-content: center;*/
+}
+.robot{
+    position:absolute;
+    top: 410px;
+    left: 70px;
+    display:flex;
+}
+
+.hat--base{
+    background-color: burlywood;
+    top: -65px;
+    left: 10px;
+    width: 80px;
+    height: 50px;
+    position:absolute;
+    border-radius: 10px;
+    border: 1px solid brown;
+}
+.hat--up{
+    background-color: burlywood;
+    top: -25px;
+    left: 30px;
+    width: 125px;
+    height: 25px;
+    position:absolute;
+    border-radius: 15px;
+    border: 1px solid brown;
+}
+.hat--desing{
+    background-color: black;
+    position: absolute;
+    top: 385px;
+    left: 85px;
+    width: 80px;
+    height: 5px;
+    border-radius: 5px;
+}
+.head {
+    background-color: lightseagreen;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    border: 1px solid black;
+    border-radius: 20px;
+}
+.ear--left{
+    background-color: purple;
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    top:30px;
+    left: -15px;
+    border-radius: 10px;
+}
+.ear--right{
+    background-color: purple;
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    top:30px;
+    left: 100px;
+    border-radius: 10px;
+}
+
+.eye {
+    background-color: white;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 20px;
+    border: 1px solid brown;
+}
+
+.eye--left {
+    left: 60px;
+}
+.eye--right{
+    right: 60px;
+}
+.pupil {
+    background-color: brown;
+    width: 5px;
+    height: 5px;
+    top:10px;
+    position: absolute;
+}
+.pupil--left {
+    left: 5px;
+}
+
+.pupil--right {
+    right: 5px;
+}
+
+.nose {
+    background-color: rgb(114, 20, 20);
+    width: 10px;
+    height: 15px;
+    position: absolute;
+    top: 50px;
+    left: 45px;
+}
+.mouth{
+    background-color: pink;
+    width: 50px;
+    height: 10px;
+    position: absolute;
+    top: 70px;
+    left: 30px;
+    border-radius: 15px;
+   /* display: grid;
+    grid-row: 1px 1px;
+    grid-column: 1px 1px 1px 1px;
+    border: 1px solid black ;*/
+    
+}
+.slime{
+    background-color: aqua;
+    width: 10px;
+    height: 25px;
+    position: absolute;
+    top: 0px;
+    left: 40px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px; 
+}
+.slime:hover{
+    background-color: transparent;
+}
+
+.neck{
+    position: absolute;
+    background-color: yellow;
+    top:100px;
+    left: 40px;
+    width: 20px;
+    height: 15px;
+}
+.torso{
+    position: absolute;
+    background-color: aquamarine;
+    border-radius: 10px;
+    top: 115px;
+    width: 105px;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-evenly;
+    border: 1px dashed blue;
+}
+.arms {
+    position:absolute;
+    background-color: orange;
+    position: absolute;
+    width: 45px;
+    height: 15px;
+    border-radius: 5px;
+    top: 120px;
+}
+.arms--left{
+    left: -45px;
+}
+.arms--right{
+    left: 105px;
+}
+.arms--left--1{
+    background-color:green;
+    position: absolute;
+    width: 15px;
+    height: 65px;
+    top: -50px;
+    border-radius: 5px;
+}
+.arms--left--1:hover{
+    transform: skew(-30deg);
+}
+.arms--right--1{
+    background-color:green;
+    position: absolute;
+    width: 15px;
+    height: 65px;
+    top: 0px;
+    left: 30px;
+    border-radius: 5px;
+}
+.hand{
+    background-color: pink;
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    border-radius:10px;
+}
+.hand--left{
+    bottom: 50px;
+}
+.hand--right{
+    top:45px;
+}
+.circle{
+    background-color: violet;
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+}
+.circle:hover{
+    background-color: purple;
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+}
+.feet--left{
+    position:absolute;
+    background-color: blue;
+    width: 20px;
+    height: 20px;
+    top:275px;
+    left: 20px;
+
+}
+.feet {
+    position:absolute;
+    background-color: blue;
+    width: 20px;
+    height: 20px;
+    top:275px;
+}
+.feet--left {
+    left: 20px; 
+}
+.feet--right{
+    left: 60px;
+}
+.foot {
+    position: absolute;
+    background-color: yellow;
+    width: 40px;
+    height: 15px;
+    top:15px;
+    border-radius: 10px;
+}
+.foot--right{
+    right: 40px;
+}
+.foot--left {
+    left: 40px;
+}
