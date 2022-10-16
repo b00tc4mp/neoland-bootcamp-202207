@@ -13,7 +13,7 @@ import IconButton from './Buttons/IconButton'
 import ModalCart from "./ModalCart";
 
 //TODO mejorar
-function ProductView({ onAddItemToCart, onCart, context: { handleFeedback } }) {
+function ProductView({ onCart, context: { handleFeedback } }) {
     const params = useParams()
     const [imgCurrent, setImgCurrent] = useState(0)
     const [productToDisplay, setProduct] = useState()
@@ -21,6 +21,7 @@ function ProductView({ onAddItemToCart, onCart, context: { handleFeedback } }) {
     const [imagesToDisplay, setImagesToDisplay] = useState()
     const productId = params.productId
     const qtyImg = imagesToDisplay
+    const productToDisplayQty=1
     let size = useRef(null)
 
     useEffect(() => {
@@ -59,8 +60,8 @@ function ProductView({ onAddItemToCart, onCart, context: { handleFeedback } }) {
     // TODO arreglar onAddItemToCart recibe 3 parametros y solo tengo 1
 
 
-
-    const handleFormSubmitCart = (event, productToDisplayId,productToDisplayPrice) => {
+debugger
+    const handleFormSubmitCart = (event, productToDisplayId, productToDisplayPrice,productToDisplayQty) => {
         event.preventDefault()
         try {
             // if (!sessionStorage.token) {
@@ -76,25 +77,31 @@ function ProductView({ onAddItemToCart, onCart, context: { handleFeedback } }) {
             //         localStorage.token=token
             //     })
             // }
-            const productToDisplayQty= 1
+
             // console.log(productToDisplayPrice)
-            // console.log(productToDisplayQty)
-            addItemToCart((sessionStorage.token || localStorage), productToDisplayId, productToDisplayPrice, productToDisplayQty, error => {
-                if (error) {
-                    handleFeedback({ message: error.message, level: 'error' })
-                    console.log("error adentro")
-                    return
-                }
-                setModalState(productToDisplayId)
-                //agregado abajo en handleSettingsClick
-                // loadNotes()
-            })
+            
+            // addItemToCart((sessionStorage.token || localStorage), productToDisplayId, productToDisplayPrice, productToDisplayQty, error => {
+            //TODO duda si hacer le addItemToCart en Homepage y pasarlo aqui por propos addItemToCart(productToDisplayId, productToDisplayPrice, productToDisplayQty)
+            // debugger
+            // addItemToCart(sessionStorage.token, productToDisplayId, productToDisplayPrice, productToDisplayQty, error => {
+            //     if (error) {
+            //         handleFeedback({ message: error.message, level: 'error' })
+            //         console.log("error adentro")
+            //         return
+            //     }
+            //     handleFeedback({ message: "agregado", level: 'info' })
+            //     setModalState(productToDisplayId)
+
+            //     //agregado abajo en handleSettingsClick
+            //     // loadNotes()
+            // })
+            setModalState(productToDisplayId)
         } catch (error) {
             handleFeedback({ message: error.message, level: 'error' })
             console.log("error afuera")
         }
-
     }
+
 
     // =========================
     const handleCloseModal = () => setModalState(null)
@@ -103,7 +110,6 @@ function ProductView({ onAddItemToCart, onCart, context: { handleFeedback } }) {
     const handleReturnClick = () => {
         window.history.go(-1)
     }
-
 
 
     return <>{productToDisplay && <div className="container-section--product cat2" >
@@ -175,7 +181,7 @@ function ProductView({ onAddItemToCart, onCart, context: { handleFeedback } }) {
 
 
             <form onSubmit={(event) => {
-                handleFormSubmitCart(event, productToDisplay.id,productToDisplay.price,productToDisplay.qty)
+                handleFormSubmitCart(event, productToDisplay.id, productToDisplay.price)
             }}>
 
                 {/* <div className="container-qty">

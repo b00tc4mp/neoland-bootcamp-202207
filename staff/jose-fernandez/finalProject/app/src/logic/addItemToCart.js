@@ -21,7 +21,7 @@ function addItemToCart(token, productId, price, qty,callback){
         const json = xhr.responseText
 
         const { error, token } = JSON.parse(json)
-        
+        debugger
         switch(true) {
             case (status >= 500):
                 callback(new ServerError(error))
@@ -49,6 +49,7 @@ function addItemToCart(token, productId, price, qty,callback){
     xhr.setRequestHeader('Content-type', 'application/json')
 
     const json = JSON.stringify({ price, qty})
+    // const json = JSON.stringify({productId, price, qty})
 
     xhr.send(json)
 }

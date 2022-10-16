@@ -32,8 +32,8 @@ function retrieveUser(token, callback) {
             //Accedo a a la propiedad token del objeto
             const user={
                 name:data.name,
-                email:data.username
-                
+                email:data.username,
+                cart:data.cart
             }
 
             //llamo a callback con null, en el parametro  de manejo de errores

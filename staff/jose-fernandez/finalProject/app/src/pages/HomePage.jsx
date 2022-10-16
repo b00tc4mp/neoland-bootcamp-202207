@@ -25,8 +25,8 @@ function HomePage({ onLogoutClick, onLoginClick, context: { handleFeedback } }) 
 
     const [name, setName] = useState(null)
     const [email, setEmail] = useState(null)
-    const [cartItems,setCartItems]= useState([])
-    const [products, setProducts] = useState(null)
+    const [cartItems, setCartItems] = useState([])
+    const [products, setProducts] = useState()
     const [productsSearch, setProductsSearch] = useState(null)
     const [query, setQuery] = useState(null)
 
@@ -36,9 +36,9 @@ function HomePage({ onLogoutClick, onLoginClick, context: { handleFeedback } }) 
     const location = useLocation()
 
     useEffect(() => {
-        if (sessionStorage.token) {
+        if (sessionStorage.token || localStorage.token) {
             try {
-                retrieveUser(sessionStorage.token, (error, user) => {
+                retrieveUser((sessionStorage.token || localStorage.token), (error, user) => {
                     if (error) {
                         handleFeedback({ message: error.message, level: 'error' })
 
@@ -47,6 +47,10 @@ function HomePage({ onLogoutClick, onLoginClick, context: { handleFeedback } }) 
                     }
                     setName(user.name)
                     setEmail(user.email)
+                    setCartItems(user.cart.items)
+
+
+                    // debugger
                 })
             } catch (error) {
                 handleFeedback({ message: error.message, level: 'error' })
@@ -73,6 +77,7 @@ function HomePage({ onLogoutClick, onLoginClick, context: { handleFeedback } }) 
                     }
 
                     setProducts(products)
+
                 })
             else
                 searchProducts(query, (error, products) => {
@@ -157,29 +162,26 @@ function HomePage({ onLogoutClick, onLoginClick, context: { handleFeedback } }) 
 
     const handleProductClick = productId => navigate(`products/${productId}`)
 
-    // const onAddItemToCart = (productId, price,qty) => {
-    //     try {
-    //         addItemToCart((sessionStorage.token || localStorage), productId,price,qty, error => {
-    //             if (error) {
-    //                 handleFeedback({ message: error.message, level: 'error' })
-    //                 return
-    //             }
-    //             //agregado abajo en handleSettingsClick
-    //             // loadNotes()
-    //         })
-    //     } catch (error) {
-    //         handleFeedback({ message: error.message, level: 'error' })
-
-    //     }
-    // }
-
-    
-
     // return email?
     // listProducts
     // const locationsHeader = ['/', 'listProducts']
 
     //TODO location pathname no funciona en header
+
+    // console.log(cartItems)
+    // console.log(products)
+    const productIdOfCart = cartItems.map(items => {
+        return items.product
+    })
+    const productIdString = productIdOfCart.toString()
+    // const productIdOfProducts = products.map(product => {
+    //     console.log(product)
+    //     return product
+    // })
+    
+    // console.log(productIdOfProducts)
+    console.log(productIdString)
+
 
     return <div className="container container--full c  ontainer--width homePage">
         {(location.pathname === "/" || location.pathname === "listProducts") && <Header products={products} onUserClick={handleUserClick} onListProducts={handleListProducts} onListProductsMen={handleListProductsMen} onListProductsWomen={handleListProductsWomen} onListProductsKids={handleListProductsKids} onProfileClick={handleProfileClick} onSearchClick={handleSearchClick} onCartClick={handleCart} onFavouritesProducts={handleFavouritesProducts} />}
@@ -196,8 +198,8 @@ function HomePage({ onLogoutClick, onLoginClick, context: { handleFeedback } }) 
                 <Route path='listProductsWomen' element={<ProductsListWomen products={products} onProductClick={handleProductClick} onCloseClick={handleReturnMain} />} />
                 <Route path='listProductsKids' element={<ProductsListKids products={products} onProductClick={handleProductClick} onCloseClick={handleReturnMain} />} />
 
-                <Route path='products/:productId' element={<ProductView onCart={handleCart}   />} />
-                <Route path='cart' element={<Cart />} />
+                <Route path='products/:productId' element={<ProductView onCart={handleCart} />} />
+                <Route path='cart' element={<Cart products={products} cartItems={cartItems} />} />
 
                 <Route path="profile" element={<Profile onCloseClick={handleReturnMain} onLogoutClick={handleLogoutClick} />} />
 
