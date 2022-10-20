@@ -1,0 +1,41 @@
+/* ========== Google Icons =========== */
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+.material-symbols-outlined.btn-menu {
+  /* background-color: transparent !important; */
+  text-align: center;
+  font-size: 2.3rem;
+  padding: 0;
+}
+
+/* resets */
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* general */
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.container--width{
+  width: 100%;
+}
+.container--full {
+  height: 100%;
+}
+
+.homePage{
+    justify-content: space-between;
+    gap: 20px;
+    margin: 0;
+    /* background-color: aqua; */
+    /* background: var(--back-color); */
+}
