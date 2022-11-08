@@ -8,6 +8,7 @@ import Context from './utils/Context'
 import './App.css'
 import { Routes, Route, useNavigate, Navigate, Router } from 'react-router-dom'
 import Search from './components/Search'
+import FavList from './components/FavList'
 
 
 
@@ -41,6 +42,12 @@ function App() {
         logger.debug('navigate to search')
     }
 
+    const handleNavigationToFavorites = () => {
+        navigate('favorites')
+    
+        logger.debug('navigate to favorites')
+    }
+
     const handleLogoutClick = () => {
         delete sessionStorage.token
 
@@ -72,6 +79,7 @@ function App() {
                 <Route path="register" element={sessionStorage.token ? <Navigate to="/" /> : <RegisterPage onLinkClick={handleNavigationToLogin} />} />
                  <Route path="/*" element={sessionStorage.token ? <HomePage onLogoutClick={handleLogoutClick} /> : <Navigate to="login"/>} />
                  <Route path="search" element={sessionStorage.token? <Navigate to ="search" /> :<Search onLinkClick={handleNavigationToSearch}/>} />
+                 <Route path="favorites" element={sessionStorage.token? <Navigate to ="favorites" /> :<FavList onNavigationToFavorites={handleNavigationToFavorites} />} />
                 
             </Routes>
            

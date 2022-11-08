@@ -1,4 +1,6 @@
 module.exports ={
    searchCitiesHandler : require('./searchCitiesHandler'),
-  retrieveCityHandler : require('./retrieveCityHandler')
+   retrieveCityHandler : require('./retrieveCityHandler'),
+   retrieveFavoritePlacesHandler : require('./retrieveFavoritePlacesHandler'),
+   // deleteFavoritePlaceHandler : require('./deleteFavoritePlaceHandler')
 }

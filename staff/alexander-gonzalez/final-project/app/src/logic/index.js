@@ -1,11 +1,15 @@
 import registerUser from './registerUser'
 import authenticateUser from './authenticateUser'
 import searchCities from './searchCities'
-import addFavorites from './addFavorites'
+import toggleFavoritePlace from './toggleFavoritePlace'
+import retrieveFavoritePlaces from './retrieveFavoritePlaces'
+import deletePlace from './deletePlace'
 
     export {
         registerUser,
         authenticateUser,
         searchCities,
-        addFavorites,
+        toggleFavoritePlace,
+        retrieveFavoritePlaces,
+        deletePlace
     }

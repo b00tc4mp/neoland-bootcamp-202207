@@ -4,8 +4,9 @@ import Loggito from '../utils/Loggito'
 import withContext from '../utils/withContext'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-function Menu({onLogoutClick, onSettingsClick, onSearchClick, context: { toggleTheme} }) {
+function Menu({onLogoutClick, onSettingsClick, onFavoritesClick, context: { toggleTheme} }) {
   const logger = new Loggito("Menu");
+
 
   const location = useLocation()
 
@@ -15,7 +16,8 @@ function Menu({onLogoutClick, onSettingsClick, onSearchClick, context: { toggleT
 
   const handleSettingsClick = () => onSettingsClick();
 
-//   const handleSearchClick = () => onSearchClick();
+   const handleFavoritesClick =() => onFavoritesClick();
+ //   const handleSearchClick = () => onSearchClick();
 
   logger.info("return");
 
@@ -33,6 +35,13 @@ function Menu({onLogoutClick, onSettingsClick, onSearchClick, context: { toggleT
           <li className="Menu__item">
              <IconButton text="logout" onClick={handleLogoutClick} />
         </li>
+        {location.pathname !== " FavList" && <li className="Menu__item">
+             <IconButton text="favorites" onClick={handleFavoritesClick} />
+          </li> }
+
+        {/* <li className='FavList'>
+          <IconButton text="favorites" onFavoritesClick={handleFavoritesClick}  />
+        </li> */}
         {/* <li className="Menu__item">
              <IconButton text="arrow_back" onClick={handleBackClick} />
         </li> */}

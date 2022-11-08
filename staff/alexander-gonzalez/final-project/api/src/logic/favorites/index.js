@@ -1,4 +1,4 @@
-
 module.exports =  {
-    toggleFavorites:require('./toggleFavorites')
+    toggleFavorites:require('./toggleFavorites'),
+    // deleteFavoritesPlaces:require('./deleteFavoritesPlaces')
 }

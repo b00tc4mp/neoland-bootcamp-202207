@@ -68,27 +68,29 @@
 
 const { User, City } = require("../../../models");
 const { Types: { ObjectId } } = require("mongoose");
-const { FormatError } = require("errors");
+const { NotFoundError } = require("errors");
 const {verifyObjectIdString} = require("../../../utils")
 
+
 function toggleFavorites(userId, placeId) {
-  verifyObjectIdString(userId, 'user id')
-  verifyObjectIdString(placeId, 'place id')
+  verifyObjectIdString(userId, 'user id', placeId, 'place id')
 
-
+   
   return (async () => {
-    debugger
+    
     const user = await User.findById(userId);
 
     if (!user) throw new NotFoundError(`user with id ${userId} not found`);
+ 
 
-    const city = await City.findOne({ 'places._id': placeId }, 'places')
+    const city = await City.findOne({ 'places._id': ObjectId(placeId) }, 'places')
 
     if (!city) throw new NotFoundError(`place with id ${placeId} not found`)
 
     const place = city.places.find(place => place._id.toString() === placeId)
 
     const index = place.favorites.findIndex(user => user.toString() === userId)
+
 
     if(index === -1) {
         place.favorites.push(userId)
@@ -103,6 +105,8 @@ function toggleFavorites(userId, placeId) {
     }
 
     await Promise.all([user.save(), city.save()])
+    
+    return place
   })();
 }
 

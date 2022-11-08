@@ -1,5 +1,5 @@
 import React from "react";
-import { MapContainer, TileLayer, Marker } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import retrieveCity from "../logic/retrieveCity";
@@ -62,13 +62,32 @@ const CityView = ({ context: { handleFeedback } }) => {
                   eventHandlers={{ click: () => handlePlaceClick(place) }}
                 />
               );
-            })}
-          </MapContainer>
+               })}
 
-          <h1></h1>
+           {city.places.map((place) => {
+            return (
+              <Popup
+                key={place._id}
+                position={{ lat: place.coords[0], lng: place.coords[1] }}
+                onClose={() =>{setPlace(null);}}
+                  onClick={() => { handlePlaceClick(place) }}
+            >
+                <p className="popupName">{place.name}</p>
+              </Popup>
+            );
+          })}
+
+
+            </MapContainer>
+        <div>
+            {city.places.map((place) => {
+              return <p className="placeName" onClick={()=>{handlePlaceClick(place);}}>{place.name}</p>
+          })}
+          </div>
         </div>
       )}
-      {place && <PlaceModal place={place} />}
+      {place && <PlaceModal place={place} setPlace={setPlace}/>}
+
     </>
   );
 };

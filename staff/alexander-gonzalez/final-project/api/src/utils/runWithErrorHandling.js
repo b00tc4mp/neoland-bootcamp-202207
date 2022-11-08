@@ -7,8 +7,10 @@ function runWithErrorHandling(callback, res, logger) {
         .catch(error => {
             if (error instanceof DuplicityError)
                 res.status(409).json({ error: error.message })
-            else if (error instanceof NotFoundError || error instanceof AuthError)
-                res.status(401).json({ error: 'wrong credentials' })
+            else if (error instanceof NotFoundError)
+                res.status(404).json({ error: error.message })
+            else if (error instanceof AuthError)
+                res.status(401).json({ error: error.message })
             else
                 res.status(500).json({ error: 'system error' })
 

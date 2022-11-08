@@ -17,13 +17,13 @@ connect(MONGO_URL)
         
         const api = express()
         
-        const { usersRouter, citiesRouter } = require('./routes')     
+        const { usersRouter, citiesRouter, placesRouter } = require('./routes')     
         
         api.use(cors())
 
-        api.get('/', (req, res) => res.send('Postits API v1.0 ;)'))
+        api.get('/', (req, res) => res.send('Wanderlust API v1.0 ;)'))
 
-        api.use('/api', usersRouter, citiesRouter )
+        api.use('/api', usersRouter, citiesRouter, placesRouter )
 
         api.listen(PORT, () => logger.info(`${name} v${version} started and listening in port ${PORT}`))
 
