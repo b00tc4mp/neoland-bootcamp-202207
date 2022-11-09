@@ -11,7 +11,7 @@ import deletePlace from '../logic/deletePlace'
 
 
 
-function FavList({context: {handleFeedback }, favoritePlaces, onFavoritesClick}) {
+function FavList({context: {handleFeedback }, favorites, onFavoritesClick}) {
     const logger = new Loggito('FavList')
     // const [favoritePlaces, setFavoritePlaces] = useState(favoritePlaces);
     const navigate= useNavigate()
@@ -47,7 +47,7 @@ function FavList({context: {handleFeedback }, favoritePlaces, onFavoritesClick})
   // }, []); 
 
 
-debugger
+
 const handlePlaceClick = (place) => setPlace(place);
 // const handleDeletePlace = (place) => {
 //   // const index = favoritePlaces.indexOf(place.id)
@@ -68,9 +68,9 @@ return <ul className="favList">
  <li className="Menu__item">
              <IconButton text="arrow_back" onClick={() => navigate(-1)} />
         </li>
-{favoritePlaces &&
-  favoritePlaces.map((place) => {
-    return <li className="favModal favModal__boxing" key={place.id}>
+{favorites &&
+  favorites.map((place) => {
+    return <li className="favModal favModal__boxing" key={place._id}>
       {/* <button className="placeFav__item-delete-button" onClick={() => handleDeletePlace(place.id)}>x</button> */}
         {" "}
         {/* <div className="favModal_button"><button> <Link to="/">x</Link> </button></div> */}
@@ -85,7 +85,7 @@ return <ul className="favList">
         </div>
     </li>;
   })}
-  {place && <PlaceModal place={place} />}
+  {place && <PlaceModal place={place} favorites={favorites} />}
 </ul>
 
 }

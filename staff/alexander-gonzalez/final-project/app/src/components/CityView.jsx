@@ -9,7 +9,7 @@ import PlaceModal from "./PlaceModal"
 
 import "./CityView.css";
 
-const CityView = ({ context: { handleFeedback } }) => {
+const CityView = ({ context: { handleFeedback }, favorites }) => {
   const logger = new Loggito("CityView");
   const params = useParams();
   const [city, setCity] = useState();
@@ -43,7 +43,7 @@ const CityView = ({ context: { handleFeedback } }) => {
   return (
     <>
       {city && (
-        <div style={{'z-index': "1"}}>
+        <div style={{zIndex:'1'}}>
           <MapContainer
             key={city.id}
             center={{ lat: city.coords[0], lng: city.coords[1] }}
@@ -81,12 +81,14 @@ const CityView = ({ context: { handleFeedback } }) => {
             </MapContainer>
         <div>
             {city.places.map((place) => {
-              return <p className="placeName" onClick={()=>{handlePlaceClick(place);}}>{place.name}</p>
+              return <p
+              key = {place._id}
+              className="placeName" onClick={()=>{handlePlaceClick(place);}}>{place.name}</p>
           })}
           </div>
         </div>
       )}
-      {place && <PlaceModal place={place} setPlace={setPlace}/>}
+      {place && <PlaceModal place={place} setPlace={setPlace} favorites={favorites} />}
 
     </>
   );

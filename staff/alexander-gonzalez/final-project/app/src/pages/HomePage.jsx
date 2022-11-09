@@ -69,30 +69,23 @@ function HomePage({
     }
   }, []);
 
-  //  useEffect(() => {
-  //   logger.info('"componentDidMount"');
-
-
-  //   try {
-  //     retrieveFavoritePlaces(sessionStorage.token, (error, places) => {
-  //       if (error) {
-  //         handleFeedback({ message: error.message, level: "error" });
-
-  //         logger.warn(error.message);
-
-  //         return;
-  //       }
-
-  //       setFavoritePlaces(places);
-
-  //       logger.debug("setFavoritePlaces", places);
-  //     });
-  //   } catch (error) {
-  //     handleFeedback({ message: error.message, level: "error" });
-
-  //     logger.warn(error.message);
-  //   }
-  // }, []);
+   useEffect(() => {
+    logger.info('"componentDidMount"')
+    try {
+      retrieveFavoritePlaces(sessionStorage.token, (error, places) => {
+        if (error) {
+          handleFeedback({ message: error.message, level: "error" })
+          logger.warn(error.message)
+          return;
+        }
+        setFavoritePlaces(places)
+        logger.debug("setFavoritePlaces", places);
+      });
+    } catch (error) {
+      handleFeedback({ message: error.message, level: "error" })
+      logger.warn(error.message);
+    }
+  }, []);
 
   useEffect(() => {
     logger.info("on query changed");
@@ -214,7 +207,7 @@ function HomePage({
            <Route
             path="FavList"
             element={<FavList onFavoritesClick={handleFavoritesClick} 
-            favoritePlaces={favoritePlaces} 
+            favorites={favoritePlaces} 
             // onDeletePlace={handleDeletePlace} 
             />}
           />
@@ -225,7 +218,7 @@ function HomePage({
 
           <Route
             path="cities/:cityId"
-            element={<CityView />}
+            element={<CityView favorites={favoritePlaces} />}
             onSearchClick={onSearchClick}
           />
         </Routes>

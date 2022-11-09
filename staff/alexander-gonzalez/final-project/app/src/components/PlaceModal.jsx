@@ -10,12 +10,18 @@ import {useState, useEffect} from "react"
 import redHeart from "../img/redHeart.png"
 import corazonBlanco from "../img/corazonBlanco.png"
 
-function PlaceModal({ place, setPlace,  context: {handleFeedback} }) {
+function PlaceModal({ place, setPlace, favorites, context: {handleFeedback} }) {
 
   const logger = new Loggito('PlaceModal');
   const navigate= useNavigate()
-  const [favorite, setFavorite] = useState(null);
-  
+  const [favorite, setFavorite] = useState(()=>{
+    for(const fav of favorites){
+      if(fav._id===place._id)
+      return true
+    }
+    return null
+  });
+
 
   const handleAddFavorites = () => {
 

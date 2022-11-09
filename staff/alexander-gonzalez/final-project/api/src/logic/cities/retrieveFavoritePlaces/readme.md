@@ -59,7 +59,7 @@ return User.findById(userId)
         })
 
  para casi finalizar, pasariamos un places.forEach para practicamente ordenar los places como en las citys y nos dara un orden de cada una con sus descripciones y todo lo que conlleva los places en base de datos, tal como lo hicimos anteriormente con las ciudades.
- luego creamos otro bucle for() donde iteramos en cada uno de los places, y que verificamos aqui? que, los places siendo los favoritos pasen a string toString()
+ luego creamos otro bucle for() donde iteramos en cada uno de los places, ¿y que verificamos aqui? que, los places siendo los favoritos pasen a string toString()
  luego creamos lo siguiente:
         
 
@@ -67,14 +67,14 @@ return User.findById(userId)
         places.forEach((place) => {
            
             for (let i = 0; i < place.favorites.length; i++) {
-              if (place.favorites[0].toString() === userId)
+              if (place.favorites[i].toString() === userId)
 
-              favoritesArray[favoritesArray.length] = place;
+              favoritesArray.push(place);
             }
 
 
 
- favoritesArray[favoritesArray.length] = place; lo igualamos a place, para que los places que el usuario ha escogido entren en el favoriteArray y verificaremos, cuantos favoritos tiene el usuario, ( en este caso nuestro usuario tiene 2 favoritos).
+   favoritesArray.push(place);  hacemos un push a los favoritesArray para subir cada favorito de los places, cuantos favoritos tiene el usuario, ( en este caso nuestro usuario tiene 2 favoritos).
  Luego lo que hacemos al final con el .then()=> es que busca los dos favoritos del usuario y manda algun tipo de error si no corresponde a sus favoritos.
  si lo son entonces generamos un favoritePlaces.forEach y lo pasamos tambien por toString, sanitizamos places y finalizamos retornando favoritePlaces..
 
@@ -113,9 +113,9 @@ return User.findById(userId)
           places.forEach((place) => {
            
             for (let i = 0; i < place.favorites.length; i++) {
-              if (place.favorites[0].toString() === userId)
+              if (place.favorites[i].toString() === userId)
 
-              favoritesArray[favoritesArray.length] = place;
+              favoritesArray.push(place);
             }
 
           });

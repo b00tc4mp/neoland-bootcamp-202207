@@ -52,8 +52,7 @@ function retrieveFavoritePlaces(userId) {
           // sanitize
           
           favoritePlaces.forEach((place) => {
-            place.id = place._id.toString();
-            delete place._id;
+            place._id = place._id.toString();
 
             delete place.__v;
           });

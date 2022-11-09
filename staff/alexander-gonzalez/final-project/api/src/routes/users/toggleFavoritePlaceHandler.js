@@ -13,7 +13,9 @@ function toggleFavoritesPlaceHandler(req, res) {
 
       const place = await toggleFavorites(userId, placeId );
      
-      res.status(204).send(place);
+      console.log(place)
+
+      res.status(200).send(place);
 
       
 
