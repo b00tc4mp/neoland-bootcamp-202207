@@ -1,0 +1,22 @@
+.leaflet-container{
+    width: 50vh;
+    height: 40vh;
+}
+
+li{
+    list-style: none;
+}
+
+.popupName{
+    display: flex;
+    align-items: center;
+     font-size: 13px;
+    margin: 7px;
+    width: 6px;
+    height: 8px;
+    }
+
+    .placeName{
+        cursor: pointer;
+        font-size: 30px;
+    }
