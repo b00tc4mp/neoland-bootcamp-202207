@@ -1,4 +1,4 @@
-import './Menu.css'
+import './MenuHeader.css'
 import IconButton from './IconButton'
 import Loggito from '../utils/Loggito'
 import withContext from '../utils/withContext'
@@ -13,14 +13,14 @@ function Menu({view, onLogoutClick,onSettingsClick,text, context: { toggleTheme 
 
     logger.info ('return')
 
-    return <ul className="Menu container container--row">
+    return <ul className="MenuContainerHeader container--row">
             {view !== 'settings' && <li className="Menu__item">
             <IconButton text="settings" onClick={handleSettingsClick} />
             </li>}
 
-            <li className="Menu__item">
+            {/* <li className="Menu__item">
             <IconButton text="light" onClick={toggleTheme} />
-            </li>
+            </li> */}
 
             <li className="Menu__item">
             <IconButton text="logout" onClick={handleLogoutClick} />
