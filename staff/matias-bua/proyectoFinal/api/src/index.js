@@ -24,7 +24,7 @@ connect(MONGO_URL)
 
         api.use('/api', usersRouter,auctionRouter )
         
-
+        
         api.listen(PORT, () => logger.info(`${name} v${version} started and listening in port ${PORT}`))
 
         process.on('SIGINT', () => {

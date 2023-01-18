@@ -6,7 +6,7 @@ const { verifyObjectIdString } = require('../../../utils')
 /**
  * Creates a Auction for a user.
  * 
- * @param {string} userId The user id.
+ * @param {ObjectId} userId The user id.
  * @param {string} text The Auction text.
  * 
  * @returns {Promise}
@@ -18,14 +18,14 @@ const { verifyObjectIdString } = require('../../../utils')
  * @throws {SystemError} If an error happens in db.
  */
  function createAuction(author, title, description, value, image, finalDate /*initialDate*/) {
-    verifyObjectIdString(author, 'author')
+    // verifyObjectIdString(author, 'author')
     validateText(title, 'title')
     if( description) validateString(description)
     if (value !== validateString)
     validateString(image, 'image')
     validateDate(finalDate, 'finalDate')
     
-
+//.lean() objectId --> user._id -->user.id
     return User.findById(author).lean()
         .catch(error => {
             throw new SystemError(error.message)

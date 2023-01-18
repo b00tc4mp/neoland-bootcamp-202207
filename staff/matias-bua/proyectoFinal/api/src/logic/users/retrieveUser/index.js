@@ -4,7 +4,7 @@ const { verifyObjectIdString } = require('../../../utils')
 function retrieveUser(userId) {
     verifyObjectIdString(userId, 'user id')
 
-    return User.findById(userId, 'name email').lean()
+    return User.findById(userId, 'name lastname email birth phoneNumber').lean()
         .catch(error => {
             throw new SystemError(error.message)
         })

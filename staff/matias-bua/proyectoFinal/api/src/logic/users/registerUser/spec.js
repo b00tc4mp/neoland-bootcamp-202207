@@ -17,7 +17,7 @@ describe('registerUser', () => {
         const lastname = 'Sano'
         const email = 'elarte@sano.com'
         const password = '123123123'
-        const birth = '11-05-1990'
+        const birth = '11/05/1990'
         const phonenumber = '3452528080'
 
         const res = await registerUser(name, lastname, email, password, birth, phonenumber)
@@ -44,7 +44,7 @@ describe('registerUser', () => {
         const email = 'elartes@ano.com'
         const password = '123123123'
         const birth = '12/09/1990'
-        const phoneNumber = '34 5252 8080'
+        const phoneNumber = '3452528080'
 
 
         await User.create({ name, lastname, email, password, birth, phoneNumber })

@@ -17,8 +17,8 @@ module.exports = function updateUserPassword( userId, oldPassword, newPassword, 
         })
         .then(user => {
             if (!user) throw new NotFoundError(`user with id ${userId} not found`)
-            if (user.password !== oldPassword) throw new AuthError('wrong Password')
-            if (newPassword !== newPasswordRepeat) throw new Error(' please enter same password')
+            if (user.password !== oldPassword) throw new AuthError(' wrong Password ')
+            if (newPassword !== newPasswordRepeat) throw new Error(' please enter same password ')
            
             user.password = newPassword
 

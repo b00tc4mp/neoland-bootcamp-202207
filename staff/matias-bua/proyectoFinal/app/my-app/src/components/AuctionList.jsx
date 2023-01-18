@@ -4,8 +4,9 @@ import createBid from "../logics/createBid";
 import withContext from "../utils/withContext";
 import { useEffect, useState, } from "react";
 import retrieveAuctions from '../logics/retrieveAuctions';
+// import CountdownTimer from "./countDown/CountDown";
 
-function AuctionList( { onNewBid, timestamp} ) {
+function AuctionList( { onNewBid, timestamp } ) {
   const logger = new Loggito("List Auctions");
 
   const [auctions, setAuctions] = useState(null); 
@@ -43,7 +44,6 @@ function AuctionList( { onNewBid, timestamp} ) {
       // handleFeedback({ message: error.message, level: "error" });
       logger.warn(error.message);
       // refreshList()
-
     }
   },[timestamp]);
 
@@ -85,7 +85,7 @@ function AuctionList( { onNewBid, timestamp} ) {
 
   return (
     <ul className="AuctionList">
-      {auctions && auctions.map((auction) => (
+      {auctions && auctions.map ((auction) => (
         <li className="RenderAuctionsContainer" key={auction.id}>
           <div className="homePost">
             <h3 className="titleAuction">{auction.title}</h3>
@@ -110,15 +110,15 @@ function AuctionList( { onNewBid, timestamp} ) {
                 Bid
               </button>
               <p>€ {auction.currentValue}</p>
-            </form> 
+            </form>
 
             <div className="endDate">
                 end of auction:
               <p className="DateP">
-                {new Date(auction.finalDate).toISOString().substring(0, 10)}
+                {new Date(auction.finalDate).toISOString().substring(0, 10) }
               </p>
               
-              {/* <p>remaining time: {auction.remainingTime}</p> */}
+              <p>  {auction.finalDate} </p>
             </div>
           </div>
         </li>

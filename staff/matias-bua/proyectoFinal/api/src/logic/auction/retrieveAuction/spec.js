@@ -20,7 +20,7 @@ describe('retrieveAuction', () => {
         const lastname = 'sano'
         const email = 'ElArtes@ano.com'
         const password = '123123123'
-        const birth = '12-01-2020'
+        const birth = '12/01/2020'
         
         const user = new User({ name, lastname, email, password, birth })
 
@@ -28,28 +28,23 @@ describe('retrieveAuction', () => {
 
         const auction1 = new Auction({
             author: user.id,
-            productauthor: "epoxy resin",
-            // auctionNumber: Auction.id,
             title: "breakfast table",
             description: "breakfast tray, water and temperature resistant",
             dateForBit: new Date("11/15/2022"),
             value: 15,
-            //value: '130€',
+            currentValue: 15,
             image: "111",
-            // createdAt: Date
           });
 
           const auction2 = new Auction({
             author: user.id,
             productName: "Crafts",
-            // auctionNumber: Auction.id,
             title: "artistic lighters",
             description: "Hand-painted lighters, with drawings on request",
             dateForBit: new Date("08/15/2022"),
             value: 5,
-            //value: '130€',
+            currentValue: 5,
             image: "111",
-            // createdAt: Date
           });
           
 
@@ -64,7 +59,6 @@ describe('retrieveAuction', () => {
                 retrieveAuction(user.id)
                     .then(auctions => {
                         expect(auctions).toHaveLength(2)
-
                         const _auction1 = auctions.find(auction => auction._id === auction1.id)
                         expect(_auction1).toBeDefined()
                         expect(_auction1.user).toBeUndefined()

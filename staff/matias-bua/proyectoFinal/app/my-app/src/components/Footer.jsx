@@ -1,6 +1,6 @@
 import './Footer.css'
-import { useState } from 'react'
-import Loggito from '../utils/Loggito';
+// import { useState } from 'react'
+// import Loggito from '../utils/Loggito';
 
 function Footer({ onProfileClick, onHomeClick, onUserAuctionsClick, onNewAuctionClick, onMailClick }) {
 
@@ -30,9 +30,9 @@ function Footer({ onProfileClick, onHomeClick, onUserAuctionsClick, onNewAuction
         currentIndex += increment;
 
         links[currentIndex].classList.add("active");
-        if (currentIndex != -1) links[currentIndex - increment].classList.remove("active");
+        if (currentIndex !== -1) links[currentIndex - increment].classList.remove("active");
 
-        if (currentIndex == activeIndex) {
+        if (currentIndex === activeIndex) {
           e.target.classList.add("active");
           increment = 0;
           clearInterval(t);
@@ -56,7 +56,7 @@ function Footer({ onProfileClick, onHomeClick, onUserAuctionsClick, onNewAuction
       <ul>
         <li>
           <a href="#" className="active" onClick={handleUserAuctionsClick} >
-          <span class="material-symbols-outlined">
+          <span className="material-symbols-outlined">
             collections_bookmark
           </span>
           </a>

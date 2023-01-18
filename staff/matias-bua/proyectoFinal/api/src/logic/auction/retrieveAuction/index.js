@@ -5,8 +5,7 @@ const { verifyObjectIdString } = require("../../../utils");
 function retrieveAuction(userId) {
   verifyObjectIdString(userId, "user id");
 
-  return User.findById(userId)
-    .lean()
+  return User.findById(userId).lean()
     .catch((error) => {
       throw new SystemError(error.message);
     })
@@ -15,9 +14,7 @@ function retrieveAuction(userId) {
 
       return Auction.find(
         { finalDate: { $gte: new Date(Date.now()) } },
-        "author title description value image finalDate currentValue"
-      )
-        .lean()
+        "author title description value image finalDate currentValue").lean()
         .catch((error) => {
           throw new SystemError(error.message);
         });
