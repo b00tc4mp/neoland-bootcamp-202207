@@ -1,0 +1,39 @@
+.Feedback {
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+}
+
+.Feedback__box {
+  width: 100%;
+  height: 100%;
+  color: white;
+  height: 150px;
+  width: 220px;
+  border: 2px solid black;
+  border-radius: 14px;
+  gap: 10px;
+  display: flex; 
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.Feedback--error > .Feedback__box {
+  background-color: rgb(158, 0, 0);
+}
+
+.Feedback--warning > .Feedback__box {
+  background-color: rgb(231, 158, 22);
+}
+
+.Feedback--success > .Feedback__box {
+  background-color: rgb(16, 147, 16);
+}
+
+.Feedback--info > .Feedback__box {
+  background-color: rgb(22, 91, 160);
+}

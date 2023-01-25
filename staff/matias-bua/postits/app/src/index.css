@@ -1,0 +1,198 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+
+/* resets */
+
+:root {
+  --color: rgb(0, 0, 0);
+  --back-color: background: background: rgb(99,213,219);
+  background: linear-gradient(150deg, rgba(99,213,219,1) 0%, rgba(185,230,170,1) 67%, rgba(120,196,153,1) 100%);
+    --back-color-note: rgb(255, 230, 167);
+    --color-imput: rgb(22, 92, 102);
+}
+
+:root.light {
+  --font: black;
+  --color: rgb(255, 243, 243);
+  --back-color: background: rgb(83,95,169);
+  background: linear-gradient(180deg, rgba(83,95,169,1) 0%, rgba(121,141,222,1) 23%, rgba(86,177,200,1) 51%, rgba(93,221,200,1) 81%);
+  --back-color-note: rgb(55, 211, 177);
+  --color-imput: black;
+}
+
+* {
+  font-family: Lato;
+}
+
+html,
+body {
+  height: 100%;
+}
+h1,label{
+  color: var(--color)
+}
+body {
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.container--full {
+  height: 100%;
+}
+
+.container--row {
+  display: flex;
+  flex-direction: row;
+  margin: 0px;
+  list-style-type: none;
+}
+
+.container--spaced {
+  gap: 10px;
+}
+
+.container--padded {
+  padding: 15px;
+}
+
+.container--distributed {
+  width: 100%;
+  justify-content: start;
+}
+
+.form {
+  height: 50%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+.form__field {
+  display: flex;
+  flex-direction: column;
+  margin: 0px 0px 32px;
+  gap: 5px;
+}
+
+.buttonAndAnchor{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row;
+  margin-top: 12px;
+}
+
+.input {
+  background-color: transparent;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 1px solid var(--color);
+  border-radius: 10px;
+  font-size: 1rem;
+  caret-color: var(--color);
+  color: var(--color-imput);
+  
+}
+
+.input:-webkit-autofill {
+ -webkit-text-fill-color: var(--color);
+}
+
+.input::selection {
+  background-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color:var(--font);
+}
+
+.input::placeholder {
+  color: transparent;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.button {
+  background-color: transparent;
+  border: 1px solid black;
+  border-color: var(--color);
+  padding: 5px;
+  color: var(--color);
+  font-size: 1rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 1s,
+}
+
+button:hover{
+  background-color: rgb(97, 213, 197);
+}
+.Header-container{
+height: 200px;
+}
+
+.anchor {
+  display: flex;
+  justify-content: center;
+  color: var(--color);
+}
+
+.anchor:visited {
+  color: var(--color);
+}
+.MenuContainerHeader{
+  height: 60px;
+  padding: 0 0 0 30px;
+}
+
+.title{
+  margin: 26px 0 0 0;
+}
+
+.main {
+  height: 85%;
+  overflow: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.settings-panel{
+  width: 325px;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
+
+.main::-webkit-scrollbar {
+  display: none;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.transparent-button {
+  background-color: transparent;
+  border-style: none;
+  color: var(--color);
+  font-size: 2.5rem;
+  cursor: pointer;
+}
+
+.button-change {
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  border-radius: 16px;
+  border: none;
+  width: 90px;
+}
