@@ -1,3 +1,5 @@
+const API_URL = process.env.REACT_APP_API_URL
+
 function updateUserPassword(token, oldPassword, newPassword, newPasswordRepeat, callback) {
   if (typeof token !== 'string') throw new TypeError('token is not a string')
   if (token.trim().length === 0) throw new Error('token is empty or blank')
@@ -16,13 +18,12 @@ function updateUserPassword(token, oldPassword, newPassword, newPasswordRepeat, 
 
   if (typeof callback !== 'function') throw new TypeError('callback is not a function')
 
-  const xhr = new XMLHttpRequest
+  const xhr = new XMLHttpRequest();
 
   // response
 
   xhr.onload = function () {
       const status = xhr.status
-
       if (status >= 500)
           callback(new Error(`server error (${status})`))
       else if (status >= 400)
@@ -32,15 +33,15 @@ function updateUserPassword(token, oldPassword, newPassword, newPasswordRepeat, 
   }
 
   // request
-
-  xhr.open('PATCH', 'https://b00tc4mp.herokuapp.com/api/v2/users')
-
+  xhr.open('PATCH', `${API_URL}/users/password`)
   xhr.setRequestHeader('Authorization', `Bearer ${token}`)
   xhr.setRequestHeader('Content-type', 'application/json')
 
-  const json = JSON.stringify({ oldPassword, password: newPassword })
+  const json = JSON.stringify({oldPassword,newPassword,newPasswordRepeat}) //   <- Aqui se pasa el objeto pero se transforma a JSON entonces no hace falta linea 44 y por eso la 41 no funciona
+//   const json = JSON.stringify(`{"oldPassword": "${oldPassword}", "newPassword": "${newPassword}", "newPasswordRepeat": "${newPasswordRepeat}"}`);
 
-  xhr.send(json)
+    xhr.send(json)
+//   xhr.send(`{"oldPassword": "${oldPassword}", "newPassword": "${newPassword}", "newPasswordRepeat": "${newPasswordRepeat}"}`) <- Se envia como JSON entonces no necesita linea 41 "JSON.stringify"
 }
 
 export default updateUserPassword

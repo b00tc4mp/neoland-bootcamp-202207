@@ -1,3 +1,6 @@
+import { validateText, validateCallbacks } from 'validators'
+import { ClientError, ServerError } from 'errors'
+
 /**
  * Deletes a note from database
  * 
@@ -7,79 +10,86 @@
  * 
  * @throws {TypeError} On invalid inputs
  */
- function deleteNote(token, noteId, callback) {
-  if (typeof token !== 'string') throw new TypeError('token is not a string')
-  if (token.trim().length === 0) throw new Error('token is empty or blank')
 
-  if (typeof noteId !== 'string') throw new TypeError('note id is not a string')
-  if (noteId.trim().length === 0) throw new Error('note id is empty or blank')
+const API_URL = process.env.REACT_APP_API_URL
 
-  if (typeof callback !== 'function') throw new TypeError('callback is not a function')
+function deleteNote(token, noteId, callback) {
+    validateText(token, noteId)
+    validateCallbacks(callback)
 
-  const xhr = new XMLHttpRequest
 
-  // response
+    const xhr = new XMLHttpRequest();
 
-  xhr.onload = function () {
-      const status = xhr.status
+    // response
+    xhr.onload = function () {
+        const status = xhr.status
 
-      if (status >= 500)
-          callback(new Error(`server error (${status})`))
-      else if (status >= 400)
-          callback(new Error(`client error (${status})`))
-      else if (status === 200) {
-          const json = xhr.responseText
+        if(status >= 500)
+            callback(new ServerError(`server error (${status})`))
+        else if (status >= 400)
+            callback(new ClientError(`client error (${status})`))
+        else if (status >= 204)
+            callback(null)
+        }
 
-          const data = JSON.parse(json)
+    // request
+    xhr.open('DELETE', `${API_URL}/notes/${noteId}`)
 
-          const notes = data.notes ? data.notes : []
+    xhr.setRequestHeader('Authorization', `Bearer ${token}`)
+    xhr.setRequestHeader('Content-Type', 'application/json')
 
-          const noteIndex = notes.findIndex(note => note.id === noteId)
-
-          if (noteIndex < 0) {
-              callback(new Error(`note with id ${noteId} not found`))
-
-              return
-          }
-
-          notes.splice(noteIndex, 1)
-
-          const xhr2 = new XMLHttpRequest
-
-          // response
-
-          xhr2.onload = function () {
-              const status = xhr2.status
-
-              if (status >= 500)
-                  callback(new Error(`server error (${status})`))
-              else if (status >= 400)
-                  callback(new Error(`client error (${status})`))
-              else if (status === 204)
-                  callback(null)
-          }
-
-          // request
-
-          xhr2.open('PATCH', 'https://b00tc4mp.herokuapp.com/api/v2/users')
-
-          xhr2.setRequestHeader('Authorization', `Bearer ${token}`)
-          xhr2.setRequestHeader('Content-type', 'application/json')
-
-          //const json2 = JSON.stringify({ notes: notes })
-          const json2 = JSON.stringify({ notes })
-
-          xhr2.send(json2)
-      }
-  }
-
-  // request
-
-  xhr.open('GET', 'https://b00tc4mp.herokuapp.com/api/v2/users')
-
-  xhr.setRequestHeader('Authorization', `Bearer ${token}`)
-
-  xhr.send()
+    xhr.send()
 }
 
 export default deleteNote
+
+
+
+// if (status >= 500)
+// callback(new Error(`server error (${status})`))
+// else if (status >= 400)
+// callback(new Error(`client error (${status})`))
+// else if (status === 200) {
+
+// const json = xhr.responseText
+
+// const data = JSON.parse(json)
+
+// const notes = data.notes ? data.notes : []
+
+// const noteIndex = notes.findIndex(note => note.id === noteId)
+
+// if (noteIndex < 0) {
+//     callback(new Error(`note with id ${noteId} not found`))
+
+//     return
+// }
+
+// notes.splice(noteIndex, 1)
+
+// const xhr2 = new XMLHttpRequest
+
+// // response
+// xhr2.onload = function () {
+//     const status = xhr2.status
+
+//     if (status >= 500)
+//         callback(new Error(`server error (${status})`))
+//     else if (status >= 400)
+//         callback(new Error(`client error (${status})`))
+//     else if (status === 204)
+//         callback(null)
+// }
+
+// // request
+
+// xhr2.open('DELETE', `${API_URL}/notes/${noteId}`)
+
+// xhr2.setRequestHeader('Authorization', `Bearer ${token}`)
+// xhr2.setRequestHeader('Content-type', 'application/json')
+
+// //const json2 = JSON.stringify({ notes: notes })
+// const json2 = JSON.stringify({ notes })
+
+// xhr2.send(json2)
+// }

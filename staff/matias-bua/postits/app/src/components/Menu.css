@@ -1,5 +1,8 @@
-.Menu {
-  list-style: none;
+/* .Menu {
   margin: 0;
   padding: 0px;
+} */
+
+.Menu__item{
+  /* height: 100%; */
 }

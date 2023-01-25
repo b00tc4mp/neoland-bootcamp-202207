@@ -13,7 +13,8 @@
     "test-coxveragxe": "npx jest --runInBand --setTimeout=60000 --collectCoverage src/logic",
     "populate": "node src/populate.js",
     "populate-inspect": "node --inspect-brk src/populate.js",
-    "populate-inspect-cli": "node inspect src/populate.js"
+    "populate-inspect-cli": "node inspect src/populate.js",
+    "debug": "node --inspect src/index.js"
   },
   "keywords": [],
   "author": "",

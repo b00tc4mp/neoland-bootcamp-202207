@@ -1,5 +1,5 @@
-/* .Header {
+.Header {
   display: flex;
-  height: 30%;
+  /* height: 30%; */
   justify-content: space-around;
-} */
+}

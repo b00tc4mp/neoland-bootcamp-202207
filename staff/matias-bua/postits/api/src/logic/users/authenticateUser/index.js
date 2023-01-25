@@ -1,6 +1,8 @@
 const { User } = require('../../../models')
 const { NotFoundError, AuthError, SystemError } = require('errors')
 const { validateEmail, validatePassword } = require('validators')
+const { debug } = require('winston')
+
 
 function authenticateUser(email, password) {
     validateEmail(email)

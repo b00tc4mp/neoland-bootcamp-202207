@@ -2,7 +2,7 @@ require('dotenv').config()
 
 const { connect, disconnect } = require('mongoose')
 const { createLogger } = require('./utils')
-// const Logger = createLogger(module)
+const Logger = createLogger(module)
 const cors = require('cors')
 const { name, version } = require('../package.json')
 

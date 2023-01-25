@@ -4,7 +4,7 @@ const { verify } = require('jsonwebtoken')
 const { JWT_SECRET } = process.env
 
 function verifyToken(req) {
-    const { headers { authorization } } = req
+    const { headers: { authorization } } = req
 
     validateText(authorization, 'authorization')
 

@@ -23,6 +23,7 @@ function HomePage({ onLogoutClick, context: { handleFeedback } }) {
         logger.info('"componentDidMount"')
 
         try {
+            debugger
             retrieveUser(sessionStorage.token, (error, user) => {
                 if (error) {
                     handleFeedback({ message: error.message, level: 'error' })
@@ -36,7 +37,6 @@ function HomePage({ onLogoutClick, context: { handleFeedback } }) {
 
                 setName(user.name)
 
-                logger.debug('setName', user.name)
             })
         } catch (error) {
             handleFeedback({ message: error.message, level: 'error' })
@@ -99,6 +99,7 @@ function HomePage({ onLogoutClick, context: { handleFeedback } }) {
 
                     return
                 }
+               
             })
         } catch (error) {
             handleFeedback({ message: error.message, level: 'error' })
@@ -106,7 +107,7 @@ function HomePage({ onLogoutClick, context: { handleFeedback } }) {
             logger.warn(error.message)
         }
     }
-
+    debugger
     const handleDeleteNote = noteId => {
         try {
             deleteNote(sessionStorage.token, noteId, error => {
@@ -117,9 +118,9 @@ function HomePage({ onLogoutClick, context: { handleFeedback } }) {
 
                     return
                 }
-
-                loadNotes()
+                
             })
+            loadNotes()
         } catch (error) {
             handleFeedback({ message: error.message, level: 'error' })
 
@@ -149,7 +150,7 @@ function HomePage({ onLogoutClick, context: { handleFeedback } }) {
 
             <main className="main">
                 <Routes>
-                    <Route path="/" element={<NoteList notes={notes} onUpdateNoteText={handleUpdateNoteText} onDeleteNote={handleDeleteNote} />} />
+                    <Route path="/" element={<NoteList notes={notes} onUpdateNote={handleUpdateNoteText} onDeleteNote={handleDeleteNote} />} />
                     <Route path="settings" element={<Settings onCloseClick={handleSettingsCloseClick} />} />
                 </Routes>
             </main>

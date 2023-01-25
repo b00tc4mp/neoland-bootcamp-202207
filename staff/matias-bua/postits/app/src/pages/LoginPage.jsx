@@ -11,13 +11,14 @@ function LoginPage({ onLinkClick, onLogIn, context: { handleFeedback } }) {
 
     logger.info('constructor')
 
-    logger.info('return')
 
     const handleLinkClick = event => {
         event.preventDefault()
 
         onLinkClick()
     }
+
+    logger.info('return')
 
     const handleFormSubmit = event => {
         event.preventDefault()
@@ -60,6 +61,8 @@ function LoginPage({ onLinkClick, onLogIn, context: { handleFeedback } }) {
     }
 
     return <main className="login-page container container--full container--spaced">
+        <h1> Welcome to POST-it</h1>
+
         <form className="form" action="https://www.google.com/search" method="get" onSubmit={handleFormSubmit}>
             <div className="form__field">
                 <label htmlFor="email">E-mail</label>
@@ -71,10 +74,12 @@ function LoginPage({ onLinkClick, onLogIn, context: { handleFeedback } }) {
                 <input className="input" type="password" name="password" placeholder="password" id="password" />
             </div>
 
-            <button className="button" type="submit">Login</button>
+                <button className="button" type="submit">Login</button>
+            <div className="buttonAndAnchor">
+                <a className="anchor" href="register.html" onClick={handleLinkClick}>Register</a>
+            </div>
         </form>
 
-        <a className="anchor" href="register.html" onClick={handleLinkClick}>Register</a>
     </main>
 }
 

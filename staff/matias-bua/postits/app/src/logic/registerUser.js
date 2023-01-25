@@ -20,8 +20,8 @@ function registerUser(name, email, password, callback) {
     const xhr = new XMLHttpRequest
 
     // response
-
     xhr.onload = function() {
+        
         const status = xhr.status
 
         if (status >= 500)
@@ -33,7 +33,6 @@ function registerUser(name, email, password, callback) {
     }
 
     // request
-    
     xhr.open('POST', `${API_URL}/users`)
 
     xhr.setRequestHeader('Content-type', 'application/json')

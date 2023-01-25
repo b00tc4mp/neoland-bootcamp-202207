@@ -3,20 +3,16 @@
 /* resets */
 
 :root {
-  --color: rgb(68, 182, 202);
-  --back-color: background: rgb(47, 72, 88);
-    background:linear-gradient(
-    174deg,
-    rgba(47, 72, 88, 1) 0%,
-    rgba(51, 101, 138, 1) 30%,
-    rgba(246, 174, 45, 1) 82%,
-    rgba(242, 100, 25, 1) 100%);
+  --color: rgb(0, 0, 0);
+  --back-color: background: background: rgb(99,213,219);
+  background: linear-gradient(150deg, rgba(99,213,219,1) 0%, rgba(185,230,170,1) 67%, rgba(120,196,153,1) 100%);
     --back-color-note: rgb(255, 230, 167);
-    --color-imput: rgb(73, 195, 179);
-} 
+    --color-imput: rgb(22, 92, 102);
+}
 
 :root.light {
-  --color: black;
+  --font: black;
+  --color: rgb(255, 243, 243);
   --back-color: background: rgb(83,95,169);
   background: linear-gradient(180deg, rgba(83,95,169,1) 0%, rgba(121,141,222,1) 23%, rgba(86,177,200,1) 51%, rgba(93,221,200,1) 81%);
   --back-color-note: rgb(55, 211, 177);
@@ -41,7 +37,7 @@ body {
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 }
 .container--full {
@@ -51,6 +47,8 @@ body {
 .container--row {
   display: flex;
   flex-direction: row;
+  margin: 0px;
+  list-style-type: none;
 }
 
 .container--spaced {
@@ -62,20 +60,33 @@ body {
 }
 
 .container--distributed {
-  justify-content: space-between;
+  width: 100%;
+  justify-content: start;
 }
-/* 
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-} */
 
-/* .form__field {
+.form {
+  height: 50%;
+  width: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+.form__field {
+  display: flex;
+  flex-direction: column;
+  margin: 0px 0px 32px;
   gap: 5px;
-} */
+}
+
+.buttonAndAnchor{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row;
+  margin-top: 12px;
+}
 
 .input {
   background-color: transparent;
@@ -97,7 +108,7 @@ body {
 .input::selection {
   background-color: transparent;
   -webkit-background-clip: text;
-  -webkit-text-fill-color:var(--color);
+  -webkit-text-fill-color:var(--font);
 }
 
 .input::placeholder {
@@ -117,20 +128,46 @@ body {
   font-size: 1rem;
   border-radius: 25px;
   cursor: pointer;
+  transition: background-color 1s,
+}
+
+button:hover{
+  background-color: rgb(97, 213, 197);
+}
+.Header-container{
+height: 200px;
 }
 
 .anchor {
+  display: flex;
+  justify-content: center;
   color: var(--color);
 }
 
 .anchor:visited {
   color: var(--color);
 }
+.MenuContainerHeader{
+  height: 60px;
+  padding: 0 0 0 30px;
+}
+
+.title{
+  margin: 26px 0 0 0;
+}
 
 .main {
+  height: 85%;
   overflow: scroll;
   scrollbar-width: none;
   -ms-overflow-style: none;
+}
+
+.settings-panel{
+  width: 325px;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
 }
 
 .main::-webkit-scrollbar {
@@ -145,17 +182,12 @@ body {
 
 .transparent-button {
   background-color: transparent;
-  border: none;
+  border-style: none;
   color: var(--color);
-  font-size: 3rem;
+  font-size: 2.5rem;
   cursor: pointer;
 }
-.settings-panel {
-  /* display: flex;
-  flex-direction: column;
-  align-self: center; */
-  gap: 5px;
-}   
+
 .button-change {
   display: flex;
   align-self: center;

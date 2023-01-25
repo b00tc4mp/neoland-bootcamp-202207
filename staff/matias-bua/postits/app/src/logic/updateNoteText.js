@@ -1,20 +1,17 @@
+import { validateCallbacks, validateString, validateText } from "validators"
+import { ClientError, ServerError } from "errors"
+
 const API_URL = process.env.REACT_APP_API_URL
 
 function updateNoteText(token, noteId, text, callback) {
-    if (typeof token !== 'string') throw new TypeError('token is not a string')
-    if (token.trim().length === 0) throw new Error('token is empty or blank')
+    validateText(token, noteId)
+    validateString(text)
+    validateCallbacks(callback)
 
-    if (typeof noteId !== 'string') throw new TypeError('note id is not a string')
-    if (noteId.trim().length === 0) throw new Error('note id is empty or blank')
-
-    if (typeof text !== 'string') throw new TypeError('text is not a string')
-
-    if (typeof callback !== 'function') throw new TypeError('callback is not a function')
 
     const xhr = new XMLHttpRequest
-
+    
     // response
-
     xhr.onload = function () {
         const status = xhr.status
 
@@ -27,9 +24,7 @@ function updateNoteText(token, noteId, text, callback) {
     }
 
     // request
-
     xhr.open('PATCH', `${API_URL}/notes/${noteId}`)
-
     xhr.setRequestHeader('Authorization', `Bearer ${token}`)
     xhr.setRequestHeader('Content-type', 'application/json')
 
@@ -39,3 +34,15 @@ function updateNoteText(token, noteId, text, callback) {
 }
 
 export default updateNoteText
+
+
+// Esto se cambio por los validadores!
+// if (typeof token !== 'string') throw new TypeError('token is not a string')
+// if (token.trim().length === 0) throw new Error('token is empty or blank')
+
+// if (typeof noteId !== 'string') throw new TypeError('note id is not a string')
+// if (noteId.trim().length === 0) throw new Error('note id is empty or blank')
+
+// if (typeof text !== 'string') throw new TypeError('text is not a string')
+
+// if (typeof callback !== 'function') throw new TypeError('callback is not a function')

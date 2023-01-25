@@ -12,6 +12,7 @@ const API_URL = process.env.REACT_APP_API_URL
  * 
  * @throws {FormatError | TypeError} On invalid inputs
  */
+
 function authenticateUser(email, password, callback) {
     validateEmail(email)
     validatePassword(password)
@@ -27,15 +28,6 @@ function authenticateUser(email, password, callback) {
         const json = xhr.responseText
 
         const { error, token } = JSON.parse(json)
-
-        // if (status >= 500)
-        //     callback(new ServerError(error))
-        // else if (status === 401)
-        //     callback(new AuthError(error))
-        // else if (status >= 400)
-        //     callback(new ClientError(error))
-        // else if (status === 200)
-        //     callback(null, token)
 
         switch(true) {
             case (status >= 500):
@@ -60,12 +52,11 @@ function authenticateUser(email, password, callback) {
     }
 
     // request
-
     xhr.open('POST', `${API_URL}/users/auth`)
 
     xhr.setRequestHeader('Content-type', 'application/json')
 
-    xhr.send(`{ "user": "${email}", "password": "${password}" }`)
+    xhr.send(`{ "email": "${email}", "password": "${password}" }`)
 }
 
 export default authenticateUser

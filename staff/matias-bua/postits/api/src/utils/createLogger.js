@@ -3,7 +3,6 @@ const { combine, timestamp, simple, splat, colorize, printf, align, label } = fo
 
 function createLabelForModule(callingModule) {
     const parts = callingModule.filename.split('/')
-
     return parts[parts.length - 2] + '/' + parts.pop()
 }
 
